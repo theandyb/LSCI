@@ -1,0 +1,57 @@
+---
+title: "BRIDGES_single_position"
+author: "Andy Beck"
+date: "2021-11-01"
+output: workflowr::wflow_html
+editor_options:
+  chunk_output_type: console
+---
+
+```{r message=FALSE, warning=FALSE, include=FALSE}
+library(tidyverse)
+```
+
+## BRIDGES Single Position Model Results
+
+### Introduction
+
+In this document we will explore the results of the single position analyses for the BRIDGES dataset. In particular, we will compare the 9-subtype results to the 12-subtypes results to check that we aren't losing anything when we collapse the subtypes, and we will also compare the results when we use genome-wide rates and control sample rates as our null expectations under a model assuming the distribution of nucleotides flanking a singleton is no different from the distribution of nucleotides at a site flanking a given reference nucleotide genome-wide.
+
+### 9 Subtype Results
+
+The nine basic subtypes are AT_CG, AT_GC, AT_TA, GC_AT, GC_TA, GC_CG, cpg_GC_AT, cpg_GC_TA, and cpg_GC_CG, where the notation XY_JK indicates we either observed a X>J or Y>K substitution, with XY and JK being complementary to each other. For each sub-type with reference alleles XY and position i within a 21-mer window centered at the singleton, we model the distributions of nucleotides A, C, G and T flanking the singletons using the rates we observe either genome-wide flanking the reference nucleotides XY at the same relative position or the rates of nucleotides flanking control positions sampled for each singleton. We use the chi-square goodness of fit statistic to "measure" the degree to which this model doesn't hold. First, let's plot the deviance statistics we observe at each relative position for each subtype.
+
+```{r}
+load_6st_results <- function(subtype, rp){
+  data_dir <- "/net/snowwhite/home/beckandy/research/BRIDGES_redo/output/single_pos_df/"
+  f_name <- paste0(data_dir, subtype, "_rp", rp, ".csv")
+  df <- read_csv(f_name, col_types = cols())
+  return(df)
+}
+
+position_by_statistic_6st <- function(subtype, r_start = 1){
+  final <- data.frame(pos = numeric(), chi_sq = numeric(), type = character())
+  for(i in c(-10:-1, r_start:10)){
+    df <- load_6st_results(subtype, i)
+    final <- bind_rows(final,
+                       data.frame(pos = c(i,i), 
+                                  chi_sq = c(sum(df$chi_sq_gw), sum(df$chi_sq_ct) ), 
+                                  type = c("Genome-wide", "Control")))
+  }
+  return(final)
+}
+
+plot_pos_stat_6st <- function(subtype, r_start = 1){
+  df <- position_by_statistic_6st(subtype, r_start)
+  p <-df %>%
+    ggplot(aes(x = pos, y = chi_sq, colour = type)) +
+    geom_point() +
+    geom_line() +
+    ggtitle(paste0("BRIDGES Single-Position Results: ", subtype)) +
+    xlab("Relative Position") +
+    ylab("Chi Square Goodness of Fit Statistic") +
+    labs(colour = "Background Rate")
+  return(p)
+}
+```
+
