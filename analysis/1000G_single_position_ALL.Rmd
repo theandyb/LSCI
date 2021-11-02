@@ -7,9 +7,152 @@ editor_options:
   chunk_output_type: console
 ---
 
+```{r echo=FALSE, message=FALSE, warning=FALSE}
+library(tidyverse)
+```
+
+
+# 1000G Single Position Models - All 
+
 ## Introduction
 
-```{r}
+Here in this document we present the results for the single position models using the singletons from all 2,504 unrelated individuals in the 1000G deep sequence data. Comparisons between the five super-populations can be found in the [comparison document](1000G_single_postion_comp.html). First we'll look at both the collapsed and un-collapsed categories to verify that we do not lose information when we take reverse-complements.
 
+### Model Descriptions
+
+For each singleton sub-type, we evaluate the "independent influence" of nucleotides at flanking positions up to 10 bases up or down-stream from the site of interest by modeling the observed count table
+
+| Nucleotide | N |
+|:----------:|:-:|
+| A | $n_A$ |
+| C | $n_C$ |
+| G | $n_G$ |
+| T | $n_T$ |
+
+using rates we observe nucleotides flanking the same reference allele genome-wide or in a sample of control observations sampled for each singleton. That is, for each nucleotide we compute an expected count based on the frequency observed in either the genome-wide distribution or the control sample ( $ e_{X,i} = \hat{p}_{X,i} \times n_S$ ) and use the chi-square goodness of fit statistic to assess deviance from this null model (i.e. are singletons uniformly sampled from either the genome-wide or control distribution)?
+
+$$
+\chi_i = \sum_{x \in \{A,C,G,T\} }\frac{(n_{x,i} - e_{x,i})^2}{e_{x,i}}, i \in (-10,-1),(1,10) 
+$$
+
+## 9 Subtype Results
+
+The nine basic subtypes are AT_CG, AT_GC, AT_TA, GC_AT, GC_TA, GC_CG, cpg_GC_AT, cpg_GC_TA, and cpg_GC_CG, where the notation XY_JK indicates we either observed a X>J or Y>K substitution, with XY and JK being complementary to each other. For each sub-type with reference alleles XY and position i within a 21-mer window centered at the singleton, we model the distributions of nucleotides A, C, G and T flanking the singletons using the rates we observe either genome-wide flanking the reference nucleotides XY at the same relative position or the rates of nucleotides flanking control positions sampled for each singleton. We use the chi-square goodness of fit statistic to "measure" the degree to which this model doesn't hold. First, let's plot the deviance statistics we observe at each relative position for each sub-type.
+
+```{r}
+load_results <- function(subtype, rp, sp){
+  data_dir <- "/net/snowwhite/home/beckandy/research/1000G_LSCI/output/single_pos_df/"
+  f_name <- paste0(data_dir, sp, "/", subtype, "_rp", rp, ".csv")
+  df <- read_csv(f_name, col_types = cols())
+  return(df)
+}
+
+position_by_statistic <- function(subtype, sp, r_start = 1){
+  final <- data.frame(pos = numeric(), chi_sq = numeric(), type = character())
+  for(i in c(-10:-1, r_start:10)){
+    df <- load_results(subtype, i, sp)
+    final <- bind_rows(final,
+                       data.frame(pos = c(i,i), 
+                                  chi_sq = c(sum(df$chi_sq_gw), sum(df$chi_sq_ct) ), 
+                                  type = c("Genome-wide", "Control")))
+  }
+  return(final)
+}
+
+plot_pos_stat <- function(subtype, sp, r_start = 1){
+  df <- position_by_statistic(subtype, sp, r_start)
+  p <-df %>%
+    ggplot(aes(x = pos, y = chi_sq, colour = type)) +
+    geom_point() +
+    geom_line() +
+    ggtitle(paste0("1000G Single-Position Results: ", subtype),
+            paste0("Population: ", sp)) +
+    xlab("Relative Position") +
+    ylab("Chi Square Goodness of Fit Statistic") +
+    labs(colour = "Background Rate")
+  return(p)
+}
+```
+
+### AT_CG
+
+```{r echo=FALSE}
+plot_pos_stat("AT_CG", "ALL")
+```
+
+### AT_GC
+
+```{r echo=FALSE}
+plot_pos_stat("AT_GC", "ALL")
+```
+
+### AT_TA
+
+```{r echo=FALSE}
+plot_pos_stat("AT_TA", "ALL")
+```
+
+### GC_AT
+
+```{r echo=FALSE}
+plot_pos_stat("GC_AT", "ALL", r_start = 2)
+```
+
+### GC_TA
+
+```{r echo=FALSE}
+plot_pos_stat("GC_TA", "ALL", r_start = 2)
+```
+
+### GC_CG
+
+```{r echo=FALSE}
+plot_pos_stat("GC_CG", "ALL", r_start = 2)
+```
+
+### cpg_GC_AT
+
+```{r echo=FALSE}
+plot_pos_stat("cpg_GC_AT", "ALL", r_start = 2)
+```
+
+### cpg_GC_TA
+
+```{r echo=FALSE}
+plot_pos_stat("cpg_GC_TA", "ALL", r_start = 2)
+```
+
+### cpg_GC_CG
+
+```{r echo=FALSE}
+plot_pos_stat("cpg_GC_CG", "ALL", r_start = 2)
+```
+
+## 6 Subtype Results
+
+In the above, we reduced the number of sub-types by taking the reverse complement of singletons whose reference alleles were either G or T. That is, for example, the AT_CG analysis at relative position -1 combined the counts of nucleotides observed -1 of A>C plus the counts of the complements of nucleotides observed +1 of T>G singletons. We do this because we don't generally (ever?) observe which strand the mutation originated on. Here we'll compare complementary "simple" sub-types to verify that we see the same patterns in both.
+
+```{r}
+simple_rc <- function(nuc){
+  map_vec <- c("A","C","G","T")
+  names(map_vec) <- c("T","G","C","A")
+  return(map_vec[nuc])
+}
+
+load_simple_results <- function(subtype, rp, sp){
+  data_dir <- "/net/snowwhite/home/beckandy/research/1000G_LSCI/output/single_pos_df/"
+  f_name <- paste0(data_dir, sp, "/6cat/", subtype, "_rp", rp, ".csv")
+  df <- read_csv(f_name, col_types = cols())
+  return(df)
+}
+
+load_simple_results_rc <- function(subtype, rp, sp){
+  data_dir <- "/net/snowwhite/home/beckandy/research/1000G_LSCI/output/single_pos_df/"
+  f_name <- paste0(data_dir, sp, "/6cat/", subtype, "_rp", (-1*rp), ".csv")
+  df <- read_csv(f_name, col_types = cols()) %>%
+    rowwise() %>%
+    mutate(Nuc = simple_rc(Nuc))
+  return(df)
+}
 ```
 
