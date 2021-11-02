@@ -9,9 +9,11 @@
 <meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
 
 
+<meta name="author" content="Andy Beck" />
 
+<meta name="date" content="2021-11-01" />
 
-<title>Home</title>
+<title>both_outline</title>
 
 <script src="site_libs/header-attrs-2.11/header-attrs.js"></script>
 <script src="site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
@@ -29,6 +31,9 @@
        h6 {font-size: 12px;}
        code {color: inherit; background-color: rgba(0, 0, 0, 0.04);}
        pre:not([class]) { background-color: white }</style>
+<script src="site_libs/jqueryui-1.11.4/jquery-ui.min.js"></script>
+<link href="site_libs/tocify-1.9.1/jquery.tocify.css" rel="stylesheet" />
+<script src="site_libs/tocify-1.9.1/jquery.tocify.js"></script>
 <script src="site_libs/navigation-1.1/tabsets.js"></script>
 <link href="site_libs/highlightjs-9.12.0/textmate.css" rel="stylesheet" />
 <script src="site_libs/highlightjs-9.12.0/highlight.js"></script>
@@ -230,6 +235,69 @@ $(document).ready(function () {
 
 
 
+<style type="text/css">
+
+#TOC {
+  margin: 25px 0px 20px 0px;
+}
+@media (max-width: 768px) {
+#TOC {
+  position: relative;
+  width: 100%;
+}
+}
+
+@media print {
+.toc-content {
+  /* see https://github.com/w3c/csswg-drafts/issues/4434 */
+  float: right;
+}
+}
+
+.toc-content {
+  padding-left: 30px;
+  padding-right: 40px;
+}
+
+div.main-container {
+  max-width: 1200px;
+}
+
+div.tocify {
+  width: 20%;
+  max-width: 260px;
+  max-height: 85%;
+}
+
+@media (min-width: 768px) and (max-width: 991px) {
+  div.tocify {
+    width: 25%;
+  }
+}
+
+@media (max-width: 767px) {
+  div.tocify {
+    width: 100%;
+    max-width: none;
+  }
+}
+
+.tocify ul, .tocify li {
+  line-height: 20px;
+}
+
+.tocify-subheader .tocify-item {
+  font-size: 0.90em;
+}
+
+.tocify .list-group-item {
+  border-radius: 0px;
+}
+
+
+</style>
+
+
 
 </head>
 
@@ -237,6 +305,16 @@ $(document).ready(function () {
 
 
 <div class="container-fluid main-container">
+
+
+<!-- setup 3col/9col grid for toc_float and main content  -->
+<div class="row">
+<div class="col-xs-12 col-sm-4 col-md-3">
+<div id="TOC" class="tocify">
+</div>
+</div>
+
+<div class="toc-content col-xs-12 col-sm-8 col-md-9">
 
 
 
@@ -274,7 +352,9 @@ $(document).ready(function () {
 
 
 
-<h1 class="title toc-ignore">Home</h1>
+<h1 class="title toc-ignore">both_outline</h1>
+<h4 class="author">Andy Beck</h4>
+<h4 class="date">2021-11-01</h4>
 
 </div>
 
@@ -361,7 +441,7 @@ Note that any generated files, e.g. HTML, png, CSS, etc., are not included in t
 <div id="versions" class="tab-pane fade">
 
 <p>
-These are the previous versions of the repository in which changes were made to the R Markdown (<code>analysis/index.Rmd</code>) and HTML (<code>docs/index.html</code>) files. If you’ve configured a remote Git repository (see <code>?wflow_git_remote</code>), click on the hyperlinks in the table below to view the files as they were in that past version.
+These are the previous versions of the repository in which changes were made to the R Markdown (<code>analysis/both_outline.Rmd</code>) and HTML (<code>docs/both_outline.html</code>) files. If you’ve configured a remote Git repository (see <code>?wflow_git_remote</code>), click on the hyperlinks in the table below to view the files as they were in that past version.
 </p>
 <div class="table-responsive">
 <table class="table table-condensed table-hover">
@@ -390,7 +470,7 @@ Message
 Rmd
 </td>
 <td>
-<a href="https://github.com/theandyb/LSCI/blob/6842cad988a7466fab1ee8ce3ccc32c7a5985830/analysis/index.Rmd" target="_blank">6842cad</a>
+<a href="https://github.com/theandyb/LSCI/blob/6842cad988a7466fab1ee8ce3ccc32c7a5985830/analysis/both_outline.Rmd" target="_blank">6842cad</a>
 </td>
 <td>
 Andy Beck
@@ -400,91 +480,6 @@ Andy Beck
 </td>
 <td>
 flesh out some pages
-</td>
-</tr>
-<tr>
-<td>
-html
-</td>
-<td>
-<a href="https://rawcdn.githack.com/theandyb/LSCI/6842cad988a7466fab1ee8ce3ccc32c7a5985830/docs/index.html" target="_blank">6842cad</a>
-</td>
-<td>
-Andy Beck
-</td>
-<td>
-2021-11-01
-</td>
-<td>
-flesh out some pages
-</td>
-</tr>
-<tr>
-<td>
-html
-</td>
-<td>
-<a href="https://rawcdn.githack.com/theandyb/LSCI/bc0ed833a9bfb410174156c050d7333f4308a2ef/docs/index.html" target="_blank">bc0ed83</a>
-</td>
-<td>
-Andy Beck
-</td>
-<td>
-2021-11-01
-</td>
-<td>
-Build site.
-</td>
-</tr>
-<tr>
-<td>
-Rmd
-</td>
-<td>
-<a href="https://github.com/theandyb/LSCI/blob/4ec43fe049812ed007c2d3e72d5ca087445be4a0/analysis/index.Rmd" target="_blank">4ec43fe</a>
-</td>
-<td>
-Andy Beck
-</td>
-<td>
-2021-11-01
-</td>
-<td>
-Add single position document for BRIDGES
-</td>
-</tr>
-<tr>
-<td>
-html
-</td>
-<td>
-<a href="https://rawcdn.githack.com/theandyb/LSCI/d5b236c1d3f8dabe9276912c6cd9107b05c93efb/docs/index.html" target="_blank">d5b236c</a>
-</td>
-<td>
-Andy Beck
-</td>
-<td>
-2021-11-01
-</td>
-<td>
-Build site.
-</td>
-</tr>
-<tr>
-<td>
-Rmd
-</td>
-<td>
-<a href="https://github.com/theandyb/LSCI/blob/a41d35513b62b313f0347f69747c26d650c1c22f/analysis/index.Rmd" target="_blank">a41d355</a>
-</td>
-<td>
-Andy Beck
-</td>
-<td>
-2021-11-01
-</td>
-<td>
-Start workflowr project.
 </td>
 </tr>
 </tbody>
@@ -494,41 +489,11 @@ Start workflowr project.
 </div>
 </div>
 </div>
-<div id="local-sequence-context-influence-on-the-rate-of-substitution" class="section level1">
-<h1>Local Sequence Context Influence on the Rate of Substitution</h1>
+<div id="paper-outline" class="section level1">
+<h1>Paper Outline</h1>
 <div id="introduction" class="section level2">
 <h2>Introduction</h2>
-<p>The germline mutation rate is not uniform across the genome, and this variation is known to be associated with genomic and epigenomic features such as h3k27me3, replication timing, recombination rate, and local gc-content, among others. Here in this project we focus on evaluating the role of local sequence context on rates of substitution. In particular, we are interested in answering questions such as:</p>
-<ol style="list-style-type: decimal">
-<li>How far from a site of interest do nucleotides at individual positions influence the rate of substitution?</li>
-<li>To what extent do pairs of flanking positions interact in determining their influence on the rate of substitution, and how does this vary as the distance between the sites and the distance from the focal site increases?</li>
-<li>Are patterns of mutation-rate variation shared between global population groups?</li>
-</ol>
-<p>To address these questions, we characterize the distributions of nucleotides flanking singletons observed in two data sets: the BRIDGES consortium gwas (n = ???) and the 1000G Deep Sequence data (n = 2,504). We use singletons as they are newer variants and provide a rich source of information to characterize mutation processes active in modern human populations. Our analyses are described in more detail in the documents linked to below.</p>
-</div>
-<div id="bridges-analyses" class="section level2">
-<h2>BRIDGES Analyses</h2>
-<ul>
-<li><a href="BRIDGES_single_position.html">Single Position Model Results</a></li>
-<li><a href="BRIDGES_two_positions.html">Two Position Model Results</a></li>
-</ul>
-</div>
-<div id="g-analyses" class="section level2">
-<h2>1000G Analyses</h2>
-<ul>
-<li><a href="1000G_single_position_ALL.html">Single Position Model Results for All Singletons</a></li>
-<li><a href="1000G_two_positions_ALL.html">Two Position Model Results for All Singletons</a></li>
-<li><a href="1000G_single_postion_comp.html">Cross-population Comparisons: Single Position Models</a></li>
-<li><a href="1000G_two_postions_comp.html">Cross-population Comparisons: Two Position Models</a></li>
-</ul>
-</div>
-<div id="outlines" class="section level2">
-<h2>Outlines</h2>
-<ul>
-<li><a href="BRIDGES_only.html">BRIDGES-only Paper</a></li>
-<li><a href="1000G_only.html">1000G-only Paper</a></li>
-<li><a href="both_outline.html">BRIDGES + 1000G Paper</a></li>
-</ul>
+<p>This is an outline of a prospective paper if we were to include results from both the 1000G deep sequencing data and the BRIDGES consortium GWAS. Both studies are of comparable sample size, but differ in that BRIDGES is entirely European ancestry whereas 1000G has 5 constituent super-populations (AFR, AMR, EAR, EUR, and SAS) which can be further distilled into more specific populations.</p>
 </div>
 </div>
 
@@ -548,6 +513,8 @@ footer is added to webpages before the MathJax javascript. -->
 
 
 
+</div>
+</div>
 
 </div>
 
@@ -580,6 +547,35 @@ $(document).ready(function () {
 
 <!-- code folding -->
 
+<script>
+$(document).ready(function ()  {
+
+    // temporarily add toc-ignore selector to headers for the consistency with Pandoc
+    $('.unlisted.unnumbered').addClass('toc-ignore')
+
+    // move toc-ignore selectors from section div to header
+    $('div.section.toc-ignore')
+        .removeClass('toc-ignore')
+        .children('h1,h2,h3,h4,h5').addClass('toc-ignore');
+
+    // establish options
+    var options = {
+      selectors: "h1,h2,h3",
+      theme: "bootstrap3",
+      context: '.toc-content',
+      hashGenerator: function (text) {
+        return text.replace(/[.\\/?&!#<>]/g, '').replace(/\s/g, '_');
+      },
+      ignoreSelector: ".toc-ignore",
+      scrollTo: 0
+    };
+    options.showAndHide = true;
+    options.smoothScroll = true;
+
+    // tocify
+    var toc = $("#TOC").tocify(options).data("toc-tocify");
+});
+</script>
 
 <!-- dynamically load mathjax for compatibility with self-contained -->
 <script>
