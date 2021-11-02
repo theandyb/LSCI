@@ -1,0 +1,14 @@
+---
+title: "both_outline"
+author: "Andy Beck"
+date: "2021-11-01"
+output: workflowr::wflow_html
+editor_options:
+  chunk_output_type: console
+---
+
+# Paper Outline
+
+## Introduction
+
+This is an outline of a prospective paper if we were to include results from both the 1000G deep sequencing data and the BRIDGES consortium GWAS. Both studies are of comparable sample size, but differ in that BRIDGES is entirely European ancestry whereas 1000G has 5 constituent super-populations (AFR, AMR, EAR, EUR, and SAS) which can be further distilled into more specific populations.

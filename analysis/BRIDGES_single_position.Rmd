@@ -11,13 +11,30 @@ editor_options:
 library(tidyverse)
 ```
 
-## BRIDGES Single Position Model Results
+# BRIDGES Single Position Model Results
 
-### Introduction
+## Introduction
 
 In this document we will explore the results of the single position analyses for the BRIDGES dataset. In particular, we will compare the 9-subtype results to the 12-subtypes results to check that we aren't losing anything when we collapse the subtypes, and we will also compare the results when we use genome-wide rates and control sample rates as our null expectations under a model assuming the distribution of nucleotides flanking a singleton is no different from the distribution of nucleotides at a site flanking a given reference nucleotide genome-wide.
 
-### 9 Subtype Results
+### Model Descriptions
+
+For each singleton sub-type, we evaluate the "independent influence" of nucleotides at flanking positions up to 10 bases up or down-stream from the site of interest by modeling the observed count table
+
+| Nucleotide | N |
+|:----------:|:-:|
+| A | $n_A$ |
+| C | $n_C$ |
+| G | $n_G$ |
+| T | $n_T$ |
+
+using rates we observe nucleotides flanking the same reference allele genome-wide or in a sample of control observations sampled for each singleton. That is, for each nucleotide we compute an expected count based on the frequency observed in either the genome-wide distribution or the control sample ( $ e_{X,i} = \hat{p}_{X,i} \times n_S$ ) and use the chi-square goodness of fit statistic to assess deviance from this null model (i.e. are singletons uniformly sampled from either the genome-wide or control distribution)?
+
+$$
+\chi_i = \sum_{x \in \{A,C,G,T\} }\frac{(n_{x,i} - e_{x,i})^2}{e_{x,i}}, i \in (-10,-1),(1,10) 
+$$
+
+## 9 Subtype Results
 
 The nine basic subtypes are AT_CG, AT_GC, AT_TA, GC_AT, GC_TA, GC_CG, cpg_GC_AT, cpg_GC_TA, and cpg_GC_CG, where the notation XY_JK indicates we either observed a X>J or Y>K substitution, with XY and JK being complementary to each other. For each sub-type with reference alleles XY and position i within a 21-mer window centered at the singleton, we model the distributions of nucleotides A, C, G and T flanking the singletons using the rates we observe either genome-wide flanking the reference nucleotides XY at the same relative position or the rates of nucleotides flanking control positions sampled for each singleton. We use the chi-square goodness of fit statistic to "measure" the degree to which this model doesn't hold. First, let's plot the deviance statistics we observe at each relative position for each subtype.
 
@@ -53,5 +70,59 @@ plot_pos_stat_6st <- function(subtype, r_start = 1){
     labs(colour = "Background Rate")
   return(p)
 }
+```
+
+### AT_CG
+
+```{r echo=FALSE}
+plot_pos_stat_6st("AT_CG")
+```
+
+### AT_GC
+
+```{r echo=FALSE}
+plot_pos_stat_6st("AT_GC")
+```
+
+### AT_TA
+
+```{r echo=FALSE}
+plot_pos_stat_6st("AT_TA")
+```
+
+### GC_AT
+
+```{r echo=FALSE}
+plot_pos_stat_6st("GC_AT", r_start = 2)
+```
+
+### GC_TA
+
+```{r echo=FALSE}
+plot_pos_stat_6st("GC_TA", r_start = 2)
+```
+
+### GC_CG
+
+```{r echo=FALSE}
+plot_pos_stat_6st("GC_CG", r_start = 2)
+```
+
+### cpg_GC_AT
+
+```{r echo=FALSE}
+plot_pos_stat_6st("cpg_GC_AT", r_start = 2)
+```
+
+### cpg_GC_TA
+
+```{r echo=FALSE}
+plot_pos_stat_6st("cpg_GC_TA", r_start = 2)
+```
+
+### cpg_GC_CG
+
+```{r echo=FALSE}
+plot_pos_stat_6st("cpg_GC_CG", r_start = 2)
 ```
 

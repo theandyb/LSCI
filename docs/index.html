@@ -16,7 +16,7 @@
 <script src="site_libs/header-attrs-2.11/header-attrs.js"></script>
 <script src="site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<link href="site_libs/bootstrap-3.3.5/css/cosmo.min.css" rel="stylesheet" />
+<link href="site_libs/bootstrap-3.3.5/css/flatly.min.css" rel="stylesheet" />
 <script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
 <script src="site_libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
 <script src="site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
@@ -249,18 +249,12 @@ $(document).ready(function () {
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
       </button>
-      <a class="navbar-brand" href="index.html">LSCI</a>
+      <a class="navbar-brand" href="index.html">Local Sequence Context Influence</a>
     </div>
     <div id="navbar" class="navbar-collapse collapse">
       <ul class="nav navbar-nav">
         <li>
   <a href="index.html">Home</a>
-</li>
-<li>
-  <a href="about.html">About</a>
-</li>
-<li>
-  <a href="license.html">License</a>
 </li>
       </ul>
       <ul class="nav navbar-nav navbar-right">
@@ -287,7 +281,7 @@ $(document).ready(function () {
 
 <p>
 <button type="button" class="btn btn-default btn-workflowr btn-workflowr-report" data-toggle="collapse" data-target="#workflowr-report">
-<span class="glyphicon glyphicon-list" aria-hidden="true"></span> workflowr <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span>
+<span class="glyphicon glyphicon-list" aria-hidden="true"></span> workflowr <span class="glyphicon glyphicon-exclamation-sign text-danger" aria-hidden="true"></span>
 </button>
 </p>
 <div id="workflowr-report" class="collapse">
@@ -296,7 +290,7 @@ $(document).ready(function () {
 <a data-toggle="tab" href="#summary">Summary</a>
 </li>
 <li>
-<a data-toggle="tab" href="#checks"> Checks <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> </a>
+<a data-toggle="tab" href="#checks"> Checks <span class="glyphicon glyphicon-exclamation-sign text-danger" aria-hidden="true"></span> </a>
 </li>
 <li>
 <a data-toggle="tab" href="#versions">Past versions</a>
@@ -308,7 +302,7 @@ $(document).ready(function () {
 <strong>Last updated:</strong> 2021-11-01
 </p>
 <p>
-<strong>Checks:</strong> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> 2 <span class="glyphicon glyphicon-exclamation-sign text-danger" aria-hidden="true"></span> 0
+<strong>Checks:</strong> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> 1 <span class="glyphicon glyphicon-exclamation-sign text-danger" aria-hidden="true"></span> 1
 </p>
 <p>
 <strong>Knit directory:</strong> <code>LSCI/</code> <span class="glyphicon glyphicon-question-sign" aria-hidden="true" title="This is the local directory in which the code in this file was executed."> </span>
@@ -324,28 +318,28 @@ This reproducible <a href="http://rmarkdown.rstudio.com">R Markdown</a> analysis
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRMarkdownfilestronguptodate"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>R Markdown file:</strong> up-to-date </a>
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRMarkdownfilestronguncommittedchanges"> <span class="glyphicon glyphicon-exclamation-sign text-danger" aria-hidden="true"></span> <strong>R Markdown file:</strong> uncommitted changes </a>
 </p>
 </div>
-<div id="strongRMarkdownfilestronguptodate" class="panel-collapse collapse">
+<div id="strongRMarkdownfilestronguncommittedchanges" class="panel-collapse collapse">
 <div class="panel-body">
-<p>Great! Since the R Markdown file has been committed to the Git repository, you know the exact version of the code that produced these results.</p>
+<p>The R Markdown file has unstaged changes. To know which version of the R Markdown file created these results, you’ll want to first commit it to the Git repo. If you’re still working on the analysis, you can ignore this warning. When you’re finished, you can run <code>wflow_publish</code> to commit the R Markdown file and build the HTML.</p>
 </div>
 </div>
 </div>
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomtheandybLSCItree4ec43fe049812ed007c2d3e72d5ca087445be4a0targetblank4ec43fea"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/theandyb/LSCI/tree/4ec43fe049812ed007c2d3e72d5ca087445be4a0" target="_blank">4ec43fe</a> </a>
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomtheandybLSCItreebc0ed833a9bfb410174156c050d7333f4308a2eftargetblankbc0ed83a"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/theandyb/LSCI/tree/bc0ed833a9bfb410174156c050d7333f4308a2ef" target="_blank">bc0ed83</a> </a>
 </p>
 </div>
-<div id="strongRepositoryversionstrongahrefhttpsgithubcomtheandybLSCItree4ec43fe049812ed007c2d3e72d5ca087445be4a0targetblank4ec43fea" class="panel-collapse collapse">
+<div id="strongRepositoryversionstrongahrefhttpsgithubcomtheandybLSCItreebc0ed833a9bfb410174156c050d7333f4308a2eftargetblankbc0ed83a" class="panel-collapse collapse">
 <div class="panel-body">
 <p>
 Great! You are using Git for version control. Tracking code development and connecting the code version to the results is critical for reproducibility.
 </p>
 <p>
-The results in this page were generated with repository version <a href="https://github.com/theandyb/LSCI/tree/4ec43fe049812ed007c2d3e72d5ca087445be4a0" target="_blank">4ec43fe</a>. See the <em>Past versions</em> tab to see a history of the changes made to the R Markdown and HTML files.
+The results in this page were generated with repository version <a href="https://github.com/theandyb/LSCI/tree/bc0ed833a9bfb410174156c050d7333f4308a2ef" target="_blank">bc0ed83</a>. See the <em>Past versions</em> tab to see a history of the changes made to the R Markdown and HTML files.
 </p>
 <p>
 Note that you need to be careful to ensure that all relevant files for the analysis have been committed to Git prior to generating the results (you can use <code>wflow_publish</code> or <code>wflow_git_commit</code>). workflowr only checks the R Markdown file, but you know if there are other scripts or data files that it depends on. Below is the status of the Git repository when the results were generated:
@@ -353,6 +347,18 @@ Note that you need to be careful to ensure that all relevant files for the analy
 <pre><code>
 Ignored files:
     Ignored:    .Rproj.user/
+
+Untracked files:
+    Untracked:  analysis/1000G_single_position_ALL.Rmd
+    Untracked:  analysis/1000G_single_postion_comp.Rmd
+    Untracked:  analysis/1000G_two_positions_ALL.Rmd
+    Untracked:  analysis/1000G_two_postions_comp.Rmd
+    Untracked:  analysis/BRIDGES_two_positions.Rmd
+
+Unstaged changes:
+    Modified:   analysis/BRIDGES_single_position.Rmd
+    Modified:   analysis/_site.yml
+    Modified:   analysis/index.Rmd
 
 </code></pre>
 <p>
@@ -391,6 +397,23 @@ Message
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+html
+</td>
+<td>
+<a href="https://rawcdn.githack.com/theandyb/LSCI/bc0ed833a9bfb410174156c050d7333f4308a2ef/docs/index.html" target="_blank">bc0ed83</a>
+</td>
+<td>
+Andy Beck
+</td>
+<td>
+2021-11-01
+</td>
+<td>
+Build site.
+</td>
+</tr>
 <tr>
 <td>
 Rmd
@@ -453,6 +476,29 @@ Start workflowr project.
 <h1>Local Sequence Context Influence on the Rate of Substitution</h1>
 <div id="introduction" class="section level2">
 <h2>Introduction</h2>
+<p>The germline mutation rate is not uniform across the genome, and this variation is known to be associated with genomic and epigenomic features such as h3k27me3, replication timing, recombination rate, and local gc-content, among others. Here in this project we focus on evaluating the role of local sequence context on rates of substitution. In particular, we are interested in answering questions such as:</p>
+<ol style="list-style-type: decimal">
+<li>How far from a site of interest do nucleotides at individual positions influence the rate of substitution?</li>
+<li>To what extent do pairs of flanking positions interact in determining their influence on the rate of substitution, and how does this vary as the distance between the sites and the distance from the focal site increases?</li>
+<li>Are patterns of mutation-rate variation shared between global population groups?</li>
+</ol>
+<p>To address these questions, we characterize the distributions of nucleotides flanking singletons observed in two data sets: the BRIDGES consortium gwas (n = ???) and the 1000G Deep Sequence data (n = 2,504). We use singletons as they are newer variants and provide a rich source of information to characterize mutation processes active in modern human populations. Our analyses are described in more detail in the documents linked to below.</p>
+</div>
+<div id="bridges-analyses" class="section level2">
+<h2>BRIDGES Analyses</h2>
+<ul>
+<li><a href="BRIDGES_single_position.html">Single Position Model Results</a></li>
+<li><a href="BRIDGES_two_positions.html">Two Position Model Results</a></li>
+</ul>
+</div>
+<div id="g-analyses" class="section level2">
+<h2>1000G Analyses</h2>
+<ul>
+<li><a href="1000G_single_position_ALL.html">Single Position Model Results for All Singletons</a></li>
+<li><a href="1000G_two_positions_ALL.html">Two Position Model Results for All Singletons</a></li>
+<li><a href="1000G_single_postion_comp.html">Cross-population Comparisons: Single Position Models</a></li>
+<li><a href="1000G_two_postions_comp.html">Cross-population Comparisons: Two Position Models</a></li>
+</ul>
 </div>
 </div>
 

@@ -13,7 +13,7 @@
 
 <meta name="date" content="2021-11-01" />
 
-<title>BRIDGES_single_position</title>
+<title>1000G_two_postions_comp</title>
 
 <script src="site_libs/header-attrs-2.11/header-attrs.js"></script>
 <script src="site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
@@ -327,7 +327,7 @@ div.tocify {
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
       </button>
-      <a class="navbar-brand" href="index.html">LSCI</a>
+      <a class="navbar-brand" href="index.html">Local Sequence Context Influence</a>
     </div>
     <div id="navbar" class="navbar-collapse collapse">
       <ul class="nav navbar-nav">
@@ -352,7 +352,7 @@ div.tocify {
 
 
 
-<h1 class="title toc-ignore">BRIDGES_single_position</h1>
+<h1 class="title toc-ignore">1000G_two_postions_comp</h1>
 <h4 class="author">Andy Beck</h4>
 <h4 class="date">2021-11-01</h4>
 
@@ -403,7 +403,7 @@ This reproducible <a href="http://rmarkdown.rstudio.com">R Markdown</a> analysis
 </div>
 <div id="strongRMarkdownfilestronguncommittedchanges" class="panel-collapse collapse">
 <div class="panel-body">
-<p>The R Markdown file has unstaged changes. To know which version of the R Markdown file created these results, you’ll want to first commit it to the Git repo. If you’re still working on the analysis, you can ignore this warning. When you’re finished, you can run <code>wflow_publish</code> to commit the R Markdown file and build the HTML.</p>
+<p>The R Markdown is untracked by Git. To know which version of the R Markdown file created these results, you’ll want to first commit it to the Git repo. If you’re still working on the analysis, you can ignore this warning. When you’re finished, you can run <code>wflow_publish</code> to commit the R Markdown file and build the HTML.</p>
 </div>
 </div>
 </div>
@@ -489,6 +489,10 @@ Ignored files:
     Ignored:    .Rproj.user/
 
 Untracked files:
+    Untracked:  analysis/1000G_single_position_ALL.Rmd
+    Untracked:  analysis/1000G_single_postion_comp.Rmd
+    Untracked:  analysis/1000G_two_positions_ALL.Rmd
+    Untracked:  analysis/1000G_two_postions_comp.Rmd
     Untracked:  analysis/BRIDGES_two_positions.Rmd
 
 Unstaged changes:
@@ -507,182 +511,15 @@ Note that any generated files, e.g. HTML, png, CSS, etc., are not included in t
 <hr>
 </div>
 <div id="versions" class="tab-pane fade">
-
 <p>
-These are the previous versions of the repository in which changes were made to the R Markdown (<code>analysis/BRIDGES_single_position.Rmd</code>) and HTML (<code>docs/BRIDGES_single_position.html</code>) files. If you’ve configured a remote Git repository (see <code>?wflow_git_remote</code>), click on the hyperlinks in the table below to view the files as they were in that past version.
+There are no past versions. Publish this analysis with <code>wflow_publish()</code> to start tracking its development.
 </p>
-<div class="table-responsive">
-<table class="table table-condensed table-hover">
-<thead>
-<tr>
-<th>
-File
-</th>
-<th>
-Version
-</th>
-<th>
-Author
-</th>
-<th>
-Date
-</th>
-<th>
-Message
-</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>
-html
-</td>
-<td>
-<a href="https://rawcdn.githack.com/theandyb/LSCI/bc0ed833a9bfb410174156c050d7333f4308a2ef/docs/BRIDGES_single_position.html" target="_blank">bc0ed83</a>
-</td>
-<td>
-Andy Beck
-</td>
-<td>
-2021-11-01
-</td>
-<td>
-Build site.
-</td>
-</tr>
-<tr>
-<td>
-Rmd
-</td>
-<td>
-<a href="https://github.com/theandyb/LSCI/blob/4ec43fe049812ed007c2d3e72d5ca087445be4a0/analysis/BRIDGES_single_position.Rmd" target="_blank">4ec43fe</a>
-</td>
-<td>
-Andy Beck
-</td>
-<td>
-2021-11-01
-</td>
-<td>
-Add single position document for BRIDGES
-</td>
-</tr>
-</tbody>
-</table>
-</div>
 <hr>
 </div>
 </div>
 </div>
-<div id="bridges-single-position-model-results" class="section level1">
-<h1>BRIDGES Single Position Model Results</h1>
 <div id="introduction" class="section level2">
 <h2>Introduction</h2>
-<p>In this document we will explore the results of the single position analyses for the BRIDGES dataset. In particular, we will compare the 9-subtype results to the 12-subtypes results to check that we aren’t losing anything when we collapse the subtypes, and we will also compare the results when we use genome-wide rates and control sample rates as our null expectations under a model assuming the distribution of nucleotides flanking a singleton is no different from the distribution of nucleotides at a site flanking a given reference nucleotide genome-wide.</p>
-<div id="model-descriptions" class="section level3">
-<h3>Model Descriptions</h3>
-<p>For each singleton sub-type, we evaluate the “independent influence” of nucleotides at flanking positions up to 10 bases up or down-stream from the site of interest by modeling the observed count table</p>
-<table>
-<thead>
-<tr class="header">
-<th align="center">Nucleotide</th>
-<th align="center">N</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td align="center">A</td>
-<td align="center"><span class="math inline">\(n_A\)</span></td>
-</tr>
-<tr class="even">
-<td align="center">C</td>
-<td align="center"><span class="math inline">\(n_C\)</span></td>
-</tr>
-<tr class="odd">
-<td align="center">G</td>
-<td align="center"><span class="math inline">\(n_G\)</span></td>
-</tr>
-<tr class="even">
-<td align="center">T</td>
-<td align="center"><span class="math inline">\(n_T\)</span></td>
-</tr>
-</tbody>
-</table>
-<p>using rates we observe nucleotides flanking the same reference allele genome-wide or in a sample of control observations sampled for each singleton. That is, for each nucleotide we compute an expected count based on the frequency observed in either the genome-wide distribution or the control sample ( $ e_{X,i} = _{X,i} n_S$ ) and use the chi-square goodness of fit statistic to assess deviance from this null model (i.e. are singletons uniformly sampled from either the genome-wide or control distribution)?</p>
-<p><span class="math display">\[
-\chi_i = \sum_{x \in \{A,C,G,T\} }\frac{(n_{x,i} - e_{x,i})^2}{e_{x,i}}, i \in (-10,-1),(1,10) 
-\]</span></p>
-</div>
-</div>
-<div id="subtype-results" class="section level2">
-<h2>9 Subtype Results</h2>
-<p>The nine basic subtypes are AT_CG, AT_GC, AT_TA, GC_AT, GC_TA, GC_CG, cpg_GC_AT, cpg_GC_TA, and cpg_GC_CG, where the notation XY_JK indicates we either observed a X&gt;J or Y&gt;K substitution, with XY and JK being complementary to each other. For each sub-type with reference alleles XY and position i within a 21-mer window centered at the singleton, we model the distributions of nucleotides A, C, G and T flanking the singletons using the rates we observe either genome-wide flanking the reference nucleotides XY at the same relative position or the rates of nucleotides flanking control positions sampled for each singleton. We use the chi-square goodness of fit statistic to “measure” the degree to which this model doesn’t hold. First, let’s plot the deviance statistics we observe at each relative position for each subtype.</p>
-<pre class="r"><code>load_6st_results &lt;- function(subtype, rp){
-  data_dir &lt;- &quot;/net/snowwhite/home/beckandy/research/BRIDGES_redo/output/single_pos_df/&quot;
-  f_name &lt;- paste0(data_dir, subtype, &quot;_rp&quot;, rp, &quot;.csv&quot;)
-  df &lt;- read_csv(f_name, col_types = cols())
-  return(df)
-}
-
-position_by_statistic_6st &lt;- function(subtype, r_start = 1){
-  final &lt;- data.frame(pos = numeric(), chi_sq = numeric(), type = character())
-  for(i in c(-10:-1, r_start:10)){
-    df &lt;- load_6st_results(subtype, i)
-    final &lt;- bind_rows(final,
-                       data.frame(pos = c(i,i), 
-                                  chi_sq = c(sum(df$chi_sq_gw), sum(df$chi_sq_ct) ), 
-                                  type = c(&quot;Genome-wide&quot;, &quot;Control&quot;)))
-  }
-  return(final)
-}
-
-plot_pos_stat_6st &lt;- function(subtype, r_start = 1){
-  df &lt;- position_by_statistic_6st(subtype, r_start)
-  p &lt;-df %&gt;%
-    ggplot(aes(x = pos, y = chi_sq, colour = type)) +
-    geom_point() +
-    geom_line() +
-    ggtitle(paste0(&quot;BRIDGES Single-Position Results: &quot;, subtype)) +
-    xlab(&quot;Relative Position&quot;) +
-    ylab(&quot;Chi Square Goodness of Fit Statistic&quot;) +
-    labs(colour = &quot;Background Rate&quot;)
-  return(p)
-}</code></pre>
-<div id="at_cg" class="section level3">
-<h3>AT_CG</h3>
-<p><img src="figure/BRIDGES_single_position.Rmd/unnamed-chunk-3-1.png" width="672" style="display: block; margin: auto;" /></p>
-</div>
-<div id="at_gc" class="section level3">
-<h3>AT_GC</h3>
-<p><img src="figure/BRIDGES_single_position.Rmd/unnamed-chunk-4-1.png" width="672" style="display: block; margin: auto;" /></p>
-</div>
-<div id="at_ta" class="section level3">
-<h3>AT_TA</h3>
-<p><img src="figure/BRIDGES_single_position.Rmd/unnamed-chunk-5-1.png" width="672" style="display: block; margin: auto;" /></p>
-</div>
-<div id="gc_at" class="section level3">
-<h3>GC_AT</h3>
-<p><img src="figure/BRIDGES_single_position.Rmd/unnamed-chunk-6-1.png" width="672" style="display: block; margin: auto;" /></p>
-</div>
-<div id="gc_ta" class="section level3">
-<h3>GC_TA</h3>
-<p><img src="figure/BRIDGES_single_position.Rmd/unnamed-chunk-7-1.png" width="672" style="display: block; margin: auto;" /></p>
-</div>
-<div id="gc_cg" class="section level3">
-<h3>GC_CG</h3>
-<p><img src="figure/BRIDGES_single_position.Rmd/unnamed-chunk-8-1.png" width="672" style="display: block; margin: auto;" /></p>
-</div>
-<div id="cpg_gc_at" class="section level3">
-<h3>cpg_GC_AT</h3>
-<p><img src="figure/BRIDGES_single_position.Rmd/unnamed-chunk-9-1.png" width="672" style="display: block; margin: auto;" /></p>
-</div>
-<div id="cpg_gc_ta" class="section level3">
-<h3>cpg_GC_TA</h3>
-<p><img src="figure/BRIDGES_single_position.Rmd/unnamed-chunk-10-1.png" width="672" style="display: block; margin: auto;" /></p>
-</div>
-<div id="cpg_gc_cg" class="section level3">
-<h3>cpg_GC_CG</h3>
-<p><img src="figure/BRIDGES_single_position.Rmd/unnamed-chunk-11-1.png" width="672" style="display: block; margin: auto;" /></p>
 <br>
 <p>
 <button type="button" class="btn btn-default btn-workflowr btn-workflowr-sessioninfo" data-toggle="collapse" data-target="#workflowr-sessioninfo" style="display: block;">
@@ -711,30 +548,18 @@ attached base packages:
 [1] stats     graphics  grDevices utils     datasets  methods   base     
 
 other attached packages:
- [1] forcats_0.5.1   stringr_1.4.0   dplyr_1.0.7     purrr_0.3.4    
- [5] readr_2.0.2     tidyr_1.1.4     tibble_3.1.5    ggplot2_3.3.5  
- [9] tidyverse_1.3.1 workflowr_1.6.2
+[1] workflowr_1.6.2
 
 loaded via a namespace (and not attached):
- [1] Rcpp_1.0.7       lubridate_1.8.0  assertthat_0.2.1 rprojroot_2.0.2 
- [5] digest_0.6.28    utf8_1.2.2       R6_2.5.1         cellranger_1.1.0
- [9] backports_1.3.0  reprex_2.0.1     evaluate_0.14    highr_0.9       
-[13] httr_1.4.2       pillar_1.6.4     rlang_0.4.12     readxl_1.3.1    
-[17] rstudioapi_0.13  whisker_0.4      jquerylib_0.1.4  rmarkdown_2.11  
-[21] labeling_0.4.2   bit_4.0.4        munsell_0.5.0    broom_0.7.9     
-[25] compiler_4.1.1   httpuv_1.6.3     modelr_0.1.8     xfun_0.27       
-[29] pkgconfig_2.0.3  htmltools_0.5.2  tidyselect_1.1.1 fansi_0.5.0     
-[33] crayon_1.4.1     tzdb_0.1.2       dbplyr_2.1.1     withr_2.4.2     
-[37] later_1.3.0      grid_4.1.1       jsonlite_1.7.2   gtable_0.3.0    
-[41] lifecycle_1.0.1  DBI_1.1.1        git2r_0.28.0     magrittr_2.0.1  
-[45] scales_1.1.1     vroom_1.5.5      cli_3.0.1        stringi_1.7.5   
-[49] farver_2.1.0     fs_1.5.0         promises_1.2.0.1 xml2_1.3.2      
-[53] bslib_0.3.1      ellipsis_0.3.2   generics_0.1.1   vctrs_0.3.8     
-[57] tools_4.1.1      bit64_4.0.5      glue_1.4.2       hms_1.1.1       
-[61] parallel_4.1.1   fastmap_1.1.0    yaml_2.2.1       colorspace_2.0-2
-[65] rvest_1.0.2      knitr_1.36       haven_2.4.3      sass_0.4.0      </code></pre>
-</div>
-</div>
+ [1] Rcpp_1.0.7       knitr_1.36       magrittr_2.0.1   R6_2.5.1        
+ [5] rlang_0.4.12     fastmap_1.1.0    fansi_0.5.0      stringr_1.4.0   
+ [9] tools_4.1.1      xfun_0.27        utf8_1.2.2       git2r_0.28.0    
+[13] jquerylib_0.1.4  htmltools_0.5.2  ellipsis_0.3.2   rprojroot_2.0.2 
+[17] yaml_2.2.1       digest_0.6.28    tibble_3.1.5     lifecycle_1.0.1 
+[21] crayon_1.4.1     later_1.3.0      sass_0.4.0       vctrs_0.3.8     
+[25] promises_1.2.0.1 fs_1.5.0         glue_1.4.2       evaluate_0.14   
+[29] rmarkdown_2.11   stringi_1.7.5    bslib_0.3.1      compiler_4.1.1  
+[33] pillar_1.6.4     jsonlite_1.7.2   httpuv_1.6.3     pkgconfig_2.0.3 </code></pre>
 </div>
 </div>
 

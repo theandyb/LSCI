@@ -1,0 +1,19 @@
+---
+title: "BRIDGES_two_positions"
+author: "Andy Beck"
+date: "2021-11-01"
+output: workflowr::wflow_html
+editor_options:
+  chunk_output_type: console
+---
+
+# BRIDGES Two Positions Model Results
+
+## Introduction
+
+In a [previous document](BRIDGES_single_position.html) we evaluated the influence of individual positions on the mutation rate as a function of relative position. In this we marginalized over the nucleotides at other positions, ignoring any potential interaction effect. Here in this document we will being to explore the extent to which interactions among flanking positions influence the rate of substitution at a focal site by first focusing on two-way interactions. 
+
+```{r}
+
+```
+
