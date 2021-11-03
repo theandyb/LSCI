@@ -39,6 +39,20 @@ $$
 
 The nine basic subtypes are AT_CG, AT_GC, AT_TA, GC_AT, GC_TA, GC_CG, cpg_GC_AT, cpg_GC_TA, and cpg_GC_CG, where the notation XY_JK indicates we either observed a X>J or Y>K substitution, with XY and JK being complementary to each other. For each sub-type with reference alleles XY and position i within a 21-mer window centered at the singleton, we model the distributions of nucleotides A, C, G and T flanking the singletons using the rates we observe either genome-wide flanking the reference nucleotides XY at the same relative position or the rates of nucleotides flanking control positions sampled for each singleton. We use the chi-square goodness of fit statistic to "measure" the degree to which this model doesn't hold. First, let's plot the deviance statistics we observe at each relative position for each sub-type.
 
+### Singletons per Subtype
+
+|   | ALL | AFR | AMR | EAS | EUR | SAS |
+|:-:|:---:|:---:|:---:|:---:|:---:|:---:|
+| AT_CG | 3994644 | 1160586 | 490617 | 871253 | 653113 | 819915 |
+| AT_GC | 13689402 | 3958441 | 1735039 | 3070427 | 2207497 | 2719543 |
+| AT_TA | 3620603 | 1032682 | 447998 | 828306 | 586770 | 725607 |
+| GC_AT | 12388995| 3583196 | 1572949 | 2721559 | 1977163 | 2535890 |
+| GC_CG | 4246208 | 1253167 | 528073 | 939800 | 684128 | 841931 |
+| GC_TA | 4576214 | 1327907 | 568874 | 1013793 | 743282 | 923166 |
+| cpg_GC_AT | 5990034 | 1749306 | 748097 | 1315852 | 965863 | 1211353 |
+| cpg_GC_CG | 389681 | 109897 | 49895 | 86088 | 62986 | 80857 |
+| cpg_GC_TA | 492238 | 142803 | 59752 | 109941 | 77637 | 102155 |
+
 ```{r, echo=FALSE}
 load_results <- function(subtype, rp, sp){
   data_dir <- "/net/snowwhite/home/beckandy/research/1000G_LSCI/output/single_pos_df/"

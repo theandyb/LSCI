@@ -38,18 +38,29 @@ $$
 
 The nine basic subtypes are AT_CG, AT_GC, AT_TA, GC_AT, GC_TA, GC_CG, cpg_GC_AT, cpg_GC_TA, and cpg_GC_CG, where the notation XY_JK indicates we either observed a X>J or Y>K substitution, with XY and JK being complementary to each other. For each sub-type with reference alleles XY and position i within a 21-mer window centered at the singleton, we model the distributions of nucleotides A, C, G and T flanking the singletons using the rates we observe either genome-wide flanking the reference nucleotides XY at the same relative position or the rates of nucleotides flanking control positions sampled for each singleton. We use the chi-square goodness of fit statistic to "measure" the degree to which this model doesn't hold. First, let's plot the deviance statistics we observe at each relative position for each sub-type.
 
-```{r}
-load_6st_results <- function(subtype, rp){
+```{r, echo=FALSE}
+load_results <- function(subtype, rp){
   data_dir <- "/net/snowwhite/home/beckandy/research/BRIDGES_redo/output/single_pos_df/"
   f_name <- paste0(data_dir, subtype, "_rp", rp, ".csv")
   df <- read_csv(f_name, col_types = cols())
   return(df)
 }
 
-position_by_statistic_6st <- function(subtype, r_start = 1){
+load_all_results <- function(subtype, r_start = 1){
+  df <- load_results(subtype, -10)
+  df$rp <- -10
+  for(i in c(-9:-1, r_start:10)){
+    df2 <- load_results(subtype, i)
+    df2$rp <- i
+    df <- bind_rows(df, df2)
+  }
+  return(df)
+}
+
+statistic_by_position <- function(subtype, r_start = 1){
   final <- data.frame(pos = numeric(), chi_sq = numeric(), type = character())
   for(i in c(-10:-1, r_start:10)){
-    df <- load_6st_results(subtype, i)
+    df <- load_results(subtype, i)
     final <- bind_rows(final,
                        data.frame(pos = c(i,i), 
                                   chi_sq = c(sum(df$chi_sq_gw), sum(df$chi_sq_ct) ), 
@@ -58,8 +69,8 @@ position_by_statistic_6st <- function(subtype, r_start = 1){
   return(final)
 }
 
-plot_pos_stat_6st <- function(subtype, r_start = 1){
-  df <- position_by_statistic_6st(subtype, r_start)
+plot_pos_stat <- function(subtype, r_start = 1){
+  df <- statistic_by_position(subtype, r_start)
   p <-df %>%
     ggplot(aes(x = pos, y = chi_sq, colour = type)) +
     geom_point() +
@@ -70,60 +81,351 @@ plot_pos_stat_6st <- function(subtype, r_start = 1){
     labs(colour = "Background Rate")
   return(p)
 }
+
+plot_nuc_cont_by_position <- function(subtype, type = "gw", r_start = 1){
+  if(type == "gw"){
+    df <- load_all_results(subtype, r_start) %>% 
+      group_by(rp) %>% 
+      mutate(p_chi = chi_sq_gw / sum(chi_sq_gw))
+    g_title <- paste0("Nucleotide Contribution to Genome-wide Statistic: ", subtype)
+  } else{
+    df <- load_all_results(subtype, r_start) %>% 
+      group_by(rp) %>% 
+      mutate(p_chi = chi_sq_ct / sum(chi_sq_ct))
+    g_title <- paste0("Nucleotide Contribution to Control-rate Statistic: ", subtype)
+  }
+  
+  p <- df %>%
+    ggplot(aes(x = rp, y = p_chi, fill = Nuc)) +
+    geom_col() +
+    xlab("Relative Position") +
+    ylab("Proportion Contributed") +
+    labs(fill = "Nucleotide") +
+    ggtitle(g_title)
+  return(p)
+}
+
+plot_signed_nuc_by_pos <- function(subtype, type = "gw", r_start = 1){
+  df <- load_all_results(subtype, r_start)
+  if(type == "gw"){
+    df <- df %>%
+      mutate(s_val = sign(singletons - exp_gw)) %>%
+      mutate(signed_chi_sq = s_val * chi_sq_gw)
+    g_title <- paste0("Nucleotide Genome-wide Signed ChiSq Residual: ", subtype)
+  } else {
+    df <- df %>%
+      mutate(s_val = sign(singletons - exp_ct)) %>%
+      mutate(signed_chi_sq = s_val * chi_sq_ct)
+    g_title <- paste0("Nucleotide Control-Rate Signed ChiSq Residual: ", subtype)
+  }
+  p <- df %>%
+    ggplot(aes(x = rp, y = signed_chi_sq, colour = Nuc)) +
+    geom_point() +
+    geom_line() +
+    xlab("Relative Position") +
+    ylab("Signed ChiSq Contribution") +
+    labs(fill = "Nucleotide") +
+    ggtitle(g_title)
+  return(p)
+}
 ```
 
 ### AT_CG
 
 ```{r echo=FALSE}
-plot_pos_stat_6st("AT_CG")
+plot_pos_stat("AT_CG")
 ```
 
 ### AT_GC
 
 ```{r echo=FALSE}
-plot_pos_stat_6st("AT_GC")
+plot_pos_stat("AT_GC")
 ```
 
 ### AT_TA
 
 ```{r echo=FALSE}
-plot_pos_stat_6st("AT_TA")
+plot_pos_stat("AT_TA")
 ```
 
 ### GC_AT
 
 ```{r echo=FALSE}
-plot_pos_stat_6st("GC_AT", r_start = 2)
+plot_pos_stat("GC_AT", r_start = 2)
 ```
 
 ### GC_TA
 
 ```{r echo=FALSE}
-plot_pos_stat_6st("GC_TA", r_start = 2)
+plot_pos_stat("GC_TA", r_start = 2)
 ```
 
 ### GC_CG
 
 ```{r echo=FALSE}
-plot_pos_stat_6st("GC_CG", r_start = 2)
+plot_pos_stat("GC_CG", r_start = 2)
 ```
 
 ### cpg_GC_AT
 
 ```{r echo=FALSE}
-plot_pos_stat_6st("cpg_GC_AT", r_start = 2)
+plot_pos_stat("cpg_GC_AT", r_start = 2)
 ```
 
 ### cpg_GC_TA
 
 ```{r echo=FALSE}
-plot_pos_stat_6st("cpg_GC_TA", r_start = 2)
+plot_pos_stat("cpg_GC_TA", r_start = 2)
 ```
 
 ### cpg_GC_CG
 
 ```{r echo=FALSE}
-plot_pos_stat_6st("cpg_GC_CG", r_start = 2)
+plot_pos_stat("cpg_GC_CG", r_start = 2)
 ```
 
 ## 18 Subtype Results
+
+In the above analyses, we reduced the number of sub-types by taking the reverse complement of singletons whose reference alleles were either G or T. That is, for example, the AT_CG analysis at relative position -1 combined the counts of nucleotides observed -1 of A>C plus the counts of the complements of nucleotides observed +1 of T>G singletons. We do this because we don't generally (ever?) observe which strand the mutation originated on. Here we'll compare complementary "simple" sub-types to verify that we see the same patterns in both.
+
+```{r echo=FALSE}
+simple_rc <- function(nuc){
+  map_vec <- c("A","C","G","T")
+  names(map_vec) <- c("T","G","C","A")
+  return(map_vec[nuc])
+}
+
+load_simple_results <- function(subtype, rp){
+  data_dir <- "/net/snowwhite/home/beckandy/research/BRIDGES_redo/output/single_pos_df/"
+  f_name <- paste0(data_dir, "/6cat/", subtype, "_rp", rp, ".csv")
+  df <- read_csv(f_name, col_types = cols()) %>%
+    arrange(Nuc)
+  return(df)
+}
+
+load_simple_results_rc <- function(subtype, rp){
+  data_dir <- "/net/snowwhite/home/beckandy/research/BRIDGES_redo/output/single_pos_df/"
+  f_name <- paste0(data_dir, "/6cat/", subtype, "_rp", (-1*rp), ".csv")
+  df <- read_csv(f_name, col_types = cols()) %>%
+    rowwise() %>%
+    mutate(Nuc = simple_rc(Nuc)) %>%
+    arrange(Nuc)
+  return(df)
+}
+
+load_all_simple_results <- function(subtype, r_start = 1){
+  df <- load_simple_results(subtype, -10)
+  df$rp <- -10
+  for(i in c(-9:-1, r_start:10)){
+    df2 <- load_simple_results(subtype, i)
+    df2$rp <- i
+    df <- bind_rows(df, df2)
+  }
+  return(df)
+}
+
+load_all_simple_results_rc <- function(subtype, r_start = 1){
+  df <- load_simple_results_rc(subtype, -10)
+  df$rp <- -10
+  for(i in c(-9:-1, r_start:10)){
+    df2 <- load_simple_results_rc(subtype, i)
+    df2$rp <- i
+    df <- bind_rows(df, df2)
+  }
+  return(df)
+}
+
+simple_statistic_by_position <- function(subtype, r_start = 1, rc = FALSE){
+  final <- data.frame(pos = numeric(), chi_sq = numeric(), type = character())
+  for(i in c(-10:-1, r_start:10)){
+    if(rc){
+      df <- load_simple_results_rc(subtype, i)
+    } else {
+      df <- load_simple_results(subtype, i)
+    }
+    final <- bind_rows(final,
+                       data.frame(pos = c(i,i), 
+                                  chi_sq = c(sum(df$chi_sq_gw, na.rm = T), sum(df$chi_sq_ct, na.rm = T) ), 
+                                  type = c("Genome-wide", "Control")))
+  }
+  return(final)
+}
+
+plot_simple_pos_stat <- function(subtype, r_start = 1, rc = FALSE){
+  df <- simple_statistic_by_position(subtype, r_start, rc)
+  p <-df %>%
+    ggplot(aes(x = pos, y = chi_sq, colour = type)) +
+    geom_point() +
+    geom_line() +
+    ggtitle(paste0("BRIDGES Single-Position Results: ", subtype,
+                   ifelse(rc, " (rc)", ""))) +
+    xlab("Relative Position") +
+    ylab("Chi Square Goodness of Fit Statistic") +
+    labs(colour = "Background Rate")
+  return(p)
+}
+```
+
+### AT_CG
+
+For our first analysis, let's compare the results we observe in the AT_CG sub-type to what we observe for the two simple sub-types which contribute to this composite sub-type: A>C and T>G. Note that in order to compare T>G to AT>CG we'll need to take reverse complements, i.e. results for relative position 1 for T>G "flipped" to -1, 2 to -2, etc.
+
+```{r echo=FALSE}
+plot_simple_pos_stat("A_C")
+plot_simple_pos_stat("T_G", rc = TRUE)
+```
+
+In the above two plots we don't see any differences in the patterns for the A_C and T_G sub-types, suggesting that collapsing the two into one category is acceptable. 
+
+### AT_GC
+
+```{r echo=FALSE}
+plot_simple_pos_stat("A_G")
+plot_simple_pos_stat("T_C", rc = TRUE)
+```
+
+### AT_TA
+
+```{r echo=FALSE}
+plot_simple_pos_stat("A_T")
+plot_simple_pos_stat("T_A", rc = TRUE)
+```
+
+### GC_AT
+
+```{r echo=FALSE}
+plot_simple_pos_stat("C_T")
+plot_simple_pos_stat("G_A", rc = TRUE)
+```
+
+### cpg_GC_AT
+
+```{r echo=FALSE}
+plot_simple_pos_stat("cpg_C_T", r_start = 2)
+plot_simple_pos_stat("cpg_G_A", rc = TRUE, r_start = 2)
+```
+
+### GC_TA
+
+```{r echo=FALSE}
+plot_simple_pos_stat("C_A")
+plot_simple_pos_stat("G_T", rc = TRUE)
+```
+
+### cpg_GC_AT
+
+```{r echo=FALSE}
+plot_simple_pos_stat("cpg_C_A", r_start = 2)
+plot_simple_pos_stat("cpg_G_T", rc = TRUE, r_start = 2)
+```
+
+### GC_CG
+
+```{r echo=FALSE}
+plot_simple_pos_stat("C_G")
+plot_simple_pos_stat("G_C", rc = TRUE)
+```
+
+### cpg_GC_AT
+
+```{r echo=FALSE}
+plot_simple_pos_stat("cpg_C_G", r_start = 2)
+plot_simple_pos_stat("cpg_G_C", rc = TRUE, r_start = 2)
+```
+
+I do not see any substantial differences between simple sub-type pairs, and so forth I will only consider the 9 collapsed categories.
+
+## Nucleotide Level Contributions to Overall Statistics
+
+Above we explored at the level of each position how the distributions of nucleotides flanking singletons were different from the corresponding genome-wide and control sample distributions using the chi-square goodness of fit statistic. The overall statistic at each position is a summation of contributions from each of the four (or three) nucleotides at each position. Here we look at these contributions to identify which individual nucleotides are most "influential" at each position by plotting both the % contribution to the overall statistic at each position and the signed contribution (positive if a nucleotide was observed more in singletons than expected under gw/control rate, negative if fewer).
+
+### AT_CG
+
+```{r echo=FALSE}
+st <- "AT_CG"
+plot_nuc_cont_by_position(st)
+plot_signed_nuc_by_pos(st)
+plot_nuc_cont_by_position(st, type="ct")
+plot_signed_nuc_by_pos(st, type="ct")
+```
+
+### AT_GC
+
+```{r echo=FALSE}
+st <- "AT_GC"
+plot_nuc_cont_by_position(st)
+plot_signed_nuc_by_pos(st)
+plot_nuc_cont_by_position(st, type="ct")
+plot_signed_nuc_by_pos(st, type="ct")
+```
+
+### AT_TA
+
+```{r echo=FALSE}
+st <- "AT_TA"
+plot_nuc_cont_by_position(st)
+plot_signed_nuc_by_pos(st)
+plot_nuc_cont_by_position(st, type="ct")
+plot_signed_nuc_by_pos(st, type="ct")
+```
+
+### GC_AT
+
+```{r echo=FALSE}
+st <- "GC_AT"
+plot_nuc_cont_by_position(st)
+plot_signed_nuc_by_pos(st)
+plot_nuc_cont_by_position(st, type="ct")
+plot_signed_nuc_by_pos(st, type="ct")
+```
+
+### cpg_GC_AT
+
+```{r echo=FALSE}
+st <- "cpg_GC_AT"
+plot_nuc_cont_by_position(st, r_start = 2)
+plot_signed_nuc_by_pos(st, r_start = 2)
+plot_nuc_cont_by_position(st, type="ct", r_start = 2)
+plot_signed_nuc_by_pos(st, type="ct", r_start = 2)
+```
+
+### GC_CG
+
+```{r echo=FALSE}
+st <- "GC_CG"
+plot_nuc_cont_by_position(st)
+plot_signed_nuc_by_pos(st)
+plot_nuc_cont_by_position(st, type="ct")
+plot_signed_nuc_by_pos(st, type="ct")
+```
+
+### cpg_GC_CG
+
+```{r echo=FALSE}
+st <- "cpg_GC_CG"
+plot_nuc_cont_by_position(st, r_start = 2)
+plot_signed_nuc_by_pos(st, r_start = 2)
+plot_nuc_cont_by_position(st, type="ct", r_start = 2)
+plot_signed_nuc_by_pos(st, type="ct", r_start = 2)
+```
+
+### GC_TA
+
+```{r echo=FALSE}
+st <- "GC_TA"
+plot_nuc_cont_by_position(st)
+plot_signed_nuc_by_pos(st)
+plot_nuc_cont_by_position(st, type="ct")
+plot_signed_nuc_by_pos(st, type="ct")
+```
+
+### cpg_GC_TA
+
+```{r echo=FALSE}
+st <- "cpg_GC_TA"
+plot_nuc_cont_by_position(st, r_start = 2)
+plot_signed_nuc_by_pos(st, r_start = 2)
+plot_nuc_cont_by_position(st, type="ct", r_start = 2)
+plot_signed_nuc_by_pos(st, type="ct", r_start = 2)
+```
+
