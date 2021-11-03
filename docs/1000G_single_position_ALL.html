@@ -379,7 +379,7 @@ div.tocify {
 <div class="tab-content">
 <div id="summary" class="tab-pane fade in active">
 <p>
-<strong>Last updated:</strong> 2021-11-02
+<strong>Last updated:</strong> 2021-11-03
 </p>
 <p>
 <strong>Checks:</strong> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> 7 <span class="glyphicon glyphicon-exclamation-sign text-danger" aria-hidden="true"></span> 0
@@ -470,16 +470,16 @@ This reproducible <a href="http://rmarkdown.rstudio.com">R Markdown</a> analysis
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomtheandybLSCItree203fd4a87d4d0c14d0526ec96fe97e5f003086e9targetblank203fd4aa"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/theandyb/LSCI/tree/203fd4a87d4d0c14d0526ec96fe97e5f003086e9" target="_blank">203fd4a</a> </a>
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomtheandybLSCItreeb9b88b2a1c1d020541e6836989d93291c4f55ae8targetblankb9b88b2a"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/theandyb/LSCI/tree/b9b88b2a1c1d020541e6836989d93291c4f55ae8" target="_blank">b9b88b2</a> </a>
 </p>
 </div>
-<div id="strongRepositoryversionstrongahrefhttpsgithubcomtheandybLSCItree203fd4a87d4d0c14d0526ec96fe97e5f003086e9targetblank203fd4aa" class="panel-collapse collapse">
+<div id="strongRepositoryversionstrongahrefhttpsgithubcomtheandybLSCItreeb9b88b2a1c1d020541e6836989d93291c4f55ae8targetblankb9b88b2a" class="panel-collapse collapse">
 <div class="panel-body">
 <p>
 Great! You are using Git for version control. Tracking code development and connecting the code version to the results is critical for reproducibility.
 </p>
 <p>
-The results in this page were generated with repository version <a href="https://github.com/theandyb/LSCI/tree/203fd4a87d4d0c14d0526ec96fe97e5f003086e9" target="_blank">203fd4a</a>. See the <em>Past versions</em> tab to see a history of the changes made to the R Markdown and HTML files.
+The results in this page were generated with repository version <a href="https://github.com/theandyb/LSCI/tree/b9b88b2a1c1d020541e6836989d93291c4f55ae8" target="_blank">b9b88b2</a>. See the <em>Past versions</em> tab to see a history of the changes made to the R Markdown and HTML files.
 </p>
 <p>
 Note that you need to be careful to ensure that all relevant files for the analysis have been committed to Git prior to generating the results (you can use <code>wflow_publish</code> or <code>wflow_git_commit</code>). workflowr only checks the R Markdown file, but you know if there are other scripts or data files that it depends on. Below is the status of the Git repository when the results were generated:
@@ -488,6 +488,14 @@ Note that you need to be careful to ensure that all relevant files for the analy
 Ignored files:
     Ignored:    .Rhistory
     Ignored:    .Rproj.user/
+
+Untracked files:
+    Untracked:  analysis/1000G_summary_stats.Rmd
+
+Unstaged changes:
+    Modified:   analysis/BRIDGES_single_position.Rmd
+    Modified:   analysis/BRIDGES_summary_stats.Rmd
+    Modified:   analysis/index.Rmd
 
 </code></pre>
 <p>
@@ -526,6 +534,40 @@ Message
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+Rmd
+</td>
+<td>
+<a href="https://github.com/theandyb/LSCI/blob/b9b88b2a1c1d020541e6836989d93291c4f55ae8/analysis/1000G_single_position_ALL.Rmd" target="_blank">b9b88b2</a>
+</td>
+<td>
+Andy Beck
+</td>
+<td>
+2021-11-03
+</td>
+<td>
+Finshed ALL analysis for single position models
+</td>
+</tr>
+<tr>
+<td>
+html
+</td>
+<td>
+<a href="https://rawcdn.githack.com/theandyb/LSCI/277edeed1c90a45e6267165a7b3156f1f37a7eeb/docs/1000G_single_position_ALL.html" target="_blank">277edee</a>
+</td>
+<td>
+Andy Beck
+</td>
+<td>
+2021-11-02
+</td>
+<td>
+Build site.
+</td>
+</tr>
 <tr>
 <td>
 Rmd
@@ -627,99 +669,1315 @@ flesh out some pages
 <div id="subtype-results" class="section level2">
 <h2>9 Subtype Results</h2>
 <p>The nine basic subtypes are AT_CG, AT_GC, AT_TA, GC_AT, GC_TA, GC_CG, cpg_GC_AT, cpg_GC_TA, and cpg_GC_CG, where the notation XY_JK indicates we either observed a X&gt;J or Y&gt;K substitution, with XY and JK being complementary to each other. For each sub-type with reference alleles XY and position i within a 21-mer window centered at the singleton, we model the distributions of nucleotides A, C, G and T flanking the singletons using the rates we observe either genome-wide flanking the reference nucleotides XY at the same relative position or the rates of nucleotides flanking control positions sampled for each singleton. We use the chi-square goodness of fit statistic to “measure” the degree to which this model doesn’t hold. First, let’s plot the deviance statistics we observe at each relative position for each sub-type.</p>
-<pre class="r"><code>load_results &lt;- function(subtype, rp, sp){
-  data_dir &lt;- &quot;/net/snowwhite/home/beckandy/research/1000G_LSCI/output/single_pos_df/&quot;
-  f_name &lt;- paste0(data_dir, sp, &quot;/&quot;, subtype, &quot;_rp&quot;, rp, &quot;.csv&quot;)
-  df &lt;- read_csv(f_name, col_types = cols())
-  return(df)
-}
-
-position_by_statistic &lt;- function(subtype, sp, r_start = 1){
-  final &lt;- data.frame(pos = numeric(), chi_sq = numeric(), type = character())
-  for(i in c(-10:-1, r_start:10)){
-    df &lt;- load_results(subtype, i, sp)
-    final &lt;- bind_rows(final,
-                       data.frame(pos = c(i,i), 
-                                  chi_sq = c(sum(df$chi_sq_gw), sum(df$chi_sq_ct) ), 
-                                  type = c(&quot;Genome-wide&quot;, &quot;Control&quot;)))
-  }
-  return(final)
-}
-
-plot_pos_stat &lt;- function(subtype, sp, r_start = 1){
-  df &lt;- position_by_statistic(subtype, sp, r_start)
-  p &lt;-df %&gt;%
-    ggplot(aes(x = pos, y = chi_sq, colour = type)) +
-    geom_point() +
-    geom_line() +
-    ggtitle(paste0(&quot;1000G Single-Position Results: &quot;, subtype),
-            paste0(&quot;Population: &quot;, sp)) +
-    xlab(&quot;Relative Position&quot;) +
-    ylab(&quot;Chi Square Goodness of Fit Statistic&quot;) +
-    labs(colour = &quot;Background Rate&quot;)
-  return(p)
-}</code></pre>
 <div id="at_cg" class="section level3">
 <h3>AT_CG</h3>
 <p><img src="figure/1000G_single_position_ALL.Rmd/unnamed-chunk-3-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-3-1">
+Past versions of unnamed-chunk-3-1.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-3-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/theandyb/LSCI/blob/277edeed1c90a45e6267165a7b3156f1f37a7eeb/docs/figure/1000G_single_position_ALL.Rmd/unnamed-chunk-3-1.png" target="_blank">277edee</a>
+</td>
+<td>
+Andy Beck
+</td>
+<td>
+2021-11-02
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<table>
+<thead>
+<tr class="header">
+<th align="right">pos</th>
+<th align="right">Control</th>
+<th align="right">Genome-wide</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="right">-10</td>
+<td align="right">3909.664</td>
+<td align="right">3752.8968</td>
+</tr>
+<tr class="even">
+<td align="right">-9</td>
+<td align="right">5263.284</td>
+<td align="right">3550.3463</td>
+</tr>
+<tr class="odd">
+<td align="right">-8</td>
+<td align="right">15642.334</td>
+<td align="right">13986.3230</td>
+</tr>
+<tr class="even">
+<td align="right">-7</td>
+<td align="right">6086.249</td>
+<td align="right">6069.2482</td>
+</tr>
+<tr class="odd">
+<td align="right">-6</td>
+<td align="right">1401.820</td>
+<td align="right">904.4875</td>
+</tr>
+<tr class="even">
+<td align="right">-5</td>
+<td align="right">4348.420</td>
+<td align="right">2103.7250</td>
+</tr>
+<tr class="odd">
+<td align="right">-4</td>
+<td align="right">17853.466</td>
+<td align="right">10718.7472</td>
+</tr>
+<tr class="even">
+<td align="right">-3</td>
+<td align="right">43957.768</td>
+<td align="right">43540.9054</td>
+</tr>
+<tr class="odd">
+<td align="right">-2</td>
+<td align="right">4486.748</td>
+<td align="right">9811.8987</td>
+</tr>
+<tr class="even">
+<td align="right">-1</td>
+<td align="right">110058.267</td>
+<td align="right">102569.0783</td>
+</tr>
+<tr class="odd">
+<td align="right">1</td>
+<td align="right">25170.984</td>
+<td align="right">15332.3724</td>
+</tr>
+<tr class="even">
+<td align="right">2</td>
+<td align="right">31916.849</td>
+<td align="right">48939.5782</td>
+</tr>
+<tr class="odd">
+<td align="right">3</td>
+<td align="right">14291.747</td>
+<td align="right">24773.3056</td>
+</tr>
+<tr class="even">
+<td align="right">4</td>
+<td align="right">11186.963</td>
+<td align="right">21358.2930</td>
+</tr>
+<tr class="odd">
+<td align="right">5</td>
+<td align="right">6865.633</td>
+<td align="right">8992.5352</td>
+</tr>
+<tr class="even">
+<td align="right">6</td>
+<td align="right">1799.656</td>
+<td align="right">2861.1320</td>
+</tr>
+<tr class="odd">
+<td align="right">7</td>
+<td align="right">3152.780</td>
+<td align="right">4307.1307</td>
+</tr>
+<tr class="even">
+<td align="right">8</td>
+<td align="right">3612.311</td>
+<td align="right">5070.7123</td>
+</tr>
+<tr class="odd">
+<td align="right">9</td>
+<td align="right">5253.175</td>
+<td align="right">5456.1096</td>
+</tr>
+<tr class="even">
+<td align="right">10</td>
+<td align="right">2153.249</td>
+<td align="right">1818.3573</td>
+</tr>
+</tbody>
+</table>
+<p>Here we see that the results for both the genome-wide rate and the control distribution rate models tell essentially the same story about the marginal influence of nucleotides at each position: the strongest influence (or deviation from expectation) occurs at the -1 relative position, and in general decreases as we move further from the focal site. Although the statistics do drop drastically as we move towards +/- 10, the unadjusted statistics are still statistically significant (chi-square null distribution with 4 - 1 = 3 degrees of freedom).</p>
 </div>
 <div id="at_gc" class="section level3">
 <h3>AT_GC</h3>
-<p><img src="figure/1000G_single_position_ALL.Rmd/unnamed-chunk-4-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p><img src="figure/1000G_single_position_ALL.Rmd/unnamed-chunk-5-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-5-1">
+Past versions of unnamed-chunk-5-1.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-5-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/theandyb/LSCI/blob/277edeed1c90a45e6267165a7b3156f1f37a7eeb/docs/figure/1000G_single_position_ALL.Rmd/unnamed-chunk-5-1.png" target="_blank">277edee</a>
+</td>
+<td>
+Andy Beck
+</td>
+<td>
+2021-11-02
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<table>
+<thead>
+<tr class="header">
+<th align="right">pos</th>
+<th align="right">Control</th>
+<th align="right">Genome-wide</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="right">-10</td>
+<td align="right">3048.305</td>
+<td align="right">15715.359</td>
+</tr>
+<tr class="even">
+<td align="right">-9</td>
+<td align="right">2792.281</td>
+<td align="right">9823.748</td>
+</tr>
+<tr class="odd">
+<td align="right">-8</td>
+<td align="right">8216.018</td>
+<td align="right">5671.571</td>
+</tr>
+<tr class="even">
+<td align="right">-7</td>
+<td align="right">11570.305</td>
+<td align="right">14394.557</td>
+</tr>
+<tr class="odd">
+<td align="right">-6</td>
+<td align="right">9916.471</td>
+<td align="right">14345.903</td>
+</tr>
+<tr class="even">
+<td align="right">-5</td>
+<td align="right">16827.807</td>
+<td align="right">37917.544</td>
+</tr>
+<tr class="odd">
+<td align="right">-4</td>
+<td align="right">5087.232</td>
+<td align="right">14174.861</td>
+</tr>
+<tr class="even">
+<td align="right">-3</td>
+<td align="right">29867.136</td>
+<td align="right">75013.116</td>
+</tr>
+<tr class="odd">
+<td align="right">-2</td>
+<td align="right">974275.833</td>
+<td align="right">910127.991</td>
+</tr>
+<tr class="even">
+<td align="right">-1</td>
+<td align="right">492162.419</td>
+<td align="right">629718.739</td>
+</tr>
+<tr class="odd">
+<td align="right">1</td>
+<td align="right">1920807.543</td>
+<td align="right">2359746.444</td>
+</tr>
+<tr class="even">
+<td align="right">2</td>
+<td align="right">101050.477</td>
+<td align="right">63657.891</td>
+</tr>
+<tr class="odd">
+<td align="right">3</td>
+<td align="right">158704.205</td>
+<td align="right">133355.243</td>
+</tr>
+<tr class="even">
+<td align="right">4</td>
+<td align="right">10799.255</td>
+<td align="right">38886.731</td>
+</tr>
+<tr class="odd">
+<td align="right">5</td>
+<td align="right">10609.967</td>
+<td align="right">41835.704</td>
+</tr>
+<tr class="even">
+<td align="right">6</td>
+<td align="right">14763.085</td>
+<td align="right">34799.355</td>
+</tr>
+<tr class="odd">
+<td align="right">7</td>
+<td align="right">40417.300</td>
+<td align="right">60143.344</td>
+</tr>
+<tr class="even">
+<td align="right">8</td>
+<td align="right">16462.840</td>
+<td align="right">28223.966</td>
+</tr>
+<tr class="odd">
+<td align="right">9</td>
+<td align="right">11629.516</td>
+<td align="right">6902.193</td>
+</tr>
+<tr class="even">
+<td align="right">10</td>
+<td align="right">7898.442</td>
+<td align="right">8568.611</td>
+</tr>
+</tbody>
+</table>
+<p>Here for the AT_GC transition we see a similar pattern to what we observed above, but with the most influential marginal effect occurring at the +1 position.</p>
 </div>
 <div id="at_ta" class="section level3">
 <h3>AT_TA</h3>
-<p><img src="figure/1000G_single_position_ALL.Rmd/unnamed-chunk-5-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p><img src="figure/1000G_single_position_ALL.Rmd/unnamed-chunk-7-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-7-1">
+Past versions of unnamed-chunk-7-1.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-7-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/theandyb/LSCI/blob/277edeed1c90a45e6267165a7b3156f1f37a7eeb/docs/figure/1000G_single_position_ALL.Rmd/unnamed-chunk-7-1.png" target="_blank">277edee</a>
+</td>
+<td>
+Andy Beck
+</td>
+<td>
+2021-11-02
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<table>
+<thead>
+<tr class="header">
+<th align="right">pos</th>
+<th align="right">Control</th>
+<th align="right">Genome-wide</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="right">-10</td>
+<td align="right">3292.793</td>
+<td align="right">6131.714</td>
+</tr>
+<tr class="even">
+<td align="right">-9</td>
+<td align="right">3273.184</td>
+<td align="right">5830.658</td>
+</tr>
+<tr class="odd">
+<td align="right">-8</td>
+<td align="right">4612.309</td>
+<td align="right">5994.926</td>
+</tr>
+<tr class="even">
+<td align="right">-7</td>
+<td align="right">5878.916</td>
+<td align="right">6340.183</td>
+</tr>
+<tr class="odd">
+<td align="right">-6</td>
+<td align="right">7647.029</td>
+<td align="right">8036.787</td>
+</tr>
+<tr class="even">
+<td align="right">-5</td>
+<td align="right">13164.668</td>
+<td align="right">13444.601</td>
+</tr>
+<tr class="odd">
+<td align="right">-4</td>
+<td align="right">22141.512</td>
+<td align="right">19057.461</td>
+</tr>
+<tr class="even">
+<td align="right">-3</td>
+<td align="right">16955.360</td>
+<td align="right">13832.215</td>
+</tr>
+<tr class="odd">
+<td align="right">-2</td>
+<td align="right">30393.390</td>
+<td align="right">35851.033</td>
+</tr>
+<tr class="even">
+<td align="right">-1</td>
+<td align="right">37135.663</td>
+<td align="right">45369.780</td>
+</tr>
+<tr class="odd">
+<td align="right">1</td>
+<td align="right">231854.579</td>
+<td align="right">305004.868</td>
+</tr>
+<tr class="even">
+<td align="right">2</td>
+<td align="right">29093.551</td>
+<td align="right">51508.303</td>
+</tr>
+<tr class="odd">
+<td align="right">3</td>
+<td align="right">21941.803</td>
+<td align="right">36220.797</td>
+</tr>
+<tr class="even">
+<td align="right">4</td>
+<td align="right">6903.817</td>
+<td align="right">12163.665</td>
+</tr>
+<tr class="odd">
+<td align="right">5</td>
+<td align="right">9701.432</td>
+<td align="right">13040.044</td>
+</tr>
+<tr class="even">
+<td align="right">6</td>
+<td align="right">7029.281</td>
+<td align="right">8727.380</td>
+</tr>
+<tr class="odd">
+<td align="right">7</td>
+<td align="right">4207.015</td>
+<td align="right">11368.437</td>
+</tr>
+<tr class="even">
+<td align="right">8</td>
+<td align="right">4387.194</td>
+<td align="right">9657.464</td>
+</tr>
+<tr class="odd">
+<td align="right">9</td>
+<td align="right">3113.330</td>
+<td align="right">7375.028</td>
+</tr>
+<tr class="even">
+<td align="right">10</td>
+<td align="right">3104.485</td>
+<td align="right">7244.313</td>
+</tr>
+</tbody>
+</table>
+<p>Here for the A&gt;T(T&gt;A) transversion we see that the signal at the +1 is far greater than what we observe at other relative positions. This is in contrast to what we observed above where marginal signals at multiple relative positions (generally the +/- 1 positions) stood out. Otherwise we again see the same trend of statistics drastically decreasing as we move further up or down stream.</p>
 </div>
 <div id="gc_at" class="section level3">
 <h3>GC_AT</h3>
-<p><img src="figure/1000G_single_position_ALL.Rmd/unnamed-chunk-6-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p><img src="figure/1000G_single_position_ALL.Rmd/unnamed-chunk-9-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-9-1">
+Past versions of unnamed-chunk-9-1.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-9-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/theandyb/LSCI/blob/277edeed1c90a45e6267165a7b3156f1f37a7eeb/docs/figure/1000G_single_position_ALL.Rmd/unnamed-chunk-9-1.png" target="_blank">277edee</a>
+</td>
+<td>
+Andy Beck
+</td>
+<td>
+2021-11-02
+</td>
+</tr>
+</tbody>
+</table>
 </div>
-<div id="gc_ta" class="section level3">
-<h3>GC_TA</h3>
-<p><img src="figure/1000G_single_position_ALL.Rmd/unnamed-chunk-7-1.png" width="672" style="display: block; margin: auto;" /></p>
 </div>
-<div id="gc_cg" class="section level3">
-<h3>GC_CG</h3>
-<p><img src="figure/1000G_single_position_ALL.Rmd/unnamed-chunk-8-1.png" width="672" style="display: block; margin: auto;" /></p>
+<table>
+<thead>
+<tr class="header">
+<th align="right">pos</th>
+<th align="right">Control</th>
+<th align="right">Genome-wide</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="right">-10</td>
+<td align="right">3350.845</td>
+<td align="right">9908.2871</td>
+</tr>
+<tr class="even">
+<td align="right">-9</td>
+<td align="right">3059.312</td>
+<td align="right">11769.7734</td>
+</tr>
+<tr class="odd">
+<td align="right">-8</td>
+<td align="right">6085.859</td>
+<td align="right">8984.9085</td>
+</tr>
+<tr class="even">
+<td align="right">-7</td>
+<td align="right">7268.507</td>
+<td align="right">3602.6510</td>
+</tr>
+<tr class="odd">
+<td align="right">-6</td>
+<td align="right">9456.266</td>
+<td align="right">5246.2555</td>
+</tr>
+<tr class="even">
+<td align="right">-5</td>
+<td align="right">24145.172</td>
+<td align="right">10259.5197</td>
+</tr>
+<tr class="odd">
+<td align="right">-4</td>
+<td align="right">13968.633</td>
+<td align="right">9928.2225</td>
+</tr>
+<tr class="even">
+<td align="right">-3</td>
+<td align="right">13565.825</td>
+<td align="right">1395.7450</td>
+</tr>
+<tr class="odd">
+<td align="right">-2</td>
+<td align="right">69744.817</td>
+<td align="right">31545.8763</td>
+</tr>
+<tr class="even">
+<td align="right">-1</td>
+<td align="right">240426.432</td>
+<td align="right">249732.9358</td>
+</tr>
+<tr class="odd">
+<td align="right">1</td>
+<td align="right">123109.523</td>
+<td align="right">50981.9713</td>
+</tr>
+<tr class="even">
+<td align="right">2</td>
+<td align="right">242371.069</td>
+<td align="right">178144.1930</td>
+</tr>
+<tr class="odd">
+<td align="right">3</td>
+<td align="right">77798.534</td>
+<td align="right">38005.2440</td>
+</tr>
+<tr class="even">
+<td align="right">4</td>
+<td align="right">32728.122</td>
+<td align="right">13917.5009</td>
+</tr>
+<tr class="odd">
+<td align="right">5</td>
+<td align="right">19409.045</td>
+<td align="right">489.5381</td>
+</tr>
+<tr class="even">
+<td align="right">6</td>
+<td align="right">13376.880</td>
+<td align="right">2581.2421</td>
+</tr>
+<tr class="odd">
+<td align="right">7</td>
+<td align="right">16253.643</td>
+<td align="right">4633.5835</td>
+</tr>
+<tr class="even">
+<td align="right">8</td>
+<td align="right">15787.637</td>
+<td align="right">1736.6744</td>
+</tr>
+<tr class="odd">
+<td align="right">9</td>
+<td align="right">18970.200</td>
+<td align="right">3171.8906</td>
+</tr>
+<tr class="even">
+<td align="right">10</td>
+<td align="right">21882.328</td>
+<td align="right">4667.0270</td>
+</tr>
+</tbody>
+</table>
+<p>Here we look at the G&gt;A (C&gt;T) transition, conditioning on sites not being CpGs (note: due to this the degrees of freedom for the test statistic at the +1 position is 2 instead of 3). Here we see that, with the exception of the -1 position, the control distribution-based statistic is greater than what we observe with the genome-wide-based statistic.</p>
 </div>
 <div id="cpg_gc_at" class="section level3">
 <h3>cpg_GC_AT</h3>
-<p><img src="figure/1000G_single_position_ALL.Rmd/unnamed-chunk-9-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p><img src="figure/1000G_single_position_ALL.Rmd/unnamed-chunk-11-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-11-1">
+Past versions of unnamed-chunk-11-1.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-11-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/theandyb/LSCI/blob/277edeed1c90a45e6267165a7b3156f1f37a7eeb/docs/figure/1000G_single_position_ALL.Rmd/unnamed-chunk-11-1.png" target="_blank">277edee</a>
+</td>
+<td>
+Andy Beck
+</td>
+<td>
+2021-11-02
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<table>
+<thead>
+<tr class="header">
+<th align="right">pos</th>
+<th align="right">Control</th>
+<th align="right">Genome-wide</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="right">-10</td>
+<td align="right">1011.8594</td>
+<td align="right">25725.544</td>
+</tr>
+<tr class="even">
+<td align="right">-9</td>
+<td align="right">1020.2888</td>
+<td align="right">22886.022</td>
+</tr>
+<tr class="odd">
+<td align="right">-8</td>
+<td align="right">2061.6493</td>
+<td align="right">30138.212</td>
+</tr>
+<tr class="even">
+<td align="right">-7</td>
+<td align="right">1391.4009</td>
+<td align="right">14307.371</td>
+</tr>
+<tr class="odd">
+<td align="right">-6</td>
+<td align="right">671.4322</td>
+<td align="right">14213.706</td>
+</tr>
+<tr class="even">
+<td align="right">-5</td>
+<td align="right">334.4443</td>
+<td align="right">16515.732</td>
+</tr>
+<tr class="odd">
+<td align="right">-4</td>
+<td align="right">1840.2837</td>
+<td align="right">17429.249</td>
+</tr>
+<tr class="even">
+<td align="right">-3</td>
+<td align="right">223.1028</td>
+<td align="right">14293.637</td>
+</tr>
+<tr class="odd">
+<td align="right">-2</td>
+<td align="right">4422.2355</td>
+<td align="right">18765.110</td>
+</tr>
+<tr class="even">
+<td align="right">-1</td>
+<td align="right">37144.9954</td>
+<td align="right">70915.217</td>
+</tr>
+<tr class="odd">
+<td align="right">2</td>
+<td align="right">18983.3616</td>
+<td align="right">1357.295</td>
+</tr>
+<tr class="even">
+<td align="right">3</td>
+<td align="right">4371.9005</td>
+<td align="right">13471.990</td>
+</tr>
+<tr class="odd">
+<td align="right">4</td>
+<td align="right">402.2436</td>
+<td align="right">16381.684</td>
+</tr>
+<tr class="even">
+<td align="right">5</td>
+<td align="right">1835.8911</td>
+<td align="right">19083.645</td>
+</tr>
+<tr class="odd">
+<td align="right">6</td>
+<td align="right">646.3204</td>
+<td align="right">18343.993</td>
+</tr>
+<tr class="even">
+<td align="right">7</td>
+<td align="right">1257.4569</td>
+<td align="right">18397.589</td>
+</tr>
+<tr class="odd">
+<td align="right">8</td>
+<td align="right">920.4925</td>
+<td align="right">13210.480</td>
+</tr>
+<tr class="even">
+<td align="right">9</td>
+<td align="right">1982.6114</td>
+<td align="right">29510.198</td>
+</tr>
+<tr class="odd">
+<td align="right">10</td>
+<td align="right">433.1020</td>
+<td align="right">21454.531</td>
+</tr>
+</tbody>
+</table>
+<p>Here we condition on the +1 being a G for the G&gt;A(C&gt;T) transition. It is interesting to see for this sub-type that when we condition on the +1 being a G, we see that the control-based statistic behaves like it does for the other sub-types in that it drops precipitously as we move further up/down stream, but the genome-wide rate appears to plateau at a much higher value. It should also be noted that this is the only sub-type in which this pattern is observed.</p>
+</div>
+<div id="gc_ta" class="section level3">
+<h3>GC_TA</h3>
+<p><img src="figure/1000G_single_position_ALL.Rmd/unnamed-chunk-13-1.png" width="672" style="display: block; margin: auto;" /></p>
+<table>
+<thead>
+<tr class="header">
+<th align="right">pos</th>
+<th align="right">Control</th>
+<th align="right">Genome-wide</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="right">-10</td>
+<td align="right">3101.0688</td>
+<td align="right">10397.364</td>
+</tr>
+<tr class="even">
+<td align="right">-9</td>
+<td align="right">2359.2275</td>
+<td align="right">13488.464</td>
+</tr>
+<tr class="odd">
+<td align="right">-8</td>
+<td align="right">2521.6149</td>
+<td align="right">18036.683</td>
+</tr>
+<tr class="even">
+<td align="right">-7</td>
+<td align="right">651.1117</td>
+<td align="right">13317.496</td>
+</tr>
+<tr class="odd">
+<td align="right">-6</td>
+<td align="right">2973.5244</td>
+<td align="right">15470.436</td>
+</tr>
+<tr class="even">
+<td align="right">-5</td>
+<td align="right">33810.9710</td>
+<td align="right">15365.140</td>
+</tr>
+<tr class="odd">
+<td align="right">-4</td>
+<td align="right">47739.5370</td>
+<td align="right">25118.534</td>
+</tr>
+<tr class="even">
+<td align="right">-3</td>
+<td align="right">65847.3438</td>
+<td align="right">84504.585</td>
+</tr>
+<tr class="odd">
+<td align="right">-2</td>
+<td align="right">124059.8907</td>
+<td align="right">180791.494</td>
+</tr>
+<tr class="even">
+<td align="right">-1</td>
+<td align="right">78048.8212</td>
+<td align="right">123969.539</td>
+</tr>
+<tr class="odd">
+<td align="right">1</td>
+<td align="right">272543.4138</td>
+<td align="right">172268.013</td>
+</tr>
+<tr class="even">
+<td align="right">2</td>
+<td align="right">87510.3899</td>
+<td align="right">112517.306</td>
+</tr>
+<tr class="odd">
+<td align="right">3</td>
+<td align="right">42177.5385</td>
+<td align="right">45175.838</td>
+</tr>
+<tr class="even">
+<td align="right">4</td>
+<td align="right">21825.1533</td>
+<td align="right">34681.518</td>
+</tr>
+<tr class="odd">
+<td align="right">5</td>
+<td align="right">9124.7901</td>
+<td align="right">6776.073</td>
+</tr>
+<tr class="even">
+<td align="right">6</td>
+<td align="right">3268.7291</td>
+<td align="right">6589.775</td>
+</tr>
+<tr class="odd">
+<td align="right">7</td>
+<td align="right">1340.5213</td>
+<td align="right">6308.136</td>
+</tr>
+<tr class="even">
+<td align="right">8</td>
+<td align="right">1063.3686</td>
+<td align="right">5979.045</td>
+</tr>
+<tr class="odd">
+<td align="right">9</td>
+<td align="right">3519.2318</td>
+<td align="right">8432.929</td>
+</tr>
+<tr class="even">
+<td align="right">10</td>
+<td align="right">5795.2812</td>
+<td align="right">6947.037</td>
+</tr>
+</tbody>
+</table>
+<p>For the G&gt;T(C&gt;A) transversion at non-CpG sites we see that the largest marginal effect for the control-rate models appears at the +1 position, with the -1 position also appearing to be influential as well.</p>
 </div>
 <div id="cpg_gc_ta" class="section level3">
 <h3>cpg_GC_TA</h3>
-<p><img src="figure/1000G_single_position_ALL.Rmd/unnamed-chunk-10-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p><img src="figure/1000G_single_position_ALL.Rmd/unnamed-chunk-15-1.png" width="672" style="display: block; margin: auto;" /></p>
+<table>
+<thead>
+<tr class="header">
+<th align="right">pos</th>
+<th align="right">Control</th>
+<th align="right">Genome-wide</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="right">-10</td>
+<td align="right">261.08370</td>
+<td align="right">228.2267</td>
+</tr>
+<tr class="even">
+<td align="right">-9</td>
+<td align="right">578.69538</td>
+<td align="right">1206.8726</td>
+</tr>
+<tr class="odd">
+<td align="right">-8</td>
+<td align="right">1271.46598</td>
+<td align="right">1562.9295</td>
+</tr>
+<tr class="even">
+<td align="right">-7</td>
+<td align="right">499.71565</td>
+<td align="right">925.3156</td>
+</tr>
+<tr class="odd">
+<td align="right">-6</td>
+<td align="right">452.87450</td>
+<td align="right">727.1683</td>
+</tr>
+<tr class="even">
+<td align="right">-5</td>
+<td align="right">8942.73391</td>
+<td align="right">7457.3001</td>
+</tr>
+<tr class="odd">
+<td align="right">-4</td>
+<td align="right">8411.92618</td>
+<td align="right">6856.9089</td>
+</tr>
+<tr class="even">
+<td align="right">-3</td>
+<td align="right">2945.98905</td>
+<td align="right">2741.2157</td>
+</tr>
+<tr class="odd">
+<td align="right">-2</td>
+<td align="right">6577.87058</td>
+<td align="right">8854.4462</td>
+</tr>
+<tr class="even">
+<td align="right">-1</td>
+<td align="right">24183.50722</td>
+<td align="right">22543.2694</td>
+</tr>
+<tr class="odd">
+<td align="right">2</td>
+<td align="right">88.77684</td>
+<td align="right">544.4807</td>
+</tr>
+<tr class="even">
+<td align="right">3</td>
+<td align="right">61.04601</td>
+<td align="right">404.2752</td>
+</tr>
+<tr class="odd">
+<td align="right">4</td>
+<td align="right">1273.90456</td>
+<td align="right">2714.0029</td>
+</tr>
+<tr class="even">
+<td align="right">5</td>
+<td align="right">281.29299</td>
+<td align="right">981.6333</td>
+</tr>
+<tr class="odd">
+<td align="right">6</td>
+<td align="right">2059.94094</td>
+<td align="right">3785.5263</td>
+</tr>
+<tr class="even">
+<td align="right">7</td>
+<td align="right">1108.95777</td>
+<td align="right">1890.0539</td>
+</tr>
+<tr class="odd">
+<td align="right">8</td>
+<td align="right">738.16612</td>
+<td align="right">1485.4769</td>
+</tr>
+<tr class="even">
+<td align="right">9</td>
+<td align="right">495.09931</td>
+<td align="right">1895.2980</td>
+</tr>
+<tr class="odd">
+<td align="right">10</td>
+<td align="right">79.24031</td>
+<td align="right">978.6702</td>
+</tr>
+</tbody>
+</table>
+<p>When we condition on the site being a CpG, we see that the largest marginal influence appears at the -1 site, with a modest signal at the -4 and -5 positions as well.</p>
+</div>
+<div id="gc_cg" class="section level3">
+<h3>GC_CG</h3>
+<p><img src="figure/1000G_single_position_ALL.Rmd/unnamed-chunk-17-1.png" width="672" style="display: block; margin: auto;" /></p>
+<table>
+<thead>
+<tr class="header">
+<th align="right">pos</th>
+<th align="right">Control</th>
+<th align="right">Genome-wide</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="right">-10</td>
+<td align="right">1355.953</td>
+<td align="right">3068.1080</td>
+</tr>
+<tr class="even">
+<td align="right">-9</td>
+<td align="right">2835.392</td>
+<td align="right">4417.8726</td>
+</tr>
+<tr class="odd">
+<td align="right">-8</td>
+<td align="right">4723.424</td>
+<td align="right">1417.1583</td>
+</tr>
+<tr class="even">
+<td align="right">-7</td>
+<td align="right">4551.056</td>
+<td align="right">282.0808</td>
+</tr>
+<tr class="odd">
+<td align="right">-6</td>
+<td align="right">9971.274</td>
+<td align="right">1044.5968</td>
+</tr>
+<tr class="even">
+<td align="right">-5</td>
+<td align="right">16756.947</td>
+<td align="right">6744.8294</td>
+</tr>
+<tr class="odd">
+<td align="right">-4</td>
+<td align="right">25906.116</td>
+<td align="right">6325.1375</td>
+</tr>
+<tr class="even">
+<td align="right">-3</td>
+<td align="right">20694.382</td>
+<td align="right">30508.3359</td>
+</tr>
+<tr class="odd">
+<td align="right">-2</td>
+<td align="right">181649.132</td>
+<td align="right">142965.3096</td>
+</tr>
+<tr class="even">
+<td align="right">-1</td>
+<td align="right">44101.971</td>
+<td align="right">49525.6297</td>
+</tr>
+<tr class="odd">
+<td align="right">1</td>
+<td align="right">117125.364</td>
+<td align="right">103404.9319</td>
+</tr>
+<tr class="even">
+<td align="right">2</td>
+<td align="right">36527.958</td>
+<td align="right">46125.7336</td>
+</tr>
+<tr class="odd">
+<td align="right">3</td>
+<td align="right">27876.532</td>
+<td align="right">49982.0924</td>
+</tr>
+<tr class="even">
+<td align="right">4</td>
+<td align="right">9470.806</td>
+<td align="right">5539.0992</td>
+</tr>
+<tr class="odd">
+<td align="right">5</td>
+<td align="right">25779.011</td>
+<td align="right">7428.1488</td>
+</tr>
+<tr class="even">
+<td align="right">6</td>
+<td align="right">12755.424</td>
+<td align="right">4608.0448</td>
+</tr>
+<tr class="odd">
+<td align="right">7</td>
+<td align="right">5473.451</td>
+<td align="right">5971.3408</td>
+</tr>
+<tr class="even">
+<td align="right">8</td>
+<td align="right">3016.007</td>
+<td align="right">2666.9723</td>
+</tr>
+<tr class="odd">
+<td align="right">9</td>
+<td align="right">4312.008</td>
+<td align="right">1794.1123</td>
+</tr>
+<tr class="even">
+<td align="right">10</td>
+<td align="right">2284.734</td>
+<td align="right">1445.2661</td>
+</tr>
+</tbody>
+</table>
+<p>For the G&lt;-&gt;C transversion at non-CpG sites we observe the largest marginal signal occurring at the -1 position.</p>
 </div>
 <div id="cpg_gc_cg" class="section level3">
 <h3>cpg_GC_CG</h3>
-<p><img src="figure/1000G_single_position_ALL.Rmd/unnamed-chunk-11-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p><img src="figure/1000G_single_position_ALL.Rmd/unnamed-chunk-19-1.png" width="672" style="display: block; margin: auto;" /></p>
+<table>
+<thead>
+<tr class="header">
+<th align="right">pos</th>
+<th align="right">Control</th>
+<th align="right">Genome-wide</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="right">-10</td>
+<td align="right">145.42823</td>
+<td align="right">132.50680</td>
+</tr>
+<tr class="even">
+<td align="right">-9</td>
+<td align="right">204.81628</td>
+<td align="right">216.11168</td>
+</tr>
+<tr class="odd">
+<td align="right">-8</td>
+<td align="right">520.37523</td>
+<td align="right">591.78382</td>
+</tr>
+<tr class="even">
+<td align="right">-7</td>
+<td align="right">490.63749</td>
+<td align="right">466.48600</td>
+</tr>
+<tr class="odd">
+<td align="right">-6</td>
+<td align="right">446.42287</td>
+<td align="right">952.23567</td>
+</tr>
+<tr class="even">
+<td align="right">-5</td>
+<td align="right">1564.84117</td>
+<td align="right">1737.44469</td>
+</tr>
+<tr class="odd">
+<td align="right">-4</td>
+<td align="right">1095.53173</td>
+<td align="right">916.49896</td>
+</tr>
+<tr class="even">
+<td align="right">-3</td>
+<td align="right">2204.12963</td>
+<td align="right">2222.58988</td>
+</tr>
+<tr class="odd">
+<td align="right">-2</td>
+<td align="right">8696.26044</td>
+<td align="right">8332.54679</td>
+</tr>
+<tr class="even">
+<td align="right">-1</td>
+<td align="right">8674.13026</td>
+<td align="right">8015.22088</td>
+</tr>
+<tr class="odd">
+<td align="right">2</td>
+<td align="right">10336.82578</td>
+<td align="right">8747.48847</td>
+</tr>
+<tr class="even">
+<td align="right">3</td>
+<td align="right">6239.28256</td>
+<td align="right">6382.35623</td>
+</tr>
+<tr class="odd">
+<td align="right">4</td>
+<td align="right">1084.18326</td>
+<td align="right">1393.73774</td>
+</tr>
+<tr class="even">
+<td align="right">5</td>
+<td align="right">1897.77716</td>
+<td align="right">1826.73367</td>
+</tr>
+<tr class="odd">
+<td align="right">6</td>
+<td align="right">528.44643</td>
+<td align="right">418.56200</td>
+</tr>
+<tr class="even">
+<td align="right">7</td>
+<td align="right">676.24876</td>
+<td align="right">204.51543</td>
+</tr>
+<tr class="odd">
+<td align="right">8</td>
+<td align="right">664.12843</td>
+<td align="right">380.19497</td>
+</tr>
+<tr class="even">
+<td align="right">9</td>
+<td align="right">530.10219</td>
+<td align="right">612.30526</td>
+</tr>
+<tr class="odd">
+<td align="right">10</td>
+<td align="right">51.81474</td>
+<td align="right">23.83231</td>
+</tr>
+</tbody>
+</table>
+<p>When we condition on the C&lt;-&gt;G transversion being at a CpG site, we notice that the strongest marginal effect appears at the +2 position for both models, with sharp declines as we move away from +/- 3 bp.</p>
 </div>
 </div>
 <div id="subtype-results-1" class="section level2">
-<h2>6 Subtype Results</h2>
-<p>In the above, we reduced the number of sub-types by taking the reverse complement of singletons whose reference alleles were either G or T. That is, for example, the AT_CG analysis at relative position -1 combined the counts of nucleotides observed -1 of A&gt;C plus the counts of the complements of nucleotides observed +1 of T&gt;G singletons. We do this because we don’t generally (ever?) observe which strand the mutation originated on. Here we’ll compare complementary “simple” sub-types to verify that we see the same patterns in both.</p>
-<pre class="r"><code>simple_rc &lt;- function(nuc){
-  map_vec &lt;- c(&quot;A&quot;,&quot;C&quot;,&quot;G&quot;,&quot;T&quot;)
-  names(map_vec) &lt;- c(&quot;T&quot;,&quot;G&quot;,&quot;C&quot;,&quot;A&quot;)
-  return(map_vec[nuc])
-}
-
-load_simple_results &lt;- function(subtype, rp, sp){
-  data_dir &lt;- &quot;/net/snowwhite/home/beckandy/research/1000G_LSCI/output/single_pos_df/&quot;
-  f_name &lt;- paste0(data_dir, sp, &quot;/6cat/&quot;, subtype, &quot;_rp&quot;, rp, &quot;.csv&quot;)
-  df &lt;- read_csv(f_name, col_types = cols())
-  return(df)
-}
-
-load_simple_results_rc &lt;- function(subtype, rp, sp){
-  data_dir &lt;- &quot;/net/snowwhite/home/beckandy/research/1000G_LSCI/output/single_pos_df/&quot;
-  f_name &lt;- paste0(data_dir, sp, &quot;/6cat/&quot;, subtype, &quot;_rp&quot;, (-1*rp), &quot;.csv&quot;)
-  df &lt;- read_csv(f_name, col_types = cols()) %&gt;%
-    rowwise() %&gt;%
-    mutate(Nuc = simple_rc(Nuc))
-  return(df)
-}</code></pre>
+<h2>18 Subtype Results</h2>
+<p>In the above analyses, we reduced the number of sub-types by taking the reverse complement of singletons whose reference alleles were either G or T. That is, for example, the AT_CG analysis at relative position -1 combined the counts of nucleotides observed -1 of A&gt;C plus the counts of the complements of nucleotides observed +1 of T&gt;G singletons. We do this because we don’t generally (ever?) observe which strand the mutation originated on. Here we’ll compare complementary “simple” sub-types to verify that we see the same patterns in both.</p>
+<div id="at_cg-1" class="section level3">
+<h3>AT_CG</h3>
+<p>For our first analysis, let’s compare the results we observe in the AT_CG sub-type to what we observe for the two simple sub-types which contribute to this composite sub-type: A&gt;C and T&gt;G. Note that in order to compare T&gt;G to AT&gt;CG we’ll need to take reverse complements, i.e. results for relative position 1 for T&gt;G “flipped” to -1, 2 to -2, etc.</p>
+<p><img src="figure/1000G_single_position_ALL.Rmd/unnamed-chunk-22-1.png" width="672" style="display: block; margin: auto;" /><img src="figure/1000G_single_position_ALL.Rmd/unnamed-chunk-22-2.png" width="672" style="display: block; margin: auto;" /></p>
+<p>In the above two plots we don’t see any differences in the patterns for the A_C and T_G subtypes, suggesting that collapsing the two into one category is acceptable.</p>
+</div>
+<div id="at_gc-1" class="section level3">
+<h3>AT_GC</h3>
+<p><img src="figure/1000G_single_position_ALL.Rmd/unnamed-chunk-23-1.png" width="672" style="display: block; margin: auto;" /><img src="figure/1000G_single_position_ALL.Rmd/unnamed-chunk-23-2.png" width="672" style="display: block; margin: auto;" /></p>
+</div>
+<div id="at_ta-1" class="section level3">
+<h3>AT_TA</h3>
+<p><img src="figure/1000G_single_position_ALL.Rmd/unnamed-chunk-24-1.png" width="672" style="display: block; margin: auto;" /><img src="figure/1000G_single_position_ALL.Rmd/unnamed-chunk-24-2.png" width="672" style="display: block; margin: auto;" /></p>
+</div>
+<div id="gc_at-1" class="section level3">
+<h3>GC_AT</h3>
+<p><img src="figure/1000G_single_position_ALL.Rmd/unnamed-chunk-25-1.png" width="672" style="display: block; margin: auto;" /><img src="figure/1000G_single_position_ALL.Rmd/unnamed-chunk-25-2.png" width="672" style="display: block; margin: auto;" /></p>
+</div>
+<div id="cpg_gc_at-1" class="section level3">
+<h3>cpg_GC_AT</h3>
+<p><img src="figure/1000G_single_position_ALL.Rmd/unnamed-chunk-26-1.png" width="672" style="display: block; margin: auto;" /><img src="figure/1000G_single_position_ALL.Rmd/unnamed-chunk-26-2.png" width="672" style="display: block; margin: auto;" /></p>
+</div>
+<div id="gc_ta-1" class="section level3">
+<h3>GC_TA</h3>
+<p><img src="figure/1000G_single_position_ALL.Rmd/unnamed-chunk-27-1.png" width="672" style="display: block; margin: auto;" /><img src="figure/1000G_single_position_ALL.Rmd/unnamed-chunk-27-2.png" width="672" style="display: block; margin: auto;" /></p>
+</div>
+<div id="cpg_gc_at-2" class="section level3">
+<h3>cpg_GC_AT</h3>
+<p><img src="figure/1000G_single_position_ALL.Rmd/unnamed-chunk-28-1.png" width="672" style="display: block; margin: auto;" /><img src="figure/1000G_single_position_ALL.Rmd/unnamed-chunk-28-2.png" width="672" style="display: block; margin: auto;" /></p>
+</div>
+<div id="gc_cg-1" class="section level3">
+<h3>GC_CG</h3>
+<p><img src="figure/1000G_single_position_ALL.Rmd/unnamed-chunk-29-1.png" width="672" style="display: block; margin: auto;" /><img src="figure/1000G_single_position_ALL.Rmd/unnamed-chunk-29-2.png" width="672" style="display: block; margin: auto;" /></p>
+</div>
+<div id="cpg_gc_at-3" class="section level3">
+<h3>cpg_GC_AT</h3>
+<p><img src="figure/1000G_single_position_ALL.Rmd/unnamed-chunk-30-1.png" width="672" style="display: block; margin: auto;" /><img src="figure/1000G_single_position_ALL.Rmd/unnamed-chunk-30-2.png" width="672" style="display: block; margin: auto;" /></p>
+<p>I do not see any substantial differences between simple sub-type pairs, and so forth I will only consider the 9 collapsed categories.</p>
+</div>
+</div>
+<div id="nucleotide-level-contributions-to-overall-statistics" class="section level2">
+<h2>Nucleotide Level Contributions to Overall Statistics</h2>
+<p>Above we explored at the level of each position how the distributions of nucleotides flanking singletons were different from the corresponding genome-wide and control sample distributions using the chi-square goodness of fit statistic. The overall statistic at each position is a summation of contributions from each of the four (or three) nucleotides at each position. Here we look at these contributions to identify which individual nucleotides are most “influential” at each position by plotting both the % contribution to the overall statistic at each position and the signed contribution (positive if a nucleotide was observed more in singletons than expected under gw/control rate, negative if fewer).</p>
+<div id="at_cg-2" class="section level3">
+<h3>AT_CG</h3>
+<p><img src="figure/1000G_single_position_ALL.Rmd/unnamed-chunk-31-1.png" width="672" style="display: block; margin: auto;" /><img src="figure/1000G_single_position_ALL.Rmd/unnamed-chunk-31-2.png" width="672" style="display: block; margin: auto;" /></p>
+<p>Here we can see that the nucleotide % contribution to the statistic at each position is largely consistent between the control and genome-wide background rate models. At the -1 position, which had the highest overall statistic among the positions, we can see that the G and C nucleotides contributed most to the chi square goodness of fit statistics, indicating that the observations in the singletons for these nucleotides were further from what we’d expect under a model where we assume the nucleotides flanking A&gt;C(T&gt;G) singletons at the -1 position are simply a random draw from a distribution with rates estimated either genome-wide or using the control sample. Below we plot the signed chi-square goodness-of-fit “residuals” for each nucleotide across the 20 positions:</p>
+<p><img src="figure/1000G_single_position_ALL.Rmd/unnamed-chunk-32-1.png" width="672" style="display: block; margin: auto;" /><img src="figure/1000G_single_position_ALL.Rmd/unnamed-chunk-32-2.png" width="672" style="display: block; margin: auto;" /></p>
+<p>With this figure we can see that in both models at the -1 position we observed fewer Gs flanking singletons and more Cs than expected based on rates from gw/control. We can also see that for all nucleotides their individual contributions to the overall statics drop as we look further up/down stream.</p>
+</div>
+<div id="at_gc-2" class="section level3">
+<h3>AT_GC</h3>
+<p><img src="figure/1000G_single_position_ALL.Rmd/unnamed-chunk-33-1.png" width="672" style="display: block; margin: auto;" /><img src="figure/1000G_single_position_ALL.Rmd/unnamed-chunk-33-2.png" width="672" style="display: block; margin: auto;" /><img src="figure/1000G_single_position_ALL.Rmd/unnamed-chunk-33-3.png" width="672" style="display: block; margin: auto;" /><img src="figure/1000G_single_position_ALL.Rmd/unnamed-chunk-33-4.png" width="672" style="display: block; margin: auto;" /></p>
+<p>Here we can see the nucleotides contributing to the highest overall statistic at the +1 position are T and A, with little contribution from G and C. We see in the signed residuals plot that the major contribution was an enrichment of Ts at the +1 in singletons, with a depletion of As and Gs</p>
+<p>This sub-type’s second highest statistic was observed at the -2 position, and we can see that the nucleotides contributing most to this result are C and T, with little influence from A and G. This is driven by an enrichment of Cs in the singletons, with smaller depletions of the other 3 nucleotides.</p>
+</div>
+<div id="at_ta-2" class="section level3">
+<h3>AT_TA</h3>
+<p><img src="figure/1000G_single_position_ALL.Rmd/unnamed-chunk-34-1.png" width="672" style="display: block; margin: auto;" /><img src="figure/1000G_single_position_ALL.Rmd/unnamed-chunk-34-2.png" width="672" style="display: block; margin: auto;" /><img src="figure/1000G_single_position_ALL.Rmd/unnamed-chunk-34-3.png" width="672" style="display: block; margin: auto;" /><img src="figure/1000G_single_position_ALL.Rmd/unnamed-chunk-34-4.png" width="672" style="display: block; margin: auto;" /></p>
+<p>At the +1 position we see the signal is driven largely by T, with an enrichment of that nucleotide in the singletons, with a depletion of both As and Gs as well.</p>
+</div>
+<div id="gc_at-2" class="section level3">
+<h3>GC_AT</h3>
+<p><img src="figure/1000G_single_position_ALL.Rmd/unnamed-chunk-35-1.png" width="672" style="display: block; margin: auto;" /><img src="figure/1000G_single_position_ALL.Rmd/unnamed-chunk-35-2.png" width="672" style="display: block; margin: auto;" /><img src="figure/1000G_single_position_ALL.Rmd/unnamed-chunk-35-3.png" width="672" style="display: block; margin: auto;" /><img src="figure/1000G_single_position_ALL.Rmd/unnamed-chunk-35-4.png" width="672" style="display: block; margin: auto;" /></p>
+<p>Here we can see the nucleotides contributing most to the statistic at the -1 position are T and A, with an enrichment of As in the singletons and a depletion of Ts. In the control-rate based models, we see an enrichment of C at the +2 position which is only eclipsed in magnitude by the depletion of Ts seen in the -1 position.</p>
+</div>
+<div id="cpg_gc_at-4" class="section level3">
+<h3>cpg_GC_AT</h3>
+<p><img src="figure/1000G_single_position_ALL.Rmd/unnamed-chunk-36-1.png" width="672" style="display: block; margin: auto;" /><img src="figure/1000G_single_position_ALL.Rmd/unnamed-chunk-36-2.png" width="672" style="display: block; margin: auto;" /><img src="figure/1000G_single_position_ALL.Rmd/unnamed-chunk-36-3.png" width="672" style="display: block; margin: auto;" /><img src="figure/1000G_single_position_ALL.Rmd/unnamed-chunk-36-4.png" width="672" style="display: block; margin: auto;" /></p>
+<p>Here we can see that the statistic at the -1 position is most influenced by the A and T nucleotides in the control distribution based models, with a depletion of Ts and an enrichment of A. Interestingly we don’t see as stark of a depletion in T in the genome-wide rate based models.</p>
+</div>
+<div id="gc_ta-2" class="section level3">
+<h3>GC_TA</h3>
+<p><img src="figure/1000G_single_position_ALL.Rmd/unnamed-chunk-37-1.png" width="672" style="display: block; margin: auto;" /><img src="figure/1000G_single_position_ALL.Rmd/unnamed-chunk-37-2.png" width="672" style="display: block; margin: auto;" /><img src="figure/1000G_single_position_ALL.Rmd/unnamed-chunk-37-3.png" width="672" style="display: block; margin: auto;" /><img src="figure/1000G_single_position_ALL.Rmd/unnamed-chunk-37-4.png" width="672" style="display: block; margin: auto;" /></p>
+<p>In both models we see the overall statistic at the +1 position is driven most by the C nucleotide, with an enrichment seen in singletons. We also see an enrichment of A nucleotides at the -2 relative position, especially in the genome-wide rate based models.</p>
+<p>-2</p>
+</div>
+<div id="cpg_gc_ta-1" class="section level3">
+<h3>cpg_GC_TA</h3>
+<p><img src="figure/1000G_single_position_ALL.Rmd/unnamed-chunk-38-1.png" width="672" style="display: block; margin: auto;" /><img src="figure/1000G_single_position_ALL.Rmd/unnamed-chunk-38-2.png" width="672" style="display: block; margin: auto;" /><img src="figure/1000G_single_position_ALL.Rmd/unnamed-chunk-38-3.png" width="672" style="display: block; margin: auto;" /><img src="figure/1000G_single_position_ALL.Rmd/unnamed-chunk-38-4.png" width="672" style="display: block; margin: auto;" /></p>
+<p>At the -1 position we see that the signal is driven by an enrichment of G and a depletion of both C and T in the singletons. Wel also see that the statistics at the -4 and -5 positions are driven primarily by an enrichment of Cs and a depletion of Gs at these positions.</p>
+</div>
+<div id="gc_cg-2" class="section level3">
+<h3>GC_CG</h3>
+<p><img src="figure/1000G_single_position_ALL.Rmd/unnamed-chunk-39-1.png" width="672" style="display: block; margin: auto;" /><img src="figure/1000G_single_position_ALL.Rmd/unnamed-chunk-39-2.png" width="672" style="display: block; margin: auto;" /><img src="figure/1000G_single_position_ALL.Rmd/unnamed-chunk-39-3.png" width="672" style="display: block; margin: auto;" /><img src="figure/1000G_single_position_ALL.Rmd/unnamed-chunk-39-4.png" width="672" style="display: block; margin: auto;" /></p>
+<p>Looking at the contributions to the largest observed statistic for this subtype (-2), we observe a slightly different pattern in that the signal is driven by all four nucleotides, with an enrichment of C and A and a depletion of T and G in the singletons. We also see that the statistic in the +1 position is driven primarily by a depletion of A with an enrichment in T, although the latter is more moderate in the control rate model.</p>
+</div>
+<div id="cpg_gc_cg-1" class="section level3">
+<h3>cpg_GC_CG</h3>
+<p><img src="figure/1000G_single_position_ALL.Rmd/unnamed-chunk-40-1.png" width="672" style="display: block; margin: auto;" /><img src="figure/1000G_single_position_ALL.Rmd/unnamed-chunk-40-2.png" width="672" style="display: block; margin: auto;" /><img src="figure/1000G_single_position_ALL.Rmd/unnamed-chunk-40-3.png" width="672" style="display: block; margin: auto;" /><img src="figure/1000G_single_position_ALL.Rmd/unnamed-chunk-40-4.png" width="672" style="display: block; margin: auto;" /></p>
+<p>Here we can see that the signal at the -1 and -2 positions are driven primarily by a depletion of Gs in the singletons, with an enrichment of Cs being seen at the -2 position as well (at -1 we seen a mild enrichment of both C and T). At +2 we can see that the signal is largely driven by an enrichment of As, while the signal at +3 is driven by an enrichment of Gs matched by a depletion of Cs.</p>
 <br>
 <p>
 <button type="button" class="btn btn-default btn-workflowr btn-workflowr-sessioninfo" data-toggle="collapse" data-target="#workflowr-sessioninfo" style="display: block;">
@@ -728,7 +1986,7 @@ load_simple_results_rc &lt;- function(subtype, rp, sp){
 </p>
 <div id="workflowr-sessioninfo" class="collapse">
 <pre class="r"><code>sessionInfo()</code></pre>
-<pre><code>R version 4.1.1 (2021-08-10)
+<pre><code>R version 4.1.2 (2021-11-01)
 Platform: x86_64-pc-linux-gnu (64-bit)
 Running under: Ubuntu 18.04.5 LTS
 
@@ -759,17 +2017,18 @@ loaded via a namespace (and not attached):
 [13] httr_1.4.2       pillar_1.6.4     rlang_0.4.12     readxl_1.3.1    
 [17] rstudioapi_0.13  whisker_0.4      jquerylib_0.1.4  rmarkdown_2.11  
 [21] labeling_0.4.2   bit_4.0.4        munsell_0.5.0    broom_0.7.9     
-[25] compiler_4.1.1   httpuv_1.6.3     modelr_0.1.8     xfun_0.27       
+[25] compiler_4.1.2   httpuv_1.6.3     modelr_0.1.8     xfun_0.27       
 [29] pkgconfig_2.0.3  htmltools_0.5.2  tidyselect_1.1.1 fansi_0.5.0     
 [33] crayon_1.4.1     tzdb_0.1.2       dbplyr_2.1.1     withr_2.4.2     
-[37] later_1.3.0      grid_4.1.1       jsonlite_1.7.2   gtable_0.3.0    
+[37] later_1.3.0      grid_4.1.2       jsonlite_1.7.2   gtable_0.3.0    
 [41] lifecycle_1.0.1  DBI_1.1.1        git2r_0.28.0     magrittr_2.0.1  
 [45] scales_1.1.1     vroom_1.5.5      cli_3.0.1        stringi_1.7.5   
 [49] farver_2.1.0     fs_1.5.0         promises_1.2.0.1 xml2_1.3.2      
 [53] bslib_0.3.1      ellipsis_0.3.2   generics_0.1.1   vctrs_0.3.8     
-[57] tools_4.1.1      bit64_4.0.5      glue_1.4.2       hms_1.1.1       
-[61] parallel_4.1.1   fastmap_1.1.0    yaml_2.2.1       colorspace_2.0-2
+[57] tools_4.1.2      bit64_4.0.5      glue_1.4.2       hms_1.1.1       
+[61] parallel_4.1.2   fastmap_1.1.0    yaml_2.2.1       colorspace_2.0-2
 [65] rvest_1.0.2      knitr_1.36       haven_2.4.3      sass_0.4.0      </code></pre>
+</div>
 </div>
 </div>
 </div>
