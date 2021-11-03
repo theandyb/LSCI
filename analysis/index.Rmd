@@ -29,6 +29,7 @@ To address these questions, we characterize the distributions of nucleotides fla
 
 ## 1000G Analyses
 
+* [Summary Statistics](1000G_summary_stats.html)
 * [Single Position Model Results for All Singletons](1000G_single_position_ALL.html)
 * [Two Position Model Results for All Singletons](1000G_two_positions_ALL.html)
 * [Cross-population Comparisons: Single Position Models](1000G_single_postion_comp.html)
