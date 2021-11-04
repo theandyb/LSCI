@@ -13,7 +13,7 @@
 
 <meta name="date" content="2021-11-02" />
 
-<title>BRIDGES_summary_stats</title>
+<title>1000G_summary_stats</title>
 
 <script src="site_libs/header-attrs-2.11/header-attrs.js"></script>
 <script src="site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
@@ -352,7 +352,7 @@ div.tocify {
 
 
 
-<h1 class="title toc-ignore">BRIDGES_summary_stats</h1>
+<h1 class="title toc-ignore">1000G_summary_stats</h1>
 <h4 class="author">Andy Beck</h4>
 <h4 class="date">2021-11-02</h4>
 
@@ -379,7 +379,7 @@ div.tocify {
 <div class="tab-content">
 <div id="summary" class="tab-pane fade in active">
 <p>
-<strong>Last updated:</strong> 2021-11-02
+<strong>Last updated:</strong> 2021-11-03
 </p>
 <p>
 <strong>Checks:</strong> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> 6 <span class="glyphicon glyphicon-exclamation-sign text-danger" aria-hidden="true"></span> 1
@@ -403,7 +403,7 @@ This reproducible <a href="http://rmarkdown.rstudio.com">R Markdown</a> analysis
 </div>
 <div id="strongRMarkdownfilestronguncommittedchanges" class="panel-collapse collapse">
 <div class="panel-body">
-<p>The R Markdown file has unstaged changes. To know which version of the R Markdown file created these results, you’ll want to first commit it to the Git repo. If you’re still working on the analysis, you can ignore this warning. When you’re finished, you can run <code>wflow_publish</code> to commit the R Markdown file and build the HTML.</p>
+<p>The R Markdown is untracked by Git. To know which version of the R Markdown file created these results, you’ll want to first commit it to the Git repo. If you’re still working on the analysis, you can ignore this warning. When you’re finished, you can run <code>wflow_publish</code> to commit the R Markdown file and build the HTML.</p>
 </div>
 </div>
 </div>
@@ -493,7 +493,9 @@ Untracked files:
     Untracked:  analysis/1000G_summary_stats.Rmd
 
 Unstaged changes:
+    Modified:   analysis/1000G_single_position_ALL.Rmd
     Modified:   analysis/BRIDGES_summary_stats.Rmd
+    Modified:   analysis/index.Rmd
 
 </code></pre>
 <p>
@@ -506,99 +508,22 @@ Note that any generated files, e.g. HTML, png, CSS, etc., are not included in t
 <hr>
 </div>
 <div id="versions" class="tab-pane fade">
-
 <p>
-These are the previous versions of the repository in which changes were made to the R Markdown (<code>analysis/BRIDGES_summary_stats.Rmd</code>) and HTML (<code>docs/BRIDGES_summary_stats.html</code>) files. If you’ve configured a remote Git repository (see <code>?wflow_git_remote</code>), click on the hyperlinks in the table below to view the files as they were in that past version.
+There are no past versions. Publish this analysis with <code>wflow_publish()</code> to start tracking its development.
 </p>
-<div class="table-responsive">
-<table class="table table-condensed table-hover">
-<thead>
-<tr>
-<th>
-File
-</th>
-<th>
-Version
-</th>
-<th>
-Author
-</th>
-<th>
-Date
-</th>
-<th>
-Message
-</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>
-html
-</td>
-<td>
-<a href="https://rawcdn.githack.com/theandyb/LSCI/903ec79246b47744365220eccc477ba89c879de0/docs/BRIDGES_summary_stats.html" target="_blank">903ec79</a>
-</td>
-<td>
-Andy Beck
-</td>
-<td>
-2021-11-02
-</td>
-<td>
-Build site.
-</td>
-</tr>
-<tr>
-<td>
-Rmd
-</td>
-<td>
-<a href="https://github.com/theandyb/LSCI/blob/41279d509fc396df9ea90496b21115f71e0d4368/analysis/BRIDGES_summary_stats.Rmd" target="_blank">41279d5</a>
-</td>
-<td>
-Andy Beck
-</td>
-<td>
-2021-11-02
-</td>
-<td>
-restructure
-</td>
-</tr>
-<tr>
-<td>
-html
-</td>
-<td>
-<a href="https://rawcdn.githack.com/theandyb/LSCI/41279d509fc396df9ea90496b21115f71e0d4368/docs/BRIDGES_summary_stats.html" target="_blank">41279d5</a>
-</td>
-<td>
-Andy Beck
-</td>
-<td>
-2021-11-02
-</td>
-<td>
-restructure
-</td>
-</tr>
-</tbody>
-</table>
-</div>
 <hr>
 </div>
 </div>
 </div>
-<div id="bridges-summary-statistics" class="section level1">
-<h1>BRIDGES Summary Statistics</h1>
+<div id="g-summary-statistics" class="section level1">
+<h1>1000G Summary Statistics</h1>
 <div id="introduction" class="section level2">
 <h2>Introduction</h2>
-<p>The purpose of this document is to organize statistics regarding the BRIDGES data set that might be of interest that don’t fall into the other documents.</p>
+<p>The purpose of this document is to organize statistics regarding the 1000G data set that might be of interest that don’t fall into the other documents.</p>
 </div>
 <div id="singletons-per-sample" class="section level2">
 <h2>Singletons per Sample</h2>
-<p>Below we plot the density of the number of singletons we observe in each sample.</p>
+<p>Below we plot the density of the number of singletons we observe in each sample. First we’ll look at all 2,504 individuals across the five super-populations</p>
 <pre class="r"><code>get_singletons_per_subject &lt;- function(singleton_dir){
   awk_cmd &lt;- paste0(&quot;awk -F, &#39;{count[$6]++}END{for(key in count)print(key, count[key])}&#39; &quot;,
                     singleton_dir, 
@@ -607,24 +532,265 @@ restructure
   return(df)
 }
 
-# df_BRIDGES &lt;- get_singletons_per_subject(&quot;/net/snowwhite/home/beckandy/research/BRIDGES_redo/output/singletons/&quot;)
-# write_csv(df_BRIDGES, &quot;/net/snowwhite/home/beckandy/research/BRIDGES_redo/output/singletons_per_subject.csv&quot;)
+ # df_ALL &lt;- get_singletons_per_subject(&quot;/net/snowwhite/home/beckandy/research/1000G_LSCI/output/singletons/ALL/&quot;)
+ # write_csv(df_ALL, &quot;/net/snowwhite/home/beckandy/research/1000G_LSCI/output/singletons_per_subject_ALL.csv&quot;)
 
-df_BRIDGES &lt;- read_csv(&quot;/net/snowwhite/home/beckandy/research/BRIDGES_redo/output/singletons_per_subject.csv&quot;,
-                       col_types = cols())
-df_BRIDGES %&gt;%
-  ggplot(aes(x = n_singletons)) + 
+df_ALL &lt;- read_csv(&quot;/net/snowwhite/home/beckandy/research/1000G_LSCI/output/singletons_per_subject_ALL.csv&quot;,
+                      col_types = cols())
+df_ALL %&gt;%
+  ggplot(aes(x = n_singletons)) +
   geom_density() +
-  ggtitle(&quot;Singletons per Subject: BRIDGES&quot;,
-          paste0(&quot;Mean: &quot;, round(mean(df_BRIDGES$n_singletons), 2),
-                 &quot;, SD: &quot;, round(sd(df_BRIDGES$n_singletons), 2),
-                 &quot;, Min: &quot; , min(df_BRIDGES$n_singletons) ,
-                 &quot;, Max: &quot;, max(df_BRIDGES$n_singletons) ) 
+  ggtitle(&quot;Singletons per Subject: 1000G&quot;,
+          paste0(&quot;Mean: &quot;, round(mean(df_ALL$n_singletons), 2),
+                 &quot;, SD: &quot;, round(sd(df_ALL$n_singletons), 2),
+                 &quot;, Min: &quot; , min(df_ALL$n_singletons) ,
+                 &quot;, Max: &quot;, max(df_ALL$n_singletons) )
           )+
   xlab(&quot;Number of Singletons&quot;)</code></pre>
-<p><img src="figure/BRIDGES_summary_stats.Rmd/unnamed-chunk-2-1.png" width="672" style="display: block; margin: auto;" /></p>
-<p>Here, we can see that on average we see around 10,000 singletons per sample in the BRIDGES data set, although we do have outliers in both directions.</p>
-<p><strong>Question: Are these outlier samples different in other ways? E.g., 3-mer mutation spectra, spatial distribution of nucleotides genome-wide, etc?</strong></p>
+<p><img src="figure/1000G_summary_stats.Rmd/unnamed-chunk-2-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>Here we can see that while most of the subjects in 1000G have between 10,000 and 30,000 singletons, we see a few outliers in both tails. Let’s see what each of the five super-populations looks like:</p>
+<pre class="r"><code>sample_variables &lt;- read_tsv(&quot;/net/snowwhite/home/beckandy/research/1000G_LSCI/reference_data/1000G_samples.tsv&quot;,
+                             col_types = cols())
+samples_ALL &lt;- sample_variables  %&gt;% 
+  rename(ID = `Sample name`) %&gt;%
+  right_join(df_ALL, by = &quot;ID&quot;)
+
+samples_AFR &lt;- samples_ALL %&gt;% filter(`Superpopulation code` == &quot;AFR&quot;)
+
+samples_AMR &lt;- samples_ALL %&gt;% filter(`Superpopulation code` == &quot;AMR&quot;)
+
+samples_EAS &lt;- samples_ALL %&gt;% filter(`Superpopulation code` == &quot;EAS&quot;)
+
+samples_EUR &lt;- samples_ALL %&gt;% filter(`Superpopulation code` == &quot;EUR&quot;)
+
+samples_SAS &lt;- samples_ALL %&gt;% filter(`Superpopulation code` == &quot;SAS&quot;) </code></pre>
+<pre class="r"><code>samples_ALL %&gt;% 
+  ggplot(aes(x = n_singletons, fill = `Superpopulation code`)) + 
+  geom_density(alpha=0.3) +
+  ggtitle(&quot;Samples per Subject: 1000G Super-populations&quot;)</code></pre>
+<p><img src="figure/1000G_summary_stats.Rmd/unnamed-chunk-4-1.png" width="672" style="display: block; margin: auto;" /></p>
+<div id="singletons-per-sample-within-sub-populations" class="section level3">
+<h3>Singletons per sample within sub-populations</h3>
+<div id="afr" class="section level4">
+<h4>AFR</h4>
+<pre class="r"><code>samples_AFR %&gt;%
+  ggplot(aes(x = n_singletons, fill = `Population code`)) +
+  geom_density(alpha = 0.3) +
+  ggtitle(&quot;Samples per Subject: 1000G AFR&quot;) +
+  scale_fill_manual(values = as.vector(cols25(n = 7)))</code></pre>
+<p><img src="figure/1000G_summary_stats.Rmd/unnamed-chunk-5-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>Now that we have sample-level information along with the number of singletons, we might also want to look at some more basic summary statistic information (for example: how many subjects do we have within each super-population? average number of singletons per (super)population? etc).</p>
+</div>
+</div>
+</div>
+<div id="samples-per-superpopulation" class="section level2">
+<h2>Samples per Superpopulation</h2>
+<pre class="r"><code>knitr::kable(table(samples_ALL$`Superpopulation code`))</code></pre>
+<table>
+<thead>
+<tr class="header">
+<th align="left">Var1</th>
+<th align="right">Freq</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">AFR</td>
+<td align="right">661</td>
+</tr>
+<tr class="even">
+<td align="left">AMR</td>
+<td align="right">347</td>
+</tr>
+<tr class="odd">
+<td align="left">EAS</td>
+<td align="right">504</td>
+</tr>
+<tr class="even">
+<td align="left">EUR</td>
+<td align="right">503</td>
+</tr>
+<tr class="odd">
+<td align="left">SAS</td>
+<td align="right">489</td>
+</tr>
+</tbody>
+</table>
+<div id="samples-per-population" class="section level3">
+<h3>Samples per Population</h3>
+<div id="afr-1" class="section level4">
+<h4>AFR</h4>
+<pre class="r"><code>knitr::kable(table(samples_AFR$`Population code`))</code></pre>
+<table>
+<thead>
+<tr class="header">
+<th align="left">Var1</th>
+<th align="right">Freq</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">ACB</td>
+<td align="right">96</td>
+</tr>
+<tr class="even">
+<td align="left">ASW</td>
+<td align="right">61</td>
+</tr>
+<tr class="odd">
+<td align="left">ESN</td>
+<td align="right">99</td>
+</tr>
+<tr class="even">
+<td align="left">GWD</td>
+<td align="right">113</td>
+</tr>
+<tr class="odd">
+<td align="left">LWK</td>
+<td align="right">99</td>
+</tr>
+<tr class="even">
+<td align="left">MSL</td>
+<td align="right">85</td>
+</tr>
+<tr class="odd">
+<td align="left">YRI</td>
+<td align="right">108</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div id="amr" class="section level4">
+<h4>AMR</h4>
+<pre class="r"><code>knitr::kable(table(samples_AMR$`Population code`))</code></pre>
+<table>
+<thead>
+<tr class="header">
+<th align="left">Var1</th>
+<th align="right">Freq</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">CLM</td>
+<td align="right">94</td>
+</tr>
+<tr class="even">
+<td align="left">MXL</td>
+<td align="right">64</td>
+</tr>
+<tr class="odd">
+<td align="left">PEL</td>
+<td align="right">85</td>
+</tr>
+<tr class="even">
+<td align="left">PUR</td>
+<td align="right">104</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div id="eas" class="section level4">
+<h4>EAS</h4>
+<pre class="r"><code>knitr::kable(table(samples_EAS$`Population code`))</code></pre>
+<table>
+<thead>
+<tr class="header">
+<th align="left">Var1</th>
+<th align="right">Freq</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">CDX</td>
+<td align="right">93</td>
+</tr>
+<tr class="even">
+<td align="left">CHB</td>
+<td align="right">103</td>
+</tr>
+<tr class="odd">
+<td align="left">CHS</td>
+<td align="right">105</td>
+</tr>
+<tr class="even">
+<td align="left">JPT</td>
+<td align="right">104</td>
+</tr>
+<tr class="odd">
+<td align="left">KHV</td>
+<td align="right">99</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div id="eur" class="section level4">
+<h4>EUR</h4>
+<pre class="r"><code>knitr::kable(table(samples_EUR$`Population code`))</code></pre>
+<table>
+<thead>
+<tr class="header">
+<th align="left">Var1</th>
+<th align="right">Freq</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">CEU</td>
+<td align="right">99</td>
+</tr>
+<tr class="even">
+<td align="left">FIN</td>
+<td align="right">99</td>
+</tr>
+<tr class="odd">
+<td align="left">GBR</td>
+<td align="right">91</td>
+</tr>
+<tr class="even">
+<td align="left">IBS</td>
+<td align="right">107</td>
+</tr>
+<tr class="odd">
+<td align="left">TSI</td>
+<td align="right">107</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div id="sas" class="section level4">
+<h4>SAS</h4>
+<pre class="r"><code>knitr::kable(table(samples_SAS$`Population code`))</code></pre>
+<table>
+<thead>
+<tr class="header">
+<th align="left">Var1</th>
+<th align="right">Freq</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">BEB</td>
+<td align="right">86</td>
+</tr>
+<tr class="even">
+<td align="left">GIH</td>
+<td align="right">103</td>
+</tr>
+<tr class="odd">
+<td align="left">ITU</td>
+<td align="right">102</td>
+</tr>
+<tr class="even">
+<td align="left">PJL</td>
+<td align="right">96</td>
+</tr>
+<tr class="odd">
+<td align="left">STU</td>
+<td align="right">102</td>
+</tr>
+</tbody>
+</table>
 <br>
 <p>
 <button type="button" class="btn btn-default btn-workflowr btn-workflowr-sessioninfo" data-toggle="collapse" data-target="#workflowr-sessioninfo" style="display: block;">
@@ -633,7 +799,7 @@ df_BRIDGES %&gt;%
 </p>
 <div id="workflowr-sessioninfo" class="collapse">
 <pre class="r"><code>sessionInfo()</code></pre>
-<pre><code>R version 4.1.1 (2021-08-10)
+<pre><code>R version 4.1.2 (2021-11-01)
 Platform: x86_64-pc-linux-gnu (64-bit)
 Running under: Ubuntu 18.04.5 LTS
 
@@ -653,28 +819,31 @@ attached base packages:
 [1] stats     graphics  grDevices utils     datasets  methods   base     
 
 other attached packages:
- [1] forcats_0.5.1   stringr_1.4.0   dplyr_1.0.7     purrr_0.3.4    
- [5] readr_2.0.2     tidyr_1.1.4     tibble_3.1.5    ggplot2_3.3.5  
- [9] tidyverse_1.3.1 workflowr_1.6.2
+ [1] pals_1.7        forcats_0.5.1   stringr_1.4.0   dplyr_1.0.7    
+ [5] purrr_0.3.4     readr_2.0.2     tidyr_1.1.4     tibble_3.1.5   
+ [9] ggplot2_3.3.5   tidyverse_1.3.1 workflowr_1.6.2
 
 loaded via a namespace (and not attached):
  [1] Rcpp_1.0.7       lubridate_1.8.0  assertthat_0.2.1 rprojroot_2.0.2 
  [5] digest_0.6.28    utf8_1.2.2       R6_2.5.1         cellranger_1.1.0
  [9] backports_1.3.0  reprex_2.0.1     evaluate_0.14    highr_0.9       
 [13] httr_1.4.2       pillar_1.6.4     rlang_0.4.12     readxl_1.3.1    
-[17] rstudioapi_0.13  whisker_0.4      jquerylib_0.1.4  rmarkdown_2.11  
-[21] labeling_0.4.2   bit_4.0.4        munsell_0.5.0    broom_0.7.9     
-[25] compiler_4.1.1   httpuv_1.6.3     modelr_0.1.8     xfun_0.27       
-[29] pkgconfig_2.0.3  htmltools_0.5.2  tidyselect_1.1.1 fansi_0.5.0     
-[33] crayon_1.4.1     tzdb_0.1.2       dbplyr_2.1.1     withr_2.4.2     
-[37] later_1.3.0      grid_4.1.1       jsonlite_1.7.2   gtable_0.3.0    
-[41] lifecycle_1.0.1  DBI_1.1.1        git2r_0.28.0     magrittr_2.0.1  
-[45] scales_1.1.1     vroom_1.5.5      cli_3.0.1        stringi_1.7.5   
-[49] farver_2.1.0     fs_1.5.0         promises_1.2.0.1 xml2_1.3.2      
+[17] rstudioapi_0.13  jquerylib_0.1.4  rmarkdown_2.11   labeling_0.4.2  
+[21] bit_4.0.4        munsell_0.5.0    broom_0.7.9      compiler_4.1.2  
+[25] httpuv_1.6.3     modelr_0.1.8     xfun_0.27        pkgconfig_2.0.3 
+[29] htmltools_0.5.2  tidyselect_1.1.1 fansi_0.5.0      crayon_1.4.1    
+[33] tzdb_0.1.2       dbplyr_2.1.1     withr_2.4.2      later_1.3.0     
+[37] grid_4.1.2       jsonlite_1.7.2   gtable_0.3.0     lifecycle_1.0.1 
+[41] DBI_1.1.1        git2r_0.28.0     magrittr_2.0.1   scales_1.1.1    
+[45] vroom_1.5.5      cli_3.0.1        stringi_1.7.5    farver_2.1.0    
+[49] mapproj_1.2.7    fs_1.5.0         promises_1.2.0.1 xml2_1.3.2      
 [53] bslib_0.3.1      ellipsis_0.3.2   generics_0.1.1   vctrs_0.3.8     
-[57] tools_4.1.1      bit64_4.0.5      glue_1.4.2       hms_1.1.1       
-[61] parallel_4.1.1   fastmap_1.1.0    yaml_2.2.1       colorspace_2.0-2
-[65] rvest_1.0.2      knitr_1.36       haven_2.4.3      sass_0.4.0      </code></pre>
+[57] tools_4.1.2      bit64_4.0.5      dichromat_2.0-0  glue_1.4.2      
+[61] maps_3.4.0       hms_1.1.1        parallel_4.1.2   fastmap_1.1.0   
+[65] yaml_2.2.1       colorspace_2.0-2 rvest_1.0.2      knitr_1.36      
+[69] haven_2.4.3      sass_0.4.0      </code></pre>
+</div>
+</div>
 </div>
 </div>
 </div>

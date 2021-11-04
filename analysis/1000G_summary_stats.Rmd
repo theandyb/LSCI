@@ -1,0 +1,130 @@
+---
+title: "1000G_summary_stats"
+author: "Andy Beck"
+date: "2021-11-02"
+output: workflowr::wflow_html
+editor_options:
+  chunk_output_type: console
+---
+
+```{r include=FALSE, message = FALSE, warning=FALSE}
+library(tidyverse)
+library(pals)
+cbPalette <- c("#999999", "#E69F00", "#56B4E9", "#009E73", "#F0E442", "#0072B2", "#D55E00", "#CC79A7")
+```
+
+# 1000G Summary Statistics
+
+## Introduction
+
+The purpose of this document is to organize statistics regarding the 1000G data set that might be of interest that don't fall into the other documents.
+
+## Singletons per Sample
+
+Below we plot the density of the number of singletons we observe in each sample. First we'll look at all 2,504 individuals across the five super-populations
+
+```{r}
+get_singletons_per_subject <- function(singleton_dir){
+  awk_cmd <- paste0("awk -F, '{count[$6]++}END{for(key in count)print(key, count[key])}' ",
+                    singleton_dir, 
+                    "chr*_annotated.csv")
+  df <- vroom::vroom(pipe(awk_cmd), col_names = c("ID", "n_singletons"))
+  return(df)
+}
+
+ # df_ALL <- get_singletons_per_subject("/net/snowwhite/home/beckandy/research/1000G_LSCI/output/singletons/ALL/")
+ # write_csv(df_ALL, "/net/snowwhite/home/beckandy/research/1000G_LSCI/output/singletons_per_subject_ALL.csv")
+
+df_ALL <- read_csv("/net/snowwhite/home/beckandy/research/1000G_LSCI/output/singletons_per_subject_ALL.csv",
+                      col_types = cols())
+df_ALL %>%
+  ggplot(aes(x = n_singletons)) +
+  geom_density() +
+  ggtitle("Singletons per Subject: 1000G",
+          paste0("Mean: ", round(mean(df_ALL$n_singletons), 2),
+                 ", SD: ", round(sd(df_ALL$n_singletons), 2),
+                 ", Min: " , min(df_ALL$n_singletons) ,
+                 ", Max: ", max(df_ALL$n_singletons) )
+          )+
+  xlab("Number of Singletons")
+```
+
+Here we can see that while most of the subjects in 1000G have between 10,000 and 30,000 singletons, we see a few outliers in both tails. Let's see what each of the five super-populations looks like:
+
+```{r}
+sample_variables <- read_tsv("/net/snowwhite/home/beckandy/research/1000G_LSCI/reference_data/1000G_samples.tsv",
+                             col_types = cols())
+samples_ALL <- sample_variables  %>% 
+  rename(ID = `Sample name`) %>%
+  right_join(df_ALL, by = "ID")
+
+samples_AFR <- samples_ALL %>% filter(`Superpopulation code` == "AFR")
+
+samples_AMR <- samples_ALL %>% filter(`Superpopulation code` == "AMR")
+
+samples_EAS <- samples_ALL %>% filter(`Superpopulation code` == "EAS")
+
+samples_EUR <- samples_ALL %>% filter(`Superpopulation code` == "EUR")
+
+samples_SAS <- samples_ALL %>% filter(`Superpopulation code` == "SAS") 
+```
+
+```{r}
+samples_ALL %>% 
+  ggplot(aes(x = n_singletons, fill = `Superpopulation code`)) + 
+  geom_density(alpha=0.3) +
+  ggtitle("Samples per Subject: 1000G Super-populations")
+```
+
+### Singletons per sample within sub-populations
+
+#### AFR
+
+```{r}
+samples_AFR %>%
+  ggplot(aes(x = n_singletons, fill = `Population code`)) +
+  geom_density(alpha = 0.3) +
+  ggtitle("Samples per Subject: 1000G AFR") +
+  scale_fill_manual(values = as.vector(cols25(n = 7)))
+```
+
+
+Now that we have sample-level information along with the number of singletons, we might also want to look at some more basic summary statistic information (for example: how many subjects do we have within each super-population? average number of singletons per (super)population? etc).
+
+## Samples per Superpopulation
+
+```{r results='asis'}
+knitr::kable(table(samples_ALL$`Superpopulation code`))
+```
+
+### Samples per Population
+
+#### AFR
+
+```{r results='asis'}
+knitr::kable(table(samples_AFR$`Population code`))
+```
+
+#### AMR
+
+```{r results='asis'}
+knitr::kable(table(samples_AMR$`Population code`))
+```
+
+#### EAS
+
+```{r results='asis'}
+knitr::kable(table(samples_EAS$`Population code`))
+```
+
+#### EUR
+
+```{r results='asis'}
+knitr::kable(table(samples_EUR$`Population code`))
+```
+
+#### SAS
+
+```{r results='asis'}
+knitr::kable(table(samples_SAS$`Population code`))
+```

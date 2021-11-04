@@ -7,9 +7,46 @@ editor_options:
   chunk_output_type: console
 ---
 
-## Introduction
-
-```{r}
-
+```{r include=FALSE, message = FALSE, warning=FALSE}
+library(tidyverse)
 ```
 
+# BRIDGES Summary Statistics
+
+## Introduction
+
+The purpose of this document is to organize statistics regarding the BRIDGES data set that might be of interest that don't fall into the other documents.
+
+## Singletons per Sample
+
+Below we plot the density of the number of singletons we observe in each sample.
+
+```{r}
+get_singletons_per_subject <- function(singleton_dir){
+  awk_cmd <- paste0("awk -F, '{count[$6]++}END{for(key in count)print(key, count[key])}' ",
+                    singleton_dir, 
+                    "chr*_annotated.csv")
+  df <- vroom::vroom(pipe(awk_cmd), col_names = c("ID", "n_singletons"))
+  return(df)
+}
+
+# df_BRIDGES <- get_singletons_per_subject("/net/snowwhite/home/beckandy/research/BRIDGES_redo/output/singletons/")
+# write_csv(df_BRIDGES, "/net/snowwhite/home/beckandy/research/BRIDGES_redo/output/singletons_per_subject.csv")
+
+df_BRIDGES <- read_csv("/net/snowwhite/home/beckandy/research/BRIDGES_redo/output/singletons_per_subject.csv",
+                       col_types = cols())
+df_BRIDGES %>%
+  ggplot(aes(x = n_singletons)) + 
+  geom_density() +
+  ggtitle("Singletons per Subject: BRIDGES",
+          paste0("Mean: ", round(mean(df_BRIDGES$n_singletons), 2),
+                 ", SD: ", round(sd(df_BRIDGES$n_singletons), 2),
+                 ", Min: " , min(df_BRIDGES$n_singletons) ,
+                 ", Max: ", max(df_BRIDGES$n_singletons) ) 
+          )+
+  xlab("Number of Singletons")
+```
+
+Here, we can see that on average we see around 10,000 singletons per sample in the BRIDGES data set, although we do have outliers in both directions.
+
+**Question: Are these outlier samples different in other ways? E.g., 3-mer mutation spectra, spatial distribution of nucleotides genome-wide, etc?**
