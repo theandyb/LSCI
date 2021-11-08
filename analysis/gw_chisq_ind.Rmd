@@ -1,0 +1,199 @@
+---
+title: "gw_chisq_ind"
+author: "Andy Beck"
+date: "2021-11-07"
+output: workflowr::wflow_html
+editor_options:
+  chunk_output_type: console
+---
+
+```{r echo=FALSE, message=FALSE, warning=FALSE}
+library(tidyverse)
+```
+
+
+# Chi-Square Test of Independence: Genome-wide Rates
+
+## Introduction
+
+When we have counts for two categorical variables, a question we might ask is if the two variables are independent or not. That is, if we look at the data in the format of a 2-way contingency table, does the percentage of the total in each cell match the product of the corresponding items in the row and marginal totals?
+
+Here we explore the "lack of independence" of the genome-wide counts of A/T and C/G alleles when we stratify these counts by the nucleotides at two flanking positions within +/- 10 bp. I view this simply as data exploration that probably won't reveal anything earth-shattering, but we won't know until we actually do it now won't we?
+
+## Getting the statistic for each pair of positions
+
+For each nucleotide pair A/T and C/G, we have the following contingency table for each of the 190 pairs of positions w/i the +/- 10 bp window:
+
+|   | A | C | G | T |
+|:-:|:-:|:-:|:-:|:-:|
+| A | $n_{AA}$ | $n_{AC}$ | $n_{AG}$ | $n_{AT}$ |
+| C | $n_{CA}$ | $n_{CC}$ | $n_{CG}$ | $n_{CT}$ |
+| G | $n_{GA}$ | $n_{GC}$ | $n_{GG}$ | $n_{GT}$ |
+| T | $n_{TA}$ | $n_{TC}$ | $n_{TG}$ | $n_{TT}$ |
+
+With these, we can compute the chi-square test independence statistic.
+
+```{r}
+get_statistic <- function(nuc, p1, p2){
+  data_dir <- "/net/snowwhite/home/beckandy/research/1000G_LSCI/output/gw_2_count/3cats/"
+  f_name <- paste0(data_dir, nuc, "_p", p1, "_q", p2, ".csv")
+  df <- read_csv(f_name, col_types = cols()) %>%
+    mutate(p1 = str_sub(Nucs, 1, 1),
+           p2 = str_sub(Nucs, 2, 2)) %>%
+    filter(n > 0)
+  df_tab <- xtabs(n ~ p1 + p2, data = df)
+  stat_val <- chisq.test(df_tab)
+  return(stat_val$statistic %>% unname())
+}
+
+# We also have "un-collapsed" counts (A, C, G, and T separately)
+get_statistic_uc <- function(nuc, p1, p2){
+  data_dir <- "/net/snowwhite/home/beckandy/research/1000G_LSCI/output/gw_2_count/6cats/"
+  f_name <- paste0(data_dir, nuc, "_p", p1, "_q", p2, ".csv")
+  df <- read_csv(f_name, col_types = cols()) %>%
+    mutate(p1 = str_sub(Nucs, 1, 1),
+           p2 = str_sub(Nucs, 2, 2)) %>%
+    filter(n > 0)
+  df_tab <- xtabs(n ~ p1 + p2, data = df)
+  stat_val <- chisq.test(df_tab)
+  return(stat_val$statistic %>% unname())
+}
+```
+
+For example, for A/T at -5, +4 we observe the following table:
+
+```{r example, echo=FALSE, results='asis'}
+f_name <- "/net/snowwhite/home/beckandy/research/1000G_LSCI/output/gw_2_count/3cats/at_p-5_q4.csv"
+df <- read_csv(f_name, col_types = cols()) %>%
+  mutate(p1 = str_sub(Nucs, 1, 1),
+         p2 = str_sub(Nucs, 2, 2))
+df_tab <- xtabs(n ~ p1 + p2, data = df)
+knitr::kable(df_tab)
+```
+
+with the chi-square test of independence yielding a statistic of `r chisq.test(df_tab)$statistic`. Now, for each nucleotide pair we'd like to have these statistics across all positions:
+
+```{r}
+get_statistic_all <- function(nuc, r_start = 1){
+  final <- data.frame(p1 = numeric(), p2 = numeric(), statistic = numeric())
+  for(p1 in c(-10:-1, r_start:9)){
+    for(p2 in (p1+1):10){
+      if(p2 == 0) next
+      if(p2 == 1 & r_start > 1) next
+      stat <- get_statistic(nuc, p1, p2) %>% unname()
+      final <- bind_rows(final, data.frame(p1 = p1, p2 = p2, statistic = stat))
+      }
+  }
+  return(final)
+}
+
+get_statistic_uc_all <- function(nuc, r_start = 1){
+  final <- data.frame(p1 = numeric(), p2 = numeric(), statistic = numeric())
+  for(p1 in c(-10:-1, r_start:9)){
+    for(p2 in (p1+1):10){
+      if(p2 == 0) next
+      if(p2 == 1 & r_start > 1) next
+      stat <- get_statistic_uc(nuc, p1, p2) %>% unname()
+      final <- bind_rows(final, data.frame(p1 = p1, p2 = p2, statistic = stat))
+      }
+  }
+  return(final)
+}
+```
+
+For example, for the A/T nucleotide we get the following table:
+
+```{r echo=FALSE, results='asis'}
+knitr::kable(get_statistic_all("at"))
+```
+
+Let's visualize these results:
+
+```{r}
+plot_stats <- function(nuc, r_start = 1){
+  df <- get_statistic_all(nuc, r_start)
+  p <- df %>%
+    ggplot(aes(x = p2, y = p1, fill = statistic)) +
+    geom_tile() +
+    theme_classic() +
+    ggtitle(paste0("GW ChiSq Ind: ", nuc),
+            paste0("Min: ", round(min(df$statistic), 2), "; max: ",round(max(df$statistic), 2) )) +
+    xlab("Relative Position 2") +
+    ylab("Relative Position 1") + 
+    scale_fill_distiller(palette = "Reds", direction = 1)
+  return(p)
+}
+
+plot_stats_uc <- function(nuc, r_start = 1){
+  df <- get_statistic_uc_all(nuc, r_start)
+  p <- df %>%
+    ggplot(aes(x = p2, y = p1, fill = statistic)) +
+    geom_tile() +
+    theme_classic() +
+    ggtitle(paste0("GW ChiSq Ind: ", nuc),
+            paste0("Min: ", round(min(df$statistic), 2), "; max: ",round(max(df$statistic), 2) )) +
+    xlab("Relative Position 2") +
+    ylab("Relative Position 1") + 
+    scale_fill_distiller(palette = "Reds", direction = 1)
+  return(p)
+}
+```
+
+## Collapsed Counts
+
+### AT
+
+```{r echo=FALSE}
+plot_stats("at")
+```
+
+### GC
+
+```{r echo=FALSE}
+plot_stats("gc")
+```
+
+### CpG_GC
+
+```{r echo=FALSE}
+plot_stats("cpg_gc", r_start = 2)
+```
+
+## Uncollapsed Counts
+
+### A
+
+```{r echo=FALSE}
+plot_stats_uc("a")
+```
+
+
+### C
+
+```{r echo=FALSE}
+plot_stats_uc("c")
+```
+
+### CpG C
+
+```{r echo=FALSE}
+plot_stats_uc("cpg_c", r_start = 2)
+```
+
+### G
+
+```{r echo=FALSE}
+plot_stats_uc("g")
+```
+
+### CpG G
+
+```{r echo=FALSE}
+plot_stats_uc("cpg_g", r_start = 2)
+```
+
+### T
+
+```{r echo=FALSE}
+plot_stats_uc("t")
+```
