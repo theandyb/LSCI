@@ -299,7 +299,7 @@ $(document).ready(function () {
 <div class="tab-content">
 <div id="summary" class="tab-pane fade in active">
 <p>
-<strong>Last updated:</strong> 2021-11-01
+<strong>Last updated:</strong> 2021-11-09
 </p>
 <p>
 <strong>Checks:</strong> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> 2 <span class="glyphicon glyphicon-exclamation-sign text-danger" aria-hidden="true"></span> 0
@@ -330,37 +330,29 @@ This reproducible <a href="http://rmarkdown.rstudio.com">R Markdown</a> analysis
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomtheandybLSCItree87215fd0d22c788e9fd3c2a6f74db71b866444f5targetblank87215fda"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/theandyb/LSCI/tree/87215fd0d22c788e9fd3c2a6f74db71b866444f5" target="_blank">87215fd</a> </a>
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomtheandybLSCItree1a782cb744ce1e27f93fe48b141573cfc544df63targetblank1a782cba"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/theandyb/LSCI/tree/1a782cb744ce1e27f93fe48b141573cfc544df63" target="_blank">1a782cb</a> </a>
 </p>
 </div>
-<div id="strongRepositoryversionstrongahrefhttpsgithubcomtheandybLSCItree87215fd0d22c788e9fd3c2a6f74db71b866444f5targetblank87215fda" class="panel-collapse collapse">
+<div id="strongRepositoryversionstrongahrefhttpsgithubcomtheandybLSCItree1a782cb744ce1e27f93fe48b141573cfc544df63targetblank1a782cba" class="panel-collapse collapse">
 <div class="panel-body">
 <p>
 Great! You are using Git for version control. Tracking code development and connecting the code version to the results is critical for reproducibility.
 </p>
 <p>
-The results in this page were generated with repository version <a href="https://github.com/theandyb/LSCI/tree/87215fd0d22c788e9fd3c2a6f74db71b866444f5" target="_blank">87215fd</a>. See the <em>Past versions</em> tab to see a history of the changes made to the R Markdown and HTML files.
+The results in this page were generated with repository version <a href="https://github.com/theandyb/LSCI/tree/1a782cb744ce1e27f93fe48b141573cfc544df63" target="_blank">1a782cb</a>. See the <em>Past versions</em> tab to see a history of the changes made to the R Markdown and HTML files.
 </p>
 <p>
 Note that you need to be careful to ensure that all relevant files for the analysis have been committed to Git prior to generating the results (you can use <code>wflow_publish</code> or <code>wflow_git_commit</code>). workflowr only checks the R Markdown file, but you know if there are other scripts or data files that it depends on. Below is the status of the Git repository when the results were generated:
 </p>
 <pre><code>
 Ignored files:
+    Ignored:    .Rhistory
     Ignored:    .Rproj.user/
-
-Untracked files:
-    Untracked:  analysis/1000G_only.Rmd
-    Untracked:  analysis/1000G_single_position_ALL.Rmd
-    Untracked:  analysis/1000G_single_postion_comp.Rmd
-    Untracked:  analysis/1000G_two_positions_ALL.Rmd
-    Untracked:  analysis/1000G_two_postions_comp.Rmd
-    Untracked:  analysis/BRIDGES_only.Rmd
-    Untracked:  analysis/BRIDGES_two_positions.Rmd
-    Untracked:  analysis/both_outline.Rmd
+    Ignored:    analysis/disqus.html
 
 Unstaged changes:
-    Modified:   analysis/BRIDGES_single_position.Rmd
-    Modified:   analysis/index.Rmd
+    Modified:   analysis/_site.yml
+    Modified:   analysis/outline.Rmd
 
 </code></pre>
 <p>
@@ -404,6 +396,23 @@ Message
 html
 </td>
 <td>
+<a href="https://rawcdn.githack.com/theandyb/LSCI/2df7c425b1fc48da863bf966d9de459ac66e5125/docs/about.html" target="_blank">2df7c42</a>
+</td>
+<td>
+Andy Beck
+</td>
+<td>
+2021-11-01
+</td>
+<td>
+Build site.
+</td>
+</tr>
+<tr>
+<td>
+html
+</td>
+<td>
 <a href="https://rawcdn.githack.com/theandyb/LSCI/d5b236c1d3f8dabe9276912c6cd9107b05c93efb/docs/about.html" target="_blank">d5b236c</a>
 </td>
 <td>
@@ -442,6 +451,18 @@ Start workflowr project.
 </div>
 <p>Describe your project.</p>
 
+<div id="disqus_thread"></div>
+<script>
+(function() { // DON'T EDIT BELOW THIS LINE
+var d = document, s = d.createElement('script');
+s.src = 'https://lsci-doc.disqus.com/embed.js';
+s.setAttribute('data-timestamp', +new Date());
+(d.head || d.body).appendChild(s);
+})();
+</script>
+<noscript>Please enable JavaScript to view the
+<a href="https://disqus.com/?ref_noscript">
+  comments powered by Disqus.</a></noscript>
 
 <!-- Adjust MathJax settings so that all math formulae are shown using
 TeX fonts only; see

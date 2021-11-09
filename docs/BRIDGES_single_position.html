@@ -379,7 +379,7 @@ div.tocify {
 <div class="tab-content">
 <div id="summary" class="tab-pane fade in active">
 <p>
-<strong>Last updated:</strong> 2021-11-03
+<strong>Last updated:</strong> 2021-11-09
 </p>
 <p>
 <strong>Checks:</strong> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> 7 <span class="glyphicon glyphicon-exclamation-sign text-danger" aria-hidden="true"></span> 0
@@ -470,16 +470,16 @@ This reproducible <a href="http://rmarkdown.rstudio.com">R Markdown</a> analysis
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomtheandybLSCItreea2af1c559366839fb2280eb88771d9a10817d99atargetblanka2af1c5a"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/theandyb/LSCI/tree/a2af1c559366839fb2280eb88771d9a10817d99a" target="_blank">a2af1c5</a> </a>
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomtheandybLSCItree1a782cb744ce1e27f93fe48b141573cfc544df63targetblank1a782cba"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/theandyb/LSCI/tree/1a782cb744ce1e27f93fe48b141573cfc544df63" target="_blank">1a782cb</a> </a>
 </p>
 </div>
-<div id="strongRepositoryversionstrongahrefhttpsgithubcomtheandybLSCItreea2af1c559366839fb2280eb88771d9a10817d99atargetblanka2af1c5a" class="panel-collapse collapse">
+<div id="strongRepositoryversionstrongahrefhttpsgithubcomtheandybLSCItree1a782cb744ce1e27f93fe48b141573cfc544df63targetblank1a782cba" class="panel-collapse collapse">
 <div class="panel-body">
 <p>
 Great! You are using Git for version control. Tracking code development and connecting the code version to the results is critical for reproducibility.
 </p>
 <p>
-The results in this page were generated with repository version <a href="https://github.com/theandyb/LSCI/tree/a2af1c559366839fb2280eb88771d9a10817d99a" target="_blank">a2af1c5</a>. See the <em>Past versions</em> tab to see a history of the changes made to the R Markdown and HTML files.
+The results in this page were generated with repository version <a href="https://github.com/theandyb/LSCI/tree/1a782cb744ce1e27f93fe48b141573cfc544df63" target="_blank">1a782cb</a>. See the <em>Past versions</em> tab to see a history of the changes made to the R Markdown and HTML files.
 </p>
 <p>
 Note that you need to be careful to ensure that all relevant files for the analysis have been committed to Git prior to generating the results (you can use <code>wflow_publish</code> or <code>wflow_git_commit</code>). workflowr only checks the R Markdown file, but you know if there are other scripts or data files that it depends on. Below is the status of the Git repository when the results were generated:
@@ -488,12 +488,11 @@ Note that you need to be careful to ensure that all relevant files for the analy
 Ignored files:
     Ignored:    .Rhistory
     Ignored:    .Rproj.user/
-
-Untracked files:
-    Untracked:  analysis/1000G_summary_stats.Rmd
+    Ignored:    analysis/disqus.html
 
 Unstaged changes:
-    Modified:   analysis/BRIDGES_summary_stats.Rmd
+    Modified:   analysis/_site.yml
+    Modified:   analysis/outline.Rmd
 
 </code></pre>
 <p>
@@ -532,6 +531,23 @@ Message
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+html
+</td>
+<td>
+<a href="https://rawcdn.githack.com/theandyb/LSCI/45e9d3d1a87d49d3c6ef8a0914d6fb2813f45212/docs/BRIDGES_single_position.html" target="_blank">45e9d3d</a>
+</td>
+<td>
+Andy Beck
+</td>
+<td>
+2021-11-03
+</td>
+<td>
+Build site.
+</td>
+</tr>
 <tr>
 <td>
 Rmd
@@ -1077,40 +1093,715 @@ Andy Beck
 <div id="at_cg-1" class="section level3">
 <h3>AT_CG</h3>
 <p>For our first analysis, let’s compare the results we observe in the AT_CG sub-type to what we observe for the two simple sub-types which contribute to this composite sub-type: A&gt;C and T&gt;G. Note that in order to compare T&gt;G to AT&gt;CG we’ll need to take reverse complements, i.e. results for relative position 1 for T&gt;G “flipped” to -1, 2 to -2, etc.</p>
-<p><img src="figure/BRIDGES_single_position.Rmd/unnamed-chunk-13-1.png" width="672" style="display: block; margin: auto;" /><img src="figure/BRIDGES_single_position.Rmd/unnamed-chunk-13-2.png" width="672" style="display: block; margin: auto;" /></p>
+<p><img src="figure/BRIDGES_single_position.Rmd/unnamed-chunk-13-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-13-1">
+Past versions of unnamed-chunk-13-1.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-13-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/theandyb/LSCI/blob/45e9d3d1a87d49d3c6ef8a0914d6fb2813f45212/docs/figure/BRIDGES_single_position.Rmd/unnamed-chunk-13-1.png" target="_blank">45e9d3d</a>
+</td>
+<td>
+Andy Beck
+</td>
+<td>
+2021-11-03
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<p><img src="figure/BRIDGES_single_position.Rmd/unnamed-chunk-13-2.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-13-2">
+Past versions of unnamed-chunk-13-2.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-13-2" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/theandyb/LSCI/blob/45e9d3d1a87d49d3c6ef8a0914d6fb2813f45212/docs/figure/BRIDGES_single_position.Rmd/unnamed-chunk-13-2.png" target="_blank">45e9d3d</a>
+</td>
+<td>
+Andy Beck
+</td>
+<td>
+2021-11-03
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 <p>In the above two plots we don’t see any differences in the patterns for the A_C and T_G sub-types, suggesting that collapsing the two into one category is acceptable.</p>
 </div>
 <div id="at_gc-1" class="section level3">
 <h3>AT_GC</h3>
-<p><img src="figure/BRIDGES_single_position.Rmd/unnamed-chunk-14-1.png" width="672" style="display: block; margin: auto;" /><img src="figure/BRIDGES_single_position.Rmd/unnamed-chunk-14-2.png" width="672" style="display: block; margin: auto;" /></p>
+<p><img src="figure/BRIDGES_single_position.Rmd/unnamed-chunk-14-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-14-1">
+Past versions of unnamed-chunk-14-1.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-14-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/theandyb/LSCI/blob/45e9d3d1a87d49d3c6ef8a0914d6fb2813f45212/docs/figure/BRIDGES_single_position.Rmd/unnamed-chunk-14-1.png" target="_blank">45e9d3d</a>
+</td>
+<td>
+Andy Beck
+</td>
+<td>
+2021-11-03
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<p><img src="figure/BRIDGES_single_position.Rmd/unnamed-chunk-14-2.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-14-2">
+Past versions of unnamed-chunk-14-2.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-14-2" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/theandyb/LSCI/blob/45e9d3d1a87d49d3c6ef8a0914d6fb2813f45212/docs/figure/BRIDGES_single_position.Rmd/unnamed-chunk-14-2.png" target="_blank">45e9d3d</a>
+</td>
+<td>
+Andy Beck
+</td>
+<td>
+2021-11-03
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 </div>
 <div id="at_ta-1" class="section level3">
 <h3>AT_TA</h3>
-<p><img src="figure/BRIDGES_single_position.Rmd/unnamed-chunk-15-1.png" width="672" style="display: block; margin: auto;" /><img src="figure/BRIDGES_single_position.Rmd/unnamed-chunk-15-2.png" width="672" style="display: block; margin: auto;" /></p>
+<p><img src="figure/BRIDGES_single_position.Rmd/unnamed-chunk-15-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-15-1">
+Past versions of unnamed-chunk-15-1.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-15-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/theandyb/LSCI/blob/45e9d3d1a87d49d3c6ef8a0914d6fb2813f45212/docs/figure/BRIDGES_single_position.Rmd/unnamed-chunk-15-1.png" target="_blank">45e9d3d</a>
+</td>
+<td>
+Andy Beck
+</td>
+<td>
+2021-11-03
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<p><img src="figure/BRIDGES_single_position.Rmd/unnamed-chunk-15-2.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-15-2">
+Past versions of unnamed-chunk-15-2.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-15-2" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/theandyb/LSCI/blob/45e9d3d1a87d49d3c6ef8a0914d6fb2813f45212/docs/figure/BRIDGES_single_position.Rmd/unnamed-chunk-15-2.png" target="_blank">45e9d3d</a>
+</td>
+<td>
+Andy Beck
+</td>
+<td>
+2021-11-03
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 </div>
 <div id="gc_at-1" class="section level3">
 <h3>GC_AT</h3>
-<p><img src="figure/BRIDGES_single_position.Rmd/unnamed-chunk-16-1.png" width="672" style="display: block; margin: auto;" /><img src="figure/BRIDGES_single_position.Rmd/unnamed-chunk-16-2.png" width="672" style="display: block; margin: auto;" /></p>
+<p><img src="figure/BRIDGES_single_position.Rmd/unnamed-chunk-16-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-16-1">
+Past versions of unnamed-chunk-16-1.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-16-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/theandyb/LSCI/blob/45e9d3d1a87d49d3c6ef8a0914d6fb2813f45212/docs/figure/BRIDGES_single_position.Rmd/unnamed-chunk-16-1.png" target="_blank">45e9d3d</a>
+</td>
+<td>
+Andy Beck
+</td>
+<td>
+2021-11-03
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<p><img src="figure/BRIDGES_single_position.Rmd/unnamed-chunk-16-2.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-16-2">
+Past versions of unnamed-chunk-16-2.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-16-2" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/theandyb/LSCI/blob/45e9d3d1a87d49d3c6ef8a0914d6fb2813f45212/docs/figure/BRIDGES_single_position.Rmd/unnamed-chunk-16-2.png" target="_blank">45e9d3d</a>
+</td>
+<td>
+Andy Beck
+</td>
+<td>
+2021-11-03
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 </div>
 <div id="cpg_gc_at-1" class="section level3">
 <h3>cpg_GC_AT</h3>
-<p><img src="figure/BRIDGES_single_position.Rmd/unnamed-chunk-17-1.png" width="672" style="display: block; margin: auto;" /><img src="figure/BRIDGES_single_position.Rmd/unnamed-chunk-17-2.png" width="672" style="display: block; margin: auto;" /></p>
+<p><img src="figure/BRIDGES_single_position.Rmd/unnamed-chunk-17-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-17-1">
+Past versions of unnamed-chunk-17-1.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-17-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/theandyb/LSCI/blob/45e9d3d1a87d49d3c6ef8a0914d6fb2813f45212/docs/figure/BRIDGES_single_position.Rmd/unnamed-chunk-17-1.png" target="_blank">45e9d3d</a>
+</td>
+<td>
+Andy Beck
+</td>
+<td>
+2021-11-03
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<p><img src="figure/BRIDGES_single_position.Rmd/unnamed-chunk-17-2.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-17-2">
+Past versions of unnamed-chunk-17-2.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-17-2" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/theandyb/LSCI/blob/45e9d3d1a87d49d3c6ef8a0914d6fb2813f45212/docs/figure/BRIDGES_single_position.Rmd/unnamed-chunk-17-2.png" target="_blank">45e9d3d</a>
+</td>
+<td>
+Andy Beck
+</td>
+<td>
+2021-11-03
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 </div>
 <div id="gc_ta-1" class="section level3">
 <h3>GC_TA</h3>
-<p><img src="figure/BRIDGES_single_position.Rmd/unnamed-chunk-18-1.png" width="672" style="display: block; margin: auto;" /><img src="figure/BRIDGES_single_position.Rmd/unnamed-chunk-18-2.png" width="672" style="display: block; margin: auto;" /></p>
+<p><img src="figure/BRIDGES_single_position.Rmd/unnamed-chunk-18-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-18-1">
+Past versions of unnamed-chunk-18-1.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-18-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/theandyb/LSCI/blob/45e9d3d1a87d49d3c6ef8a0914d6fb2813f45212/docs/figure/BRIDGES_single_position.Rmd/unnamed-chunk-18-1.png" target="_blank">45e9d3d</a>
+</td>
+<td>
+Andy Beck
+</td>
+<td>
+2021-11-03
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<p><img src="figure/BRIDGES_single_position.Rmd/unnamed-chunk-18-2.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-18-2">
+Past versions of unnamed-chunk-18-2.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-18-2" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/theandyb/LSCI/blob/45e9d3d1a87d49d3c6ef8a0914d6fb2813f45212/docs/figure/BRIDGES_single_position.Rmd/unnamed-chunk-18-2.png" target="_blank">45e9d3d</a>
+</td>
+<td>
+Andy Beck
+</td>
+<td>
+2021-11-03
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 </div>
 <div id="cpg_gc_at-2" class="section level3">
 <h3>cpg_GC_AT</h3>
-<p><img src="figure/BRIDGES_single_position.Rmd/unnamed-chunk-19-1.png" width="672" style="display: block; margin: auto;" /><img src="figure/BRIDGES_single_position.Rmd/unnamed-chunk-19-2.png" width="672" style="display: block; margin: auto;" /></p>
+<p><img src="figure/BRIDGES_single_position.Rmd/unnamed-chunk-19-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-19-1">
+Past versions of unnamed-chunk-19-1.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-19-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/theandyb/LSCI/blob/45e9d3d1a87d49d3c6ef8a0914d6fb2813f45212/docs/figure/BRIDGES_single_position.Rmd/unnamed-chunk-19-1.png" target="_blank">45e9d3d</a>
+</td>
+<td>
+Andy Beck
+</td>
+<td>
+2021-11-03
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<p><img src="figure/BRIDGES_single_position.Rmd/unnamed-chunk-19-2.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-19-2">
+Past versions of unnamed-chunk-19-2.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-19-2" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/theandyb/LSCI/blob/45e9d3d1a87d49d3c6ef8a0914d6fb2813f45212/docs/figure/BRIDGES_single_position.Rmd/unnamed-chunk-19-2.png" target="_blank">45e9d3d</a>
+</td>
+<td>
+Andy Beck
+</td>
+<td>
+2021-11-03
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 </div>
 <div id="gc_cg-1" class="section level3">
 <h3>GC_CG</h3>
-<p><img src="figure/BRIDGES_single_position.Rmd/unnamed-chunk-20-1.png" width="672" style="display: block; margin: auto;" /><img src="figure/BRIDGES_single_position.Rmd/unnamed-chunk-20-2.png" width="672" style="display: block; margin: auto;" /></p>
+<p><img src="figure/BRIDGES_single_position.Rmd/unnamed-chunk-20-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-20-1">
+Past versions of unnamed-chunk-20-1.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-20-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/theandyb/LSCI/blob/45e9d3d1a87d49d3c6ef8a0914d6fb2813f45212/docs/figure/BRIDGES_single_position.Rmd/unnamed-chunk-20-1.png" target="_blank">45e9d3d</a>
+</td>
+<td>
+Andy Beck
+</td>
+<td>
+2021-11-03
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<p><img src="figure/BRIDGES_single_position.Rmd/unnamed-chunk-20-2.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-20-2">
+Past versions of unnamed-chunk-20-2.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-20-2" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/theandyb/LSCI/blob/45e9d3d1a87d49d3c6ef8a0914d6fb2813f45212/docs/figure/BRIDGES_single_position.Rmd/unnamed-chunk-20-2.png" target="_blank">45e9d3d</a>
+</td>
+<td>
+Andy Beck
+</td>
+<td>
+2021-11-03
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 </div>
 <div id="cpg_gc_at-3" class="section level3">
 <h3>cpg_GC_AT</h3>
-<p><img src="figure/BRIDGES_single_position.Rmd/unnamed-chunk-21-1.png" width="672" style="display: block; margin: auto;" /><img src="figure/BRIDGES_single_position.Rmd/unnamed-chunk-21-2.png" width="672" style="display: block; margin: auto;" /></p>
+<p><img src="figure/BRIDGES_single_position.Rmd/unnamed-chunk-21-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-21-1">
+Past versions of unnamed-chunk-21-1.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-21-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/theandyb/LSCI/blob/45e9d3d1a87d49d3c6ef8a0914d6fb2813f45212/docs/figure/BRIDGES_single_position.Rmd/unnamed-chunk-21-1.png" target="_blank">45e9d3d</a>
+</td>
+<td>
+Andy Beck
+</td>
+<td>
+2021-11-03
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<p><img src="figure/BRIDGES_single_position.Rmd/unnamed-chunk-21-2.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-21-2">
+Past versions of unnamed-chunk-21-2.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-21-2" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/theandyb/LSCI/blob/45e9d3d1a87d49d3c6ef8a0914d6fb2813f45212/docs/figure/BRIDGES_single_position.Rmd/unnamed-chunk-21-2.png" target="_blank">45e9d3d</a>
+</td>
+<td>
+Andy Beck
+</td>
+<td>
+2021-11-03
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 <p>I do not see any substantial differences between simple sub-type pairs, and so forth I will only consider the 9 collapsed categories.</p>
 </div>
 </div>
@@ -1119,60 +1810,1410 @@ Andy Beck
 <p>Above we explored at the level of each position how the distributions of nucleotides flanking singletons were different from the corresponding genome-wide and control sample distributions using the chi-square goodness of fit statistic. The overall statistic at each position is a summation of contributions from each of the four (or three) nucleotides at each position. Here we look at these contributions to identify which individual nucleotides are most “influential” at each position by plotting both the % contribution to the overall statistic at each position and the signed contribution (positive if a nucleotide was observed more in singletons than expected under gw/control rate, negative if fewer).</p>
 <div id="at_cg-2" class="section level3">
 <h3>AT_CG</h3>
-<p><img src="figure/BRIDGES_single_position.Rmd/unnamed-chunk-22-1.png" width="672" style="display: block; margin: auto;" /><img src="figure/BRIDGES_single_position.Rmd/unnamed-chunk-22-2.png" width="672" style="display: block; margin: auto;" /><img src="figure/BRIDGES_single_position.Rmd/unnamed-chunk-22-3.png" width="672" style="display: block; margin: auto;" /><img src="figure/BRIDGES_single_position.Rmd/unnamed-chunk-22-4.png" width="672" style="display: block; margin: auto;" /></p>
+<p><img src="figure/BRIDGES_single_position.Rmd/unnamed-chunk-22-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-22-1">
+Past versions of unnamed-chunk-22-1.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-22-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/theandyb/LSCI/blob/45e9d3d1a87d49d3c6ef8a0914d6fb2813f45212/docs/figure/BRIDGES_single_position.Rmd/unnamed-chunk-22-1.png" target="_blank">45e9d3d</a>
+</td>
+<td>
+Andy Beck
+</td>
+<td>
+2021-11-03
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<p><img src="figure/BRIDGES_single_position.Rmd/unnamed-chunk-22-2.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-22-2">
+Past versions of unnamed-chunk-22-2.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-22-2" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/theandyb/LSCI/blob/45e9d3d1a87d49d3c6ef8a0914d6fb2813f45212/docs/figure/BRIDGES_single_position.Rmd/unnamed-chunk-22-2.png" target="_blank">45e9d3d</a>
+</td>
+<td>
+Andy Beck
+</td>
+<td>
+2021-11-03
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<p><img src="figure/BRIDGES_single_position.Rmd/unnamed-chunk-22-3.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-22-3">
+Past versions of unnamed-chunk-22-3.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-22-3" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/theandyb/LSCI/blob/45e9d3d1a87d49d3c6ef8a0914d6fb2813f45212/docs/figure/BRIDGES_single_position.Rmd/unnamed-chunk-22-3.png" target="_blank">45e9d3d</a>
+</td>
+<td>
+Andy Beck
+</td>
+<td>
+2021-11-03
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<p><img src="figure/BRIDGES_single_position.Rmd/unnamed-chunk-22-4.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-22-4">
+Past versions of unnamed-chunk-22-4.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-22-4" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/theandyb/LSCI/blob/45e9d3d1a87d49d3c6ef8a0914d6fb2813f45212/docs/figure/BRIDGES_single_position.Rmd/unnamed-chunk-22-4.png" target="_blank">45e9d3d</a>
+</td>
+<td>
+Andy Beck
+</td>
+<td>
+2021-11-03
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 </div>
 <div id="at_gc-2" class="section level3">
 <h3>AT_GC</h3>
-<p><img src="figure/BRIDGES_single_position.Rmd/unnamed-chunk-23-1.png" width="672" style="display: block; margin: auto;" /><img src="figure/BRIDGES_single_position.Rmd/unnamed-chunk-23-2.png" width="672" style="display: block; margin: auto;" /><img src="figure/BRIDGES_single_position.Rmd/unnamed-chunk-23-3.png" width="672" style="display: block; margin: auto;" /><img src="figure/BRIDGES_single_position.Rmd/unnamed-chunk-23-4.png" width="672" style="display: block; margin: auto;" /></p>
+<p><img src="figure/BRIDGES_single_position.Rmd/unnamed-chunk-23-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-23-1">
+Past versions of unnamed-chunk-23-1.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-23-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/theandyb/LSCI/blob/45e9d3d1a87d49d3c6ef8a0914d6fb2813f45212/docs/figure/BRIDGES_single_position.Rmd/unnamed-chunk-23-1.png" target="_blank">45e9d3d</a>
+</td>
+<td>
+Andy Beck
+</td>
+<td>
+2021-11-03
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<p><img src="figure/BRIDGES_single_position.Rmd/unnamed-chunk-23-2.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-23-2">
+Past versions of unnamed-chunk-23-2.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-23-2" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/theandyb/LSCI/blob/45e9d3d1a87d49d3c6ef8a0914d6fb2813f45212/docs/figure/BRIDGES_single_position.Rmd/unnamed-chunk-23-2.png" target="_blank">45e9d3d</a>
+</td>
+<td>
+Andy Beck
+</td>
+<td>
+2021-11-03
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<p><img src="figure/BRIDGES_single_position.Rmd/unnamed-chunk-23-3.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-23-3">
+Past versions of unnamed-chunk-23-3.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-23-3" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/theandyb/LSCI/blob/45e9d3d1a87d49d3c6ef8a0914d6fb2813f45212/docs/figure/BRIDGES_single_position.Rmd/unnamed-chunk-23-3.png" target="_blank">45e9d3d</a>
+</td>
+<td>
+Andy Beck
+</td>
+<td>
+2021-11-03
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<p><img src="figure/BRIDGES_single_position.Rmd/unnamed-chunk-23-4.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-23-4">
+Past versions of unnamed-chunk-23-4.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-23-4" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/theandyb/LSCI/blob/45e9d3d1a87d49d3c6ef8a0914d6fb2813f45212/docs/figure/BRIDGES_single_position.Rmd/unnamed-chunk-23-4.png" target="_blank">45e9d3d</a>
+</td>
+<td>
+Andy Beck
+</td>
+<td>
+2021-11-03
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 </div>
 <div id="at_ta-2" class="section level3">
 <h3>AT_TA</h3>
-<p><img src="figure/BRIDGES_single_position.Rmd/unnamed-chunk-24-1.png" width="672" style="display: block; margin: auto;" /><img src="figure/BRIDGES_single_position.Rmd/unnamed-chunk-24-2.png" width="672" style="display: block; margin: auto;" /><img src="figure/BRIDGES_single_position.Rmd/unnamed-chunk-24-3.png" width="672" style="display: block; margin: auto;" /><img src="figure/BRIDGES_single_position.Rmd/unnamed-chunk-24-4.png" width="672" style="display: block; margin: auto;" /></p>
+<p><img src="figure/BRIDGES_single_position.Rmd/unnamed-chunk-24-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-24-1">
+Past versions of unnamed-chunk-24-1.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-24-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/theandyb/LSCI/blob/45e9d3d1a87d49d3c6ef8a0914d6fb2813f45212/docs/figure/BRIDGES_single_position.Rmd/unnamed-chunk-24-1.png" target="_blank">45e9d3d</a>
+</td>
+<td>
+Andy Beck
+</td>
+<td>
+2021-11-03
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<p><img src="figure/BRIDGES_single_position.Rmd/unnamed-chunk-24-2.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-24-2">
+Past versions of unnamed-chunk-24-2.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-24-2" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/theandyb/LSCI/blob/45e9d3d1a87d49d3c6ef8a0914d6fb2813f45212/docs/figure/BRIDGES_single_position.Rmd/unnamed-chunk-24-2.png" target="_blank">45e9d3d</a>
+</td>
+<td>
+Andy Beck
+</td>
+<td>
+2021-11-03
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<p><img src="figure/BRIDGES_single_position.Rmd/unnamed-chunk-24-3.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-24-3">
+Past versions of unnamed-chunk-24-3.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-24-3" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/theandyb/LSCI/blob/45e9d3d1a87d49d3c6ef8a0914d6fb2813f45212/docs/figure/BRIDGES_single_position.Rmd/unnamed-chunk-24-3.png" target="_blank">45e9d3d</a>
+</td>
+<td>
+Andy Beck
+</td>
+<td>
+2021-11-03
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<p><img src="figure/BRIDGES_single_position.Rmd/unnamed-chunk-24-4.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-24-4">
+Past versions of unnamed-chunk-24-4.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-24-4" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/theandyb/LSCI/blob/45e9d3d1a87d49d3c6ef8a0914d6fb2813f45212/docs/figure/BRIDGES_single_position.Rmd/unnamed-chunk-24-4.png" target="_blank">45e9d3d</a>
+</td>
+<td>
+Andy Beck
+</td>
+<td>
+2021-11-03
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 </div>
 <div id="gc_at-2" class="section level3">
 <h3>GC_AT</h3>
 <pre><code>Warning: Removed 4 rows containing missing values (position_stack).</code></pre>
 <p><img src="figure/BRIDGES_single_position.Rmd/unnamed-chunk-25-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-25-1">
+Past versions of unnamed-chunk-25-1.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-25-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/theandyb/LSCI/blob/45e9d3d1a87d49d3c6ef8a0914d6fb2813f45212/docs/figure/BRIDGES_single_position.Rmd/unnamed-chunk-25-1.png" target="_blank">45e9d3d</a>
+</td>
+<td>
+Andy Beck
+</td>
+<td>
+2021-11-03
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 <pre><code>Warning: Removed 1 rows containing missing values (geom_point).</code></pre>
 <p><img src="figure/BRIDGES_single_position.Rmd/unnamed-chunk-25-2.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-25-2">
+Past versions of unnamed-chunk-25-2.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-25-2" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/theandyb/LSCI/blob/45e9d3d1a87d49d3c6ef8a0914d6fb2813f45212/docs/figure/BRIDGES_single_position.Rmd/unnamed-chunk-25-2.png" target="_blank">45e9d3d</a>
+</td>
+<td>
+Andy Beck
+</td>
+<td>
+2021-11-03
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 <pre><code>Warning: Removed 4 rows containing missing values (position_stack).</code></pre>
 <p><img src="figure/BRIDGES_single_position.Rmd/unnamed-chunk-25-3.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-25-3">
+Past versions of unnamed-chunk-25-3.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-25-3" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/theandyb/LSCI/blob/45e9d3d1a87d49d3c6ef8a0914d6fb2813f45212/docs/figure/BRIDGES_single_position.Rmd/unnamed-chunk-25-3.png" target="_blank">45e9d3d</a>
+</td>
+<td>
+Andy Beck
+</td>
+<td>
+2021-11-03
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 <pre><code>Warning: Removed 1 rows containing missing values (geom_point).</code></pre>
 <p><img src="figure/BRIDGES_single_position.Rmd/unnamed-chunk-25-4.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-25-4">
+Past versions of unnamed-chunk-25-4.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-25-4" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/theandyb/LSCI/blob/45e9d3d1a87d49d3c6ef8a0914d6fb2813f45212/docs/figure/BRIDGES_single_position.Rmd/unnamed-chunk-25-4.png" target="_blank">45e9d3d</a>
+</td>
+<td>
+Andy Beck
+</td>
+<td>
+2021-11-03
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 </div>
 <div id="cpg_gc_at-4" class="section level3">
 <h3>cpg_GC_AT</h3>
-<p><img src="figure/BRIDGES_single_position.Rmd/unnamed-chunk-26-1.png" width="672" style="display: block; margin: auto;" /><img src="figure/BRIDGES_single_position.Rmd/unnamed-chunk-26-2.png" width="672" style="display: block; margin: auto;" /><img src="figure/BRIDGES_single_position.Rmd/unnamed-chunk-26-3.png" width="672" style="display: block; margin: auto;" /><img src="figure/BRIDGES_single_position.Rmd/unnamed-chunk-26-4.png" width="672" style="display: block; margin: auto;" /></p>
+<p><img src="figure/BRIDGES_single_position.Rmd/unnamed-chunk-26-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-26-1">
+Past versions of unnamed-chunk-26-1.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-26-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/theandyb/LSCI/blob/45e9d3d1a87d49d3c6ef8a0914d6fb2813f45212/docs/figure/BRIDGES_single_position.Rmd/unnamed-chunk-26-1.png" target="_blank">45e9d3d</a>
+</td>
+<td>
+Andy Beck
+</td>
+<td>
+2021-11-03
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<p><img src="figure/BRIDGES_single_position.Rmd/unnamed-chunk-26-2.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-26-2">
+Past versions of unnamed-chunk-26-2.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-26-2" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/theandyb/LSCI/blob/45e9d3d1a87d49d3c6ef8a0914d6fb2813f45212/docs/figure/BRIDGES_single_position.Rmd/unnamed-chunk-26-2.png" target="_blank">45e9d3d</a>
+</td>
+<td>
+Andy Beck
+</td>
+<td>
+2021-11-03
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<p><img src="figure/BRIDGES_single_position.Rmd/unnamed-chunk-26-3.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-26-3">
+Past versions of unnamed-chunk-26-3.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-26-3" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/theandyb/LSCI/blob/45e9d3d1a87d49d3c6ef8a0914d6fb2813f45212/docs/figure/BRIDGES_single_position.Rmd/unnamed-chunk-26-3.png" target="_blank">45e9d3d</a>
+</td>
+<td>
+Andy Beck
+</td>
+<td>
+2021-11-03
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<p><img src="figure/BRIDGES_single_position.Rmd/unnamed-chunk-26-4.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-26-4">
+Past versions of unnamed-chunk-26-4.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-26-4" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/theandyb/LSCI/blob/45e9d3d1a87d49d3c6ef8a0914d6fb2813f45212/docs/figure/BRIDGES_single_position.Rmd/unnamed-chunk-26-4.png" target="_blank">45e9d3d</a>
+</td>
+<td>
+Andy Beck
+</td>
+<td>
+2021-11-03
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 </div>
 <div id="gc_cg-2" class="section level3">
 <h3>GC_CG</h3>
 <pre><code>Warning: Removed 4 rows containing missing values (position_stack).</code></pre>
 <p><img src="figure/BRIDGES_single_position.Rmd/unnamed-chunk-27-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-27-1">
+Past versions of unnamed-chunk-27-1.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-27-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/theandyb/LSCI/blob/45e9d3d1a87d49d3c6ef8a0914d6fb2813f45212/docs/figure/BRIDGES_single_position.Rmd/unnamed-chunk-27-1.png" target="_blank">45e9d3d</a>
+</td>
+<td>
+Andy Beck
+</td>
+<td>
+2021-11-03
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 <pre><code>Warning: Removed 1 rows containing missing values (geom_point).</code></pre>
 <p><img src="figure/BRIDGES_single_position.Rmd/unnamed-chunk-27-2.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-27-2">
+Past versions of unnamed-chunk-27-2.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-27-2" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/theandyb/LSCI/blob/45e9d3d1a87d49d3c6ef8a0914d6fb2813f45212/docs/figure/BRIDGES_single_position.Rmd/unnamed-chunk-27-2.png" target="_blank">45e9d3d</a>
+</td>
+<td>
+Andy Beck
+</td>
+<td>
+2021-11-03
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 <pre><code>Warning: Removed 4 rows containing missing values (position_stack).</code></pre>
 <p><img src="figure/BRIDGES_single_position.Rmd/unnamed-chunk-27-3.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-27-3">
+Past versions of unnamed-chunk-27-3.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-27-3" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/theandyb/LSCI/blob/45e9d3d1a87d49d3c6ef8a0914d6fb2813f45212/docs/figure/BRIDGES_single_position.Rmd/unnamed-chunk-27-3.png" target="_blank">45e9d3d</a>
+</td>
+<td>
+Andy Beck
+</td>
+<td>
+2021-11-03
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 <pre><code>Warning: Removed 1 rows containing missing values (geom_point).</code></pre>
 <p><img src="figure/BRIDGES_single_position.Rmd/unnamed-chunk-27-4.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-27-4">
+Past versions of unnamed-chunk-27-4.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-27-4" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/theandyb/LSCI/blob/45e9d3d1a87d49d3c6ef8a0914d6fb2813f45212/docs/figure/BRIDGES_single_position.Rmd/unnamed-chunk-27-4.png" target="_blank">45e9d3d</a>
+</td>
+<td>
+Andy Beck
+</td>
+<td>
+2021-11-03
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 </div>
 <div id="cpg_gc_cg-1" class="section level3">
 <h3>cpg_GC_CG</h3>
-<p><img src="figure/BRIDGES_single_position.Rmd/unnamed-chunk-28-1.png" width="672" style="display: block; margin: auto;" /><img src="figure/BRIDGES_single_position.Rmd/unnamed-chunk-28-2.png" width="672" style="display: block; margin: auto;" /><img src="figure/BRIDGES_single_position.Rmd/unnamed-chunk-28-3.png" width="672" style="display: block; margin: auto;" /><img src="figure/BRIDGES_single_position.Rmd/unnamed-chunk-28-4.png" width="672" style="display: block; margin: auto;" /></p>
+<p><img src="figure/BRIDGES_single_position.Rmd/unnamed-chunk-28-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-28-1">
+Past versions of unnamed-chunk-28-1.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-28-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/theandyb/LSCI/blob/45e9d3d1a87d49d3c6ef8a0914d6fb2813f45212/docs/figure/BRIDGES_single_position.Rmd/unnamed-chunk-28-1.png" target="_blank">45e9d3d</a>
+</td>
+<td>
+Andy Beck
+</td>
+<td>
+2021-11-03
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<p><img src="figure/BRIDGES_single_position.Rmd/unnamed-chunk-28-2.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-28-2">
+Past versions of unnamed-chunk-28-2.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-28-2" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/theandyb/LSCI/blob/45e9d3d1a87d49d3c6ef8a0914d6fb2813f45212/docs/figure/BRIDGES_single_position.Rmd/unnamed-chunk-28-2.png" target="_blank">45e9d3d</a>
+</td>
+<td>
+Andy Beck
+</td>
+<td>
+2021-11-03
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<p><img src="figure/BRIDGES_single_position.Rmd/unnamed-chunk-28-3.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-28-3">
+Past versions of unnamed-chunk-28-3.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-28-3" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/theandyb/LSCI/blob/45e9d3d1a87d49d3c6ef8a0914d6fb2813f45212/docs/figure/BRIDGES_single_position.Rmd/unnamed-chunk-28-3.png" target="_blank">45e9d3d</a>
+</td>
+<td>
+Andy Beck
+</td>
+<td>
+2021-11-03
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<p><img src="figure/BRIDGES_single_position.Rmd/unnamed-chunk-28-4.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-28-4">
+Past versions of unnamed-chunk-28-4.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-28-4" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/theandyb/LSCI/blob/45e9d3d1a87d49d3c6ef8a0914d6fb2813f45212/docs/figure/BRIDGES_single_position.Rmd/unnamed-chunk-28-4.png" target="_blank">45e9d3d</a>
+</td>
+<td>
+Andy Beck
+</td>
+<td>
+2021-11-03
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 </div>
 <div id="gc_ta-2" class="section level3">
 <h3>GC_TA</h3>
 <pre><code>Warning: Removed 4 rows containing missing values (position_stack).</code></pre>
 <p><img src="figure/BRIDGES_single_position.Rmd/unnamed-chunk-29-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-29-1">
+Past versions of unnamed-chunk-29-1.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-29-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/theandyb/LSCI/blob/45e9d3d1a87d49d3c6ef8a0914d6fb2813f45212/docs/figure/BRIDGES_single_position.Rmd/unnamed-chunk-29-1.png" target="_blank">45e9d3d</a>
+</td>
+<td>
+Andy Beck
+</td>
+<td>
+2021-11-03
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 <pre><code>Warning: Removed 1 rows containing missing values (geom_point).</code></pre>
 <p><img src="figure/BRIDGES_single_position.Rmd/unnamed-chunk-29-2.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-29-2">
+Past versions of unnamed-chunk-29-2.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-29-2" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/theandyb/LSCI/blob/45e9d3d1a87d49d3c6ef8a0914d6fb2813f45212/docs/figure/BRIDGES_single_position.Rmd/unnamed-chunk-29-2.png" target="_blank">45e9d3d</a>
+</td>
+<td>
+Andy Beck
+</td>
+<td>
+2021-11-03
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 <pre><code>Warning: Removed 4 rows containing missing values (position_stack).</code></pre>
 <p><img src="figure/BRIDGES_single_position.Rmd/unnamed-chunk-29-3.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-29-3">
+Past versions of unnamed-chunk-29-3.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-29-3" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/theandyb/LSCI/blob/45e9d3d1a87d49d3c6ef8a0914d6fb2813f45212/docs/figure/BRIDGES_single_position.Rmd/unnamed-chunk-29-3.png" target="_blank">45e9d3d</a>
+</td>
+<td>
+Andy Beck
+</td>
+<td>
+2021-11-03
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 <pre><code>Warning: Removed 1 rows containing missing values (geom_point).</code></pre>
 <p><img src="figure/BRIDGES_single_position.Rmd/unnamed-chunk-29-4.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-29-4">
+Past versions of unnamed-chunk-29-4.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-29-4" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/theandyb/LSCI/blob/45e9d3d1a87d49d3c6ef8a0914d6fb2813f45212/docs/figure/BRIDGES_single_position.Rmd/unnamed-chunk-29-4.png" target="_blank">45e9d3d</a>
+</td>
+<td>
+Andy Beck
+</td>
+<td>
+2021-11-03
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 </div>
 <div id="cpg_gc_ta-1" class="section level3">
 <h3>cpg_GC_TA</h3>
-<p><img src="figure/BRIDGES_single_position.Rmd/unnamed-chunk-30-1.png" width="672" style="display: block; margin: auto;" /><img src="figure/BRIDGES_single_position.Rmd/unnamed-chunk-30-2.png" width="672" style="display: block; margin: auto;" /><img src="figure/BRIDGES_single_position.Rmd/unnamed-chunk-30-3.png" width="672" style="display: block; margin: auto;" /><img src="figure/BRIDGES_single_position.Rmd/unnamed-chunk-30-4.png" width="672" style="display: block; margin: auto;" /></p>
+<p><img src="figure/BRIDGES_single_position.Rmd/unnamed-chunk-30-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-30-1">
+Past versions of unnamed-chunk-30-1.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-30-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/theandyb/LSCI/blob/45e9d3d1a87d49d3c6ef8a0914d6fb2813f45212/docs/figure/BRIDGES_single_position.Rmd/unnamed-chunk-30-1.png" target="_blank">45e9d3d</a>
+</td>
+<td>
+Andy Beck
+</td>
+<td>
+2021-11-03
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<p><img src="figure/BRIDGES_single_position.Rmd/unnamed-chunk-30-2.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-30-2">
+Past versions of unnamed-chunk-30-2.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-30-2" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/theandyb/LSCI/blob/45e9d3d1a87d49d3c6ef8a0914d6fb2813f45212/docs/figure/BRIDGES_single_position.Rmd/unnamed-chunk-30-2.png" target="_blank">45e9d3d</a>
+</td>
+<td>
+Andy Beck
+</td>
+<td>
+2021-11-03
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<p><img src="figure/BRIDGES_single_position.Rmd/unnamed-chunk-30-3.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-30-3">
+Past versions of unnamed-chunk-30-3.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-30-3" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/theandyb/LSCI/blob/45e9d3d1a87d49d3c6ef8a0914d6fb2813f45212/docs/figure/BRIDGES_single_position.Rmd/unnamed-chunk-30-3.png" target="_blank">45e9d3d</a>
+</td>
+<td>
+Andy Beck
+</td>
+<td>
+2021-11-03
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<p><img src="figure/BRIDGES_single_position.Rmd/unnamed-chunk-30-4.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-30-4">
+Past versions of unnamed-chunk-30-4.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-30-4" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/theandyb/LSCI/blob/45e9d3d1a87d49d3c6ef8a0914d6fb2813f45212/docs/figure/BRIDGES_single_position.Rmd/unnamed-chunk-30-4.png" target="_blank">45e9d3d</a>
+</td>
+<td>
+Andy Beck
+</td>
+<td>
+2021-11-03
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 <br>
 <p>
 <button type="button" class="btn btn-default btn-workflowr btn-workflowr-sessioninfo" data-toggle="collapse" data-target="#workflowr-sessioninfo" style="display: block;">
@@ -1228,6 +3269,18 @@ loaded via a namespace (and not attached):
 </div>
 </div>
 
+<div id="disqus_thread"></div>
+<script>
+(function() { // DON'T EDIT BELOW THIS LINE
+var d = document, s = d.createElement('script');
+s.src = 'https://lsci-doc.disqus.com/embed.js';
+s.setAttribute('data-timestamp', +new Date());
+(d.head || d.body).appendChild(s);
+})();
+</script>
+<noscript>Please enable JavaScript to view the
+<a href="https://disqus.com/?ref_noscript">
+  comments powered by Disqus.</a></noscript>
 
 <!-- Adjust MathJax settings so that all math formulae are shown using
 TeX fonts only; see
