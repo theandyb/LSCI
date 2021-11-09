@@ -7,9 +7,218 @@ editor_options:
   chunk_output_type: console
 ---
 
-## Introduction
-
-```{r}
-
+```{r echo=FALSE, message=FALSE, warning=FALSE}
+library(tidyverse)
 ```
 
+# 1000G Two Position Models
+
+## Introduction
+
+In a [previous document](1000G_single_position_ALL.html) we evaluated the influence of individual positions on the mutation rate as a function of relative position. In this we marginalized over the nucleotides at other positions, ignoring any potential interaction effect. Here in this document we will being to explore the extent to which interactions among flanking positions influence the rate of substitution at a focal site by first focusing on two-way interactions. 
+
+Challenges we face here are:
+
+1. We know that the marginal distributions at single positions in our control samples (and the genome-wide background rate) don't match corresponding marginals in the singletons
+2. When considering the 2-way contingency table at each pair of positions, the row and column marginals don't predict the observed 4x4 cells in the genome-wide and control counts (i.e. the nucleotides at the two positions are not independent)
+
+## Chi-Square Test of Independence
+
+For this analysis we'll be looking at only our singleton counts. For each subtype at each pair of positions we observe a 4x4 2-way contingency table. Performing a chi square test of independence asks if we have evidence to reject the null hypothesis that the two "variables" (sites) are independent; i.e. the number of times we see AA is the product of the row marginal for A and the column marginal for A, etc. 
+
+First let's write the code to generate the 4x4 contingency table at a single pair of positions for a subtype:
+```{r}
+chi_sq_ind_pair <- function(population, subtype, p1, p2){
+  
+  data_dir <- "/net/snowwhite/home/beckandy/research/1000G_LSCI/output/all_count_2_pos/"
+  f_name <- paste0(data_dir, population, "/", subtype, "_p", p1, "_q", p2, ".csv")
+  df <- read_csv(f_name, col_types = cols()) %>%
+    filter(singletons > 0)
+  df_tab <- xtabs(singletons ~ p1 + p2, data = df)
+  return(df_tab)
+}
+```
+
+And then we'll want code to get the statistic at each pair of positions for a subtype:
+
+```{r}
+chi_sq_ind_all <- function(population, subtype){
+  final <- data.frame(p1 = numeric(),
+                      p2 = numeric(),
+                      statistic = numeric())
+  for(i in c(-10:-1,1:9)){
+    for(j in (i+1):10){
+      if(j == 0) next
+      df_tab <- chi_sq_ind_pair(population, subtype, i, j)
+      stat_val <- chisq.test(df_tab)$statistic %>% unname()
+      final <- bind_rows(final, data.frame(p1 = i,
+                                           p2 = j,
+                                           statistic = stat_val))
+    }
+  }
+  return(final)
+}
+```
+
+Naturally we'll want to plot these results to see what patterns we observe across pairs of positions:
+
+```{r}
+chi_sq_ind_plot <- function(population, subtype){
+  df <- chi_sq_ind_all(population, subtype)
+  p <- df %>%
+    ggplot(aes(x = p2, y = p1, fill = statistic)) +
+    geom_tile() +
+    ggtitle(paste0("Chi-Sq Test of Independence: ", subtype),
+            paste0("Population: ", population,
+                   "; Min: ", round(min(df$statistic), 2), 
+                   "; Max: ", round(max(df$statistic), 2)))+
+    xlab("Relative Position 2") +
+    ylab("Relative Position 1") +
+    labs(fill = "Chi Square Statistic") +
+    scale_fill_distiller(palette = "Reds", direction = 1)
+  return(p)
+}
+```
+
+### AT_CG
+
+```{r echo=FALSE, warning=FALSE}
+chi_sq_ind_plot("ALL", "AT_CG")
+```
+
+### AT_GC
+
+```{r echo=FALSE, warning=FALSE}
+chi_sq_ind_plot("ALL", "AT_GC")
+```
+
+### AT_TA
+
+```{r echo=FALSE, warning=FALSE}
+chi_sq_ind_plot("ALL", "AT_TA")
+```
+
+### GC_AT
+
+```{r echo=FALSE, warning=FALSE}
+chi_sq_ind_plot("ALL", "GC_AT")
+```
+
+### cpg_GC_AT
+
+```{r echo=FALSE, warning=FALSE}
+chi_sq_ind_plot("ALL", "cpg_GC_AT")
+```
+
+### GC_TA
+
+```{r echo=FALSE, warning=FALSE}
+chi_sq_ind_plot("ALL", "GC_TA")
+```
+
+### cpg_GC_TA
+
+```{r echo=FALSE, warning=FALSE}
+chi_sq_ind_plot("ALL", "cpg_GC_TA")
+```
+
+The above analyses told us that, in general, that the joint distribution of the cell counts in the 4x4 contingency table was not the product of the row and column marginals. This is unsurprising since we see this exact same pattern in both the genome-wide counts and the control counts. That is, it is already well-known that genome-wide occurrence of dinucleotides is not predicted by the product of the frequencies of the individual nucleotides, so it's no surprise we see an interaction in our singletons. But is the interaction we see in the singletons the same that we observe in the controls? That question can be addressed using the log-linear modeling framework employed by Zhu et al (2017). Here, we'll fit a model of the counts for both the singletons and the controls, allowing for each to have their own marginal distributions at each position, but the interaction between the two positions is shared. We then use the deviance statistic to compare the fit of this model to the fully saturated model which allows for different interaction terms between the singletons and the controls.
+
+```{r}
+deviance_pair <- function(population, subtype, p1, p2){
+  
+  data_dir <- "/net/snowwhite/home/beckandy/research/1000G_LSCI/output/all_count_2_pos/"
+  f_name <- paste0(data_dir, population, "/", subtype, "_p", p1, "_q", p2, ".csv")
+  df <- read_csv(f_name, col_types = cols()) %>%
+    filter(singletons > 0) %>%
+    select(p1, p2, singletons, controls) %>%
+    gather(status, n, singletons:controls)
+  mod_obj <- glm(n ~ (p1 + p2 + status)^2, data = df, family = poisson())
+  return(mod_obj %>% deviance)
+}
+
+deviance_all <- function(population, subtype, r_start = 1){
+  final <- data.frame(p1 = numeric(),
+                      p2 = numeric(),
+                      statistic = numeric())
+  for(i in c(-10:-1,r_start:9)){
+    for(j in (i+1):10){
+      if(j == 0) next
+      if(j == 1 & r_start > 1) next
+      stat_val <- deviance_pair(population, subtype, i, j)
+      final <- bind_rows(final, data.frame(p1 = i,
+                                           p2 = j,
+                                           statistic = stat_val))
+    }
+  }
+  return(final)
+}
+
+deviance_plot <- function(population, subtype, r_start = 1){
+  df <- deviance_all(population, subtype, r_start) %>% drop_na()
+  p <- df %>%
+    ggplot(aes(x = p2, y = p1, fill = statistic)) +
+    geom_tile() +
+    ggtitle(paste0("Deviance Interaction Test: ", subtype),
+            paste0("Population: ", population,"; Min: ", round(min(df$statistic), 2), "; Max: ", round(max(df$statistic), 2)))+
+    xlab("Relative Position 2") +
+    ylab("Relative Position 1") +
+    labs(fill = "Deviance") +
+    scale_fill_distiller(palette = "Reds", direction = 1)
+  return(p)
+}
+```
+
+### AT_CG
+
+```{r echo=FALSE}
+deviance_plot("ALL", "AT_CG")
+```
+
+### AT_GC
+
+```{r echo=FALSE}
+deviance_plot("ALL", "AT_GC")
+```
+
+### AT_TA
+
+```{r echo=FALSE}
+deviance_plot("ALL", "AT_TA")
+```
+
+### GC_AT
+
+```{r echo=FALSE}
+deviance_plot("ALL", "GC_AT")
+```
+
+### cpg_GC_AT
+
+```{r echo=FALSE}
+deviance_plot("ALL", "cpg_GC_AT", r_start = 2)
+```
+
+### GC_TA
+
+```{r echo=FALSE}
+deviance_plot("ALL", "GC_TA")
+```
+
+### cpg_GC_TA
+
+```{r echo=FALSE}
+deviance_plot("ALL", "cpg_GC_TA", r_start = 2)
+```
+
+### GC_CG
+
+```{r echo=FALSE}
+deviance_plot("ALL", "GC_CG")
+```
+
+### cpg_GC_CG
+
+```{r echo=FALSE}
+deviance_plot("ALL", "cpg_GC_CG", r_start = 2)
+```
