@@ -379,7 +379,7 @@ div.tocify {
 <div class="tab-content">
 <div id="summary" class="tab-pane fade in active">
 <p>
-<strong>Last updated:</strong> 2021-11-04
+<strong>Last updated:</strong> 2021-11-09
 </p>
 <p>
 <strong>Checks:</strong> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> 2 <span class="glyphicon glyphicon-exclamation-sign text-danger" aria-hidden="true"></span> 0
@@ -410,16 +410,16 @@ This reproducible <a href="http://rmarkdown.rstudio.com">R Markdown</a> analysis
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomtheandybLSCItree98ee097aeaf10b656d878734a7b5047be9e57b95targetblank98ee097a"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/theandyb/LSCI/tree/98ee097aeaf10b656d878734a7b5047be9e57b95" target="_blank">98ee097</a> </a>
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomtheandybLSCItreee05bd2169b12f979f33c316eb5067add6f2c8f77targetblanke05bd21a"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/theandyb/LSCI/tree/e05bd2169b12f979f33c316eb5067add6f2c8f77" target="_blank">e05bd21</a> </a>
 </p>
 </div>
-<div id="strongRepositoryversionstrongahrefhttpsgithubcomtheandybLSCItree98ee097aeaf10b656d878734a7b5047be9e57b95targetblank98ee097a" class="panel-collapse collapse">
+<div id="strongRepositoryversionstrongahrefhttpsgithubcomtheandybLSCItreee05bd2169b12f979f33c316eb5067add6f2c8f77targetblanke05bd21a" class="panel-collapse collapse">
 <div class="panel-body">
 <p>
 Great! You are using Git for version control. Tracking code development and connecting the code version to the results is critical for reproducibility.
 </p>
 <p>
-The results in this page were generated with repository version <a href="https://github.com/theandyb/LSCI/tree/98ee097aeaf10b656d878734a7b5047be9e57b95" target="_blank">98ee097</a>. See the <em>Past versions</em> tab to see a history of the changes made to the R Markdown and HTML files.
+The results in this page were generated with repository version <a href="https://github.com/theandyb/LSCI/tree/e05bd2169b12f979f33c316eb5067add6f2c8f77" target="_blank">e05bd21</a>. See the <em>Past versions</em> tab to see a history of the changes made to the R Markdown and HTML files.
 </p>
 <p>
 Note that you need to be careful to ensure that all relevant files for the analysis have been committed to Git prior to generating the results (you can use <code>wflow_publish</code> or <code>wflow_git_commit</code>). workflowr only checks the R Markdown file, but you know if there are other scripts or data files that it depends on. Below is the status of the Git repository when the results were generated:
@@ -471,6 +471,40 @@ Message
 Rmd
 </td>
 <td>
+<a href="https://github.com/theandyb/LSCI/blob/e05bd2169b12f979f33c316eb5067add6f2c8f77/analysis/outline.Rmd" target="_blank">e05bd21</a>
+</td>
+<td>
+Andy Beck
+</td>
+<td>
+2021-11-09
+</td>
+<td>
+outline as of 11/9/2021
+</td>
+</tr>
+<tr>
+<td>
+html
+</td>
+<td>
+<a href="https://rawcdn.githack.com/theandyb/LSCI/eeb92e157b59ab5817dd7f7b6b075f38f3d48346/docs/outline.html" target="_blank">eeb92e1</a>
+</td>
+<td>
+Andy Beck
+</td>
+<td>
+2021-11-04
+</td>
+<td>
+Build site.
+</td>
+</tr>
+<tr>
+<td>
+Rmd
+</td>
+<td>
 <a href="https://github.com/theandyb/LSCI/blob/98ee097aeaf10b656d878734a7b5047be9e57b95/analysis/outline.Rmd" target="_blank">98ee097</a>
 </td>
 <td>
@@ -512,6 +546,109 @@ cleanup
 <div id="introduction" class="section level2">
 <h2>Introduction</h2>
 <p>This is an outline of a prospective paper if we were to include results from both the 1000G deep sequencing data and the BRIDGES consortium GWAS. Both studies are of comparable sample size, but differ in that BRIDGES is entirely European ancestry whereas 1000G has 5 constituent super-populations (AFR, AMR, EAR, EUR, and SAS) which can be further distilled into more specific populations.</p>
+<ul>
+<li>Why interest in studying the germline mutation rate?
+<ul>
+<li>Source of heritable genetic variation -&gt; foundational importance in human genetics</li>
+<li>Shapes the genetic diversity of populations</li>
+<li>Insights into DNA damage / repair mechanisms</li>
+<li>Uses in applications such as tests for selective sweeps (things that need a background null model)</li>
+</ul></li>
+<li>Why does it vary across the genome?
+<ul>
+<li>Variation at different scales (small to megabase patterns of variation)</li>
+<li>Replication timing, chromatin accessibility, local sequence context</li>
+</ul></li>
+<li>How have we gone about studying the influence of local sequence context, and why is it challenging?
+<ul>
+<li><em>de novo</em> variants: pro = direct look; con = too few to do fine-grained analysis across the genome</li>
+<li>Common non-coding variants: more plentiful, distribution influenced by gcBGC (and probably a little taste of selection)</li>
+<li>Singleton variants: newer evolutionary -&gt; less influenced by selection, gcBGC; vastly more plentiful</li>
+<li>7mer models &gt; 5mer &gt; 3mer</li>
+<li>Number of unique motifs grows exponentially as context grows</li>
+</ul></li>
+<li>What are we doing here?
+<ul>
+<li>Detailed characterization of the (marginal) influence of nucleotides at flanking positions</li>
+<li>Evaluation of the strength of two-position interactions</li>
+<li>Evaluating consistency across datasets and between 1000G populations</li>
+<li>Questions of interest
+<ul>
+<li>for modeling the mutation rate at the granularity of a single base, how much local context needs to be accounted for, and what order interactions are important?</li>
+<li>do we see any evidence of differential mutation generation process across ancestry groups?</li>
+</ul></li>
+</ul></li>
+<li>What do we show?
+<ul>
+<li>Influence of single positions strongest near focal site and decreases precipitously
+<ul>
+<li>Significant statistics at +/- 10 -&gt; noise? (how to delineate between signal and noise?)</li>
+</ul></li>
+<li>Interactions appear to play a role, but contained within +/- ….</li>
+</ul></li>
+</ul>
+</div>
+<div id="methods" class="section level2">
+<h2>Methods</h2>
+<div id="datasets" class="section level3">
+<h3>Datasets</h3>
+<div id="bridges" class="section level4">
+<h4>BRIDGES</h4>
+<p><em>Pull the details from Jed’s paper</em></p>
+<ul>
+<li>GRCh37</li>
+</ul>
+</div>
+<div id="g" class="section level4">
+<h4>1000G</h4>
+<ul>
+<li>2,504 unrelated individuals from the 1000G deep-sequence data</li>
+<li>GRCh38</li>
+</ul>
+</div>
+</div>
+<div id="data-prep" class="section level3">
+<h3>Data prep</h3>
+<ul>
+<li>VCFs filtered down to singletons</li>
+<li>Each singleton annotated with simple mutation subtype, 21-mer motif centered at site
+<ul>
+<li>12 mutation sub-types collapsed into 6 by taking reverse complement</li>
+<li>C/G &gt; NN sub-types split into CpG and non-CpG categories</li>
+</ul></li>
+<li>Each singleton matched to 5 nearby (321bp) control sites with matching REF allele</li>
+<li>Background rates estimated genomewide
+<ul>
+<li>Counts of A, C, G, T stratified by nucleotides in +/- 10 bp window and by all pair of positions within that window</li>
+</ul></li>
+</ul>
+</div>
+<div id="single-position-models" class="section level3">
+<h3>Single Position Models</h3>
+<div id="chi-square-goodness-of-fit" class="section level4">
+<h4>Chi Square Goodness of Fit</h4>
+<p>For each of the 9 mutation sub-types, we stratify the counts of the singletons of that subtype by the nucleotides at each flanking position within the +/- 10 bp window centered at the singleton. For each relative position, we evaluate the influence of local context at that position by comparing the counts for each nucleotide to the distribution with rates estimated either genome-wide or based on the control sample for that sub-type. In the former, we posit that the nucleotide at a flanking position relative to a singleton of type XY&gt;JK should be a random draw from the observed genome-wide distribution of nucleotides flanking XY at the same relative position, while in the latter we posit that the draws were from a distribution matching the nucleotides flanking control sites sampled for each singleton. Deviations from these models suggest the occurrence of a singleton (mutation) are more or less likely when paricular nucleotides are observed at a flanking site. We use the chi-square goodness of fit statistic to evaluate the departure of our singleton observations from expectations based on the genome-wide background rate and the control sample distributions.</p>
+</div>
+</div>
+<div id="two-position-models" class="section level3">
+<h3>Two Position Models</h3>
+<p>The “fuel” for these models is once again singleton/control/genome-wide conunts stratified by the nucleotides at flanking positions, but here we stratify into contingency tables based on the nucleotides at two flanking positions (within the +/- 10 bp window we have 190 such pairs to consider).</p>
+<div id="chi-square-test-of-independence" class="section level4">
+<h4>Chi Square Test of Independence</h4>
+<ul>
+<li>Q: are cell frequencies product of row and marginal?</li>
+<li>Can be done for singletons, controls, and genome-wide</li>
+</ul>
+</div>
+<div id="loglinear-model" class="section level4">
+<h4>Loglinear Model</h4>
+<p>Above test of independence is likely to be rejected due to known result that di-nucleotide distributions are not reflective of marginal distributions of individual nucleotides (i.e. frequency of AA is not square of the frequency of A genome-wide). When our task is ultimately to predict rates of mutation, the more pertinent question is whether or not there is a pattern of interaction that is unique to the singletons. Following the example of Zhu, et al (2017), we employ log-linear regression models to identify pairs of positions where the interactions between nucleotides in the singletons is different from the interaction we see in the control sample. We do this by fitting the following model for each pair of positions:</p>
+<p><span class="math display">\[
+\log{(n_{ijs})} = \lambda_0 + \lambda_i + \lambda_j + \lambda_s + \lambda_{ij} + \lambda_{is} + \lambda_{js}
+\]</span></p>
+<p>where <span class="math inline">\(n_{ijs}\)</span> is the observed count for the sub-type flanked by nucleotides i, j in status s (either singletons or controls).</p>
+</div>
+</div>
 </div>
 </div>
 
