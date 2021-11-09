@@ -15,3 +15,5 @@ output:
     toc_float: yes
     theme: flatly
     highlight: textmate
+    includes:
+      after_body: disqus.html
