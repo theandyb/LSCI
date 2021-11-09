@@ -122,6 +122,8 @@ chi_sq_ind_plot("ALL", "GC_TA")
 chi_sq_ind_plot("ALL", "cpg_GC_TA")
 ```
 
+## Loglinear Models
+
 The above analyses told us that, in general, that the joint distribution of the cell counts in the 4x4 contingency table was not the product of the row and column marginals. This is unsurprising since we see this exact same pattern in both the genome-wide counts and the control counts. That is, it is already well-known that genome-wide occurrence of dinucleotides is not predicted by the product of the frequencies of the individual nucleotides, so it's no surprise we see an interaction in our singletons. But is the interaction we see in the singletons the same that we observe in the controls? That question can be addressed using the log-linear modeling framework employed by Zhu et al (2017). Here, we'll fit a model of the counts for both the singletons and the controls, allowing for each to have their own marginal distributions at each position, but the interaction between the two positions is shared. We then use the deviance statistic to compare the fit of this model to the fully saturated model which allows for different interaction terms between the singletons and the controls.
 
 ```{r}
