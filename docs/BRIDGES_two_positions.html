@@ -379,7 +379,7 @@ div.tocify {
 <div class="tab-content">
 <div id="summary" class="tab-pane fade in active">
 <p>
-<strong>Last updated:</strong> 2021-11-02
+<strong>Last updated:</strong> 2021-11-08
 </p>
 <p>
 <strong>Checks:</strong> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> 7 <span class="glyphicon glyphicon-exclamation-sign text-danger" aria-hidden="true"></span> 0
@@ -470,16 +470,16 @@ This reproducible <a href="http://rmarkdown.rstudio.com">R Markdown</a> analysis
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomtheandybLSCItree14543105cc2f4cae27f3316b81cb9280b93eddb0targetblank1454310a"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/theandyb/LSCI/tree/14543105cc2f4cae27f3316b81cb9280b93eddb0" target="_blank">1454310</a> </a>
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomtheandybLSCItreed08318eb010d4ececca08d50141ee848d7583307targetblankd08318ea"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/theandyb/LSCI/tree/d08318eb010d4ececca08d50141ee848d7583307" target="_blank">d08318e</a> </a>
 </p>
 </div>
-<div id="strongRepositoryversionstrongahrefhttpsgithubcomtheandybLSCItree14543105cc2f4cae27f3316b81cb9280b93eddb0targetblank1454310a" class="panel-collapse collapse">
+<div id="strongRepositoryversionstrongahrefhttpsgithubcomtheandybLSCItreed08318eb010d4ececca08d50141ee848d7583307targetblankd08318ea" class="panel-collapse collapse">
 <div class="panel-body">
 <p>
 Great! You are using Git for version control. Tracking code development and connecting the code version to the results is critical for reproducibility.
 </p>
 <p>
-The results in this page were generated with repository version <a href="https://github.com/theandyb/LSCI/tree/14543105cc2f4cae27f3316b81cb9280b93eddb0" target="_blank">1454310</a>. See the <em>Past versions</em> tab to see a history of the changes made to the R Markdown and HTML files.
+The results in this page were generated with repository version <a href="https://github.com/theandyb/LSCI/tree/d08318eb010d4ececca08d50141ee848d7583307" target="_blank">d08318e</a>. See the <em>Past versions</em> tab to see a history of the changes made to the R Markdown and HTML files.
 </p>
 <p>
 Note that you need to be careful to ensure that all relevant files for the analysis have been committed to Git prior to generating the results (you can use <code>wflow_publish</code> or <code>wflow_git_commit</code>). workflowr only checks the R Markdown file, but you know if there are other scripts or data files that it depends on. Below is the status of the Git repository when the results were generated:
@@ -531,6 +531,40 @@ Message
 Rmd
 </td>
 <td>
+<a href="https://github.com/theandyb/LSCI/blob/d08318eb010d4ececca08d50141ee848d7583307/analysis/BRIDGES_two_positions.Rmd" target="_blank">d08318e</a>
+</td>
+<td>
+Andy Beck
+</td>
+<td>
+2021-11-08
+</td>
+<td>
+Add two position model results
+</td>
+</tr>
+<tr>
+<td>
+html
+</td>
+<td>
+<a href="https://rawcdn.githack.com/theandyb/LSCI/903ec79246b47744365220eccc477ba89c879de0/docs/BRIDGES_two_positions.html" target="_blank">903ec79</a>
+</td>
+<td>
+Andy Beck
+</td>
+<td>
+2021-11-02
+</td>
+<td>
+Build site.
+</td>
+</tr>
+<tr>
+<td>
+Rmd
+</td>
+<td>
 <a href="https://github.com/theandyb/LSCI/blob/6842cad988a7466fab1ee8ce3ccc32c7a5985830/analysis/BRIDGES_two_positions.Rmd" target="_blank">6842cad</a>
 </td>
 <td>
@@ -572,6 +606,208 @@ flesh out some pages
 <div id="introduction" class="section level2">
 <h2>Introduction</h2>
 <p>In a <a href="BRIDGES_single_position.html">previous document</a> we evaluated the influence of individual positions on the mutation rate as a function of relative position. In this we marginalized over the nucleotides at other positions, ignoring any potential interaction effect. Here in this document we will being to explore the extent to which interactions among flanking positions influence the rate of substitution at a focal site by first focusing on two-way interactions.</p>
+</div>
+<div id="chi-square-test-of-independence" class="section level2">
+<h2>Chi-Square Test of Independence</h2>
+<p>For this analysis we’ll be looking at only our singleton counts. For each sub-type at each pair of positions we observe a 4x4 2-way contingency table. Performing a chi square test of independence asks if we have evidence to reject the null hypothesis that the two “variables” (sites) are independent; i.e. the number of times we see AA is the product of the row marginal for A and the column marginal for A, etc.</p>
+<p>First let’s write the code to generate the 4x4 contingency table at a single pair of positions for a sub-type:</p>
+<pre class="r"><code>chi_sq_ind_pair &lt;- function(subtype, p1, p2){
+  
+  data_dir &lt;- &quot;/net/snowwhite/home/beckandy/research/BRIDGES_redo/output/all_count_2_pos/&quot;
+  f_name &lt;- paste0(data_dir, subtype, &quot;_p&quot;, p1, &quot;_q&quot;, p2, &quot;.csv&quot;)
+  df &lt;- read_csv(f_name, col_types = cols()) %&gt;%
+    filter(singletons &gt; 0)
+  df_tab &lt;- xtabs(singletons ~ p1 + p2, data = df)
+  return(df_tab)
+}</code></pre>
+<p>And then we’ll want code to get the statistic at each pair of positions for a subtype:</p>
+<pre class="r"><code>chi_sq_ind_all &lt;- function(subtype){
+  final &lt;- data.frame(p1 = numeric(),
+                      p2 = numeric(),
+                      statistic = numeric())
+  for(i in c(-10:-1,1:9)){
+    for(j in (i+1):10){
+      if(j == 0) next
+      df_tab &lt;- chi_sq_ind_pair(subtype, i, j)
+      stat_val &lt;- chisq.test(df_tab)$statistic %&gt;% unname()
+      final &lt;- bind_rows(final, data.frame(p1 = i,
+                                           p2 = j,
+                                           statistic = stat_val))
+    }
+  }
+  return(final)
+}</code></pre>
+<p>Naturally we’ll want to plot these results to see what patterns we observe across pairs of positions:</p>
+<pre class="r"><code>chi_sq_ind_plot &lt;- function(subtype){
+  df &lt;- chi_sq_ind_all(subtype) %&gt;% drop_na()
+  p &lt;- df %&gt;%
+    ggplot(aes(x = p2, y = p1, fill = statistic)) +
+    geom_tile() +
+    ggtitle(paste0(&quot;Chi-Sq Test of Independence: &quot;, subtype),
+            paste0(&quot;Min: &quot;, round(min(df$statistic), 2), &quot;; Max: &quot;, round(max(df$statistic), 2)))+
+    xlab(&quot;Relative Position 2&quot;) +
+    ylab(&quot;Relative Position 1&quot;) +
+    labs(fill = &quot;Chi Square Statistic&quot;) +
+    scale_fill_distiller(palette = &quot;Reds&quot;, direction = 1)
+  return(p)
+}</code></pre>
+<div id="at_cg" class="section level3">
+<h3>AT_CG</h3>
+<p><img src="figure/BRIDGES_two_positions.Rmd/unnamed-chunk-5-1.png" width="672" style="display: block; margin: auto;" /></p>
+</div>
+<div id="at_gc" class="section level3">
+<h3>AT_GC</h3>
+<p><img src="figure/BRIDGES_two_positions.Rmd/unnamed-chunk-6-1.png" width="672" style="display: block; margin: auto;" /></p>
+</div>
+<div id="at_ta" class="section level3">
+<h3>AT_TA</h3>
+<p><img src="figure/BRIDGES_two_positions.Rmd/unnamed-chunk-7-1.png" width="672" style="display: block; margin: auto;" /></p>
+</div>
+<div id="gc_at" class="section level3">
+<h3>GC_AT</h3>
+<p><img src="figure/BRIDGES_two_positions.Rmd/unnamed-chunk-8-1.png" width="672" style="display: block; margin: auto;" /></p>
+</div>
+<div id="cpg_gc_at" class="section level3">
+<h3>cpg_GC_AT</h3>
+<p><img src="figure/BRIDGES_two_positions.Rmd/unnamed-chunk-9-1.png" width="672" style="display: block; margin: auto;" /></p>
+</div>
+<div id="gc_ta" class="section level3">
+<h3>GC_TA</h3>
+<p><img src="figure/BRIDGES_two_positions.Rmd/unnamed-chunk-10-1.png" width="672" style="display: block; margin: auto;" /></p>
+</div>
+<div id="cpg_gc_ta" class="section level3">
+<h3>cpg_GC_TA</h3>
+<p><img src="figure/BRIDGES_two_positions.Rmd/unnamed-chunk-11-1.png" width="672" style="display: block; margin: auto;" /></p>
+</div>
+<div id="gc_cg" class="section level3">
+<h3>GC_CG</h3>
+<p><img src="figure/BRIDGES_two_positions.Rmd/unnamed-chunk-12-1.png" width="672" style="display: block; margin: auto;" /></p>
+</div>
+<div id="cpg_gc_cg" class="section level3">
+<h3>cpg_GC_CG</h3>
+<p><img src="figure/BRIDGES_two_positions.Rmd/unnamed-chunk-13-1.png" width="672" style="display: block; margin: auto;" /></p>
+</div>
+<div id="aside-median-absolute-percent-change" class="section level3">
+<h3>Aside: median absolute percent change</h3>
+<p>Due to the number of singletons in our sample, we are very highly powered to detect small deviations from the null model. While within a sub-type values can be compared across pairs of positions to identify pairs where the deviation from independence is stronger, this still does not give a “magnitude” of the change (I’m having brain farts trying to write this sentence). Also due to sample size differences between the sub-types we can’t compare these values across sub-types.</p>
+<p>One though I had was to look at the median absolute percent change across the 16 (12) cells; that is, for each cell compute the difference between the observed and expected, divide by the observed to get the percent change relative to the observed, and then get the median absolute value of all of these across all pairs of positions. Let’s see what this looks like, and maybe that will inspire refinement? (the other metric I thought of would be to get the max instead of the median).</p>
+<pre class="r"><code>chi_sq_med_abs &lt;- function(subtype){
+  final &lt;- data.frame(p1 = numeric(),
+                      p2 = numeric(),
+                      statistic = numeric())
+  for(i in c(-10:-1,1:9)){
+    for(j in (i+1):10){
+      if(j == 0) next
+      df_tab &lt;- chi_sq_ind_pair(subtype, i, j)
+      mod_obj &lt;- chisq.test(df_tab)
+      stat_val &lt;- abs((mod_obj$observed - mod_obj$expected)/mod_obj$observed) %&gt;% median()
+      #stat_val &lt;- abs((mod_obj$observed / sum(mod_obj$observed)) - (mod_obj$expected / sum(mod_obj$expected))) %&gt;% max
+      final &lt;- bind_rows(final, data.frame(p1 = i,
+                                           p2 = j,
+                                           statistic = stat_val))
+    }
+  }
+  return(final)
+}
+
+chi_sq_med_abs_plot &lt;- function(subtype){
+  df &lt;- chi_sq_med_abs(subtype) %&gt;% drop_na()
+  p &lt;- df %&gt;%
+    ggplot(aes(x = p2, y = p1, fill = statistic)) +
+    geom_tile() +
+    ggtitle(paste0(&quot;Median Absolute Percent Change: &quot;, subtype),
+            paste0(&quot;Min: &quot;, round(min(df$statistic), 3), &quot;; Max: &quot;, round(max(df$statistic), 3)))+
+    xlab(&quot;Relative Position 2&quot;) +
+    ylab(&quot;Relative Position 1&quot;) +
+    labs(fill = &quot;MAPC&quot;) +
+    scale_fill_distiller(palette = &quot;Reds&quot;, direction = 1)
+  return(p)
+}</code></pre>
+<pre class="r"><code>chi_sq_med_abs_plot(&quot;AT_CG&quot;)</code></pre>
+<p><img src="figure/BRIDGES_two_positions.Rmd/unnamed-chunk-15-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>Here in the A(T)&gt;C(G) sub-type we see that for immediately flanking positions the MAPC hovers around 20%, and as we consider positions further from each other the value drops below 10%. It’s not yet clear to me how to tie these into statements regarding importance.</p>
+</div>
+</div>
+<div id="loglinear-models" class="section level2">
+<h2>Loglinear Models</h2>
+<p>The above analyses told us that, in general, that the joint distribution of the cell counts in the 4x4 contingency table was not the product of the row and column marginals. This is unsurprising since we see this exact same pattern in both the genome-wide counts and the control counts. That is, it is already well-known that genome-wide occurrence of dinucleotides is not predicted by the product of the frequencies of the individual nucleotides, so it’s no surprise we see an interaction in our singletons. But is the interaction we see in the singletons the same that we observe in the controls? That question can be addressed using the log-linear modeling framework employed by Zhu et al (2017). Here, we’ll fit a model of the counts for both the singletons and the controls, allowing for each to have their own marginal distributions at each position, but the interaction between the two positions is shared. We then use the deviance statistic to compare the fit of this model to the fully saturated model which allows for different interaction terms between the singletons and the controls.</p>
+<pre class="r"><code>deviance_pair &lt;- function(subtype, p1, p2){
+  
+  data_dir &lt;- &quot;/net/snowwhite/home/beckandy/research/BRIDGES_redo/output/all_count_2_pos/&quot;
+  f_name &lt;- paste0(data_dir, subtype, &quot;_p&quot;, p1, &quot;_q&quot;, p2, &quot;.csv&quot;)
+  df &lt;- read_csv(f_name, col_types = cols()) %&gt;%
+    filter(singletons &gt; 0) %&gt;%
+    select(p1, p2, singletons, controls) %&gt;%
+    gather(status, n, singletons:controls)
+  mod_obj &lt;- glm(n ~ (p1 + p2 + status)^2, data = df, family = poisson())
+  return(mod_obj %&gt;% deviance)
+}
+
+deviance_all &lt;- function(subtype, r_start = 1){
+  final &lt;- data.frame(p1 = numeric(),
+                      p2 = numeric(),
+                      statistic = numeric())
+  for(i in c(-10:-1,r_start:9)){
+    for(j in (i+1):10){
+      if(j == 0) next
+      if(j == 1 &amp; r_start &gt; 1) next
+      stat_val &lt;- deviance_pair(subtype, i, j)
+      final &lt;- bind_rows(final, data.frame(p1 = i,
+                                           p2 = j,
+                                           statistic = stat_val))
+    }
+  }
+  return(final)
+}
+
+deviance_plot &lt;- function(subtype, r_start = 1){
+  df &lt;- deviance_all(subtype, r_start) %&gt;% drop_na()
+  p &lt;- df %&gt;%
+    ggplot(aes(x = p2, y = p1, fill = statistic)) +
+    geom_tile() +
+    ggtitle(paste0(&quot;Deviance Interaction Test: &quot;, subtype),
+            paste0(&quot;Min: &quot;, round(min(df$statistic), 2), &quot;; Max: &quot;, round(max(df$statistic), 2)))+
+    xlab(&quot;Relative Position 2&quot;) +
+    ylab(&quot;Relative Position 1&quot;) +
+    labs(fill = &quot;Deviance&quot;) +
+    scale_fill_distiller(palette = &quot;Reds&quot;, direction = 1)
+  return(p)
+}</code></pre>
+<div id="at_cg-1" class="section level3">
+<h3>AT_CG</h3>
+<p><img src="figure/BRIDGES_two_positions.Rmd/unnamed-chunk-17-1.png" width="672" style="display: block; margin: auto;" /></p>
+</div>
+<div id="at_gc-1" class="section level3">
+<h3>AT_GC</h3>
+<p><img src="figure/BRIDGES_two_positions.Rmd/unnamed-chunk-18-1.png" width="672" style="display: block; margin: auto;" /></p>
+</div>
+<div id="at_ta-1" class="section level3">
+<h3>AT_TA</h3>
+<p><img src="figure/BRIDGES_two_positions.Rmd/unnamed-chunk-19-1.png" width="672" style="display: block; margin: auto;" /></p>
+</div>
+<div id="gc_at-1" class="section level3">
+<h3>GC_AT</h3>
+<p><img src="figure/BRIDGES_two_positions.Rmd/unnamed-chunk-20-1.png" width="672" style="display: block; margin: auto;" /></p>
+</div>
+<div id="cpg_gc_at-1" class="section level3">
+<h3>cpg_GC_AT</h3>
+<p><img src="figure/BRIDGES_two_positions.Rmd/unnamed-chunk-21-1.png" width="672" style="display: block; margin: auto;" /></p>
+</div>
+<div id="gc_ta-1" class="section level3">
+<h3>GC_TA</h3>
+<p><img src="figure/BRIDGES_two_positions.Rmd/unnamed-chunk-22-1.png" width="672" style="display: block; margin: auto;" /></p>
+</div>
+<div id="cpg_gc_ta-1" class="section level3">
+<h3>cpg_GC_TA</h3>
+<p><img src="figure/BRIDGES_two_positions.Rmd/unnamed-chunk-23-1.png" width="672" style="display: block; margin: auto;" /></p>
+</div>
+<div id="gc_cg-1" class="section level3">
+<h3>GC_CG</h3>
+<p><img src="figure/BRIDGES_two_positions.Rmd/unnamed-chunk-24-1.png" width="672" style="display: block; margin: auto;" /></p>
+</div>
+<div id="cpg_gc_cg-1" class="section level3">
+<h3>cpg_GC_CG</h3>
+<p><img src="figure/BRIDGES_two_positions.Rmd/unnamed-chunk-25-1.png" width="672" style="display: block; margin: auto;" /></p>
 <br>
 <p>
 <button type="button" class="btn btn-default btn-workflowr btn-workflowr-sessioninfo" data-toggle="collapse" data-target="#workflowr-sessioninfo" style="display: block;">
@@ -580,7 +816,7 @@ flesh out some pages
 </p>
 <div id="workflowr-sessioninfo" class="collapse">
 <pre class="r"><code>sessionInfo()</code></pre>
-<pre><code>R version 4.1.1 (2021-08-10)
+<pre><code>R version 4.1.2 (2021-11-01)
 Platform: x86_64-pc-linux-gnu (64-bit)
 Running under: Ubuntu 18.04.5 LTS
 
@@ -600,19 +836,30 @@ attached base packages:
 [1] stats     graphics  grDevices utils     datasets  methods   base     
 
 other attached packages:
-[1] workflowr_1.6.2
+ [1] forcats_0.5.1   stringr_1.4.0   dplyr_1.0.7     purrr_0.3.4    
+ [5] readr_2.0.2     tidyr_1.1.4     tibble_3.1.5    ggplot2_3.3.5  
+ [9] tidyverse_1.3.1 workflowr_1.6.2
 
 loaded via a namespace (and not attached):
- [1] Rcpp_1.0.7       whisker_0.4      knitr_1.36       magrittr_2.0.1  
- [5] R6_2.5.1         rlang_0.4.12     fastmap_1.1.0    fansi_0.5.0     
- [9] stringr_1.4.0    tools_4.1.1      xfun_0.27        utf8_1.2.2      
-[13] git2r_0.28.0     jquerylib_0.1.4  htmltools_0.5.2  ellipsis_0.3.2  
-[17] rprojroot_2.0.2  yaml_2.2.1       digest_0.6.28    tibble_3.1.5    
-[21] lifecycle_1.0.1  crayon_1.4.1     later_1.3.0      sass_0.4.0      
-[25] vctrs_0.3.8      promises_1.2.0.1 fs_1.5.0         glue_1.4.2      
-[29] evaluate_0.14    rmarkdown_2.11   stringi_1.7.5    bslib_0.3.1     
-[33] compiler_4.1.1   pillar_1.6.4     jsonlite_1.7.2   httpuv_1.6.3    
-[37] pkgconfig_2.0.3 </code></pre>
+ [1] Rcpp_1.0.7         lubridate_1.8.0    assertthat_0.2.1   rprojroot_2.0.2   
+ [5] digest_0.6.28      utf8_1.2.2         R6_2.5.1           cellranger_1.1.0  
+ [9] backports_1.3.0    reprex_2.0.1       evaluate_0.14      highr_0.9         
+[13] httr_1.4.2         pillar_1.6.4       rlang_0.4.12       readxl_1.3.1      
+[17] rstudioapi_0.13    whisker_0.4        jquerylib_0.1.4    rmarkdown_2.11    
+[21] labeling_0.4.2     bit_4.0.4          munsell_0.5.0      broom_0.7.9       
+[25] compiler_4.1.2     httpuv_1.6.3       modelr_0.1.8       xfun_0.27         
+[29] pkgconfig_2.0.3    htmltools_0.5.2    tidyselect_1.1.1   fansi_0.5.0       
+[33] crayon_1.4.1       tzdb_0.1.2         dbplyr_2.1.1       withr_2.4.2       
+[37] later_1.3.0        grid_4.1.2         jsonlite_1.7.2     gtable_0.3.0      
+[41] lifecycle_1.0.1    DBI_1.1.1          git2r_0.28.0       magrittr_2.0.1    
+[45] scales_1.1.1       vroom_1.5.5        cli_3.0.1          stringi_1.7.5     
+[49] farver_2.1.0       fs_1.5.0           promises_1.2.0.1   xml2_1.3.2        
+[53] bslib_0.3.1        ellipsis_0.3.2     generics_0.1.1     vctrs_0.3.8       
+[57] RColorBrewer_1.1-2 tools_4.1.2        bit64_4.0.5        glue_1.4.2        
+[61] hms_1.1.1          parallel_4.1.2     fastmap_1.1.0      yaml_2.2.1        
+[65] colorspace_2.0-2   rvest_1.0.2        knitr_1.36         haven_2.4.3       
+[69] sass_0.4.0        </code></pre>
+</div>
 </div>
 </div>
 </div>
