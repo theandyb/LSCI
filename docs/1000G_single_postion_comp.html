@@ -470,16 +470,16 @@ This reproducible <a href="http://rmarkdown.rstudio.com">R Markdown</a> analysis
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomtheandybLSCItree1a782cb744ce1e27f93fe48b141573cfc544df63targetblank1a782cba"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/theandyb/LSCI/tree/1a782cb744ce1e27f93fe48b141573cfc544df63" target="_blank">1a782cb</a> </a>
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomtheandybLSCItree53c69c2d5b7ecea86b700e1e0ef1f8ab44b8da7etargetblank53c69c2a"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/theandyb/LSCI/tree/53c69c2d5b7ecea86b700e1e0ef1f8ab44b8da7e" target="_blank">53c69c2</a> </a>
 </p>
 </div>
-<div id="strongRepositoryversionstrongahrefhttpsgithubcomtheandybLSCItree1a782cb744ce1e27f93fe48b141573cfc544df63targetblank1a782cba" class="panel-collapse collapse">
+<div id="strongRepositoryversionstrongahrefhttpsgithubcomtheandybLSCItree53c69c2d5b7ecea86b700e1e0ef1f8ab44b8da7etargetblank53c69c2a" class="panel-collapse collapse">
 <div class="panel-body">
 <p>
 Great! You are using Git for version control. Tracking code development and connecting the code version to the results is critical for reproducibility.
 </p>
 <p>
-The results in this page were generated with repository version <a href="https://github.com/theandyb/LSCI/tree/1a782cb744ce1e27f93fe48b141573cfc544df63" target="_blank">1a782cb</a>. See the <em>Past versions</em> tab to see a history of the changes made to the R Markdown and HTML files.
+The results in this page were generated with repository version <a href="https://github.com/theandyb/LSCI/tree/53c69c2d5b7ecea86b700e1e0ef1f8ab44b8da7e" target="_blank">53c69c2</a>. See the <em>Past versions</em> tab to see a history of the changes made to the R Markdown and HTML files.
 </p>
 <p>
 Note that you need to be careful to ensure that all relevant files for the analysis have been committed to Git prior to generating the results (you can use <code>wflow_publish</code> or <code>wflow_git_commit</code>). workflowr only checks the R Markdown file, but you know if there are other scripts or data files that it depends on. Below is the status of the Git repository when the results were generated:
@@ -489,10 +489,6 @@ Ignored files:
     Ignored:    .Rhistory
     Ignored:    .Rproj.user/
     Ignored:    analysis/disqus.html
-
-Unstaged changes:
-    Modified:   analysis/_site.yml
-    Modified:   analysis/outline.Rmd
 
 </code></pre>
 <p>
@@ -531,6 +527,40 @@ Message
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+Rmd
+</td>
+<td>
+<a href="https://github.com/theandyb/LSCI/blob/53c69c2d5b7ecea86b700e1e0ef1f8ab44b8da7e/analysis/1000G_single_postion_comp.Rmd" target="_blank">53c69c2</a>
+</td>
+<td>
+Andy Beck
+</td>
+<td>
+2021-11-09
+</td>
+<td>
+Add some comparison analysis
+</td>
+</tr>
+<tr>
+<td>
+html
+</td>
+<td>
+<a href="https://rawcdn.githack.com/theandyb/LSCI/bcee6104baeb7c80b102faea4a04ffd5d3896da3/docs/1000G_single_postion_comp.html" target="_blank">bcee610</a>
+</td>
+<td>
+Andy Beck
+</td>
+<td>
+2021-11-09
+</td>
+<td>
+update site to include disqus
+</td>
+</tr>
 <tr>
 <td>
 html
@@ -589,8 +619,98 @@ flesh out some pages
 </div>
 </div>
 </div>
+<div id="g-single-position-models---population-comparisons" class="section level1">
+<h1>1000G Single Position Models - Population Comparisons</h1>
 <div id="introduction" class="section level2">
 <h2>Introduction</h2>
+<p>In <a href="1000G_single_position_ALL.Rmd">another document</a>, we evaluated the single position models using singletons aggregated across all five of the 1000 Genomes super-populations. A natural question we can ask is if there is any heterogeneity across the populations. To address this, we perform our analyses again with the singletons, but this time we analyze each super-population separately. Having done this, we assess consistency of the results by checking the correlations of not only the position-level results, but also the contribution to each statistic from the nucleotides at the flanking position under consideration.</p>
+</div>
+<div id="at_cg" class="section level2">
+<h2>AT_CG</h2>
+<div id="all" class="section level3">
+<h3>ALL</h3>
+<p><img src="figure/1000G_single_postion_comp.Rmd/unnamed-chunk-2-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>As a reminder, here we plot the single position statistics for the A(T)&gt;C(G) sub-type using singletons aggregated across all 5 super-populations.</p>
+</div>
+<div id="afr" class="section level3">
+<h3>AFR</h3>
+<p><img src="figure/1000G_single_postion_comp.Rmd/unnamed-chunk-3-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>When we look at the AFR super-population, our results across all the positions looks strikingly similar to what we saw above in the ALL analysis. This might be driven by AFR contributing a larger fraction of the singletons than the other 4 super-populations, so let us now take a look at those.</p>
+</div>
+<div id="amr" class="section level3">
+<h3>AMR</h3>
+<p><img src="figure/1000G_single_postion_comp.Rmd/unnamed-chunk-4-1.png" width="672" style="display: block; margin: auto;" /></p>
+</div>
+<div id="eas" class="section level3">
+<h3>EAS</h3>
+<p><img src="figure/1000G_single_postion_comp.Rmd/unnamed-chunk-5-1.png" width="672" style="display: block; margin: auto;" /></p>
+</div>
+<div id="eur" class="section level3">
+<h3>EUR</h3>
+<p><img src="figure/1000G_single_postion_comp.Rmd/unnamed-chunk-6-1.png" width="672" style="display: block; margin: auto;" /></p>
+</div>
+<div id="sas" class="section level3">
+<h3>SAS</h3>
+<p><img src="figure/1000G_single_postion_comp.Rmd/unnamed-chunk-7-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>Across all five super-populations we see the same pattern as we look across positions, suggesting that the results are consistent across the five super-populations. The only difference we really see is a shift in the magnitude of the statistic, which is likely driven by differences in the number of singletons across the super-populations.</p>
+<p>To quantify our observation that the statistics are consistent across super-populations, let’s look at the pairwise correlations of statistics across positions for each pair of super-populations:</p>
+<pre><code>
+Correlation method: &#39;pearson&#39;
+Missing treated using: &#39;pairwise.complete.obs&#39;</code></pre>
+<table>
+<thead>
+<tr class="header">
+<th align="left">term</th>
+<th align="left">chi_sq_ct.AFR</th>
+<th align="left">chi_sq_ct.AMR</th>
+<th align="left">chi_sq_ct.EAS</th>
+<th align="left">chi_sq_ct.EUR</th>
+<th align="left">chi_sq_ct.SAS</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">chi_sq_ct.AFR</td>
+<td align="left"></td>
+<td align="left">1.00</td>
+<td align="left">.99</td>
+<td align="left">1.00</td>
+<td align="left">1.00</td>
+</tr>
+<tr class="even">
+<td align="left">chi_sq_ct.AMR</td>
+<td align="left">1.00</td>
+<td align="left"></td>
+<td align="left">1.00</td>
+<td align="left">1.00</td>
+<td align="left">1.00</td>
+</tr>
+<tr class="odd">
+<td align="left">chi_sq_ct.EAS</td>
+<td align="left">.99</td>
+<td align="left">1.00</td>
+<td align="left"></td>
+<td align="left">.99</td>
+<td align="left">1.00</td>
+</tr>
+<tr class="even">
+<td align="left">chi_sq_ct.EUR</td>
+<td align="left">1.00</td>
+<td align="left">1.00</td>
+<td align="left">.99</td>
+<td align="left"></td>
+<td align="left">1.00</td>
+</tr>
+<tr class="odd">
+<td align="left">chi_sq_ct.SAS</td>
+<td align="left">1.00</td>
+<td align="left">1.00</td>
+<td align="left">1.00</td>
+<td align="left">1.00</td>
+<td align="left"></td>
+</tr>
+</tbody>
+</table>
 <br>
 <p>
 <button type="button" class="btn btn-default btn-workflowr btn-workflowr-sessioninfo" data-toggle="collapse" data-target="#workflowr-sessioninfo" style="display: block;">
@@ -619,19 +739,30 @@ attached base packages:
 [1] stats     graphics  grDevices utils     datasets  methods   base     
 
 other attached packages:
-[1] workflowr_1.6.2
+ [1] corrr_0.4.3     forcats_0.5.1   stringr_1.4.0   dplyr_1.0.7    
+ [5] purrr_0.3.4     readr_2.0.2     tidyr_1.1.4     tibble_3.1.5   
+ [9] ggplot2_3.3.5   tidyverse_1.3.1 workflowr_1.6.2
 
 loaded via a namespace (and not attached):
- [1] Rcpp_1.0.7       whisker_0.4      knitr_1.36       magrittr_2.0.1  
- [5] R6_2.5.1         rlang_0.4.12     fastmap_1.1.0    fansi_0.5.0     
- [9] stringr_1.4.0    tools_4.1.2      xfun_0.27        utf8_1.2.2      
-[13] git2r_0.28.0     jquerylib_0.1.4  htmltools_0.5.2  ellipsis_0.3.2  
-[17] rprojroot_2.0.2  yaml_2.2.1       digest_0.6.28    tibble_3.1.5    
-[21] lifecycle_1.0.1  crayon_1.4.1     later_1.3.0      sass_0.4.0      
-[25] vctrs_0.3.8      promises_1.2.0.1 fs_1.5.0         glue_1.4.2      
-[29] evaluate_0.14    rmarkdown_2.11   stringi_1.7.5    bslib_0.3.1     
-[33] compiler_4.1.2   pillar_1.6.4     jsonlite_1.7.2   httpuv_1.6.3    
-[37] pkgconfig_2.0.3 </code></pre>
+ [1] Rcpp_1.0.7       lubridate_1.8.0  assertthat_0.2.1 rprojroot_2.0.2 
+ [5] digest_0.6.28    utf8_1.2.2       R6_2.5.1         cellranger_1.1.0
+ [9] backports_1.3.0  reprex_2.0.1     evaluate_0.14    highr_0.9       
+[13] httr_1.4.2       pillar_1.6.4     rlang_0.4.12     readxl_1.3.1    
+[17] rstudioapi_0.13  whisker_0.4      jquerylib_0.1.4  rmarkdown_2.11  
+[21] labeling_0.4.2   bit_4.0.4        munsell_0.5.0    broom_0.7.9     
+[25] compiler_4.1.2   httpuv_1.6.3     modelr_0.1.8     xfun_0.27       
+[29] pkgconfig_2.0.3  htmltools_0.5.2  tidyselect_1.1.1 fansi_0.5.0     
+[33] crayon_1.4.1     tzdb_0.1.2       dbplyr_2.1.1     withr_2.4.2     
+[37] later_1.3.0      grid_4.1.2       jsonlite_1.7.2   gtable_0.3.0    
+[41] lifecycle_1.0.1  DBI_1.1.1        git2r_0.28.0     magrittr_2.0.1  
+[45] scales_1.1.1     vroom_1.5.5      cli_3.0.1        stringi_1.7.5   
+[49] farver_2.1.0     fs_1.5.0         promises_1.2.0.1 xml2_1.3.2      
+[53] bslib_0.3.1      ellipsis_0.3.2   generics_0.1.1   vctrs_0.3.8     
+[57] tools_4.1.2      bit64_4.0.5      glue_1.4.2       hms_1.1.1       
+[61] parallel_4.1.2   fastmap_1.1.0    yaml_2.2.1       colorspace_2.0-2
+[65] rvest_1.0.2      knitr_1.36       haven_2.4.3      sass_0.4.0      </code></pre>
+</div>
+</div>
 </div>
 </div>
 
