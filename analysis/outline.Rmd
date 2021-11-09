@@ -12,3 +12,83 @@ editor_options:
 ## Introduction
 
 This is an outline of a prospective paper if we were to include results from both the 1000G deep sequencing data and the BRIDGES consortium GWAS. Both studies are of comparable sample size, but differ in that BRIDGES is entirely European ancestry whereas 1000G has 5 constituent super-populations (AFR, AMR, EAR, EUR, and SAS) which can be further distilled into more specific populations.
+
+* Why interest in studying the germline mutation rate?
+    * Source of heritable genetic variation -> foundational importance in human genetics
+    * Shapes the genetic diversity of populations
+    * Insights into DNA damage / repair mechanisms
+    * Uses in applications such as tests for selective sweeps (things that need a background null model)
+
+* Why does it vary across the genome?
+    * Variation at different scales (small to megabase patterns of variation)
+    * Replication timing, chromatin accessibility, local sequence context
+
+* How have we gone about studying the influence of local sequence context, and why is it challenging?
+    * *de novo* variants: pro = direct look; con = too few to do fine-grained analysis across the genome
+    * Common non-coding variants: more plentiful, distribution influenced by gcBGC (and probably a little taste of selection)
+    * Singleton variants: newer evolutionary -> less influenced by selection, gcBGC; vastly more plentiful
+    * 7mer models > 5mer > 3mer
+    * Number of unique motifs grows exponentially as context grows
+
+* What are we doing here?
+    * Detailed characterization of the (marginal) influence of nucleotides at flanking positions
+    * Evaluation of the strength of two-position interactions
+    * Evaluating consistency across datasets and between 1000G populations
+    * Questions of interest
+        * for modeling the mutation rate at the granularity of a single base, how much local context needs to be accounted for, and what order interactions are important?
+        * do we see any evidence of differential mutation generation process across ancestry groups?
+
+* What do we show?
+    * Influence of single positions strongest near focal site and decreases precipitously
+        * Significant statistics at +/- 10 -> noise? (how to delineate between signal and noise?)
+    * Interactions appear to play a role, but contained within +/- ....
+
+## Methods
+
+### Datasets
+
+#### BRIDGES
+
+*Pull the details from Jed's paper*
+
+* GRCh37
+
+#### 1000G
+
+* 2,504 unrelated individuals from the 1000G deep-sequence data
+* GRCh38
+
+### Data prep
+
+* VCFs filtered down to singletons
+* Each singleton annotated with simple mutation subtype, 21-mer motif centered at site
+    * 12 mutation sub-types collapsed into 6 by taking reverse complement
+    * C/G > NN sub-types split into CpG and non-CpG categories
+* Each singleton matched to 5 nearby (321bp) control sites with matching REF allele
+* Background rates estimated genomewide
+    * Counts of A, C, G, T stratified by nucleotides in +/- 10 bp window and by all pair of positions within that window
+    
+### Single Position Models
+
+#### Chi Square Goodness of Fit
+
+For each of the 9 mutation sub-types, we stratify the counts of the singletons of that subtype by the nucleotides at each flanking position within the +/- 10 bp window centered at the singleton. For each relative position, we evaluate the influence of local context at that position by comparing the counts for each nucleotide to the distribution with rates estimated either genome-wide or based on the control sample for that sub-type. In the former, we posit that the nucleotide at a flanking position relative to a singleton of type XY>JK should be a random draw from the observed genome-wide distribution of nucleotides flanking XY at the same relative position, while in the latter we posit that the draws were from a distribution matching the nucleotides flanking control sites sampled for each singleton. Deviations from these models suggest the occurrence of a singleton (mutation) are more or less likely when paricular nucleotides are observed at a flanking site. We use the chi-square goodness of fit statistic to evaluate the departure of our singleton observations from expectations based on the genome-wide background rate and the control sample distributions. 
+
+### Two Position Models
+
+The "fuel" for these models is once again singleton/control/genome-wide conunts stratified by the nucleotides at flanking positions, but here we stratify into contingency tables based on the nucleotides at two flanking positions (within the +/- 10 bp window we have 190 such pairs to consider).
+
+#### Chi Square Test of Independence
+
+* Q: are cell frequencies product of row and marginal?
+* Can be done for singletons, controls, and genome-wide
+
+#### Loglinear Model
+
+Above test of independence is likely to be rejected due to known result that di-nucleotide distributions are not reflective of marginal distributions of individual nucleotides (i.e. frequency of AA is not square of the frequency of A genome-wide). When our task is ultimately to predict rates of mutation, the more pertinent question is whether or not there is a pattern of interaction that is unique to the singletons. Following the example of Zhu, et al (2017), we employ log-linear regression models to identify pairs of positions where the interactions between nucleotides in the singletons is different from the interaction we see in the control sample. We do this by fitting the following model for each pair of positions:
+
+$$
+\log{(n_{ijs})} = \lambda_0 + \lambda_i + \lambda_j + \lambda_s + \lambda_{ij} + \lambda_{is} + \lambda_{js}
+$$
+
+where $n_{ijs}$ is the observed count for the sub-type flanked by nucleotides i, j in status s (either singletons or controls).
