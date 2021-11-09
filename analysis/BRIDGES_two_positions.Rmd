@@ -134,6 +134,10 @@ Due to the number of singletons in our sample, we are very highly powered to det
 
 One though I had was to look at the median absolute percent change across the 16 (12) cells; that is, for each cell compute the difference between the observed and expected, divide by the observed to get the percent change relative to the observed, and then get the median absolute value of all of these across all pairs of positions. Let's see what this looks like, and maybe that will inspire refinement? (the other metric I thought of would be to get the max instead of the median).
 
+$$
+\textrm{MAPC} = \textrm{median}(|\frac{O_{ij} - E_{ij}}{O_{ij}} |)
+$$
+
 ```{r}
 chi_sq_med_abs <- function(subtype){
   final <- data.frame(p1 = numeric(),
