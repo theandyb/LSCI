@@ -101,7 +101,7 @@ where $n_{ijs}$ is the observed count for the sub-type flanked by nucleotides i,
 * [1000G Results](1000G_single_position_ALL.html)
 * [1000G Cross-Population Comparison](1000G_single_postion_comp.html)
 
-* Across all sub-types, strongest "signal" at positions more focal to center
+Across all sub-types, we see the strongest "signal" at positions more focal to center, with statistics dropping as we move further up/down stream from the site of interest. Due to the large number of singleton observations, we have very high power to detect even small deviations from the null model; this results in large statistics even at the +/- 10 bp position (albeit much smaller in magnitude relative to positions closer to the singleton site). 
 
 ### Two-Position Models
 

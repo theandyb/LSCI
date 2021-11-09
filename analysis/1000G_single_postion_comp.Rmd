@@ -78,3 +78,221 @@ corr_mat_at_cg <- df_corr_at_cg %>%
 corr_mat_at_cg %>% fashion() %>% knitr::kable()
 ```
 
+We see here that the statistics at each position are highly correlated across the super-populations. We can also ask if the "residuals" (contribution of each nucleotide to each position's statistic) is also correlated:
+
+```{r results='asis', echo=FALSE}
+df_corr_at_cg %>%
+  select(starts_with("chi_sq_ct")) %>%
+  correlate() %>%
+  fashion() %>%
+  knitr::kable()
+```
+and it appears that they are for this sub-type. Let's now take a look at the other sub-types
+
+## AT_GC
+
+### Position-level
+
+```{r results='asis', echo=FALSE, message=FALSE}
+df_corr <- load_all_results_all_sp("AT_GC")
+df_corr %>%
+  select(rp, starts_with("chi_sq_ct")) %>%
+  group_by(rp) %>%
+  summarize_all(sum) %>%
+  ungroup() %>% select(-rp) %>%
+  correlate() %>% 
+  fashion() %>% 
+  knitr::kable()
+```
+
+### Nucleotide-level
+
+```{r results='asis', echo=FALSE, message=FALSE}
+df_corr %>%
+  select(starts_with("chi_sq_ct")) %>%
+  correlate() %>% 
+  fashion() %>% 
+  knitr::kable()
+```
+
+## AT_TA
+
+### Position-level
+
+```{r results='asis', echo=FALSE, message=FALSE}
+df_corr <- load_all_results_all_sp("AT_TA")
+df_corr %>%
+  select(rp, starts_with("chi_sq_ct")) %>%
+  group_by(rp) %>%
+  summarize_all(sum) %>%
+  ungroup() %>% select(-rp) %>%
+  correlate() %>% 
+  fashion() %>% 
+  knitr::kable()
+```
+
+### Nucleotide-level
+
+```{r results='asis', echo=FALSE, message=FALSE}
+df_corr %>%
+  select(starts_with("chi_sq_ct")) %>%
+  correlate() %>% 
+  fashion() %>% 
+  knitr::kable()
+```
+
+## GC_AT
+
+### Position-level
+
+```{r results='asis', echo=FALSE, message=FALSE}
+df_corr <- load_all_results_all_sp("GC_AT")
+df_corr %>%
+  select(rp, starts_with("chi_sq_ct")) %>%
+  group_by(rp) %>%
+  summarize_all(sum) %>%
+  ungroup() %>% select(-rp) %>%
+  correlate() %>% 
+  fashion() %>% 
+  knitr::kable()
+```
+
+### Nucleotide-level
+
+```{r results='asis', echo=FALSE, message=FALSE}
+df_corr %>%
+  select(starts_with("chi_sq_ct")) %>%
+  correlate() %>% 
+  fashion() %>% 
+  knitr::kable()
+```
+
+## cpg_GC_AT
+
+### Position-level
+
+```{r results='asis', echo=FALSE, message=FALSE}
+df_corr <- load_all_results_all_sp("cpg_GC_AT", r_start = 2)
+df_corr %>%
+  select(rp, starts_with("chi_sq_ct")) %>%
+  group_by(rp) %>%
+  summarize_all(sum) %>%
+  ungroup() %>% select(-rp) %>%
+  correlate() %>% 
+  fashion() %>% 
+  knitr::kable()
+```
+
+### Nucleotide-level
+
+```{r results='asis', echo=FALSE, message=FALSE}
+df_corr %>%
+  select(starts_with("chi_sq_ct")) %>%
+  correlate() %>% 
+  fashion() %>% 
+  knitr::kable()
+```
+
+## GC_CG
+
+### Position-level
+
+```{r results='asis', echo=FALSE, message=FALSE}
+df_corr <- load_all_results_all_sp("GC_CG")
+df_corr %>%
+  select(rp, starts_with("chi_sq_ct")) %>%
+  group_by(rp) %>%
+  summarize_all(sum) %>%
+  ungroup() %>% select(-rp) %>%
+  correlate() %>% 
+  fashion() %>% 
+  knitr::kable()
+```
+
+### Nucleotide-level
+
+```{r results='asis', echo=FALSE, message=FALSE}
+df_corr %>%
+  select(starts_with("chi_sq_ct")) %>%
+  correlate() %>% 
+  fashion() %>% 
+  knitr::kable()
+```
+
+## cpg_GC_CG
+
+### Position-level
+
+```{r results='asis', echo=FALSE, message=FALSE}
+df_corr <- load_all_results_all_sp("cpg_GC_CG", r_start = 2)
+df_corr %>%
+  select(rp, starts_with("chi_sq_ct")) %>%
+  group_by(rp) %>%
+  summarize_all(sum) %>%
+  ungroup() %>% select(-rp) %>%
+  correlate() %>% 
+  fashion() %>% 
+  knitr::kable()
+```
+
+### Nucleotide-level
+
+```{r results='asis', echo=FALSE, message=FALSE}
+df_corr %>%
+  select(starts_with("chi_sq_ct")) %>%
+  correlate() %>% 
+  fashion() %>% 
+  knitr::kable()
+```
+
+## GC_TA
+
+### Position-level
+
+```{r results='asis', echo=FALSE, message=FALSE}
+df_corr <- load_all_results_all_sp("GC_TA")
+df_corr %>%
+  select(rp, starts_with("chi_sq_ct")) %>%
+  group_by(rp) %>%
+  summarize_all(sum) %>%
+  ungroup() %>% select(-rp) %>%
+  correlate() %>% 
+  fashion() %>% 
+  knitr::kable()
+```
+
+### Nucleotide-level
+
+```{r results='asis', echo=FALSE, message=FALSE}
+df_corr %>%
+  select(starts_with("chi_sq_ct")) %>%
+  correlate() %>% 
+  fashion() %>% 
+  knitr::kable()
+```
+
+## cpg_GC_TA
+
+### Position-level
+
+```{r results='asis', echo=FALSE, message=FALSE}
+df_corr <- load_all_results_all_sp("cpg_GC_TA", r_start = 2)
+df_corr %>%
+  select(rp, starts_with("chi_sq_ct")) %>%
+  group_by(rp) %>%
+  summarize_all(sum) %>%
+  ungroup() %>% select(-rp) %>%
+  correlate() %>% 
+  fashion() %>% 
+  knitr::kable()
+```
+
+### Nucleotide-level
+
+```{r results='asis', echo=FALSE, message=FALSE}
+df_corr %>%
+  select(starts_with("chi_sq_ct")) %>%
+  correlate() %>% 
+  fashion() %>% 
+  knitr::kable()
+```
