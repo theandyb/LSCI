@@ -93,6 +93,20 @@ $$
 
 where $n_{ijs}$ is the observed count for the sub-type flanked by nucleotides i, j in status s (either singletons or controls).
 
-## Results 
+## Results
+
+### Single Position Models
+
+* [BRIDGES Results](BRIDGES_single_position.html)
+* [1000G Results](1000G_single_position_ALL.html)
+* [1000G Cross-Population Comparison](1000G_single_postion_comp.html)
+
+* Across all sub-types, strongest "signal" at positions more focal to center
+
+### Two-Position Models
+
+* [BRIDGES Results](BRIDGES_two_positions.html)
+* [1000G Results](1000G_two_positions_ALL.html)
+* [1000G Cross-Population Comparison](1000G_two_postions_comp.html)
 
 ## Discussion

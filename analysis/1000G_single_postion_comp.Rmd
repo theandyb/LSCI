@@ -7,9 +7,74 @@ editor_options:
   chunk_output_type: console
 ---
 
+# 1000G Single Position Models - Population Comparisons
+
+```{r echo=FALSE, warning=FALSE, message=FALSE}
+library(tidyverse)
+library(corrr)
+source("code/single_pos_functions.R")
+
+```
+
 ## Introduction
 
-```{r}
+In [another document](1000G_single_position_ALL.Rmd), we evaluated the single position models using singletons aggregated across all five of the 1000 Genomes super-populations. A natural question we can ask is if there is any heterogeneity across the populations. To address this, we perform our analyses again with the singletons, but this time we analyze each super-population separately. Having done this, we assess consistency of the results by checking the correlations of not only the position-level results, but also the contribution to each statistic from the nucleotides at the flanking position under consideration.
 
+## AT_CG
+
+### ALL
+
+```{r echo=FALSE}
+plot_pos_stat("AT_CG", "ALL")
+```
+
+As a reminder, here we plot the single position statistics for the A(T)>C(G) sub-type using singletons aggregated across all 5 super-populations.
+
+### AFR
+
+```{r echo=FALSE}
+plot_pos_stat("AT_CG", "AFR")
+```
+
+When we look at the AFR super-population, our results across all the positions looks strikingly similar to what we saw above in the ALL analysis. This might be driven by AFR contributing a larger fraction of the singletons than the other 4 super-populations, so let us now take a look at those.
+
+### AMR
+
+```{r echo=FALSE}
+plot_pos_stat("AT_CG", "AMR")
+```
+
+### EAS
+
+```{r echo=FALSE}
+plot_pos_stat("AT_CG", "EAS")
+```
+
+### EUR
+
+```{r echo=FALSE}
+plot_pos_stat("AT_CG", "EUR")
+```
+
+### SAS
+
+```{r echo=FALSE}
+plot_pos_stat("AT_CG", "SAS")
+```
+
+Across all five super-populations we see the same pattern as we look across positions, suggesting that the results are consistent across the five super-populations. The only difference we really see is a shift in the magnitude of the statistic, which is likely driven by differences in the number of singletons across the super-populations.
+
+To quantify our observation that the statistics are consistent across super-populations, let's look at the pairwise correlations of statistics across positions for each pair of super-populations:
+
+```{r results='asis', echo=FALSE}
+df_corr_at_cg <- load_all_results_all_sp("AT_CG")
+corr_mat_at_cg <- df_corr_at_cg %>%
+  select(rp, starts_with("chi_sq_ct")) %>%
+  group_by(rp) %>%
+  summarize_all(sum) %>%
+  ungroup() %>% select(-rp) %>%
+  correlate()
+
+corr_mat_at_cg %>% fashion() %>% knitr::kable()
 ```
 
