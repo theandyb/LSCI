@@ -121,4 +121,15 @@ Across all sub-types, we see the strongest "signal" at positions more focal to c
 * [1000G Results](1000G_two_positions_ALL.html)
 * [1000G Cross-Population Comparison](1000G_two_postions_comp.html)
 
+* Chi-square tests of independence
+    * For each pair of positions, proportions of singletons stratified by "row" and "column" nucleotides are not products of row and column marginal distributions
+    * Strongest deviation from independence assumption at pairs of positions directly adjacent to one another.
+    * This is unsurprising since we see this both in the corresponding genome-wide and control distribution counts
+* Log-linear models: is the interaction we see in singletons unique to singletons?
+    * Model: for each pair of positions, model the counts of both the singletons and the controls as a function of the nucleotides at the two positions
+    * Model allows for different single position parameters for singletons and controls
+    * Model also includes interaction term between the nucleotides at the two positions
+    * Model does not include the three-way interaction term (which would fully saturate the model)
+    * Deviance compares the fitted model to the fully saturated model -> how different is the interaction in singletons to that if you assume it's the same between singletons and controls?
+
 ## Discussion
