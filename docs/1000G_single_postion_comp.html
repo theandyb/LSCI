@@ -361,7 +361,7 @@ div.tocify {
 
 <p>
 <button type="button" class="btn btn-default btn-workflowr btn-workflowr-report" data-toggle="collapse" data-target="#workflowr-report">
-<span class="glyphicon glyphicon-list" aria-hidden="true"></span> workflowr <span class="glyphicon glyphicon-exclamation-sign text-danger" aria-hidden="true"></span>
+<span class="glyphicon glyphicon-list" aria-hidden="true"></span> workflowr <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span>
 </button>
 </p>
 <div id="workflowr-report" class="collapse">
@@ -370,7 +370,7 @@ div.tocify {
 <a data-toggle="tab" href="#summary">Summary</a>
 </li>
 <li>
-<a data-toggle="tab" href="#checks"> Checks <span class="glyphicon glyphicon-exclamation-sign text-danger" aria-hidden="true"></span> </a>
+<a data-toggle="tab" href="#checks"> Checks <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> </a>
 </li>
 <li>
 <a data-toggle="tab" href="#versions">Past versions</a>
@@ -382,7 +382,7 @@ div.tocify {
 <strong>Last updated:</strong> 2021-11-10
 </p>
 <p>
-<strong>Checks:</strong> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> 6 <span class="glyphicon glyphicon-exclamation-sign text-danger" aria-hidden="true"></span> 1
+<strong>Checks:</strong> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> 7 <span class="glyphicon glyphicon-exclamation-sign text-danger" aria-hidden="true"></span> 0
 </p>
 <p>
 <strong>Knit directory:</strong> <code>LSCI/</code> <span class="glyphicon glyphicon-question-sign" aria-hidden="true" title="This is the local directory in which the code in this file was executed."> </span>
@@ -446,48 +446,12 @@ This reproducible <a href="http://rmarkdown.rstudio.com">R Markdown</a> analysis
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongCachestrongdetected"> <span class="glyphicon glyphicon-exclamation-sign text-danger" aria-hidden="true"></span> <strong>Cache:</strong> detected </a>
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongCachestrongnone"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Cache:</strong> none </a>
 </p>
 </div>
-<div id="strongCachestrongdetected" class="panel-collapse collapse">
+<div id="strongCachestrongnone" class="panel-collapse collapse">
 <div class="panel-body">
-The following chunks had caches available:
-<ul>
-<li>
-at_cg_pop_plot
-</li>
-<li>
-at_gc_pop_plot
-</li>
-<li>
-at_ta_pop_plot
-</li>
-<li>
-cpg_gc_at_pop_plot
-</li>
-<li>
-cpg_gc_cg_pop_plot
-</li>
-<li>
-cpg_gc_ta_pop_plot
-</li>
-<li>
-gc_at_pop_plot
-</li>
-<li>
-gc_cg_pop_plot
-</li>
-<li>
-gc_ta_pop_plot
-</li>
-<li>
-load_2pop
-</li>
-<li>
-plot_2pop
-</li>
-</ul>
-<p>To ensure reproducibility of the results, delete the cache directory <code>1000G_single_postion_comp_cache</code> and re-run the analysis. To have workflowr automatically delete the cache directory prior to building the file, set <code>delete_cache = TRUE</code> when running <code>wflow_build()</code> or <code>wflow_publish()</code>.</p>
+<p>Nice! There were no cached chunks for this analysis, so you can be confident that you successfully produced the results during this run.</p>
 </div>
 </div>
 </div>
@@ -506,16 +470,16 @@ plot_2pop
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomtheandybLSCItree752a4211afee694503eb52ce8970a1e447e3f8b7targetblank752a421a"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/theandyb/LSCI/tree/752a4211afee694503eb52ce8970a1e447e3f8b7" target="_blank">752a421</a> </a>
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomtheandybLSCItreefb5c8e44eb16b6044aa6049871d33106e1b6411atargetblankfb5c8e4a"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/theandyb/LSCI/tree/fb5c8e44eb16b6044aa6049871d33106e1b6411a" target="_blank">fb5c8e4</a> </a>
 </p>
 </div>
-<div id="strongRepositoryversionstrongahrefhttpsgithubcomtheandybLSCItree752a4211afee694503eb52ce8970a1e447e3f8b7targetblank752a421a" class="panel-collapse collapse">
+<div id="strongRepositoryversionstrongahrefhttpsgithubcomtheandybLSCItreefb5c8e44eb16b6044aa6049871d33106e1b6411atargetblankfb5c8e4a" class="panel-collapse collapse">
 <div class="panel-body">
 <p>
 Great! You are using Git for version control. Tracking code development and connecting the code version to the results is critical for reproducibility.
 </p>
 <p>
-The results in this page were generated with repository version <a href="https://github.com/theandyb/LSCI/tree/752a4211afee694503eb52ce8970a1e447e3f8b7" target="_blank">752a421</a>. See the <em>Past versions</em> tab to see a history of the changes made to the R Markdown and HTML files.
+The results in this page were generated with repository version <a href="https://github.com/theandyb/LSCI/tree/fb5c8e44eb16b6044aa6049871d33106e1b6411a" target="_blank">fb5c8e4</a>. See the <em>Past versions</em> tab to see a history of the changes made to the R Markdown and HTML files.
 </p>
 <p>
 Note that you need to be careful to ensure that all relevant files for the analysis have been committed to Git prior to generating the results (you can use <code>wflow_publish</code> or <code>wflow_git_commit</code>). workflowr only checks the R Markdown file, but you know if there are other scripts or data files that it depends on. Below is the status of the Git repository when the results were generated:
@@ -524,7 +488,6 @@ Note that you need to be careful to ensure that all relevant files for the analy
 Ignored files:
     Ignored:    .Rhistory
     Ignored:    .Rproj.user/
-    Ignored:    analysis/1000G_single_postion_comp_cache/
     Ignored:    analysis/disqus.html
 
 </code></pre>
@@ -564,6 +527,40 @@ Message
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+Rmd
+</td>
+<td>
+<a href="https://github.com/theandyb/LSCI/blob/fb5c8e44eb16b6044aa6049871d33106e1b6411a/analysis/1000G_single_postion_comp.Rmd" target="_blank">fb5c8e4</a>
+</td>
+<td>
+Andy Beck
+</td>
+<td>
+2021-11-10
+</td>
+<td>
+add BRIDGES comparison
+</td>
+</tr>
+<tr>
+<td>
+html
+</td>
+<td>
+<a href="https://rawcdn.githack.com/theandyb/LSCI/96d087d9c30d273bf323cfca13af597ac36c49da/docs/1000G_single_postion_comp.html" target="_blank">96d087d</a>
+</td>
+<td>
+Andy Beck
+</td>
+<td>
+2021-11-10
+</td>
+<td>
+Build site.
+</td>
+</tr>
 <tr>
 <td>
 Rmd
@@ -2206,6 +2203,43 @@ Missing treated using: &#39;pairwise.complete.obs&#39;</code></pre>
 <p>Here we can see that the statistics when we use EUR proportions to fit AFR and vice versa are much smaller that what we observe using the controls to fit either population’s counts. We can also plot these to make the exact same conclusion:</p>
 <pre class="r"><code>chi_sq_2pop_plot(&quot;AT_CG&quot;, &quot;AFR&quot;, &quot;EUR&quot;)</code></pre>
 <p><img src="figure/1000G_single_postion_comp.Rmd/unnamed-chunk-27-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-27-1">
+Past versions of unnamed-chunk-27-1.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-27-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/theandyb/LSCI/blob/96d087d9c30d273bf323cfca13af597ac36c49da/docs/figure/1000G_single_postion_comp.Rmd/unnamed-chunk-27-1.png" target="_blank">96d087d</a>
+</td>
+<td>
+Andy Beck
+</td>
+<td>
+2021-11-10
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 <div id="at_cg-1" class="section level3">
 <h3>AT_CG</h3>
 <p><img src="figure/1000G_single_postion_comp.Rmd/at_cg_pop_plot-1.png" width="672" style="display: block; margin: auto;" /><img src="figure/1000G_single_postion_comp.Rmd/at_cg_pop_plot-2.png" width="672" style="display: block; margin: auto;" /><img src="figure/1000G_single_postion_comp.Rmd/at_cg_pop_plot-3.png" width="672" style="display: block; margin: auto;" /><img src="figure/1000G_single_postion_comp.Rmd/at_cg_pop_plot-4.png" width="672" style="display: block; margin: auto;" /><img src="figure/1000G_single_postion_comp.Rmd/at_cg_pop_plot-5.png" width="672" style="display: block; margin: auto;" /><img src="figure/1000G_single_postion_comp.Rmd/at_cg_pop_plot-6.png" width="672" style="display: block; margin: auto;" /><img src="figure/1000G_single_postion_comp.Rmd/at_cg_pop_plot-7.png" width="672" style="display: block; margin: auto;" /><img src="figure/1000G_single_postion_comp.Rmd/at_cg_pop_plot-8.png" width="672" style="display: block; margin: auto;" /><img src="figure/1000G_single_postion_comp.Rmd/at_cg_pop_plot-9.png" width="672" style="display: block; margin: auto;" /><img src="figure/1000G_single_postion_comp.Rmd/at_cg_pop_plot-10.png" width="672" style="display: block; margin: auto;" /></p>
@@ -2238,6 +2272,65 @@ Missing treated using: &#39;pairwise.complete.obs&#39;</code></pre>
 <div id="cpg_gc_cg-1" class="section level3">
 <h3>cpg_GC_CG</h3>
 <p><img src="figure/1000G_single_postion_comp.Rmd/cpg_gc_cg_pop_plot-1.png" width="672" style="display: block; margin: auto;" /><img src="figure/1000G_single_postion_comp.Rmd/cpg_gc_cg_pop_plot-2.png" width="672" style="display: block; margin: auto;" /><img src="figure/1000G_single_postion_comp.Rmd/cpg_gc_cg_pop_plot-3.png" width="672" style="display: block; margin: auto;" /><img src="figure/1000G_single_postion_comp.Rmd/cpg_gc_cg_pop_plot-4.png" width="672" style="display: block; margin: auto;" /><img src="figure/1000G_single_postion_comp.Rmd/cpg_gc_cg_pop_plot-5.png" width="672" style="display: block; margin: auto;" /><img src="figure/1000G_single_postion_comp.Rmd/cpg_gc_cg_pop_plot-6.png" width="672" style="display: block; margin: auto;" /><img src="figure/1000G_single_postion_comp.Rmd/cpg_gc_cg_pop_plot-7.png" width="672" style="display: block; margin: auto;" /><img src="figure/1000G_single_postion_comp.Rmd/cpg_gc_cg_pop_plot-8.png" width="672" style="display: block; margin: auto;" /><img src="figure/1000G_single_postion_comp.Rmd/cpg_gc_cg_pop_plot-9.png" width="672" style="display: block; margin: auto;" /><img src="figure/1000G_single_postion_comp.Rmd/cpg_gc_cg_pop_plot-10.png" width="672" style="display: block; margin: auto;" /></p>
+</div>
+</div>
+<div id="compare-to-bridges" class="section level2">
+<h2>Compare to BRIDGES</h2>
+<p>Considering the above results suggested that the super-populations are comparable in terms of the single model results, for comparisons with the BRIDGES data set we’ll use the ALL “population” for comparisons.</p>
+<div id="at_cg-2" class="section level3">
+<h3>AT_CG</h3>
+<pre class="r"><code>st &lt;- &quot;AT_CG&quot;
+statistic_by_position_all_plot(st, &quot;ALL&quot;)</code></pre>
+<p><img src="figure/1000G_single_postion_comp.Rmd/unnamed-chunk-29-1.png" width="672" style="display: block; margin: auto;" /></p>
+</div>
+<div id="at_gc-2" class="section level3">
+<h3>AT_GC</h3>
+<pre class="r"><code>st &lt;- &quot;AT_GC&quot;
+statistic_by_position_all_plot(st, &quot;ALL&quot;)</code></pre>
+<p><img src="figure/1000G_single_postion_comp.Rmd/unnamed-chunk-30-1.png" width="672" style="display: block; margin: auto;" /></p>
+</div>
+<div id="at_ta-2" class="section level3">
+<h3>AT_TA</h3>
+<pre class="r"><code>st &lt;- &quot;AT_TA&quot;
+statistic_by_position_all_plot(st, &quot;ALL&quot;)</code></pre>
+<p><img src="figure/1000G_single_postion_comp.Rmd/unnamed-chunk-31-1.png" width="672" style="display: block; margin: auto;" /></p>
+</div>
+<div id="gc_at-2" class="section level3">
+<h3>GC_AT</h3>
+<pre class="r"><code>st &lt;- &quot;GC_AT&quot;
+statistic_by_position_all_plot(st, &quot;ALL&quot;)</code></pre>
+<p><img src="figure/1000G_single_postion_comp.Rmd/unnamed-chunk-32-1.png" width="672" style="display: block; margin: auto;" /></p>
+</div>
+<div id="cpg_gc_at-1" class="section level3">
+<h3>cpg_GC_AT</h3>
+<pre class="r"><code>st &lt;- &quot;cpg_GC_AT&quot;
+statistic_by_position_all_plot(st, &quot;ALL&quot;, r_start = 2)</code></pre>
+<p><img src="figure/1000G_single_postion_comp.Rmd/unnamed-chunk-33-1.png" width="672" style="display: block; margin: auto;" /></p>
+</div>
+<div id="gc_ta-2" class="section level3">
+<h3>GC_TA</h3>
+<pre class="r"><code>st &lt;- &quot;GC_TA&quot;
+statistic_by_position_all_plot(st, &quot;ALL&quot;)</code></pre>
+<p><img src="figure/1000G_single_postion_comp.Rmd/unnamed-chunk-34-1.png" width="672" style="display: block; margin: auto;" /></p>
+</div>
+<div id="cpg_gc_ta-2" class="section level3">
+<h3>cpg_GC_TA</h3>
+<pre class="r"><code>st &lt;- &quot;cpg_GC_TA&quot;
+statistic_by_position_all_plot(st, &quot;ALL&quot;, r_start = 2)</code></pre>
+<p><img src="figure/1000G_single_postion_comp.Rmd/unnamed-chunk-35-1.png" width="672" style="display: block; margin: auto;" /></p>
+</div>
+<div id="gc_cg-2" class="section level3">
+<h3>GC_CG</h3>
+<pre class="r"><code>st &lt;- &quot;GC_CG&quot;
+statistic_by_position_all_plot(st, &quot;ALL&quot;)</code></pre>
+<p><img src="figure/1000G_single_postion_comp.Rmd/unnamed-chunk-36-1.png" width="672" style="display: block; margin: auto;" /></p>
+</div>
+<div id="cpg_gc_cg-2" class="section level3">
+<h3>cpg_GC_CG</h3>
+<pre class="r"><code>st &lt;- &quot;cpg_GC_CG&quot;
+statistic_by_position_all_plot(st, &quot;ALL&quot;, r_start = 2)</code></pre>
+<p><img src="figure/1000G_single_postion_comp.Rmd/unnamed-chunk-37-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>We see that for all the sub-types the BRIDGES results are highly correlated with the 1000G results.</p>
 <br>
 <p>
 <button type="button" class="btn btn-default btn-workflowr btn-workflowr-sessioninfo" data-toggle="collapse" data-target="#workflowr-sessioninfo" style="display: block;">
@@ -2278,16 +2371,17 @@ loaded via a namespace (and not attached):
 [17] rstudioapi_0.13  whisker_0.4      jquerylib_0.1.4  rmarkdown_2.11  
 [21] labeling_0.4.2   bit_4.0.4        munsell_0.5.0    broom_0.7.9     
 [25] compiler_4.1.2   httpuv_1.6.3     modelr_0.1.8     xfun_0.27       
-[29] pkgconfig_2.0.3  htmltools_0.5.2  tidyselect_1.1.1 fansi_0.5.0     
-[33] crayon_1.4.1     tzdb_0.1.2       dbplyr_2.1.1     withr_2.4.2     
-[37] later_1.3.0      grid_4.1.2       jsonlite_1.7.2   gtable_0.3.0    
-[41] lifecycle_1.0.1  DBI_1.1.1        git2r_0.28.0     magrittr_2.0.1  
-[45] scales_1.1.1     vroom_1.5.5      cli_3.0.1        stringi_1.7.5   
-[49] farver_2.1.0     fs_1.5.0         promises_1.2.0.1 xml2_1.3.2      
-[53] bslib_0.3.1      ellipsis_0.3.2   generics_0.1.1   vctrs_0.3.8     
-[57] tools_4.1.2      bit64_4.0.5      glue_1.4.2       hms_1.1.1       
-[61] parallel_4.1.2   fastmap_1.1.0    yaml_2.2.1       colorspace_2.0-2
-[65] rvest_1.0.2      knitr_1.36       haven_2.4.3      sass_0.4.0      </code></pre>
+[29] pkgconfig_2.0.3  htmltools_0.5.2  tidyselect_1.1.1 codetools_0.2-18
+[33] fansi_0.5.0      crayon_1.4.1     tzdb_0.1.2       dbplyr_2.1.1    
+[37] withr_2.4.2      later_1.3.0      grid_4.1.2       jsonlite_1.7.2  
+[41] gtable_0.3.0     lifecycle_1.0.1  DBI_1.1.1        git2r_0.28.0    
+[45] magrittr_2.0.1   scales_1.1.1     vroom_1.5.5      cli_3.0.1       
+[49] stringi_1.7.5    farver_2.1.0     fs_1.5.0         promises_1.2.0.1
+[53] xml2_1.3.2       bslib_0.3.1      ellipsis_0.3.2   generics_0.1.1  
+[57] vctrs_0.3.8      tools_4.1.2      bit64_4.0.5      glue_1.4.2      
+[61] hms_1.1.1        parallel_4.1.2   fastmap_1.1.0    yaml_2.2.1      
+[65] colorspace_2.0-2 rvest_1.0.2      knitr_1.36       haven_2.4.3     
+[69] sass_0.4.0      </code></pre>
 </div>
 </div>
 </div>
