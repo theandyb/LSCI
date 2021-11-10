@@ -379,7 +379,7 @@ div.tocify {
 <div class="tab-content">
 <div id="summary" class="tab-pane fade in active">
 <p>
-<strong>Last updated:</strong> 2021-11-09
+<strong>Last updated:</strong> 2021-11-10
 </p>
 <p>
 <strong>Checks:</strong> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> 2 <span class="glyphicon glyphicon-exclamation-sign text-danger" aria-hidden="true"></span> 0
@@ -410,16 +410,16 @@ This reproducible <a href="http://rmarkdown.rstudio.com">R Markdown</a> analysis
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomtheandybLSCItree0950949ab082423d1fe77f5cf2e218c094d48707targetblank0950949a"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/theandyb/LSCI/tree/0950949ab082423d1fe77f5cf2e218c094d48707" target="_blank">0950949</a> </a>
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomtheandybLSCItree099f63d38cdb3fb858194aa3ef62a39fb214c126targetblank099f63da"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/theandyb/LSCI/tree/099f63d38cdb3fb858194aa3ef62a39fb214c126" target="_blank">099f63d</a> </a>
 </p>
 </div>
-<div id="strongRepositoryversionstrongahrefhttpsgithubcomtheandybLSCItree0950949ab082423d1fe77f5cf2e218c094d48707targetblank0950949a" class="panel-collapse collapse">
+<div id="strongRepositoryversionstrongahrefhttpsgithubcomtheandybLSCItree099f63d38cdb3fb858194aa3ef62a39fb214c126targetblank099f63da" class="panel-collapse collapse">
 <div class="panel-body">
 <p>
 Great! You are using Git for version control. Tracking code development and connecting the code version to the results is critical for reproducibility.
 </p>
 <p>
-The results in this page were generated with repository version <a href="https://github.com/theandyb/LSCI/tree/0950949ab082423d1fe77f5cf2e218c094d48707" target="_blank">0950949</a>. See the <em>Past versions</em> tab to see a history of the changes made to the R Markdown and HTML files.
+The results in this page were generated with repository version <a href="https://github.com/theandyb/LSCI/tree/099f63d38cdb3fb858194aa3ef62a39fb214c126" target="_blank">099f63d</a>. See the <em>Past versions</em> tab to see a history of the changes made to the R Markdown and HTML files.
 </p>
 <p>
 Note that you need to be careful to ensure that all relevant files for the analysis have been committed to Git prior to generating the results (you can use <code>wflow_publish</code> or <code>wflow_git_commit</code>). workflowr only checks the R Markdown file, but you know if there are other scripts or data files that it depends on. Below is the status of the Git repository when the results were generated:
@@ -467,6 +467,40 @@ Message
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+Rmd
+</td>
+<td>
+<a href="https://github.com/theandyb/LSCI/blob/099f63d38cdb3fb858194aa3ef62a39fb214c126/analysis/outline.Rmd" target="_blank">099f63d</a>
+</td>
+<td>
+Andy Beck
+</td>
+<td>
+2021-11-10
+</td>
+<td>
+update outline
+</td>
+</tr>
+<tr>
+<td>
+html
+</td>
+<td>
+<a href="https://rawcdn.githack.com/theandyb/LSCI/896eb471513a85130f8e6618ca61f014fb8359d7/docs/outline.html" target="_blank">896eb47</a>
+</td>
+<td>
+Andy Beck
+</td>
+<td>
+2021-11-09
+</td>
+<td>
+Build site.
+</td>
+</tr>
 <tr>
 <td>
 Rmd
@@ -763,6 +797,28 @@ cleanup
 <li><a href="1000G_single_postion_comp.html">1000G Cross-Population Comparison</a></li>
 </ul>
 <p>Across all sub-types, we see the strongest “signal” at positions more focal to center, with statistics dropping as we move further up/down stream from the site of interest. Due to the large number of singleton observations, we have very high power to detect even small deviations from the null model; this results in large statistics even at the +/- 10 bp position (albeit much smaller in magnitude relative to positions closer to the singleton site).</p>
+<p class="text-danger">
+Problems
+</p>
+<ul>
+<li>Large counts result in high power to detect small differences in distribution
+<ul>
+<li>How to delineate between “statistically significant” and “biologically” significant here?</li>
+</ul></li>
+</ul>
+<p class="text-success">
+Ideas for further refinement
+</p>
+<ul>
+<li>Reframe question in terms of a “classification problem”
+<ul>
+<li>I.e., given the nucleotide at a flanking position, how well are we able to distinguish between singletons and controls?</li>
+</ul></li>
+<li>Purposefully construct a null by stratifying singleton counts based on a nucleotide far enough up/down stream that this we would expect to be a random draw of some sorts(?)
+<ul>
+<li>Goal is to characterize how much “noise” we expect in the background</li>
+</ul></li>
+</ul>
 </div>
 <div id="two-position-models-1" class="section level3">
 <h3>Two-Position Models</h3>
