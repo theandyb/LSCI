@@ -13,16 +13,17 @@ editor_options:
 library(tidyverse)
 library(corrr)
 source("code/single_pos_functions.R")
-
 ```
 
 ## Introduction
 
 In [another document](1000G_single_position_ALL.Rmd), we evaluated the single position models using singletons aggregated across all five of the 1000 Genomes super-populations. A natural question we can ask is if there is any heterogeneity across the populations. To address this, we perform our analyses again with the singletons, but this time we analyze each super-population separately. Having done this, we assess consistency of the results by checking the correlations of not only the position-level results, but also the contribution to each statistic from the nucleotides at the flanking position under consideration.
 
-## AT_CG
+## Simple Correlation Analysis
 
-### ALL
+### AT_CG
+
+#### ALL
 
 ```{r echo=FALSE}
 plot_pos_stat("AT_CG", "ALL")
@@ -30,7 +31,7 @@ plot_pos_stat("AT_CG", "ALL")
 
 As a reminder, here we plot the single position statistics for the A(T)>C(G) sub-type using singletons aggregated across all 5 super-populations.
 
-### AFR
+#### AFR
 
 ```{r echo=FALSE}
 plot_pos_stat("AT_CG", "AFR")
@@ -38,25 +39,25 @@ plot_pos_stat("AT_CG", "AFR")
 
 When we look at the AFR super-population, our results across all the positions looks strikingly similar to what we saw above in the ALL analysis. This might be driven by AFR contributing a larger fraction of the singletons than the other 4 super-populations, so let us now take a look at those.
 
-### AMR
+#### AMR
 
 ```{r echo=FALSE}
 plot_pos_stat("AT_CG", "AMR")
 ```
 
-### EAS
+#### EAS
 
 ```{r echo=FALSE}
 plot_pos_stat("AT_CG", "EAS")
 ```
 
-### EUR
+#### EUR
 
 ```{r echo=FALSE}
 plot_pos_stat("AT_CG", "EUR")
 ```
 
-### SAS
+#### SAS
 
 ```{r echo=FALSE}
 plot_pos_stat("AT_CG", "SAS")
@@ -89,9 +90,9 @@ df_corr_at_cg %>%
 ```
 and it appears that they are for this sub-type. Let's now take a look at the other sub-types
 
-## AT_GC
+### AT_GC
 
-### Position-level
+#### Position-level
 
 ```{r results='asis', echo=FALSE, message=FALSE}
 df_corr <- load_all_results_all_sp("AT_GC")
@@ -105,7 +106,7 @@ df_corr %>%
   knitr::kable()
 ```
 
-### Nucleotide-level
+#### Nucleotide-level
 
 ```{r results='asis', echo=FALSE, message=FALSE}
 df_corr %>%
@@ -115,9 +116,9 @@ df_corr %>%
   knitr::kable()
 ```
 
-## AT_TA
+### AT_TA
 
-### Position-level
+#### Position-level
 
 ```{r results='asis', echo=FALSE, message=FALSE}
 df_corr <- load_all_results_all_sp("AT_TA")
@@ -131,7 +132,7 @@ df_corr %>%
   knitr::kable()
 ```
 
-### Nucleotide-level
+#### Nucleotide-level
 
 ```{r results='asis', echo=FALSE, message=FALSE}
 df_corr %>%
@@ -141,9 +142,9 @@ df_corr %>%
   knitr::kable()
 ```
 
-## GC_AT
+### GC_AT
 
-### Position-level
+#### Position-level
 
 ```{r results='asis', echo=FALSE, message=FALSE}
 df_corr <- load_all_results_all_sp("GC_AT")
@@ -157,7 +158,7 @@ df_corr %>%
   knitr::kable()
 ```
 
-### Nucleotide-level
+#### Nucleotide-level
 
 ```{r results='asis', echo=FALSE, message=FALSE}
 df_corr %>%
@@ -167,9 +168,9 @@ df_corr %>%
   knitr::kable()
 ```
 
-## cpg_GC_AT
+### cpg_GC_AT
 
-### Position-level
+#### Position-level
 
 ```{r results='asis', echo=FALSE, message=FALSE}
 df_corr <- load_all_results_all_sp("cpg_GC_AT", r_start = 2)
@@ -183,7 +184,7 @@ df_corr %>%
   knitr::kable()
 ```
 
-### Nucleotide-level
+#### Nucleotide-level
 
 ```{r results='asis', echo=FALSE, message=FALSE}
 df_corr %>%
@@ -193,9 +194,9 @@ df_corr %>%
   knitr::kable()
 ```
 
-## GC_CG
+### GC_CG
 
-### Position-level
+#### Position-level
 
 ```{r results='asis', echo=FALSE, message=FALSE}
 df_corr <- load_all_results_all_sp("GC_CG")
@@ -209,7 +210,7 @@ df_corr %>%
   knitr::kable()
 ```
 
-### Nucleotide-level
+#### Nucleotide-level
 
 ```{r results='asis', echo=FALSE, message=FALSE}
 df_corr %>%
@@ -219,9 +220,9 @@ df_corr %>%
   knitr::kable()
 ```
 
-## cpg_GC_CG
+### cpg_GC_CG
 
-### Position-level
+#### Position-level
 
 ```{r results='asis', echo=FALSE, message=FALSE}
 df_corr <- load_all_results_all_sp("cpg_GC_CG", r_start = 2)
@@ -235,7 +236,7 @@ df_corr %>%
   knitr::kable()
 ```
 
-### Nucleotide-level
+#### Nucleotide-level
 
 ```{r results='asis', echo=FALSE, message=FALSE}
 df_corr %>%
@@ -245,9 +246,9 @@ df_corr %>%
   knitr::kable()
 ```
 
-## GC_TA
+### GC_TA
 
-### Position-level
+#### Position-level
 
 ```{r results='asis', echo=FALSE, message=FALSE}
 df_corr <- load_all_results_all_sp("GC_TA")
@@ -261,7 +262,7 @@ df_corr %>%
   knitr::kable()
 ```
 
-### Nucleotide-level
+#### Nucleotide-level
 
 ```{r results='asis', echo=FALSE, message=FALSE}
 df_corr %>%
@@ -271,9 +272,9 @@ df_corr %>%
   knitr::kable()
 ```
 
-## cpg_GC_TA
+### cpg_GC_TA
 
-### Position-level
+#### Position-level
 
 ```{r results='asis', echo=FALSE, message=FALSE}
 df_corr <- load_all_results_all_sp("cpg_GC_TA", r_start = 2)
@@ -287,7 +288,7 @@ df_corr %>%
   knitr::kable()
 ```
 
-### Nucleotide-level
+#### Nucleotide-level
 
 ```{r results='asis', echo=FALSE, message=FALSE}
 df_corr %>%
@@ -295,4 +296,222 @@ df_corr %>%
   correlate() %>% 
   fashion() %>% 
   knitr::kable()
+```
+
+## Chi Square Approach
+
+Similar to what we did with the single position models, we can also use the chi square goodness of fit test to evaluate, for each sub-type and at each relative position, how similar are the counts between each super-population, and how does this statistic compare to what we observe comparing each super-population to its control sample? We can also do this to compare the BRIDGES data to the 1000G data as well.
+
+```{r load_2pop, echo=FALSE, cache=TRUE, dependson=NULL}
+load_singletons_2pop <- function(subtype, sp1, sp2, r_start = 1){
+  df1 <- load_all_results(subtype, sp1, r_start) %>%
+    filter(singletons > 0) %>%
+    select(rp, Nuc, singletons, chi_sq_ct) %>%
+    rename_with(.fn = ~paste0(., ".", sp1), .cols = c(starts_with("chi"),starts_with("singletons") ))
+  df2 <- load_all_results(subtype, sp2, r_start) %>%
+    filter(singletons > 0) %>%
+    select(rp, Nuc, singletons, chi_sq_ct) %>%
+    rename_with(.fn = ~paste0(., ".", sp2),  .cols = c(starts_with("chi"),starts_with("singletons") ))
+  
+  df <- full_join(df1, df2, by = c("rp", "Nuc"))
+  return(df)
+}
+
+chi_sq_2pop <- function(subtype, sp1, sp2, r_start = 1){
+  df <- load_singletons_2pop(subtype, sp1, sp2, r_start)
+  chi_vec1 <- c()
+  chi_vec2 <- c()
+  for(i in c(-10:-1, r_start:10)){
+    df2 <- df %>% 
+      filter(rp == i)
+    vec1 <- df2 %>% select(starts_with("singletons") & contains(sp1)) %>% pull(1)
+    vec2 <- df2 %>% select(starts_with("singletons") & contains(sp2)) %>% pull(1)
+    chi_obj1 <- chisq.test(vec1, p = vec2 / sum(vec2))
+    chi_obj2 <- chisq.test(vec2, p = vec1 / sum(vec1))
+    chi_vec1 <- c(chi_vec1, unname(chi_obj1$statistic))
+    chi_vec2 <- c(chi_vec2, unname(chi_obj2$statistic))
+  }
+  control_df <- df %>% 
+    group_by(rp) %>% 
+    summarize_at(vars(starts_with("chi")), sum)
+  final <- data.frame(rp = c(-10:-1, r_start:10))
+  final[,paste0("chi_sq_", sp1, "_", sp2,"")] <- chi_vec1
+  final[,paste0("chi_sq_", sp2, "_", sp1,"")] <- chi_vec2
+  final[,paste0("chi_sq_ct.", sp1)] <- control_df[,2]
+  final[,paste0("chi_sq_ct.", sp2)] <- control_df[,3]
+  return(final)
+}
+```
+
+For an illustrative example, let's take a look at the A(T)>C(G) sub-type in the EUR and AFR super-populations. Here we'll use the frequencies observed in EUR to fit the AFR counts, and compare these chi-square statistics to those that we obtain when we compare the EUR and AFR super-populations to their corresponding control distributions:
+
+```{r results='asis'}
+chi_sq_2pop("AT_CG", "AFR", "EUR") %>%
+  knitr::kable()
+```
+
+Here we can see that the statistics when we use EUR proportions to fit AFR and vice versa are much smaller that what we observe using the controls to fit either population's counts. We can also plot these to make the exact same conclusion:
+
+```{r plot_2pop, echo=FALSE, cache=TRUE, dependson="load_2pop"}
+chi_sq_2pop_plot <- function(subtype, sp1, sp2, r_start = 1){
+  df <- chi_sq_2pop(subtype, sp1, sp2, r_start) %>%
+    gather(type, statistic, -rp)
+  
+  p <- df %>%
+    ggplot(aes(x = rp, y = statistic, colour = type)) + 
+    geom_point() +
+    geom_line() +
+    ggtitle(paste0("Single Position Chi Square Statistic: ", subtype),
+            paste0("Pop 1: ", sp1, "; Pop 2: ", sp2)) +
+    xlab("Relative Position") + 
+    ylab("Statistic") +
+    labs(fill="Statistic Type")
+  return(p)
+}
+```
+```{r}
+chi_sq_2pop_plot("AT_CG", "AFR", "EUR")
+```
+
+### AT_CG
+
+```{r at_cg_pop_plot, echo=FALSE, cache=TRUE, dependson=c("plot_2pop", "load_2pop")}
+st <- "AT_CG"
+for(sp in c("AMR", "EAS", "EUR", "SAS")){
+  print(chi_sq_2pop_plot(st, "AFR", sp))
+}
+for(sp in c("EAS", "EUR", "SAS")){
+  print(chi_sq_2pop_plot(st, "AMR", sp))
+}
+for(sp in c("EUR", "SAS")){
+  print(chi_sq_2pop_plot(st, "EAS", sp))
+}
+print(chi_sq_2pop_plot(st, "EUR", "SAS"))
+```
+
+### AT_GC
+
+```{r at_gc_pop_plot, echo=FALSE, cache=TRUE, dependson=c("plot_2pop", "load_2pop")}
+st <- "AT_GC"
+for(sp in c("AMR", "EAS", "EUR", "SAS")){
+  print(chi_sq_2pop_plot(st, "AFR", sp))
+}
+for(sp in c("EAS", "EUR", "SAS")){
+  print(chi_sq_2pop_plot(st, "AMR", sp))
+}
+for(sp in c("EUR", "SAS")){
+  print(chi_sq_2pop_plot(st, "EAS", sp))
+}
+print(chi_sq_2pop_plot(st, "EUR", "SAS"))
+```
+
+### AT_TA
+
+```{r at_ta_pop_plot, echo=FALSE, cache=TRUE, dependson=c("plot_2pop", "load_2pop")}
+st <- "AT_TA"
+for(sp in c("AMR", "EAS", "EUR", "SAS")){
+  print(chi_sq_2pop_plot(st, "AFR", sp))
+}
+for(sp in c("EAS", "EUR", "SAS")){
+  print(chi_sq_2pop_plot(st, "AMR", sp))
+}
+for(sp in c("EUR", "SAS")){
+  print(chi_sq_2pop_plot(st, "EAS", sp))
+}
+print(chi_sq_2pop_plot(st, "EUR", "SAS"))
+```
+
+### GC_AT
+
+```{r gc_at_pop_plot, echo=FALSE, cache=TRUE, dependson=c("plot_2pop", "load_2pop")}
+st <- "GC_AT"
+for(sp in c("AMR", "EAS", "EUR", "SAS")){
+  print(chi_sq_2pop_plot(st, "AFR", sp))
+}
+for(sp in c("EAS", "EUR", "SAS")){
+  print(chi_sq_2pop_plot(st, "AMR", sp))
+}
+for(sp in c("EUR", "SAS")){
+  print(chi_sq_2pop_plot(st, "EAS", sp))
+}
+print(chi_sq_2pop_plot(st, "EUR", "SAS"))
+```
+### cpg_GC_AT
+
+```{r cpg_gc_at_pop_plot, echo=FALSE, cache=TRUE, dependson=c("plot_2pop", "load_2pop")}
+st <- "cpg_GC_AT"
+for(sp in c("AMR", "EAS", "EUR", "SAS")){
+  print(chi_sq_2pop_plot(st, "AFR", sp, r_start = 2))
+}
+for(sp in c("EAS", "EUR", "SAS")){
+  print(chi_sq_2pop_plot(st, "AMR", sp, r_start = 2))
+}
+for(sp in c("EUR", "SAS")){
+  print(chi_sq_2pop_plot(st, "EAS", sp, r_start = 2))
+}
+print(chi_sq_2pop_plot(st, "EUR", "SAS", r_start = 2))
+```
+
+### GC_TA
+
+```{r gc_ta_pop_plot, echo=FALSE, cache=TRUE, dependson=c("plot_2pop", "load_2pop")}
+st <- "GC_TA"
+for(sp in c("AMR", "EAS", "EUR", "SAS")){
+  print(chi_sq_2pop_plot(st, "AFR", sp))
+}
+for(sp in c("EAS", "EUR", "SAS")){
+  print(chi_sq_2pop_plot(st, "AMR", sp))
+}
+for(sp in c("EUR", "SAS")){
+  print(chi_sq_2pop_plot(st, "EAS", sp))
+}
+print(chi_sq_2pop_plot(st, "EUR", "SAS"))
+```
+
+### cpg_GC_TA
+
+```{r cpg_gc_ta_pop_plot, echo=FALSE, cache=TRUE, dependson=c("plot_2pop", "load_2pop")}
+st <- "cpg_GC_TA"
+for(sp in c("AMR", "EAS", "EUR", "SAS")){
+  print(chi_sq_2pop_plot(st, "AFR", sp, r_start = 2))
+}
+for(sp in c("EAS", "EUR", "SAS")){
+  print(chi_sq_2pop_plot(st, "AMR", sp, r_start = 2))
+}
+for(sp in c("EUR", "SAS")){
+  print(chi_sq_2pop_plot(st, "EAS", sp, r_start = 2))
+}
+print(chi_sq_2pop_plot(st, "EUR", "SAS", r_start = 2))
+```
+
+### GC_CG
+
+```{r gc_cg_pop_plot, echo=FALSE, cache=TRUE, dependson=c("plot_2pop", "load_2pop")}
+st <- "GC_CG"
+for(sp in c("AMR", "EAS", "EUR", "SAS")){
+  print(chi_sq_2pop_plot(st, "AFR", sp))
+}
+for(sp in c("EAS", "EUR", "SAS")){
+  print(chi_sq_2pop_plot(st, "AMR", sp))
+}
+for(sp in c("EUR", "SAS")){
+  print(chi_sq_2pop_plot(st, "EAS", sp))
+}
+print(chi_sq_2pop_plot(st, "EUR", "SAS"))
+```
+
+### cpg_GC_CG
+
+```{r cpg_gc_cg_pop_plot, echo=FALSE, cache=TRUE, dependson=c("plot_2pop", "load_2pop")}
+st <- "cpg_GC_CG"
+for(sp in c("AMR", "EAS", "EUR", "SAS")){
+  print(chi_sq_2pop_plot(st, "AFR", sp, r_start = 2))
+}
+for(sp in c("EAS", "EUR", "SAS")){
+  print(chi_sq_2pop_plot(st, "AMR", sp, r_start = 2))
+}
+for(sp in c("EUR", "SAS")){
+  print(chi_sq_2pop_plot(st, "EAS", sp, r_start = 2))
+}
+print(chi_sq_2pop_plot(st, "EUR", "SAS", r_start = 2))
 ```

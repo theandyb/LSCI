@@ -115,6 +115,11 @@ Across all sub-types, we see the strongest "signal" at positions more focal to c
 * Purposefully construct a null by stratifying singleton counts based on a nucleotide far enough up/down stream that this we would expect to be a random draw of some sorts(?)
     * Goal is to characterize how much "noise" we expect in the background
 
+#### Consistency across 1000G super-populations
+
+* Statistics highly correlated across position for each sub-type and pair of populations
+* Individual nucleotide contribution to each position's statistic also highly correlated between populations
+
 ### Two-Position Models
 
 * [BRIDGES Results](BRIDGES_two_positions.html)
@@ -131,5 +136,9 @@ Across all sub-types, we see the strongest "signal" at positions more focal to c
     * Model also includes interaction term between the nucleotides at the two positions
     * Model does not include the three-way interaction term (which would fully saturate the model)
     * Deviance compares the fitted model to the fully saturated model -> how different is the interaction in singletons to that if you assume it's the same between singletons and controls?
+    * <p class="text-info">Results</p> 
+        * higher statistics at pairs of positions near singleton, with quick drop off as distance between relative positions and distance between relative positions and singleton increase
+    * <p class="text-danger">Issues</p>
+        * Same problem discussed above regarding the difference between statistical significance and practical significance.
 
 ## Discussion
