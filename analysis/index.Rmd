@@ -42,4 +42,4 @@ To address these questions, we characterize the distributions of nucleotides fla
 ## Miscellaneous
 
 * [Quality Control](quality_control.html)
-* [Genome-wide Counts 2-way Contingency Tables](gw_chisq_ind.html)
+* [Genome-wide Counts 2-way Contingency Tables - Test of Independence](gw_chisq_ind.html)
