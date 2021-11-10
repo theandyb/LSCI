@@ -515,3 +515,96 @@ for(sp in c("EUR", "SAS")){
 }
 print(chi_sq_2pop_plot(st, "EUR", "SAS", r_start = 2))
 ```
+
+## Compare to BRIDGES
+
+Considering the above results suggested that the super-populations are comparable in terms of the single model results, for comparisons with the BRIDGES data set we'll use the ALL "population" for comparisons.
+
+```{r echo=FALSE}
+statistic_by_position_all <- function(subtype, sp, r_start = 1){
+  df_1000G <- statistic_by_position(subtype, sp, r_start) %>%
+    mutate(type = paste0(type, "_1000G"))
+  df_bridges <- statistic_by_position_bridges(subtype, r_start) %>%
+    mutate(type = paste0(type, "_BRIDGES"))
+  df <- bind_rows(df_1000G, df_bridges)
+  return(df)
+}
+
+statistic_by_position_all_plot <- function(subtype, sp, r_start = 1){
+  df <- statistic_by_position_all(subtype, sp, r_start)
+  p <- df %>%
+    filter(str_starts(type, "Control")) %>%
+    ggplot(aes(x = pos, y= chi_sq, colour = type)) +
+    geom_line() + geom_point() +
+    xlab("Relative Position") +
+    ylab("Statistic") +
+    labs(colour = "Data Set") +
+    ggtitle(paste0("BRIDGES and 1000G: ", subtype))
+  return(p)
+}
+```
+
+### AT_CG
+
+```{r}
+st <- "AT_CG"
+statistic_by_position_all_plot(st, "ALL")
+```
+
+### AT_GC
+
+```{r}
+st <- "AT_GC"
+statistic_by_position_all_plot(st, "ALL")
+```
+
+### AT_TA
+
+```{r}
+st <- "AT_TA"
+statistic_by_position_all_plot(st, "ALL")
+```
+
+### GC_AT
+
+```{r}
+st <- "GC_AT"
+statistic_by_position_all_plot(st, "ALL")
+```
+
+### cpg_GC_AT
+
+```{r}
+st <- "cpg_GC_AT"
+statistic_by_position_all_plot(st, "ALL", r_start = 2)
+```
+
+### GC_TA
+
+```{r}
+st <- "GC_TA"
+statistic_by_position_all_plot(st, "ALL")
+```
+
+### cpg_GC_TA
+
+```{r}
+st <- "cpg_GC_TA"
+statistic_by_position_all_plot(st, "ALL", r_start = 2)
+```
+
+### GC_CG
+
+```{r}
+st <- "GC_CG"
+statistic_by_position_all_plot(st, "ALL")
+```
+
+### cpg_GC_CG
+
+```{r}
+st <- "cpg_GC_CG"
+statistic_by_position_all_plot(st, "ALL", r_start = 2)
+```
+
+We see that for all the sub-types the BRIDGES results are highly correlated with the 1000G results.

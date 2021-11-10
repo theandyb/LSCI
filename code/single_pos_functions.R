@@ -117,7 +117,7 @@ load_results_bridges <- function(subtype, rp){
 }
 
 load_all_results_bridges <- function(subtype, r_start = 1){
-  df <- load_results(subtype, -10)
+  df <- load_results_bridges(subtype, -10)
   df$rp <- -10
   for(i in c(-9:-1, r_start:10)){
     df2 <- load_results(subtype, i)
@@ -130,7 +130,8 @@ load_all_results_bridges <- function(subtype, r_start = 1){
 statistic_by_position_bridges <- function(subtype, r_start = 1){
   final <- data.frame(pos = numeric(), chi_sq = numeric(), type = character())
   for(i in c(-10:-1, r_start:10)){
-    df <- load_results(subtype, i)
+    df <- load_results_bridges(subtype, i) %>%
+      filter(singletons > 0)
     final <- bind_rows(final,
                        data.frame(pos = c(i,i),
                                   chi_sq = c(sum(df$chi_sq_gw), sum(df$chi_sq_ct) ),

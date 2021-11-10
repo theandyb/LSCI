@@ -119,6 +119,7 @@ Across all sub-types, we see the strongest "signal" at positions more focal to c
 
 * Statistics highly correlated across position for each sub-type and pair of populations
 * Individual nucleotide contribution to each position's statistic also highly correlated between populations
+* Chi-sq approach: use each super-population to fit counts for each other -> statistics much smaller than when we use control distributions to fit same count tables
 
 ### Two-Position Models
 
