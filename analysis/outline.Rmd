@@ -103,6 +103,18 @@ where $n_{ijs}$ is the observed count for the sub-type flanked by nucleotides i,
 
 Across all sub-types, we see the strongest "signal" at positions more focal to center, with statistics dropping as we move further up/down stream from the site of interest. Due to the large number of singleton observations, we have very high power to detect even small deviations from the null model; this results in large statistics even at the +/- 10 bp position (albeit much smaller in magnitude relative to positions closer to the singleton site). 
 
+<p class="text-danger">Problems</p>
+
+* Large counts result in high power to detect small differences in distribution
+    * How to delineate between "statistically significant" and "biologically" significant here?
+
+<p class="text-success">Ideas for further refinement</p>
+
+* Reframe question in terms of a "classification problem"
+    * I.e., given the nucleotide at a flanking position, how well are we able to distinguish between singletons and controls?
+* Purposefully construct a null by stratifying singleton counts based on a nucleotide far enough up/down stream that this we would expect to be a random draw of some sorts(?)
+    * Goal is to characterize how much "noise" we expect in the background
+
 ### Two-Position Models
 
 * [BRIDGES Results](BRIDGES_two_positions.html)
