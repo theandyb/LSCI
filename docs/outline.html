@@ -410,16 +410,16 @@ This reproducible <a href="http://rmarkdown.rstudio.com">R Markdown</a> analysis
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomtheandybLSCItree099f63d38cdb3fb858194aa3ef62a39fb214c126targetblank099f63da"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/theandyb/LSCI/tree/099f63d38cdb3fb858194aa3ef62a39fb214c126" target="_blank">099f63d</a> </a>
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomtheandybLSCItreed8bd3c9c5753f3200a1be3d575af77357019a322targetblankd8bd3c9a"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/theandyb/LSCI/tree/d8bd3c9c5753f3200a1be3d575af77357019a322" target="_blank">d8bd3c9</a> </a>
 </p>
 </div>
-<div id="strongRepositoryversionstrongahrefhttpsgithubcomtheandybLSCItree099f63d38cdb3fb858194aa3ef62a39fb214c126targetblank099f63da" class="panel-collapse collapse">
+<div id="strongRepositoryversionstrongahrefhttpsgithubcomtheandybLSCItreed8bd3c9c5753f3200a1be3d575af77357019a322targetblankd8bd3c9a" class="panel-collapse collapse">
 <div class="panel-body">
 <p>
 Great! You are using Git for version control. Tracking code development and connecting the code version to the results is critical for reproducibility.
 </p>
 <p>
-The results in this page were generated with repository version <a href="https://github.com/theandyb/LSCI/tree/099f63d38cdb3fb858194aa3ef62a39fb214c126" target="_blank">099f63d</a>. See the <em>Past versions</em> tab to see a history of the changes made to the R Markdown and HTML files.
+The results in this page were generated with repository version <a href="https://github.com/theandyb/LSCI/tree/d8bd3c9c5753f3200a1be3d575af77357019a322" target="_blank">d8bd3c9</a>. See the <em>Past versions</em> tab to see a history of the changes made to the R Markdown and HTML files.
 </p>
 <p>
 Note that you need to be careful to ensure that all relevant files for the analysis have been committed to Git prior to generating the results (you can use <code>wflow_publish</code> or <code>wflow_git_commit</code>). workflowr only checks the R Markdown file, but you know if there are other scripts or data files that it depends on. Below is the status of the Git repository when the results were generated:
@@ -467,6 +467,40 @@ Message
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+Rmd
+</td>
+<td>
+<a href="https://github.com/theandyb/LSCI/blob/d8bd3c9c5753f3200a1be3d575af77357019a322/analysis/outline.Rmd" target="_blank">d8bd3c9</a>
+</td>
+<td>
+Andy Beck
+</td>
+<td>
+2021-11-10
+</td>
+<td>
+update outline
+</td>
+</tr>
+<tr>
+<td>
+html
+</td>
+<td>
+<a href="https://rawcdn.githack.com/theandyb/LSCI/bbebde65a26d23563ff5613cd63cb88292dbfae3/docs/outline.html" target="_blank">bbebde6</a>
+</td>
+<td>
+Andy Beck
+</td>
+<td>
+2021-11-10
+</td>
+<td>
+Build site.
+</td>
+</tr>
 <tr>
 <td>
 Rmd
@@ -823,9 +857,23 @@ Ideas for further refinement
 <div id="two-position-models-1" class="section level3">
 <h3>Two-Position Models</h3>
 <ul>
-<li><a href="BRIDGES_two_positions.html">BRIDGES Results</a></li>
-<li><a href="1000G_two_positions_ALL.html">1000G Results</a></li>
-<li><a href="1000G_two_postions_comp.html">1000G Cross-Population Comparison</a></li>
+<li><p><a href="BRIDGES_two_positions.html">BRIDGES Results</a></p></li>
+<li><p><a href="1000G_two_positions_ALL.html">1000G Results</a></p></li>
+<li><p><a href="1000G_two_postions_comp.html">1000G Cross-Population Comparison</a></p></li>
+<li><p>Chi-square tests of independence</p>
+<ul>
+<li>For each pair of positions, proportions of singletons stratified by “row” and “column” nucleotides are not products of row and column marginal distributions</li>
+<li>Strongest deviation from independence assumption at pairs of positions directly adjacent to one another.</li>
+<li>This is unsurprising since we see this both in the corresponding genome-wide and control distribution counts</li>
+</ul></li>
+<li><p>Log-linear models: is the interaction we see in singletons unique to singletons?</p>
+<ul>
+<li>Model: for each pair of positions, model the counts of both the singletons and the controls as a function of the nucleotides at the two positions</li>
+<li>Model allows for different single position parameters for singletons and controls</li>
+<li>Model also includes interaction term between the nucleotides at the two positions</li>
+<li>Model does not include the three-way interaction term (which would fully saturate the model)</li>
+<li>Deviance compares the fitted model to the fully saturated model -&gt; how different is the interaction in singletons to that if you assume it’s the same between singletons and controls?</li>
+</ul></li>
 </ul>
 </div>
 </div>
