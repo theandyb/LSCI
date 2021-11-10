@@ -143,3 +143,24 @@ Across all sub-types, we see the strongest "signal" at positions more focal to c
         * Same problem discussed above regarding the difference between statistical significance and practical significance.
 
 ## Discussion
+
+* Influence of individual nucleotides on rates of substitution extend beyond +/-1 bp window generally accounted for in tasks that incorporate/evaluate mutation rates/characterize mutational processes
+    * <p class="text-danger">Still need a metric that more reflects the "cost" of excluding bases outside +/- 1 bp window</p>
+* Nucleotides at pairs of flanking positions interact in determining their influence on the rate of substitution, but this drops off quick for most sub-types when looking beyond +/- 2 bp
+* These results suggest that while incorporating more local context in estimating mutation rates should improve performance, doing so in a way that implicitly accounts for all interactions 
+
+### Limitations
+
+* Reliance on control sample to correct for "influence of genomic features"
+    * Might very well work, but characterizing patterns of local context influence interacting with other known features associated with mutation rate variability (chromatin accessibility, replication timing, etc) would yield a better understanding/characterization of underlying mutational processes
+* Didn't really touch on between-population differences seen in things like 3-mer mutation subtype enrichments in 1000G populations
+
+### Next Steps
+
+* Building a better mutation rate model
+* Phrase problem in terms of a categorization problem: given sequence at ... positions, can we distinguish between singletons and randomly sampled controls?
+    * My impression is that metrics we get from this perspective are easier to interpret in regards to the goal of builing a "better mutation rate estimate"
+    * Deep learning has been used to learn [context embeddings for somatic mutations](https://doi.org/10.1093/bioinformatics/btaa433). Could we do something like this for singletons?
+        * Paper embedded both cancer patients and mutations into a learned embedding (representation?) that they could then use to do things like sub-type identification -> is there a parallel problem we could think of in the context of germline mutation rate / singleton mutations?
+    * Are their approaches to binary classification in the NLP area that would lend themselves to our analysis?
+        * If so, do they provide a way of assessing the importance of positions/interactions/necessity of nucleotides in the 21-mer motif?
