@@ -361,7 +361,7 @@ div.tocify {
 
 <p>
 <button type="button" class="btn btn-default btn-workflowr btn-workflowr-report" data-toggle="collapse" data-target="#workflowr-report">
-<span class="glyphicon glyphicon-list" aria-hidden="true"></span> workflowr <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span>
+<span class="glyphicon glyphicon-list" aria-hidden="true"></span> workflowr <span class="glyphicon glyphicon-exclamation-sign text-danger" aria-hidden="true"></span>
 </button>
 </p>
 <div id="workflowr-report" class="collapse">
@@ -370,7 +370,7 @@ div.tocify {
 <a data-toggle="tab" href="#summary">Summary</a>
 </li>
 <li>
-<a data-toggle="tab" href="#checks"> Checks <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> </a>
+<a data-toggle="tab" href="#checks"> Checks <span class="glyphicon glyphicon-exclamation-sign text-danger" aria-hidden="true"></span> </a>
 </li>
 <li>
 <a data-toggle="tab" href="#versions">Past versions</a>
@@ -379,10 +379,10 @@ div.tocify {
 <div class="tab-content">
 <div id="summary" class="tab-pane fade in active">
 <p>
-<strong>Last updated:</strong> 2021-11-09
+<strong>Last updated:</strong> 2021-11-10
 </p>
 <p>
-<strong>Checks:</strong> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> 7 <span class="glyphicon glyphicon-exclamation-sign text-danger" aria-hidden="true"></span> 0
+<strong>Checks:</strong> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> 6 <span class="glyphicon glyphicon-exclamation-sign text-danger" aria-hidden="true"></span> 1
 </p>
 <p>
 <strong>Knit directory:</strong> <code>LSCI/</code> <span class="glyphicon glyphicon-question-sign" aria-hidden="true" title="This is the local directory in which the code in this file was executed."> </span>
@@ -446,12 +446,48 @@ This reproducible <a href="http://rmarkdown.rstudio.com">R Markdown</a> analysis
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongCachestrongnone"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Cache:</strong> none </a>
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongCachestrongdetected"> <span class="glyphicon glyphicon-exclamation-sign text-danger" aria-hidden="true"></span> <strong>Cache:</strong> detected </a>
 </p>
 </div>
-<div id="strongCachestrongnone" class="panel-collapse collapse">
+<div id="strongCachestrongdetected" class="panel-collapse collapse">
 <div class="panel-body">
-<p>Nice! There were no cached chunks for this analysis, so you can be confident that you successfully produced the results during this run.</p>
+The following chunks had caches available:
+<ul>
+<li>
+at_cg_pop_plot
+</li>
+<li>
+at_gc_pop_plot
+</li>
+<li>
+at_ta_pop_plot
+</li>
+<li>
+cpg_gc_at_pop_plot
+</li>
+<li>
+cpg_gc_cg_pop_plot
+</li>
+<li>
+cpg_gc_ta_pop_plot
+</li>
+<li>
+gc_at_pop_plot
+</li>
+<li>
+gc_cg_pop_plot
+</li>
+<li>
+gc_ta_pop_plot
+</li>
+<li>
+load_2pop
+</li>
+<li>
+plot_2pop
+</li>
+</ul>
+<p>To ensure reproducibility of the results, delete the cache directory <code>1000G_single_postion_comp_cache</code> and re-run the analysis. To have workflowr automatically delete the cache directory prior to building the file, set <code>delete_cache = TRUE</code> when running <code>wflow_build()</code> or <code>wflow_publish()</code>.</p>
 </div>
 </div>
 </div>
@@ -470,16 +506,16 @@ This reproducible <a href="http://rmarkdown.rstudio.com">R Markdown</a> analysis
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomtheandybLSCItree0950949ab082423d1fe77f5cf2e218c094d48707targetblank0950949a"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/theandyb/LSCI/tree/0950949ab082423d1fe77f5cf2e218c094d48707" target="_blank">0950949</a> </a>
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomtheandybLSCItree752a4211afee694503eb52ce8970a1e447e3f8b7targetblank752a421a"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/theandyb/LSCI/tree/752a4211afee694503eb52ce8970a1e447e3f8b7" target="_blank">752a421</a> </a>
 </p>
 </div>
-<div id="strongRepositoryversionstrongahrefhttpsgithubcomtheandybLSCItree0950949ab082423d1fe77f5cf2e218c094d48707targetblank0950949a" class="panel-collapse collapse">
+<div id="strongRepositoryversionstrongahrefhttpsgithubcomtheandybLSCItree752a4211afee694503eb52ce8970a1e447e3f8b7targetblank752a421a" class="panel-collapse collapse">
 <div class="panel-body">
 <p>
 Great! You are using Git for version control. Tracking code development and connecting the code version to the results is critical for reproducibility.
 </p>
 <p>
-The results in this page were generated with repository version <a href="https://github.com/theandyb/LSCI/tree/0950949ab082423d1fe77f5cf2e218c094d48707" target="_blank">0950949</a>. See the <em>Past versions</em> tab to see a history of the changes made to the R Markdown and HTML files.
+The results in this page were generated with repository version <a href="https://github.com/theandyb/LSCI/tree/752a4211afee694503eb52ce8970a1e447e3f8b7" target="_blank">752a421</a>. See the <em>Past versions</em> tab to see a history of the changes made to the R Markdown and HTML files.
 </p>
 <p>
 Note that you need to be careful to ensure that all relevant files for the analysis have been committed to Git prior to generating the results (you can use <code>wflow_publish</code> or <code>wflow_git_commit</code>). workflowr only checks the R Markdown file, but you know if there are other scripts or data files that it depends on. Below is the status of the Git repository when the results were generated:
@@ -488,6 +524,7 @@ Note that you need to be careful to ensure that all relevant files for the analy
 Ignored files:
     Ignored:    .Rhistory
     Ignored:    .Rproj.user/
+    Ignored:    analysis/1000G_single_postion_comp_cache/
     Ignored:    analysis/disqus.html
 
 </code></pre>
@@ -527,6 +564,40 @@ Message
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+Rmd
+</td>
+<td>
+<a href="https://github.com/theandyb/LSCI/blob/752a4211afee694503eb52ce8970a1e447e3f8b7/analysis/1000G_single_postion_comp.Rmd" target="_blank">752a421</a>
+</td>
+<td>
+Andy Beck
+</td>
+<td>
+2021-11-10
+</td>
+<td>
+Add chisq to comp
+</td>
+</tr>
+<tr>
+<td>
+html
+</td>
+<td>
+<a href="https://rawcdn.githack.com/theandyb/LSCI/896eb471513a85130f8e6618ca61f014fb8359d7/docs/1000G_single_postion_comp.html" target="_blank">896eb47</a>
+</td>
+<td>
+Andy Beck
+</td>
+<td>
+2021-11-09
+</td>
+<td>
+Build site.
+</td>
+</tr>
 <tr>
 <td>
 Rmd
@@ -659,10 +730,12 @@ flesh out some pages
 <h2>Introduction</h2>
 <p>In <a href="1000G_single_position_ALL.Rmd">another document</a>, we evaluated the single position models using singletons aggregated across all five of the 1000 Genomes super-populations. A natural question we can ask is if there is any heterogeneity across the populations. To address this, we perform our analyses again with the singletons, but this time we analyze each super-population separately. Having done this, we assess consistency of the results by checking the correlations of not only the position-level results, but also the contribution to each statistic from the nucleotides at the flanking position under consideration.</p>
 </div>
-<div id="at_cg" class="section level2">
-<h2>AT_CG</h2>
-<div id="all" class="section level3">
-<h3>ALL</h3>
+<div id="simple-correlation-analysis" class="section level2">
+<h2>Simple Correlation Analysis</h2>
+<div id="at_cg" class="section level3">
+<h3>AT_CG</h3>
+<div id="all" class="section level4">
+<h4>ALL</h4>
 <p><img src="figure/1000G_single_postion_comp.Rmd/unnamed-chunk-2-1.png" width="672" style="display: block; margin: auto;" /></p>
 <p>
 <button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-2-1">
@@ -703,8 +776,8 @@ Andy Beck
 </div>
 <p>As a reminder, here we plot the single position statistics for the A(T)&gt;C(G) sub-type using singletons aggregated across all 5 super-populations.</p>
 </div>
-<div id="afr" class="section level3">
-<h3>AFR</h3>
+<div id="afr" class="section level4">
+<h4>AFR</h4>
 <p><img src="figure/1000G_single_postion_comp.Rmd/unnamed-chunk-3-1.png" width="672" style="display: block; margin: auto;" /></p>
 <p>
 <button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-3-1">
@@ -745,8 +818,8 @@ Andy Beck
 </div>
 <p>When we look at the AFR super-population, our results across all the positions looks strikingly similar to what we saw above in the ALL analysis. This might be driven by AFR contributing a larger fraction of the singletons than the other 4 super-populations, so let us now take a look at those.</p>
 </div>
-<div id="amr" class="section level3">
-<h3>AMR</h3>
+<div id="amr" class="section level4">
+<h4>AMR</h4>
 <p><img src="figure/1000G_single_postion_comp.Rmd/unnamed-chunk-4-1.png" width="672" style="display: block; margin: auto;" /></p>
 <p>
 <button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-4-1">
@@ -786,8 +859,8 @@ Andy Beck
 </div>
 </div>
 </div>
-<div id="eas" class="section level3">
-<h3>EAS</h3>
+<div id="eas" class="section level4">
+<h4>EAS</h4>
 <p><img src="figure/1000G_single_postion_comp.Rmd/unnamed-chunk-5-1.png" width="672" style="display: block; margin: auto;" /></p>
 <p>
 <button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-5-1">
@@ -827,8 +900,8 @@ Andy Beck
 </div>
 </div>
 </div>
-<div id="eur" class="section level3">
-<h3>EUR</h3>
+<div id="eur" class="section level4">
+<h4>EUR</h4>
 <p><img src="figure/1000G_single_postion_comp.Rmd/unnamed-chunk-6-1.png" width="672" style="display: block; margin: auto;" /></p>
 <p>
 <button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-6-1">
@@ -868,8 +941,8 @@ Andy Beck
 </div>
 </div>
 </div>
-<div id="sas" class="section level3">
-<h3>SAS</h3>
+<div id="sas" class="section level4">
+<h4>SAS</h4>
 <p><img src="figure/1000G_single_postion_comp.Rmd/unnamed-chunk-7-1.png" width="672" style="display: block; margin: auto;" /></p>
 <p>
 <button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-7-1">
@@ -1028,10 +1101,10 @@ Missing treated using: &#39;pairwise.complete.obs&#39;</code></pre>
 <p>and it appears that they are for this sub-type. Let’s now take a look at the other sub-types</p>
 </div>
 </div>
-<div id="at_gc" class="section level2">
-<h2>AT_GC</h2>
-<div id="position-level" class="section level3">
-<h3>Position-level</h3>
+<div id="at_gc" class="section level3">
+<h3>AT_GC</h3>
+<div id="position-level" class="section level4">
+<h4>Position-level</h4>
 <table>
 <thead>
 <tr class="header">
@@ -1087,125 +1160,8 @@ Missing treated using: &#39;pairwise.complete.obs&#39;</code></pre>
 </tbody>
 </table>
 </div>
-<div id="nucleotide-level" class="section level3">
-<h3>Nucleotide-level</h3>
-<table>
-<thead>
-<tr class="header">
-<th align="left">term</th>
-<th align="left">chi_sq_ct.AFR</th>
-<th align="left">chi_sq_ct.AMR</th>
-<th align="left">chi_sq_ct.EAS</th>
-<th align="left">chi_sq_ct.EUR</th>
-<th align="left">chi_sq_ct.SAS</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td align="left">chi_sq_ct.AFR</td>
-<td align="left"></td>
-<td align="left">1.00</td>
-<td align="left">1.00</td>
-<td align="left">1.00</td>
-<td align="left">1.00</td>
-</tr>
-<tr class="even">
-<td align="left">chi_sq_ct.AMR</td>
-<td align="left">1.00</td>
-<td align="left"></td>
-<td align="left">1.00</td>
-<td align="left">1.00</td>
-<td align="left">1.00</td>
-</tr>
-<tr class="odd">
-<td align="left">chi_sq_ct.EAS</td>
-<td align="left">1.00</td>
-<td align="left">1.00</td>
-<td align="left"></td>
-<td align="left">1.00</td>
-<td align="left">1.00</td>
-</tr>
-<tr class="even">
-<td align="left">chi_sq_ct.EUR</td>
-<td align="left">1.00</td>
-<td align="left">1.00</td>
-<td align="left">1.00</td>
-<td align="left"></td>
-<td align="left">1.00</td>
-</tr>
-<tr class="odd">
-<td align="left">chi_sq_ct.SAS</td>
-<td align="left">1.00</td>
-<td align="left">1.00</td>
-<td align="left">1.00</td>
-<td align="left">1.00</td>
-<td align="left"></td>
-</tr>
-</tbody>
-</table>
-</div>
-</div>
-<div id="at_ta" class="section level2">
-<h2>AT_TA</h2>
-<div id="position-level-1" class="section level3">
-<h3>Position-level</h3>
-<table>
-<thead>
-<tr class="header">
-<th align="left">term</th>
-<th align="left">chi_sq_ct.AFR</th>
-<th align="left">chi_sq_ct.AMR</th>
-<th align="left">chi_sq_ct.EAS</th>
-<th align="left">chi_sq_ct.EUR</th>
-<th align="left">chi_sq_ct.SAS</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td align="left">chi_sq_ct.AFR</td>
-<td align="left"></td>
-<td align="left">1.00</td>
-<td align="left">1.00</td>
-<td align="left">1.00</td>
-<td align="left">1.00</td>
-</tr>
-<tr class="even">
-<td align="left">chi_sq_ct.AMR</td>
-<td align="left">1.00</td>
-<td align="left"></td>
-<td align="left">1.00</td>
-<td align="left">1.00</td>
-<td align="left">1.00</td>
-</tr>
-<tr class="odd">
-<td align="left">chi_sq_ct.EAS</td>
-<td align="left">1.00</td>
-<td align="left">1.00</td>
-<td align="left"></td>
-<td align="left">1.00</td>
-<td align="left">1.00</td>
-</tr>
-<tr class="even">
-<td align="left">chi_sq_ct.EUR</td>
-<td align="left">1.00</td>
-<td align="left">1.00</td>
-<td align="left">1.00</td>
-<td align="left"></td>
-<td align="left">1.00</td>
-</tr>
-<tr class="odd">
-<td align="left">chi_sq_ct.SAS</td>
-<td align="left">1.00</td>
-<td align="left">1.00</td>
-<td align="left">1.00</td>
-<td align="left">1.00</td>
-<td align="left"></td>
-</tr>
-</tbody>
-</table>
-</div>
-<div id="nucleotide-level-1" class="section level3">
-<h3>Nucleotide-level</h3>
+<div id="nucleotide-level" class="section level4">
+<h4>Nucleotide-level</h4>
 <table>
 <thead>
 <tr class="header">
@@ -1262,10 +1218,127 @@ Missing treated using: &#39;pairwise.complete.obs&#39;</code></pre>
 </table>
 </div>
 </div>
-<div id="gc_at" class="section level2">
-<h2>GC_AT</h2>
-<div id="position-level-2" class="section level3">
-<h3>Position-level</h3>
+<div id="at_ta" class="section level3">
+<h3>AT_TA</h3>
+<div id="position-level-1" class="section level4">
+<h4>Position-level</h4>
+<table>
+<thead>
+<tr class="header">
+<th align="left">term</th>
+<th align="left">chi_sq_ct.AFR</th>
+<th align="left">chi_sq_ct.AMR</th>
+<th align="left">chi_sq_ct.EAS</th>
+<th align="left">chi_sq_ct.EUR</th>
+<th align="left">chi_sq_ct.SAS</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">chi_sq_ct.AFR</td>
+<td align="left"></td>
+<td align="left">1.00</td>
+<td align="left">1.00</td>
+<td align="left">1.00</td>
+<td align="left">1.00</td>
+</tr>
+<tr class="even">
+<td align="left">chi_sq_ct.AMR</td>
+<td align="left">1.00</td>
+<td align="left"></td>
+<td align="left">1.00</td>
+<td align="left">1.00</td>
+<td align="left">1.00</td>
+</tr>
+<tr class="odd">
+<td align="left">chi_sq_ct.EAS</td>
+<td align="left">1.00</td>
+<td align="left">1.00</td>
+<td align="left"></td>
+<td align="left">1.00</td>
+<td align="left">1.00</td>
+</tr>
+<tr class="even">
+<td align="left">chi_sq_ct.EUR</td>
+<td align="left">1.00</td>
+<td align="left">1.00</td>
+<td align="left">1.00</td>
+<td align="left"></td>
+<td align="left">1.00</td>
+</tr>
+<tr class="odd">
+<td align="left">chi_sq_ct.SAS</td>
+<td align="left">1.00</td>
+<td align="left">1.00</td>
+<td align="left">1.00</td>
+<td align="left">1.00</td>
+<td align="left"></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div id="nucleotide-level-1" class="section level4">
+<h4>Nucleotide-level</h4>
+<table>
+<thead>
+<tr class="header">
+<th align="left">term</th>
+<th align="left">chi_sq_ct.AFR</th>
+<th align="left">chi_sq_ct.AMR</th>
+<th align="left">chi_sq_ct.EAS</th>
+<th align="left">chi_sq_ct.EUR</th>
+<th align="left">chi_sq_ct.SAS</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">chi_sq_ct.AFR</td>
+<td align="left"></td>
+<td align="left">1.00</td>
+<td align="left">1.00</td>
+<td align="left">1.00</td>
+<td align="left">1.00</td>
+</tr>
+<tr class="even">
+<td align="left">chi_sq_ct.AMR</td>
+<td align="left">1.00</td>
+<td align="left"></td>
+<td align="left">1.00</td>
+<td align="left">1.00</td>
+<td align="left">1.00</td>
+</tr>
+<tr class="odd">
+<td align="left">chi_sq_ct.EAS</td>
+<td align="left">1.00</td>
+<td align="left">1.00</td>
+<td align="left"></td>
+<td align="left">1.00</td>
+<td align="left">1.00</td>
+</tr>
+<tr class="even">
+<td align="left">chi_sq_ct.EUR</td>
+<td align="left">1.00</td>
+<td align="left">1.00</td>
+<td align="left">1.00</td>
+<td align="left"></td>
+<td align="left">1.00</td>
+</tr>
+<tr class="odd">
+<td align="left">chi_sq_ct.SAS</td>
+<td align="left">1.00</td>
+<td align="left">1.00</td>
+<td align="left">1.00</td>
+<td align="left">1.00</td>
+<td align="left"></td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<div id="gc_at" class="section level3">
+<h3>GC_AT</h3>
+<div id="position-level-2" class="section level4">
+<h4>Position-level</h4>
 <table>
 <thead>
 <tr class="header">
@@ -1321,8 +1394,8 @@ Missing treated using: &#39;pairwise.complete.obs&#39;</code></pre>
 </tbody>
 </table>
 </div>
-<div id="nucleotide-level-2" class="section level3">
-<h3>Nucleotide-level</h3>
+<div id="nucleotide-level-2" class="section level4">
+<h4>Nucleotide-level</h4>
 <table>
 <thead>
 <tr class="header">
@@ -1379,10 +1452,10 @@ Missing treated using: &#39;pairwise.complete.obs&#39;</code></pre>
 </table>
 </div>
 </div>
-<div id="cpg_gc_at" class="section level2">
-<h2>cpg_GC_AT</h2>
-<div id="position-level-3" class="section level3">
-<h3>Position-level</h3>
+<div id="cpg_gc_at" class="section level3">
+<h3>cpg_GC_AT</h3>
+<div id="position-level-3" class="section level4">
+<h4>Position-level</h4>
 <table>
 <thead>
 <tr class="header">
@@ -1438,8 +1511,8 @@ Missing treated using: &#39;pairwise.complete.obs&#39;</code></pre>
 </tbody>
 </table>
 </div>
-<div id="nucleotide-level-3" class="section level3">
-<h3>Nucleotide-level</h3>
+<div id="nucleotide-level-3" class="section level4">
+<h4>Nucleotide-level</h4>
 <table>
 <thead>
 <tr class="header">
@@ -1496,10 +1569,10 @@ Missing treated using: &#39;pairwise.complete.obs&#39;</code></pre>
 </table>
 </div>
 </div>
-<div id="gc_cg" class="section level2">
-<h2>GC_CG</h2>
-<div id="position-level-4" class="section level3">
-<h3>Position-level</h3>
+<div id="gc_cg" class="section level3">
+<h3>GC_CG</h3>
+<div id="position-level-4" class="section level4">
+<h4>Position-level</h4>
 <table>
 <thead>
 <tr class="header">
@@ -1555,8 +1628,8 @@ Missing treated using: &#39;pairwise.complete.obs&#39;</code></pre>
 </tbody>
 </table>
 </div>
-<div id="nucleotide-level-4" class="section level3">
-<h3>Nucleotide-level</h3>
+<div id="nucleotide-level-4" class="section level4">
+<h4>Nucleotide-level</h4>
 <table>
 <thead>
 <tr class="header">
@@ -1613,10 +1686,10 @@ Missing treated using: &#39;pairwise.complete.obs&#39;</code></pre>
 </table>
 </div>
 </div>
-<div id="cpg_gc_cg" class="section level2">
-<h2>cpg_GC_CG</h2>
-<div id="position-level-5" class="section level3">
-<h3>Position-level</h3>
+<div id="cpg_gc_cg" class="section level3">
+<h3>cpg_GC_CG</h3>
+<div id="position-level-5" class="section level4">
+<h4>Position-level</h4>
 <table>
 <thead>
 <tr class="header">
@@ -1672,8 +1745,8 @@ Missing treated using: &#39;pairwise.complete.obs&#39;</code></pre>
 </tbody>
 </table>
 </div>
-<div id="nucleotide-level-5" class="section level3">
-<h3>Nucleotide-level</h3>
+<div id="nucleotide-level-5" class="section level4">
+<h4>Nucleotide-level</h4>
 <table>
 <thead>
 <tr class="header">
@@ -1730,10 +1803,10 @@ Missing treated using: &#39;pairwise.complete.obs&#39;</code></pre>
 </table>
 </div>
 </div>
-<div id="gc_ta" class="section level2">
-<h2>GC_TA</h2>
-<div id="position-level-6" class="section level3">
-<h3>Position-level</h3>
+<div id="gc_ta" class="section level3">
+<h3>GC_TA</h3>
+<div id="position-level-6" class="section level4">
+<h4>Position-level</h4>
 <table>
 <thead>
 <tr class="header">
@@ -1789,8 +1862,8 @@ Missing treated using: &#39;pairwise.complete.obs&#39;</code></pre>
 </tbody>
 </table>
 </div>
-<div id="nucleotide-level-6" class="section level3">
-<h3>Nucleotide-level</h3>
+<div id="nucleotide-level-6" class="section level4">
+<h4>Nucleotide-level</h4>
 <table>
 <thead>
 <tr class="header">
@@ -1847,10 +1920,10 @@ Missing treated using: &#39;pairwise.complete.obs&#39;</code></pre>
 </table>
 </div>
 </div>
-<div id="cpg_gc_ta" class="section level2">
-<h2>cpg_GC_TA</h2>
-<div id="position-level-7" class="section level3">
-<h3>Position-level</h3>
+<div id="cpg_gc_ta" class="section level3">
+<h3>cpg_GC_TA</h3>
+<div id="position-level-7" class="section level4">
+<h4>Position-level</h4>
 <table>
 <thead>
 <tr class="header">
@@ -1906,8 +1979,8 @@ Missing treated using: &#39;pairwise.complete.obs&#39;</code></pre>
 </tbody>
 </table>
 </div>
-<div id="nucleotide-level-7" class="section level3">
-<h3>Nucleotide-level</h3>
+<div id="nucleotide-level-7" class="section level4">
+<h4>Nucleotide-level</h4>
 <table>
 <thead>
 <tr class="header">
@@ -1962,6 +2035,209 @@ Missing treated using: &#39;pairwise.complete.obs&#39;</code></pre>
 </tr>
 </tbody>
 </table>
+</div>
+</div>
+</div>
+<div id="chi-square-approach" class="section level2">
+<h2>Chi Square Approach</h2>
+<p>Similar to what we did with the single position models, we can also use the chi square goodness of fit test to evaluate, for each sub-type and at each relative position, how similar are the counts between each super-population, and how does this statistic compare to what we observe comparing each super-population to its control sample? We can also do this to compare the BRIDGES data to the 1000G data as well.</p>
+<div class="alert alert-warning">
+<p>
+<strong>Warning:</strong> The above code chunk cached its results, but it won’t be re-run if previous chunks it depends on are updated. If you need to use caching, it is highly recommended to also set <code>knitr::opts_chunk$set(autodep = TRUE)</code> at the top of the file (in a chunk that is not cached). Alternatively, you can customize the option <code>dependson</code> for each individual chunk that is cached. Using either <code>autodep</code> or <code>dependson</code> will remove this warning. See the <a href="https://yihui.name/knitr/options/#cache"
+>knitr cache options</a> for more details.
+</p>
+</div>
+<p>For an illustrative example, let’s take a look at the A(T)&gt;C(G) sub-type in the EUR and AFR super-populations. Here we’ll use the frequencies observed in EUR to fit the AFR counts, and compare these chi-square statistics to those that we obtain when we compare the EUR and AFR super-populations to their corresponding control distributions:</p>
+<pre class="r"><code>chi_sq_2pop(&quot;AT_CG&quot;, &quot;AFR&quot;, &quot;EUR&quot;) %&gt;%
+  knitr::kable()</code></pre>
+<table>
+<thead>
+<tr class="header">
+<th align="right">rp</th>
+<th align="right">chi_sq_AFR_EUR</th>
+<th align="right">chi_sq_EUR_AFR</th>
+<th align="right">chi_sq_ct.AFR</th>
+<th align="right">chi_sq_ct.EUR</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="right">-10</td>
+<td align="right">7.5391719</td>
+<td align="right">4.2578864</td>
+<td align="right">1186.8901</td>
+<td align="right">631.4449</td>
+</tr>
+<tr class="even">
+<td align="right">-9</td>
+<td align="right">44.9861222</td>
+<td align="right">25.4506628</td>
+<td align="right">1621.3459</td>
+<td align="right">803.8297</td>
+</tr>
+<tr class="odd">
+<td align="right">-8</td>
+<td align="right">4.0077941</td>
+<td align="right">2.2587731</td>
+<td align="right">4946.1649</td>
+<td align="right">2633.5473</td>
+</tr>
+<tr class="even">
+<td align="right">-7</td>
+<td align="right">72.2343613</td>
+<td align="right">40.8556933</td>
+<td align="right">1870.6509</td>
+<td align="right">951.6402</td>
+</tr>
+<tr class="odd">
+<td align="right">-6</td>
+<td align="right">18.0990712</td>
+<td align="right">10.1917552</td>
+<td align="right">354.8839</td>
+<td align="right">217.7364</td>
+</tr>
+<tr class="even">
+<td align="right">-5</td>
+<td align="right">8.4663138</td>
+<td align="right">4.7698033</td>
+<td align="right">1083.8042</td>
+<td align="right">652.7956</td>
+</tr>
+<tr class="odd">
+<td align="right">-4</td>
+<td align="right">3.4910302</td>
+<td align="right">1.9619761</td>
+<td align="right">5319.2078</td>
+<td align="right">3088.2815</td>
+</tr>
+<tr class="even">
+<td align="right">-3</td>
+<td align="right">16.9445593</td>
+<td align="right">9.5323050</td>
+<td align="right">12714.3402</td>
+<td align="right">7428.7099</td>
+</tr>
+<tr class="odd">
+<td align="right">-2</td>
+<td align="right">248.8627251</td>
+<td align="right">137.9003157</td>
+<td align="right">1580.6858</td>
+<td align="right">725.4913</td>
+</tr>
+<tr class="even">
+<td align="right">-1</td>
+<td align="right">794.2131437</td>
+<td align="right">440.9576991</td>
+<td align="right">30410.0547</td>
+<td align="right">15884.8267</td>
+</tr>
+<tr class="odd">
+<td align="right">1</td>
+<td align="right">220.0362977</td>
+<td align="right">122.9139500</td>
+<td align="right">7547.6115</td>
+<td align="right">3586.2249</td>
+</tr>
+<tr class="even">
+<td align="right">2</td>
+<td align="right">62.3069361</td>
+<td align="right">35.0448272</td>
+<td align="right">9096.9351</td>
+<td align="right">5434.6276</td>
+</tr>
+<tr class="odd">
+<td align="right">3</td>
+<td align="right">75.2559084</td>
+<td align="right">42.5037436</td>
+<td align="right">4636.2154</td>
+<td align="right">2230.1355</td>
+</tr>
+<tr class="even">
+<td align="right">4</td>
+<td align="right">14.8148455</td>
+<td align="right">8.3817845</td>
+<td align="right">3588.4880</td>
+<td align="right">2003.0427</td>
+</tr>
+<tr class="odd">
+<td align="right">5</td>
+<td align="right">24.3508443</td>
+<td align="right">13.6920081</td>
+<td align="right">2035.7775</td>
+<td align="right">1200.7259</td>
+</tr>
+<tr class="even">
+<td align="right">6</td>
+<td align="right">38.5364052</td>
+<td align="right">21.6432210</td>
+<td align="right">581.2987</td>
+<td align="right">330.1384</td>
+</tr>
+<tr class="odd">
+<td align="right">7</td>
+<td align="right">0.3760972</td>
+<td align="right">0.2116272</td>
+<td align="right">981.5089</td>
+<td align="right">543.7594</td>
+</tr>
+<tr class="even">
+<td align="right">8</td>
+<td align="right">1.5279372</td>
+<td align="right">0.8600353</td>
+<td align="right">1106.3501</td>
+<td align="right">692.4116</td>
+</tr>
+<tr class="odd">
+<td align="right">9</td>
+<td align="right">9.9249834</td>
+<td align="right">5.5831780</td>
+<td align="right">1593.4133</td>
+<td align="right">943.3943</td>
+</tr>
+<tr class="even">
+<td align="right">10</td>
+<td align="right">5.4679169</td>
+<td align="right">3.0820775</td>
+<td align="right">616.9773</td>
+<td align="right">320.1158</td>
+</tr>
+</tbody>
+</table>
+<p>Here we can see that the statistics when we use EUR proportions to fit AFR and vice versa are much smaller that what we observe using the controls to fit either population’s counts. We can also plot these to make the exact same conclusion:</p>
+<pre class="r"><code>chi_sq_2pop_plot(&quot;AT_CG&quot;, &quot;AFR&quot;, &quot;EUR&quot;)</code></pre>
+<p><img src="figure/1000G_single_postion_comp.Rmd/unnamed-chunk-27-1.png" width="672" style="display: block; margin: auto;" /></p>
+<div id="at_cg-1" class="section level3">
+<h3>AT_CG</h3>
+<p><img src="figure/1000G_single_postion_comp.Rmd/at_cg_pop_plot-1.png" width="672" style="display: block; margin: auto;" /><img src="figure/1000G_single_postion_comp.Rmd/at_cg_pop_plot-2.png" width="672" style="display: block; margin: auto;" /><img src="figure/1000G_single_postion_comp.Rmd/at_cg_pop_plot-3.png" width="672" style="display: block; margin: auto;" /><img src="figure/1000G_single_postion_comp.Rmd/at_cg_pop_plot-4.png" width="672" style="display: block; margin: auto;" /><img src="figure/1000G_single_postion_comp.Rmd/at_cg_pop_plot-5.png" width="672" style="display: block; margin: auto;" /><img src="figure/1000G_single_postion_comp.Rmd/at_cg_pop_plot-6.png" width="672" style="display: block; margin: auto;" /><img src="figure/1000G_single_postion_comp.Rmd/at_cg_pop_plot-7.png" width="672" style="display: block; margin: auto;" /><img src="figure/1000G_single_postion_comp.Rmd/at_cg_pop_plot-8.png" width="672" style="display: block; margin: auto;" /><img src="figure/1000G_single_postion_comp.Rmd/at_cg_pop_plot-9.png" width="672" style="display: block; margin: auto;" /><img src="figure/1000G_single_postion_comp.Rmd/at_cg_pop_plot-10.png" width="672" style="display: block; margin: auto;" /></p>
+</div>
+<div id="at_gc-1" class="section level3">
+<h3>AT_GC</h3>
+<p><img src="figure/1000G_single_postion_comp.Rmd/at_gc_pop_plot-1.png" width="672" style="display: block; margin: auto;" /><img src="figure/1000G_single_postion_comp.Rmd/at_gc_pop_plot-2.png" width="672" style="display: block; margin: auto;" /><img src="figure/1000G_single_postion_comp.Rmd/at_gc_pop_plot-3.png" width="672" style="display: block; margin: auto;" /><img src="figure/1000G_single_postion_comp.Rmd/at_gc_pop_plot-4.png" width="672" style="display: block; margin: auto;" /><img src="figure/1000G_single_postion_comp.Rmd/at_gc_pop_plot-5.png" width="672" style="display: block; margin: auto;" /><img src="figure/1000G_single_postion_comp.Rmd/at_gc_pop_plot-6.png" width="672" style="display: block; margin: auto;" /><img src="figure/1000G_single_postion_comp.Rmd/at_gc_pop_plot-7.png" width="672" style="display: block; margin: auto;" /><img src="figure/1000G_single_postion_comp.Rmd/at_gc_pop_plot-8.png" width="672" style="display: block; margin: auto;" /><img src="figure/1000G_single_postion_comp.Rmd/at_gc_pop_plot-9.png" width="672" style="display: block; margin: auto;" /><img src="figure/1000G_single_postion_comp.Rmd/at_gc_pop_plot-10.png" width="672" style="display: block; margin: auto;" /></p>
+</div>
+<div id="at_ta-1" class="section level3">
+<h3>AT_TA</h3>
+<p><img src="figure/1000G_single_postion_comp.Rmd/at_ta_pop_plot-1.png" width="672" style="display: block; margin: auto;" /><img src="figure/1000G_single_postion_comp.Rmd/at_ta_pop_plot-2.png" width="672" style="display: block; margin: auto;" /><img src="figure/1000G_single_postion_comp.Rmd/at_ta_pop_plot-3.png" width="672" style="display: block; margin: auto;" /><img src="figure/1000G_single_postion_comp.Rmd/at_ta_pop_plot-4.png" width="672" style="display: block; margin: auto;" /><img src="figure/1000G_single_postion_comp.Rmd/at_ta_pop_plot-5.png" width="672" style="display: block; margin: auto;" /><img src="figure/1000G_single_postion_comp.Rmd/at_ta_pop_plot-6.png" width="672" style="display: block; margin: auto;" /><img src="figure/1000G_single_postion_comp.Rmd/at_ta_pop_plot-7.png" width="672" style="display: block; margin: auto;" /><img src="figure/1000G_single_postion_comp.Rmd/at_ta_pop_plot-8.png" width="672" style="display: block; margin: auto;" /><img src="figure/1000G_single_postion_comp.Rmd/at_ta_pop_plot-9.png" width="672" style="display: block; margin: auto;" /><img src="figure/1000G_single_postion_comp.Rmd/at_ta_pop_plot-10.png" width="672" style="display: block; margin: auto;" /></p>
+</div>
+<div id="gc_at-1" class="section level3">
+<h3>GC_AT</h3>
+<p><img src="figure/1000G_single_postion_comp.Rmd/gc_at_pop_plot-1.png" width="672" style="display: block; margin: auto;" /><img src="figure/1000G_single_postion_comp.Rmd/gc_at_pop_plot-2.png" width="672" style="display: block; margin: auto;" /><img src="figure/1000G_single_postion_comp.Rmd/gc_at_pop_plot-3.png" width="672" style="display: block; margin: auto;" /><img src="figure/1000G_single_postion_comp.Rmd/gc_at_pop_plot-4.png" width="672" style="display: block; margin: auto;" /><img src="figure/1000G_single_postion_comp.Rmd/gc_at_pop_plot-5.png" width="672" style="display: block; margin: auto;" /><img src="figure/1000G_single_postion_comp.Rmd/gc_at_pop_plot-6.png" width="672" style="display: block; margin: auto;" /><img src="figure/1000G_single_postion_comp.Rmd/gc_at_pop_plot-7.png" width="672" style="display: block; margin: auto;" /><img src="figure/1000G_single_postion_comp.Rmd/gc_at_pop_plot-8.png" width="672" style="display: block; margin: auto;" /><img src="figure/1000G_single_postion_comp.Rmd/gc_at_pop_plot-9.png" width="672" style="display: block; margin: auto;" /><img src="figure/1000G_single_postion_comp.Rmd/gc_at_pop_plot-10.png" width="672" style="display: block; margin: auto;" /> ### cpg_GC_AT</p>
+<p><img src="figure/1000G_single_postion_comp.Rmd/cpg_gc_at_pop_plot-1.png" width="672" style="display: block; margin: auto;" /><img src="figure/1000G_single_postion_comp.Rmd/cpg_gc_at_pop_plot-2.png" width="672" style="display: block; margin: auto;" /><img src="figure/1000G_single_postion_comp.Rmd/cpg_gc_at_pop_plot-3.png" width="672" style="display: block; margin: auto;" /><img src="figure/1000G_single_postion_comp.Rmd/cpg_gc_at_pop_plot-4.png" width="672" style="display: block; margin: auto;" /><img src="figure/1000G_single_postion_comp.Rmd/cpg_gc_at_pop_plot-5.png" width="672" style="display: block; margin: auto;" /><img src="figure/1000G_single_postion_comp.Rmd/cpg_gc_at_pop_plot-6.png" width="672" style="display: block; margin: auto;" /><img src="figure/1000G_single_postion_comp.Rmd/cpg_gc_at_pop_plot-7.png" width="672" style="display: block; margin: auto;" /><img src="figure/1000G_single_postion_comp.Rmd/cpg_gc_at_pop_plot-8.png" width="672" style="display: block; margin: auto;" /><img src="figure/1000G_single_postion_comp.Rmd/cpg_gc_at_pop_plot-9.png" width="672" style="display: block; margin: auto;" /><img src="figure/1000G_single_postion_comp.Rmd/cpg_gc_at_pop_plot-10.png" width="672" style="display: block; margin: auto;" /></p>
+</div>
+<div id="gc_ta-1" class="section level3">
+<h3>GC_TA</h3>
+<p><img src="figure/1000G_single_postion_comp.Rmd/gc_ta_pop_plot-1.png" width="672" style="display: block; margin: auto;" /><img src="figure/1000G_single_postion_comp.Rmd/gc_ta_pop_plot-2.png" width="672" style="display: block; margin: auto;" /><img src="figure/1000G_single_postion_comp.Rmd/gc_ta_pop_plot-3.png" width="672" style="display: block; margin: auto;" /><img src="figure/1000G_single_postion_comp.Rmd/gc_ta_pop_plot-4.png" width="672" style="display: block; margin: auto;" /><img src="figure/1000G_single_postion_comp.Rmd/gc_ta_pop_plot-5.png" width="672" style="display: block; margin: auto;" /><img src="figure/1000G_single_postion_comp.Rmd/gc_ta_pop_plot-6.png" width="672" style="display: block; margin: auto;" /><img src="figure/1000G_single_postion_comp.Rmd/gc_ta_pop_plot-7.png" width="672" style="display: block; margin: auto;" /><img src="figure/1000G_single_postion_comp.Rmd/gc_ta_pop_plot-8.png" width="672" style="display: block; margin: auto;" /><img src="figure/1000G_single_postion_comp.Rmd/gc_ta_pop_plot-9.png" width="672" style="display: block; margin: auto;" /><img src="figure/1000G_single_postion_comp.Rmd/gc_ta_pop_plot-10.png" width="672" style="display: block; margin: auto;" /></p>
+</div>
+<div id="cpg_gc_ta-1" class="section level3">
+<h3>cpg_GC_TA</h3>
+<p><img src="figure/1000G_single_postion_comp.Rmd/cpg_gc_ta_pop_plot-1.png" width="672" style="display: block; margin: auto;" /><img src="figure/1000G_single_postion_comp.Rmd/cpg_gc_ta_pop_plot-2.png" width="672" style="display: block; margin: auto;" /><img src="figure/1000G_single_postion_comp.Rmd/cpg_gc_ta_pop_plot-3.png" width="672" style="display: block; margin: auto;" /><img src="figure/1000G_single_postion_comp.Rmd/cpg_gc_ta_pop_plot-4.png" width="672" style="display: block; margin: auto;" /><img src="figure/1000G_single_postion_comp.Rmd/cpg_gc_ta_pop_plot-5.png" width="672" style="display: block; margin: auto;" /><img src="figure/1000G_single_postion_comp.Rmd/cpg_gc_ta_pop_plot-6.png" width="672" style="display: block; margin: auto;" /><img src="figure/1000G_single_postion_comp.Rmd/cpg_gc_ta_pop_plot-7.png" width="672" style="display: block; margin: auto;" /><img src="figure/1000G_single_postion_comp.Rmd/cpg_gc_ta_pop_plot-8.png" width="672" style="display: block; margin: auto;" /><img src="figure/1000G_single_postion_comp.Rmd/cpg_gc_ta_pop_plot-9.png" width="672" style="display: block; margin: auto;" /><img src="figure/1000G_single_postion_comp.Rmd/cpg_gc_ta_pop_plot-10.png" width="672" style="display: block; margin: auto;" /></p>
+</div>
+<div id="gc_cg-1" class="section level3">
+<h3>GC_CG</h3>
+<p><img src="figure/1000G_single_postion_comp.Rmd/gc_cg_pop_plot-1.png" width="672" style="display: block; margin: auto;" /><img src="figure/1000G_single_postion_comp.Rmd/gc_cg_pop_plot-2.png" width="672" style="display: block; margin: auto;" /><img src="figure/1000G_single_postion_comp.Rmd/gc_cg_pop_plot-3.png" width="672" style="display: block; margin: auto;" /><img src="figure/1000G_single_postion_comp.Rmd/gc_cg_pop_plot-4.png" width="672" style="display: block; margin: auto;" /><img src="figure/1000G_single_postion_comp.Rmd/gc_cg_pop_plot-5.png" width="672" style="display: block; margin: auto;" /><img src="figure/1000G_single_postion_comp.Rmd/gc_cg_pop_plot-6.png" width="672" style="display: block; margin: auto;" /><img src="figure/1000G_single_postion_comp.Rmd/gc_cg_pop_plot-7.png" width="672" style="display: block; margin: auto;" /><img src="figure/1000G_single_postion_comp.Rmd/gc_cg_pop_plot-8.png" width="672" style="display: block; margin: auto;" /><img src="figure/1000G_single_postion_comp.Rmd/gc_cg_pop_plot-9.png" width="672" style="display: block; margin: auto;" /><img src="figure/1000G_single_postion_comp.Rmd/gc_cg_pop_plot-10.png" width="672" style="display: block; margin: auto;" /></p>
+</div>
+<div id="cpg_gc_cg-1" class="section level3">
+<h3>cpg_GC_CG</h3>
+<p><img src="figure/1000G_single_postion_comp.Rmd/cpg_gc_cg_pop_plot-1.png" width="672" style="display: block; margin: auto;" /><img src="figure/1000G_single_postion_comp.Rmd/cpg_gc_cg_pop_plot-2.png" width="672" style="display: block; margin: auto;" /><img src="figure/1000G_single_postion_comp.Rmd/cpg_gc_cg_pop_plot-3.png" width="672" style="display: block; margin: auto;" /><img src="figure/1000G_single_postion_comp.Rmd/cpg_gc_cg_pop_plot-4.png" width="672" style="display: block; margin: auto;" /><img src="figure/1000G_single_postion_comp.Rmd/cpg_gc_cg_pop_plot-5.png" width="672" style="display: block; margin: auto;" /><img src="figure/1000G_single_postion_comp.Rmd/cpg_gc_cg_pop_plot-6.png" width="672" style="display: block; margin: auto;" /><img src="figure/1000G_single_postion_comp.Rmd/cpg_gc_cg_pop_plot-7.png" width="672" style="display: block; margin: auto;" /><img src="figure/1000G_single_postion_comp.Rmd/cpg_gc_cg_pop_plot-8.png" width="672" style="display: block; margin: auto;" /><img src="figure/1000G_single_postion_comp.Rmd/cpg_gc_cg_pop_plot-9.png" width="672" style="display: block; margin: auto;" /><img src="figure/1000G_single_postion_comp.Rmd/cpg_gc_cg_pop_plot-10.png" width="672" style="display: block; margin: auto;" /></p>
 <br>
 <p>
 <button type="button" class="btn btn-default btn-workflowr btn-workflowr-sessioninfo" data-toggle="collapse" data-target="#workflowr-sessioninfo" style="display: block;">

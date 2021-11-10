@@ -410,16 +410,16 @@ This reproducible <a href="http://rmarkdown.rstudio.com">R Markdown</a> analysis
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomtheandybLSCItreed8bd3c9c5753f3200a1be3d575af77357019a322targetblankd8bd3c9a"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/theandyb/LSCI/tree/d8bd3c9c5753f3200a1be3d575af77357019a322" target="_blank">d8bd3c9</a> </a>
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomtheandybLSCItree752a4211afee694503eb52ce8970a1e447e3f8b7targetblank752a421a"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/theandyb/LSCI/tree/752a4211afee694503eb52ce8970a1e447e3f8b7" target="_blank">752a421</a> </a>
 </p>
 </div>
-<div id="strongRepositoryversionstrongahrefhttpsgithubcomtheandybLSCItreed8bd3c9c5753f3200a1be3d575af77357019a322targetblankd8bd3c9a" class="panel-collapse collapse">
+<div id="strongRepositoryversionstrongahrefhttpsgithubcomtheandybLSCItree752a4211afee694503eb52ce8970a1e447e3f8b7targetblank752a421a" class="panel-collapse collapse">
 <div class="panel-body">
 <p>
 Great! You are using Git for version control. Tracking code development and connecting the code version to the results is critical for reproducibility.
 </p>
 <p>
-The results in this page were generated with repository version <a href="https://github.com/theandyb/LSCI/tree/d8bd3c9c5753f3200a1be3d575af77357019a322" target="_blank">d8bd3c9</a>. See the <em>Past versions</em> tab to see a history of the changes made to the R Markdown and HTML files.
+The results in this page were generated with repository version <a href="https://github.com/theandyb/LSCI/tree/752a4211afee694503eb52ce8970a1e447e3f8b7" target="_blank">752a421</a>. See the <em>Past versions</em> tab to see a history of the changes made to the R Markdown and HTML files.
 </p>
 <p>
 Note that you need to be careful to ensure that all relevant files for the analysis have been committed to Git prior to generating the results (you can use <code>wflow_publish</code> or <code>wflow_git_commit</code>). workflowr only checks the R Markdown file, but you know if there are other scripts or data files that it depends on. Below is the status of the Git repository when the results were generated:
@@ -428,6 +428,7 @@ Note that you need to be careful to ensure that all relevant files for the analy
 Ignored files:
     Ignored:    .Rhistory
     Ignored:    .Rproj.user/
+    Ignored:    analysis/1000G_single_postion_comp_cache/
     Ignored:    analysis/disqus.html
 
 </code></pre>
@@ -467,6 +468,40 @@ Message
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+Rmd
+</td>
+<td>
+<a href="https://github.com/theandyb/LSCI/blob/752a4211afee694503eb52ce8970a1e447e3f8b7/analysis/outline.Rmd" target="_blank">752a421</a>
+</td>
+<td>
+Andy Beck
+</td>
+<td>
+2021-11-10
+</td>
+<td>
+Add chisq to comp
+</td>
+</tr>
+<tr>
+<td>
+html
+</td>
+<td>
+<a href="https://rawcdn.githack.com/theandyb/LSCI/79833a27d936abf8a4ad98362f85e47cc7326f48/docs/outline.html" target="_blank">79833a2</a>
+</td>
+<td>
+Andy Beck
+</td>
+<td>
+2021-11-10
+</td>
+<td>
+Build site.
+</td>
+</tr>
 <tr>
 <td>
 Rmd
@@ -853,6 +888,13 @@ Ideas for further refinement
 <li>Goal is to characterize how much “noise” we expect in the background</li>
 </ul></li>
 </ul>
+<div id="consistency-across-1000g-super-populations" class="section level4">
+<h4>Consistency across 1000G super-populations</h4>
+<ul>
+<li>Statistics highly correlated across position for each sub-type and pair of populations</li>
+<li>Individual nucleotide contribution to each position’s statistic also highly correlated between populations</li>
+</ul>
+</div>
 </div>
 <div id="two-position-models-1" class="section level3">
 <h3>Two-Position Models</h3>
@@ -873,6 +915,18 @@ Ideas for further refinement
 <li>Model also includes interaction term between the nucleotides at the two positions</li>
 <li>Model does not include the three-way interaction term (which would fully saturate the model)</li>
 <li>Deviance compares the fitted model to the fully saturated model -&gt; how different is the interaction in singletons to that if you assume it’s the same between singletons and controls?</li>
+<li><p class="text-info">
+Results
+</p>
+<ul>
+<li>higher statistics at pairs of positions near singleton, with quick drop off as distance between relative positions and distance between relative positions and singleton increase</li>
+</ul></li>
+<li><p class="text-danger">
+Issues
+</p>
+<ul>
+<li>Same problem discussed above regarding the difference between statistical significance and practical significance.</li>
+</ul></li>
 </ul></li>
 </ul>
 </div>
