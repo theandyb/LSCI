@@ -379,7 +379,7 @@ div.tocify {
 <div class="tab-content">
 <div id="summary" class="tab-pane fade in active">
 <p>
-<strong>Last updated:</strong> 2021-12-13
+<strong>Last updated:</strong> 2021-12-14
 </p>
 <p>
 <strong>Checks:</strong> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> 7 <span class="glyphicon glyphicon-exclamation-sign text-danger" aria-hidden="true"></span> 0
@@ -470,16 +470,16 @@ This reproducible <a href="http://rmarkdown.rstudio.com">R Markdown</a> analysis
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomtheandybLSCItreea59cb9a2992e4be7b01ef2b485ee86ea2d55d868targetblanka59cb9aa"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/theandyb/LSCI/tree/a59cb9a2992e4be7b01ef2b485ee86ea2d55d868" target="_blank">a59cb9a</a> </a>
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomtheandybLSCItree4b45388d6f7bb5bcdebeb9d7a2fb4a1802ce716btargetblank4b45388a"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/theandyb/LSCI/tree/4b45388d6f7bb5bcdebeb9d7a2fb4a1802ce716b" target="_blank">4b45388</a> </a>
 </p>
 </div>
-<div id="strongRepositoryversionstrongahrefhttpsgithubcomtheandybLSCItreea59cb9a2992e4be7b01ef2b485ee86ea2d55d868targetblanka59cb9aa" class="panel-collapse collapse">
+<div id="strongRepositoryversionstrongahrefhttpsgithubcomtheandybLSCItree4b45388d6f7bb5bcdebeb9d7a2fb4a1802ce716btargetblank4b45388a" class="panel-collapse collapse">
 <div class="panel-body">
 <p>
 Great! You are using Git for version control. Tracking code development and connecting the code version to the results is critical for reproducibility.
 </p>
 <p>
-The results in this page were generated with repository version <a href="https://github.com/theandyb/LSCI/tree/a59cb9a2992e4be7b01ef2b485ee86ea2d55d868" target="_blank">a59cb9a</a>. See the <em>Past versions</em> tab to see a history of the changes made to the R Markdown and HTML files.
+The results in this page were generated with repository version <a href="https://github.com/theandyb/LSCI/tree/4b45388d6f7bb5bcdebeb9d7a2fb4a1802ce716b" target="_blank">4b45388</a>. See the <em>Past versions</em> tab to see a history of the changes made to the R Markdown and HTML files.
 </p>
 <p>
 Note that you need to be careful to ensure that all relevant files for the analysis have been committed to Git prior to generating the results (you can use <code>wflow_publish</code> or <code>wflow_git_commit</code>). workflowr only checks the R Markdown file, but you know if there are other scripts or data files that it depends on. Below is the status of the Git repository when the results were generated:
@@ -535,6 +535,40 @@ Message
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+Rmd
+</td>
+<td>
+<a href="https://github.com/theandyb/LSCI/blob/4b45388d6f7bb5bcdebeb9d7a2fb4a1802ce716b/analysis/1000G_summary_stats.Rmd" target="_blank">4b45388</a>
+</td>
+<td>
+Andy Beck
+</td>
+<td>
+2021-12-14
+</td>
+<td>
+summary stats
+</td>
+</tr>
+<tr>
+<td>
+html
+</td>
+<td>
+<a href="https://rawcdn.githack.com/theandyb/LSCI/acc15722b1bd31eb866fe03c389cc0ab275e6138/docs/1000G_summary_stats.html" target="_blank">acc1572</a>
+</td>
+<td>
+Andy Beck
+</td>
+<td>
+2021-12-13
+</td>
+<td>
+Build site.
+</td>
+</tr>
 <tr>
 <td>
 Rmd
@@ -1045,14 +1079,14 @@ get_all_3mer &lt;- function(pop){
 <div id="all" class="section level3">
 <h3>ALL</h3>
 <pre class="r"><code>sp &lt;- &quot;ALL&quot;
-df &lt;- get_all_3mer(sp)
+df_ALL &lt;- get_all_3mer(sp)
 
-df &lt;- df %&gt;%
-  mutate(subtype = str_sub(Motif, 3, 7)) %&gt;%
+df_ALL &lt;- df_ALL %&gt;%
+  mutate(subtype = str_sub(Motif, 3, 8)) %&gt;%
   ungroup() %&gt;%
   mutate(pct = n / sum(n))
 
-p &lt;- df %&gt;%
+p &lt;- df_ALL %&gt;%
   arrange(subtype, Motif) %&gt;%
   mutate(Motif = factor(Motif, levels=Motif)) %&gt;%
   ggplot(aes(x = Motif, y = pct, fill = subtype, order = subtype)) + 
@@ -1062,18 +1096,55 @@ p &lt;- df %&gt;%
 
 p</code></pre>
 <p><img src="figure/1000G_summary_stats.Rmd/unnamed-chunk-13-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-13-1">
+Past versions of unnamed-chunk-13-1.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-13-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/theandyb/LSCI/blob/acc15722b1bd31eb866fe03c389cc0ab275e6138/docs/figure/1000G_summary_stats.Rmd/unnamed-chunk-13-1.png" target="_blank">acc1572</a>
+</td>
+<td>
+Andy Beck
+</td>
+<td>
+2021-12-13
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 </div>
 <div id="afr-2" class="section level3">
 <h3>AFR</h3>
 <pre class="r"><code>sp &lt;- &quot;AFR&quot;
-df &lt;- get_all_3mer(sp)
+df_AFR &lt;- get_all_3mer(sp)
 
-df &lt;- df %&gt;%
-  mutate(subtype = str_sub(Motif, 3, 7)) %&gt;%
+df_AFR &lt;- df_AFR %&gt;%
+  mutate(subtype = str_sub(Motif, 3, 8)) %&gt;%
   ungroup() %&gt;%
   mutate(pct = n / sum(n))
 
-p &lt;- df %&gt;%
+p &lt;- df_AFR %&gt;%
   arrange(subtype, Motif) %&gt;%
   mutate(Motif = factor(Motif, levels=Motif)) %&gt;%
   ggplot(aes(x = Motif, y = pct, fill = subtype, order = subtype)) + 
@@ -1083,18 +1154,55 @@ p &lt;- df %&gt;%
 
 p</code></pre>
 <p><img src="figure/1000G_summary_stats.Rmd/unnamed-chunk-14-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-14-1">
+Past versions of unnamed-chunk-14-1.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-14-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/theandyb/LSCI/blob/acc15722b1bd31eb866fe03c389cc0ab275e6138/docs/figure/1000G_summary_stats.Rmd/unnamed-chunk-14-1.png" target="_blank">acc1572</a>
+</td>
+<td>
+Andy Beck
+</td>
+<td>
+2021-12-13
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 </div>
 <div id="amr-1" class="section level3">
 <h3>AMR</h3>
 <pre class="r"><code>sp &lt;- &quot;AMR&quot;
-df &lt;- get_all_3mer(sp)
+df_AMR &lt;- get_all_3mer(sp)
 
-df &lt;- df %&gt;%
-  mutate(subtype = str_sub(Motif, 3, 7)) %&gt;%
+df_AMR &lt;- df_AMR %&gt;%
+  mutate(subtype = str_sub(Motif, 3, 8)) %&gt;%
   ungroup() %&gt;%
   mutate(pct = n / sum(n))
 
-p &lt;- df %&gt;%
+p &lt;- df_AMR %&gt;%
   arrange(subtype, Motif) %&gt;%
   mutate(Motif = factor(Motif, levels=Motif)) %&gt;%
   ggplot(aes(x = Motif, y = pct, fill = subtype, order = subtype)) + 
@@ -1104,18 +1212,55 @@ p &lt;- df %&gt;%
 
 p</code></pre>
 <p><img src="figure/1000G_summary_stats.Rmd/unnamed-chunk-15-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-15-1">
+Past versions of unnamed-chunk-15-1.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-15-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/theandyb/LSCI/blob/acc15722b1bd31eb866fe03c389cc0ab275e6138/docs/figure/1000G_summary_stats.Rmd/unnamed-chunk-15-1.png" target="_blank">acc1572</a>
+</td>
+<td>
+Andy Beck
+</td>
+<td>
+2021-12-13
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 </div>
 <div id="eas-1" class="section level3">
 <h3>EAS</h3>
 <pre class="r"><code>sp &lt;- &quot;EAS&quot;
-df &lt;- get_all_3mer(sp)
+df_EAS &lt;- get_all_3mer(sp)
 
-df &lt;- df %&gt;%
-  mutate(subtype = str_sub(Motif, 3, 7)) %&gt;%
+df_EAS &lt;- df_EAS %&gt;%
+  mutate(subtype = str_sub(Motif, 3, 8)) %&gt;%
   ungroup() %&gt;%
   mutate(pct = n / sum(n))
 
-p &lt;- df %&gt;%
+p &lt;- df_EAS %&gt;%
   arrange(subtype, Motif) %&gt;%
   mutate(Motif = factor(Motif, levels=Motif)) %&gt;%
   ggplot(aes(x = Motif, y = pct, fill = subtype, order = subtype)) + 
@@ -1125,18 +1270,55 @@ p &lt;- df %&gt;%
 
 p</code></pre>
 <p><img src="figure/1000G_summary_stats.Rmd/unnamed-chunk-16-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-16-1">
+Past versions of unnamed-chunk-16-1.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-16-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/theandyb/LSCI/blob/acc15722b1bd31eb866fe03c389cc0ab275e6138/docs/figure/1000G_summary_stats.Rmd/unnamed-chunk-16-1.png" target="_blank">acc1572</a>
+</td>
+<td>
+Andy Beck
+</td>
+<td>
+2021-12-13
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 </div>
 <div id="eur-1" class="section level3">
 <h3>EUR</h3>
 <pre class="r"><code>sp &lt;- &quot;EUR&quot;
-df &lt;- get_all_3mer(sp)
+df_EUR &lt;- get_all_3mer(sp)
 
-df &lt;- df %&gt;%
-  mutate(subtype = str_sub(Motif, 3, 7)) %&gt;%
+df_EUR &lt;- df_EUR %&gt;%
+  mutate(subtype = str_sub(Motif, 3, 8)) %&gt;%
   ungroup() %&gt;%
   mutate(pct = n / sum(n))
 
-p &lt;- df %&gt;%
+p &lt;- df_EUR %&gt;%
   arrange(subtype, Motif) %&gt;%
   mutate(Motif = factor(Motif, levels=Motif)) %&gt;%
   ggplot(aes(x = Motif, y = pct, fill = subtype, order = subtype)) + 
@@ -1146,18 +1328,55 @@ p &lt;- df %&gt;%
 
 p</code></pre>
 <p><img src="figure/1000G_summary_stats.Rmd/unnamed-chunk-17-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-17-1">
+Past versions of unnamed-chunk-17-1.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-17-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/theandyb/LSCI/blob/acc15722b1bd31eb866fe03c389cc0ab275e6138/docs/figure/1000G_summary_stats.Rmd/unnamed-chunk-17-1.png" target="_blank">acc1572</a>
+</td>
+<td>
+Andy Beck
+</td>
+<td>
+2021-12-13
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 </div>
 <div id="sas-1" class="section level3">
 <h3>SAS</h3>
 <pre class="r"><code>sp &lt;- &quot;SAS&quot;
-df &lt;- get_all_3mer(sp)
+df_SAS &lt;- get_all_3mer(sp)
 
-df &lt;- df %&gt;%
+df_SAS &lt;- df_SAS %&gt;%
   mutate(subtype = str_sub(Motif, 3, 7)) %&gt;%
   ungroup() %&gt;%
   mutate(pct = n / sum(n))
 
-p &lt;- df %&gt;%
+p &lt;- df_SAS %&gt;%
   arrange(subtype, Motif) %&gt;%
   mutate(Motif = factor(Motif, levels=Motif)) %&gt;%
   ggplot(aes(x = Motif, y = pct, fill = subtype, order = subtype)) + 
@@ -1167,6 +1386,752 @@ p &lt;- df %&gt;%
 
 p</code></pre>
 <p><img src="figure/1000G_summary_stats.Rmd/unnamed-chunk-18-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-18-1">
+Past versions of unnamed-chunk-18-1.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-18-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/theandyb/LSCI/blob/acc15722b1bd31eb866fe03c389cc0ab275e6138/docs/figure/1000G_summary_stats.Rmd/unnamed-chunk-18-1.png" target="_blank">acc1572</a>
+</td>
+<td>
+Andy Beck
+</td>
+<td>
+2021-12-13
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+<div id="relative-enrichment" class="section level3">
+<h3>Relative Enrichment</h3>
+<div id="afr---eur" class="section level4">
+<h4>AFR - EUR</h4>
+<pre class="r"><code>df_AFR %&gt;%
+  select(Motif, pct) %&gt;%
+  full_join({df_EUR %&gt;% select(Motif, pct, subtype)}, by = &quot;Motif&quot;) %&gt;%
+  rename(pct_AFR = pct.x, pct_EUR = pct.y) %&gt;%
+  mutate(enrichment = pct_EUR / pct_AFR) %&gt;%
+  arrange(subtype, Motif) %&gt;%
+  mutate(Motif = factor(Motif, levels=Motif)) %&gt;%
+  ggplot(aes(x = Motif, y = enrichment, colour = subtype)) +
+  geom_point() +
+  theme(axis.text.x = element_text(angle = 90, vjust = 0.5, hjust=1)) +
+  ggtitle(&quot;EUR / AFR Enrichment&quot;)</code></pre>
+<p><img src="figure/1000G_summary_stats.Rmd/unnamed-chunk-19-1.png" width="672" style="display: block; margin: auto;" /></p>
+<pre class="r"><code>df_AFR %&gt;%
+  select(Motif, pct) %&gt;%
+  full_join({df_EUR %&gt;% select(Motif, pct, subtype)}, by = &quot;Motif&quot;) %&gt;%
+  rename(pct_AFR = pct.x, pct_EUR = pct.y) %&gt;%
+  mutate(enrichment = pct_EUR / pct_AFR) %&gt;%
+  arrange(desc(enrichment)) %&gt;%
+  knitr::kable()</code></pre>
+<table>
+<thead>
+<tr class="header">
+<th align="left">Motif</th>
+<th align="right">pct_AFR</th>
+<th align="right">pct_EUR</th>
+<th align="left">subtype</th>
+<th align="right">enrichment</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">G(AT-&gt;CG)C</td>
+<td align="right">0.0016952</td>
+<td align="right">0.0020251</td>
+<td align="left">AT-&gt;CG</td>
+<td align="right">1.1946282</td>
+</tr>
+<tr class="even">
+<td align="left">C(AT-&gt;TA)C</td>
+<td align="right">0.0034677</td>
+<td align="right">0.0037384</td>
+<td align="left">AT-&gt;TA</td>
+<td align="right">1.0780584</td>
+</tr>
+<tr class="odd">
+<td align="left">C(GC-&gt;CG)G</td>
+<td align="right">0.0023378</td>
+<td align="right">0.0025187</td>
+<td align="left">GC-&gt;CG</td>
+<td align="right">1.0774038</td>
+</tr>
+<tr class="even">
+<td align="left">C(AT-&gt;CG)C</td>
+<td align="right">0.0045284</td>
+<td align="right">0.0048670</td>
+<td align="left">AT-&gt;CG</td>
+<td align="right">1.0747733</td>
+</tr>
+<tr class="odd">
+<td align="left">G(AT-&gt;TA)G</td>
+<td align="right">0.0032451</td>
+<td align="right">0.0034781</td>
+<td align="left">AT-&gt;TA</td>
+<td align="right">1.0717980</td>
+</tr>
+<tr class="even">
+<td align="left">T(GC-&gt;AT)C</td>
+<td align="right">0.0189388</td>
+<td align="right">0.0202246</td>
+<td align="left">GC-&gt;AT</td>
+<td align="right">1.0678889</td>
+</tr>
+<tr class="odd">
+<td align="left">G(AT-&gt;TA)A</td>
+<td align="right">0.0032565</td>
+<td align="right">0.0034470</td>
+<td align="left">AT-&gt;TA</td>
+<td align="right">1.0585205</td>
+</tr>
+<tr class="even">
+<td align="left">C(AT-&gt;TA)G</td>
+<td align="right">0.0041802</td>
+<td align="right">0.0044164</td>
+<td align="left">AT-&gt;TA</td>
+<td align="right">1.0565160</td>
+</tr>
+<tr class="odd">
+<td align="left">C(AT-&gt;TA)A</td>
+<td align="right">0.0032264</td>
+<td align="right">0.0033696</td>
+<td align="left">AT-&gt;TA</td>
+<td align="right">1.0444060</td>
+</tr>
+<tr class="even">
+<td align="left">G(AT-&gt;GC)G</td>
+<td align="right">0.0093504</td>
+<td align="right">0.0097615</td>
+<td align="left">AT-&gt;GC</td>
+<td align="right">1.0439614</td>
+</tr>
+<tr class="odd">
+<td align="left">T(AT-&gt;GC)A</td>
+<td align="right">0.0148194</td>
+<td align="right">0.0154400</td>
+<td align="left">AT-&gt;GC</td>
+<td align="right">1.0418750</td>
+</tr>
+<tr class="even">
+<td align="left">T(AT-&gt;CG)T</td>
+<td align="right">0.0046518</td>
+<td align="right">0.0048326</td>
+<td align="left">AT-&gt;CG</td>
+<td align="right">1.0388589</td>
+</tr>
+<tr class="odd">
+<td align="left">C(AT-&gt;CG)G</td>
+<td align="right">0.0060782</td>
+<td align="right">0.0062752</td>
+<td align="left">AT-&gt;CG</td>
+<td align="right">1.0324104</td>
+</tr>
+<tr class="even">
+<td align="left">G(AT-&gt;CG)A</td>
+<td align="right">0.0042448</td>
+<td align="right">0.0043819</td>
+<td align="left">AT-&gt;CG</td>
+<td align="right">1.0322958</td>
+</tr>
+<tr class="odd">
+<td align="left">A(GC-&gt;TA)C</td>
+<td align="right">0.0108809</td>
+<td align="right">0.0112270</td>
+<td align="left">GC-&gt;TA</td>
+<td align="right">1.0318008</td>
+</tr>
+<tr class="even">
+<td align="left">C(AT-&gt;CG)A</td>
+<td align="right">0.0063394</td>
+<td align="right">0.0065409</td>
+<td align="left">AT-&gt;CG</td>
+<td align="right">1.0317722</td>
+</tr>
+<tr class="odd">
+<td align="left">T(AT-&gt;CG)A</td>
+<td align="right">0.0058260</td>
+<td align="right">0.0060092</td>
+<td align="left">AT-&gt;CG</td>
+<td align="right">1.0314559</td>
+</tr>
+<tr class="even">
+<td align="left">A(AT-&gt;TA)G</td>
+<td align="right">0.0034934</td>
+<td align="right">0.0036015</td>
+<td align="left">AT-&gt;TA</td>
+<td align="right">1.0309215</td>
+</tr>
+<tr class="odd">
+<td align="left">G(AT-&gt;TA)C</td>
+<td align="right">0.0030328</td>
+<td align="right">0.0031262</td>
+<td align="left">AT-&gt;TA</td>
+<td align="right">1.0308006</td>
+</tr>
+<tr class="even">
+<td align="left">C(GC-&gt;TA)A</td>
+<td align="right">0.0070456</td>
+<td align="right">0.0072488</td>
+<td align="left">GC-&gt;TA</td>
+<td align="right">1.0288365</td>
+</tr>
+<tr class="odd">
+<td align="left">T(AT-&gt;GC)G</td>
+<td align="right">0.0114673</td>
+<td align="right">0.0117964</td>
+<td align="left">AT-&gt;GC</td>
+<td align="right">1.0286977</td>
+</tr>
+<tr class="even">
+<td align="left">G(AT-&gt;TA)T</td>
+<td align="right">0.0067276</td>
+<td align="right">0.0069047</td>
+<td align="left">AT-&gt;TA</td>
+<td align="right">1.0263387</td>
+</tr>
+<tr class="odd">
+<td align="left">T(GC-&gt;CG)G</td>
+<td align="right">0.0019076</td>
+<td align="right">0.0019569</td>
+<td align="left">GC-&gt;CG</td>
+<td align="right">1.0258524</td>
+</tr>
+<tr class="even">
+<td align="left">A(GC-&gt;CG)G</td>
+<td align="right">0.0019538</td>
+<td align="right">0.0019993</td>
+<td align="left">GC-&gt;CG</td>
+<td align="right">1.0232860</td>
+</tr>
+<tr class="odd">
+<td align="left">C(AT-&gt;CG)T</td>
+<td align="right">0.0064235</td>
+<td align="right">0.0065513</td>
+<td align="left">AT-&gt;CG</td>
+<td align="right">1.0198889</td>
+</tr>
+<tr class="even">
+<td align="left">A(AT-&gt;TA)C</td>
+<td align="right">0.0033969</td>
+<td align="right">0.0034616</td>
+<td align="left">AT-&gt;TA</td>
+<td align="right">1.0190446</td>
+</tr>
+<tr class="odd">
+<td align="left">C(AT-&gt;GC)T</td>
+<td align="right">0.0350411</td>
+<td align="right">0.0356906</td>
+<td align="left">AT-&gt;GC</td>
+<td align="right">1.0185339</td>
+</tr>
+<tr class="even">
+<td align="left">T(AT-&gt;TA)C</td>
+<td align="right">0.0023950</td>
+<td align="right">0.0024363</td>
+<td align="left">AT-&gt;TA</td>
+<td align="right">1.0172243</td>
+</tr>
+<tr class="odd">
+<td align="left">T(GC-&gt;TA)C</td>
+<td align="right">0.0070199</td>
+<td align="right">0.0071295</td>
+<td align="left">GC-&gt;TA</td>
+<td align="right">1.0156168</td>
+</tr>
+<tr class="even">
+<td align="left">A(AT-&gt;TA)A</td>
+<td align="right">0.0066088</td>
+<td align="right">0.0067117</td>
+<td align="left">AT-&gt;TA</td>
+<td align="right">1.0155845</td>
+</tr>
+<tr class="odd">
+<td align="left">T(AT-&gt;GC)C</td>
+<td align="right">0.0121788</td>
+<td align="right">0.0123629</td>
+<td align="left">AT-&gt;GC</td>
+<td align="right">1.0151120</td>
+</tr>
+<tr class="even">
+<td align="left">C(AT-&gt;GC)G</td>
+<td align="right">0.0183688</td>
+<td align="right">0.0186412</td>
+<td align="left">AT-&gt;GC</td>
+<td align="right">1.0148315</td>
+</tr>
+<tr class="odd">
+<td align="left">T(GC-&gt;AT)T</td>
+<td align="right">0.0202193</td>
+<td align="right">0.0205181</td>
+<td align="left">GC-&gt;AT</td>
+<td align="right">1.0147801</td>
+</tr>
+<tr class="even">
+<td align="left">A(AT-&gt;CG)T</td>
+<td align="right">0.0059377</td>
+<td align="right">0.0060097</td>
+<td align="left">AT-&gt;CG</td>
+<td align="right">1.0121285</td>
+</tr>
+<tr class="odd">
+<td align="left">A(GC-&gt;TA)T</td>
+<td align="right">0.0061812</td>
+<td align="right">0.0062537</td>
+<td align="left">GC-&gt;TA</td>
+<td align="right">1.0117280</td>
+</tr>
+<tr class="even">
+<td align="left">T(AT-&gt;GC)T</td>
+<td align="right">0.0380902</td>
+<td align="right">0.0385151</td>
+<td align="left">AT-&gt;GC</td>
+<td align="right">1.0111549</td>
+</tr>
+<tr class="odd">
+<td align="left">T(AT-&gt;TA)G</td>
+<td align="right">0.0025947</td>
+<td align="right">0.0026215</td>
+<td align="left">AT-&gt;TA</td>
+<td align="right">1.0103233</td>
+</tr>
+<tr class="even">
+<td align="left">C(AT-&gt;TA)T</td>
+<td align="right">0.0074950</td>
+<td align="right">0.0075691</td>
+<td align="left">AT-&gt;TA</td>
+<td align="right">1.0098859</td>
+</tr>
+<tr class="odd">
+<td align="left">A(GC-&gt;CG)A</td>
+<td align="right">0.0084773</td>
+<td align="right">0.0085602</td>
+<td align="left">GC-&gt;CG</td>
+<td align="right">1.0097806</td>
+</tr>
+<tr class="even">
+<td align="left">G(GC-&gt;TA)C</td>
+<td align="right">0.0078461</td>
+<td align="right">0.0079224</td>
+<td align="left">GC-&gt;TA</td>
+<td align="right">1.0097289</td>
+</tr>
+<tr class="odd">
+<td align="left">A(GC-&gt;TA)A</td>
+<td align="right">0.0100490</td>
+<td align="right">0.0101304</td>
+<td align="left">GC-&gt;TA</td>
+<td align="right">1.0080944</td>
+</tr>
+<tr class="even">
+<td align="left">T(AT-&gt;CG)C</td>
+<td align="right">0.0021942</td>
+<td align="right">0.0022115</td>
+<td align="left">AT-&gt;CG</td>
+<td align="right">1.0078964</td>
+</tr>
+<tr class="odd">
+<td align="left">C(GC-&gt;CG)A</td>
+<td align="right">0.0057600</td>
+<td align="right">0.0057841</td>
+<td align="left">GC-&gt;CG</td>
+<td align="right">1.0041705</td>
+</tr>
+<tr class="even">
+<td align="left">G(GC-&gt;AT)T</td>
+<td align="right">0.0184934</td>
+<td align="right">0.0185545</td>
+<td align="left">GC-&gt;AT</td>
+<td align="right">1.0033060</td>
+</tr>
+<tr class="odd">
+<td align="left">C(AT-&gt;GC)C</td>
+<td align="right">0.0129359</td>
+<td align="right">0.0129719</td>
+<td align="left">AT-&gt;GC</td>
+<td align="right">1.0027826</td>
+</tr>
+<tr class="even">
+<td align="left">G(GC-&gt;TA)T</td>
+<td align="right">0.0052061</td>
+<td align="right">0.0052191</td>
+<td align="left">GC-&gt;TA</td>
+<td align="right">1.0024981</td>
+</tr>
+<tr class="odd">
+<td align="left">G(GC-&gt;AT)G</td>
+<td align="right">0.0271411</td>
+<td align="right">0.0271954</td>
+<td align="left">GC-&gt;AT</td>
+<td align="right">1.0020009</td>
+</tr>
+<tr class="even">
+<td align="left">G(GC-&gt;TA)A</td>
+<td align="right">0.0085616</td>
+<td align="right">0.0085773</td>
+<td align="left">GC-&gt;TA</td>
+<td align="right">1.0018341</td>
+</tr>
+<tr class="odd">
+<td align="left">C(GC-&gt;TA)T</td>
+<td align="right">0.0057006</td>
+<td align="right">0.0057088</td>
+<td align="left">GC-&gt;TA</td>
+<td align="right">1.0014370</td>
+</tr>
+<tr class="even">
+<td align="left">A(AT-&gt;TA)T</td>
+<td align="right">0.0065061</td>
+<td align="right">0.0065141</td>
+<td align="left">AT-&gt;TA</td>
+<td align="right">1.0012312</td>
+</tr>
+<tr class="odd">
+<td align="left">T(GC-&gt;TA)A</td>
+<td align="right">0.0070403</td>
+<td align="right">0.0070427</td>
+<td align="left">GC-&gt;TA</td>
+<td align="right">1.0003421</td>
+</tr>
+<tr class="even">
+<td align="left">G(GC-&gt;TA)G</td>
+<td align="right">0.0031866</td>
+<td align="right">0.0031871</td>
+<td align="left">GC-&gt;TA</td>
+<td align="right">1.0001369</td>
+</tr>
+<tr class="odd">
+<td align="left">T(GC-&gt;CG)C</td>
+<td align="right">0.0069893</td>
+<td align="right">0.0069893</td>
+<td align="left">GC-&gt;CG</td>
+<td align="right">1.0000087</td>
+</tr>
+<tr class="even">
+<td align="left">G(GC-&gt;AT)C</td>
+<td align="right">0.0172334</td>
+<td align="right">0.0172271</td>
+<td align="left">GC-&gt;AT</td>
+<td align="right">0.9996382</td>
+</tr>
+<tr class="odd">
+<td align="left">G(AT-&gt;CG)T</td>
+<td align="right">0.0026574</td>
+<td align="right">0.0026530</td>
+<td align="left">AT-&gt;CG</td>
+<td align="right">0.9983467</td>
+</tr>
+<tr class="even">
+<td align="left">G(AT-&gt;GC)A</td>
+<td align="right">0.0103420</td>
+<td align="right">0.0103187</td>
+<td align="left">AT-&gt;GC</td>
+<td align="right">0.9977545</td>
+</tr>
+<tr class="odd">
+<td align="left">T(GC-&gt;CG)T</td>
+<td align="right">0.0138269</td>
+<td align="right">0.0137932</td>
+<td align="left">GC-&gt;CG</td>
+<td align="right">0.9975616</td>
+</tr>
+<tr class="even">
+<td align="left">T(AT-&gt;CG)G</td>
+<td align="right">0.0030594</td>
+<td align="right">0.0030517</td>
+<td align="left">AT-&gt;CG</td>
+<td align="right">0.9975030</td>
+</tr>
+<tr class="odd">
+<td align="left">A(GC-&gt;CG)T</td>
+<td align="right">0.0086833</td>
+<td align="right">0.0086586</td>
+<td align="left">GC-&gt;CG</td>
+<td align="right">0.9971514</td>
+</tr>
+<tr class="even">
+<td align="left">T(GC-&gt;AT)A</td>
+<td align="right">0.0195217</td>
+<td align="right">0.0194648</td>
+<td align="left">GC-&gt;AT</td>
+<td align="right">0.9970843</td>
+</tr>
+<tr class="odd">
+<td align="left">A(GC-&gt;AT)T</td>
+<td align="right">0.0218195</td>
+<td align="right">0.0217394</td>
+<td align="left">GC-&gt;AT</td>
+<td align="right">0.9963319</td>
+</tr>
+<tr class="even">
+<td align="left">C(AT-&gt;GC)A</td>
+<td align="right">0.0126151</td>
+<td align="right">0.0125628</td>
+<td align="left">AT-&gt;GC</td>
+<td align="right">0.9958506</td>
+</tr>
+<tr class="odd">
+<td align="left">T(GC-&gt;CG)A</td>
+<td align="right">0.0073625</td>
+<td align="right">0.0073269</td>
+<td align="left">GC-&gt;CG</td>
+<td align="right">0.9951718</td>
+</tr>
+<tr class="even">
+<td align="left">A(GC-&gt;AT)C</td>
+<td align="right">0.0193497</td>
+<td align="right">0.0192452</td>
+<td align="left">GC-&gt;AT</td>
+<td align="right">0.9946002</td>
+</tr>
+<tr class="odd">
+<td align="left">T(GC-&gt;AT)G</td>
+<td align="right">0.0250088</td>
+<td align="right">0.0248285</td>
+<td align="left">GC-&gt;AT</td>
+<td align="right">0.9927920</td>
+</tr>
+<tr class="even">
+<td align="left">T(AT-&gt;TA)T</td>
+<td align="right">0.0064782</td>
+<td align="right">0.0064305</td>
+<td align="left">AT-&gt;TA</td>
+<td align="right">0.9926396</td>
+</tr>
+<tr class="odd">
+<td align="left">A(GC-&gt;AT)G</td>
+<td align="right">0.0361413</td>
+<td align="right">0.0358484</td>
+<td align="left">GC-&gt;AT</td>
+<td align="right">0.9918941</td>
+</tr>
+<tr class="even">
+<td align="left">A(AT-&gt;GC)C</td>
+<td align="right">0.0136984</td>
+<td align="right">0.0135812</td>
+<td align="left">AT-&gt;GC</td>
+<td align="right">0.9914456</td>
+</tr>
+<tr class="odd">
+<td align="left">A(AT-&gt;CG)A</td>
+<td align="right">0.0120842</td>
+<td align="right">0.0119799</td>
+<td align="left">AT-&gt;CG</td>
+<td align="right">0.9913682</td>
+</tr>
+<tr class="even">
+<td align="left">C(GC-&gt;TA)C</td>
+<td align="right">0.0065450</td>
+<td align="right">0.0064823</td>
+<td align="left">GC-&gt;TA</td>
+<td align="right">0.9904229</td>
+</tr>
+<tr class="odd">
+<td align="left">G(AT-&gt;GC)C</td>
+<td align="right">0.0072218</td>
+<td align="right">0.0071401</td>
+<td align="left">AT-&gt;GC</td>
+<td align="right">0.9886828</td>
+</tr>
+<tr class="even">
+<td align="left">A(GC-&gt;CG)C</td>
+<td align="right">0.0050389</td>
+<td align="right">0.0049806</td>
+<td align="left">GC-&gt;CG</td>
+<td align="right">0.9884338</td>
+</tr>
+<tr class="odd">
+<td align="left">C(GC-&gt;AT)G</td>
+<td align="right">0.0338842</td>
+<td align="right">0.0334911</td>
+<td align="left">GC-&gt;AT</td>
+<td align="right">0.9883983</td>
+</tr>
+<tr class="even">
+<td align="left">G(AT-&gt;GC)T</td>
+<td align="right">0.0124899</td>
+<td align="right">0.0123430</td>
+<td align="left">AT-&gt;GC</td>
+<td align="right">0.9882397</td>
+</tr>
+<tr class="odd">
+<td align="left">A(AT-&gt;GC)A</td>
+<td align="right">0.0197916</td>
+<td align="right">0.0195562</td>
+<td align="left">AT-&gt;GC</td>
+<td align="right">0.9881068</td>
+</tr>
+<tr class="even">
+<td align="left">G(AT-&gt;CG)G</td>
+<td align="right">0.0040088</td>
+<td align="right">0.0039599</td>
+<td align="left">AT-&gt;CG</td>
+<td align="right">0.9878129</td>
+</tr>
+<tr class="odd">
+<td align="left">G(GC-&gt;AT)A</td>
+<td align="right">0.0169581</td>
+<td align="right">0.0167172</td>
+<td align="left">GC-&gt;AT</td>
+<td align="right">0.9857953</td>
+</tr>
+<tr class="even">
+<td align="left">T(GC-&gt;TA)G</td>
+<td align="right">0.0018584</td>
+<td align="right">0.0018315</td>
+<td align="left">GC-&gt;TA</td>
+<td align="right">0.9855166</td>
+</tr>
+<tr class="odd">
+<td align="left">C(GC-&gt;CG)C</td>
+<td align="right">0.0070178</td>
+<td align="right">0.0069105</td>
+<td align="left">GC-&gt;CG</td>
+<td align="right">0.9847119</td>
+</tr>
+<tr class="even">
+<td align="left">A(AT-&gt;GC)G</td>
+<td align="right">0.0140990</td>
+<td align="right">0.0138833</td>
+<td align="left">AT-&gt;GC</td>
+<td align="right">0.9846991</td>
+</tr>
+<tr class="odd">
+<td align="left">C(GC-&gt;AT)T</td>
+<td align="right">0.0250509</td>
+<td align="right">0.0246061</td>
+<td align="left">GC-&gt;AT</td>
+<td align="right">0.9822421</td>
+</tr>
+<tr class="even">
+<td align="left">C(GC-&gt;CG)T</td>
+<td align="right">0.0086861</td>
+<td align="right">0.0085233</td>
+<td align="left">GC-&gt;CG</td>
+<td align="right">0.9812510</td>
+</tr>
+<tr class="odd">
+<td align="left">T(AT-&gt;TA)A</td>
+<td align="right">0.0060205</td>
+<td align="right">0.0059024</td>
+<td align="left">AT-&gt;TA</td>
+<td align="right">0.9803911</td>
+</tr>
+<tr class="even">
+<td align="left">T(GC-&gt;TA)T</td>
+<td align="right">0.0106676</td>
+<td align="right">0.0104534</td>
+<td align="left">GC-&gt;TA</td>
+<td align="right">0.9799272</td>
+</tr>
+<tr class="odd">
+<td align="left">C(GC-&gt;AT)C</td>
+<td align="right">0.0188960</td>
+<td align="right">0.0184739</td>
+<td align="left">GC-&gt;AT</td>
+<td align="right">0.9776582</td>
+</tr>
+<tr class="even">
+<td align="left">G(GC-&gt;CG)G</td>
+<td align="right">0.0014763</td>
+<td align="right">0.0014395</td>
+<td align="left">GC-&gt;CG</td>
+<td align="right">0.9750418</td>
+</tr>
+<tr class="odd">
+<td align="left">A(AT-&gt;GC)T</td>
+<td align="right">0.0339567</td>
+<td align="right">0.0328134</td>
+<td align="left">AT-&gt;GC</td>
+<td align="right">0.9663303</td>
+</tr>
+<tr class="even">
+<td align="left">C(GC-&gt;TA)G</td>
+<td align="right">0.0022554</td>
+<td align="right">0.0021764</td>
+<td align="left">GC-&gt;TA</td>
+<td align="right">0.9649808</td>
+</tr>
+<tr class="odd">
+<td align="left">A(GC-&gt;AT)A</td>
+<td align="right">0.0322202</td>
+<td align="right">0.0310692</td>
+<td align="left">GC-&gt;AT</td>
+<td align="right">0.9642746</td>
+</tr>
+<tr class="even">
+<td align="left">A(GC-&gt;TA)G</td>
+<td align="right">0.0026732</td>
+<td align="right">0.0025603</td>
+<td align="left">GC-&gt;TA</td>
+<td align="right">0.9577626</td>
+</tr>
+<tr class="odd">
+<td align="left">C(GC-&gt;AT)A</td>
+<td align="right">0.0215574</td>
+<td align="right">0.0205959</td>
+<td align="left">GC-&gt;AT</td>
+<td align="right">0.9553988</td>
+</tr>
+<tr class="even">
+<td align="left">A(AT-&gt;CG)G</td>
+<td align="right">0.0070984</td>
+<td align="right">0.0067659</td>
+<td align="left">AT-&gt;CG</td>
+<td align="right">0.9531566</td>
+</tr>
+<tr class="odd">
+<td align="left">G(GC-&gt;CG)C</td>
+<td align="right">0.0050089</td>
+<td align="right">0.0047188</td>
+<td align="left">GC-&gt;CG</td>
+<td align="right">0.9420678</td>
+</tr>
+<tr class="even">
+<td align="left">A(AT-&gt;CG)C</td>
+<td align="right">0.0042304</td>
+<td align="right">0.0039505</td>
+<td align="left">AT-&gt;CG</td>
+<td align="right">0.9338388</td>
+</tr>
+<tr class="odd">
+<td align="left">G(GC-&gt;CG)A</td>
+<td align="right">0.0045576</td>
+<td align="right">0.0041587</td>
+<td align="left">GC-&gt;CG</td>
+<td align="right">0.9124918</td>
+</tr>
+<tr class="even">
+<td align="left">G(GC-&gt;CG)T</td>
+<td align="right">0.0061153</td>
+<td align="right">0.0055584</td>
+<td align="left">GC-&gt;CG</td>
+<td align="right">0.9089274</td>
+</tr>
+</tbody>
+</table>
 <br>
 <p>
 <button type="button" class="btn btn-default btn-workflowr btn-workflowr-sessioninfo" data-toggle="collapse" data-target="#workflowr-sessioninfo" style="display: block;">
@@ -1195,29 +2160,31 @@ attached base packages:
 [1] stats     graphics  grDevices utils     datasets  methods   base     
 
 other attached packages:
- [1] pals_1.7        forcats_0.5.1   stringr_1.4.0   dplyr_1.0.7    
- [5] purrr_0.3.4     readr_2.0.2     tidyr_1.1.4     tibble_3.1.5   
- [9] ggplot2_3.3.5   tidyverse_1.3.1 workflowr_1.6.2
+ [1] tikzDevice_0.12.3.1 pals_1.7            forcats_0.5.1      
+ [4] stringr_1.4.0       dplyr_1.0.7         purrr_0.3.4        
+ [7] readr_2.0.2         tidyr_1.1.4         tibble_3.1.5       
+[10] ggplot2_3.3.5       tidyverse_1.3.1     workflowr_1.6.2    
 
 loaded via a namespace (and not attached):
- [1] Rcpp_1.0.7       lubridate_1.8.0  assertthat_0.2.1 rprojroot_2.0.2 
- [5] digest_0.6.28    utf8_1.2.2       R6_2.5.1         cellranger_1.1.0
- [9] backports_1.3.0  reprex_2.0.1     evaluate_0.14    highr_0.9       
-[13] httr_1.4.2       pillar_1.6.4     rlang_0.4.12     readxl_1.3.1    
-[17] rstudioapi_0.13  whisker_0.4      jquerylib_0.1.4  rmarkdown_2.11  
-[21] labeling_0.4.2   bit_4.0.4        munsell_0.5.0    broom_0.7.9     
-[25] compiler_4.1.2   httpuv_1.6.3     modelr_0.1.8     xfun_0.27       
-[29] pkgconfig_2.0.3  htmltools_0.5.2  tidyselect_1.1.1 fansi_0.5.0     
-[33] crayon_1.4.1     tzdb_0.1.2       dbplyr_2.1.1     withr_2.4.2     
-[37] later_1.3.0      grid_4.1.2       jsonlite_1.7.2   gtable_0.3.0    
-[41] lifecycle_1.0.1  DBI_1.1.1        git2r_0.28.0     magrittr_2.0.1  
-[45] scales_1.1.1     vroom_1.5.5      cli_3.0.1        stringi_1.7.5   
-[49] farver_2.1.0     mapproj_1.2.7    fs_1.5.0         promises_1.2.0.1
-[53] xml2_1.3.2       bslib_0.3.1      ellipsis_0.3.2   generics_0.1.1  
-[57] vctrs_0.3.8      tools_4.1.2      bit64_4.0.5      dichromat_2.0-0 
-[61] glue_1.4.2       maps_3.4.0       hms_1.1.1        parallel_4.1.2  
-[65] fastmap_1.1.0    yaml_2.2.1       colorspace_2.0-2 rvest_1.0.2     
-[69] knitr_1.36       haven_2.4.3      sass_0.4.0      </code></pre>
+ [1] httr_1.4.2       sass_0.4.0       maps_3.4.0       bit64_4.0.5     
+ [5] vroom_1.5.5      jsonlite_1.7.2   modelr_0.1.8     bslib_0.3.1     
+ [9] assertthat_0.2.1 highr_0.9        cellranger_1.1.0 yaml_2.2.1      
+[13] pillar_1.6.4     backports_1.3.0  glue_1.4.2       digest_0.6.28   
+[17] promises_1.2.0.1 rvest_1.0.2      colorspace_2.0-2 htmltools_0.5.2 
+[21] httpuv_1.6.3     pkgconfig_2.0.3  broom_0.7.9      haven_2.4.3     
+[25] scales_1.1.1     whisker_0.4      later_1.3.0      tzdb_0.1.2      
+[29] git2r_0.28.0     generics_0.1.1   farver_2.1.0     ellipsis_0.3.2  
+[33] withr_2.4.2      cli_3.0.1        magrittr_2.0.1   crayon_1.4.1    
+[37] readxl_1.3.1     evaluate_0.14    fs_1.5.0         fansi_0.5.0     
+[41] xml2_1.3.2       tools_4.1.2      hms_1.1.1        lifecycle_1.0.1 
+[45] munsell_0.5.0    reprex_2.0.1     compiler_4.1.2   jquerylib_0.1.4 
+[49] rlang_0.4.12     grid_4.1.2       dichromat_2.0-0  rstudioapi_0.13 
+[53] filehash_2.4-2   labeling_0.4.2   rmarkdown_2.11   gtable_0.3.0    
+[57] DBI_1.1.1        R6_2.5.1         lubridate_1.8.0  knitr_1.36      
+[61] fastmap_1.1.0    bit_4.0.4        utf8_1.2.2       rprojroot_2.0.2 
+[65] stringi_1.7.5    parallel_4.1.2   Rcpp_1.0.7       vctrs_0.3.8     
+[69] mapproj_1.2.7    dbplyr_2.1.1     tidyselect_1.1.1 xfun_0.27       </code></pre>
+</div>
 </div>
 </div>
 </div>
