@@ -153,13 +153,13 @@ Across all sub-types, we see the strongest "signal" at positions more focal to c
 
 * Reliance on control sample to correct for "influence of genomic features"
     * Might very well work, but characterizing patterns of local context influence interacting with other known features associated with mutation rate variability (chromatin accessibility, replication timing, etc) would yield a better understanding/characterization of underlying mutational processes
-* Didn't really touch on between-population differences seen in things like 3-mer mutation subtype enrichments in 1000G populations
+* Didn't really touch on between-population differences seen in things like 3-mer mutation sub-type enrichment in 1000G populations
 
 ### Next Steps
 
 * Building a better mutation rate model
 * Phrase problem in terms of a categorization problem: given sequence at ... positions, can we distinguish between singletons and randomly sampled controls?
-    * My impression is that metrics we get from this perspective are easier to interpret in regards to the goal of builing a "better mutation rate estimate"
+    * My impression is that metrics we get from this perspective are easier to interpret in regards to the goal of building a "better mutation rate estimate"
     * Deep learning has been used to learn [context embeddings for somatic mutations](https://doi.org/10.1093/bioinformatics/btaa433). Could we do something like this for singletons?
         * Paper embedded both cancer patients and mutations into a learned embedding (representation?) that they could then use to do things like sub-type identification -> is there a parallel problem we could think of in the context of germline mutation rate / singleton mutations?
     * Are their approaches to binary classification in the NLP area that would lend themselves to our analysis?

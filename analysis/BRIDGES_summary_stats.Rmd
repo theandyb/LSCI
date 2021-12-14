@@ -9,6 +9,7 @@ editor_options:
 
 ```{r include=FALSE, message = FALSE, warning=FALSE}
 library(tidyverse)
+library(tikzDevice)
 ```
 
 # BRIDGES Summary Statistics
@@ -35,7 +36,7 @@ get_singletons_per_subject <- function(singleton_dir){
 
 df_BRIDGES <- read_csv("/net/snowwhite/home/beckandy/research/BRIDGES_redo/output/singletons_per_subject.csv",
                        col_types = cols())
-df_BRIDGES %>%
+p <- df_BRIDGES %>%
   ggplot(aes(x = n_singletons)) + 
   geom_density() +
   ggtitle("Singletons per Subject: BRIDGES",
@@ -45,8 +46,71 @@ df_BRIDGES %>%
                  ", Max: ", max(df_BRIDGES$n_singletons) ) 
           )+
   xlab("Number of Singletons")
+
+p
+
+tikz("output/tikz/singletons_per_sub_BRIDGES.tex")
+print(p)
+dev.off()
 ```
 
 Here, we can see that on average we see around 10,000 singletons per sample in the BRIDGES data set, although we do have outliers in both directions.
 
 **Question: Are these outlier samples different in other ways? E.g., 3-mer mutation spectra, spatial distribution of nucleotides genome-wide, etc?**
+
+## Singletons per subtype
+
+```{r}
+data_dir <- "/net/snowwhite/home/beckandy/research/BRIDGES_redo/output/singletons/"
+subtypes <- c("AT_CG","AT_GC","AT_TA", "GC_AT", "GC_TA", "GC_CG", "cpg_GC_AT", "cpg_GC_TA", "cpg_GC_CG")
+final <- data.frame(subtype = character(), n = numeric())
+for(st in subtypes){
+  n <- system2("wc", args = c("-l", paste0(data_dir, st, ".txt"), " | awk '{print $1}'"), stdout = TRUE) %>% as.numeric()
+  final <- bind_rows(final, data.frame(subtype = st, n = n))
+}
+final
+```
+
+## 3mer Spectra - All Subjects
+
+```{r}
+get_subtype_3mer <- function(subtype){
+  data_dir <- "/net/snowwhite/home/beckandy/research/BRIDGES_redo/output/singletons"
+  awk_cmd <- paste0("awk '{count[substr($1,10,3)]++}END{for(key in count)print(key, count[key])}' ",
+                    data_dir, "/", subtype, ".txt")
+  df <- vroom::vroom(pipe(awk_cmd), col_names = c("Motif", "n"), show_col_types = FALSE) %>%
+    rowwise() %>%
+    mutate(Motif = paste0(str_sub(Motif, 1, 1), "[", str_remove(subtype, "cpg_"), "]", str_sub(Motif, 3, 3)))
+  return(df)
+}
+
+get_all_3mer <- function(){
+  subtypes <- c("AT_CG", "AT_GC", "AT_TA", "GC_AT", "GC_TA", "GC_CG", "cpg_GC_AT", "cpg_GC_TA", "cpg_GC_CG")
+  df_list <- vector("list", length(subtypes))
+  names(df_list) <- subtypes
+  for(st in subtypes){
+    df_list[[st]] <- get_subtype_3mer(st)
+  }
+  return(bind_rows(df_list))
+}
+
+bridges_3mer <- get_all_3mer()
+```
+
+```{r}
+bridges_3mer <- bridges_3mer %>%
+  mutate(subtype = str_sub(Motif, 3, 7)) %>%
+  ungroup() %>%
+  mutate(pct = n / sum(n))
+```
+
+```{r}
+bridges_3mer %>%
+  arrange(subtype, Motif) %>%
+  mutate(Motif = factor(Motif, levels=Motif)) %>%
+  ggplot(aes(x = Motif, y = pct, fill = subtype, order = subtype)) + 
+  geom_col() +
+  theme(axis.text.x = element_text(angle = 90, vjust = 0.5, hjust=1)) + 
+  xlab("Subtype") + ylab("Relative Contribution") + ggtitle("BRIDGES Singleton Spectrum")
+```
+
