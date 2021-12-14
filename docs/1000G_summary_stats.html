@@ -379,7 +379,7 @@ div.tocify {
 <div class="tab-content">
 <div id="summary" class="tab-pane fade in active">
 <p>
-<strong>Last updated:</strong> 2021-11-09
+<strong>Last updated:</strong> 2021-12-13
 </p>
 <p>
 <strong>Checks:</strong> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> 7 <span class="glyphicon glyphicon-exclamation-sign text-danger" aria-hidden="true"></span> 0
@@ -470,16 +470,16 @@ This reproducible <a href="http://rmarkdown.rstudio.com">R Markdown</a> analysis
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomtheandybLSCItree1a782cb744ce1e27f93fe48b141573cfc544df63targetblank1a782cba"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/theandyb/LSCI/tree/1a782cb744ce1e27f93fe48b141573cfc544df63" target="_blank">1a782cb</a> </a>
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomtheandybLSCItreea59cb9a2992e4be7b01ef2b485ee86ea2d55d868targetblanka59cb9aa"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/theandyb/LSCI/tree/a59cb9a2992e4be7b01ef2b485ee86ea2d55d868" target="_blank">a59cb9a</a> </a>
 </p>
 </div>
-<div id="strongRepositoryversionstrongahrefhttpsgithubcomtheandybLSCItree1a782cb744ce1e27f93fe48b141573cfc544df63targetblank1a782cba" class="panel-collapse collapse">
+<div id="strongRepositoryversionstrongahrefhttpsgithubcomtheandybLSCItreea59cb9a2992e4be7b01ef2b485ee86ea2d55d868targetblanka59cb9aa" class="panel-collapse collapse">
 <div class="panel-body">
 <p>
 Great! You are using Git for version control. Tracking code development and connecting the code version to the results is critical for reproducibility.
 </p>
 <p>
-The results in this page were generated with repository version <a href="https://github.com/theandyb/LSCI/tree/1a782cb744ce1e27f93fe48b141573cfc544df63" target="_blank">1a782cb</a>. See the <em>Past versions</em> tab to see a history of the changes made to the R Markdown and HTML files.
+The results in this page were generated with repository version <a href="https://github.com/theandyb/LSCI/tree/a59cb9a2992e4be7b01ef2b485ee86ea2d55d868" target="_blank">a59cb9a</a>. See the <em>Past versions</em> tab to see a history of the changes made to the R Markdown and HTML files.
 </p>
 <p>
 Note that you need to be careful to ensure that all relevant files for the analysis have been committed to Git prior to generating the results (you can use <code>wflow_publish</code> or <code>wflow_git_commit</code>). workflowr only checks the R Markdown file, but you know if there are other scripts or data files that it depends on. Below is the status of the Git repository when the results were generated:
@@ -488,11 +488,15 @@ Note that you need to be careful to ensure that all relevant files for the analy
 Ignored files:
     Ignored:    .Rhistory
     Ignored:    .Rproj.user/
+    Ignored:    analysis/1000G_single_postion_comp_cache/
     Ignored:    analysis/disqus.html
 
+Untracked files:
+    Untracked:  BRIDGES_summary_stats-tikzDictionary
+    Untracked:  output/tikz/
+
 Unstaged changes:
-    Modified:   analysis/_site.yml
-    Modified:   analysis/outline.Rmd
+    Modified:   analysis/BRIDGES_summary_stats.Rmd
 
 </code></pre>
 <p>
@@ -531,6 +535,40 @@ Message
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+Rmd
+</td>
+<td>
+<a href="https://github.com/theandyb/LSCI/blob/a59cb9a2992e4be7b01ef2b485ee86ea2d55d868/analysis/1000G_summary_stats.Rmd" target="_blank">a59cb9a</a>
+</td>
+<td>
+Andy Beck
+</td>
+<td>
+2021-12-13
+</td>
+<td>
+Add 3mer spectra
+</td>
+</tr>
+<tr>
+<td>
+html
+</td>
+<td>
+<a href="https://rawcdn.githack.com/theandyb/LSCI/bcee6104baeb7c80b102faea4a04ffd5d3896da3/docs/1000G_summary_stats.html" target="_blank">bcee610</a>
+</td>
+<td>
+Andy Beck
+</td>
+<td>
+2021-11-09
+</td>
+<td>
+update site to include disqus
+</td>
+</tr>
 <tr>
 <td>
 html
@@ -976,6 +1014,159 @@ Andy Beck
 </tr>
 </tbody>
 </table>
+</div>
+</div>
+</div>
+<div id="mer-spectrum" class="section level2">
+<h2>3mer Spectrum</h2>
+<pre class="r"><code>get_subtype_3mer &lt;- function(subtype, pop){
+  nucs &lt;- c(&quot;A&quot;, &quot;C&quot;, &quot;G&quot;, &quot;T&quot;)
+  data_dir &lt;- &quot;/net/snowwhite/home/beckandy/research/1000G_LSCI/output/singletons&quot;
+  awk_cmd &lt;- paste0(&quot;awk &#39;{count[substr($1,10,3)]++}END{for(key in count)print(key, count[key])}&#39; &quot;,
+                    data_dir, &quot;/&quot;, pop, &quot;/&quot;, subtype, &quot;.txt&quot;)
+  df &lt;- vroom::vroom(pipe(awk_cmd), col_names = c(&quot;Motif&quot;, &quot;n&quot;), show_col_types = FALSE) %&gt;%
+    rowwise() %&gt;%
+    filter(str_sub(Motif, 1, 1) %in% nucs,
+           str_sub(Motif, -1) %in% nucs) %&gt;%
+    mutate(subtype = str_replace_all(subtype,&quot;_&quot;,&quot;-&gt;&quot;)) %&gt;%
+    mutate(Motif = paste0(str_sub(Motif, 1, 1), &quot;(&quot;, str_remove(subtype, &quot;cpg-&gt;&quot;), &quot;)&quot;, str_sub(Motif, 3, 3)))
+  return(df)
+}
+
+get_all_3mer &lt;- function(pop){
+  subtypes &lt;- c(&quot;AT_CG&quot;, &quot;AT_GC&quot;, &quot;AT_TA&quot;, &quot;GC_AT&quot;, &quot;GC_TA&quot;, &quot;GC_CG&quot;, &quot;cpg_GC_AT&quot;, &quot;cpg_GC_TA&quot;, &quot;cpg_GC_CG&quot;)
+  df_list &lt;- vector(&quot;list&quot;, length(subtypes))
+  names(df_list) &lt;- subtypes
+  for(st in subtypes){
+    df_list[[st]] &lt;- get_subtype_3mer(st, pop)
+  }
+  return(bind_rows(df_list))
+}</code></pre>
+<div id="all" class="section level3">
+<h3>ALL</h3>
+<pre class="r"><code>sp &lt;- &quot;ALL&quot;
+df &lt;- get_all_3mer(sp)
+
+df &lt;- df %&gt;%
+  mutate(subtype = str_sub(Motif, 3, 7)) %&gt;%
+  ungroup() %&gt;%
+  mutate(pct = n / sum(n))
+
+p &lt;- df %&gt;%
+  arrange(subtype, Motif) %&gt;%
+  mutate(Motif = factor(Motif, levels=Motif)) %&gt;%
+  ggplot(aes(x = Motif, y = pct, fill = subtype, order = subtype)) + 
+  geom_col() +
+  theme(axis.text.x = element_text(angle = 90, vjust = 0.5, hjust=1)) + 
+  xlab(&quot;Subtype&quot;) + ylab(&quot;Relative Contribution&quot;) + ggtitle(paste0(&quot;1000G Singleton Spectrum - &quot;, sp))
+
+p</code></pre>
+<p><img src="figure/1000G_summary_stats.Rmd/unnamed-chunk-13-1.png" width="672" style="display: block; margin: auto;" /></p>
+</div>
+<div id="afr-2" class="section level3">
+<h3>AFR</h3>
+<pre class="r"><code>sp &lt;- &quot;AFR&quot;
+df &lt;- get_all_3mer(sp)
+
+df &lt;- df %&gt;%
+  mutate(subtype = str_sub(Motif, 3, 7)) %&gt;%
+  ungroup() %&gt;%
+  mutate(pct = n / sum(n))
+
+p &lt;- df %&gt;%
+  arrange(subtype, Motif) %&gt;%
+  mutate(Motif = factor(Motif, levels=Motif)) %&gt;%
+  ggplot(aes(x = Motif, y = pct, fill = subtype, order = subtype)) + 
+  geom_col() +
+  theme(axis.text.x = element_text(angle = 90, vjust = 0.5, hjust=1)) + 
+  xlab(&quot;Subtype&quot;) + ylab(&quot;Relative Contribution&quot;) + ggtitle(paste0(&quot;1000G Singleton Spectrum - &quot;, sp))
+
+p</code></pre>
+<p><img src="figure/1000G_summary_stats.Rmd/unnamed-chunk-14-1.png" width="672" style="display: block; margin: auto;" /></p>
+</div>
+<div id="amr-1" class="section level3">
+<h3>AMR</h3>
+<pre class="r"><code>sp &lt;- &quot;AMR&quot;
+df &lt;- get_all_3mer(sp)
+
+df &lt;- df %&gt;%
+  mutate(subtype = str_sub(Motif, 3, 7)) %&gt;%
+  ungroup() %&gt;%
+  mutate(pct = n / sum(n))
+
+p &lt;- df %&gt;%
+  arrange(subtype, Motif) %&gt;%
+  mutate(Motif = factor(Motif, levels=Motif)) %&gt;%
+  ggplot(aes(x = Motif, y = pct, fill = subtype, order = subtype)) + 
+  geom_col() +
+  theme(axis.text.x = element_text(angle = 90, vjust = 0.5, hjust=1)) + 
+  xlab(&quot;Subtype&quot;) + ylab(&quot;Relative Contribution&quot;) + ggtitle(paste0(&quot;1000G Singleton Spectrum - &quot;, sp))
+
+p</code></pre>
+<p><img src="figure/1000G_summary_stats.Rmd/unnamed-chunk-15-1.png" width="672" style="display: block; margin: auto;" /></p>
+</div>
+<div id="eas-1" class="section level3">
+<h3>EAS</h3>
+<pre class="r"><code>sp &lt;- &quot;EAS&quot;
+df &lt;- get_all_3mer(sp)
+
+df &lt;- df %&gt;%
+  mutate(subtype = str_sub(Motif, 3, 7)) %&gt;%
+  ungroup() %&gt;%
+  mutate(pct = n / sum(n))
+
+p &lt;- df %&gt;%
+  arrange(subtype, Motif) %&gt;%
+  mutate(Motif = factor(Motif, levels=Motif)) %&gt;%
+  ggplot(aes(x = Motif, y = pct, fill = subtype, order = subtype)) + 
+  geom_col() +
+  theme(axis.text.x = element_text(angle = 90, vjust = 0.5, hjust=1)) + 
+  xlab(&quot;Subtype&quot;) + ylab(&quot;Relative Contribution&quot;) + ggtitle(paste0(&quot;1000G Singleton Spectrum - &quot;, sp))
+
+p</code></pre>
+<p><img src="figure/1000G_summary_stats.Rmd/unnamed-chunk-16-1.png" width="672" style="display: block; margin: auto;" /></p>
+</div>
+<div id="eur-1" class="section level3">
+<h3>EUR</h3>
+<pre class="r"><code>sp &lt;- &quot;EUR&quot;
+df &lt;- get_all_3mer(sp)
+
+df &lt;- df %&gt;%
+  mutate(subtype = str_sub(Motif, 3, 7)) %&gt;%
+  ungroup() %&gt;%
+  mutate(pct = n / sum(n))
+
+p &lt;- df %&gt;%
+  arrange(subtype, Motif) %&gt;%
+  mutate(Motif = factor(Motif, levels=Motif)) %&gt;%
+  ggplot(aes(x = Motif, y = pct, fill = subtype, order = subtype)) + 
+  geom_col() +
+  theme(axis.text.x = element_text(angle = 90, vjust = 0.5, hjust=1)) + 
+  xlab(&quot;Subtype&quot;) + ylab(&quot;Relative Contribution&quot;) + ggtitle(paste0(&quot;1000G Singleton Spectrum - &quot;, sp))
+
+p</code></pre>
+<p><img src="figure/1000G_summary_stats.Rmd/unnamed-chunk-17-1.png" width="672" style="display: block; margin: auto;" /></p>
+</div>
+<div id="sas-1" class="section level3">
+<h3>SAS</h3>
+<pre class="r"><code>sp &lt;- &quot;SAS&quot;
+df &lt;- get_all_3mer(sp)
+
+df &lt;- df %&gt;%
+  mutate(subtype = str_sub(Motif, 3, 7)) %&gt;%
+  ungroup() %&gt;%
+  mutate(pct = n / sum(n))
+
+p &lt;- df %&gt;%
+  arrange(subtype, Motif) %&gt;%
+  mutate(Motif = factor(Motif, levels=Motif)) %&gt;%
+  ggplot(aes(x = Motif, y = pct, fill = subtype, order = subtype)) + 
+  geom_col() +
+  theme(axis.text.x = element_text(angle = 90, vjust = 0.5, hjust=1)) + 
+  xlab(&quot;Subtype&quot;) + ylab(&quot;Relative Contribution&quot;) + ggtitle(paste0(&quot;1000G Singleton Spectrum - &quot;, sp))
+
+p</code></pre>
+<p><img src="figure/1000G_summary_stats.Rmd/unnamed-chunk-18-1.png" width="672" style="display: block; margin: auto;" /></p>
 <br>
 <p>
 <button type="button" class="btn btn-default btn-workflowr btn-workflowr-sessioninfo" data-toggle="collapse" data-target="#workflowr-sessioninfo" style="display: block;">
@@ -1027,7 +1218,6 @@ loaded via a namespace (and not attached):
 [61] glue_1.4.2       maps_3.4.0       hms_1.1.1        parallel_4.1.2  
 [65] fastmap_1.1.0    yaml_2.2.1       colorspace_2.0-2 rvest_1.0.2     
 [69] knitr_1.36       haven_2.4.3      sass_0.4.0      </code></pre>
-</div>
 </div>
 </div>
 </div>
