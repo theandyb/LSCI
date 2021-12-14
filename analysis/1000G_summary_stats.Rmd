@@ -10,6 +10,7 @@ editor_options:
 ```{r include=FALSE, message = FALSE, warning=FALSE}
 library(tidyverse)
 library(pals)
+library(tikzDevice)
 cbPalette <- c("#999999", "#E69F00", "#56B4E9", "#009E73", "#F0E442", "#0072B2", "#D55E00", "#CC79A7")
 ```
 
@@ -161,14 +162,14 @@ get_all_3mer <- function(pop){
 
 ```{r}
 sp <- "ALL"
-df <- get_all_3mer(sp)
+df_ALL <- get_all_3mer(sp)
 
-df <- df %>%
-  mutate(subtype = str_sub(Motif, 3, 7)) %>%
+df_ALL <- df_ALL %>%
+  mutate(subtype = str_sub(Motif, 3, 8)) %>%
   ungroup() %>%
   mutate(pct = n / sum(n))
 
-p <- df %>%
+p <- df_ALL %>%
   arrange(subtype, Motif) %>%
   mutate(Motif = factor(Motif, levels=Motif)) %>%
   ggplot(aes(x = Motif, y = pct, fill = subtype, order = subtype)) + 
@@ -183,14 +184,14 @@ p
 
 ```{r}
 sp <- "AFR"
-df <- get_all_3mer(sp)
+df_AFR <- get_all_3mer(sp)
 
-df <- df %>%
-  mutate(subtype = str_sub(Motif, 3, 7)) %>%
+df_AFR <- df_AFR %>%
+  mutate(subtype = str_sub(Motif, 3, 8)) %>%
   ungroup() %>%
   mutate(pct = n / sum(n))
 
-p <- df %>%
+p <- df_AFR %>%
   arrange(subtype, Motif) %>%
   mutate(Motif = factor(Motif, levels=Motif)) %>%
   ggplot(aes(x = Motif, y = pct, fill = subtype, order = subtype)) + 
@@ -205,14 +206,14 @@ p
 
 ```{r}
 sp <- "AMR"
-df <- get_all_3mer(sp)
+df_AMR <- get_all_3mer(sp)
 
-df <- df %>%
-  mutate(subtype = str_sub(Motif, 3, 7)) %>%
+df_AMR <- df_AMR %>%
+  mutate(subtype = str_sub(Motif, 3, 8)) %>%
   ungroup() %>%
   mutate(pct = n / sum(n))
 
-p <- df %>%
+p <- df_AMR %>%
   arrange(subtype, Motif) %>%
   mutate(Motif = factor(Motif, levels=Motif)) %>%
   ggplot(aes(x = Motif, y = pct, fill = subtype, order = subtype)) + 
@@ -227,14 +228,14 @@ p
 
 ```{r}
 sp <- "EAS"
-df <- get_all_3mer(sp)
+df_EAS <- get_all_3mer(sp)
 
-df <- df %>%
-  mutate(subtype = str_sub(Motif, 3, 7)) %>%
+df_EAS <- df_EAS %>%
+  mutate(subtype = str_sub(Motif, 3, 8)) %>%
   ungroup() %>%
   mutate(pct = n / sum(n))
 
-p <- df %>%
+p <- df_EAS %>%
   arrange(subtype, Motif) %>%
   mutate(Motif = factor(Motif, levels=Motif)) %>%
   ggplot(aes(x = Motif, y = pct, fill = subtype, order = subtype)) + 
@@ -249,14 +250,14 @@ p
 
 ```{r}
 sp <- "EUR"
-df <- get_all_3mer(sp)
+df_EUR <- get_all_3mer(sp)
 
-df <- df %>%
-  mutate(subtype = str_sub(Motif, 3, 7)) %>%
+df_EUR <- df_EUR %>%
+  mutate(subtype = str_sub(Motif, 3, 8)) %>%
   ungroup() %>%
   mutate(pct = n / sum(n))
 
-p <- df %>%
+p <- df_EUR %>%
   arrange(subtype, Motif) %>%
   mutate(Motif = factor(Motif, levels=Motif)) %>%
   ggplot(aes(x = Motif, y = pct, fill = subtype, order = subtype)) + 
@@ -271,14 +272,14 @@ p
 
 ```{r}
 sp <- "SAS"
-df <- get_all_3mer(sp)
+df_SAS <- get_all_3mer(sp)
 
-df <- df %>%
+df_SAS <- df_SAS %>%
   mutate(subtype = str_sub(Motif, 3, 7)) %>%
   ungroup() %>%
   mutate(pct = n / sum(n))
 
-p <- df %>%
+p <- df_SAS %>%
   arrange(subtype, Motif) %>%
   mutate(Motif = factor(Motif, levels=Motif)) %>%
   ggplot(aes(x = Motif, y = pct, fill = subtype, order = subtype)) + 
@@ -287,5 +288,33 @@ p <- df %>%
   xlab("Subtype") + ylab("Relative Contribution") + ggtitle(paste0("1000G Singleton Spectrum - ", sp))
 
 p
+```
+
+### Relative Enrichment
+
+#### AFR - EUR
+
+```{r}
+df_AFR %>%
+  select(Motif, pct) %>%
+  full_join({df_EUR %>% select(Motif, pct, subtype)}, by = "Motif") %>%
+  rename(pct_AFR = pct.x, pct_EUR = pct.y) %>%
+  mutate(enrichment = pct_EUR / pct_AFR) %>%
+  arrange(subtype, Motif) %>%
+  mutate(Motif = factor(Motif, levels=Motif)) %>%
+  ggplot(aes(x = Motif, y = enrichment, colour = subtype)) +
+  geom_point() +
+  theme(axis.text.x = element_text(angle = 90, vjust = 0.5, hjust=1)) +
+  ggtitle("EUR / AFR Enrichment")
+```
+
+```{r results='asis'}
+df_AFR %>%
+  select(Motif, pct) %>%
+  full_join({df_EUR %>% select(Motif, pct, subtype)}, by = "Motif") %>%
+  rename(pct_AFR = pct.x, pct_EUR = pct.y) %>%
+  mutate(enrichment = pct_EUR / pct_AFR) %>%
+  arrange(desc(enrichment)) %>%
+  knitr::kable()
 ```
 
