@@ -379,7 +379,7 @@ div.tocify {
 <div class="tab-content">
 <div id="summary" class="tab-pane fade in active">
 <p>
-<strong>Last updated:</strong> 2021-11-09
+<strong>Last updated:</strong> 2021-12-13
 </p>
 <p>
 <strong>Checks:</strong> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> 7 <span class="glyphicon glyphicon-exclamation-sign text-danger" aria-hidden="true"></span> 0
@@ -470,16 +470,16 @@ This reproducible <a href="http://rmarkdown.rstudio.com">R Markdown</a> analysis
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomtheandybLSCItree1a782cb744ce1e27f93fe48b141573cfc544df63targetblank1a782cba"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/theandyb/LSCI/tree/1a782cb744ce1e27f93fe48b141573cfc544df63" target="_blank">1a782cb</a> </a>
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomtheandybLSCItreea10376d5b1857eb0eee13ec5f68b3c3faf8f766btargetblanka10376da"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/theandyb/LSCI/tree/a10376d5b1857eb0eee13ec5f68b3c3faf8f766b" target="_blank">a10376d</a> </a>
 </p>
 </div>
-<div id="strongRepositoryversionstrongahrefhttpsgithubcomtheandybLSCItree1a782cb744ce1e27f93fe48b141573cfc544df63targetblank1a782cba" class="panel-collapse collapse">
+<div id="strongRepositoryversionstrongahrefhttpsgithubcomtheandybLSCItreea10376d5b1857eb0eee13ec5f68b3c3faf8f766btargetblanka10376da" class="panel-collapse collapse">
 <div class="panel-body">
 <p>
 Great! You are using Git for version control. Tracking code development and connecting the code version to the results is critical for reproducibility.
 </p>
 <p>
-The results in this page were generated with repository version <a href="https://github.com/theandyb/LSCI/tree/1a782cb744ce1e27f93fe48b141573cfc544df63" target="_blank">1a782cb</a>. See the <em>Past versions</em> tab to see a history of the changes made to the R Markdown and HTML files.
+The results in this page were generated with repository version <a href="https://github.com/theandyb/LSCI/tree/a10376d5b1857eb0eee13ec5f68b3c3faf8f766b" target="_blank">a10376d</a>. See the <em>Past versions</em> tab to see a history of the changes made to the R Markdown and HTML files.
 </p>
 <p>
 Note that you need to be careful to ensure that all relevant files for the analysis have been committed to Git prior to generating the results (you can use <code>wflow_publish</code> or <code>wflow_git_commit</code>). workflowr only checks the R Markdown file, but you know if there are other scripts or data files that it depends on. Below is the status of the Git repository when the results were generated:
@@ -488,11 +488,11 @@ Note that you need to be careful to ensure that all relevant files for the analy
 Ignored files:
     Ignored:    .Rhistory
     Ignored:    .Rproj.user/
+    Ignored:    analysis/1000G_single_postion_comp_cache/
     Ignored:    analysis/disqus.html
 
-Unstaged changes:
-    Modified:   analysis/_site.yml
-    Modified:   analysis/outline.Rmd
+Untracked files:
+    Untracked:  output/tikz/
 
 </code></pre>
 <p>
@@ -531,6 +531,40 @@ Message
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+Rmd
+</td>
+<td>
+<a href="https://github.com/theandyb/LSCI/blob/a10376d5b1857eb0eee13ec5f68b3c3faf8f766b/analysis/BRIDGES_summary_stats.Rmd" target="_blank">a10376d</a>
+</td>
+<td>
+Andy Beck
+</td>
+<td>
+2021-12-13
+</td>
+<td>
+Add spectrum
+</td>
+</tr>
+<tr>
+<td>
+html
+</td>
+<td>
+<a href="https://rawcdn.githack.com/theandyb/LSCI/bcee6104baeb7c80b102faea4a04ffd5d3896da3/docs/BRIDGES_summary_stats.html" target="_blank">bcee610</a>
+</td>
+<td>
+Andy Beck
+</td>
+<td>
+2021-11-09
+</td>
+<td>
+update site to include disqus
+</td>
+</tr>
 <tr>
 <td>
 html
@@ -662,7 +696,7 @@ restructure
 
 df_BRIDGES &lt;- read_csv(&quot;/net/snowwhite/home/beckandy/research/BRIDGES_redo/output/singletons_per_subject.csv&quot;,
                        col_types = cols())
-df_BRIDGES %&gt;%
+p &lt;- df_BRIDGES %&gt;%
   ggplot(aes(x = n_singletons)) + 
   geom_density() +
   ggtitle(&quot;Singletons per Subject: BRIDGES&quot;,
@@ -671,7 +705,9 @@ df_BRIDGES %&gt;%
                  &quot;, Min: &quot; , min(df_BRIDGES$n_singletons) ,
                  &quot;, Max: &quot;, max(df_BRIDGES$n_singletons) ) 
           )+
-  xlab(&quot;Number of Singletons&quot;)</code></pre>
+  xlab(&quot;Number of Singletons&quot;)
+
+p</code></pre>
 <p><img src="figure/BRIDGES_summary_stats.Rmd/unnamed-chunk-2-1.png" width="672" style="display: block; margin: auto;" /></p>
 <p>
 <button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-2-1">
@@ -710,8 +746,70 @@ Andy Beck
 </table>
 </div>
 </div>
+<pre class="r"><code>tikz(&quot;output/tikz/singletons_per_sub_BRIDGES.tex&quot;)
+print(p)
+dev.off()</code></pre>
+<pre><code>png 
+  2 </code></pre>
 <p>Here, we can see that on average we see around 10,000 singletons per sample in the BRIDGES data set, although we do have outliers in both directions.</p>
 <p><strong>Question: Are these outlier samples different in other ways? E.g., 3-mer mutation spectra, spatial distribution of nucleotides genome-wide, etc?</strong></p>
+</div>
+<div id="singletons-per-subtype" class="section level2">
+<h2>Singletons per subtype</h2>
+<pre class="r"><code>data_dir &lt;- &quot;/net/snowwhite/home/beckandy/research/BRIDGES_redo/output/singletons/&quot;
+subtypes &lt;- c(&quot;AT_CG&quot;,&quot;AT_GC&quot;,&quot;AT_TA&quot;, &quot;GC_AT&quot;, &quot;GC_TA&quot;, &quot;GC_CG&quot;, &quot;cpg_GC_AT&quot;, &quot;cpg_GC_TA&quot;, &quot;cpg_GC_CG&quot;)
+final &lt;- data.frame(subtype = character(), n = numeric())
+for(st in subtypes){
+  n &lt;- system2(&quot;wc&quot;, args = c(&quot;-l&quot;, paste0(data_dir, st, &quot;.txt&quot;), &quot; | awk &#39;{print $1}&#39;&quot;), stdout = TRUE) %&gt;% as.numeric()
+  final &lt;- bind_rows(final, data.frame(subtype = st, n = n))
+}
+final</code></pre>
+<pre><code>    subtype       n
+1     AT_CG 2661506
+2     AT_GC 9850175
+3     AT_TA 2551216
+4     GC_AT 9034539
+5     GC_TA 3379715
+6     GC_CG 2958993
+7 cpg_GC_AT 5192086
+8 cpg_GC_TA  305431
+9 cpg_GC_CG  232279</code></pre>
+</div>
+<div id="mer-spectra---all-subjects" class="section level2">
+<h2>3mer Spectra - All Subjects</h2>
+<pre class="r"><code>get_subtype_3mer &lt;- function(subtype){
+  data_dir &lt;- &quot;/net/snowwhite/home/beckandy/research/BRIDGES_redo/output/singletons&quot;
+  awk_cmd &lt;- paste0(&quot;awk &#39;{count[substr($1,10,3)]++}END{for(key in count)print(key, count[key])}&#39; &quot;,
+                    data_dir, &quot;/&quot;, subtype, &quot;.txt&quot;)
+  df &lt;- vroom::vroom(pipe(awk_cmd), col_names = c(&quot;Motif&quot;, &quot;n&quot;), show_col_types = FALSE) %&gt;%
+    rowwise() %&gt;%
+    mutate(Motif = paste0(str_sub(Motif, 1, 1), &quot;[&quot;, str_remove(subtype, &quot;cpg_&quot;), &quot;]&quot;, str_sub(Motif, 3, 3)))
+  return(df)
+}
+
+get_all_3mer &lt;- function(){
+  subtypes &lt;- c(&quot;AT_CG&quot;, &quot;AT_GC&quot;, &quot;AT_TA&quot;, &quot;GC_AT&quot;, &quot;GC_TA&quot;, &quot;GC_CG&quot;, &quot;cpg_GC_AT&quot;, &quot;cpg_GC_TA&quot;, &quot;cpg_GC_CG&quot;)
+  df_list &lt;- vector(&quot;list&quot;, length(subtypes))
+  names(df_list) &lt;- subtypes
+  for(st in subtypes){
+    df_list[[st]] &lt;- get_subtype_3mer(st)
+  }
+  return(bind_rows(df_list))
+}
+
+bridges_3mer &lt;- get_all_3mer()</code></pre>
+<pre class="r"><code>bridges_3mer &lt;- bridges_3mer %&gt;%
+  mutate(subtype = str_sub(Motif, 3, 7)) %&gt;%
+  ungroup() %&gt;%
+  mutate(pct = n / sum(n))</code></pre>
+<pre class="r"><code>bridges_3mer %&gt;%
+  arrange(subtype, Motif) %&gt;%
+  mutate(Motif = factor(Motif, levels=Motif)) %&gt;%
+  ggplot(aes(x = Motif, y = pct, fill = subtype, order = subtype)) + 
+  geom_col() +
+  theme(axis.text.x = element_text(angle = 90, vjust = 0.5, hjust=1)) + 
+  xlab(&quot;Subtype&quot;) + ylab(&quot;Relative Contribution&quot;) + ggtitle(&quot;BRIDGES Singleton Spectrum&quot;)</code></pre>
+<p><img src="figure/BRIDGES_summary_stats.Rmd/unnamed-chunk-6-1.png" width="672" style="display: block; margin: auto;" /></p>
 <br>
 <p>
 <button type="button" class="btn btn-default btn-workflowr btn-workflowr-sessioninfo" data-toggle="collapse" data-target="#workflowr-sessioninfo" style="display: block;">
@@ -740,9 +838,10 @@ attached base packages:
 [1] stats     graphics  grDevices utils     datasets  methods   base     
 
 other attached packages:
- [1] forcats_0.5.1   stringr_1.4.0   dplyr_1.0.7     purrr_0.3.4    
- [5] readr_2.0.2     tidyr_1.1.4     tibble_3.1.5    ggplot2_3.3.5  
- [9] tidyverse_1.3.1 workflowr_1.6.2
+ [1] tikzDevice_0.12.3.1 forcats_0.5.1       stringr_1.4.0      
+ [4] dplyr_1.0.7         purrr_0.3.4         readr_2.0.2        
+ [7] tidyr_1.1.4         tibble_3.1.5        ggplot2_3.3.5      
+[10] tidyverse_1.3.1     workflowr_1.6.2    
 
 loaded via a namespace (and not attached):
  [1] Rcpp_1.0.7       lubridate_1.8.0  assertthat_0.2.1 rprojroot_2.0.2 
@@ -761,7 +860,8 @@ loaded via a namespace (and not attached):
 [53] bslib_0.3.1      ellipsis_0.3.2   generics_0.1.1   vctrs_0.3.8     
 [57] tools_4.1.2      bit64_4.0.5      glue_1.4.2       hms_1.1.1       
 [61] parallel_4.1.2   fastmap_1.1.0    yaml_2.2.1       colorspace_2.0-2
-[65] rvest_1.0.2      knitr_1.36       haven_2.4.3      sass_0.4.0      </code></pre>
+[65] filehash_2.4-2   rvest_1.0.2      knitr_1.36       haven_2.4.3     
+[69] sass_0.4.0      </code></pre>
 </div>
 </div>
 </div>
