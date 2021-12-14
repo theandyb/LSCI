@@ -128,3 +128,164 @@ knitr::kable(table(samples_EUR$`Population code`))
 ```{r results='asis'}
 knitr::kable(table(samples_SAS$`Population code`))
 ```
+
+## 3mer Spectrum
+
+```{r}
+get_subtype_3mer <- function(subtype, pop){
+  nucs <- c("A", "C", "G", "T")
+  data_dir <- "/net/snowwhite/home/beckandy/research/1000G_LSCI/output/singletons"
+  awk_cmd <- paste0("awk '{count[substr($1,10,3)]++}END{for(key in count)print(key, count[key])}' ",
+                    data_dir, "/", pop, "/", subtype, ".txt")
+  df <- vroom::vroom(pipe(awk_cmd), col_names = c("Motif", "n"), show_col_types = FALSE) %>%
+    rowwise() %>%
+    filter(str_sub(Motif, 1, 1) %in% nucs,
+           str_sub(Motif, -1) %in% nucs) %>%
+    mutate(subtype = str_replace_all(subtype,"_","->")) %>%
+    mutate(Motif = paste0(str_sub(Motif, 1, 1), "(", str_remove(subtype, "cpg->"), ")", str_sub(Motif, 3, 3)))
+  return(df)
+}
+
+get_all_3mer <- function(pop){
+  subtypes <- c("AT_CG", "AT_GC", "AT_TA", "GC_AT", "GC_TA", "GC_CG", "cpg_GC_AT", "cpg_GC_TA", "cpg_GC_CG")
+  df_list <- vector("list", length(subtypes))
+  names(df_list) <- subtypes
+  for(st in subtypes){
+    df_list[[st]] <- get_subtype_3mer(st, pop)
+  }
+  return(bind_rows(df_list))
+}
+```
+
+### ALL
+
+```{r}
+sp <- "ALL"
+df <- get_all_3mer(sp)
+
+df <- df %>%
+  mutate(subtype = str_sub(Motif, 3, 7)) %>%
+  ungroup() %>%
+  mutate(pct = n / sum(n))
+
+p <- df %>%
+  arrange(subtype, Motif) %>%
+  mutate(Motif = factor(Motif, levels=Motif)) %>%
+  ggplot(aes(x = Motif, y = pct, fill = subtype, order = subtype)) + 
+  geom_col() +
+  theme(axis.text.x = element_text(angle = 90, vjust = 0.5, hjust=1)) + 
+  xlab("Subtype") + ylab("Relative Contribution") + ggtitle(paste0("1000G Singleton Spectrum - ", sp))
+
+p
+```
+
+### AFR
+
+```{r}
+sp <- "AFR"
+df <- get_all_3mer(sp)
+
+df <- df %>%
+  mutate(subtype = str_sub(Motif, 3, 7)) %>%
+  ungroup() %>%
+  mutate(pct = n / sum(n))
+
+p <- df %>%
+  arrange(subtype, Motif) %>%
+  mutate(Motif = factor(Motif, levels=Motif)) %>%
+  ggplot(aes(x = Motif, y = pct, fill = subtype, order = subtype)) + 
+  geom_col() +
+  theme(axis.text.x = element_text(angle = 90, vjust = 0.5, hjust=1)) + 
+  xlab("Subtype") + ylab("Relative Contribution") + ggtitle(paste0("1000G Singleton Spectrum - ", sp))
+
+p
+```
+
+### AMR
+
+```{r}
+sp <- "AMR"
+df <- get_all_3mer(sp)
+
+df <- df %>%
+  mutate(subtype = str_sub(Motif, 3, 7)) %>%
+  ungroup() %>%
+  mutate(pct = n / sum(n))
+
+p <- df %>%
+  arrange(subtype, Motif) %>%
+  mutate(Motif = factor(Motif, levels=Motif)) %>%
+  ggplot(aes(x = Motif, y = pct, fill = subtype, order = subtype)) + 
+  geom_col() +
+  theme(axis.text.x = element_text(angle = 90, vjust = 0.5, hjust=1)) + 
+  xlab("Subtype") + ylab("Relative Contribution") + ggtitle(paste0("1000G Singleton Spectrum - ", sp))
+
+p
+```
+
+### EAS
+
+```{r}
+sp <- "EAS"
+df <- get_all_3mer(sp)
+
+df <- df %>%
+  mutate(subtype = str_sub(Motif, 3, 7)) %>%
+  ungroup() %>%
+  mutate(pct = n / sum(n))
+
+p <- df %>%
+  arrange(subtype, Motif) %>%
+  mutate(Motif = factor(Motif, levels=Motif)) %>%
+  ggplot(aes(x = Motif, y = pct, fill = subtype, order = subtype)) + 
+  geom_col() +
+  theme(axis.text.x = element_text(angle = 90, vjust = 0.5, hjust=1)) + 
+  xlab("Subtype") + ylab("Relative Contribution") + ggtitle(paste0("1000G Singleton Spectrum - ", sp))
+
+p
+```
+
+### EUR
+
+```{r}
+sp <- "EUR"
+df <- get_all_3mer(sp)
+
+df <- df %>%
+  mutate(subtype = str_sub(Motif, 3, 7)) %>%
+  ungroup() %>%
+  mutate(pct = n / sum(n))
+
+p <- df %>%
+  arrange(subtype, Motif) %>%
+  mutate(Motif = factor(Motif, levels=Motif)) %>%
+  ggplot(aes(x = Motif, y = pct, fill = subtype, order = subtype)) + 
+  geom_col() +
+  theme(axis.text.x = element_text(angle = 90, vjust = 0.5, hjust=1)) + 
+  xlab("Subtype") + ylab("Relative Contribution") + ggtitle(paste0("1000G Singleton Spectrum - ", sp))
+
+p
+```
+
+### SAS
+
+```{r}
+sp <- "SAS"
+df <- get_all_3mer(sp)
+
+df <- df %>%
+  mutate(subtype = str_sub(Motif, 3, 7)) %>%
+  ungroup() %>%
+  mutate(pct = n / sum(n))
+
+p <- df %>%
+  arrange(subtype, Motif) %>%
+  mutate(Motif = factor(Motif, levels=Motif)) %>%
+  ggplot(aes(x = Motif, y = pct, fill = subtype, order = subtype)) + 
+  geom_col() +
+  theme(axis.text.x = element_text(angle = 90, vjust = 0.5, hjust=1)) + 
+  xlab("Subtype") + ylab("Relative Contribution") + ggtitle(paste0("1000G Singleton Spectrum - ", sp))
+
+p
+```
+
