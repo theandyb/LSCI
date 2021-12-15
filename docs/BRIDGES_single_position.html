@@ -361,7 +361,7 @@ div.tocify {
 
 <p>
 <button type="button" class="btn btn-default btn-workflowr btn-workflowr-report" data-toggle="collapse" data-target="#workflowr-report">
-<span class="glyphicon glyphicon-list" aria-hidden="true"></span> workflowr <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span>
+<span class="glyphicon glyphicon-list" aria-hidden="true"></span> workflowr <span class="glyphicon glyphicon-exclamation-sign text-danger" aria-hidden="true"></span>
 </button>
 </p>
 <div id="workflowr-report" class="collapse">
@@ -370,7 +370,7 @@ div.tocify {
 <a data-toggle="tab" href="#summary">Summary</a>
 </li>
 <li>
-<a data-toggle="tab" href="#checks"> Checks <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> </a>
+<a data-toggle="tab" href="#checks"> Checks <span class="glyphicon glyphicon-exclamation-sign text-danger" aria-hidden="true"></span> </a>
 </li>
 <li>
 <a data-toggle="tab" href="#versions">Past versions</a>
@@ -379,10 +379,10 @@ div.tocify {
 <div class="tab-content">
 <div id="summary" class="tab-pane fade in active">
 <p>
-<strong>Last updated:</strong> 2021-11-09
+<strong>Last updated:</strong> 2021-12-15
 </p>
 <p>
-<strong>Checks:</strong> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> 7 <span class="glyphicon glyphicon-exclamation-sign text-danger" aria-hidden="true"></span> 0
+<strong>Checks:</strong> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> 6 <span class="glyphicon glyphicon-exclamation-sign text-danger" aria-hidden="true"></span> 1
 </p>
 <p>
 <strong>Knit directory:</strong> <code>LSCI/</code> <span class="glyphicon glyphicon-question-sign" aria-hidden="true" title="This is the local directory in which the code in this file was executed."> </span>
@@ -458,28 +458,60 @@ This reproducible <a href="http://rmarkdown.rstudio.com">R Markdown</a> analysis
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongFilepathsstrongrelative"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>File paths:</strong> relative </a>
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongFilepathsstrongabsolute"> <span class="glyphicon glyphicon-exclamation-sign text-danger" aria-hidden="true"></span> <strong>File paths:</strong> absolute </a>
 </p>
 </div>
-<div id="strongFilepathsstrongrelative" class="panel-collapse collapse">
+<div id="strongFilepathsstrongabsolute" class="panel-collapse collapse">
 <div class="panel-body">
-<p>Great job! Using relative paths to the files within your workflowr project makes it easier to run your code on other machines.</p>
+<p>
+Using absolute paths to the files within your workflowr project makes it difficult for you and others to run your code on a different machine. Change the absolute path(s) below to the suggested relative path(s) to make your code more reproducible.
+</p>
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th style="text-align:left;">
+absolute
+</th>
+<th style="text-align:left;">
+relative
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;">
+/net/snowwhite/home/beckandy/research/documentation/LSCI/output/tikz/single_pos/chisq_
+</td>
+<td style="text-align:left;">
+output/tikz/single_pos/chisq_
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+/net/snowwhite/home/beckandy/research/documentation/LSCI/output/tikz/single_pos/cohen_
+</td>
+<td style="text-align:left;">
+output/tikz/single_pos/cohen_
+</td>
+</tr>
+</tbody>
+</table>
 </div>
 </div>
 </div>
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomtheandybLSCItree1a782cb744ce1e27f93fe48b141573cfc544df63targetblank1a782cba"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/theandyb/LSCI/tree/1a782cb744ce1e27f93fe48b141573cfc544df63" target="_blank">1a782cb</a> </a>
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomtheandybLSCItree04aa93e2c96ae15422f4181804d46542457a2215targetblank04aa93ea"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/theandyb/LSCI/tree/04aa93e2c96ae15422f4181804d46542457a2215" target="_blank">04aa93e</a> </a>
 </p>
 </div>
-<div id="strongRepositoryversionstrongahrefhttpsgithubcomtheandybLSCItree1a782cb744ce1e27f93fe48b141573cfc544df63targetblank1a782cba" class="panel-collapse collapse">
+<div id="strongRepositoryversionstrongahrefhttpsgithubcomtheandybLSCItree04aa93e2c96ae15422f4181804d46542457a2215targetblank04aa93ea" class="panel-collapse collapse">
 <div class="panel-body">
 <p>
 Great! You are using Git for version control. Tracking code development and connecting the code version to the results is critical for reproducibility.
 </p>
 <p>
-The results in this page were generated with repository version <a href="https://github.com/theandyb/LSCI/tree/1a782cb744ce1e27f93fe48b141573cfc544df63" target="_blank">1a782cb</a>. See the <em>Past versions</em> tab to see a history of the changes made to the R Markdown and HTML files.
+The results in this page were generated with repository version <a href="https://github.com/theandyb/LSCI/tree/04aa93e2c96ae15422f4181804d46542457a2215" target="_blank">04aa93e</a>. See the <em>Past versions</em> tab to see a history of the changes made to the R Markdown and HTML files.
 </p>
 <p>
 Note that you need to be careful to ensure that all relevant files for the analysis have been committed to Git prior to generating the results (you can use <code>wflow_publish</code> or <code>wflow_git_commit</code>). workflowr only checks the R Markdown file, but you know if there are other scripts or data files that it depends on. Below is the status of the Git repository when the results were generated:
@@ -488,11 +520,18 @@ Note that you need to be careful to ensure that all relevant files for the analy
 Ignored files:
     Ignored:    .Rhistory
     Ignored:    .Rproj.user/
+    Ignored:    analysis/1000G_single_postion_comp_cache/
     Ignored:    analysis/disqus.html
+    Ignored:    analysis/figure/
+
+Untracked files:
+    Untracked:  BRIDGES_single_position-tikzDictionary
+    Untracked:  BRIDGES_summary_stats-tikzDictionary
+    Untracked:  output/tikz/
 
 Unstaged changes:
-    Modified:   analysis/_site.yml
-    Modified:   analysis/outline.Rmd
+    Modified:   analysis/1000G_single_position_ALL.Rmd
+    Modified:   analysis/BRIDGES_summary_stats.Rmd
 
 </code></pre>
 <p>
@@ -531,6 +570,40 @@ Message
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+Rmd
+</td>
+<td>
+<a href="https://github.com/theandyb/LSCI/blob/04aa93e2c96ae15422f4181804d46542457a2215/analysis/BRIDGES_single_position.Rmd" target="_blank">04aa93e</a>
+</td>
+<td>
+Andy Beck
+</td>
+<td>
+2021-12-15
+</td>
+<td>
+add tikz and cohen
+</td>
+</tr>
+<tr>
+<td>
+html
+</td>
+<td>
+<a href="https://rawcdn.githack.com/theandyb/LSCI/bcee6104baeb7c80b102faea4a04ffd5d3896da3/docs/BRIDGES_single_position.html" target="_blank">bcee610</a>
+</td>
+<td>
+Andy Beck
+</td>
+<td>
+2021-11-09
+</td>
+<td>
+update site to include disqus
+</td>
+</tr>
 <tr>
 <td>
 html
@@ -710,7 +783,11 @@ Add single position document for BRIDGES
 </table>
 <p>using rates we observe nucleotides flanking the same reference allele genome-wide or in a sample of control observations sampled for each singleton. That is, for each nucleotide we compute an expected count based on the frequency observed in either the genome-wide distribution or the control sample ( $ e_{X,i} = _{X,i} n_S$ ) and use the chi-square goodness of fit statistic to assess deviance from this null model (i.e. are singletons uniformly sampled from either the genome-wide or control distribution)?</p>
 <p><span class="math display">\[
-\chi_i = \sum_{x \in \{A,C,G,T\} }\frac{(n_{x,i} - e_{x,i})^2}{e_{x,i}}, i \in (-10,-1),(1,10) 
+\chi^2_i = \sum_{x \in \{A,C,G,T\} }\frac{(n_{x,i} - e_{x,i})^2}{e_{x,i}}, i \in (-10,-1),(1,10) 
+\]</span></p>
+<p>Since we have a large number of singletons within each sub type, we have high power to detect small differences in distribution. Also, due to differences in the number of singletons within each sub type, statistics need to be adjusted to account for this sample size difference in order to make comparisons across sub types. To facilitate this, we compute Cohen’s w (Cohen 1988), an effect size measure that does not depend on sample size.</p>
+<p><span class="math display">\[
+w_i = \sqrt{\frac{\chi^2_i}{N}}
 \]</span></p>
 </div>
 </div>
@@ -719,47 +796,98 @@ Add single position document for BRIDGES
 <p>The nine basic subtypes are AT_CG, AT_GC, AT_TA, GC_AT, GC_TA, GC_CG, cpg_GC_AT, cpg_GC_TA, and cpg_GC_CG, where the notation XY_JK indicates we either observed a X&gt;J or Y&gt;K substitution, with XY and JK being complementary to each other. For each sub-type with reference alleles XY and position i within a 21-mer window centered at the singleton, we model the distributions of nucleotides A, C, G and T flanking the singletons using the rates we observe either genome-wide flanking the reference nucleotides XY at the same relative position or the rates of nucleotides flanking control positions sampled for each singleton. We use the chi-square goodness of fit statistic to “measure” the degree to which this model doesn’t hold. First, let’s plot the deviance statistics we observe at each relative position for each sub-type.</p>
 <div id="at_cg" class="section level3">
 <h3>AT_CG</h3>
-<p><img src="figure/BRIDGES_single_position.Rmd/unnamed-chunk-3-1.png" width="672" style="display: block; margin: auto;" /></p>
-<p>
-<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-3-1">
-Past versions of unnamed-chunk-3-1.png
-</button>
-</p>
-<div id="fig-unnamed-chunk-3-1" class="collapse">
-<div class="table-responsive">
-<table class="table table-condensed table-hover">
+<p>As an illustrative example, let us first look at the data from one relative position. Here we use the <code>load_results</code> function to gather the data for the AT-&gt;CG sub type at the -1 relative position:</p>
+<pre class="r"><code>load_results(&quot;AT_CG&quot;, -1) %&gt;%
+  knitr::kable()</code></pre>
+<table style="width:100%;">
+<colgroup>
+<col width="3%" />
+<col width="10%" />
+<col width="8%" />
+<col width="8%" />
+<col width="9%" />
+<col width="9%" />
+<col width="9%" />
+<col width="8%" />
+<col width="8%" />
+<col width="10%" />
+<col width="9%" />
+</colgroup>
 <thead>
-<tr>
-<th>
-Version
-</th>
-<th>
-Author
-</th>
-<th>
-Date
-</th>
+<tr class="header">
+<th align="left">Nuc</th>
+<th align="right">singletons</th>
+<th align="right">controls</th>
+<th align="right">n_gw</th>
+<th align="right">pct_gw</th>
+<th align="right">pct_c</th>
+<th align="right">pct_s</th>
+<th align="right">exp_gw</th>
+<th align="right">exp_ct</th>
+<th align="right">chi_sq_gw</th>
+<th align="right">chi_sq_ct</th>
 </tr>
 </thead>
 <tbody>
-<tr>
-<td>
-<a href="https://github.com/theandyb/LSCI/blob/6842cad988a7466fab1ee8ce3ccc32c7a5985830/docs/figure/BRIDGES_single_position.Rmd/unnamed-chunk-3-1.png" target="_blank">6842cad</a>
-</td>
-<td>
-Andy Beck
-</td>
-<td>
-2021-11-01
-</td>
+<tr class="odd">
+<td align="left">A</td>
+<td align="right">891871</td>
+<td align="right">4241235</td>
+<td align="right">42876777</td>
+<td align="right">0.3267060</td>
+<td align="right">0.3187094</td>
+<td align="right">0.3351001</td>
+<td align="right">869530.0</td>
+<td align="right">848247.0</td>
+<td align="right">574.0121</td>
+<td align="right">2243.513</td>
+</tr>
+<tr class="even">
+<td align="left">C</td>
+<td align="right">834858</td>
+<td align="right">3367862</td>
+<td align="right">32794386</td>
+<td align="right">0.2498817</td>
+<td align="right">0.2530794</td>
+<td align="right">0.3136788</td>
+<td align="right">665061.7</td>
+<td align="right">673572.4</td>
+<td align="right">43350.5409</td>
+<td align="right">38619.523</td>
+</tr>
+<tr class="odd">
+<td align="left">G</td>
+<td align="right">446653</td>
+<td align="right">2722065</td>
+<td align="right">26949393</td>
+<td align="right">0.2053449</td>
+<td align="right">0.2045507</td>
+<td align="right">0.1678196</td>
+<td align="right">546526.7</td>
+<td align="right">544413.0</td>
+<td align="right">18251.1929</td>
+<td align="right">17554.720</td>
+</tr>
+<tr class="even">
+<td align="left">T</td>
+<td align="right">488124</td>
+<td align="right">2976368</td>
+<td align="right">28619080</td>
+<td align="right">0.2180674</td>
+<td align="right">0.2236604</td>
+<td align="right">0.1834014</td>
+<td align="right">580387.6</td>
+<td align="right">595273.6</td>
+<td align="right">14667.0370</td>
+<td align="right">19286.991</td>
 </tr>
 </tbody>
 </table>
-</div>
-</div>
-</div>
-<div id="at_gc" class="section level3">
-<h3>AT_GC</h3>
+<p>We can grab the results across all positions and sum the <span class="math inline">\(\chi^2\)</span> residuals to get the position level statistics. Let’s visualize both these and the sample-size adjusted Cohen’s w</p>
+<pre><code>png 
+  2 </code></pre>
+<pre><code>png 
+  2 </code></pre>
 <p><img src="figure/BRIDGES_single_position.Rmd/unnamed-chunk-4-1.png" width="672" style="display: block; margin: auto;" /></p>
 <p>
 <button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-4-1">
@@ -798,9 +926,14 @@ Andy Beck
 </table>
 </div>
 </div>
+<p><img src="figure/BRIDGES_single_position.Rmd/unnamed-chunk-4-2.png" width="672" style="display: block; margin: auto;" /></p>
 </div>
-<div id="at_ta" class="section level3">
-<h3>AT_TA</h3>
+<div id="at_gc" class="section level3">
+<h3>AT_GC</h3>
+<pre><code>png 
+  2 </code></pre>
+<pre><code>png 
+  2 </code></pre>
 <p><img src="figure/BRIDGES_single_position.Rmd/unnamed-chunk-5-1.png" width="672" style="display: block; margin: auto;" /></p>
 <p>
 <button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-5-1">
@@ -839,9 +972,14 @@ Andy Beck
 </table>
 </div>
 </div>
+<p><img src="figure/BRIDGES_single_position.Rmd/unnamed-chunk-5-2.png" width="672" style="display: block; margin: auto;" /></p>
 </div>
-<div id="gc_at" class="section level3">
-<h3>GC_AT</h3>
+<div id="at_ta" class="section level3">
+<h3>AT_TA</h3>
+<pre><code>png 
+  2 </code></pre>
+<pre><code>png 
+  2 </code></pre>
 <p><img src="figure/BRIDGES_single_position.Rmd/unnamed-chunk-6-1.png" width="672" style="display: block; margin: auto;" /></p>
 <p>
 <button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-6-1">
@@ -880,9 +1018,14 @@ Andy Beck
 </table>
 </div>
 </div>
+<p><img src="figure/BRIDGES_single_position.Rmd/unnamed-chunk-6-2.png" width="672" style="display: block; margin: auto;" /></p>
 </div>
-<div id="gc_ta" class="section level3">
-<h3>GC_TA</h3>
+<div id="gc_at" class="section level3">
+<h3>GC_AT</h3>
+<pre><code>png 
+  2 </code></pre>
+<pre><code>png 
+  2 </code></pre>
 <p><img src="figure/BRIDGES_single_position.Rmd/unnamed-chunk-7-1.png" width="672" style="display: block; margin: auto;" /></p>
 <p>
 <button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-7-1">
@@ -921,9 +1064,14 @@ Andy Beck
 </table>
 </div>
 </div>
+<p><img src="figure/BRIDGES_single_position.Rmd/unnamed-chunk-7-2.png" width="672" style="display: block; margin: auto;" /></p>
 </div>
-<div id="gc_cg" class="section level3">
-<h3>GC_CG</h3>
+<div id="gc_ta" class="section level3">
+<h3>GC_TA</h3>
+<pre><code>png 
+  2 </code></pre>
+<pre><code>png 
+  2 </code></pre>
 <p><img src="figure/BRIDGES_single_position.Rmd/unnamed-chunk-8-1.png" width="672" style="display: block; margin: auto;" /></p>
 <p>
 <button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-8-1">
@@ -962,9 +1110,14 @@ Andy Beck
 </table>
 </div>
 </div>
+<p><img src="figure/BRIDGES_single_position.Rmd/unnamed-chunk-8-2.png" width="672" style="display: block; margin: auto;" /></p>
 </div>
-<div id="cpg_gc_at" class="section level3">
-<h3>cpg_GC_AT</h3>
+<div id="gc_cg" class="section level3">
+<h3>GC_CG</h3>
+<pre><code>png 
+  2 </code></pre>
+<pre><code>png 
+  2 </code></pre>
 <p><img src="figure/BRIDGES_single_position.Rmd/unnamed-chunk-9-1.png" width="672" style="display: block; margin: auto;" /></p>
 <p>
 <button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-9-1">
@@ -1003,9 +1156,14 @@ Andy Beck
 </table>
 </div>
 </div>
+<p><img src="figure/BRIDGES_single_position.Rmd/unnamed-chunk-9-2.png" width="672" style="display: block; margin: auto;" /></p>
 </div>
-<div id="cpg_gc_ta" class="section level3">
-<h3>cpg_GC_TA</h3>
+<div id="cpg_gc_at" class="section level3">
+<h3>cpg_GC_AT</h3>
+<pre><code>png 
+  2 </code></pre>
+<pre><code>png 
+  2 </code></pre>
 <p><img src="figure/BRIDGES_single_position.Rmd/unnamed-chunk-10-1.png" width="672" style="display: block; margin: auto;" /></p>
 <p>
 <button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-10-1">
@@ -1044,9 +1202,14 @@ Andy Beck
 </table>
 </div>
 </div>
+<p><img src="figure/BRIDGES_single_position.Rmd/unnamed-chunk-10-2.png" width="672" style="display: block; margin: auto;" /></p>
 </div>
-<div id="cpg_gc_cg" class="section level3">
-<h3>cpg_GC_CG</h3>
+<div id="cpg_gc_ta" class="section level3">
+<h3>cpg_GC_TA</h3>
+<pre><code>png 
+  2 </code></pre>
+<pre><code>png 
+  2 </code></pre>
 <p><img src="figure/BRIDGES_single_position.Rmd/unnamed-chunk-11-1.png" width="672" style="display: block; margin: auto;" /></p>
 <p>
 <button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-11-1">
@@ -1085,6 +1248,15 @@ Andy Beck
 </table>
 </div>
 </div>
+<p><img src="figure/BRIDGES_single_position.Rmd/unnamed-chunk-11-2.png" width="672" style="display: block; margin: auto;" /></p>
+</div>
+<div id="cpg_gc_cg" class="section level3">
+<h3>cpg_GC_CG</h3>
+<pre><code>png 
+  2 </code></pre>
+<pre><code>png 
+  2 </code></pre>
+<p><img src="figure/BRIDGES_single_position.Rmd/unnamed-chunk-12-1.png" width="672" style="display: block; margin: auto;" /><img src="figure/BRIDGES_single_position.Rmd/unnamed-chunk-12-2.png" width="672" style="display: block; margin: auto;" /></p>
 </div>
 </div>
 <div id="subtype-results-1" class="section level2">
@@ -1093,86 +1265,6 @@ Andy Beck
 <div id="at_cg-1" class="section level3">
 <h3>AT_CG</h3>
 <p>For our first analysis, let’s compare the results we observe in the AT_CG sub-type to what we observe for the two simple sub-types which contribute to this composite sub-type: A&gt;C and T&gt;G. Note that in order to compare T&gt;G to AT&gt;CG we’ll need to take reverse complements, i.e. results for relative position 1 for T&gt;G “flipped” to -1, 2 to -2, etc.</p>
-<p><img src="figure/BRIDGES_single_position.Rmd/unnamed-chunk-13-1.png" width="672" style="display: block; margin: auto;" /></p>
-<p>
-<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-13-1">
-Past versions of unnamed-chunk-13-1.png
-</button>
-</p>
-<div id="fig-unnamed-chunk-13-1" class="collapse">
-<div class="table-responsive">
-<table class="table table-condensed table-hover">
-<thead>
-<tr>
-<th>
-Version
-</th>
-<th>
-Author
-</th>
-<th>
-Date
-</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>
-<a href="https://github.com/theandyb/LSCI/blob/45e9d3d1a87d49d3c6ef8a0914d6fb2813f45212/docs/figure/BRIDGES_single_position.Rmd/unnamed-chunk-13-1.png" target="_blank">45e9d3d</a>
-</td>
-<td>
-Andy Beck
-</td>
-<td>
-2021-11-03
-</td>
-</tr>
-</tbody>
-</table>
-</div>
-</div>
-<p><img src="figure/BRIDGES_single_position.Rmd/unnamed-chunk-13-2.png" width="672" style="display: block; margin: auto;" /></p>
-<p>
-<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-13-2">
-Past versions of unnamed-chunk-13-2.png
-</button>
-</p>
-<div id="fig-unnamed-chunk-13-2" class="collapse">
-<div class="table-responsive">
-<table class="table table-condensed table-hover">
-<thead>
-<tr>
-<th>
-Version
-</th>
-<th>
-Author
-</th>
-<th>
-Date
-</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>
-<a href="https://github.com/theandyb/LSCI/blob/45e9d3d1a87d49d3c6ef8a0914d6fb2813f45212/docs/figure/BRIDGES_single_position.Rmd/unnamed-chunk-13-2.png" target="_blank">45e9d3d</a>
-</td>
-<td>
-Andy Beck
-</td>
-<td>
-2021-11-03
-</td>
-</tr>
-</tbody>
-</table>
-</div>
-</div>
-<p>In the above two plots we don’t see any differences in the patterns for the A_C and T_G sub-types, suggesting that collapsing the two into one category is acceptable.</p>
-</div>
-<div id="at_gc-1" class="section level3">
-<h3>AT_GC</h3>
 <p><img src="figure/BRIDGES_single_position.Rmd/unnamed-chunk-14-1.png" width="672" style="display: block; margin: auto;" /></p>
 <p>
 <button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-14-1">
@@ -1249,9 +1341,10 @@ Andy Beck
 </table>
 </div>
 </div>
+<p>In the above two plots we don’t see any differences in the patterns for the A_C and T_G sub-types, suggesting that collapsing the two into one category is acceptable.</p>
 </div>
-<div id="at_ta-1" class="section level3">
-<h3>AT_TA</h3>
+<div id="at_gc-1" class="section level3">
+<h3>AT_GC</h3>
 <p><img src="figure/BRIDGES_single_position.Rmd/unnamed-chunk-15-1.png" width="672" style="display: block; margin: auto;" /></p>
 <p>
 <button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-15-1">
@@ -1329,8 +1422,8 @@ Andy Beck
 </div>
 </div>
 </div>
-<div id="gc_at-1" class="section level3">
-<h3>GC_AT</h3>
+<div id="at_ta-1" class="section level3">
+<h3>AT_TA</h3>
 <p><img src="figure/BRIDGES_single_position.Rmd/unnamed-chunk-16-1.png" width="672" style="display: block; margin: auto;" /></p>
 <p>
 <button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-16-1">
@@ -1408,8 +1501,8 @@ Andy Beck
 </div>
 </div>
 </div>
-<div id="cpg_gc_at-1" class="section level3">
-<h3>cpg_GC_AT</h3>
+<div id="gc_at-1" class="section level3">
+<h3>GC_AT</h3>
 <p><img src="figure/BRIDGES_single_position.Rmd/unnamed-chunk-17-1.png" width="672" style="display: block; margin: auto;" /></p>
 <p>
 <button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-17-1">
@@ -1487,8 +1580,8 @@ Andy Beck
 </div>
 </div>
 </div>
-<div id="gc_ta-1" class="section level3">
-<h3>GC_TA</h3>
+<div id="cpg_gc_at-1" class="section level3">
+<h3>cpg_GC_AT</h3>
 <p><img src="figure/BRIDGES_single_position.Rmd/unnamed-chunk-18-1.png" width="672" style="display: block; margin: auto;" /></p>
 <p>
 <button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-18-1">
@@ -1566,8 +1659,8 @@ Andy Beck
 </div>
 </div>
 </div>
-<div id="cpg_gc_at-2" class="section level3">
-<h3>cpg_GC_AT</h3>
+<div id="gc_ta-1" class="section level3">
+<h3>GC_TA</h3>
 <p><img src="figure/BRIDGES_single_position.Rmd/unnamed-chunk-19-1.png" width="672" style="display: block; margin: auto;" /></p>
 <p>
 <button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-19-1">
@@ -1645,8 +1738,8 @@ Andy Beck
 </div>
 </div>
 </div>
-<div id="gc_cg-1" class="section level3">
-<h3>GC_CG</h3>
+<div id="cpg_gc_at-2" class="section level3">
+<h3>cpg_GC_AT</h3>
 <p><img src="figure/BRIDGES_single_position.Rmd/unnamed-chunk-20-1.png" width="672" style="display: block; margin: auto;" /></p>
 <p>
 <button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-20-1">
@@ -1724,8 +1817,8 @@ Andy Beck
 </div>
 </div>
 </div>
-<div id="cpg_gc_at-3" class="section level3">
-<h3>cpg_GC_AT</h3>
+<div id="gc_cg-1" class="section level3">
+<h3>GC_CG</h3>
 <p><img src="figure/BRIDGES_single_position.Rmd/unnamed-chunk-21-1.png" width="672" style="display: block; margin: auto;" /></p>
 <p>
 <button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-21-1">
@@ -1802,14 +1895,9 @@ Andy Beck
 </table>
 </div>
 </div>
-<p>I do not see any substantial differences between simple sub-type pairs, and so forth I will only consider the 9 collapsed categories.</p>
 </div>
-</div>
-<div id="nucleotide-level-contributions-to-overall-statistics" class="section level2">
-<h2>Nucleotide Level Contributions to Overall Statistics</h2>
-<p>Above we explored at the level of each position how the distributions of nucleotides flanking singletons were different from the corresponding genome-wide and control sample distributions using the chi-square goodness of fit statistic. The overall statistic at each position is a summation of contributions from each of the four (or three) nucleotides at each position. Here we look at these contributions to identify which individual nucleotides are most “influential” at each position by plotting both the % contribution to the overall statistic at each position and the signed contribution (positive if a nucleotide was observed more in singletons than expected under gw/control rate, negative if fewer).</p>
-<div id="at_cg-2" class="section level3">
-<h3>AT_CG</h3>
+<div id="cpg_gc_at-3" class="section level3">
+<h3>cpg_GC_AT</h3>
 <p><img src="figure/BRIDGES_single_position.Rmd/unnamed-chunk-22-1.png" width="672" style="display: block; margin: auto;" /></p>
 <p>
 <button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-22-1">
@@ -1886,85 +1974,14 @@ Andy Beck
 </table>
 </div>
 </div>
-<p><img src="figure/BRIDGES_single_position.Rmd/unnamed-chunk-22-3.png" width="672" style="display: block; margin: auto;" /></p>
-<p>
-<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-22-3">
-Past versions of unnamed-chunk-22-3.png
-</button>
-</p>
-<div id="fig-unnamed-chunk-22-3" class="collapse">
-<div class="table-responsive">
-<table class="table table-condensed table-hover">
-<thead>
-<tr>
-<th>
-Version
-</th>
-<th>
-Author
-</th>
-<th>
-Date
-</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>
-<a href="https://github.com/theandyb/LSCI/blob/45e9d3d1a87d49d3c6ef8a0914d6fb2813f45212/docs/figure/BRIDGES_single_position.Rmd/unnamed-chunk-22-3.png" target="_blank">45e9d3d</a>
-</td>
-<td>
-Andy Beck
-</td>
-<td>
-2021-11-03
-</td>
-</tr>
-</tbody>
-</table>
+<p>I do not see any substantial differences between simple sub-type pairs, and so forth I will only consider the 9 collapsed categories.</p>
 </div>
 </div>
-<p><img src="figure/BRIDGES_single_position.Rmd/unnamed-chunk-22-4.png" width="672" style="display: block; margin: auto;" /></p>
-<p>
-<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-22-4">
-Past versions of unnamed-chunk-22-4.png
-</button>
-</p>
-<div id="fig-unnamed-chunk-22-4" class="collapse">
-<div class="table-responsive">
-<table class="table table-condensed table-hover">
-<thead>
-<tr>
-<th>
-Version
-</th>
-<th>
-Author
-</th>
-<th>
-Date
-</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>
-<a href="https://github.com/theandyb/LSCI/blob/45e9d3d1a87d49d3c6ef8a0914d6fb2813f45212/docs/figure/BRIDGES_single_position.Rmd/unnamed-chunk-22-4.png" target="_blank">45e9d3d</a>
-</td>
-<td>
-Andy Beck
-</td>
-<td>
-2021-11-03
-</td>
-</tr>
-</tbody>
-</table>
-</div>
-</div>
-</div>
-<div id="at_gc-2" class="section level3">
-<h3>AT_GC</h3>
+<div id="nucleotide-level-contributions-to-overall-statistics" class="section level2">
+<h2>Nucleotide Level Contributions to Overall Statistics</h2>
+<p>Above we explored at the level of each position how the distributions of nucleotides flanking singletons were different from the corresponding genome-wide and control sample distributions using the chi-square goodness of fit statistic. The overall statistic at each position is a summation of contributions from each of the four (or three) nucleotides at each position. Here we look at these contributions to identify which individual nucleotides are most “influential” at each position by plotting both the % contribution to the overall statistic at each position and the signed contribution (positive if a nucleotide was observed more in singletons than expected under gw/control rate, negative if fewer).</p>
+<div id="at_cg-2" class="section level3">
+<h3>AT_CG</h3>
 <p><img src="figure/BRIDGES_single_position.Rmd/unnamed-chunk-23-1.png" width="672" style="display: block; margin: auto;" /></p>
 <p>
 <button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-23-1">
@@ -2118,8 +2135,8 @@ Andy Beck
 </div>
 </div>
 </div>
-<div id="at_ta-2" class="section level3">
-<h3>AT_TA</h3>
+<div id="at_gc-2" class="section level3">
+<h3>AT_GC</h3>
 <p><img src="figure/BRIDGES_single_position.Rmd/unnamed-chunk-24-1.png" width="672" style="display: block; margin: auto;" /></p>
 <p>
 <button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-24-1">
@@ -2273,9 +2290,8 @@ Andy Beck
 </div>
 </div>
 </div>
-<div id="gc_at-2" class="section level3">
-<h3>GC_AT</h3>
-<pre><code>Warning: Removed 4 rows containing missing values (position_stack).</code></pre>
+<div id="at_ta-2" class="section level3">
+<h3>AT_TA</h3>
 <p><img src="figure/BRIDGES_single_position.Rmd/unnamed-chunk-25-1.png" width="672" style="display: block; margin: auto;" /></p>
 <p>
 <button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-25-1">
@@ -2314,7 +2330,6 @@ Andy Beck
 </table>
 </div>
 </div>
-<pre><code>Warning: Removed 1 rows containing missing values (geom_point).</code></pre>
 <p><img src="figure/BRIDGES_single_position.Rmd/unnamed-chunk-25-2.png" width="672" style="display: block; margin: auto;" /></p>
 <p>
 <button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-25-2">
@@ -2353,7 +2368,6 @@ Andy Beck
 </table>
 </div>
 </div>
-<pre><code>Warning: Removed 4 rows containing missing values (position_stack).</code></pre>
 <p><img src="figure/BRIDGES_single_position.Rmd/unnamed-chunk-25-3.png" width="672" style="display: block; margin: auto;" /></p>
 <p>
 <button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-25-3">
@@ -2392,7 +2406,6 @@ Andy Beck
 </table>
 </div>
 </div>
-<pre><code>Warning: Removed 1 rows containing missing values (geom_point).</code></pre>
 <p><img src="figure/BRIDGES_single_position.Rmd/unnamed-chunk-25-4.png" width="672" style="display: block; margin: auto;" /></p>
 <p>
 <button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-25-4">
@@ -2432,8 +2445,9 @@ Andy Beck
 </div>
 </div>
 </div>
-<div id="cpg_gc_at-4" class="section level3">
-<h3>cpg_GC_AT</h3>
+<div id="gc_at-2" class="section level3">
+<h3>GC_AT</h3>
+<pre><code>Warning: Removed 4 rows containing missing values (position_stack).</code></pre>
 <p><img src="figure/BRIDGES_single_position.Rmd/unnamed-chunk-26-1.png" width="672" style="display: block; margin: auto;" /></p>
 <p>
 <button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-26-1">
@@ -2472,6 +2486,7 @@ Andy Beck
 </table>
 </div>
 </div>
+<pre><code>Warning: Removed 1 rows containing missing values (geom_point).</code></pre>
 <p><img src="figure/BRIDGES_single_position.Rmd/unnamed-chunk-26-2.png" width="672" style="display: block; margin: auto;" /></p>
 <p>
 <button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-26-2">
@@ -2510,6 +2525,7 @@ Andy Beck
 </table>
 </div>
 </div>
+<pre><code>Warning: Removed 4 rows containing missing values (position_stack).</code></pre>
 <p><img src="figure/BRIDGES_single_position.Rmd/unnamed-chunk-26-3.png" width="672" style="display: block; margin: auto;" /></p>
 <p>
 <button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-26-3">
@@ -2548,6 +2564,7 @@ Andy Beck
 </table>
 </div>
 </div>
+<pre><code>Warning: Removed 1 rows containing missing values (geom_point).</code></pre>
 <p><img src="figure/BRIDGES_single_position.Rmd/unnamed-chunk-26-4.png" width="672" style="display: block; margin: auto;" /></p>
 <p>
 <button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-26-4">
@@ -2587,9 +2604,8 @@ Andy Beck
 </div>
 </div>
 </div>
-<div id="gc_cg-2" class="section level3">
-<h3>GC_CG</h3>
-<pre><code>Warning: Removed 4 rows containing missing values (position_stack).</code></pre>
+<div id="cpg_gc_at-4" class="section level3">
+<h3>cpg_GC_AT</h3>
 <p><img src="figure/BRIDGES_single_position.Rmd/unnamed-chunk-27-1.png" width="672" style="display: block; margin: auto;" /></p>
 <p>
 <button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-27-1">
@@ -2628,7 +2644,6 @@ Andy Beck
 </table>
 </div>
 </div>
-<pre><code>Warning: Removed 1 rows containing missing values (geom_point).</code></pre>
 <p><img src="figure/BRIDGES_single_position.Rmd/unnamed-chunk-27-2.png" width="672" style="display: block; margin: auto;" /></p>
 <p>
 <button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-27-2">
@@ -2667,7 +2682,6 @@ Andy Beck
 </table>
 </div>
 </div>
-<pre><code>Warning: Removed 4 rows containing missing values (position_stack).</code></pre>
 <p><img src="figure/BRIDGES_single_position.Rmd/unnamed-chunk-27-3.png" width="672" style="display: block; margin: auto;" /></p>
 <p>
 <button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-27-3">
@@ -2706,7 +2720,6 @@ Andy Beck
 </table>
 </div>
 </div>
-<pre><code>Warning: Removed 1 rows containing missing values (geom_point).</code></pre>
 <p><img src="figure/BRIDGES_single_position.Rmd/unnamed-chunk-27-4.png" width="672" style="display: block; margin: auto;" /></p>
 <p>
 <button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-27-4">
@@ -2746,8 +2759,9 @@ Andy Beck
 </div>
 </div>
 </div>
-<div id="cpg_gc_cg-1" class="section level3">
-<h3>cpg_GC_CG</h3>
+<div id="gc_cg-2" class="section level3">
+<h3>GC_CG</h3>
+<pre><code>Warning: Removed 4 rows containing missing values (position_stack).</code></pre>
 <p><img src="figure/BRIDGES_single_position.Rmd/unnamed-chunk-28-1.png" width="672" style="display: block; margin: auto;" /></p>
 <p>
 <button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-28-1">
@@ -2786,6 +2800,7 @@ Andy Beck
 </table>
 </div>
 </div>
+<pre><code>Warning: Removed 1 rows containing missing values (geom_point).</code></pre>
 <p><img src="figure/BRIDGES_single_position.Rmd/unnamed-chunk-28-2.png" width="672" style="display: block; margin: auto;" /></p>
 <p>
 <button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-28-2">
@@ -2824,6 +2839,7 @@ Andy Beck
 </table>
 </div>
 </div>
+<pre><code>Warning: Removed 4 rows containing missing values (position_stack).</code></pre>
 <p><img src="figure/BRIDGES_single_position.Rmd/unnamed-chunk-28-3.png" width="672" style="display: block; margin: auto;" /></p>
 <p>
 <button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-28-3">
@@ -2862,6 +2878,7 @@ Andy Beck
 </table>
 </div>
 </div>
+<pre><code>Warning: Removed 1 rows containing missing values (geom_point).</code></pre>
 <p><img src="figure/BRIDGES_single_position.Rmd/unnamed-chunk-28-4.png" width="672" style="display: block; margin: auto;" /></p>
 <p>
 <button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-28-4">
@@ -2901,9 +2918,8 @@ Andy Beck
 </div>
 </div>
 </div>
-<div id="gc_ta-2" class="section level3">
-<h3>GC_TA</h3>
-<pre><code>Warning: Removed 4 rows containing missing values (position_stack).</code></pre>
+<div id="cpg_gc_cg-1" class="section level3">
+<h3>cpg_GC_CG</h3>
 <p><img src="figure/BRIDGES_single_position.Rmd/unnamed-chunk-29-1.png" width="672" style="display: block; margin: auto;" /></p>
 <p>
 <button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-29-1">
@@ -2942,7 +2958,6 @@ Andy Beck
 </table>
 </div>
 </div>
-<pre><code>Warning: Removed 1 rows containing missing values (geom_point).</code></pre>
 <p><img src="figure/BRIDGES_single_position.Rmd/unnamed-chunk-29-2.png" width="672" style="display: block; margin: auto;" /></p>
 <p>
 <button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-29-2">
@@ -2981,7 +2996,6 @@ Andy Beck
 </table>
 </div>
 </div>
-<pre><code>Warning: Removed 4 rows containing missing values (position_stack).</code></pre>
 <p><img src="figure/BRIDGES_single_position.Rmd/unnamed-chunk-29-3.png" width="672" style="display: block; margin: auto;" /></p>
 <p>
 <button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-29-3">
@@ -3020,7 +3034,6 @@ Andy Beck
 </table>
 </div>
 </div>
-<pre><code>Warning: Removed 1 rows containing missing values (geom_point).</code></pre>
 <p><img src="figure/BRIDGES_single_position.Rmd/unnamed-chunk-29-4.png" width="672" style="display: block; margin: auto;" /></p>
 <p>
 <button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-29-4">
@@ -3060,8 +3073,9 @@ Andy Beck
 </div>
 </div>
 </div>
-<div id="cpg_gc_ta-1" class="section level3">
-<h3>cpg_GC_TA</h3>
+<div id="gc_ta-2" class="section level3">
+<h3>GC_TA</h3>
+<pre><code>Warning: Removed 4 rows containing missing values (position_stack).</code></pre>
 <p><img src="figure/BRIDGES_single_position.Rmd/unnamed-chunk-30-1.png" width="672" style="display: block; margin: auto;" /></p>
 <p>
 <button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-30-1">
@@ -3100,6 +3114,7 @@ Andy Beck
 </table>
 </div>
 </div>
+<pre><code>Warning: Removed 1 rows containing missing values (geom_point).</code></pre>
 <p><img src="figure/BRIDGES_single_position.Rmd/unnamed-chunk-30-2.png" width="672" style="display: block; margin: auto;" /></p>
 <p>
 <button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-30-2">
@@ -3138,6 +3153,7 @@ Andy Beck
 </table>
 </div>
 </div>
+<pre><code>Warning: Removed 4 rows containing missing values (position_stack).</code></pre>
 <p><img src="figure/BRIDGES_single_position.Rmd/unnamed-chunk-30-3.png" width="672" style="display: block; margin: auto;" /></p>
 <p>
 <button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-30-3">
@@ -3176,6 +3192,7 @@ Andy Beck
 </table>
 </div>
 </div>
+<pre><code>Warning: Removed 1 rows containing missing values (geom_point).</code></pre>
 <p><img src="figure/BRIDGES_single_position.Rmd/unnamed-chunk-30-4.png" width="672" style="display: block; margin: auto;" /></p>
 <p>
 <button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-30-4">
@@ -3214,6 +3231,10 @@ Andy Beck
 </table>
 </div>
 </div>
+</div>
+<div id="cpg_gc_ta-1" class="section level3">
+<h3>cpg_GC_TA</h3>
+<p><img src="figure/BRIDGES_single_position.Rmd/unnamed-chunk-31-1.png" width="672" style="display: block; margin: auto;" /><img src="figure/BRIDGES_single_position.Rmd/unnamed-chunk-31-2.png" width="672" style="display: block; margin: auto;" /><img src="figure/BRIDGES_single_position.Rmd/unnamed-chunk-31-3.png" width="672" style="display: block; margin: auto;" /><img src="figure/BRIDGES_single_position.Rmd/unnamed-chunk-31-4.png" width="672" style="display: block; margin: auto;" /></p>
 <br>
 <p>
 <button type="button" class="btn btn-default btn-workflowr btn-workflowr-sessioninfo" data-toggle="collapse" data-target="#workflowr-sessioninfo" style="display: block;">
@@ -3242,15 +3263,16 @@ attached base packages:
 [1] stats     graphics  grDevices utils     datasets  methods   base     
 
 other attached packages:
- [1] forcats_0.5.1   stringr_1.4.0   dplyr_1.0.7     purrr_0.3.4    
- [5] readr_2.0.2     tidyr_1.1.4     tibble_3.1.5    ggplot2_3.3.5  
- [9] tidyverse_1.3.1 workflowr_1.6.2
+ [1] tikzDevice_0.12.3.1 forcats_0.5.1       stringr_1.4.0      
+ [4] dplyr_1.0.7         purrr_0.3.4         readr_2.0.2        
+ [7] tidyr_1.1.4         tibble_3.1.5        ggplot2_3.3.5      
+[10] tidyverse_1.3.1     workflowr_1.6.2    
 
 loaded via a namespace (and not attached):
  [1] Rcpp_1.0.7       lubridate_1.8.0  assertthat_0.2.1 rprojroot_2.0.2 
  [5] digest_0.6.28    utf8_1.2.2       R6_2.5.1         cellranger_1.1.0
- [9] backports_1.3.0  reprex_2.0.1     evaluate_0.14    highr_0.9       
-[13] httr_1.4.2       pillar_1.6.4     rlang_0.4.12     readxl_1.3.1    
+ [9] backports_1.3.0  reprex_2.0.1     evaluate_0.14    httr_1.4.2      
+[13] highr_0.9        pillar_1.6.4     rlang_0.4.12     readxl_1.3.1    
 [17] rstudioapi_0.13  whisker_0.4      jquerylib_0.1.4  rmarkdown_2.11  
 [21] labeling_0.4.2   bit_4.0.4        munsell_0.5.0    broom_0.7.9     
 [25] compiler_4.1.2   httpuv_1.6.3     modelr_0.1.8     xfun_0.27       
@@ -3263,7 +3285,8 @@ loaded via a namespace (and not attached):
 [53] bslib_0.3.1      ellipsis_0.3.2   generics_0.1.1   vctrs_0.3.8     
 [57] tools_4.1.2      bit64_4.0.5      glue_1.4.2       hms_1.1.1       
 [61] parallel_4.1.2   fastmap_1.1.0    yaml_2.2.1       colorspace_2.0-2
-[65] rvest_1.0.2      knitr_1.36       haven_2.4.3      sass_0.4.0      </code></pre>
+[65] filehash_2.4-2   rvest_1.0.2      knitr_1.36       haven_2.4.3     
+[69] sass_0.4.0      </code></pre>
 </div>
 </div>
 </div>
