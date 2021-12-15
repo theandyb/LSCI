@@ -9,6 +9,7 @@ editor_options:
 
 ```{r message=FALSE, warning=FALSE, include=FALSE}
 library(tidyverse)
+library(tikzDevice)
 ```
 
 # BRIDGES Single Position Model Results
@@ -31,7 +32,13 @@ For each singleton sub-type, we evaluate the "independent influence" of nucleoti
 using rates we observe nucleotides flanking the same reference allele genome-wide or in a sample of control observations sampled for each singleton. That is, for each nucleotide we compute an expected count based on the frequency observed in either the genome-wide distribution or the control sample ( $ e_{X,i} = \hat{p}_{X,i} \times n_S$ ) and use the chi-square goodness of fit statistic to assess deviance from this null model (i.e. are singletons uniformly sampled from either the genome-wide or control distribution)?
 
 $$
-\chi_i = \sum_{x \in \{A,C,G,T\} }\frac{(n_{x,i} - e_{x,i})^2}{e_{x,i}}, i \in (-10,-1),(1,10) 
+\chi^2_i = \sum_{x \in \{A,C,G,T\} }\frac{(n_{x,i} - e_{x,i})^2}{e_{x,i}}, i \in (-10,-1),(1,10) 
+$$
+
+Since we have a large number of singletons within each sub type, we have high power to detect small differences in distribution. Also, due to differences in the number of singletons within each sub type, statistics need to be adjusted to account for this sample size difference in order to make comparisons across sub types. To facilitate this, we compute Cohen's w (Cohen 1988), an effect size measure that does not depend on sample size. 
+
+$$
+w_i = \sqrt{\frac{\chi^2_i}{N}}
 $$
 
 ## 9 Subtype Results
@@ -58,14 +65,17 @@ load_all_results <- function(subtype, r_start = 1){
 }
 
 statistic_by_position <- function(subtype, r_start = 1){
-  final <- data.frame(pos = numeric(), chi_sq = numeric(), type = character())
+  final <- data.frame(pos = numeric(), chi_sq = numeric(), singletons = numeric(), type = character())
   for(i in c(-10:-1, r_start:10)){
     df <- load_results(subtype, i)
     final <- bind_rows(final,
                        data.frame(pos = c(i,i), 
-                                  chi_sq = c(sum(df$chi_sq_gw), sum(df$chi_sq_ct) ), 
+                                  chi_sq = c(sum(df$chi_sq_gw), sum(df$chi_sq_ct) ),
+                                  singletons = c(sum(df$singletons), sum(df$singletons) ),
                                   type = c("Genome-wide", "Control")))
   }
+  final <- final %>%
+    mutate(cohen = sqrt(chi_sq / singletons))
   return(final)
 }
 
@@ -75,9 +85,22 @@ plot_pos_stat <- function(subtype, r_start = 1){
     ggplot(aes(x = pos, y = chi_sq, colour = type)) +
     geom_point() +
     geom_line() +
-    ggtitle(paste0("BRIDGES Single-Position Results: ", subtype)) +
+    ggtitle(paste0("BRIDGES Single-Position Results: ", str_replace_all(subtype, "_", "-"))) +
     xlab("Relative Position") +
     ylab("Chi Square Goodness of Fit Statistic") +
+    labs(colour = "Background Rate")
+  return(p)
+}
+
+plot_pos_cohen <- function(subtype, r_start = 1){
+  df <- statistic_by_position(subtype, r_start)
+  p <-df %>%
+    ggplot(aes(x = pos, y = cohen, colour = type)) +
+    geom_point() +
+    geom_line() +
+    ggtitle(paste0("BRIDGES Single-Position Results: ", str_replace_all(subtype, "_", "-"))) +
+    xlab("Relative Position") +
+    ylab("Cohen's w") +
     labs(colour = "Background Rate")
   return(p)
 }
@@ -87,12 +110,12 @@ plot_nuc_cont_by_position <- function(subtype, type = "gw", r_start = 1){
     df <- load_all_results(subtype, r_start) %>% 
       group_by(rp) %>% 
       mutate(p_chi = chi_sq_gw / sum(chi_sq_gw))
-    g_title <- paste0("Nucleotide Contribution to Genome-wide Statistic: ", subtype)
+    g_title <- paste0("Nucleotide Contribution to Genome-wide Statistic: ", str_replace_all(subtype, "_", "-"))
   } else{
     df <- load_all_results(subtype, r_start) %>% 
       group_by(rp) %>% 
       mutate(p_chi = chi_sq_ct / sum(chi_sq_ct))
-    g_title <- paste0("Nucleotide Contribution to Control-rate Statistic: ", subtype)
+    g_title <- paste0("Nucleotide Contribution to Control-rate Statistic: ", str_replace_all(subtype, "_", "-"))
   }
   
   p <- df %>%
@@ -111,12 +134,12 @@ plot_signed_nuc_by_pos <- function(subtype, type = "gw", r_start = 1){
     df <- df %>%
       mutate(s_val = sign(singletons - exp_gw)) %>%
       mutate(signed_chi_sq = s_val * chi_sq_gw)
-    g_title <- paste0("Nucleotide Genome-wide Signed ChiSq Residual: ", subtype)
+    g_title <- paste0("Nucleotide Genome-wide Signed ChiSq Residual: ", str_replace_all(subtype, "_", "-"))
   } else {
     df <- df %>%
       mutate(s_val = sign(singletons - exp_ct)) %>%
       mutate(signed_chi_sq = s_val * chi_sq_ct)
-    g_title <- paste0("Nucleotide Control-Rate Signed ChiSq Residual: ", subtype)
+    g_title <- paste0("Nucleotide Control-Rate Signed ChiSq Residual: ", str_replace_all(subtype, "_", "-"))
   }
   p <- df %>%
     ggplot(aes(x = rp, y = signed_chi_sq, colour = Nuc)) +
@@ -132,56 +155,191 @@ plot_signed_nuc_by_pos <- function(subtype, type = "gw", r_start = 1){
 
 ### AT_CG
 
-```{r echo=FALSE}
-plot_pos_stat("AT_CG")
+As an illustrative example, let us first look at the data from one relative position. Here we use the `load_results` function to gather the data for the AT->CG sub type at the -1 relative position:
+
+```{r results='asis'}
+load_results("AT_CG", -1) %>%
+  knitr::kable()
+```
+
+We can grab the results across all positions and sum the $\chi^2$ residuals to get the position level statistics. Let's visualize both these and the sample-size adjusted Cohen's w
+
+```{r echo=FALSE, message=FALSE}
+st <- "AT_CG"
+p1 <- plot_pos_stat(st)
+p2 <- plot_pos_cohen(st)
+
+tikz(paste0("/net/snowwhite/home/beckandy/research/documentation/LSCI/output/tikz/single_pos/chisq_", st, ".tex"))
+p1
+dev.off()
+
+tikz(paste0("/net/snowwhite/home/beckandy/research/documentation/LSCI/output/tikz/single_pos/cohen_", st, ".tex"))
+p2
+dev.off()
+
+p1
+
+p2
 ```
 
 ### AT_GC
 
-```{r echo=FALSE}
-plot_pos_stat("AT_GC")
+```{r echo=FALSE, message=FALSE}
+st <- "AT_GC"
+p1 <- plot_pos_stat(st)
+p2 <- plot_pos_cohen(st)
+
+tikz(paste0("/net/snowwhite/home/beckandy/research/documentation/LSCI/output/tikz/single_pos/chisq_", st, ".tex"))
+p1
+dev.off()
+
+tikz(paste0("/net/snowwhite/home/beckandy/research/documentation/LSCI/output/tikz/single_pos/cohen_", st, ".tex"))
+p2
+dev.off()
+
+p1
+
+p2
 ```
 
 ### AT_TA
 
-```{r echo=FALSE}
-plot_pos_stat("AT_TA")
+```{r echo=FALSE, message=FALSE}
+st <- "AT_TA"
+p1 <- plot_pos_stat(st)
+p2 <- plot_pos_cohen(st)
+
+tikz(paste0("/net/snowwhite/home/beckandy/research/documentation/LSCI/output/tikz/single_pos/chisq_", st, ".tex"))
+p1
+dev.off()
+
+tikz(paste0("/net/snowwhite/home/beckandy/research/documentation/LSCI/output/tikz/single_pos/cohen_", st, ".tex"))
+p2
+dev.off()
+
+p1
+
+p2
 ```
 
 ### GC_AT
 
-```{r echo=FALSE}
-plot_pos_stat("GC_AT", r_start = 2)
+```{r echo=FALSE, message=FALSE}
+st <- "GC_AT"
+p1 <- plot_pos_stat(st, r_start = 2)
+p2 <- plot_pos_cohen(st, r_start = 2)
+
+tikz(paste0("/net/snowwhite/home/beckandy/research/documentation/LSCI/output/tikz/single_pos/chisq_", st, ".tex"))
+p1
+dev.off()
+
+tikz(paste0("/net/snowwhite/home/beckandy/research/documentation/LSCI/output/tikz/single_pos/cohen_", st, ".tex"))
+p2
+dev.off()
+
+p1
+
+p2
 ```
 
 ### GC_TA
 
-```{r echo=FALSE}
-plot_pos_stat("GC_TA", r_start = 2)
+```{r echo=FALSE, message=FALSE}
+st <- "GC_TA"
+p1 <- plot_pos_stat(st, r_start = 2)
+p2 <- plot_pos_cohen(st, r_start = 2)
+
+tikz(paste0("/net/snowwhite/home/beckandy/research/documentation/LSCI/output/tikz/single_pos/chisq_", st, ".tex"))
+p1
+dev.off()
+
+tikz(paste0("/net/snowwhite/home/beckandy/research/documentation/LSCI/output/tikz/single_pos/cohen_", st, ".tex"))
+p2
+dev.off()
+
+p1
+
+p2
 ```
 
 ### GC_CG
 
-```{r echo=FALSE}
-plot_pos_stat("GC_CG", r_start = 2)
+```{r echo=FALSE, message=FALSE}
+st <- "GC_CG"
+p1 <- plot_pos_stat(st, r_start = 2)
+p2 <- plot_pos_cohen(st, r_start = 2)
+
+tikz(paste0("/net/snowwhite/home/beckandy/research/documentation/LSCI/output/tikz/single_pos/chisq_", st, ".tex"))
+p1
+dev.off()
+
+tikz(paste0("/net/snowwhite/home/beckandy/research/documentation/LSCI/output/tikz/single_pos/cohen_", st, ".tex"))
+p2
+dev.off()
+
+p1
+
+p2
 ```
 
 ### cpg_GC_AT
 
-```{r echo=FALSE}
-plot_pos_stat("cpg_GC_AT", r_start = 2)
+```{r echo=FALSE, message=FALSE}
+st <- "cpg_GC_AT"
+p1 <- plot_pos_stat(st, r_start = 2)
+p2 <- plot_pos_cohen(st, r_start = 2)
+
+tikz(paste0("/net/snowwhite/home/beckandy/research/documentation/LSCI/output/tikz/single_pos/chisq_", st, ".tex"))
+p1
+dev.off()
+
+tikz(paste0("/net/snowwhite/home/beckandy/research/documentation/LSCI/output/tikz/single_pos/cohen_", st, ".tex"))
+p2
+dev.off()
+
+p1
+
+p2
 ```
 
 ### cpg_GC_TA
 
-```{r echo=FALSE}
-plot_pos_stat("cpg_GC_TA", r_start = 2)
+```{r echo=FALSE, message=FALSE}
+st <- "cpg_GC_TA"
+p1 <- plot_pos_stat(st, r_start = 2)
+p2 <- plot_pos_cohen(st, r_start = 2)
+
+tikz(paste0("/net/snowwhite/home/beckandy/research/documentation/LSCI/output/tikz/single_pos/chisq_", st, ".tex"))
+p1
+dev.off()
+
+tikz(paste0("/net/snowwhite/home/beckandy/research/documentation/LSCI/output/tikz/single_pos/cohen_", st, ".tex"))
+p2
+dev.off()
+
+p1
+
+p2
 ```
 
 ### cpg_GC_CG
 
-```{r echo=FALSE}
-plot_pos_stat("cpg_GC_CG", r_start = 2)
+```{r echo=FALSE, message=FALSE}
+st <- "cpg_GC_CG"
+p1 <- plot_pos_stat(st, r_start = 2)
+p2 <- plot_pos_cohen(st, r_start = 2)
+
+tikz(paste0("/net/snowwhite/home/beckandy/research/documentation/LSCI/output/tikz/single_pos/chisq_", st, ".tex"))
+p1
+dev.off()
+
+tikz(paste0("/net/snowwhite/home/beckandy/research/documentation/LSCI/output/tikz/single_pos/cohen_", st, ".tex"))
+p2
+dev.off()
+
+p1
+
+p2
 ```
 
 ## 18 Subtype Results
