@@ -9,6 +9,9 @@ editor_options:
 
 ```{r echo=FALSE, message=FALSE, warning=FALSE}
 library(tidyverse)
+library(tikzDevice)
+width = 4
+height = 4
 ```
 
 
@@ -73,14 +76,17 @@ load_all_results <- function(subtype, sp, r_start = 1){
 }
 
 statistic_by_position <- function(subtype, sp, r_start = 1){
-  final <- data.frame(pos = numeric(), chi_sq = numeric(), type = character())
+  final <- data.frame(pos = numeric(), chi_sq = numeric(), singletons = numeric(), type = character())
   for(i in c(-10:-1, r_start:10)){
     df <- load_results(subtype, i, sp)
     final <- bind_rows(final,
                        data.frame(pos = c(i,i), 
-                                  chi_sq = c(sum(df$chi_sq_gw, na.rm = T), sum(df$chi_sq_ct, na.rm = T) ), 
+                                  chi_sq = c(sum(df$chi_sq_gw, na.rm = T), sum(df$chi_sq_ct, na.rm = T)),
+                                  singletons = c(sum(df$singletons, na.rm = T), sum(df$singletons, na.rm = T)), 
                                   type = c("Genome-wide", "Control")))
   }
+  final <- final %>%
+    mutate(cohen = sqrt(chi_sq / singletons))
   return(final)
 }
 
@@ -90,11 +96,89 @@ plot_pos_stat <- function(subtype, sp, r_start = 1){
     ggplot(aes(x = pos, y = chi_sq, colour = type)) +
     geom_point() +
     geom_line() +
-    ggtitle(paste0("1000G Single-Position Results: ", subtype),
+    ggtitle(paste0("1KGP Single-Position Results: ", str_replace_all(subtype, "_", "-")),
             paste0("Population: ", sp)) +
     xlab("Relative Position") +
     ylab("Chi Square Goodness of Fit Statistic") +
     labs(colour = "Background Rate")
+  return(p)
+}
+
+plot_pos_cohen <- function(subtype, sp, r_start = 1){
+  df <- statistic_by_position(subtype, sp, r_start)
+  p <-df %>%
+    ggplot(aes(x = pos, y = cohen, colour = type)) +
+    geom_point() +
+    geom_line() +
+    ggtitle(paste0("1KGP Single-Position Results: ", str_replace_all(subtype, "_", "-")),
+            sp) +
+    xlab("Relative Position") +
+    ylab("Cohen's w") +
+    labs(colour = "Background Rate")
+  return(p)
+}
+
+plot_all_cohen <- function(sp){
+  cbbPalette <- c("#000000", "#E69F00", "#56B4E9", "#009E73", "#F0E442", "#0072B2", "#D55E00", "#CC79A7", "#999999")
+  
+  df1 <- statistic_by_position("AT_CG", sp) %>%
+    filter(type == "Control") %>%
+    select(pos, cohen) %>%
+    mutate(subtype = "AT-CG")
+  df2 <- statistic_by_position("AT_GC", sp) %>%
+    filter(type == "Control") %>%
+    select(pos, cohen) %>%
+    mutate(subtype = "AT-GC")
+  df3 <- statistic_by_position("AT_TA", sp) %>%
+    filter(type == "Control") %>%
+    select(pos, cohen) %>%
+    mutate(subtype = "AT-TA")
+  
+  df4 <- statistic_by_position("GC_AT", sp, r_start = 2) %>%
+    filter(type == "Control") %>%
+    select(pos, cohen) %>%
+    mutate(subtype = "GC-AT")
+  df5 <- statistic_by_position("GC_TA", sp, r_start = 2) %>%
+    filter(type == "Control") %>%
+    select(pos, cohen) %>%
+    mutate(subtype = "GC-TA")
+  df6 <- statistic_by_position("GC_CG", sp, r_start = 2) %>%
+    filter(type == "Control") %>%
+    select(pos, cohen) %>%
+    mutate(subtype = "GC-CG")
+  
+  df7 <- statistic_by_position("cpg_GC_AT", sp, r_start = 2) %>%
+    filter(type == "Control") %>%
+    select(pos, cohen) %>%
+    mutate(subtype = "cpgGC-AT")
+  df8 <- statistic_by_position("cpg_GC_TA", sp, r_start = 2) %>%
+    filter(type == "Control") %>%
+    select(pos, cohen) %>%
+    mutate(subtype = "cpgGC-TA")
+  df9 <- statistic_by_position("cpg_GC_CG", sp, r_start = 2) %>%
+    filter(type == "Control") %>%
+    select(pos, cohen) %>%
+    mutate(subtype = "cpgGC-CG")
+  
+  df <- bind_rows(df1, df2) %>%
+    bind_rows(df3) %>%
+    bind_rows(df4) %>%
+    bind_rows(df5) %>%
+    bind_rows(df6) %>%
+    bind_rows(df7) %>%
+    bind_rows(df8) %>%
+    bind_rows(df9)
+  
+  p <-df %>%
+    ggplot(aes(x = pos, y = cohen, colour = subtype)) +
+    geom_point() +
+    geom_line() +
+    ggtitle(paste0("1KGP Single-Position Results"),
+            sp) +
+    xlab("Relative Position") +
+    ylab("Cohen's w") +
+    labs(colour = "Sub type") +
+    scale_color_manual(values=cbbPalette)
   return(p)
 }
 
@@ -152,8 +236,23 @@ plot_signed_nuc_by_pos <- function(subtype, sp, type = "gw", r_start = 1){
 
 ### AT_CG
 
-```{r echo=FALSE}
-plot_pos_stat("AT_CG", "ALL")
+```{r echo=FALSE, message=FALSE}
+st <- "AT_CG"
+p1 <- plot_pos_stat(st, "ALL")
+p2 <- plot_pos_cohen(st, "ALL")
+
+tikz(paste0("/net/snowwhite/home/beckandy/research/documentation/LSCI/output/tikz/single_pos/1KGP_chisq_", st, ".tex"),
+     width = width, height = height)
+p1
+dev.off()
+
+tikz(paste0("/net/snowwhite/home/beckandy/research/documentation/LSCI/output/tikz/single_pos/1KGP_cohen_", st, ".tex"),
+     width = width, height = height)
+p2
+dev.off()
+
+p1
+p2
 ```
 
 ```{r results='asis', echo=FALSE}
@@ -164,8 +263,23 @@ Here we see that the results for both the genome-wide rate and the control distr
 
 ### AT_GC
 
-```{r echo=FALSE}
-plot_pos_stat("AT_GC", "ALL")
+```{r echo=FALSE, message=FALSE}
+st <- "AT_GC"
+p1 <- plot_pos_stat(st, "ALL")
+p2 <- plot_pos_cohen(st, "ALL")
+
+tikz(paste0("/net/snowwhite/home/beckandy/research/documentation/LSCI/output/tikz/single_pos/1KGP_chisq_", st, ".tex"),
+     width = width, height = height)
+p1
+dev.off()
+
+tikz(paste0("/net/snowwhite/home/beckandy/research/documentation/LSCI/output/tikz/single_pos/1KGP_cohen_", st, ".tex"),
+     width = width, height = height)
+p2
+dev.off()
+
+p1
+p2
 ```
 
 ```{r results='asis', echo=FALSE}
@@ -176,8 +290,23 @@ Here for the AT_GC transition we see a similar pattern to what we observed above
 
 ### AT_TA
 
-```{r echo=FALSE}
-plot_pos_stat("AT_TA", "ALL")
+```{r echo=FALSE, message=FALSE}
+st <- "AT_TA"
+p1 <- plot_pos_stat(st, "ALL")
+p2 <- plot_pos_cohen(st, "ALL")
+
+tikz(paste0("/net/snowwhite/home/beckandy/research/documentation/LSCI/output/tikz/single_pos/1KGP_chisq_", st, ".tex"),
+     width = width, height = height)
+p1
+dev.off()
+
+tikz(paste0("/net/snowwhite/home/beckandy/research/documentation/LSCI/output/tikz/single_pos/1KGP_cohen_", st, ".tex"),
+     width = width, height = height)
+p2
+dev.off()
+
+p1
+p2
 ```
 
 ```{r results='asis', echo=FALSE}
@@ -188,8 +317,23 @@ Here for the A>T(T>A) transversion we see that the signal at the +1 is far great
 
 ### GC_AT
 
-```{r echo=FALSE}
-plot_pos_stat("GC_AT", "ALL")
+```{r echo=FALSE, message=FALSE}
+st <- "GC_AT"
+p1 <- plot_pos_stat(st, "ALL")
+p2 <- plot_pos_cohen(st, "ALL")
+
+tikz(paste0("/net/snowwhite/home/beckandy/research/documentation/LSCI/output/tikz/single_pos/1KGP_chisq_", st, ".tex"),
+     width = width, height = height)
+p1
+dev.off()
+
+tikz(paste0("/net/snowwhite/home/beckandy/research/documentation/LSCI/output/tikz/single_pos/1KGP_cohen_", st, ".tex"),
+     width = width, height = height)
+p2
+dev.off()
+
+p1
+p2
 ```
 ```{r results='asis', echo=FALSE}
 statistic_by_position("GC_AT", "ALL") %>% spread(type, chi_sq) %>% knitr::kable()
@@ -199,8 +343,23 @@ Here we look at the G>A (C>T) transition, conditioning on sites not being CpGs (
 
 ### cpg_GC_AT
 
-```{r echo=FALSE}
-plot_pos_stat("cpg_GC_AT", "ALL", r_start = 2)
+```{r echo=FALSE, message=FALSE}
+st <- "cpg_GC_AT"
+p1 <- plot_pos_stat(st, "ALL", r_start = 2)
+p2 <- plot_pos_cohen(st, "ALL",  r_start = 2)
+
+tikz(paste0("/net/snowwhite/home/beckandy/research/documentation/LSCI/output/tikz/single_pos/1KGP_chisq_", st, ".tex"),
+     width = width, height = height)
+p1
+dev.off()
+
+tikz(paste0("/net/snowwhite/home/beckandy/research/documentation/LSCI/output/tikz/single_pos/1KGP_cohen_", st, ".tex"),
+     width = width, height = height)
+p2
+dev.off()
+
+p1
+p2
 ```
 ```{r results='asis', echo=FALSE}
 statistic_by_position("cpg_GC_AT", "ALL", r_start = 2) %>% spread(type, chi_sq) %>% knitr::kable()
@@ -210,8 +369,23 @@ Here we condition on the +1 being a G for the G>A(C>T) transition. It is interes
 
 ### GC_TA
 
-```{r echo=FALSE}
-plot_pos_stat("GC_TA", "ALL")
+```{r echo=FALSE, message=FALSE}
+st <- "GC_TA"
+p1 <- plot_pos_stat(st, "ALL")
+p2 <- plot_pos_cohen(st, "ALL")
+
+tikz(paste0("/net/snowwhite/home/beckandy/research/documentation/LSCI/output/tikz/single_pos/1KGP_chisq_", st, ".tex"),
+     width = width, height = height)
+p1
+dev.off()
+
+tikz(paste0("/net/snowwhite/home/beckandy/research/documentation/LSCI/output/tikz/single_pos/1KGP_cohen_", st, ".tex"),
+     width = width, height = height)
+p2
+dev.off()
+
+p1
+p2
 ```
 ```{r results='asis', echo=FALSE}
 statistic_by_position("GC_TA", "ALL") %>% spread(type, chi_sq) %>% knitr::kable()
@@ -221,8 +395,23 @@ For the G>T(C>A) transversion at non-CpG sites we see that the largest marginal 
 
 ### cpg_GC_TA
 
-```{r echo=FALSE}
-plot_pos_stat("cpg_GC_TA", "ALL", r_start = 2)
+```{r echo=FALSE, message=FALSE}
+st <- "cpg_GC_TA"
+p1 <- plot_pos_stat(st, "ALL", r_start = 2)
+p2 <- plot_pos_cohen(st, "ALL",  r_start = 2)
+
+tikz(paste0("/net/snowwhite/home/beckandy/research/documentation/LSCI/output/tikz/single_pos/1KGP_chisq_", st, ".tex"),
+     width = width, height = height)
+p1
+dev.off()
+
+tikz(paste0("/net/snowwhite/home/beckandy/research/documentation/LSCI/output/tikz/single_pos/1KGP_cohen_", st, ".tex"),
+     width = width, height = height)
+p2
+dev.off()
+
+p1
+p2
 ```
 ```{r results='asis', echo=FALSE}
 statistic_by_position("cpg_GC_TA", "ALL", r_start = 2) %>% spread(type, chi_sq) %>% knitr::kable()
@@ -232,8 +421,23 @@ When we condition on the site being a CpG, we see that the largest marginal infl
 
 ### GC_CG
 
-```{r echo=FALSE}
-plot_pos_stat("GC_CG", "ALL", r_start = 2)
+```{r echo=FALSE, message=FALSE}
+st <- "GC_CG"
+p1 <- plot_pos_stat(st, "ALL")
+p2 <- plot_pos_cohen(st, "ALL")
+
+tikz(paste0("/net/snowwhite/home/beckandy/research/documentation/LSCI/output/tikz/single_pos/1KGP_chisq_", st, ".tex"),
+     width = width, height = height)
+p1
+dev.off()
+
+tikz(paste0("/net/snowwhite/home/beckandy/research/documentation/LSCI/output/tikz/single_pos/1KGP_cohen_", st, ".tex"),
+     width = width, height = height)
+p2
+dev.off()
+
+p1
+p2
 ```
 ```{r results='asis', echo=FALSE}
 statistic_by_position("GC_CG", "ALL") %>% spread(type, chi_sq) %>% knitr::kable()
@@ -243,14 +447,43 @@ For the G<->C transversion at non-CpG sites we observe the largest marginal sign
 
 ### cpg_GC_CG
 
-```{r echo=FALSE}
-plot_pos_stat("cpg_GC_CG", "ALL", r_start = 2)
+```{r echo=FALSE, message=FALSE}
+st <- "cpg_GC_CG"
+p1 <- plot_pos_stat(st, "ALL", r_start = 2)
+p2 <- plot_pos_cohen(st, "ALL",  r_start = 2)
+
+tikz(paste0("/net/snowwhite/home/beckandy/research/documentation/LSCI/output/tikz/single_pos/1KGP_chisq_", st, ".tex"),
+     width = width, height = height)
+p1
+dev.off()
+
+tikz(paste0("/net/snowwhite/home/beckandy/research/documentation/LSCI/output/tikz/single_pos/1KGP_cohen_", st, ".tex"),
+     width = width, height = height)
+p2
+dev.off()
+
+p1
+p2
 ```
-```{r results='asis', echo=FALSE}
+```{r results='asis', echo=FALSE, message=FALSE}
 statistic_by_position("cpg_GC_CG", "ALL", r_start = 2) %>% spread(type, chi_sq) %>% knitr::kable()
 ```
 
 When we condition on the C<->G transversion being at a CpG site, we notice that the strongest marginal effect appears at the +2 position for both models, with sharp declines as we move away from +/- 3 bp.
+
+### ALL
+
+```{r echo=FALSE, message=FALSE}
+p <- plot_all_cohen("ALL")
+
+tikz(paste0("/net/snowwhite/home/beckandy/research/documentation/LSCI/output/tikz/single_pos/cohen_all_bridges.tex"),
+     width = width, height = height)
+p
+dev.off()
+
+p
+```
+
 
 ## 18 Subtype Results
 
