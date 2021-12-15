@@ -118,9 +118,7 @@ plot_pos_cohen <- function(subtype, sp, r_start = 1){
   return(p)
 }
 
-plot_all_cohen <- function(sp){
-  cbbPalette <- c("#000000", "#E69F00", "#56B4E9", "#009E73", "#F0E442", "#0072B2", "#D55E00", "#CC79A7", "#999999")
-  
+get_all_cohen <- function(sp){
   df1 <- statistic_by_position("AT_CG", sp) %>%
     filter(type == "Control") %>%
     select(pos, cohen) %>%
@@ -169,6 +167,14 @@ plot_all_cohen <- function(sp){
     bind_rows(df8) %>%
     bind_rows(df9)
   
+  return(df)
+}
+
+plot_all_cohen <- function(sp){
+  cbbPalette <- c("#000000", "#E69F00", "#56B4E9", "#009E73", "#F0E442", "#0072B2", "#D55E00", "#CC79A7", "#999999")
+  
+  df <- get_all_cohen(sp) 
+  
   p <-df %>%
     ggplot(aes(x = pos, y = cohen, colour = subtype)) +
     geom_point() +
@@ -188,13 +194,13 @@ plot_nuc_cont_by_position <- function(subtype, sp, type = "gw", r_start = 1){
       replace_na(list("chi_sq_gw" = 0)) %>%
       group_by(rp) %>% 
       mutate(p_chi = chi_sq_gw / sum(chi_sq_gw))
-    g_title <- paste0("Nucleotide Contribution to Genome-wide Statistic: ", subtype)
+    g_title <- paste0("Nucleotide Contribution to Genome-wide Statistic: ", str_replace_all(subtype, "_", "-"))
   } else{
     df <- load_all_results(subtype, sp, r_start) %>% 
       replace_na(list("chi_sq_ct" = 0)) %>%
       group_by(rp) %>% 
       mutate(p_chi = chi_sq_ct / sum(chi_sq_ct))
-    g_title <- paste0("Nucleotide Contribution to Control-rate Statistic: ", subtype)
+    g_title <- paste0("Nucleotide Contribution to Control-rate Statistic: ", str_replace_all(subtype, "_", "-"))
   }
   
   p <- df %>%
@@ -214,13 +220,13 @@ plot_signed_nuc_by_pos <- function(subtype, sp, type = "gw", r_start = 1){
       replace_na(list("chi_sq_gw" = 0)) %>%
       mutate(s_val = sign(singletons - exp_gw)) %>%
       mutate(signed_chi_sq = s_val * chi_sq_gw)
-    g_title <- paste0("Nucleotide Genome-wide Signed ChiSq Residual: ", subtype)
+    g_title <- paste0("Nucleotide Genome-wide Signed ChiSq Residual: ", str_replace_all(subtype, "_", "-"))
   } else {
     df <- df %>%
       replace_na(list("chi_sq_ct" = 0)) %>%
       mutate(s_val = sign(singletons - exp_ct)) %>%
       mutate(signed_chi_sq = s_val * chi_sq_ct)
-    g_title <- paste0("Nucleotide Control-Rate Signed ChiSq Residual: ", subtype)
+    g_title <- paste0("Nucleotide Control-Rate Signed ChiSq Residual: ", str_replace_all(subtype, "_", "-"))
   }
   p <- df %>%
     ggplot(aes(x = rp, y = signed_chi_sq, colour = Nuc)) +
@@ -476,7 +482,7 @@ When we condition on the C<->G transversion being at a CpG site, we notice that 
 ```{r echo=FALSE, message=FALSE}
 p <- plot_all_cohen("ALL")
 
-tikz(paste0("/net/snowwhite/home/beckandy/research/documentation/LSCI/output/tikz/single_pos/cohen_all_bridges.tex"),
+tikz(paste0("/net/snowwhite/home/beckandy/research/documentation/LSCI/output/tikz/single_pos/cohen_all_1kgp.tex"),
      width = width, height = height)
 p
 dev.off()
@@ -641,28 +647,47 @@ Above we explored at the level of each position how the distributions of nucleot
 
 ### AT_CG
 
-```{r echo=FALSE}
-plot_nuc_cont_by_position("AT_CG", "ALL")
-plot_nuc_cont_by_position("AT_CG", "ALL", type="ct")
+```{r echo=FALSE, message=FALSE}
+st <- "AT_CG"
+p1 <- plot_nuc_cont_by_position(st, "ALL", type="ct")
+p2 <- plot_signed_nuc_by_pos(st, "ALL", type = "ct")
+p1
+p2
+
+tikz(paste0("/net/snowwhite/home/beckandy/research/documentation/LSCI/output/tikz/single_pos/1KGP_nuc_sp_", st, ".tex"),
+     width = width, height = height)
+p1
+dev.off()
+
+tikz(paste0("/net/snowwhite/home/beckandy/research/documentation/LSCI/output/tikz/single_pos/1KGP_signed_nuc_sp_", st, ".tex"),
+     width = width, height = height)
+p2
+dev.off()
 ```
 
 Here we can see that the nucleotide % contribution to the statistic at each position is largely consistent between the control and genome-wide background rate models. At the -1 position, which had the highest overall statistic among the positions, we can see that the G and C nucleotides contributed most to the chi square goodness of fit statistics, indicating that the observations in the singletons for these nucleotides were further from what we'd expect under a model where we assume the nucleotides flanking A>C(T>G) singletons at the -1 position are simply a random draw from a distribution with rates estimated either genome-wide or using the control sample. Below we plot the signed chi-square goodness-of-fit "residuals" for each nucleotide across the 20 positions:
 
-```{r echo=FALSE}
-plot_signed_nuc_by_pos("AT_CG", "ALL")
-plot_signed_nuc_by_pos("AT_CG", "ALL", type = "ct")
-```
 
 With this figure we can see that in both models at the -1 position we observed fewer Gs flanking singletons and more Cs than expected based on rates from gw/control. We can also see that for all nucleotides their individual contributions to the overall statics drop as we look further up/down stream.
 
 ### AT_GC
 
-```{r echo=FALSE}
+```{r echo=FALSE, message=FALSE}
 st <- "AT_GC"
-plot_nuc_cont_by_position(st, "ALL")
-plot_nuc_cont_by_position(st, "ALL", type="ct")
-plot_signed_nuc_by_pos(st, "ALL")
-plot_signed_nuc_by_pos(st, "ALL", type = "ct")
+p1 <- plot_nuc_cont_by_position(st, "ALL", type="ct")
+p2 <- plot_signed_nuc_by_pos(st, "ALL", type = "ct")
+p1
+p2
+
+tikz(paste0("/net/snowwhite/home/beckandy/research/documentation/LSCI/output/tikz/single_pos/1KGP_nuc_sp_", st, ".tex"),
+     width = width, height = height)
+p1
+dev.off()
+
+tikz(paste0("/net/snowwhite/home/beckandy/research/documentation/LSCI/output/tikz/single_pos/1KGP_signed_nuc_sp_", st, ".tex"),
+     width = width, height = height)
+p2
+dev.off()
 ```
 
 Here we can see the nucleotides contributing to the highest overall statistic at the +1 position are T and A, with little contribution from G and C. We see in the signed residuals plot that the major contribution was an enrichment of Ts at the +1 in singletons, with a depletion of As and Gs 
@@ -671,86 +696,154 @@ This sub-type's second highest statistic was observed at the -2 position, and we
 
 ### AT_TA
 
-```{r echo=FALSE}
+```{r echo=FALSE, message=FALSE}
 st <- "AT_TA"
-plot_nuc_cont_by_position(st, "ALL")
-plot_nuc_cont_by_position(st, "ALL", type="ct")
-plot_signed_nuc_by_pos(st, "ALL")
-plot_signed_nuc_by_pos(st, "ALL", type = "ct")
+p1 <- plot_nuc_cont_by_position(st, "ALL", type="ct")
+p2 <- plot_signed_nuc_by_pos(st, "ALL", type = "ct")
+p1
+p2
+
+tikz(paste0("/net/snowwhite/home/beckandy/research/documentation/LSCI/output/tikz/single_pos/1KGP_nuc_sp_", st, ".tex"),
+     width = width, height = height)
+p1
+dev.off()
+
+tikz(paste0("/net/snowwhite/home/beckandy/research/documentation/LSCI/output/tikz/single_pos/1KGP_signed_nuc_sp_", st, ".tex"),
+     width = width, height = height)
+p2
+dev.off()
 ```
 
 At the +1 position we see the signal is driven largely by T, with an enrichment of that nucleotide in the singletons, with a depletion of both As and Gs as well.
 
 ### GC_AT
 
-```{r echo=FALSE}
+```{r echo=FALSE, message=FALSE}
 st <- "GC_AT"
-plot_nuc_cont_by_position(st, "ALL")
-plot_nuc_cont_by_position(st, "ALL", type="ct")
-plot_signed_nuc_by_pos(st, "ALL")
-plot_signed_nuc_by_pos(st, "ALL", type = "ct")
+p1 <- plot_nuc_cont_by_position(st, "ALL", type="ct")
+p2 <- plot_signed_nuc_by_pos(st, "ALL", type = "ct")
+p1
+p2
+
+tikz(paste0("/net/snowwhite/home/beckandy/research/documentation/LSCI/output/tikz/single_pos/1KGP_nuc_sp_", st, ".tex"),
+     width = width, height = height)
+p1
+dev.off()
+
+tikz(paste0("/net/snowwhite/home/beckandy/research/documentation/LSCI/output/tikz/single_pos/1KGP_signed_nuc_sp_", st, ".tex"),
+     width = width, height = height)
+p2
+dev.off()
 ```
 
 Here we can see the nucleotides contributing most to the statistic at the -1 position are T and A, with an enrichment of As in the singletons and a depletion of Ts. In the control-rate based models, we see an enrichment of C at the +2 position which is only eclipsed in magnitude by the depletion of Ts seen in the -1 position.
 
 ### cpg_GC_AT
 
-```{r echo=FALSE}
+```{r echo=FALSE, message=FALSE}
 st <- "cpg_GC_AT"
-plot_nuc_cont_by_position(st, "ALL", r_start = 2)
-plot_nuc_cont_by_position(st, "ALL", type="ct", r_start = 2)
-plot_signed_nuc_by_pos(st, "ALL", r_start = 2)
-plot_signed_nuc_by_pos(st, "ALL", type = "ct", r_start = 2)
+p1 <- plot_nuc_cont_by_position(st, "ALL", type="ct", r_start = 2)
+p2 <- plot_signed_nuc_by_pos(st, "ALL", type = "ct", r_start = 2)
+p1
+p2
+
+tikz(paste0("/net/snowwhite/home/beckandy/research/documentation/LSCI/output/tikz/single_pos/1KGP_nuc_sp_", st, ".tex"),
+     width = width, height = height)
+p1
+dev.off()
+
+tikz(paste0("/net/snowwhite/home/beckandy/research/documentation/LSCI/output/tikz/single_pos/1KGP_signed_nuc_sp_", st, ".tex"),
+     width = width, height = height)
+p2
+dev.off()
 ```
 
 Here we can see that the statistic at the -1 position is most influenced by the A and T nucleotides in the control distribution based models, with a depletion of Ts and an enrichment of A. Interestingly we don't see as stark of a depletion in T in the genome-wide rate based models.
 
 ### GC_TA
 
-```{r echo=FALSE}
+```{r echo=FALSE, message=FALSE}
 st <- "GC_TA"
-plot_nuc_cont_by_position(st, "ALL")
-plot_nuc_cont_by_position(st, "ALL", type="ct")
-plot_signed_nuc_by_pos(st, "ALL")
-plot_signed_nuc_by_pos(st, "ALL", type = "ct")
+p1 <- plot_nuc_cont_by_position(st, "ALL", type="ct")
+p2 <- plot_signed_nuc_by_pos(st, "ALL", type = "ct")
+p1
+p2
+
+tikz(paste0("/net/snowwhite/home/beckandy/research/documentation/LSCI/output/tikz/single_pos/1KGP_nuc_sp_", st, ".tex"),
+     width = width, height = height)
+p1
+dev.off()
+
+tikz(paste0("/net/snowwhite/home/beckandy/research/documentation/LSCI/output/tikz/single_pos/1KGP_signed_nuc_sp_", st, ".tex"),
+     width = width, height = height)
+p2
+dev.off()
 ```
 
 In both models we see the overall statistic at the +1 position is driven most by the C nucleotide, with an enrichment seen in singletons. We also see an enrichment of A nucleotides at the -2 relative position, especially in the genome-wide rate based models.
 
--2
-
 ### cpg_GC_TA
 
-```{r echo=FALSE}
+```{r echo=FALSE, message=FALSE}
 st <- "cpg_GC_TA"
-plot_nuc_cont_by_position(st, "ALL", r_start = 2)
-plot_nuc_cont_by_position(st, "ALL", type="ct", r_start = 2)
-plot_signed_nuc_by_pos(st, "ALL", r_start = 2)
-plot_signed_nuc_by_pos(st, "ALL", type = "ct", r_start = 2)
+p1 <- plot_nuc_cont_by_position(st, "ALL", type="ct", r_start = 2)
+p2 <- plot_signed_nuc_by_pos(st, "ALL", type = "ct", r_start = 2)
+p1
+p2
+
+tikz(paste0("/net/snowwhite/home/beckandy/research/documentation/LSCI/output/tikz/single_pos/1KGP_nuc_sp_", st, ".tex"),
+     width = width, height = height)
+p1
+dev.off()
+
+tikz(paste0("/net/snowwhite/home/beckandy/research/documentation/LSCI/output/tikz/single_pos/1KGP_signed_nuc_sp_", st, ".tex"),
+     width = width, height = height)
+p2
+dev.off()
 ```
 
 At the -1 position we see that the signal is driven by an enrichment of G and a depletion of both C and T in the singletons. Wel also see that the statistics at the -4 and -5 positions are driven primarily by an enrichment of Cs and a depletion of Gs at these positions.
 
 ### GC_CG
 
-```{r echo=FALSE}
+```{r echo=FALSE, message=FALSE}
 st <- "GC_CG"
-plot_nuc_cont_by_position(st, "ALL")
-plot_nuc_cont_by_position(st, "ALL", type="ct")
-plot_signed_nuc_by_pos(st, "ALL")
-plot_signed_nuc_by_pos(st, "ALL", type = "ct")
+p1 <- plot_nuc_cont_by_position(st, "ALL", type="ct")
+p2 <- plot_signed_nuc_by_pos(st, "ALL", type = "ct")
+p1
+p2
+
+tikz(paste0("/net/snowwhite/home/beckandy/research/documentation/LSCI/output/tikz/single_pos/1KGP_nuc_sp_", st, ".tex"),
+     width = width, height = height)
+p1
+dev.off()
+
+tikz(paste0("/net/snowwhite/home/beckandy/research/documentation/LSCI/output/tikz/single_pos/1KGP_signed_nuc_sp_", st, ".tex"),
+     width = width, height = height)
+p2
+dev.off()
 ```
 
 Looking at the contributions to the largest observed statistic for this subtype (-2), we observe a slightly different pattern in that the signal is driven by all four nucleotides, with an enrichment of C and A and a depletion of T and G in the singletons. We also see that the statistic in the +1 position is driven primarily by a depletion of A with an enrichment in T, although the latter is more moderate in the control rate model.
 
 ### cpg_GC_CG
 
-```{r echo=FALSE}
+```{r echo=FALSE, message=FALSE}
 st <- "cpg_GC_CG"
-plot_nuc_cont_by_position(st, "ALL", r_start = 2)
-plot_nuc_cont_by_position(st, "ALL", type="ct", r_start = 2)
-plot_signed_nuc_by_pos(st, "ALL", r_start = 2)
-plot_signed_nuc_by_pos(st, "ALL", type = "ct", r_start = 2)
+p1 <- plot_nuc_cont_by_position(st, "ALL", type="ct", r_start = 2)
+p2 <- plot_signed_nuc_by_pos(st, "ALL", type = "ct", r_start = 2)
+p1
+p2
+
+tikz(paste0("/net/snowwhite/home/beckandy/research/documentation/LSCI/output/tikz/single_pos/1KGP_nuc_sp_", st, ".tex"),
+     width = width, height = height)
+p1
+dev.off()
+
+tikz(paste0("/net/snowwhite/home/beckandy/research/documentation/LSCI/output/tikz/single_pos/1KGP_signed_nuc_sp_", st, ".tex"),
+     width = width, height = height)
+p2
+dev.off()
 ```
 
 Here we can see that the signal at the -1 and -2 positions are driven primarily by a depletion of Gs in the singletons, with an enrichment of Cs being seen at the -2 position as well (at -1 we seen a mild enrichment of both C and T). At +2 we can see that the signal is largely driven by an enrichment of As, while the signal at +3 is driven by an enrichment of Gs matched by a depletion of Cs.
