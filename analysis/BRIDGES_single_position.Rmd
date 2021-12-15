@@ -234,11 +234,13 @@ st <- "AT_CG"
 p1 <- plot_pos_stat(st)
 p2 <- plot_pos_cohen(st)
 
-tikz(paste0("/net/snowwhite/home/beckandy/research/documentation/LSCI/output/tikz/single_pos/chisq_", st, ".tex"))
+tikz(paste0("/net/snowwhite/home/beckandy/research/documentation/LSCI/output/tikz/single_pos/BRIDGES_chisq_", st, ".tex"),
+     width = width, height = height)
 p1
 dev.off()
 
-tikz(paste0("/net/snowwhite/home/beckandy/research/documentation/LSCI/output/tikz/single_pos/cohen_", st, ".tex"))
+tikz(paste0("/net/snowwhite/home/beckandy/research/documentation/LSCI/output/tikz/single_pos/BRIDGE_cohen_", st, ".tex"),
+     width = width, height = height)
 p2
 dev.off()
 
@@ -254,11 +256,13 @@ st <- "AT_GC"
 p1 <- plot_pos_stat(st)
 p2 <- plot_pos_cohen(st)
 
-tikz(paste0("/net/snowwhite/home/beckandy/research/documentation/LSCI/output/tikz/single_pos/chisq_", st, ".tex"))
+tikz(paste0("/net/snowwhite/home/beckandy/research/documentation/LSCI/output/tikz/single_pos/BRIDGES_chisq_", st, ".tex"),
+     width = width, height = height)
 p1
 dev.off()
 
-tikz(paste0("/net/snowwhite/home/beckandy/research/documentation/LSCI/output/tikz/single_pos/cohen_", st, ".tex"))
+tikz(paste0("/net/snowwhite/home/beckandy/research/documentation/LSCI/output/tikz/single_pos/BRIDGES_cohen_", st, ".tex"),
+     width = width, height = height)
 p2
 dev.off()
 
@@ -274,11 +278,13 @@ st <- "AT_TA"
 p1 <- plot_pos_stat(st)
 p2 <- plot_pos_cohen(st)
 
-tikz(paste0("/net/snowwhite/home/beckandy/research/documentation/LSCI/output/tikz/single_pos/chisq_", st, ".tex"))
+tikz(paste0("/net/snowwhite/home/beckandy/research/documentation/LSCI/output/tikz/single_pos/BRIDGES_chisq_", st, ".tex"),
+     width = width, height = height)
 p1
 dev.off()
 
-tikz(paste0("/net/snowwhite/home/beckandy/research/documentation/LSCI/output/tikz/single_pos/cohen_", st, ".tex"))
+tikz(paste0("/net/snowwhite/home/beckandy/research/documentation/LSCI/output/tikz/single_pos/BRIDGES_cohen_", st, ".tex"),
+     width = width, height = height)
 p2
 dev.off()
 
@@ -294,11 +300,13 @@ st <- "GC_AT"
 p1 <- plot_pos_stat(st, r_start = 2)
 p2 <- plot_pos_cohen(st, r_start = 2)
 
-tikz(paste0("/net/snowwhite/home/beckandy/research/documentation/LSCI/output/tikz/single_pos/chisq_", st, ".tex"))
+tikz(paste0("/net/snowwhite/home/beckandy/research/documentation/LSCI/output/tikz/single_pos/BRIDGES_chisq_", st, ".tex"),
+     width = width, height = height)
 p1
 dev.off()
 
-tikz(paste0("/net/snowwhite/home/beckandy/research/documentation/LSCI/output/tikz/single_pos/cohen_", st, ".tex"))
+tikz(paste0("/net/snowwhite/home/beckandy/research/documentation/LSCI/output/tikz/single_pos/BRIDGES_cohen_", st, ".tex"),
+     width = width, height = height)
 p2
 dev.off()
 
@@ -314,11 +322,13 @@ st <- "GC_TA"
 p1 <- plot_pos_stat(st, r_start = 2)
 p2 <- plot_pos_cohen(st, r_start = 2)
 
-tikz(paste0("/net/snowwhite/home/beckandy/research/documentation/LSCI/output/tikz/single_pos/chisq_", st, ".tex"))
+tikz(paste0("/net/snowwhite/home/beckandy/research/documentation/LSCI/output/tikz/single_pos/BRIDGES_chisq_", st, ".tex"),
+     width = width, height = height)
 p1
 dev.off()
 
-tikz(paste0("/net/snowwhite/home/beckandy/research/documentation/LSCI/output/tikz/single_pos/cohen_", st, ".tex"))
+tikz(paste0("/net/snowwhite/home/beckandy/research/documentation/LSCI/output/tikz/single_pos/BRIDGES_cohen_", st, ".tex"),
+     width = width, height = height)
 p2
 dev.off()
 
@@ -334,11 +344,13 @@ st <- "GC_CG"
 p1 <- plot_pos_stat(st, r_start = 2)
 p2 <- plot_pos_cohen(st, r_start = 2)
 
-tikz(paste0("/net/snowwhite/home/beckandy/research/documentation/LSCI/output/tikz/single_pos/chisq_", st, ".tex"))
+tikz(paste0("/net/snowwhite/home/beckandy/research/documentation/LSCI/output/tikz/single_pos/BRIDGES_chisq_", st, ".tex"),
+     width = width, height = height)
 p1
 dev.off()
 
-tikz(paste0("/net/snowwhite/home/beckandy/research/documentation/LSCI/output/tikz/single_pos/cohen_", st, ".tex"))
+tikz(paste0("/net/snowwhite/home/beckandy/research/documentation/LSCI/output/tikz/single_pos/BRIDGES_cohen_", st, ".tex"),
+     width = width, height = height)
 p2
 dev.off()
 
@@ -354,11 +366,13 @@ st <- "cpg_GC_AT"
 p1 <- plot_pos_stat(st, r_start = 2)
 p2 <- plot_pos_cohen(st, r_start = 2)
 
-tikz(paste0("/net/snowwhite/home/beckandy/research/documentation/LSCI/output/tikz/single_pos/chisq_", st, ".tex"))
+tikz(paste0("/net/snowwhite/home/beckandy/research/documentation/LSCI/output/tikz/single_pos/BRIDGES_chisq_", st, ".tex"),
+     width = width, height = height)
 p1
 dev.off()
 
-tikz(paste0("/net/snowwhite/home/beckandy/research/documentation/LSCI/output/tikz/single_pos/cohen_", st, ".tex"))
+tikz(paste0("/net/snowwhite/home/beckandy/research/documentation/LSCI/output/tikz/single_pos/BRIDGES_cohen_", st, ".tex"),
+     width = width, height = height)
 p2
 dev.off()
 
@@ -374,11 +388,13 @@ st <- "cpg_GC_TA"
 p1 <- plot_pos_stat(st, r_start = 2)
 p2 <- plot_pos_cohen(st, r_start = 2)
 
-tikz(paste0("/net/snowwhite/home/beckandy/research/documentation/LSCI/output/tikz/single_pos/chisq_", st, ".tex"))
+tikz(paste0("/net/snowwhite/home/beckandy/research/documentation/LSCI/output/tikz/single_pos/BRIDGES_chisq_", st, ".tex"),
+     width = width, height = height)
 p1
 dev.off()
 
-tikz(paste0("/net/snowwhite/home/beckandy/research/documentation/LSCI/output/tikz/single_pos/cohen_", st, ".tex"))
+tikz(paste0("/net/snowwhite/home/beckandy/research/documentation/LSCI/output/tikz/single_pos/BRIDGES_cohen_", st, ".tex"),
+     width = width, height = height)
 p2
 dev.off()
 
@@ -394,11 +410,13 @@ st <- "cpg_GC_CG"
 p1 <- plot_pos_stat(st, r_start = 2)
 p2 <- plot_pos_cohen(st, r_start = 2)
 
-tikz(paste0("/net/snowwhite/home/beckandy/research/documentation/LSCI/output/tikz/single_pos/chisq_", st, ".tex"))
+tikz(paste0("/net/snowwhite/home/beckandy/research/documentation/LSCI/output/tikz/single_pos/BRIDGES_chisq_", st, ".tex"),
+     width = width, height = height)
 p1
 dev.off()
 
-tikz(paste0("/net/snowwhite/home/beckandy/research/documentation/LSCI/output/tikz/single_pos/cohen_", st, ".tex"))
+tikz(paste0("/net/snowwhite/home/beckandy/research/documentation/LSCI/output/tikz/single_pos/BRIDGES_cohen_", st, ".tex"),
+     width = width, height = height)
 p2
 dev.off()
 
@@ -414,7 +432,8 @@ Cohen's w allows us to visualize the results for all subtypes in one plot:
 ```{r echo=FALSE, message=FALSE}
 p <- plot_all_cohen()
 
-tikz(paste0("/net/snowwhite/home/beckandy/research/documentation/LSCI/output/tikz/single_pos/cohen_all_bridges.tex"))
+tikz(paste0("/net/snowwhite/home/beckandy/research/documentation/LSCI/output/tikz/single_pos/cohen_all_bridges.tex"),
+     width = width, height = height)
 p
 dev.off()
 
