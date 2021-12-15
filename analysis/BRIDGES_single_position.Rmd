@@ -105,6 +105,69 @@ plot_pos_cohen <- function(subtype, r_start = 1){
   return(p)
 }
 
+plot_all_cohen <- function(){
+  cbbPalette <- c("#000000", "#E69F00", "#56B4E9", "#009E73", "#F0E442", "#0072B2", "#D55E00", "#CC79A7", "#999999")
+  
+  df1 <- statistic_by_position("AT_CG") %>%
+    filter(type == "Control") %>%
+    select(pos, cohen) %>%
+    mutate(subtype = "AT-CG")
+  df2 <- statistic_by_position("AT_GC") %>%
+    filter(type == "Control") %>%
+    select(pos, cohen) %>%
+    mutate(subtype = "AT-GC")
+  df3 <- statistic_by_position("AT_TA") %>%
+    filter(type == "Control") %>%
+    select(pos, cohen) %>%
+    mutate(subtype = "AT-TA")
+  
+  df4 <- statistic_by_position("GC_AT", r_start = 2) %>%
+    filter(type == "Control") %>%
+    select(pos, cohen) %>%
+    mutate(subtype = "GC-AT")
+  df5 <- statistic_by_position("GC_TA", r_start = 2) %>%
+    filter(type == "Control") %>%
+    select(pos, cohen) %>%
+    mutate(subtype = "GC-TA")
+  df6 <- statistic_by_position("GC_CG", r_start = 2) %>%
+    filter(type == "Control") %>%
+    select(pos, cohen) %>%
+    mutate(subtype = "GC-CG")
+  
+  df7 <- statistic_by_position("cpg_GC_AT", r_start = 2) %>%
+    filter(type == "Control") %>%
+    select(pos, cohen) %>%
+    mutate(subtype = "cpgGC-AT")
+  df8 <- statistic_by_position("cpg_GC_TA", r_start = 2) %>%
+    filter(type == "Control") %>%
+    select(pos, cohen) %>%
+    mutate(subtype = "cpgGC-TA")
+  df9 <- statistic_by_position("cpg_GC_CG", r_start = 2) %>%
+    filter(type == "Control") %>%
+    select(pos, cohen) %>%
+    mutate(subtype = "cpgGC-CG")
+  
+  df <- bind_rows(df1, df2) %>%
+    bind_rows(df3) %>%
+    bind_rows(df4) %>%
+    bind_rows(df5) %>%
+    bind_rows(df6) %>%
+    bind_rows(df7) %>%
+    bind_rows(df8) %>%
+    bind_rows(df9)
+  
+  p <-df %>%
+    ggplot(aes(x = pos, y = cohen, colour = subtype)) +
+    geom_point() +
+    geom_line() +
+    ggtitle(paste0("BRIDGES Single-Position Results")) +
+    xlab("Relative Position") +
+    ylab("Cohen's w") +
+    labs(colour = "Sub type") +
+    scale_color_manual(values=cbbPalette)
+  return(p)
+}
+
 plot_nuc_cont_by_position <- function(subtype, type = "gw", r_start = 1){
   if(type == "gw"){
     df <- load_all_results(subtype, r_start) %>% 
@@ -341,6 +404,21 @@ p1
 
 p2
 ```
+
+### All subtypes in one plot
+
+Cohen's w allows us to visualize the results for all subtypes in one plot:
+
+```{r echo=FALSE, message=FALSE}
+p <- plot_all_cohen()
+
+tikz(paste0("/net/snowwhite/home/beckandy/research/documentation/LSCI/output/tikz/single_pos/cohen_all.tex"))
+p
+dev.off()
+
+p
+```
+
 
 ## 18 Subtype Results
 
