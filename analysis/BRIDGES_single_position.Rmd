@@ -10,6 +10,8 @@ editor_options:
 ```{r message=FALSE, warning=FALSE, include=FALSE}
 library(tidyverse)
 library(tikzDevice)
+width = 4
+height = 4
 ```
 
 # BRIDGES Single Position Model Results
@@ -412,7 +414,7 @@ Cohen's w allows us to visualize the results for all subtypes in one plot:
 ```{r echo=FALSE, message=FALSE}
 p <- plot_all_cohen()
 
-tikz(paste0("/net/snowwhite/home/beckandy/research/documentation/LSCI/output/tikz/single_pos/cohen_all.tex"))
+tikz(paste0("/net/snowwhite/home/beckandy/research/documentation/LSCI/output/tikz/single_pos/cohen_all_bridges.tex"))
 p
 dev.off()
 
@@ -579,89 +581,190 @@ Above we explored at the level of each position how the distributions of nucleot
 
 ```{r echo=FALSE}
 st <- "AT_CG"
-plot_nuc_cont_by_position(st)
-plot_signed_nuc_by_pos(st)
-plot_nuc_cont_by_position(st, type="ct")
-plot_signed_nuc_by_pos(st, type="ct")
+#p1 <- plot_nuc_cont_by_position(st)
+#p2 <- plot_signed_nuc_by_pos(st)
+p3 <- plot_nuc_cont_by_position(st, type="ct")
+p4 <- plot_signed_nuc_by_pos(st, type="ct")
+
+tikz(paste0("/net/snowwhite/home/beckandy/research/documentation/LSCI/output/tikz/single_pos/BRIDGES_nuc_sp_", st, ".tex"),
+     width = width, height = height)
+p3
+dev.off()
+
+tikz(paste0("/net/snowwhite/home/beckandy/research/documentation/LSCI/output/tikz/single_pos/BRIDGES_signed_nuc_sp_", st, ".tex"),
+     width = width, height = height)
+p4
+dev.off()
+
+p3
+p4
 ```
 
 ### AT_GC
 
 ```{r echo=FALSE}
 st <- "AT_GC"
-plot_nuc_cont_by_position(st)
-plot_signed_nuc_by_pos(st)
-plot_nuc_cont_by_position(st, type="ct")
-plot_signed_nuc_by_pos(st, type="ct")
+p3 <- plot_nuc_cont_by_position(st, type="ct")
+p4 <- plot_signed_nuc_by_pos(st, type="ct")
+
+tikz(paste0("/net/snowwhite/home/beckandy/research/documentation/LSCI/output/tikz/single_pos/BRIDGES_nuc_sp_", st, ".tex"),
+     width = width, height = height)
+p3
+dev.off()
+
+tikz(paste0("/net/snowwhite/home/beckandy/research/documentation/LSCI/output/tikz/single_pos/BRIDGES_signed_nuc_sp_", st, ".tex"),
+     width = width, height = height)
+p4
+dev.off()
+
+p3
+p4
 ```
 
 ### AT_TA
 
 ```{r echo=FALSE}
 st <- "AT_TA"
-plot_nuc_cont_by_position(st)
-plot_signed_nuc_by_pos(st)
-plot_nuc_cont_by_position(st, type="ct")
-plot_signed_nuc_by_pos(st, type="ct")
+p3 <- plot_nuc_cont_by_position(st, type="ct")
+p4 <- plot_signed_nuc_by_pos(st, type="ct")
+
+tikz(paste0("/net/snowwhite/home/beckandy/research/documentation/LSCI/output/tikz/single_pos/BRIDGES_nuc_sp_", st, ".tex"),
+     width = width, height = height)
+p3
+dev.off()
+
+tikz(paste0("/net/snowwhite/home/beckandy/research/documentation/LSCI/output/tikz/single_pos/BRIDGES_signed_nuc_sp_", st, ".tex"),
+     width = width, height = height)
+p4
+dev.off()
+
+p3
+p4
 ```
 
 ### GC_AT
 
 ```{r echo=FALSE}
 st <- "GC_AT"
-plot_nuc_cont_by_position(st)
-plot_signed_nuc_by_pos(st)
-plot_nuc_cont_by_position(st, type="ct")
-plot_signed_nuc_by_pos(st, type="ct")
+p3 <- plot_nuc_cont_by_position(st, type="ct")
+p4 <- plot_signed_nuc_by_pos(st, type="ct")
+
+tikz(paste0("/net/snowwhite/home/beckandy/research/documentation/LSCI/output/tikz/single_pos/BRIDGES_nuc_sp_", st, ".tex"),
+     width = width, height = height)
+p3
+dev.off()
+
+tikz(paste0("/net/snowwhite/home/beckandy/research/documentation/LSCI/output/tikz/single_pos/BRIDGES_signed_nuc_sp_", st, ".tex"),
+     width = width, height = height)
+p4
+dev.off()
+
+p3
+p4
 ```
 
 ### cpg_GC_AT
 
 ```{r echo=FALSE}
 st <- "cpg_GC_AT"
-plot_nuc_cont_by_position(st, r_start = 2)
-plot_signed_nuc_by_pos(st, r_start = 2)
-plot_nuc_cont_by_position(st, type="ct", r_start = 2)
-plot_signed_nuc_by_pos(st, type="ct", r_start = 2)
+p3 <- plot_nuc_cont_by_position(st, type="ct", r_start = 2)
+p4 <- plot_signed_nuc_by_pos(st, type="ct", r_start = 2)
+
+tikz(paste0("/net/snowwhite/home/beckandy/research/documentation/LSCI/output/tikz/single_pos/BRIDGES_nuc_sp_", st, ".tex"),
+     width = width, height = height)
+p3
+dev.off()
+
+tikz(paste0("/net/snowwhite/home/beckandy/research/documentation/LSCI/output/tikz/single_pos/BRIDGES_signed_nuc_sp_", st, ".tex"),
+     width = width, height = height)
+p4
+dev.off()
+
+p3
+p4
 ```
 
 ### GC_CG
 
 ```{r echo=FALSE}
 st <- "GC_CG"
-plot_nuc_cont_by_position(st)
-plot_signed_nuc_by_pos(st)
-plot_nuc_cont_by_position(st, type="ct")
-plot_signed_nuc_by_pos(st, type="ct")
+p3 <- plot_nuc_cont_by_position(st, type="ct")
+p4 <- plot_signed_nuc_by_pos(st, type="ct")
+
+tikz(paste0("/net/snowwhite/home/beckandy/research/documentation/LSCI/output/tikz/single_pos/BRIDGES_nuc_sp_", st, ".tex"),
+     width = width, height = height)
+p3
+dev.off()
+
+tikz(paste0("/net/snowwhite/home/beckandy/research/documentation/LSCI/output/tikz/single_pos/BRIDGES_signed_nuc_sp_", st, ".tex"),
+     width = width, height = height)
+p4
+dev.off()
+
+p3
+p4
 ```
 
 ### cpg_GC_CG
 
 ```{r echo=FALSE}
 st <- "cpg_GC_CG"
-plot_nuc_cont_by_position(st, r_start = 2)
-plot_signed_nuc_by_pos(st, r_start = 2)
-plot_nuc_cont_by_position(st, type="ct", r_start = 2)
-plot_signed_nuc_by_pos(st, type="ct", r_start = 2)
+p3 <- plot_nuc_cont_by_position(st, type="ct", r_start = 2)
+p4 <- plot_signed_nuc_by_pos(st, type="ct", r_start = 2)
+
+tikz(paste0("/net/snowwhite/home/beckandy/research/documentation/LSCI/output/tikz/single_pos/BRIDGES_nuc_sp_", st, ".tex"),
+     width = width, height = height)
+p3
+dev.off()
+
+tikz(paste0("/net/snowwhite/home/beckandy/research/documentation/LSCI/output/tikz/single_pos/BRIDGES_signed_nuc_sp_", st, ".tex"),
+     width = width, height = height)
+p4
+dev.off()
+
+p3
+p4
 ```
 
 ### GC_TA
 
 ```{r echo=FALSE}
 st <- "GC_TA"
-plot_nuc_cont_by_position(st)
-plot_signed_nuc_by_pos(st)
-plot_nuc_cont_by_position(st, type="ct")
-plot_signed_nuc_by_pos(st, type="ct")
+p3 <- plot_nuc_cont_by_position(st, type="ct")
+p4 <- plot_signed_nuc_by_pos(st, type="ct")
+
+tikz(paste0("/net/snowwhite/home/beckandy/research/documentation/LSCI/output/tikz/single_pos/BRIDGES_nuc_sp_", st, ".tex"),
+     width = width, height = height)
+p3
+dev.off()
+
+tikz(paste0("/net/snowwhite/home/beckandy/research/documentation/LSCI/output/tikz/single_pos/BRIDGES_signed_nuc_sp_", st, ".tex"),
+     width = width, height = height)
+p4
+dev.off()
+
+p3
+p4
 ```
 
 ### cpg_GC_TA
 
 ```{r echo=FALSE}
 st <- "cpg_GC_TA"
-plot_nuc_cont_by_position(st, r_start = 2)
-plot_signed_nuc_by_pos(st, r_start = 2)
-plot_nuc_cont_by_position(st, type="ct", r_start = 2)
-plot_signed_nuc_by_pos(st, type="ct", r_start = 2)
+p3 <- plot_nuc_cont_by_position(st, type="ct", r_start = 2)
+p4 <- plot_signed_nuc_by_pos(st, type="ct", r_start = 2)
+
+tikz(paste0("/net/snowwhite/home/beckandy/research/documentation/LSCI/output/tikz/single_pos/BRIDGES_nuc_sp_", st, ".tex"),
+     width = width, height = height)
+p3
+dev.off()
+
+tikz(paste0("/net/snowwhite/home/beckandy/research/documentation/LSCI/output/tikz/single_pos/BRIDGES_signed_nuc_sp_", st, ".tex"),
+     width = width, height = height)
+p4
+dev.off()
+
+p3
+p4
 ```
 
