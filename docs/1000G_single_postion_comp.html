@@ -361,7 +361,7 @@ div.tocify {
 
 <p>
 <button type="button" class="btn btn-default btn-workflowr btn-workflowr-report" data-toggle="collapse" data-target="#workflowr-report">
-<span class="glyphicon glyphicon-list" aria-hidden="true"></span> workflowr <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span>
+<span class="glyphicon glyphicon-list" aria-hidden="true"></span> workflowr <span class="glyphicon glyphicon-exclamation-sign text-danger" aria-hidden="true"></span>
 </button>
 </p>
 <div id="workflowr-report" class="collapse">
@@ -370,7 +370,7 @@ div.tocify {
 <a data-toggle="tab" href="#summary">Summary</a>
 </li>
 <li>
-<a data-toggle="tab" href="#checks"> Checks <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> </a>
+<a data-toggle="tab" href="#checks"> Checks <span class="glyphicon glyphicon-exclamation-sign text-danger" aria-hidden="true"></span> </a>
 </li>
 <li>
 <a data-toggle="tab" href="#versions">Past versions</a>
@@ -379,10 +379,10 @@ div.tocify {
 <div class="tab-content">
 <div id="summary" class="tab-pane fade in active">
 <p>
-<strong>Last updated:</strong> 2021-11-10
+<strong>Last updated:</strong> 2021-12-15
 </p>
 <p>
-<strong>Checks:</strong> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> 7 <span class="glyphicon glyphicon-exclamation-sign text-danger" aria-hidden="true"></span> 0
+<strong>Checks:</strong> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> 5 <span class="glyphicon glyphicon-exclamation-sign text-danger" aria-hidden="true"></span> 2
 </p>
 <p>
 <strong>Knit directory:</strong> <code>LSCI/</code> <span class="glyphicon glyphicon-question-sign" aria-hidden="true" title="This is the local directory in which the code in this file was executed."> </span>
@@ -446,40 +446,108 @@ This reproducible <a href="http://rmarkdown.rstudio.com">R Markdown</a> analysis
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongCachestrongnone"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Cache:</strong> none </a>
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongCachestrongdetected"> <span class="glyphicon glyphicon-exclamation-sign text-danger" aria-hidden="true"></span> <strong>Cache:</strong> detected </a>
 </p>
 </div>
-<div id="strongCachestrongnone" class="panel-collapse collapse">
+<div id="strongCachestrongdetected" class="panel-collapse collapse">
 <div class="panel-body">
-<p>Nice! There were no cached chunks for this analysis, so you can be confident that you successfully produced the results during this run.</p>
+The following chunks had caches available:
+<ul>
+<li>
+at_cg_pop_plot
+</li>
+<li>
+at_gc_pop_plot
+</li>
+<li>
+at_ta_pop_plot
+</li>
+<li>
+cpg_gc_at_pop_plot
+</li>
+<li>
+cpg_gc_cg_pop_plot
+</li>
+<li>
+cpg_gc_ta_pop_plot
+</li>
+<li>
+gc_at_pop_plot
+</li>
+<li>
+gc_cg_pop_plot
+</li>
+<li>
+gc_ta_pop_plot
+</li>
+<li>
+load_2pop
+</li>
+<li>
+plot_2pop
+</li>
+</ul>
+<p>To ensure reproducibility of the results, delete the cache directory <code>1000G_single_postion_comp_cache</code> and re-run the analysis. To have workflowr automatically delete the cache directory prior to building the file, set <code>delete_cache = TRUE</code> when running <code>wflow_build()</code> or <code>wflow_publish()</code>.</p>
 </div>
 </div>
 </div>
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongFilepathsstrongrelative"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>File paths:</strong> relative </a>
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongFilepathsstrongabsolute"> <span class="glyphicon glyphicon-exclamation-sign text-danger" aria-hidden="true"></span> <strong>File paths:</strong> absolute </a>
 </p>
 </div>
-<div id="strongFilepathsstrongrelative" class="panel-collapse collapse">
+<div id="strongFilepathsstrongabsolute" class="panel-collapse collapse">
 <div class="panel-body">
-<p>Great job! Using relative paths to the files within your workflowr project makes it easier to run your code on other machines.</p>
+<p>
+Using absolute paths to the files within your workflowr project makes it difficult for you and others to run your code on a different machine. Change the absolute path(s) below to the suggested relative path(s) to make your code more reproducible.
+</p>
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th style="text-align:left;">
+absolute
+</th>
+<th style="text-align:left;">
+relative
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;">
+/net/snowwhite/home/beckandy/research/documentation/LSCI/output/tikz/single_pos/AFR_EUR_AT_CG.tex
+</td>
+<td style="text-align:left;">
+output/tikz/single_pos/AFR_EUR_AT_CG.tex
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+/net/snowwhite/home/beckandy/research/documentation/LSCI/output/tikz/single_pos/
+</td>
+<td style="text-align:left;">
+output/tikz/single_pos
+</td>
+</tr>
+</tbody>
+</table>
 </div>
 </div>
 </div>
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomtheandybLSCItreefb5c8e44eb16b6044aa6049871d33106e1b6411atargetblankfb5c8e4a"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/theandyb/LSCI/tree/fb5c8e44eb16b6044aa6049871d33106e1b6411a" target="_blank">fb5c8e4</a> </a>
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomtheandybLSCItree548c94347f658a4303bafa603080df774e8b4af5targetblank548c943a"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/theandyb/LSCI/tree/548c94347f658a4303bafa603080df774e8b4af5" target="_blank">548c943</a> </a>
 </p>
 </div>
-<div id="strongRepositoryversionstrongahrefhttpsgithubcomtheandybLSCItreefb5c8e44eb16b6044aa6049871d33106e1b6411atargetblankfb5c8e4a" class="panel-collapse collapse">
+<div id="strongRepositoryversionstrongahrefhttpsgithubcomtheandybLSCItree548c94347f658a4303bafa603080df774e8b4af5targetblank548c943a" class="panel-collapse collapse">
 <div class="panel-body">
 <p>
 Great! You are using Git for version control. Tracking code development and connecting the code version to the results is critical for reproducibility.
 </p>
 <p>
-The results in this page were generated with repository version <a href="https://github.com/theandyb/LSCI/tree/fb5c8e44eb16b6044aa6049871d33106e1b6411a" target="_blank">fb5c8e4</a>. See the <em>Past versions</em> tab to see a history of the changes made to the R Markdown and HTML files.
+The results in this page were generated with repository version <a href="https://github.com/theandyb/LSCI/tree/548c94347f658a4303bafa603080df774e8b4af5" target="_blank">548c943</a>. See the <em>Past versions</em> tab to see a history of the changes made to the R Markdown and HTML files.
 </p>
 <p>
 Note that you need to be careful to ensure that all relevant files for the analysis have been committed to Git prior to generating the results (you can use <code>wflow_publish</code> or <code>wflow_git_commit</code>). workflowr only checks the R Markdown file, but you know if there are other scripts or data files that it depends on. Below is the status of the Git repository when the results were generated:
@@ -488,7 +556,18 @@ Note that you need to be careful to ensure that all relevant files for the analy
 Ignored files:
     Ignored:    .Rhistory
     Ignored:    .Rproj.user/
+    Ignored:    analysis/1000G_single_postion_comp_cache/
     Ignored:    analysis/disqus.html
+
+Untracked files:
+    Untracked:  1000G_single_position_ALL-tikzDictionary
+    Untracked:  BRIDGES_single_position-tikzDictionary
+    Untracked:  BRIDGES_summary_stats-tikzDictionary
+    Untracked:  output/tikz/
+
+Unstaged changes:
+    Modified:   analysis/BRIDGES_summary_stats.Rmd
+    Modified:   code/single_pos_functions.R
 
 </code></pre>
 <p>
@@ -527,6 +606,40 @@ Message
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+Rmd
+</td>
+<td>
+<a href="https://github.com/theandyb/LSCI/blob/548c94347f658a4303bafa603080df774e8b4af5/analysis/1000G_single_postion_comp.Rmd" target="_blank">548c943</a>
+</td>
+<td>
+Andy Beck
+</td>
+<td>
+2021-12-15
+</td>
+<td>
+wflow_publish("analysis//1000G_single_postion_comp.Rmd")
+</td>
+</tr>
+<tr>
+<td>
+html
+</td>
+<td>
+<a href="https://rawcdn.githack.com/theandyb/LSCI/ebe7aed98187e66def5e8b01b75ce9d1924afb28/docs/1000G_single_postion_comp.html" target="_blank">ebe7aed</a>
+</td>
+<td>
+Andy Beck
+</td>
+<td>
+2021-11-10
+</td>
+<td>
+Build site.
+</td>
+</tr>
 <tr>
 <td>
 Rmd
@@ -609,7 +722,7 @@ Andy Beck
 2021-11-09
 </td>
 <td>
-wflow_publish(c(“analysis/1000G_single_postion_comp.Rmd”, “analysis/outline.Rmd”))
+wflow_publish(c("analysis/1000G_single_postion_comp.Rmd", "analysis/outline.Rmd"))
 </td>
 </tr>
 <tr>
@@ -1041,60 +1154,6 @@ Missing treated using: &#39;pairwise.complete.obs&#39;</code></pre>
 <pre><code>
 Correlation method: &#39;pearson&#39;
 Missing treated using: &#39;pairwise.complete.obs&#39;</code></pre>
-<table>
-<thead>
-<tr class="header">
-<th align="left">term</th>
-<th align="left">chi_sq_ct.AFR</th>
-<th align="left">chi_sq_ct.AMR</th>
-<th align="left">chi_sq_ct.EAS</th>
-<th align="left">chi_sq_ct.EUR</th>
-<th align="left">chi_sq_ct.SAS</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td align="left">chi_sq_ct.AFR</td>
-<td align="left"></td>
-<td align="left">.98</td>
-<td align="left">.93</td>
-<td align="left">.97</td>
-<td align="left">.99</td>
-</tr>
-<tr class="even">
-<td align="left">chi_sq_ct.AMR</td>
-<td align="left">.98</td>
-<td align="left"></td>
-<td align="left">.97</td>
-<td align="left">.99</td>
-<td align="left">.95</td>
-</tr>
-<tr class="odd">
-<td align="left">chi_sq_ct.EAS</td>
-<td align="left">.93</td>
-<td align="left">.97</td>
-<td align="left"></td>
-<td align="left">.98</td>
-<td align="left">.88</td>
-</tr>
-<tr class="even">
-<td align="left">chi_sq_ct.EUR</td>
-<td align="left">.97</td>
-<td align="left">.99</td>
-<td align="left">.98</td>
-<td align="left"></td>
-<td align="left">.93</td>
-</tr>
-<tr class="odd">
-<td align="left">chi_sq_ct.SAS</td>
-<td align="left">.99</td>
-<td align="left">.95</td>
-<td align="left">.88</td>
-<td align="left">.93</td>
-<td align="left"></td>
-</tr>
-</tbody>
-</table>
 <p>and it appears that they are for this sub-type. Let’s now take a look at the other sub-types</p>
 </div>
 </div>
@@ -2038,12 +2097,44 @@ Missing treated using: &#39;pairwise.complete.obs&#39;</code></pre>
 <div id="chi-square-approach" class="section level2">
 <h2>Chi Square Approach</h2>
 <p>Similar to what we did with the single position models, we can also use the chi square goodness of fit test to evaluate, for each sub-type and at each relative position, how similar are the counts between each super-population, and how does this statistic compare to what we observe comparing each super-population to its control sample? We can also do this to compare the BRIDGES data to the 1000G data as well.</p>
-<div class="alert alert-warning">
-<p>
-<strong>Warning:</strong> The above code chunk cached its results, but it won’t be re-run if previous chunks it depends on are updated. If you need to use caching, it is highly recommended to also set <code>knitr::opts_chunk$set(autodep = TRUE)</code> at the top of the file (in a chunk that is not cached). Alternatively, you can customize the option <code>dependson</code> for each individual chunk that is cached. Using either <code>autodep</code> or <code>dependson</code> will remove this warning. See the <a href="https://yihui.name/knitr/options/#cache"
->knitr cache options</a> for more details.
-</p>
-</div>
+<pre class="r"><code>load_singletons_2pop &lt;- function(subtype, sp1, sp2, r_start = 1){
+  df1 &lt;- load_all_results(subtype, sp1, r_start) %&gt;%
+    filter(singletons &gt; 0) %&gt;%
+    select(rp, Nuc, singletons, chi_sq_ct) %&gt;%
+    rename_with(.fn = ~paste0(., &quot;.&quot;, sp1), .cols = c(starts_with(&quot;chi&quot;),starts_with(&quot;singletons&quot;) ))
+  df2 &lt;- load_all_results(subtype, sp2, r_start) %&gt;%
+    filter(singletons &gt; 0) %&gt;%
+    select(rp, Nuc, singletons, chi_sq_ct) %&gt;%
+    rename_with(.fn = ~paste0(., &quot;.&quot;, sp2),  .cols = c(starts_with(&quot;chi&quot;),starts_with(&quot;singletons&quot;) ))
+  
+  df &lt;- full_join(df1, df2, by = c(&quot;rp&quot;, &quot;Nuc&quot;))
+  return(df)
+}
+
+chi_sq_2pop &lt;- function(subtype, sp1, sp2, r_start = 1){
+  df &lt;- load_singletons_2pop(subtype, sp1, sp2, r_start)
+  chi_vec1 &lt;- c()
+  chi_vec2 &lt;- c()
+  for(i in c(-10:-1, r_start:10)){
+    df2 &lt;- df %&gt;% 
+      filter(rp == i)
+    vec1 &lt;- df2 %&gt;% select(starts_with(&quot;singletons&quot;) &amp; contains(sp1)) %&gt;% pull(1)
+    vec2 &lt;- df2 %&gt;% select(starts_with(&quot;singletons&quot;) &amp; contains(sp2)) %&gt;% pull(1)
+    chi_obj1 &lt;- chisq.test(vec1, p = vec2 / sum(vec2))
+    chi_obj2 &lt;- chisq.test(vec2, p = vec1 / sum(vec1))
+    chi_vec1 &lt;- c(chi_vec1, unname(chi_obj1$statistic))
+    chi_vec2 &lt;- c(chi_vec2, unname(chi_obj2$statistic))
+  }
+  control_df &lt;- df %&gt;% 
+    group_by(rp) %&gt;% 
+    summarize_at(vars(starts_with(&quot;chi&quot;)), sum)
+  final &lt;- data.frame(rp = c(-10:-1, r_start:10))
+  final[,paste0(sp1, &quot;-&quot;, sp2,&quot;&quot;)] &lt;- chi_vec1
+  final[,paste0(sp2, &quot;-&quot;, sp1,&quot;&quot;)] &lt;- chi_vec2
+  final[,paste0(&quot;Control - &quot;, sp1)] &lt;- control_df[,2]
+  final[,paste0(&quot;Control - &quot;, sp2)] &lt;- control_df[,3]
+  return(final)
+}</code></pre>
 <p>For an illustrative example, let’s take a look at the A(T)&gt;C(G) sub-type in the EUR and AFR super-populations. Here we’ll use the frequencies observed in EUR to fit the AFR counts, and compare these chi-square statistics to those that we obtain when we compare the EUR and AFR super-populations to their corresponding control distributions:</p>
 <pre class="r"><code>chi_sq_2pop(&quot;AT_CG&quot;, &quot;AFR&quot;, &quot;EUR&quot;) %&gt;%
   knitr::kable()</code></pre>
@@ -2051,10 +2142,10 @@ Missing treated using: &#39;pairwise.complete.obs&#39;</code></pre>
 <thead>
 <tr class="header">
 <th align="right">rp</th>
-<th align="right">chi_sq_AFR_EUR</th>
-<th align="right">chi_sq_EUR_AFR</th>
-<th align="right">chi_sq_ct.AFR</th>
-<th align="right">chi_sq_ct.EUR</th>
+<th align="right">AFR-EUR</th>
+<th align="right">EUR-AFR</th>
+<th align="right">Control - AFR</th>
+<th align="right">Control - EUR</th>
 </tr>
 </thead>
 <tbody>
@@ -2201,14 +2292,22 @@ Missing treated using: &#39;pairwise.complete.obs&#39;</code></pre>
 </tbody>
 </table>
 <p>Here we can see that the statistics when we use EUR proportions to fit AFR and vice versa are much smaller that what we observe using the controls to fit either population’s counts. We can also plot these to make the exact same conclusion:</p>
-<pre class="r"><code>chi_sq_2pop_plot(&quot;AT_CG&quot;, &quot;AFR&quot;, &quot;EUR&quot;)</code></pre>
-<p><img src="figure/1000G_single_postion_comp.Rmd/unnamed-chunk-27-1.png" width="672" style="display: block; margin: auto;" /></p>
+<pre class="r"><code>p &lt;- chi_sq_2pop_plot(&quot;AT_CG&quot;, &quot;AFR&quot;, &quot;EUR&quot;)
+
+tikz(&quot;/net/snowwhite/home/beckandy/research/documentation/LSCI/output/tikz/single_pos/AFR_EUR_AT_CG.tex&quot;,
+     width = 7, height = 4)
+p
+dev.off()</code></pre>
+<pre><code>png 
+  2 </code></pre>
+<pre class="r"><code>p</code></pre>
+<p><img src="figure/1000G_single_postion_comp.Rmd/unnamed-chunk-29-1.png" width="672" style="display: block; margin: auto;" /></p>
 <p>
-<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-27-1">
-Past versions of unnamed-chunk-27-1.png
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-29-1">
+Past versions of unnamed-chunk-29-1.png
 </button>
 </p>
-<div id="fig-unnamed-chunk-27-1" class="collapse">
+<div id="fig-unnamed-chunk-29-1" class="collapse">
 <div class="table-responsive">
 <table class="table table-condensed table-hover">
 <thead>
@@ -2227,7 +2326,7 @@ Date
 <tbody>
 <tr>
 <td>
-<a href="https://github.com/theandyb/LSCI/blob/96d087d9c30d273bf323cfca13af597ac36c49da/docs/figure/1000G_single_postion_comp.Rmd/unnamed-chunk-27-1.png" target="_blank">96d087d</a>
+<a href="https://github.com/theandyb/LSCI/blob/ebe7aed98187e66def5e8b01b75ce9d1924afb28/docs/figure/1000G_single_postion_comp.Rmd/unnamed-chunk-29-1.png" target="_blank">ebe7aed</a>
 </td>
 <td>
 Andy Beck
@@ -2242,36 +2341,442 @@ Andy Beck
 </div>
 <div id="at_cg-1" class="section level3">
 <h3>AT_CG</h3>
-<p><img src="figure/1000G_single_postion_comp.Rmd/at_cg_pop_plot-1.png" width="672" style="display: block; margin: auto;" /><img src="figure/1000G_single_postion_comp.Rmd/at_cg_pop_plot-2.png" width="672" style="display: block; margin: auto;" /><img src="figure/1000G_single_postion_comp.Rmd/at_cg_pop_plot-3.png" width="672" style="display: block; margin: auto;" /><img src="figure/1000G_single_postion_comp.Rmd/at_cg_pop_plot-4.png" width="672" style="display: block; margin: auto;" /><img src="figure/1000G_single_postion_comp.Rmd/at_cg_pop_plot-5.png" width="672" style="display: block; margin: auto;" /><img src="figure/1000G_single_postion_comp.Rmd/at_cg_pop_plot-6.png" width="672" style="display: block; margin: auto;" /><img src="figure/1000G_single_postion_comp.Rmd/at_cg_pop_plot-7.png" width="672" style="display: block; margin: auto;" /><img src="figure/1000G_single_postion_comp.Rmd/at_cg_pop_plot-8.png" width="672" style="display: block; margin: auto;" /><img src="figure/1000G_single_postion_comp.Rmd/at_cg_pop_plot-9.png" width="672" style="display: block; margin: auto;" /><img src="figure/1000G_single_postion_comp.Rmd/at_cg_pop_plot-10.png" width="672" style="display: block; margin: auto;" /></p>
+<pre class="r"><code>st &lt;- &quot;AT_CG&quot;
+for(sp in c(&quot;AMR&quot;, &quot;EAS&quot;, &quot;EUR&quot;, &quot;SAS&quot;)){
+  p &lt;- chi_sq_2pop_plot(st, &quot;AFR&quot;, sp)
+  tikz(paste0(&quot;/net/snowwhite/home/beckandy/research/documentation/LSCI/output/tikz/single_pos/&quot;,
+              &quot;AFR&quot;,&quot;_&quot;,sp,&quot;_&quot;,st,&quot;.tex&quot;),
+     width = 7, height = 4)
+  p
+  dev.off()
+  print(p)
+}</code></pre>
+<p><img src="figure/1000G_single_postion_comp.Rmd/unnamed-chunk-30-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-30-1">
+Past versions of unnamed-chunk-30-1.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-30-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/theandyb/LSCI/blob/ebe7aed98187e66def5e8b01b75ce9d1924afb28/docs/figure/1000G_single_postion_comp.Rmd/unnamed-chunk-30-1.png" target="_blank">ebe7aed</a>
+</td>
+<td>
+Andy Beck
+</td>
+<td>
+2021-11-10
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<p><img src="figure/1000G_single_postion_comp.Rmd/unnamed-chunk-30-2.png" width="672" style="display: block; margin: auto;" /><img src="figure/1000G_single_postion_comp.Rmd/unnamed-chunk-30-3.png" width="672" style="display: block; margin: auto;" /><img src="figure/1000G_single_postion_comp.Rmd/unnamed-chunk-30-4.png" width="672" style="display: block; margin: auto;" /></p>
+<pre class="r"><code>for(sp in c(&quot;EAS&quot;, &quot;EUR&quot;, &quot;SAS&quot;)){
+  p &lt;- chi_sq_2pop_plot(st, &quot;AMR&quot;, sp)
+  tikz(paste0(&quot;/net/snowwhite/home/beckandy/research/documentation/LSCI/output/tikz/single_pos/&quot;,
+              &quot;AMR&quot;,&quot;_&quot;,sp,&quot;_&quot;,st,&quot;.tex&quot;),
+     width = 7, height = 4)
+  p
+  dev.off()
+  print(p)
+}</code></pre>
+<p><img src="figure/1000G_single_postion_comp.Rmd/unnamed-chunk-30-5.png" width="672" style="display: block; margin: auto;" /><img src="figure/1000G_single_postion_comp.Rmd/unnamed-chunk-30-6.png" width="672" style="display: block; margin: auto;" /><img src="figure/1000G_single_postion_comp.Rmd/unnamed-chunk-30-7.png" width="672" style="display: block; margin: auto;" /></p>
+<pre class="r"><code>for(sp in c(&quot;EUR&quot;, &quot;SAS&quot;)){
+  p &lt;- chi_sq_2pop_plot(st, &quot;EAS&quot;, sp)
+  tikz(paste0(&quot;/net/snowwhite/home/beckandy/research/documentation/LSCI/output/tikz/single_pos/&quot;,
+              &quot;EAS&quot;,&quot;_&quot;,sp,&quot;_&quot;,st,&quot;.tex&quot;),
+     width = 7, height = 4)
+  p
+  dev.off()
+  print(p)
+}</code></pre>
+<p><img src="figure/1000G_single_postion_comp.Rmd/unnamed-chunk-30-8.png" width="672" style="display: block; margin: auto;" /><img src="figure/1000G_single_postion_comp.Rmd/unnamed-chunk-30-9.png" width="672" style="display: block; margin: auto;" /></p>
+<pre class="r"><code>p &lt;- chi_sq_2pop_plot(st, &quot;EUR&quot;, &quot;SAS&quot;)
+tikz(paste0(&quot;/net/snowwhite/home/beckandy/research/documentation/LSCI/output/tikz/single_pos/&quot;,
+              &quot;EAS&quot;,&quot;_&quot;,&quot;SAS&quot;,&quot;_&quot;,st,&quot;.tex&quot;))
+p
+dev.off()</code></pre>
+<pre><code>png 
+  2 </code></pre>
+<pre class="r"><code>print(p)</code></pre>
+<p><img src="figure/1000G_single_postion_comp.Rmd/unnamed-chunk-30-10.png" width="672" style="display: block; margin: auto;" /></p>
 </div>
 <div id="at_gc-1" class="section level3">
 <h3>AT_GC</h3>
-<p><img src="figure/1000G_single_postion_comp.Rmd/at_gc_pop_plot-1.png" width="672" style="display: block; margin: auto;" /><img src="figure/1000G_single_postion_comp.Rmd/at_gc_pop_plot-2.png" width="672" style="display: block; margin: auto;" /><img src="figure/1000G_single_postion_comp.Rmd/at_gc_pop_plot-3.png" width="672" style="display: block; margin: auto;" /><img src="figure/1000G_single_postion_comp.Rmd/at_gc_pop_plot-4.png" width="672" style="display: block; margin: auto;" /><img src="figure/1000G_single_postion_comp.Rmd/at_gc_pop_plot-5.png" width="672" style="display: block; margin: auto;" /><img src="figure/1000G_single_postion_comp.Rmd/at_gc_pop_plot-6.png" width="672" style="display: block; margin: auto;" /><img src="figure/1000G_single_postion_comp.Rmd/at_gc_pop_plot-7.png" width="672" style="display: block; margin: auto;" /><img src="figure/1000G_single_postion_comp.Rmd/at_gc_pop_plot-8.png" width="672" style="display: block; margin: auto;" /><img src="figure/1000G_single_postion_comp.Rmd/at_gc_pop_plot-9.png" width="672" style="display: block; margin: auto;" /><img src="figure/1000G_single_postion_comp.Rmd/at_gc_pop_plot-10.png" width="672" style="display: block; margin: auto;" /></p>
+<pre class="r"><code>st &lt;- &quot;AT_GC&quot;
+for(sp in c(&quot;AMR&quot;, &quot;EAS&quot;, &quot;EUR&quot;, &quot;SAS&quot;)){
+  p &lt;- chi_sq_2pop_plot(st, &quot;AFR&quot;, sp)
+  tikz(paste0(&quot;/net/snowwhite/home/beckandy/research/documentation/LSCI/output/tikz/single_pos/&quot;,
+              &quot;AFR&quot;,&quot;_&quot;,sp,&quot;_&quot;,st,&quot;.tex&quot;),
+     width = 7, height = 4)
+  p
+  dev.off()
+  print(p)
+}</code></pre>
+<p><img src="figure/1000G_single_postion_comp.Rmd/unnamed-chunk-31-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-31-1">
+Past versions of unnamed-chunk-31-1.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-31-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/theandyb/LSCI/blob/ebe7aed98187e66def5e8b01b75ce9d1924afb28/docs/figure/1000G_single_postion_comp.Rmd/unnamed-chunk-31-1.png" target="_blank">ebe7aed</a>
+</td>
+<td>
+Andy Beck
+</td>
+<td>
+2021-11-10
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<p><img src="figure/1000G_single_postion_comp.Rmd/unnamed-chunk-31-2.png" width="672" style="display: block; margin: auto;" /><img src="figure/1000G_single_postion_comp.Rmd/unnamed-chunk-31-3.png" width="672" style="display: block; margin: auto;" /><img src="figure/1000G_single_postion_comp.Rmd/unnamed-chunk-31-4.png" width="672" style="display: block; margin: auto;" /></p>
+<pre class="r"><code>for(sp in c(&quot;EAS&quot;, &quot;EUR&quot;, &quot;SAS&quot;)){
+  p &lt;- chi_sq_2pop_plot(st, &quot;AMR&quot;, sp)
+  tikz(paste0(&quot;/net/snowwhite/home/beckandy/research/documentation/LSCI/output/tikz/single_pos/&quot;,
+              &quot;AMR&quot;,&quot;_&quot;,sp,&quot;_&quot;,st,&quot;.tex&quot;),
+     width = 7, height = 4)
+  p
+  dev.off()
+  print(p)
+}</code></pre>
+<p><img src="figure/1000G_single_postion_comp.Rmd/unnamed-chunk-31-5.png" width="672" style="display: block; margin: auto;" /><img src="figure/1000G_single_postion_comp.Rmd/unnamed-chunk-31-6.png" width="672" style="display: block; margin: auto;" /><img src="figure/1000G_single_postion_comp.Rmd/unnamed-chunk-31-7.png" width="672" style="display: block; margin: auto;" /></p>
+<pre class="r"><code>for(sp in c(&quot;EUR&quot;, &quot;SAS&quot;)){
+  p &lt;- chi_sq_2pop_plot(st, &quot;EAS&quot;, sp)
+  tikz(paste0(&quot;/net/snowwhite/home/beckandy/research/documentation/LSCI/output/tikz/single_pos/&quot;,
+              &quot;EAS&quot;,&quot;_&quot;,sp,&quot;_&quot;,st,&quot;.tex&quot;),
+     width = 7, height = 4)
+  p
+  dev.off()
+  print(p)
+}</code></pre>
+<p><img src="figure/1000G_single_postion_comp.Rmd/unnamed-chunk-31-8.png" width="672" style="display: block; margin: auto;" /><img src="figure/1000G_single_postion_comp.Rmd/unnamed-chunk-31-9.png" width="672" style="display: block; margin: auto;" /></p>
+<pre class="r"><code>p &lt;- chi_sq_2pop_plot(st, &quot;EUR&quot;, &quot;SAS&quot;)
+tikz(paste0(&quot;/net/snowwhite/home/beckandy/research/documentation/LSCI/output/tikz/single_pos/&quot;,
+              &quot;EAS&quot;,&quot;_&quot;,&quot;SAS&quot;,&quot;_&quot;,st,&quot;.tex&quot;))
+p
+dev.off()</code></pre>
+<pre><code>png 
+  2 </code></pre>
+<pre class="r"><code>print(p)</code></pre>
+<p><img src="figure/1000G_single_postion_comp.Rmd/unnamed-chunk-31-10.png" width="672" style="display: block; margin: auto;" /></p>
 </div>
 <div id="at_ta-1" class="section level3">
 <h3>AT_TA</h3>
-<p><img src="figure/1000G_single_postion_comp.Rmd/at_ta_pop_plot-1.png" width="672" style="display: block; margin: auto;" /><img src="figure/1000G_single_postion_comp.Rmd/at_ta_pop_plot-2.png" width="672" style="display: block; margin: auto;" /><img src="figure/1000G_single_postion_comp.Rmd/at_ta_pop_plot-3.png" width="672" style="display: block; margin: auto;" /><img src="figure/1000G_single_postion_comp.Rmd/at_ta_pop_plot-4.png" width="672" style="display: block; margin: auto;" /><img src="figure/1000G_single_postion_comp.Rmd/at_ta_pop_plot-5.png" width="672" style="display: block; margin: auto;" /><img src="figure/1000G_single_postion_comp.Rmd/at_ta_pop_plot-6.png" width="672" style="display: block; margin: auto;" /><img src="figure/1000G_single_postion_comp.Rmd/at_ta_pop_plot-7.png" width="672" style="display: block; margin: auto;" /><img src="figure/1000G_single_postion_comp.Rmd/at_ta_pop_plot-8.png" width="672" style="display: block; margin: auto;" /><img src="figure/1000G_single_postion_comp.Rmd/at_ta_pop_plot-9.png" width="672" style="display: block; margin: auto;" /><img src="figure/1000G_single_postion_comp.Rmd/at_ta_pop_plot-10.png" width="672" style="display: block; margin: auto;" /></p>
+<p><img src="figure/1000G_single_postion_comp.Rmd/unnamed-chunk-32-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-32-1">
+Past versions of unnamed-chunk-32-1.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-32-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/theandyb/LSCI/blob/ebe7aed98187e66def5e8b01b75ce9d1924afb28/docs/figure/1000G_single_postion_comp.Rmd/unnamed-chunk-32-1.png" target="_blank">ebe7aed</a>
+</td>
+<td>
+Andy Beck
+</td>
+<td>
+2021-11-10
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<p><img src="figure/1000G_single_postion_comp.Rmd/unnamed-chunk-32-2.png" width="672" style="display: block; margin: auto;" /><img src="figure/1000G_single_postion_comp.Rmd/unnamed-chunk-32-3.png" width="672" style="display: block; margin: auto;" /><img src="figure/1000G_single_postion_comp.Rmd/unnamed-chunk-32-4.png" width="672" style="display: block; margin: auto;" /><img src="figure/1000G_single_postion_comp.Rmd/unnamed-chunk-32-5.png" width="672" style="display: block; margin: auto;" /><img src="figure/1000G_single_postion_comp.Rmd/unnamed-chunk-32-6.png" width="672" style="display: block; margin: auto;" /><img src="figure/1000G_single_postion_comp.Rmd/unnamed-chunk-32-7.png" width="672" style="display: block; margin: auto;" /><img src="figure/1000G_single_postion_comp.Rmd/unnamed-chunk-32-8.png" width="672" style="display: block; margin: auto;" /><img src="figure/1000G_single_postion_comp.Rmd/unnamed-chunk-32-9.png" width="672" style="display: block; margin: auto;" /></p>
+<pre><code>png 
+  2 </code></pre>
+<p><img src="figure/1000G_single_postion_comp.Rmd/unnamed-chunk-32-10.png" width="672" style="display: block; margin: auto;" /></p>
 </div>
 <div id="gc_at-1" class="section level3">
 <h3>GC_AT</h3>
-<p><img src="figure/1000G_single_postion_comp.Rmd/gc_at_pop_plot-1.png" width="672" style="display: block; margin: auto;" /><img src="figure/1000G_single_postion_comp.Rmd/gc_at_pop_plot-2.png" width="672" style="display: block; margin: auto;" /><img src="figure/1000G_single_postion_comp.Rmd/gc_at_pop_plot-3.png" width="672" style="display: block; margin: auto;" /><img src="figure/1000G_single_postion_comp.Rmd/gc_at_pop_plot-4.png" width="672" style="display: block; margin: auto;" /><img src="figure/1000G_single_postion_comp.Rmd/gc_at_pop_plot-5.png" width="672" style="display: block; margin: auto;" /><img src="figure/1000G_single_postion_comp.Rmd/gc_at_pop_plot-6.png" width="672" style="display: block; margin: auto;" /><img src="figure/1000G_single_postion_comp.Rmd/gc_at_pop_plot-7.png" width="672" style="display: block; margin: auto;" /><img src="figure/1000G_single_postion_comp.Rmd/gc_at_pop_plot-8.png" width="672" style="display: block; margin: auto;" /><img src="figure/1000G_single_postion_comp.Rmd/gc_at_pop_plot-9.png" width="672" style="display: block; margin: auto;" /><img src="figure/1000G_single_postion_comp.Rmd/gc_at_pop_plot-10.png" width="672" style="display: block; margin: auto;" /> ### cpg_GC_AT</p>
-<p><img src="figure/1000G_single_postion_comp.Rmd/cpg_gc_at_pop_plot-1.png" width="672" style="display: block; margin: auto;" /><img src="figure/1000G_single_postion_comp.Rmd/cpg_gc_at_pop_plot-2.png" width="672" style="display: block; margin: auto;" /><img src="figure/1000G_single_postion_comp.Rmd/cpg_gc_at_pop_plot-3.png" width="672" style="display: block; margin: auto;" /><img src="figure/1000G_single_postion_comp.Rmd/cpg_gc_at_pop_plot-4.png" width="672" style="display: block; margin: auto;" /><img src="figure/1000G_single_postion_comp.Rmd/cpg_gc_at_pop_plot-5.png" width="672" style="display: block; margin: auto;" /><img src="figure/1000G_single_postion_comp.Rmd/cpg_gc_at_pop_plot-6.png" width="672" style="display: block; margin: auto;" /><img src="figure/1000G_single_postion_comp.Rmd/cpg_gc_at_pop_plot-7.png" width="672" style="display: block; margin: auto;" /><img src="figure/1000G_single_postion_comp.Rmd/cpg_gc_at_pop_plot-8.png" width="672" style="display: block; margin: auto;" /><img src="figure/1000G_single_postion_comp.Rmd/cpg_gc_at_pop_plot-9.png" width="672" style="display: block; margin: auto;" /><img src="figure/1000G_single_postion_comp.Rmd/cpg_gc_at_pop_plot-10.png" width="672" style="display: block; margin: auto;" /></p>
+<p><img src="figure/1000G_single_postion_comp.Rmd/unnamed-chunk-33-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-33-1">
+Past versions of unnamed-chunk-33-1.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-33-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/theandyb/LSCI/blob/ebe7aed98187e66def5e8b01b75ce9d1924afb28/docs/figure/1000G_single_postion_comp.Rmd/unnamed-chunk-33-1.png" target="_blank">ebe7aed</a>
+</td>
+<td>
+Andy Beck
+</td>
+<td>
+2021-11-10
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<p><img src="figure/1000G_single_postion_comp.Rmd/unnamed-chunk-33-2.png" width="672" style="display: block; margin: auto;" /><img src="figure/1000G_single_postion_comp.Rmd/unnamed-chunk-33-3.png" width="672" style="display: block; margin: auto;" /><img src="figure/1000G_single_postion_comp.Rmd/unnamed-chunk-33-4.png" width="672" style="display: block; margin: auto;" /><img src="figure/1000G_single_postion_comp.Rmd/unnamed-chunk-33-5.png" width="672" style="display: block; margin: auto;" /><img src="figure/1000G_single_postion_comp.Rmd/unnamed-chunk-33-6.png" width="672" style="display: block; margin: auto;" /><img src="figure/1000G_single_postion_comp.Rmd/unnamed-chunk-33-7.png" width="672" style="display: block; margin: auto;" /><img src="figure/1000G_single_postion_comp.Rmd/unnamed-chunk-33-8.png" width="672" style="display: block; margin: auto;" /><img src="figure/1000G_single_postion_comp.Rmd/unnamed-chunk-33-9.png" width="672" style="display: block; margin: auto;" /></p>
+<pre><code>png 
+  2 </code></pre>
+<p><img src="figure/1000G_single_postion_comp.Rmd/unnamed-chunk-33-10.png" width="672" style="display: block; margin: auto;" /></p>
+</div>
+<div id="cpg_gc_at-1" class="section level3">
+<h3>cpg_GC_AT</h3>
+<p><img src="figure/1000G_single_postion_comp.Rmd/unnamed-chunk-34-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-34-1">
+Past versions of unnamed-chunk-34-1.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-34-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/theandyb/LSCI/blob/ebe7aed98187e66def5e8b01b75ce9d1924afb28/docs/figure/1000G_single_postion_comp.Rmd/unnamed-chunk-34-1.png" target="_blank">ebe7aed</a>
+</td>
+<td>
+Andy Beck
+</td>
+<td>
+2021-11-10
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<p><img src="figure/1000G_single_postion_comp.Rmd/unnamed-chunk-34-2.png" width="672" style="display: block; margin: auto;" /><img src="figure/1000G_single_postion_comp.Rmd/unnamed-chunk-34-3.png" width="672" style="display: block; margin: auto;" /><img src="figure/1000G_single_postion_comp.Rmd/unnamed-chunk-34-4.png" width="672" style="display: block; margin: auto;" /><img src="figure/1000G_single_postion_comp.Rmd/unnamed-chunk-34-5.png" width="672" style="display: block; margin: auto;" /><img src="figure/1000G_single_postion_comp.Rmd/unnamed-chunk-34-6.png" width="672" style="display: block; margin: auto;" /><img src="figure/1000G_single_postion_comp.Rmd/unnamed-chunk-34-7.png" width="672" style="display: block; margin: auto;" /><img src="figure/1000G_single_postion_comp.Rmd/unnamed-chunk-34-8.png" width="672" style="display: block; margin: auto;" /><img src="figure/1000G_single_postion_comp.Rmd/unnamed-chunk-34-9.png" width="672" style="display: block; margin: auto;" /></p>
+<pre><code>png 
+  2 </code></pre>
+<p><img src="figure/1000G_single_postion_comp.Rmd/unnamed-chunk-34-10.png" width="672" style="display: block; margin: auto;" /></p>
 </div>
 <div id="gc_ta-1" class="section level3">
 <h3>GC_TA</h3>
-<p><img src="figure/1000G_single_postion_comp.Rmd/gc_ta_pop_plot-1.png" width="672" style="display: block; margin: auto;" /><img src="figure/1000G_single_postion_comp.Rmd/gc_ta_pop_plot-2.png" width="672" style="display: block; margin: auto;" /><img src="figure/1000G_single_postion_comp.Rmd/gc_ta_pop_plot-3.png" width="672" style="display: block; margin: auto;" /><img src="figure/1000G_single_postion_comp.Rmd/gc_ta_pop_plot-4.png" width="672" style="display: block; margin: auto;" /><img src="figure/1000G_single_postion_comp.Rmd/gc_ta_pop_plot-5.png" width="672" style="display: block; margin: auto;" /><img src="figure/1000G_single_postion_comp.Rmd/gc_ta_pop_plot-6.png" width="672" style="display: block; margin: auto;" /><img src="figure/1000G_single_postion_comp.Rmd/gc_ta_pop_plot-7.png" width="672" style="display: block; margin: auto;" /><img src="figure/1000G_single_postion_comp.Rmd/gc_ta_pop_plot-8.png" width="672" style="display: block; margin: auto;" /><img src="figure/1000G_single_postion_comp.Rmd/gc_ta_pop_plot-9.png" width="672" style="display: block; margin: auto;" /><img src="figure/1000G_single_postion_comp.Rmd/gc_ta_pop_plot-10.png" width="672" style="display: block; margin: auto;" /></p>
+<p><img src="figure/1000G_single_postion_comp.Rmd/unnamed-chunk-35-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-35-1">
+Past versions of unnamed-chunk-35-1.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-35-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/theandyb/LSCI/blob/ebe7aed98187e66def5e8b01b75ce9d1924afb28/docs/figure/1000G_single_postion_comp.Rmd/unnamed-chunk-35-1.png" target="_blank">ebe7aed</a>
+</td>
+<td>
+Andy Beck
+</td>
+<td>
+2021-11-10
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<p><img src="figure/1000G_single_postion_comp.Rmd/unnamed-chunk-35-2.png" width="672" style="display: block; margin: auto;" /><img src="figure/1000G_single_postion_comp.Rmd/unnamed-chunk-35-3.png" width="672" style="display: block; margin: auto;" /><img src="figure/1000G_single_postion_comp.Rmd/unnamed-chunk-35-4.png" width="672" style="display: block; margin: auto;" /><img src="figure/1000G_single_postion_comp.Rmd/unnamed-chunk-35-5.png" width="672" style="display: block; margin: auto;" /><img src="figure/1000G_single_postion_comp.Rmd/unnamed-chunk-35-6.png" width="672" style="display: block; margin: auto;" /><img src="figure/1000G_single_postion_comp.Rmd/unnamed-chunk-35-7.png" width="672" style="display: block; margin: auto;" /><img src="figure/1000G_single_postion_comp.Rmd/unnamed-chunk-35-8.png" width="672" style="display: block; margin: auto;" /><img src="figure/1000G_single_postion_comp.Rmd/unnamed-chunk-35-9.png" width="672" style="display: block; margin: auto;" /></p>
+<pre><code>png 
+  2 </code></pre>
+<p><img src="figure/1000G_single_postion_comp.Rmd/unnamed-chunk-35-10.png" width="672" style="display: block; margin: auto;" /></p>
 </div>
 <div id="cpg_gc_ta-1" class="section level3">
 <h3>cpg_GC_TA</h3>
-<p><img src="figure/1000G_single_postion_comp.Rmd/cpg_gc_ta_pop_plot-1.png" width="672" style="display: block; margin: auto;" /><img src="figure/1000G_single_postion_comp.Rmd/cpg_gc_ta_pop_plot-2.png" width="672" style="display: block; margin: auto;" /><img src="figure/1000G_single_postion_comp.Rmd/cpg_gc_ta_pop_plot-3.png" width="672" style="display: block; margin: auto;" /><img src="figure/1000G_single_postion_comp.Rmd/cpg_gc_ta_pop_plot-4.png" width="672" style="display: block; margin: auto;" /><img src="figure/1000G_single_postion_comp.Rmd/cpg_gc_ta_pop_plot-5.png" width="672" style="display: block; margin: auto;" /><img src="figure/1000G_single_postion_comp.Rmd/cpg_gc_ta_pop_plot-6.png" width="672" style="display: block; margin: auto;" /><img src="figure/1000G_single_postion_comp.Rmd/cpg_gc_ta_pop_plot-7.png" width="672" style="display: block; margin: auto;" /><img src="figure/1000G_single_postion_comp.Rmd/cpg_gc_ta_pop_plot-8.png" width="672" style="display: block; margin: auto;" /><img src="figure/1000G_single_postion_comp.Rmd/cpg_gc_ta_pop_plot-9.png" width="672" style="display: block; margin: auto;" /><img src="figure/1000G_single_postion_comp.Rmd/cpg_gc_ta_pop_plot-10.png" width="672" style="display: block; margin: auto;" /></p>
+<p><img src="figure/1000G_single_postion_comp.Rmd/unnamed-chunk-36-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-36-1">
+Past versions of unnamed-chunk-36-1.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-36-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/theandyb/LSCI/blob/ebe7aed98187e66def5e8b01b75ce9d1924afb28/docs/figure/1000G_single_postion_comp.Rmd/unnamed-chunk-36-1.png" target="_blank">ebe7aed</a>
+</td>
+<td>
+Andy Beck
+</td>
+<td>
+2021-11-10
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<p><img src="figure/1000G_single_postion_comp.Rmd/unnamed-chunk-36-2.png" width="672" style="display: block; margin: auto;" /><img src="figure/1000G_single_postion_comp.Rmd/unnamed-chunk-36-3.png" width="672" style="display: block; margin: auto;" /><img src="figure/1000G_single_postion_comp.Rmd/unnamed-chunk-36-4.png" width="672" style="display: block; margin: auto;" /><img src="figure/1000G_single_postion_comp.Rmd/unnamed-chunk-36-5.png" width="672" style="display: block; margin: auto;" /><img src="figure/1000G_single_postion_comp.Rmd/unnamed-chunk-36-6.png" width="672" style="display: block; margin: auto;" /><img src="figure/1000G_single_postion_comp.Rmd/unnamed-chunk-36-7.png" width="672" style="display: block; margin: auto;" /><img src="figure/1000G_single_postion_comp.Rmd/unnamed-chunk-36-8.png" width="672" style="display: block; margin: auto;" /><img src="figure/1000G_single_postion_comp.Rmd/unnamed-chunk-36-9.png" width="672" style="display: block; margin: auto;" /></p>
+<pre><code>png 
+  2 </code></pre>
+<p><img src="figure/1000G_single_postion_comp.Rmd/unnamed-chunk-36-10.png" width="672" style="display: block; margin: auto;" /></p>
 </div>
 <div id="gc_cg-1" class="section level3">
 <h3>GC_CG</h3>
-<p><img src="figure/1000G_single_postion_comp.Rmd/gc_cg_pop_plot-1.png" width="672" style="display: block; margin: auto;" /><img src="figure/1000G_single_postion_comp.Rmd/gc_cg_pop_plot-2.png" width="672" style="display: block; margin: auto;" /><img src="figure/1000G_single_postion_comp.Rmd/gc_cg_pop_plot-3.png" width="672" style="display: block; margin: auto;" /><img src="figure/1000G_single_postion_comp.Rmd/gc_cg_pop_plot-4.png" width="672" style="display: block; margin: auto;" /><img src="figure/1000G_single_postion_comp.Rmd/gc_cg_pop_plot-5.png" width="672" style="display: block; margin: auto;" /><img src="figure/1000G_single_postion_comp.Rmd/gc_cg_pop_plot-6.png" width="672" style="display: block; margin: auto;" /><img src="figure/1000G_single_postion_comp.Rmd/gc_cg_pop_plot-7.png" width="672" style="display: block; margin: auto;" /><img src="figure/1000G_single_postion_comp.Rmd/gc_cg_pop_plot-8.png" width="672" style="display: block; margin: auto;" /><img src="figure/1000G_single_postion_comp.Rmd/gc_cg_pop_plot-9.png" width="672" style="display: block; margin: auto;" /><img src="figure/1000G_single_postion_comp.Rmd/gc_cg_pop_plot-10.png" width="672" style="display: block; margin: auto;" /></p>
+<p><img src="figure/1000G_single_postion_comp.Rmd/unnamed-chunk-37-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-37-1">
+Past versions of unnamed-chunk-37-1.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-37-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/theandyb/LSCI/blob/ebe7aed98187e66def5e8b01b75ce9d1924afb28/docs/figure/1000G_single_postion_comp.Rmd/unnamed-chunk-37-1.png" target="_blank">ebe7aed</a>
+</td>
+<td>
+Andy Beck
+</td>
+<td>
+2021-11-10
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<p><img src="figure/1000G_single_postion_comp.Rmd/unnamed-chunk-37-2.png" width="672" style="display: block; margin: auto;" /><img src="figure/1000G_single_postion_comp.Rmd/unnamed-chunk-37-3.png" width="672" style="display: block; margin: auto;" /><img src="figure/1000G_single_postion_comp.Rmd/unnamed-chunk-37-4.png" width="672" style="display: block; margin: auto;" /><img src="figure/1000G_single_postion_comp.Rmd/unnamed-chunk-37-5.png" width="672" style="display: block; margin: auto;" /><img src="figure/1000G_single_postion_comp.Rmd/unnamed-chunk-37-6.png" width="672" style="display: block; margin: auto;" /><img src="figure/1000G_single_postion_comp.Rmd/unnamed-chunk-37-7.png" width="672" style="display: block; margin: auto;" /><img src="figure/1000G_single_postion_comp.Rmd/unnamed-chunk-37-8.png" width="672" style="display: block; margin: auto;" /><img src="figure/1000G_single_postion_comp.Rmd/unnamed-chunk-37-9.png" width="672" style="display: block; margin: auto;" /></p>
+<pre><code>png 
+  2 </code></pre>
+<p><img src="figure/1000G_single_postion_comp.Rmd/unnamed-chunk-37-10.png" width="672" style="display: block; margin: auto;" /></p>
 </div>
 <div id="cpg_gc_cg-1" class="section level3">
 <h3>cpg_GC_CG</h3>
-<p><img src="figure/1000G_single_postion_comp.Rmd/cpg_gc_cg_pop_plot-1.png" width="672" style="display: block; margin: auto;" /><img src="figure/1000G_single_postion_comp.Rmd/cpg_gc_cg_pop_plot-2.png" width="672" style="display: block; margin: auto;" /><img src="figure/1000G_single_postion_comp.Rmd/cpg_gc_cg_pop_plot-3.png" width="672" style="display: block; margin: auto;" /><img src="figure/1000G_single_postion_comp.Rmd/cpg_gc_cg_pop_plot-4.png" width="672" style="display: block; margin: auto;" /><img src="figure/1000G_single_postion_comp.Rmd/cpg_gc_cg_pop_plot-5.png" width="672" style="display: block; margin: auto;" /><img src="figure/1000G_single_postion_comp.Rmd/cpg_gc_cg_pop_plot-6.png" width="672" style="display: block; margin: auto;" /><img src="figure/1000G_single_postion_comp.Rmd/cpg_gc_cg_pop_plot-7.png" width="672" style="display: block; margin: auto;" /><img src="figure/1000G_single_postion_comp.Rmd/cpg_gc_cg_pop_plot-8.png" width="672" style="display: block; margin: auto;" /><img src="figure/1000G_single_postion_comp.Rmd/cpg_gc_cg_pop_plot-9.png" width="672" style="display: block; margin: auto;" /><img src="figure/1000G_single_postion_comp.Rmd/cpg_gc_cg_pop_plot-10.png" width="672" style="display: block; margin: auto;" /></p>
+<p><img src="figure/1000G_single_postion_comp.Rmd/unnamed-chunk-38-1.png" width="672" style="display: block; margin: auto;" /><img src="figure/1000G_single_postion_comp.Rmd/unnamed-chunk-38-2.png" width="672" style="display: block; margin: auto;" /><img src="figure/1000G_single_postion_comp.Rmd/unnamed-chunk-38-3.png" width="672" style="display: block; margin: auto;" /><img src="figure/1000G_single_postion_comp.Rmd/unnamed-chunk-38-4.png" width="672" style="display: block; margin: auto;" /><img src="figure/1000G_single_postion_comp.Rmd/unnamed-chunk-38-5.png" width="672" style="display: block; margin: auto;" /><img src="figure/1000G_single_postion_comp.Rmd/unnamed-chunk-38-6.png" width="672" style="display: block; margin: auto;" /><img src="figure/1000G_single_postion_comp.Rmd/unnamed-chunk-38-7.png" width="672" style="display: block; margin: auto;" /><img src="figure/1000G_single_postion_comp.Rmd/unnamed-chunk-38-8.png" width="672" style="display: block; margin: auto;" /><img src="figure/1000G_single_postion_comp.Rmd/unnamed-chunk-38-9.png" width="672" style="display: block; margin: auto;" /></p>
+<pre><code>png 
+  2 </code></pre>
+<p><img src="figure/1000G_single_postion_comp.Rmd/unnamed-chunk-38-10.png" width="672" style="display: block; margin: auto;" /></p>
 </div>
 </div>
 <div id="compare-to-bridges" class="section level2">
@@ -2281,55 +2786,55 @@ Andy Beck
 <h3>AT_CG</h3>
 <pre class="r"><code>st &lt;- &quot;AT_CG&quot;
 statistic_by_position_all_plot(st, &quot;ALL&quot;)</code></pre>
-<p><img src="figure/1000G_single_postion_comp.Rmd/unnamed-chunk-29-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p><img src="figure/1000G_single_postion_comp.Rmd/unnamed-chunk-40-1.png" width="672" style="display: block; margin: auto;" /></p>
 </div>
 <div id="at_gc-2" class="section level3">
 <h3>AT_GC</h3>
 <pre class="r"><code>st &lt;- &quot;AT_GC&quot;
 statistic_by_position_all_plot(st, &quot;ALL&quot;)</code></pre>
-<p><img src="figure/1000G_single_postion_comp.Rmd/unnamed-chunk-30-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p><img src="figure/1000G_single_postion_comp.Rmd/unnamed-chunk-41-1.png" width="672" style="display: block; margin: auto;" /></p>
 </div>
 <div id="at_ta-2" class="section level3">
 <h3>AT_TA</h3>
 <pre class="r"><code>st &lt;- &quot;AT_TA&quot;
 statistic_by_position_all_plot(st, &quot;ALL&quot;)</code></pre>
-<p><img src="figure/1000G_single_postion_comp.Rmd/unnamed-chunk-31-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p><img src="figure/1000G_single_postion_comp.Rmd/unnamed-chunk-42-1.png" width="672" style="display: block; margin: auto;" /></p>
 </div>
 <div id="gc_at-2" class="section level3">
 <h3>GC_AT</h3>
 <pre class="r"><code>st &lt;- &quot;GC_AT&quot;
 statistic_by_position_all_plot(st, &quot;ALL&quot;)</code></pre>
-<p><img src="figure/1000G_single_postion_comp.Rmd/unnamed-chunk-32-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p><img src="figure/1000G_single_postion_comp.Rmd/unnamed-chunk-43-1.png" width="672" style="display: block; margin: auto;" /></p>
 </div>
-<div id="cpg_gc_at-1" class="section level3">
+<div id="cpg_gc_at-2" class="section level3">
 <h3>cpg_GC_AT</h3>
 <pre class="r"><code>st &lt;- &quot;cpg_GC_AT&quot;
 statistic_by_position_all_plot(st, &quot;ALL&quot;, r_start = 2)</code></pre>
-<p><img src="figure/1000G_single_postion_comp.Rmd/unnamed-chunk-33-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p><img src="figure/1000G_single_postion_comp.Rmd/unnamed-chunk-44-1.png" width="672" style="display: block; margin: auto;" /></p>
 </div>
 <div id="gc_ta-2" class="section level3">
 <h3>GC_TA</h3>
 <pre class="r"><code>st &lt;- &quot;GC_TA&quot;
 statistic_by_position_all_plot(st, &quot;ALL&quot;)</code></pre>
-<p><img src="figure/1000G_single_postion_comp.Rmd/unnamed-chunk-34-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p><img src="figure/1000G_single_postion_comp.Rmd/unnamed-chunk-45-1.png" width="672" style="display: block; margin: auto;" /></p>
 </div>
 <div id="cpg_gc_ta-2" class="section level3">
 <h3>cpg_GC_TA</h3>
 <pre class="r"><code>st &lt;- &quot;cpg_GC_TA&quot;
 statistic_by_position_all_plot(st, &quot;ALL&quot;, r_start = 2)</code></pre>
-<p><img src="figure/1000G_single_postion_comp.Rmd/unnamed-chunk-35-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p><img src="figure/1000G_single_postion_comp.Rmd/unnamed-chunk-46-1.png" width="672" style="display: block; margin: auto;" /></p>
 </div>
 <div id="gc_cg-2" class="section level3">
 <h3>GC_CG</h3>
 <pre class="r"><code>st &lt;- &quot;GC_CG&quot;
 statistic_by_position_all_plot(st, &quot;ALL&quot;)</code></pre>
-<p><img src="figure/1000G_single_postion_comp.Rmd/unnamed-chunk-36-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p><img src="figure/1000G_single_postion_comp.Rmd/unnamed-chunk-47-1.png" width="672" style="display: block; margin: auto;" /></p>
 </div>
 <div id="cpg_gc_cg-2" class="section level3">
 <h3>cpg_GC_CG</h3>
 <pre class="r"><code>st &lt;- &quot;cpg_GC_CG&quot;
 statistic_by_position_all_plot(st, &quot;ALL&quot;, r_start = 2)</code></pre>
-<p><img src="figure/1000G_single_postion_comp.Rmd/unnamed-chunk-37-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p><img src="figure/1000G_single_postion_comp.Rmd/unnamed-chunk-48-1.png" width="672" style="display: block; margin: auto;" /></p>
 <p>We see that for all the sub-types the BRIDGES results are highly correlated with the 1000G results.</p>
 <br>
 <p>
@@ -2359,28 +2864,29 @@ attached base packages:
 [1] stats     graphics  grDevices utils     datasets  methods   base     
 
 other attached packages:
- [1] corrr_0.4.3     forcats_0.5.1   stringr_1.4.0   dplyr_1.0.7    
- [5] purrr_0.3.4     readr_2.0.2     tidyr_1.1.4     tibble_3.1.5   
- [9] ggplot2_3.3.5   tidyverse_1.3.1 workflowr_1.6.2
+ [1] tikzDevice_0.12.3.1 corrr_0.4.3         forcats_0.5.1      
+ [4] stringr_1.4.0       dplyr_1.0.7         purrr_0.3.4        
+ [7] readr_2.0.2         tidyr_1.1.4         tibble_3.1.5       
+[10] ggplot2_3.3.5       tidyverse_1.3.1     workflowr_1.6.2    
 
 loaded via a namespace (and not attached):
  [1] Rcpp_1.0.7       lubridate_1.8.0  assertthat_0.2.1 rprojroot_2.0.2 
  [5] digest_0.6.28    utf8_1.2.2       R6_2.5.1         cellranger_1.1.0
- [9] backports_1.3.0  reprex_2.0.1     evaluate_0.14    highr_0.9       
-[13] httr_1.4.2       pillar_1.6.4     rlang_0.4.12     readxl_1.3.1    
+ [9] backports_1.3.0  reprex_2.0.1     evaluate_0.14    httr_1.4.2      
+[13] highr_0.9        pillar_1.6.4     rlang_0.4.12     readxl_1.3.1    
 [17] rstudioapi_0.13  whisker_0.4      jquerylib_0.1.4  rmarkdown_2.11  
 [21] labeling_0.4.2   bit_4.0.4        munsell_0.5.0    broom_0.7.9     
 [25] compiler_4.1.2   httpuv_1.6.3     modelr_0.1.8     xfun_0.27       
-[29] pkgconfig_2.0.3  htmltools_0.5.2  tidyselect_1.1.1 codetools_0.2-18
-[33] fansi_0.5.0      crayon_1.4.1     tzdb_0.1.2       dbplyr_2.1.1    
-[37] withr_2.4.2      later_1.3.0      grid_4.1.2       jsonlite_1.7.2  
-[41] gtable_0.3.0     lifecycle_1.0.1  DBI_1.1.1        git2r_0.28.0    
-[45] magrittr_2.0.1   scales_1.1.1     vroom_1.5.5      cli_3.0.1       
-[49] stringi_1.7.5    farver_2.1.0     fs_1.5.0         promises_1.2.0.1
-[53] xml2_1.3.2       bslib_0.3.1      ellipsis_0.3.2   generics_0.1.1  
-[57] vctrs_0.3.8      tools_4.1.2      bit64_4.0.5      glue_1.4.2      
-[61] hms_1.1.1        parallel_4.1.2   fastmap_1.1.0    yaml_2.2.1      
-[65] colorspace_2.0-2 rvest_1.0.2      knitr_1.36       haven_2.4.3     
+[29] pkgconfig_2.0.3  htmltools_0.5.2  tidyselect_1.1.1 fansi_0.5.0     
+[33] crayon_1.4.1     tzdb_0.1.2       dbplyr_2.1.1     withr_2.4.2     
+[37] later_1.3.0      grid_4.1.2       jsonlite_1.7.2   gtable_0.3.0    
+[41] lifecycle_1.0.1  DBI_1.1.1        git2r_0.28.0     magrittr_2.0.1  
+[45] scales_1.1.1     vroom_1.5.5      cli_3.0.1        stringi_1.7.5   
+[49] farver_2.1.0     fs_1.5.0         promises_1.2.0.1 xml2_1.3.2      
+[53] bslib_0.3.1      ellipsis_0.3.2   generics_0.1.1   vctrs_0.3.8     
+[57] tools_4.1.2      bit64_4.0.5      glue_1.4.2       hms_1.1.1       
+[61] parallel_4.1.2   fastmap_1.1.0    yaml_2.2.1       colorspace_2.0-2
+[65] filehash_2.4-2   rvest_1.0.2      knitr_1.36       haven_2.4.3     
 [69] sass_0.4.0      </code></pre>
 </div>
 </div>
