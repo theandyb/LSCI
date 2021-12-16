@@ -12,6 +12,7 @@ editor_options:
 ```{r echo=FALSE, warning=FALSE, message=FALSE}
 library(tidyverse)
 library(corrr)
+library(tikzDevice)
 source("code/single_pos_functions.R")
 ```
 
@@ -86,7 +87,7 @@ df_corr_at_cg %>%
   select(starts_with("chi_sq_ct")) %>%
   correlate() %>%
   fashion() %>%
-  knitr::kable()
+  knitr::kable(format = "latex")
 ```
 and it appears that they are for this sub-type. Let's now take a look at the other sub-types
 
@@ -302,7 +303,7 @@ df_corr %>%
 
 Similar to what we did with the single position models, we can also use the chi square goodness of fit test to evaluate, for each sub-type and at each relative position, how similar are the counts between each super-population, and how does this statistic compare to what we observe comparing each super-population to its control sample? We can also do this to compare the BRIDGES data to the 1000G data as well.
 
-```{r load_2pop, echo=FALSE, cache=TRUE, dependson=NULL}
+```{r}
 load_singletons_2pop <- function(subtype, sp1, sp2, r_start = 1){
   df1 <- load_all_results(subtype, sp1, r_start) %>%
     filter(singletons > 0) %>%
@@ -335,10 +336,10 @@ chi_sq_2pop <- function(subtype, sp1, sp2, r_start = 1){
     group_by(rp) %>% 
     summarize_at(vars(starts_with("chi")), sum)
   final <- data.frame(rp = c(-10:-1, r_start:10))
-  final[,paste0("chi_sq_", sp1, "_", sp2,"")] <- chi_vec1
-  final[,paste0("chi_sq_", sp2, "_", sp1,"")] <- chi_vec2
-  final[,paste0("chi_sq_ct.", sp1)] <- control_df[,2]
-  final[,paste0("chi_sq_ct.", sp2)] <- control_df[,3]
+  final[,paste0(sp1, "-", sp2,"")] <- chi_vec1
+  final[,paste0(sp2, "-", sp1,"")] <- chi_vec2
+  final[,paste0("Control - ", sp1)] <- control_df[,2]
+  final[,paste0("Control - ", sp2)] <- control_df[,3]
   return(final)
 }
 ```
@@ -352,7 +353,7 @@ chi_sq_2pop("AT_CG", "AFR", "EUR") %>%
 
 Here we can see that the statistics when we use EUR proportions to fit AFR and vice versa are much smaller that what we observe using the controls to fit either population's counts. We can also plot these to make the exact same conclusion:
 
-```{r plot_2pop, echo=FALSE, cache=TRUE, dependson="load_2pop"}
+```{r echo=FALSE}
 chi_sq_2pop_plot <- function(subtype, sp1, sp2, r_start = 1){
   df <- chi_sq_2pop(subtype, sp1, sp2, r_start) %>%
     gather(type, statistic, -rp)
@@ -361,7 +362,7 @@ chi_sq_2pop_plot <- function(subtype, sp1, sp2, r_start = 1){
     ggplot(aes(x = rp, y = statistic, colour = type)) + 
     geom_point() +
     geom_line() +
-    ggtitle(paste0("Single Position Chi Square Statistic: ", subtype),
+    ggtitle(paste0("Single Position Chi Square Statistic: ", str_replace_all(subtype, "_", "-")),
             paste0("Pop 1: ", sp1, "; Pop 2: ", sp2)) +
     xlab("Relative Position") + 
     ylab("Statistic") +
@@ -369,151 +370,367 @@ chi_sq_2pop_plot <- function(subtype, sp1, sp2, r_start = 1){
   return(p)
 }
 ```
-```{r}
-chi_sq_2pop_plot("AT_CG", "AFR", "EUR")
+
+```{r message=FALSE}
+p <- chi_sq_2pop_plot("AT_CG", "AFR", "EUR")
+
+tikz("/net/snowwhite/home/beckandy/research/documentation/LSCI/output/tikz/single_pos/AFR_EUR_AT_CG.tex",
+     width = 7, height = 4)
+p
+dev.off()
+
+p
 ```
 
 ### AT_CG
 
-```{r at_cg_pop_plot, echo=FALSE, cache=TRUE, dependson=c("plot_2pop", "load_2pop")}
+```{r message=FALSE}
 st <- "AT_CG"
 for(sp in c("AMR", "EAS", "EUR", "SAS")){
-  print(chi_sq_2pop_plot(st, "AFR", sp))
+  p <- chi_sq_2pop_plot(st, "AFR", sp)
+  tikz(paste0("/net/snowwhite/home/beckandy/research/documentation/LSCI/output/tikz/single_pos/",
+              "AFR","_",sp,"_",st,".tex"),
+     width = 7, height = 4)
+  p
+  dev.off()
+  print(p)
 }
 for(sp in c("EAS", "EUR", "SAS")){
-  print(chi_sq_2pop_plot(st, "AMR", sp))
+  p <- chi_sq_2pop_plot(st, "AMR", sp)
+  tikz(paste0("/net/snowwhite/home/beckandy/research/documentation/LSCI/output/tikz/single_pos/",
+              "AMR","_",sp,"_",st,".tex"),
+     width = 7, height = 4)
+  p
+  dev.off()
+  print(p)
 }
 for(sp in c("EUR", "SAS")){
-  print(chi_sq_2pop_plot(st, "EAS", sp))
+  p <- chi_sq_2pop_plot(st, "EAS", sp)
+  tikz(paste0("/net/snowwhite/home/beckandy/research/documentation/LSCI/output/tikz/single_pos/",
+              "EAS","_",sp,"_",st,".tex"),
+     width = 7, height = 4)
+  p
+  dev.off()
+  print(p)
 }
-print(chi_sq_2pop_plot(st, "EUR", "SAS"))
+p <- chi_sq_2pop_plot(st, "EUR", "SAS")
+tikz(paste0("/net/snowwhite/home/beckandy/research/documentation/LSCI/output/tikz/single_pos/",
+              "EAS","_","SAS","_",st,".tex"))
+p
+dev.off()
+print(p)
 ```
 
 ### AT_GC
 
-```{r at_gc_pop_plot, echo=FALSE, cache=TRUE, dependson=c("plot_2pop", "load_2pop")}
+```{r message=FALSE}
 st <- "AT_GC"
 for(sp in c("AMR", "EAS", "EUR", "SAS")){
-  print(chi_sq_2pop_plot(st, "AFR", sp))
+  p <- chi_sq_2pop_plot(st, "AFR", sp)
+  tikz(paste0("/net/snowwhite/home/beckandy/research/documentation/LSCI/output/tikz/single_pos/",
+              "AFR","_",sp,"_",st,".tex"),
+     width = 7, height = 4)
+  p
+  dev.off()
+  print(p)
 }
 for(sp in c("EAS", "EUR", "SAS")){
-  print(chi_sq_2pop_plot(st, "AMR", sp))
+  p <- chi_sq_2pop_plot(st, "AMR", sp)
+  tikz(paste0("/net/snowwhite/home/beckandy/research/documentation/LSCI/output/tikz/single_pos/",
+              "AMR","_",sp,"_",st,".tex"),
+     width = 7, height = 4)
+  p
+  dev.off()
+  print(p)
 }
 for(sp in c("EUR", "SAS")){
-  print(chi_sq_2pop_plot(st, "EAS", sp))
+  p <- chi_sq_2pop_plot(st, "EAS", sp)
+  tikz(paste0("/net/snowwhite/home/beckandy/research/documentation/LSCI/output/tikz/single_pos/",
+              "EAS","_",sp,"_",st,".tex"),
+     width = 7, height = 4)
+  p
+  dev.off()
+  print(p)
 }
-print(chi_sq_2pop_plot(st, "EUR", "SAS"))
+p <- chi_sq_2pop_plot(st, "EUR", "SAS")
+tikz(paste0("/net/snowwhite/home/beckandy/research/documentation/LSCI/output/tikz/single_pos/",
+              "EAS","_","SAS","_",st,".tex"))
+p
+dev.off()
+print(p)
 ```
 
 ### AT_TA
 
-```{r at_ta_pop_plot, echo=FALSE, cache=TRUE, dependson=c("plot_2pop", "load_2pop")}
+```{r echo=FALSE, message=FALSE}
 st <- "AT_TA"
 for(sp in c("AMR", "EAS", "EUR", "SAS")){
-  print(chi_sq_2pop_plot(st, "AFR", sp))
+  p <- chi_sq_2pop_plot(st, "AFR", sp)
+  tikz(paste0("/net/snowwhite/home/beckandy/research/documentation/LSCI/output/tikz/single_pos/",
+              "AFR","_",sp,"_",st,".tex"),
+     width = 7, height = 4)
+  p
+  dev.off()
+  print(p)
 }
 for(sp in c("EAS", "EUR", "SAS")){
-  print(chi_sq_2pop_plot(st, "AMR", sp))
+  p <- chi_sq_2pop_plot(st, "AMR", sp)
+  tikz(paste0("/net/snowwhite/home/beckandy/research/documentation/LSCI/output/tikz/single_pos/",
+              "AMR","_",sp,"_",st,".tex"),
+     width = 7, height = 4)
+  p
+  dev.off()
+  print(p)
 }
 for(sp in c("EUR", "SAS")){
-  print(chi_sq_2pop_plot(st, "EAS", sp))
+  p <- chi_sq_2pop_plot(st, "EAS", sp)
+  tikz(paste0("/net/snowwhite/home/beckandy/research/documentation/LSCI/output/tikz/single_pos/",
+              "EAS","_",sp,"_",st,".tex"),
+     width = 7, height = 4)
+  p
+  dev.off()
+  print(p)
 }
-print(chi_sq_2pop_plot(st, "EUR", "SAS"))
+p <- chi_sq_2pop_plot(st, "EUR", "SAS")
+tikz(paste0("/net/snowwhite/home/beckandy/research/documentation/LSCI/output/tikz/single_pos/",
+              "EAS","_","SAS","_",st,".tex"))
+p
+dev.off()
+print(p)
 ```
 
 ### GC_AT
 
-```{r gc_at_pop_plot, echo=FALSE, cache=TRUE, dependson=c("plot_2pop", "load_2pop")}
+```{r echo=FALSE, message=FALSE}
 st <- "GC_AT"
 for(sp in c("AMR", "EAS", "EUR", "SAS")){
-  print(chi_sq_2pop_plot(st, "AFR", sp))
+  p <- chi_sq_2pop_plot(st, "AFR", sp)
+  tikz(paste0("/net/snowwhite/home/beckandy/research/documentation/LSCI/output/tikz/single_pos/",
+              "AFR","_",sp,"_",st,".tex"),
+     width = 7, height = 4)
+  p
+  dev.off()
+  print(p)
 }
 for(sp in c("EAS", "EUR", "SAS")){
-  print(chi_sq_2pop_plot(st, "AMR", sp))
+  p <- chi_sq_2pop_plot(st, "AMR", sp)
+  tikz(paste0("/net/snowwhite/home/beckandy/research/documentation/LSCI/output/tikz/single_pos/",
+              "AMR","_",sp,"_",st,".tex"),
+     width = 7, height = 4)
+  p
+  dev.off()
+  print(p)
 }
 for(sp in c("EUR", "SAS")){
-  print(chi_sq_2pop_plot(st, "EAS", sp))
+  p <- chi_sq_2pop_plot(st, "EAS", sp)
+  tikz(paste0("/net/snowwhite/home/beckandy/research/documentation/LSCI/output/tikz/single_pos/",
+              "EAS","_",sp,"_",st,".tex"),
+     width = 7, height = 4)
+  p
+  dev.off()
+  print(p)
 }
-print(chi_sq_2pop_plot(st, "EUR", "SAS"))
+p <- chi_sq_2pop_plot(st, "EUR", "SAS")
+tikz(paste0("/net/snowwhite/home/beckandy/research/documentation/LSCI/output/tikz/single_pos/",
+              "EAS","_","SAS","_",st,".tex"))
+p
+dev.off()
+print(p)
 ```
+
 ### cpg_GC_AT
 
-```{r cpg_gc_at_pop_plot, echo=FALSE, cache=TRUE, dependson=c("plot_2pop", "load_2pop")}
+```{r echo=FALSE, message=FALSE}
 st <- "cpg_GC_AT"
 for(sp in c("AMR", "EAS", "EUR", "SAS")){
-  print(chi_sq_2pop_plot(st, "AFR", sp, r_start = 2))
+  p <- chi_sq_2pop_plot(st, "AFR", sp, r_start = 2)
+  tikz(paste0("/net/snowwhite/home/beckandy/research/documentation/LSCI/output/tikz/single_pos/",
+              "AFR","_",sp,"_",st,".tex"),
+     width = 7, height = 4)
+  p
+  dev.off()
+  print(p)
 }
 for(sp in c("EAS", "EUR", "SAS")){
-  print(chi_sq_2pop_plot(st, "AMR", sp, r_start = 2))
+  p <- chi_sq_2pop_plot(st, "AMR", sp, r_start = 2)
+  tikz(paste0("/net/snowwhite/home/beckandy/research/documentation/LSCI/output/tikz/single_pos/",
+              "AMR","_",sp,"_",st,".tex"),
+     width = 7, height = 4)
+  p
+  dev.off()
+  print(p)
 }
 for(sp in c("EUR", "SAS")){
-  print(chi_sq_2pop_plot(st, "EAS", sp, r_start = 2))
+  p <- chi_sq_2pop_plot(st, "EAS", sp, r_start = 2)
+  tikz(paste0("/net/snowwhite/home/beckandy/research/documentation/LSCI/output/tikz/single_pos/",
+              "EAS","_",sp,"_",st,".tex"),
+     width = 7, height = 4)
+  p
+  dev.off()
+  print(p)
 }
-print(chi_sq_2pop_plot(st, "EUR", "SAS", r_start = 2))
+p <- chi_sq_2pop_plot(st, "EUR", "SAS", r_start = 2)
+tikz(paste0("/net/snowwhite/home/beckandy/research/documentation/LSCI/output/tikz/single_pos/",
+              "EAS","_","SAS","_",st,".tex"))
+p
+dev.off()
+print(p)
 ```
 
 ### GC_TA
 
-```{r gc_ta_pop_plot, echo=FALSE, cache=TRUE, dependson=c("plot_2pop", "load_2pop")}
+```{r echo=FALSE, message=FALSE}
 st <- "GC_TA"
 for(sp in c("AMR", "EAS", "EUR", "SAS")){
-  print(chi_sq_2pop_plot(st, "AFR", sp))
+  p <- chi_sq_2pop_plot(st, "AFR", sp)
+  tikz(paste0("/net/snowwhite/home/beckandy/research/documentation/LSCI/output/tikz/single_pos/",
+              "AFR","_",sp,"_",st,".tex"),
+     width = 7, height = 4)
+  p
+  dev.off()
+  print(p)
 }
 for(sp in c("EAS", "EUR", "SAS")){
-  print(chi_sq_2pop_plot(st, "AMR", sp))
+  p <- chi_sq_2pop_plot(st, "AMR", sp)
+  tikz(paste0("/net/snowwhite/home/beckandy/research/documentation/LSCI/output/tikz/single_pos/",
+              "AMR","_",sp,"_",st,".tex"),
+     width = 7, height = 4)
+  p
+  dev.off()
+  print(p)
 }
 for(sp in c("EUR", "SAS")){
-  print(chi_sq_2pop_plot(st, "EAS", sp))
+  p <- chi_sq_2pop_plot(st, "EAS", sp)
+  tikz(paste0("/net/snowwhite/home/beckandy/research/documentation/LSCI/output/tikz/single_pos/",
+              "EAS","_",sp,"_",st,".tex"),
+     width = 7, height = 4)
+  p
+  dev.off()
+  print(p)
 }
-print(chi_sq_2pop_plot(st, "EUR", "SAS"))
+p <- chi_sq_2pop_plot(st, "EUR", "SAS")
+tikz(paste0("/net/snowwhite/home/beckandy/research/documentation/LSCI/output/tikz/single_pos/",
+              "EAS","_","SAS","_",st,".tex"))
+p
+dev.off()
+print(p)
 ```
 
 ### cpg_GC_TA
 
-```{r cpg_gc_ta_pop_plot, echo=FALSE, cache=TRUE, dependson=c("plot_2pop", "load_2pop")}
+```{r echo=FALSE, message=FALSE}
 st <- "cpg_GC_TA"
 for(sp in c("AMR", "EAS", "EUR", "SAS")){
-  print(chi_sq_2pop_plot(st, "AFR", sp, r_start = 2))
+  p <- chi_sq_2pop_plot(st, "AFR", sp, r_start = 2)
+  tikz(paste0("/net/snowwhite/home/beckandy/research/documentation/LSCI/output/tikz/single_pos/",
+              "AFR","_",sp,"_",st,".tex"),
+     width = 7, height = 4)
+  p
+  dev.off()
+  print(p)
 }
 for(sp in c("EAS", "EUR", "SAS")){
-  print(chi_sq_2pop_plot(st, "AMR", sp, r_start = 2))
+  p <- chi_sq_2pop_plot(st, "AMR", sp, r_start = 2)
+  tikz(paste0("/net/snowwhite/home/beckandy/research/documentation/LSCI/output/tikz/single_pos/",
+              "AMR","_",sp,"_",st,".tex"),
+     width = 7, height = 4)
+  p
+  dev.off()
+  print(p)
 }
 for(sp in c("EUR", "SAS")){
-  print(chi_sq_2pop_plot(st, "EAS", sp, r_start = 2))
+  p <- chi_sq_2pop_plot(st, "EAS", sp, r_start = 2)
+  tikz(paste0("/net/snowwhite/home/beckandy/research/documentation/LSCI/output/tikz/single_pos/",
+              "EAS","_",sp,"_",st,".tex"),
+     width = 7, height = 4)
+  p
+  dev.off()
+  print(p)
 }
-print(chi_sq_2pop_plot(st, "EUR", "SAS", r_start = 2))
+p <- chi_sq_2pop_plot(st, "EUR", "SAS", r_start = 2)
+tikz(paste0("/net/snowwhite/home/beckandy/research/documentation/LSCI/output/tikz/single_pos/",
+              "EAS","_","SAS","_",st,".tex"))
+p
+dev.off()
+print(p)
 ```
 
 ### GC_CG
 
-```{r gc_cg_pop_plot, echo=FALSE, cache=TRUE, dependson=c("plot_2pop", "load_2pop")}
+```{r echo=FALSE, message=FALSE}
 st <- "GC_CG"
 for(sp in c("AMR", "EAS", "EUR", "SAS")){
-  print(chi_sq_2pop_plot(st, "AFR", sp))
+  p <- chi_sq_2pop_plot(st, "AFR", sp)
+  tikz(paste0("/net/snowwhite/home/beckandy/research/documentation/LSCI/output/tikz/single_pos/",
+              "AFR","_",sp,"_",st,".tex"),
+     width = 7, height = 4)
+  p
+  dev.off()
+  print(p)
 }
 for(sp in c("EAS", "EUR", "SAS")){
-  print(chi_sq_2pop_plot(st, "AMR", sp))
+  p <- chi_sq_2pop_plot(st, "AMR", sp)
+  tikz(paste0("/net/snowwhite/home/beckandy/research/documentation/LSCI/output/tikz/single_pos/",
+              "AMR","_",sp,"_",st,".tex"),
+     width = 7, height = 4)
+  p
+  dev.off()
+  print(p)
 }
 for(sp in c("EUR", "SAS")){
-  print(chi_sq_2pop_plot(st, "EAS", sp))
+  p <- chi_sq_2pop_plot(st, "EAS", sp)
+  tikz(paste0("/net/snowwhite/home/beckandy/research/documentation/LSCI/output/tikz/single_pos/",
+              "EAS","_",sp,"_",st,".tex"),
+     width = 7, height = 4)
+  p
+  dev.off()
+  print(p)
 }
-print(chi_sq_2pop_plot(st, "EUR", "SAS"))
+p <- chi_sq_2pop_plot(st, "EUR", "SAS")
+tikz(paste0("/net/snowwhite/home/beckandy/research/documentation/LSCI/output/tikz/single_pos/",
+              "EAS","_","SAS","_",st,".tex"))
+p
+dev.off()
+print(p)
 ```
 
 ### cpg_GC_CG
 
-```{r cpg_gc_cg_pop_plot, echo=FALSE, cache=TRUE, dependson=c("plot_2pop", "load_2pop")}
+```{r echo=FALSE, message=FALSE}
 st <- "cpg_GC_CG"
 for(sp in c("AMR", "EAS", "EUR", "SAS")){
-  print(chi_sq_2pop_plot(st, "AFR", sp, r_start = 2))
+  p <- chi_sq_2pop_plot(st, "AFR", sp, r_start = 2)
+  tikz(paste0("/net/snowwhite/home/beckandy/research/documentation/LSCI/output/tikz/single_pos/",
+              "AFR","_",sp,"_",st,".tex"),
+     width = 7, height = 4)
+  p
+  dev.off()
+  print(p)
 }
 for(sp in c("EAS", "EUR", "SAS")){
-  print(chi_sq_2pop_plot(st, "AMR", sp, r_start = 2))
+  p <- chi_sq_2pop_plot(st, "AMR", sp, r_start = 2)
+  tikz(paste0("/net/snowwhite/home/beckandy/research/documentation/LSCI/output/tikz/single_pos/",
+              "AMR","_",sp,"_",st,".tex"),
+     width = 7, height = 4)
+  p
+  dev.off()
+  print(p)
 }
 for(sp in c("EUR", "SAS")){
-  print(chi_sq_2pop_plot(st, "EAS", sp, r_start = 2))
+  p <- chi_sq_2pop_plot(st, "EAS", sp, r_start = 2)
+  tikz(paste0("/net/snowwhite/home/beckandy/research/documentation/LSCI/output/tikz/single_pos/",
+              "EAS","_",sp,"_",st,".tex"),
+     width = 7, height = 4)
+  p
+  dev.off()
+  print(p)
 }
-print(chi_sq_2pop_plot(st, "EUR", "SAS", r_start = 2))
+p <- chi_sq_2pop_plot(st, "EUR", "SAS", r_start = 2)
+tikz(paste0("/net/snowwhite/home/beckandy/research/documentation/LSCI/output/tikz/single_pos/",
+              "EAS","_","SAS","_",st,".tex"))
+p
+dev.off()
+print(p)
 ```
 
 ## Compare to BRIDGES
