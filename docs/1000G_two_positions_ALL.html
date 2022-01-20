@@ -361,7 +361,7 @@ div.tocify {
 
 <p>
 <button type="button" class="btn btn-default btn-workflowr btn-workflowr-report" data-toggle="collapse" data-target="#workflowr-report">
-<span class="glyphicon glyphicon-list" aria-hidden="true"></span> workflowr <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span>
+<span class="glyphicon glyphicon-list" aria-hidden="true"></span> workflowr <span class="glyphicon glyphicon-exclamation-sign text-danger" aria-hidden="true"></span>
 </button>
 </p>
 <div id="workflowr-report" class="collapse">
@@ -370,7 +370,7 @@ div.tocify {
 <a data-toggle="tab" href="#summary">Summary</a>
 </li>
 <li>
-<a data-toggle="tab" href="#checks"> Checks <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> </a>
+<a data-toggle="tab" href="#checks"> Checks <span class="glyphicon glyphicon-exclamation-sign text-danger" aria-hidden="true"></span> </a>
 </li>
 <li>
 <a data-toggle="tab" href="#versions">Past versions</a>
@@ -379,10 +379,10 @@ div.tocify {
 <div class="tab-content">
 <div id="summary" class="tab-pane fade in active">
 <p>
-<strong>Last updated:</strong> 2021-11-09
+<strong>Last updated:</strong> 2022-01-20
 </p>
 <p>
-<strong>Checks:</strong> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> 7 <span class="glyphicon glyphicon-exclamation-sign text-danger" aria-hidden="true"></span> 0
+<strong>Checks:</strong> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> 6 <span class="glyphicon glyphicon-exclamation-sign text-danger" aria-hidden="true"></span> 1
 </p>
 <p>
 <strong>Knit directory:</strong> <code>LSCI/</code> <span class="glyphicon glyphicon-question-sign" aria-hidden="true" title="This is the local directory in which the code in this file was executed."> </span>
@@ -458,28 +458,52 @@ This reproducible <a href="http://rmarkdown.rstudio.com">R Markdown</a> analysis
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongFilepathsstrongrelative"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>File paths:</strong> relative </a>
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongFilepathsstrongabsolute"> <span class="glyphicon glyphicon-exclamation-sign text-danger" aria-hidden="true"></span> <strong>File paths:</strong> absolute </a>
 </p>
 </div>
-<div id="strongFilepathsstrongrelative" class="panel-collapse collapse">
+<div id="strongFilepathsstrongabsolute" class="panel-collapse collapse">
 <div class="panel-body">
-<p>Great job! Using relative paths to the files within your workflowr project makes it easier to run your code on other machines.</p>
+<p>
+Using absolute paths to the files within your workflowr project makes it difficult for you and others to run your code on a different machine. Change the absolute path(s) below to the suggested relative path(s) to make your code more reproducible.
+</p>
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th style="text-align:left;">
+absolute
+</th>
+<th style="text-align:left;">
+relative
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;">
+/net/snowwhite/home/beckandy/research/documentation/LSCI/output/tikz/two_pos/ind_ex.tex
+</td>
+<td style="text-align:left;">
+output/tikz/two_pos/ind_ex.tex
+</td>
+</tr>
+</tbody>
+</table>
 </div>
 </div>
 </div>
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomtheandybLSCItree1a782cb744ce1e27f93fe48b141573cfc544df63targetblank1a782cba"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/theandyb/LSCI/tree/1a782cb744ce1e27f93fe48b141573cfc544df63" target="_blank">1a782cb</a> </a>
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomtheandybLSCItreeb205f471dafecb45418f0a51fc6d76c3044ed8adtargetblankb205f47a"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/theandyb/LSCI/tree/b205f471dafecb45418f0a51fc6d76c3044ed8ad" target="_blank">b205f47</a> </a>
 </p>
 </div>
-<div id="strongRepositoryversionstrongahrefhttpsgithubcomtheandybLSCItree1a782cb744ce1e27f93fe48b141573cfc544df63targetblank1a782cba" class="panel-collapse collapse">
+<div id="strongRepositoryversionstrongahrefhttpsgithubcomtheandybLSCItreeb205f471dafecb45418f0a51fc6d76c3044ed8adtargetblankb205f47a" class="panel-collapse collapse">
 <div class="panel-body">
 <p>
 Great! You are using Git for version control. Tracking code development and connecting the code version to the results is critical for reproducibility.
 </p>
 <p>
-The results in this page were generated with repository version <a href="https://github.com/theandyb/LSCI/tree/1a782cb744ce1e27f93fe48b141573cfc544df63" target="_blank">1a782cb</a>. See the <em>Past versions</em> tab to see a history of the changes made to the R Markdown and HTML files.
+The results in this page were generated with repository version <a href="https://github.com/theandyb/LSCI/tree/b205f471dafecb45418f0a51fc6d76c3044ed8ad" target="_blank">b205f47</a>. See the <em>Past versions</em> tab to see a history of the changes made to the R Markdown and HTML files.
 </p>
 <p>
 Note that you need to be careful to ensure that all relevant files for the analysis have been committed to Git prior to generating the results (you can use <code>wflow_publish</code> or <code>wflow_git_commit</code>). workflowr only checks the R Markdown file, but you know if there are other scripts or data files that it depends on. Below is the status of the Git repository when the results were generated:
@@ -490,9 +514,18 @@ Ignored files:
     Ignored:    .Rproj.user/
     Ignored:    analysis/disqus.html
 
+Untracked files:
+    Untracked:  1000G_single_position_ALL-tikzDictionary
+    Untracked:  1000G_single_postion_comp-tikzDictionary
+    Untracked:  BRIDGES_single_position-tikzDictionary
+    Untracked:  BRIDGES_summary_stats-tikzDictionary
+    Untracked:  output/tikz/
+
 Unstaged changes:
-    Modified:   analysis/_site.yml
-    Modified:   analysis/outline.Rmd
+    Modified:   analysis/1000G_single_postion_comp.Rmd
+    Modified:   analysis/BRIDGES_summary_stats.Rmd
+    Modified:   analysis/BRIDGES_two_positions.Rmd
+    Modified:   code/single_pos_functions.R
 
 </code></pre>
 <p>
@@ -531,6 +564,40 @@ Message
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+Rmd
+</td>
+<td>
+<a href="https://github.com/theandyb/LSCI/blob/b205f471dafecb45418f0a51fc6d76c3044ed8ad/analysis/1000G_two_positions_ALL.Rmd" target="_blank">b205f47</a>
+</td>
+<td>
+Andy Beck
+</td>
+<td>
+2022-01-20
+</td>
+<td>
+wflow_publish(c("analysis/1000G_two_positions_ALL.Rmd", "analysis/1000G_two_postions_comp.Rmd"))
+</td>
+</tr>
+<tr>
+<td>
+html
+</td>
+<td>
+<a href="https://rawcdn.githack.com/theandyb/LSCI/bcee6104baeb7c80b102faea4a04ffd5d3896da3/docs/1000G_two_positions_ALL.html" target="_blank">bcee610</a>
+</td>
+<td>
+Andy Beck
+</td>
+<td>
+2021-11-09
+</td>
+<td>
+update site to include disqus
+</td>
+</tr>
 <tr>
 <td>
 html
@@ -670,8 +737,8 @@ flesh out some pages
 </div>
 <div id="chi-square-test-of-independence" class="section level2">
 <h2>Chi-Square Test of Independence</h2>
-<p>For this analysis we’ll be looking at only our singleton counts. For each subtype at each pair of positions we observe a 4x4 2-way contingency table. Performing a chi square test of independence asks if we have evidence to reject the null hypothesis that the two “variables” (sites) are independent; i.e. the number of times we see AA is the product of the row marginal for A and the column marginal for A, etc.</p>
-<p>First let’s write the code to generate the 4x4 contingency table at a single pair of positions for a subtype:</p>
+<p>For this analysis we’ll be looking at only our singleton counts. For each sub type at each pair of positions we observe a 4x4 2-way contingency table. Performing a chi square test of independence asks if we have evidence to reject the null hypothesis that the two “variables” (sites) are independent; i.e. the number of times we see AA is the product of the row marginal for A and the column marginal for A, etc.</p>
+<p>First let’s write the code to generate the 4x4 contingency table at a single pair of positions for a sub type:</p>
 <pre class="r"><code>chi_sq_ind_pair &lt;- function(population, subtype, p1, p2){
   
   data_dir &lt;- &quot;/net/snowwhite/home/beckandy/research/1000G_LSCI/output/all_count_2_pos/&quot;
@@ -681,7 +748,7 @@ flesh out some pages
   df_tab &lt;- xtabs(singletons ~ p1 + p2, data = df)
   return(df_tab)
 }</code></pre>
-<p>And then we’ll want code to get the statistic at each pair of positions for a subtype:</p>
+<p>And then we’ll want code to get the statistic at each pair of positions for a sub type:</p>
 <pre class="r"><code>chi_sq_ind_all &lt;- function(population, subtype){
   final &lt;- data.frame(p1 = numeric(),
                       p2 = numeric(),
@@ -701,10 +768,11 @@ flesh out some pages
 <p>Naturally we’ll want to plot these results to see what patterns we observe across pairs of positions:</p>
 <pre class="r"><code>chi_sq_ind_plot &lt;- function(population, subtype){
   df &lt;- chi_sq_ind_all(population, subtype)
+  subtype2 &lt;- str_replace(subtype, &quot;_&quot;, &quot; -&gt; &quot;)
   p &lt;- df %&gt;%
     ggplot(aes(x = p2, y = p1, fill = statistic)) +
     geom_tile() +
-    ggtitle(paste0(&quot;Chi-Sq Test of Independence: &quot;, subtype),
+    ggtitle(paste0(&quot;Chi-Sq Test of Independence: &quot;, subtype2),
             paste0(&quot;Population: &quot;, population,
                    &quot;; Min: &quot;, round(min(df$statistic), 2), 
                    &quot;; Max: &quot;, round(max(df$statistic), 2)))+
@@ -754,6 +822,8 @@ Andy Beck
 </table>
 </div>
 </div>
+<pre><code>png 
+  2 </code></pre>
 </div>
 <div id="at_gc" class="section level3">
 <h3>AT_GC</h3>
@@ -1004,7 +1074,7 @@ Andy Beck
 </div>
 <div id="loglinear-models" class="section level2">
 <h2>Loglinear Models</h2>
-<p>The above analyses told us that, in general, that the joint distribution of the cell counts in the 4x4 contingency table was not the product of the row and column marginals. This is unsurprising since we see this exact same pattern in both the genome-wide counts and the control counts. That is, it is already well-known that genome-wide occurrence of dinucleotides is not predicted by the product of the frequencies of the individual nucleotides, so it’s no surprise we see an interaction in our singletons. But is the interaction we see in the singletons the same that we observe in the controls? That question can be addressed using the log-linear modeling framework employed by Zhu et al (2017). Here, we’ll fit a model of the counts for both the singletons and the controls, allowing for each to have their own marginal distributions at each position, but the interaction between the two positions is shared. We then use the deviance statistic to compare the fit of this model to the fully saturated model which allows for different interaction terms between the singletons and the controls.</p>
+<p>The above analyses told us that, in general, the joint distribution of the cell counts in the 4x4 contingency table was not the product of the row and column marginals. This is unsurprising since we see this exact same pattern in both the genome-wide counts and the control counts. That is, it is already well-known that genome-wide occurrence of dinucleotides is not predicted by the product of the frequencies of the individual nucleotides, so it’s no surprise we see an interaction in our singletons. But is the interaction we see in the singletons the same that we observe in the controls? That question can be addressed using the log-linear modeling framework employed by Zhu et al (2017). Here, we’ll fit a model of the counts for both the singletons and the controls, allowing for each to have their own marginal distributions at each position, but the interaction between the two positions is shared. We then use the deviance statistic to compare the fit of this model to the fully saturated model which allows for different interaction terms between the singletons and the controls.</p>
 <pre class="r"><code>deviance_pair &lt;- function(population, subtype, p1, p2){
   
   data_dir &lt;- &quot;/net/snowwhite/home/beckandy/research/1000G_LSCI/output/all_count_2_pos/&quot;
@@ -1014,7 +1084,27 @@ Andy Beck
     select(p1, p2, singletons, controls) %&gt;%
     gather(status, n, singletons:controls)
   mod_obj &lt;- glm(n ~ (p1 + p2 + status)^2, data = df, family = poisson())
+  
   return(mod_obj %&gt;% deviance)
+}
+
+deviance_pair_re &lt;- function(population, subtype, p1, p2){
+  
+  data_dir &lt;- &quot;/net/snowwhite/home/beckandy/research/1000G_LSCI/output/all_count_2_pos/&quot;
+  f_name &lt;- paste0(data_dir, population, &quot;/&quot;, subtype, &quot;_p&quot;, p1, &quot;_q&quot;, p2, &quot;.csv&quot;)
+  df &lt;- read_csv(f_name, col_types = cols()) %&gt;%
+    filter(singletons &gt; 0) %&gt;%
+    select(p1, p2, singletons, controls) %&gt;%
+    gather(status, n, singletons:controls)
+  mod_obj &lt;- glm(n ~ (p1 + p2 + status)^2, data = df, family = poisson())
+  df$res &lt;- residuals(mod_obj) ^ 2
+  n_singletons &lt;- df %&gt;% filter(status==&quot;singletons&quot;) %&gt;% pull(n) %&gt;% sum()
+  n_controls &lt;- df %&gt;% filter(status==&quot;controls&quot;) %&gt;% pull(n) %&gt;% sum()
+  df &lt;- df %&gt;%
+    rowwise() %&gt;%
+    mutate(re.res = ifelse(status == &quot;singletons&quot;, (res / (2*n_singletons)), (res / (2*n_controls)) ))
+  re &lt;- sum(df$re.res)
+  return(re)
 }
 
 deviance_all &lt;- function(population, subtype, r_start = 1){
@@ -1034,6 +1124,23 @@ deviance_all &lt;- function(population, subtype, r_start = 1){
   return(final)
 }
 
+re_all &lt;- function(population, subtype, r_start = 1){
+  final &lt;- data.frame(p1 = numeric(),
+                      p2 = numeric(),
+                      statistic = numeric())
+  for(i in c(-10:-1,r_start:9)){
+    for(j in (i+1):10){
+      if(j == 0) next
+      if(j == 1 &amp; r_start &gt; 1) next
+      stat_val &lt;- deviance_pair_re(population, subtype, i, j)
+      final &lt;- bind_rows(final, data.frame(p1 = i,
+                                           p2 = j,
+                                           statistic = stat_val))
+    }
+  }
+  return(final)
+}
+
 deviance_plot &lt;- function(population, subtype, r_start = 1){
   df &lt;- deviance_all(population, subtype, r_start) %&gt;% drop_na()
   p &lt;- df %&gt;%
@@ -1044,6 +1151,20 @@ deviance_plot &lt;- function(population, subtype, r_start = 1){
     xlab(&quot;Relative Position 2&quot;) +
     ylab(&quot;Relative Position 1&quot;) +
     labs(fill = &quot;Deviance&quot;) +
+    scale_fill_distiller(palette = &quot;Reds&quot;, direction = 1)
+  return(p)
+}
+
+deviance_re_plot &lt;- function(population, subtype, r_start = 1){
+  df &lt;- re_all(population, subtype, r_start) %&gt;% drop_na()
+  p &lt;- df %&gt;%
+    ggplot(aes(x = p2, y = p1, fill = statistic)) +
+    geom_tile() +
+    ggtitle(paste0(&quot;Interaction RE: &quot;, subtype),
+            paste0(&quot;Population: &quot;, population,&quot;; Min: &quot;, signif(min(df$statistic), 2), &quot;; Max: &quot;, signif(max(df$statistic), 2)))+
+    xlab(&quot;Relative Position 2&quot;) +
+    ylab(&quot;Relative Position 1&quot;) +
+    labs(fill = &quot;RE&quot;) +
     scale_fill_distiller(palette = &quot;Reds&quot;, direction = 1)
   return(p)
 }</code></pre>
@@ -1425,7 +1546,7 @@ Andy Beck
 <pre class="r"><code>sessionInfo()</code></pre>
 <pre><code>R version 4.1.2 (2021-11-01)
 Platform: x86_64-pc-linux-gnu (64-bit)
-Running under: Ubuntu 18.04.5 LTS
+Running under: Ubuntu 18.04.6 LTS
 
 Matrix products: default
 BLAS:   /usr/lib/x86_64-linux-gnu/openblas/libblas.so.3
@@ -1443,29 +1564,30 @@ attached base packages:
 [1] stats     graphics  grDevices utils     datasets  methods   base     
 
 other attached packages:
- [1] forcats_0.5.1   stringr_1.4.0   dplyr_1.0.7     purrr_0.3.4    
- [5] readr_2.0.2     tidyr_1.1.4     tibble_3.1.5    ggplot2_3.3.5  
- [9] tidyverse_1.3.1 workflowr_1.6.2
+ [1] tikzDevice_0.12.3.1 forcats_0.5.1       stringr_1.4.0      
+ [4] dplyr_1.0.7         purrr_0.3.4         readr_2.0.2        
+ [7] tidyr_1.1.4         tibble_3.1.5        ggplot2_3.3.5      
+[10] tidyverse_1.3.1     workflowr_1.6.2    
 
 loaded via a namespace (and not attached):
- [1] Rcpp_1.0.7         lubridate_1.8.0    assertthat_0.2.1   rprojroot_2.0.2   
- [5] digest_0.6.28      utf8_1.2.2         R6_2.5.1           cellranger_1.1.0  
- [9] backports_1.3.0    reprex_2.0.1       evaluate_0.14      highr_0.9         
-[13] httr_1.4.2         pillar_1.6.4       rlang_0.4.12       readxl_1.3.1      
-[17] rstudioapi_0.13    whisker_0.4        jquerylib_0.1.4    rmarkdown_2.11    
-[21] labeling_0.4.2     bit_4.0.4          munsell_0.5.0      broom_0.7.9       
-[25] compiler_4.1.2     httpuv_1.6.3       modelr_0.1.8       xfun_0.27         
-[29] pkgconfig_2.0.3    htmltools_0.5.2    tidyselect_1.1.1   fansi_0.5.0       
-[33] crayon_1.4.1       tzdb_0.1.2         dbplyr_2.1.1       withr_2.4.2       
-[37] later_1.3.0        grid_4.1.2         jsonlite_1.7.2     gtable_0.3.0      
-[41] lifecycle_1.0.1    DBI_1.1.1          git2r_0.28.0       magrittr_2.0.1    
-[45] scales_1.1.1       vroom_1.5.5        cli_3.0.1          stringi_1.7.5     
-[49] farver_2.1.0       fs_1.5.0           promises_1.2.0.1   xml2_1.3.2        
-[53] bslib_0.3.1        ellipsis_0.3.2     generics_0.1.1     vctrs_0.3.8       
-[57] RColorBrewer_1.1-2 tools_4.1.2        bit64_4.0.5        glue_1.4.2        
-[61] hms_1.1.1          parallel_4.1.2     fastmap_1.1.0      yaml_2.2.1        
-[65] colorspace_2.0-2   rvest_1.0.2        knitr_1.36         haven_2.4.3       
-[69] sass_0.4.0        </code></pre>
+ [1] Rcpp_1.0.7         lubridate_1.8.0    png_0.1-7          assertthat_0.2.1  
+ [5] rprojroot_2.0.2    digest_0.6.28      utf8_1.2.2         R6_2.5.1          
+ [9] cellranger_1.1.0   backports_1.3.0    reprex_2.0.1       evaluate_0.14     
+[13] httr_1.4.2         highr_0.9          pillar_1.6.4       rlang_0.4.12      
+[17] readxl_1.3.1       rstudioapi_0.13    whisker_0.4        jquerylib_0.1.4   
+[21] rmarkdown_2.11     labeling_0.4.2     bit_4.0.4          munsell_0.5.0     
+[25] broom_0.7.9        compiler_4.1.2     httpuv_1.6.3       modelr_0.1.8      
+[29] xfun_0.27          pkgconfig_2.0.3    htmltools_0.5.2    tidyselect_1.1.1  
+[33] fansi_0.5.0        crayon_1.4.1       tzdb_0.1.2         dbplyr_2.1.1      
+[37] withr_2.4.2        later_1.3.0        grid_4.1.2         jsonlite_1.7.2    
+[41] gtable_0.3.0       lifecycle_1.0.1    DBI_1.1.1          git2r_0.28.0      
+[45] magrittr_2.0.1     scales_1.1.1       vroom_1.5.5        cli_3.0.1         
+[49] stringi_1.7.5      farver_2.1.0       fs_1.5.0           promises_1.2.0.1  
+[53] xml2_1.3.2         bslib_0.3.1        ellipsis_0.3.2     generics_0.1.1    
+[57] vctrs_0.3.8        RColorBrewer_1.1-2 tools_4.1.2        bit64_4.0.5       
+[61] glue_1.4.2         hms_1.1.1          parallel_4.1.2     fastmap_1.1.0     
+[65] yaml_2.2.1         colorspace_2.0-2   filehash_2.4-2     rvest_1.0.2       
+[69] knitr_1.36         haven_2.4.3        sass_0.4.0        </code></pre>
 </div>
 </div>
 </div>
