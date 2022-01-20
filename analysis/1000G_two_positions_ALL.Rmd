@@ -9,6 +9,11 @@ editor_options:
 
 ```{r echo=FALSE, message=FALSE, warning=FALSE}
 library(tidyverse)
+library(tikzDevice)
+
+# latex plot options
+width = 4
+height = 4
 ```
 
 # 1000G Two Position Models
@@ -24,9 +29,9 @@ Challenges we face here are:
 
 ## Chi-Square Test of Independence
 
-For this analysis we'll be looking at only our singleton counts. For each subtype at each pair of positions we observe a 4x4 2-way contingency table. Performing a chi square test of independence asks if we have evidence to reject the null hypothesis that the two "variables" (sites) are independent; i.e. the number of times we see AA is the product of the row marginal for A and the column marginal for A, etc. 
+For this analysis we'll be looking at only our singleton counts. For each sub type at each pair of positions we observe a 4x4 2-way contingency table. Performing a chi square test of independence asks if we have evidence to reject the null hypothesis that the two "variables" (sites) are independent; i.e. the number of times we see AA is the product of the row marginal for A and the column marginal for A, etc. 
 
-First let's write the code to generate the 4x4 contingency table at a single pair of positions for a subtype:
+First let's write the code to generate the 4x4 contingency table at a single pair of positions for a sub type:
 ```{r}
 chi_sq_ind_pair <- function(population, subtype, p1, p2){
   
@@ -39,7 +44,7 @@ chi_sq_ind_pair <- function(population, subtype, p1, p2){
 }
 ```
 
-And then we'll want code to get the statistic at each pair of positions for a subtype:
+And then we'll want code to get the statistic at each pair of positions for a sub type:
 
 ```{r}
 chi_sq_ind_all <- function(population, subtype){
@@ -65,10 +70,11 @@ Naturally we'll want to plot these results to see what patterns we observe acros
 ```{r}
 chi_sq_ind_plot <- function(population, subtype){
   df <- chi_sq_ind_all(population, subtype)
+  subtype2 <- str_replace(subtype, "_", " -> ")
   p <- df %>%
     ggplot(aes(x = p2, y = p1, fill = statistic)) +
     geom_tile() +
-    ggtitle(paste0("Chi-Sq Test of Independence: ", subtype),
+    ggtitle(paste0("Chi-Sq Test of Independence: ", subtype2),
             paste0("Population: ", population,
                    "; Min: ", round(min(df$statistic), 2), 
                    "; Max: ", round(max(df$statistic), 2)))+
@@ -83,7 +89,13 @@ chi_sq_ind_plot <- function(population, subtype){
 ### AT_CG
 
 ```{r echo=FALSE, warning=FALSE}
-chi_sq_ind_plot("ALL", "AT_CG")
+p <- chi_sq_ind_plot("ALL", "AT_CG")
+p
+
+tikz(paste0("/net/snowwhite/home/beckandy/research/documentation/LSCI/output/tikz/two_pos/ind_ex.tex"),
+     width = width, height = height)
+p
+dev.off()
 ```
 
 ### AT_GC
@@ -124,7 +136,7 @@ chi_sq_ind_plot("ALL", "cpg_GC_TA")
 
 ## Loglinear Models
 
-The above analyses told us that, in general, that the joint distribution of the cell counts in the 4x4 contingency table was not the product of the row and column marginals. This is unsurprising since we see this exact same pattern in both the genome-wide counts and the control counts. That is, it is already well-known that genome-wide occurrence of dinucleotides is not predicted by the product of the frequencies of the individual nucleotides, so it's no surprise we see an interaction in our singletons. But is the interaction we see in the singletons the same that we observe in the controls? That question can be addressed using the log-linear modeling framework employed by Zhu et al (2017). Here, we'll fit a model of the counts for both the singletons and the controls, allowing for each to have their own marginal distributions at each position, but the interaction between the two positions is shared. We then use the deviance statistic to compare the fit of this model to the fully saturated model which allows for different interaction terms between the singletons and the controls.
+The above analyses told us that, in general, the joint distribution of the cell counts in the 4x4 contingency table was not the product of the row and column marginals. This is unsurprising since we see this exact same pattern in both the genome-wide counts and the control counts. That is, it is already well-known that genome-wide occurrence of dinucleotides is not predicted by the product of the frequencies of the individual nucleotides, so it's no surprise we see an interaction in our singletons. But is the interaction we see in the singletons the same that we observe in the controls? That question can be addressed using the log-linear modeling framework employed by Zhu et al (2017). Here, we'll fit a model of the counts for both the singletons and the controls, allowing for each to have their own marginal distributions at each position, but the interaction between the two positions is shared. We then use the deviance statistic to compare the fit of this model to the fully saturated model which allows for different interaction terms between the singletons and the controls.
 
 ```{r}
 deviance_pair <- function(population, subtype, p1, p2){
@@ -136,7 +148,27 @@ deviance_pair <- function(population, subtype, p1, p2){
     select(p1, p2, singletons, controls) %>%
     gather(status, n, singletons:controls)
   mod_obj <- glm(n ~ (p1 + p2 + status)^2, data = df, family = poisson())
+  
   return(mod_obj %>% deviance)
+}
+
+deviance_pair_re <- function(population, subtype, p1, p2){
+  
+  data_dir <- "/net/snowwhite/home/beckandy/research/1000G_LSCI/output/all_count_2_pos/"
+  f_name <- paste0(data_dir, population, "/", subtype, "_p", p1, "_q", p2, ".csv")
+  df <- read_csv(f_name, col_types = cols()) %>%
+    filter(singletons > 0) %>%
+    select(p1, p2, singletons, controls) %>%
+    gather(status, n, singletons:controls)
+  mod_obj <- glm(n ~ (p1 + p2 + status)^2, data = df, family = poisson())
+  df$res <- residuals(mod_obj) ^ 2
+  n_singletons <- df %>% filter(status=="singletons") %>% pull(n) %>% sum()
+  n_controls <- df %>% filter(status=="controls") %>% pull(n) %>% sum()
+  df <- df %>%
+    rowwise() %>%
+    mutate(re.res = ifelse(status == "singletons", (res / (2*n_singletons)), (res / (2*n_controls)) ))
+  re <- sum(df$re.res)
+  return(re)
 }
 
 deviance_all <- function(population, subtype, r_start = 1){
@@ -156,6 +188,23 @@ deviance_all <- function(population, subtype, r_start = 1){
   return(final)
 }
 
+re_all <- function(population, subtype, r_start = 1){
+  final <- data.frame(p1 = numeric(),
+                      p2 = numeric(),
+                      statistic = numeric())
+  for(i in c(-10:-1,r_start:9)){
+    for(j in (i+1):10){
+      if(j == 0) next
+      if(j == 1 & r_start > 1) next
+      stat_val <- deviance_pair_re(population, subtype, i, j)
+      final <- bind_rows(final, data.frame(p1 = i,
+                                           p2 = j,
+                                           statistic = stat_val))
+    }
+  }
+  return(final)
+}
+
 deviance_plot <- function(population, subtype, r_start = 1){
   df <- deviance_all(population, subtype, r_start) %>% drop_na()
   p <- df %>%
@@ -166,6 +215,20 @@ deviance_plot <- function(population, subtype, r_start = 1){
     xlab("Relative Position 2") +
     ylab("Relative Position 1") +
     labs(fill = "Deviance") +
+    scale_fill_distiller(palette = "Reds", direction = 1)
+  return(p)
+}
+
+deviance_re_plot <- function(population, subtype, r_start = 1){
+  df <- re_all(population, subtype, r_start) %>% drop_na()
+  p <- df %>%
+    ggplot(aes(x = p2, y = p1, fill = statistic)) +
+    geom_tile() +
+    ggtitle(paste0("Interaction RE: ", subtype),
+            paste0("Population: ", population,"; Min: ", signif(min(df$statistic), 2), "; Max: ", signif(max(df$statistic), 2)))+
+    xlab("Relative Position 2") +
+    ylab("Relative Position 1") +
+    labs(fill = "RE") +
     scale_fill_distiller(palette = "Reds", direction = 1)
   return(p)
 }
