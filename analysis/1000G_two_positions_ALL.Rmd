@@ -238,52 +238,70 @@ deviance_re_plot <- function(population, subtype, r_start = 1){
 
 ```{r echo=FALSE}
 deviance_plot("ALL", "AT_CG")
+
+deviance_re_plot("ALL", "AT_CG")
 ```
 
 ### AT_GC
 
 ```{r echo=FALSE}
 deviance_plot("ALL", "AT_GC")
+
+deviance_re_plot("ALL", "AT_GC")
 ```
 
 ### AT_TA
 
 ```{r echo=FALSE}
 deviance_plot("ALL", "AT_TA")
+
+deviance_re_plot("ALL", "AT_TA")
 ```
 
 ### GC_AT
 
 ```{r echo=FALSE}
 deviance_plot("ALL", "GC_AT")
+
+deviance_re_plot("ALL", "GC_AT")
 ```
 
 ### cpg_GC_AT
 
 ```{r echo=FALSE}
 deviance_plot("ALL", "cpg_GC_AT", r_start = 2)
+
+deviance_re_plot("ALL", "cpg_GC_AT", r_start = 2)
 ```
 
 ### GC_TA
 
 ```{r echo=FALSE}
 deviance_plot("ALL", "GC_TA")
+
+deviance_re_plot("ALL", "GC_TA")
 ```
 
 ### cpg_GC_TA
 
 ```{r echo=FALSE}
 deviance_plot("ALL", "cpg_GC_TA", r_start = 2)
+
+deviance_re_plot("ALL", "cpg_GC_TA", r_start = 2)
 ```
 
 ### GC_CG
 
 ```{r echo=FALSE}
 deviance_plot("ALL", "GC_CG")
+
+deviance_re_plot("ALL", "GC_CG")
 ```
 
 ### cpg_GC_CG
 
 ```{r echo=FALSE}
 deviance_plot("ALL", "cpg_GC_CG", r_start = 2)
+
+deviance_re_plot("ALL", "cpg_GC_CG", r_start = 2)
 ```
