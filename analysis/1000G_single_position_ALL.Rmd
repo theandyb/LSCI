@@ -23,6 +23,10 @@ Here in this document we present the results for the single position models usin
 
 ### Model Descriptions
 
+#### Goodness of Fit Approach
+
+*Note: this is only present as material which we could choose to later include in the appendix*
+
 For each singleton sub-type, we evaluate the "independent influence" of nucleotides at flanking positions up to 10 bases up or down-stream from the site of interest by modeling the observed count table
 
 | Nucleotide | N |
@@ -37,6 +41,14 @@ using rates we observe nucleotides flanking the same reference allele genome-wid
 $$
 \chi_i = \sum_{x \in \{A,C,G,T\} }\frac{(n_{x,i} - e_{x,i})^2}{e_{x,i}}, i \in (-10,-1),(1,10) 
 $$
+### Log Linear Model Approach
+
+Following the example of Zhu et al (2017), we also construct models of the form
+
+$$
+\log(n_{ij}) = \lambda_0 + \sum_{k \in \{C,G,T\}} \lambda_j I(i=k) + \lambda_{s}I(j=s)
+$$
+where we jointly model the counts for singletons and their matched controls stratified by the nucleotides at a given flanking position in the +/- 10 bp window. Note that here the model assumes a shared nucleotide distribution between the singletons and the controls; allowing for a difference through an interaction term would yield a fully saturated model. Zhu et al (2017) use the deviance statistic to identify putative mutation motifs, which compares the above reduced model to the fully saturated model, with a larger deviance statistic resulting from a larger difference between the observed distribution of nucleotides flanking singleton and control sites from the fitted distribution based on the reduced model. The deviance statistic tends to increase due to sample size, so Zhu et al (2017) additionally divided the deviance statistic by twice the sample size to yield the relative entropy/KL divergence, which is not sensitive to sample size and allowed for comparisons between mutation sub types. We choose to take a similar approach in that we compute the KL divergence between the observed and fitted frequencies for only the singletons.
 
 ## 9 Subtype Results
 
@@ -61,6 +73,20 @@ load_results <- function(subtype, rp, sp){
   data_dir <- "/net/snowwhite/home/beckandy/research/1000G_LSCI/output/single_pos_df/"
   f_name <- paste0(data_dir, sp, "/", subtype, "_rp", rp, ".csv")
   df <- read_csv(f_name, col_types = cols())
+  df_tall <- df %>% 
+  select(Nuc, singletons, controls) %>%
+  pivot_longer(-Nuc) %>%
+  rename(status = name, n = value)
+
+  mod_obj <- glm(n ~ Nuc + status, data = df_tall, family = poisson())
+  new_dat <- data.frame(Nuc = c("A", "C", "G", "T"), status = "singletons")
+  new_dat$pred <- predict(mod_obj, type = "response", newdata = new_dat)
+  df <- df%>%
+    inner_join({new_dat %>% select(-status)}, by = "Nuc") %>%
+    mutate(pct_pred = pred / sum(pred),
+           pct_s = singletons / sum(singletons)) %>%
+    mutate(kl_r = pct_s * log(pct_s / pct_pred)) %>%
+    select(-starts_with("pct"), -pred)
   return(df)
 }
 
@@ -75,7 +101,18 @@ load_all_results <- function(subtype, sp, r_start = 1){
   return(df)
 }
 
-statistic_by_position <- function(subtype, sp, r_start = 1){
+kl_by_position <- function(subtype, sp, r_start = 1){
+  final <- data.frame(pos = numeric(), kl_stat = numeric())
+  for(i in c(-10:-1, r_start:10)){
+    df <- load_results(subtype, i, sp)
+    final <- bind_rows(final,
+                       data.frame(pos = i,
+                                  kl_stat = sum(df$kl_r)))
+  }
+  return(final)
+}
+
+gof_by_position <- function(subtype, sp, r_start = 1){
   final <- data.frame(pos = numeric(), chi_sq = numeric(), singletons = numeric(), type = character())
   for(i in c(-10:-1, r_start:10)){
     df <- load_results(subtype, i, sp)
@@ -90,8 +127,8 @@ statistic_by_position <- function(subtype, sp, r_start = 1){
   return(final)
 }
 
-plot_pos_stat <- function(subtype, sp, r_start = 1){
-  df <- statistic_by_position(subtype, sp, r_start)
+plot_gof_pos_stat <- function(subtype, sp, r_start = 1){
+  df <- gof_by_position(subtype, sp, r_start)
   p <-df %>%
     ggplot(aes(x = pos, y = chi_sq, colour = type)) +
     geom_point() +
@@ -105,7 +142,7 @@ plot_pos_stat <- function(subtype, sp, r_start = 1){
 }
 
 plot_pos_cohen <- function(subtype, sp, r_start = 1){
-  df <- statistic_by_position(subtype, sp, r_start)
+  df <- gof_by_position(subtype, sp, r_start)
   p <-df %>%
     ggplot(aes(x = pos, y = cohen, colour = type)) +
     geom_point() +
@@ -118,42 +155,54 @@ plot_pos_cohen <- function(subtype, sp, r_start = 1){
   return(p)
 }
 
+plot_pos_kl <- function(subtype, sp, r_start = 1){
+  df <- kl_by_position(subtype, sp, r_start)
+  p<- df %>%
+    ggplot(aes(x = pos, y = kl_stat)) +
+    geom_point() +
+    geom_line() +
+    xlab("Relative Position") + 
+    ylab("Relative Entropy") +
+    ggtitle(paste0("Relative Entropy by Position: ", subtype))
+  return(p)
+}
+
 get_all_cohen <- function(sp){
-  df1 <- statistic_by_position("AT_CG", sp) %>%
+  df1 <- gof_by_position("AT_CG", sp) %>%
     filter(type == "Control") %>%
     select(pos, cohen) %>%
     mutate(subtype = "AT-CG")
-  df2 <- statistic_by_position("AT_GC", sp) %>%
+  df2 <- gof_by_position("AT_GC", sp) %>%
     filter(type == "Control") %>%
     select(pos, cohen) %>%
     mutate(subtype = "AT-GC")
-  df3 <- statistic_by_position("AT_TA", sp) %>%
+  df3 <- gof_by_position("AT_TA", sp) %>%
     filter(type == "Control") %>%
     select(pos, cohen) %>%
     mutate(subtype = "AT-TA")
   
-  df4 <- statistic_by_position("GC_AT", sp, r_start = 2) %>%
+  df4 <- gof_by_position("GC_AT", sp, r_start = 2) %>%
     filter(type == "Control") %>%
     select(pos, cohen) %>%
     mutate(subtype = "GC-AT")
-  df5 <- statistic_by_position("GC_TA", sp, r_start = 2) %>%
+  df5 <- gof_by_position("GC_TA", sp, r_start = 2) %>%
     filter(type == "Control") %>%
     select(pos, cohen) %>%
     mutate(subtype = "GC-TA")
-  df6 <- statistic_by_position("GC_CG", sp, r_start = 2) %>%
+  df6 <- gof_by_position("GC_CG", sp, r_start = 2) %>%
     filter(type == "Control") %>%
     select(pos, cohen) %>%
     mutate(subtype = "GC-CG")
   
-  df7 <- statistic_by_position("cpg_GC_AT", sp, r_start = 2) %>%
+  df7 <- gof_by_position("cpg_GC_AT", sp, r_start = 2) %>%
     filter(type == "Control") %>%
     select(pos, cohen) %>%
     mutate(subtype = "cpgGC-AT")
-  df8 <- statistic_by_position("cpg_GC_TA", sp, r_start = 2) %>%
+  df8 <- gof_by_position("cpg_GC_TA", sp, r_start = 2) %>%
     filter(type == "Control") %>%
     select(pos, cohen) %>%
     mutate(subtype = "cpgGC-TA")
-  df9 <- statistic_by_position("cpg_GC_CG", sp, r_start = 2) %>%
+  df9 <- gof_by_position("cpg_GC_CG", sp, r_start = 2) %>%
     filter(type == "Control") %>%
     select(pos, cohen) %>%
     mutate(subtype = "cpgGC-CG")
@@ -244,7 +293,7 @@ plot_signed_nuc_by_pos <- function(subtype, sp, type = "gw", r_start = 1){
 
 ```{r echo=FALSE, message=FALSE}
 st <- "AT_CG"
-p1 <- plot_pos_stat(st, "ALL")
+p1 <- plot_gof_pos_stat(st, "ALL")
 p2 <- plot_pos_cohen(st, "ALL")
 
 tikz(paste0("/net/snowwhite/home/beckandy/research/documentation/LSCI/output/tikz/single_pos/1KGP_chisq_", st, ".tex"),
@@ -262,7 +311,7 @@ p2
 ```
 
 ```{r results='asis', echo=FALSE}
-statistic_by_position("AT_CG", "ALL") %>% spread(type, chi_sq) %>% knitr::kable()
+gof_by_position("AT_CG", "ALL") %>% spread(type, chi_sq) %>% knitr::kable()
 ```
 
 Here we see that the results for both the genome-wide rate and the control distribution rate models tell essentially the same story about the marginal influence of nucleotides at each position: the strongest influence (or deviation from expectation) occurs at the -1 relative position, and in general decreases as we move further from the focal site. Although the statistics do drop drastically as we move towards +/- 10, the unadjusted statistics are still statistically significant (chi-square null distribution with 4 - 1 = 3 degrees of freedom).
@@ -271,7 +320,7 @@ Here we see that the results for both the genome-wide rate and the control distr
 
 ```{r echo=FALSE, message=FALSE}
 st <- "AT_GC"
-p1 <- plot_pos_stat(st, "ALL")
+p1 <- plot_gof_pos_stat(st, "ALL")
 p2 <- plot_pos_cohen(st, "ALL")
 
 tikz(paste0("/net/snowwhite/home/beckandy/research/documentation/LSCI/output/tikz/single_pos/1KGP_chisq_", st, ".tex"),
@@ -289,7 +338,7 @@ p2
 ```
 
 ```{r results='asis', echo=FALSE}
-statistic_by_position("AT_GC", "ALL") %>% spread(type, chi_sq) %>% knitr::kable()
+gof_by_position("AT_GC", "ALL") %>% spread(type, chi_sq) %>% knitr::kable()
 ```
 
 Here for the AT_GC transition we see a similar pattern to what we observed above, but with the most influential marginal effect occurring at the +1 position. 
@@ -298,7 +347,7 @@ Here for the AT_GC transition we see a similar pattern to what we observed above
 
 ```{r echo=FALSE, message=FALSE}
 st <- "AT_TA"
-p1 <- plot_pos_stat(st, "ALL")
+p1 <- plot_gof_pos_stat(st, "ALL")
 p2 <- plot_pos_cohen(st, "ALL")
 
 tikz(paste0("/net/snowwhite/home/beckandy/research/documentation/LSCI/output/tikz/single_pos/1KGP_chisq_", st, ".tex"),
@@ -316,7 +365,7 @@ p2
 ```
 
 ```{r results='asis', echo=FALSE}
-statistic_by_position("AT_TA", "ALL") %>% spread(type, chi_sq) %>% knitr::kable()
+gof_by_position("AT_TA", "ALL") %>% spread(type, chi_sq) %>% knitr::kable()
 ```
 
 Here for the A>T(T>A) transversion we see that the signal at the +1 is far greater than what we observe at other relative positions. This is in contrast to what we observed above where marginal signals at multiple relative positions (generally the +/- 1 positions) stood out. Otherwise we again see the same trend of statistics drastically decreasing as we move further up or down stream. 
@@ -325,7 +374,7 @@ Here for the A>T(T>A) transversion we see that the signal at the +1 is far great
 
 ```{r echo=FALSE, message=FALSE}
 st <- "GC_AT"
-p1 <- plot_pos_stat(st, "ALL")
+p1 <- plot_gof_pos_stat(st, "ALL")
 p2 <- plot_pos_cohen(st, "ALL")
 
 tikz(paste0("/net/snowwhite/home/beckandy/research/documentation/LSCI/output/tikz/single_pos/1KGP_chisq_", st, ".tex"),
@@ -342,7 +391,7 @@ p1
 p2
 ```
 ```{r results='asis', echo=FALSE}
-statistic_by_position("GC_AT", "ALL") %>% spread(type, chi_sq) %>% knitr::kable()
+gof_by_position("GC_AT", "ALL") %>% spread(type, chi_sq) %>% knitr::kable()
 ```
 
 Here we look at the G>A (C>T) transition, conditioning on sites not being CpGs (note: due to this the degrees of freedom for the test statistic at the +1 position is 2 instead of 3). Here we see that, with the exception of the -1 position, the control distribution-based statistic is greater than what we observe with the genome-wide-based statistic.  
@@ -351,7 +400,7 @@ Here we look at the G>A (C>T) transition, conditioning on sites not being CpGs (
 
 ```{r echo=FALSE, message=FALSE}
 st <- "cpg_GC_AT"
-p1 <- plot_pos_stat(st, "ALL", r_start = 2)
+p1 <- plot_gof_pos_stat(st, "ALL", r_start = 2)
 p2 <- plot_pos_cohen(st, "ALL",  r_start = 2)
 
 tikz(paste0("/net/snowwhite/home/beckandy/research/documentation/LSCI/output/tikz/single_pos/1KGP_chisq_", st, ".tex"),
@@ -368,7 +417,7 @@ p1
 p2
 ```
 ```{r results='asis', echo=FALSE}
-statistic_by_position("cpg_GC_AT", "ALL", r_start = 2) %>% spread(type, chi_sq) %>% knitr::kable()
+gof_by_position("cpg_GC_AT", "ALL", r_start = 2) %>% spread(type, chi_sq) %>% knitr::kable()
 ```
 
 Here we condition on the +1 being a G for the G>A(C>T) transition. It is interesting to see for this sub-type that when we condition on the +1 being a G, we see that the control-based statistic behaves like it does for the other sub-types in that it drops precipitously as we move further up/down stream, but the genome-wide rate appears to plateau at a much higher value. It should also be noted that this is the only sub-type in which this pattern is observed.
@@ -377,7 +426,7 @@ Here we condition on the +1 being a G for the G>A(C>T) transition. It is interes
 
 ```{r echo=FALSE, message=FALSE}
 st <- "GC_TA"
-p1 <- plot_pos_stat(st, "ALL")
+p1 <- plot_gof_pos_stat(st, "ALL")
 p2 <- plot_pos_cohen(st, "ALL")
 
 tikz(paste0("/net/snowwhite/home/beckandy/research/documentation/LSCI/output/tikz/single_pos/1KGP_chisq_", st, ".tex"),
@@ -394,7 +443,7 @@ p1
 p2
 ```
 ```{r results='asis', echo=FALSE}
-statistic_by_position("GC_TA", "ALL") %>% spread(type, chi_sq) %>% knitr::kable()
+gof_by_position("GC_TA", "ALL") %>% spread(type, chi_sq) %>% knitr::kable()
 ```
 
 For the G>T(C>A) transversion at non-CpG sites we see that the largest marginal effect for the control-rate models appears at the +1 position, with the -1 position also appearing to be influential as well.
@@ -403,7 +452,7 @@ For the G>T(C>A) transversion at non-CpG sites we see that the largest marginal 
 
 ```{r echo=FALSE, message=FALSE}
 st <- "cpg_GC_TA"
-p1 <- plot_pos_stat(st, "ALL", r_start = 2)
+p1 <- plot_gof_pos_stat(st, "ALL", r_start = 2)
 p2 <- plot_pos_cohen(st, "ALL",  r_start = 2)
 
 tikz(paste0("/net/snowwhite/home/beckandy/research/documentation/LSCI/output/tikz/single_pos/1KGP_chisq_", st, ".tex"),
@@ -420,7 +469,7 @@ p1
 p2
 ```
 ```{r results='asis', echo=FALSE}
-statistic_by_position("cpg_GC_TA", "ALL", r_start = 2) %>% spread(type, chi_sq) %>% knitr::kable()
+gof_by_position("cpg_GC_TA", "ALL", r_start = 2) %>% spread(type, chi_sq) %>% knitr::kable()
 ```
 
 When we condition on the site being a CpG, we see that the largest marginal influence appears at the -1 site, with a modest signal at the -4 and -5 positions as well.
@@ -429,7 +478,7 @@ When we condition on the site being a CpG, we see that the largest marginal infl
 
 ```{r echo=FALSE, message=FALSE}
 st <- "GC_CG"
-p1 <- plot_pos_stat(st, "ALL")
+p1 <- plot_gof_pos_stat(st, "ALL")
 p2 <- plot_pos_cohen(st, "ALL")
 
 tikz(paste0("/net/snowwhite/home/beckandy/research/documentation/LSCI/output/tikz/single_pos/1KGP_chisq_", st, ".tex"),
@@ -446,7 +495,7 @@ p1
 p2
 ```
 ```{r results='asis', echo=FALSE}
-statistic_by_position("GC_CG", "ALL") %>% spread(type, chi_sq) %>% knitr::kable()
+gof_by_position("GC_CG", "ALL") %>% spread(type, chi_sq) %>% knitr::kable()
 ```
 
 For the G<->C transversion at non-CpG sites we observe the largest marginal signal occurring at the -1 position.
@@ -455,7 +504,7 @@ For the G<->C transversion at non-CpG sites we observe the largest marginal sign
 
 ```{r echo=FALSE, message=FALSE}
 st <- "cpg_GC_CG"
-p1 <- plot_pos_stat(st, "ALL", r_start = 2)
+p1 <- plot_gof_pos_stat(st, "ALL", r_start = 2)
 p2 <- plot_pos_cohen(st, "ALL",  r_start = 2)
 
 tikz(paste0("/net/snowwhite/home/beckandy/research/documentation/LSCI/output/tikz/single_pos/1KGP_chisq_", st, ".tex"),
@@ -472,7 +521,7 @@ p1
 p2
 ```
 ```{r results='asis', echo=FALSE, message=FALSE}
-statistic_by_position("cpg_GC_CG", "ALL", r_start = 2) %>% spread(type, chi_sq) %>% knitr::kable()
+gof_by_position("cpg_GC_CG", "ALL", r_start = 2) %>% spread(type, chi_sq) %>% knitr::kable()
 ```
 
 When we condition on the C<->G transversion being at a CpG site, we notice that the strongest marginal effect appears at the +2 position for both models, with sharp declines as we move away from +/- 3 bp.
@@ -540,7 +589,7 @@ load_all_simple_results_rc <- function(subtype, sp, r_start = 1){
   return(df)
 }
 
-simple_statistic_by_position <- function(subtype, sp, r_start = 1, rc = FALSE){
+simple_gof_by_position <- function(subtype, sp, r_start = 1, rc = FALSE){
   final <- data.frame(pos = numeric(), chi_sq = numeric(), type = character())
   for(i in c(-10:-1, r_start:10)){
     if(rc){
@@ -557,7 +606,7 @@ simple_statistic_by_position <- function(subtype, sp, r_start = 1, rc = FALSE){
 }
 
 plot_simple_pos_stat <- function(subtype, sp, r_start = 1, rc = FALSE){
-  df <- simple_statistic_by_position(subtype, sp, r_start, rc)
+  df <- simple_gof_by_position(subtype, sp, r_start, rc)
   p <-df %>%
     ggplot(aes(x = pos, y = chi_sq, colour = type)) +
     geom_point() +

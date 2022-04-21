@@ -91,11 +91,6 @@ chi_sq_ind_plot <- function(population, subtype){
 ```{r echo=FALSE, warning=FALSE}
 p <- chi_sq_ind_plot("ALL", "AT_CG")
 p
-
-tikz(paste0("/net/snowwhite/home/beckandy/research/documentation/LSCI/output/tikz/two_pos/ind_ex.tex"),
-     width = width, height = height)
-p
-dev.off()
 ```
 
 ### AT_GC
@@ -133,6 +128,120 @@ chi_sq_ind_plot("ALL", "GC_TA")
 ```{r echo=FALSE, warning=FALSE}
 chi_sq_ind_plot("ALL", "cpg_GC_TA")
 ```
+
+## Goodness of Fit: Estimate Distribution with Controls
+
+I don't agree with this approach whatsoever, but Jun wants it. 
+
+The idea here is to estimate the frequency of flanking dimers using the dimers we observe flanking control positions. This ignores the fact that the distribution of individual flanking nucleotides has already been shown to differ between the singletons and the matched controls; what I think we want is a way to test for an interaction while accounting for the different individual marginals.
+
+But anyways, here's the code to get the chi square GOF statistic for a given sub type at a pair of positions:
+
+```{r}
+chi_sq_gof_pair <- function(population, subtype, p1, p2) {
+  data_dir <- "/net/snowwhite/home/beckandy/research/1000G_LSCI/output/all_count_2_pos/"
+  f_name <- paste0(data_dir, population, "/", subtype, "_p", p1, "_q", p2, ".csv")
+  df <- read_csv(f_name, col_types = cols()) %>%
+    filter(singletons > 0)
+  df$p_c <- df$controls / sum(df$controls)
+  df$e_s <- sum(df$singletons) * df$p_c
+  df$chi_res <- (df$e_s - df$singletons)^2 / df$e_s
+  df$p_s <- df$singletons / sum(df$singletons)
+  df$kl_res <- df$p_s * log(df$p_s / df$p_c)
+  return(sum(df$chi_res))
+}
+```
+
+Naturally we will want this statistic for each population/subtype pair across all pairs of flanking positions:
+
+```{r}
+chi_sq_gof_all <- function(population, subtype){
+  final <- data.frame(p1 = numeric(),
+                      p2 = numeric(),
+                      statistic = numeric())
+  for(i in c(-10:-1,1:9)){
+    for(j in (i+1):10){
+      if(j == 0) next
+      stat_val <- chi_sq_gof_pair(population, subtype, i, j)
+      final <- bind_rows(final, data.frame(p1 = i,
+                                           p2 = j,
+                                           statistic = stat_val))
+    }
+  }
+  return(final)
+}
+```
+
+Oh, I know, let's make plots as well!
+
+```{r}
+chi_sq_gof_plot <- function(population, subtype){
+  df <- chi_sq_gof_all(population, subtype)
+  subtype2 <- str_replace(subtype, "_", " -> ")
+  p <- df %>%
+    ggplot(aes(x = p2, y = p1, fill = statistic)) +
+    geom_tile() +
+    ggtitle(paste0("Control Distribution GOF: ", subtype2),
+            paste0("Population: ", population,
+                   "; Min: ", round(min(df$statistic), 2), 
+                   "; Max: ", round(max(df$statistic), 2)))+
+    xlab("Relative Position 2") +
+    ylab("Relative Position 1") +
+    labs(fill = "Chi Square Statistic") +
+    scale_fill_distiller(palette = "Reds", direction = 1) +
+    theme_classic()
+  return(p)
+}
+```
+
+### AT_CG
+
+```{r}
+subtype <- "AT_CG"
+p <- chi_sq_gof_plot("ALL", subtype)
+print(p)
+```
+
+### AT_GC
+
+```{r}
+subtype <- "AT_GC"
+p <- chi_sq_gof_plot("ALL", subtype)
+print(p)
+```
+
+### AT_TA
+
+```{r}
+subtype <- "AT_TA"
+p <- chi_sq_gof_plot("ALL", subtype)
+print(p)
+```
+
+### GC_AT
+
+```{r}
+subtype <- "GC_AT"
+p <- chi_sq_gof_plot("ALL", subtype)
+print(p)
+```
+
+### GC_TA
+
+```{r}
+subtype <- "GC_TA"
+p <- chi_sq_gof_plot("ALL", subtype)
+print(p)
+```
+
+### GC_CG
+
+```{r}
+subtype <- "GC_CG"
+p <- chi_sq_gof_plot("ALL", subtype)
+print(p)
+```
+
 
 ## Loglinear Models
 
@@ -305,3 +414,123 @@ deviance_plot("ALL", "cpg_GC_CG", r_start = 2)
 
 deviance_re_plot("ALL", "cpg_GC_CG", r_start = 2)
 ```
+
+## Di-nucleotide Residuals
+
+Similar to what we investigated in the single model case, here we look into each pair of position's deviance/RE result and break it down into the contributions from each pair of nucleotides. Here we have a challenge that we did not have in the single position case: for each pair of nucleotides we have two residuals: one for the fitted singleton value, and the other for the fitted control count. While they are both used to calculate the overall statistic for the position, for this first approach I am only going to look at the dinucleotide residuals for the singleton fitted values. This is because I find this case to be more straightforward in regards to assigning a sign and interpreting (i.e., do we observe more XY in the singletons than expected? etc.)
+
+First let's get the single-position level residuals for a given sub type and population:
+
+```{r}
+get_residuals_re <- function(subtype, population, p1, p2){
+  data_dir <- "/net/snowwhite/home/beckandy/research/1000G_LSCI/output/all_count_2_pos/"
+  f_name <- paste0(data_dir, population, "/", subtype, "_p", p1, "_q", p2, ".csv")
+  df <- read_csv(f_name, col_types = cols()) %>%
+    filter(singletons > 0) %>%
+    select(p1, p2, singletons, controls) %>%
+    gather(status, n, singletons:controls)
+  mod_obj <- glm(n ~ (p1 + p2 + status)^2, data = df, family = poisson())
+  df$res <- residuals(mod_obj) ^ 2
+  df$fit <- predict(mod_obj, type = "response")
+  n_singletons <- df %>% filter(status=="singletons") %>% pull(n) %>% sum()
+  n_controls <- df %>% filter(status=="controls") %>% pull(n) %>% sum()
+  df <- df %>%
+    rowwise() %>%
+    mutate(re.res = ifelse(status == "singletons", (res / (2*n_singletons)), (res / (2*n_controls)) ))
+  df <- df %>%
+    filter(status == "singletons") %>%
+    mutate(dir = sign(n - fit)) %>%
+    mutate(s.res = re.res * dir) %>%
+    ungroup() %>%
+    mutate(prop.res = sqrt(res) / sum(sqrt(res))) %>%
+    arrange(desc(res))
+  return(df)
+}
+```
+
+Now, as an example let's look at the residuals for the A>G sub type at the -2, -1 positions:
+
+```{r}
+get_residuals_re("AT_GC", "ALL", -2, -1) %>%
+  knitr::kable()
+```
+
+Here we see that among the two position influences the biggest difference between the singleton and the control distributions was for the CA dinucleotide; this is the same as what Zhu et al (2017) observed at this position for this sub type.  Let's take a look at what happens if we summarize each pair of positions by the sum of the two re/deviance residuals instead of just ignoring the control residual:
+
+```{r}
+get_residuals_re2 <- function(subtype, population, p1, p2){
+  data_dir <- "/net/snowwhite/home/beckandy/research/1000G_LSCI/output/all_count_2_pos/"
+  f_name <- paste0(data_dir, population, "/", subtype, "_p", p1, "_q", p2, ".csv")
+  df <- read_csv(f_name, col_types = cols()) %>%
+    filter(singletons > 0) %>%
+    select(p1, p2, singletons, controls) %>%
+    gather(status, n, singletons:controls)
+  mod_obj <- glm(n ~ (p1 + p2 + status)^2, data = df, family = poisson())
+  df$res <- residuals(mod_obj) ^ 2
+  df$fit <- predict(mod_obj, type = "response")
+  n_singletons <- df %>% filter(status=="singletons") %>% pull(n) %>% sum()
+  n_controls <- df %>% filter(status=="controls") %>% pull(n) %>% sum()
+  df <- df %>%
+    rowwise() %>%
+    mutate(re.res = ifelse(status == "singletons", (res / (2*n_singletons)), (res / (2*n_controls)) ))
+  df <- df %>%
+    select(p1, p2, re.res) %>%
+    group_by(p1, p2) %>%
+    summarize(re.res = sum(re.res)) %>%
+    ungroup() %>%
+    mutate(prop.re = re.res / sum(re.res)) %>%
+    arrange(desc(re.res))
+  return(df)
+}
+```
+
+Here again we see that the top contribution for any dinucleotide pair is CT at the -2, -1 positions when we account for both the singleton and the control residuals:
+
+```{r}
+get_residuals_re2("AT_GC", "ALL", -2, -1) %>%
+  knitr::kable()
+```
+
+Perhaps we'd like to visualize these results in a heatmap?
+
+```{r}
+heatmap_re_res <- function(subtype, pop, p1, p2, singletons_only = TRUE){
+  if(singletons_only){
+    df <- get_residuals_re(subtype, pop, p1, p2)
+  } else {
+    df <- get_residuals_re2(subtype, pop, p1, p2)
+  }
+  p <- df %>%
+    ggplot(aes(x = p2, y = p1, fill = re.res)) +
+    geom_tile() +
+    ggtitle(paste0("Interaction RE: ", subtype),
+            paste0("Population: ", pop))+
+    xlab(paste0("Relative Position: ", p2)) +
+    ylab(paste0("Relative Position: ", p1)) +
+    labs(fill = "RE Residual") +
+    scale_fill_distiller(palette = "Reds", direction = 1)
+  return(p)
+}
+
+heatmap_signed_re_res <- function(subtype, pop, p1, p2){
+  df <- get_residuals_re(subtype, pop, p1, p2)
+  p <- df %>%
+    ggplot(aes(x = p2, y = p1, fill = s.res)) +
+    geom_tile() +
+    ggtitle(paste0("Interaction RE: ", subtype),
+            paste0("Population: ", pop))+
+    xlab(paste0("Relative Position: ", p2)) +
+    ylab(paste0("Relative Position: ", p1)) +
+    labs(fill = "RE Residual") +
+    scale_fill_distiller(palette = "RdBu", direction = -1)
+  return(p)
+
+}
+```
+
+And now we plot the signed re residuals for the A>G sub type:
+
+```{r}
+heatmap_signed_re_res("AT_GC", "ALL", -2, -1)
+```
+
