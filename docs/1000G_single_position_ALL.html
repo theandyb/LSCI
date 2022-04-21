@@ -40,7 +40,7 @@
 <link href="site_libs/font-awesome-5.1.0/css/all.css" rel="stylesheet" />
 <link href="site_libs/font-awesome-5.1.0/css/v4-shims.css" rel="stylesheet" />
 
-<link rel="icon" href="https://github.com/workflowr/workflowr-assets/raw/master/img/reproducible.png">
+<link rel="icon" href="https://github.com/workflowr/workflowr-assets/raw/main/img/reproducible.png">
 <!-- Add a small amount of space between sections. -->
 <style type="text/css">
 div.section {
@@ -379,7 +379,7 @@ div.tocify {
 <div class="tab-content">
 <div id="summary" class="tab-pane fade in active">
 <p>
-<strong>Last updated:</strong> 2021-12-15
+<strong>Last updated:</strong> 2022-04-21
 </p>
 <p>
 <strong>Checks:</strong> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> 6 <span class="glyphicon glyphicon-exclamation-sign text-danger" aria-hidden="true"></span> 1
@@ -388,8 +388,8 @@ div.tocify {
 <strong>Knit directory:</strong> <code>LSCI/</code> <span class="glyphicon glyphicon-question-sign" aria-hidden="true" title="This is the local directory in which the code in this file was executed."> </span>
 </p>
 <p>
-This reproducible <a href="http://rmarkdown.rstudio.com">R Markdown</a> analysis was created with <a
-  href="https://github.com/jdblischak/workflowr">workflowr</a> (version 1.6.2). The <em>Checks</em> tab describes the reproducibility checks that were applied when the results were created. The <em>Past versions</em> tab lists the development history.
+This reproducible <a href="https://rmarkdown.rstudio.com">R Markdown</a> analysis was created with <a
+  href="https://github.com/workflowr/workflowr">workflowr</a> (version 1.7.0). The <em>Checks</em> tab describes the reproducibility checks that were applied when the results were created. The <em>Past versions</em> tab lists the development history.
 </p>
 <hr>
 </div>
@@ -526,16 +526,16 @@ output/tikz/single_pos/1KGP_signed_nuc_sp_
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomtheandybLSCItree94a8c2873c61d2721b1dea23d6a87ba5ed5fd12dtargetblank94a8c28a"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/theandyb/LSCI/tree/94a8c2873c61d2721b1dea23d6a87ba5ed5fd12d" target="_blank">94a8c28</a> </a>
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomtheandybLSCItree491010c615557062c0e24d60452f2377ab977d83targetblank491010ca"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/theandyb/LSCI/tree/491010c615557062c0e24d60452f2377ab977d83" target="_blank">491010c</a> </a>
 </p>
 </div>
-<div id="strongRepositoryversionstrongahrefhttpsgithubcomtheandybLSCItree94a8c2873c61d2721b1dea23d6a87ba5ed5fd12dtargetblank94a8c28a" class="panel-collapse collapse">
+<div id="strongRepositoryversionstrongahrefhttpsgithubcomtheandybLSCItree491010c615557062c0e24d60452f2377ab977d83targetblank491010ca" class="panel-collapse collapse">
 <div class="panel-body">
 <p>
 Great! You are using Git for version control. Tracking code development and connecting the code version to the results is critical for reproducibility.
 </p>
 <p>
-The results in this page were generated with repository version <a href="https://github.com/theandyb/LSCI/tree/94a8c2873c61d2721b1dea23d6a87ba5ed5fd12d" target="_blank">94a8c28</a>. See the <em>Past versions</em> tab to see a history of the changes made to the R Markdown and HTML files.
+The results in this page were generated with repository version <a href="https://github.com/theandyb/LSCI/tree/491010c615557062c0e24d60452f2377ab977d83" target="_blank">491010c</a>. See the <em>Past versions</em> tab to see a history of the changes made to the R Markdown and HTML files.
 </p>
 <p>
 Note that you need to be careful to ensure that all relevant files for the analysis have been committed to Git prior to generating the results (you can use <code>wflow_publish</code> or <code>wflow_git_commit</code>). workflowr only checks the R Markdown file, but you know if there are other scripts or data files that it depends on. Below is the status of the Git repository when the results were generated:
@@ -544,18 +544,22 @@ Note that you need to be careful to ensure that all relevant files for the analy
 Ignored files:
     Ignored:    .Rhistory
     Ignored:    .Rproj.user/
-    Ignored:    analysis/1000G_single_postion_comp_cache/
     Ignored:    analysis/disqus.html
     Ignored:    analysis/figure/
+    Ignored:    code/random/
 
 Untracked files:
     Untracked:  1000G_single_position_ALL-tikzDictionary
-    Untracked:  BRIDGES_single_position-tikzDictionary
-    Untracked:  BRIDGES_summary_stats-tikzDictionary
+    Untracked:  code/two_pos_functions.R
     Untracked:  output/tikz/
 
 Unstaged changes:
+    Modified:   .gitignore
+    Modified:   analysis/1000G_single_postion_comp.Rmd
+    Modified:   analysis/1000G_two_postions_comp.Rmd
     Modified:   analysis/BRIDGES_summary_stats.Rmd
+    Modified:   analysis/BRIDGES_two_positions.Rmd
+    Modified:   code/single_pos_functions.R
 
 </code></pre>
 <p>
@@ -594,6 +598,40 @@ Message
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+Rmd
+</td>
+<td>
+<a href="https://github.com/theandyb/LSCI/blob/491010c615557062c0e24d60452f2377ab977d83/analysis/1000G_single_position_ALL.Rmd" target="_blank">491010c</a>
+</td>
+<td>
+Andy Beck
+</td>
+<td>
+2022-04-21
+</td>
+<td>
+wflow_publish(c("analysis/1000G_single_position_ALL.Rmd", "analysis/1000G_two_positions_ALL.Rmd"))
+</td>
+</tr>
+<tr>
+<td>
+html
+</td>
+<td>
+<a href="https://rawcdn.githack.com/theandyb/LSCI/f8c482b346f13cf610e79019a6b74d88ca33c973/docs/1000G_single_position_ALL.html" target="_blank">f8c482b</a>
+</td>
+<td>
+Andy Beck
+</td>
+<td>
+2021-12-15
+</td>
+<td>
+Build site.
+</td>
+</tr>
 <tr>
 <td>
 Rmd
@@ -812,6 +850,9 @@ flesh out some pages
 <p>Here in this document we present the results for the single position models using the singletons from all 2,504 unrelated individuals in the 1000G deep sequence data. Comparisons between the five super-populations can be found in the <a href="1000G_single_postion_comp.html">comparison document</a>. First we’ll look at both the collapsed and un-collapsed categories to verify that we do not lose information when we take reverse-complements.</p>
 <div id="model-descriptions" class="section level3">
 <h3>Model Descriptions</h3>
+<div id="goodness-of-fit-approach" class="section level4">
+<h4>Goodness of Fit Approach</h4>
+<p><em>Note: this is only present as material which we could choose to later include in the appendix</em></p>
 <p>For each singleton sub-type, we evaluate the “independent influence” of nucleotides at flanking positions up to 10 bases up or down-stream from the site of interest by modeling the observed count table</p>
 <table>
 <thead>
@@ -842,7 +883,12 @@ flesh out some pages
 <p>using rates we observe nucleotides flanking the same reference allele genome-wide or in a sample of control observations sampled for each singleton. That is, for each nucleotide we compute an expected count based on the frequency observed in either the genome-wide distribution or the control sample ( $ e_{X,i} = _{X,i} n_S$ ) and use the chi-square goodness of fit statistic to assess deviance from this null model (i.e. are singletons uniformly sampled from either the genome-wide or control distribution)?</p>
 <p><span class="math display">\[
 \chi_i = \sum_{x \in \{A,C,G,T\} }\frac{(n_{x,i} - e_{x,i})^2}{e_{x,i}}, i \in (-10,-1),(1,10) 
-\]</span></p>
+\]</span> ### Log Linear Model Approach</p>
+<p>Following the example of Zhu et al (2017), we also construct models of the form</p>
+<p><span class="math display">\[
+\log(n_{ij}) = \lambda_0 + \sum_{k \in \{C,G,T\}} \lambda_j I(i=k) + \lambda_{s}I(j=s)
+\]</span> where we jointly model the counts for singletons and their matched controls stratified by the nucleotides at a given flanking position in the +/- 10 bp window. Note that here the model assumes a shared nucleotide distribution between the singletons and the controls; allowing for a difference through an interaction term would yield a fully saturated model. Zhu et al (2017) use the deviance statistic to identify putative mutation motifs, which compares the above reduced model to the fully saturated model, with a larger deviance statistic resulting from a larger difference between the observed distribution of nucleotides flanking singleton and control sites from the fitted distribution based on the reduced model. The deviance statistic tends to increase due to sample size, so Zhu et al (2017) additionally divided the deviance statistic by twice the sample size to yield the relative entropy/KL divergence, which is not sensitive to sample size and allowed for comparisons between mutation sub types. We choose to take a similar approach in that we compute the KL divergence between the observed and fitted frequencies for only the singletons.</p>
+</div>
 </div>
 </div>
 <div id="subtype-results" class="section level2">
@@ -5431,6 +5477,17 @@ Date
 <tbody>
 <tr>
 <td>
+<a href="https://github.com/theandyb/LSCI/blob/f8c482b346f13cf610e79019a6b74d88ca33c973/docs/figure/1000G_single_position_ALL.Rmd/unnamed-chunk-32-1.png" target="_blank">f8c482b</a>
+</td>
+<td>
+Andy Beck
+</td>
+<td>
+2021-12-15
+</td>
+</tr>
+<tr>
+<td>
 <a href="https://github.com/theandyb/LSCI/blob/d54d5aaf2e79814abeecfb0b9d91de44968ad4ba/docs/figure/1000G_single_position_ALL.Rmd/unnamed-chunk-32-1.png" target="_blank">d54d5aa</a>
 </td>
 <td>
@@ -5478,6 +5535,17 @@ Date
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+<a href="https://github.com/theandyb/LSCI/blob/f8c482b346f13cf610e79019a6b74d88ca33c973/docs/figure/1000G_single_position_ALL.Rmd/unnamed-chunk-32-2.png" target="_blank">f8c482b</a>
+</td>
+<td>
+Andy Beck
+</td>
+<td>
+2021-12-15
+</td>
+</tr>
 <tr>
 <td>
 <a href="https://github.com/theandyb/LSCI/blob/d54d5aaf2e79814abeecfb0b9d91de44968ad4ba/docs/figure/1000G_single_position_ALL.Rmd/unnamed-chunk-32-2.png" target="_blank">d54d5aa</a>
@@ -5538,6 +5606,17 @@ Date
 <tbody>
 <tr>
 <td>
+<a href="https://github.com/theandyb/LSCI/blob/f8c482b346f13cf610e79019a6b74d88ca33c973/docs/figure/1000G_single_position_ALL.Rmd/unnamed-chunk-33-1.png" target="_blank">f8c482b</a>
+</td>
+<td>
+Andy Beck
+</td>
+<td>
+2021-12-15
+</td>
+</tr>
+<tr>
+<td>
 <a href="https://github.com/theandyb/LSCI/blob/d54d5aaf2e79814abeecfb0b9d91de44968ad4ba/docs/figure/1000G_single_position_ALL.Rmd/unnamed-chunk-33-1.png" target="_blank">d54d5aa</a>
 </td>
 <td>
@@ -5585,6 +5664,17 @@ Date
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+<a href="https://github.com/theandyb/LSCI/blob/f8c482b346f13cf610e79019a6b74d88ca33c973/docs/figure/1000G_single_position_ALL.Rmd/unnamed-chunk-33-2.png" target="_blank">f8c482b</a>
+</td>
+<td>
+Andy Beck
+</td>
+<td>
+2021-12-15
+</td>
+</tr>
 <tr>
 <td>
 <a href="https://github.com/theandyb/LSCI/blob/d54d5aaf2e79814abeecfb0b9d91de44968ad4ba/docs/figure/1000G_single_position_ALL.Rmd/unnamed-chunk-33-2.png" target="_blank">d54d5aa</a>
@@ -5645,6 +5735,17 @@ Date
 <tbody>
 <tr>
 <td>
+<a href="https://github.com/theandyb/LSCI/blob/f8c482b346f13cf610e79019a6b74d88ca33c973/docs/figure/1000G_single_position_ALL.Rmd/unnamed-chunk-34-1.png" target="_blank">f8c482b</a>
+</td>
+<td>
+Andy Beck
+</td>
+<td>
+2021-12-15
+</td>
+</tr>
+<tr>
+<td>
 <a href="https://github.com/theandyb/LSCI/blob/d54d5aaf2e79814abeecfb0b9d91de44968ad4ba/docs/figure/1000G_single_position_ALL.Rmd/unnamed-chunk-34-1.png" target="_blank">d54d5aa</a>
 </td>
 <td>
@@ -5692,6 +5793,17 @@ Date
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+<a href="https://github.com/theandyb/LSCI/blob/f8c482b346f13cf610e79019a6b74d88ca33c973/docs/figure/1000G_single_position_ALL.Rmd/unnamed-chunk-34-2.png" target="_blank">f8c482b</a>
+</td>
+<td>
+Andy Beck
+</td>
+<td>
+2021-12-15
+</td>
+</tr>
 <tr>
 <td>
 <a href="https://github.com/theandyb/LSCI/blob/d54d5aaf2e79814abeecfb0b9d91de44968ad4ba/docs/figure/1000G_single_position_ALL.Rmd/unnamed-chunk-34-2.png" target="_blank">d54d5aa</a>
@@ -5751,6 +5863,17 @@ Date
 <tbody>
 <tr>
 <td>
+<a href="https://github.com/theandyb/LSCI/blob/f8c482b346f13cf610e79019a6b74d88ca33c973/docs/figure/1000G_single_position_ALL.Rmd/unnamed-chunk-35-1.png" target="_blank">f8c482b</a>
+</td>
+<td>
+Andy Beck
+</td>
+<td>
+2021-12-15
+</td>
+</tr>
+<tr>
+<td>
 <a href="https://github.com/theandyb/LSCI/blob/d54d5aaf2e79814abeecfb0b9d91de44968ad4ba/docs/figure/1000G_single_position_ALL.Rmd/unnamed-chunk-35-1.png" target="_blank">d54d5aa</a>
 </td>
 <td>
@@ -5798,6 +5921,17 @@ Date
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+<a href="https://github.com/theandyb/LSCI/blob/f8c482b346f13cf610e79019a6b74d88ca33c973/docs/figure/1000G_single_position_ALL.Rmd/unnamed-chunk-35-2.png" target="_blank">f8c482b</a>
+</td>
+<td>
+Andy Beck
+</td>
+<td>
+2021-12-15
+</td>
+</tr>
 <tr>
 <td>
 <a href="https://github.com/theandyb/LSCI/blob/d54d5aaf2e79814abeecfb0b9d91de44968ad4ba/docs/figure/1000G_single_position_ALL.Rmd/unnamed-chunk-35-2.png" target="_blank">d54d5aa</a>
@@ -5857,6 +5991,17 @@ Date
 <tbody>
 <tr>
 <td>
+<a href="https://github.com/theandyb/LSCI/blob/f8c482b346f13cf610e79019a6b74d88ca33c973/docs/figure/1000G_single_position_ALL.Rmd/unnamed-chunk-36-1.png" target="_blank">f8c482b</a>
+</td>
+<td>
+Andy Beck
+</td>
+<td>
+2021-12-15
+</td>
+</tr>
+<tr>
+<td>
 <a href="https://github.com/theandyb/LSCI/blob/d54d5aaf2e79814abeecfb0b9d91de44968ad4ba/docs/figure/1000G_single_position_ALL.Rmd/unnamed-chunk-36-1.png" target="_blank">d54d5aa</a>
 </td>
 <td>
@@ -5904,6 +6049,17 @@ Date
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+<a href="https://github.com/theandyb/LSCI/blob/f8c482b346f13cf610e79019a6b74d88ca33c973/docs/figure/1000G_single_position_ALL.Rmd/unnamed-chunk-36-2.png" target="_blank">f8c482b</a>
+</td>
+<td>
+Andy Beck
+</td>
+<td>
+2021-12-15
+</td>
+</tr>
 <tr>
 <td>
 <a href="https://github.com/theandyb/LSCI/blob/d54d5aaf2e79814abeecfb0b9d91de44968ad4ba/docs/figure/1000G_single_position_ALL.Rmd/unnamed-chunk-36-2.png" target="_blank">d54d5aa</a>
@@ -5963,6 +6119,17 @@ Date
 <tbody>
 <tr>
 <td>
+<a href="https://github.com/theandyb/LSCI/blob/f8c482b346f13cf610e79019a6b74d88ca33c973/docs/figure/1000G_single_position_ALL.Rmd/unnamed-chunk-37-1.png" target="_blank">f8c482b</a>
+</td>
+<td>
+Andy Beck
+</td>
+<td>
+2021-12-15
+</td>
+</tr>
+<tr>
+<td>
 <a href="https://github.com/theandyb/LSCI/blob/d54d5aaf2e79814abeecfb0b9d91de44968ad4ba/docs/figure/1000G_single_position_ALL.Rmd/unnamed-chunk-37-1.png" target="_blank">d54d5aa</a>
 </td>
 <td>
@@ -6010,6 +6177,17 @@ Date
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+<a href="https://github.com/theandyb/LSCI/blob/f8c482b346f13cf610e79019a6b74d88ca33c973/docs/figure/1000G_single_position_ALL.Rmd/unnamed-chunk-37-2.png" target="_blank">f8c482b</a>
+</td>
+<td>
+Andy Beck
+</td>
+<td>
+2021-12-15
+</td>
+</tr>
 <tr>
 <td>
 <a href="https://github.com/theandyb/LSCI/blob/d54d5aaf2e79814abeecfb0b9d91de44968ad4ba/docs/figure/1000G_single_position_ALL.Rmd/unnamed-chunk-37-2.png" target="_blank">d54d5aa</a>
@@ -6069,6 +6247,17 @@ Date
 <tbody>
 <tr>
 <td>
+<a href="https://github.com/theandyb/LSCI/blob/f8c482b346f13cf610e79019a6b74d88ca33c973/docs/figure/1000G_single_position_ALL.Rmd/unnamed-chunk-38-1.png" target="_blank">f8c482b</a>
+</td>
+<td>
+Andy Beck
+</td>
+<td>
+2021-12-15
+</td>
+</tr>
+<tr>
+<td>
 <a href="https://github.com/theandyb/LSCI/blob/d54d5aaf2e79814abeecfb0b9d91de44968ad4ba/docs/figure/1000G_single_position_ALL.Rmd/unnamed-chunk-38-1.png" target="_blank">d54d5aa</a>
 </td>
 <td>
@@ -6116,6 +6305,17 @@ Date
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+<a href="https://github.com/theandyb/LSCI/blob/f8c482b346f13cf610e79019a6b74d88ca33c973/docs/figure/1000G_single_position_ALL.Rmd/unnamed-chunk-38-2.png" target="_blank">f8c482b</a>
+</td>
+<td>
+Andy Beck
+</td>
+<td>
+2021-12-15
+</td>
+</tr>
 <tr>
 <td>
 <a href="https://github.com/theandyb/LSCI/blob/d54d5aaf2e79814abeecfb0b9d91de44968ad4ba/docs/figure/1000G_single_position_ALL.Rmd/unnamed-chunk-38-2.png" target="_blank">d54d5aa</a>
@@ -6175,6 +6375,17 @@ Date
 <tbody>
 <tr>
 <td>
+<a href="https://github.com/theandyb/LSCI/blob/f8c482b346f13cf610e79019a6b74d88ca33c973/docs/figure/1000G_single_position_ALL.Rmd/unnamed-chunk-39-1.png" target="_blank">f8c482b</a>
+</td>
+<td>
+Andy Beck
+</td>
+<td>
+2021-12-15
+</td>
+</tr>
+<tr>
+<td>
 <a href="https://github.com/theandyb/LSCI/blob/d54d5aaf2e79814abeecfb0b9d91de44968ad4ba/docs/figure/1000G_single_position_ALL.Rmd/unnamed-chunk-39-1.png" target="_blank">d54d5aa</a>
 </td>
 <td>
@@ -6222,6 +6433,17 @@ Date
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+<a href="https://github.com/theandyb/LSCI/blob/f8c482b346f13cf610e79019a6b74d88ca33c973/docs/figure/1000G_single_position_ALL.Rmd/unnamed-chunk-39-2.png" target="_blank">f8c482b</a>
+</td>
+<td>
+Andy Beck
+</td>
+<td>
+2021-12-15
+</td>
+</tr>
 <tr>
 <td>
 <a href="https://github.com/theandyb/LSCI/blob/d54d5aaf2e79814abeecfb0b9d91de44968ad4ba/docs/figure/1000G_single_position_ALL.Rmd/unnamed-chunk-39-2.png" target="_blank">d54d5aa</a>
@@ -6281,6 +6503,17 @@ Date
 <tbody>
 <tr>
 <td>
+<a href="https://github.com/theandyb/LSCI/blob/f8c482b346f13cf610e79019a6b74d88ca33c973/docs/figure/1000G_single_position_ALL.Rmd/unnamed-chunk-40-1.png" target="_blank">f8c482b</a>
+</td>
+<td>
+Andy Beck
+</td>
+<td>
+2021-12-15
+</td>
+</tr>
+<tr>
+<td>
 <a href="https://github.com/theandyb/LSCI/blob/d54d5aaf2e79814abeecfb0b9d91de44968ad4ba/docs/figure/1000G_single_position_ALL.Rmd/unnamed-chunk-40-1.png" target="_blank">d54d5aa</a>
 </td>
 <td>
@@ -6330,6 +6563,17 @@ Date
 <tbody>
 <tr>
 <td>
+<a href="https://github.com/theandyb/LSCI/blob/f8c482b346f13cf610e79019a6b74d88ca33c973/docs/figure/1000G_single_position_ALL.Rmd/unnamed-chunk-40-2.png" target="_blank">f8c482b</a>
+</td>
+<td>
+Andy Beck
+</td>
+<td>
+2021-12-15
+</td>
+</tr>
+<tr>
+<td>
 <a href="https://github.com/theandyb/LSCI/blob/d54d5aaf2e79814abeecfb0b9d91de44968ad4ba/docs/figure/1000G_single_position_ALL.Rmd/unnamed-chunk-40-2.png" target="_blank">d54d5aa</a>
 </td>
 <td>
@@ -6367,9 +6611,9 @@ Andy Beck
 </p>
 <div id="workflowr-sessioninfo" class="collapse">
 <pre class="r"><code>sessionInfo()</code></pre>
-<pre><code>R version 4.1.2 (2021-11-01)
+<pre><code>R version 4.1.3 (2022-03-10)
 Platform: x86_64-pc-linux-gnu (64-bit)
-Running under: Ubuntu 18.04.5 LTS
+Running under: Ubuntu 18.04.6 LTS
 
 Matrix products: default
 BLAS:   /usr/lib/x86_64-linux-gnu/openblas/libblas.so.3
@@ -6388,29 +6632,30 @@ attached base packages:
 
 other attached packages:
  [1] tikzDevice_0.12.3.1 forcats_0.5.1       stringr_1.4.0      
- [4] dplyr_1.0.7         purrr_0.3.4         readr_2.0.2        
- [7] tidyr_1.1.4         tibble_3.1.5        ggplot2_3.3.5      
-[10] tidyverse_1.3.1     workflowr_1.6.2    
+ [4] dplyr_1.0.8         purrr_0.3.4         readr_2.1.2        
+ [7] tidyr_1.2.0         tibble_3.1.6        ggplot2_3.3.5      
+[10] tidyverse_1.3.1     workflowr_1.7.0    
 
 loaded via a namespace (and not attached):
- [1] Rcpp_1.0.7       lubridate_1.8.0  assertthat_0.2.1 rprojroot_2.0.2 
- [5] digest_0.6.28    utf8_1.2.2       R6_2.5.1         cellranger_1.1.0
- [9] backports_1.3.0  reprex_2.0.1     evaluate_0.14    httr_1.4.2      
-[13] highr_0.9        pillar_1.6.4     rlang_0.4.12     readxl_1.3.1    
-[17] rstudioapi_0.13  whisker_0.4      jquerylib_0.1.4  rmarkdown_2.11  
-[21] labeling_0.4.2   bit_4.0.4        munsell_0.5.0    broom_0.7.9     
-[25] compiler_4.1.2   httpuv_1.6.3     modelr_0.1.8     xfun_0.27       
-[29] pkgconfig_2.0.3  htmltools_0.5.2  tidyselect_1.1.1 fansi_0.5.0     
-[33] crayon_1.4.1     tzdb_0.1.2       dbplyr_2.1.1     withr_2.4.2     
-[37] later_1.3.0      grid_4.1.2       jsonlite_1.7.2   gtable_0.3.0    
-[41] lifecycle_1.0.1  DBI_1.1.1        git2r_0.28.0     magrittr_2.0.1  
-[45] scales_1.1.1     vroom_1.5.5      cli_3.0.1        stringi_1.7.5   
-[49] farver_2.1.0     fs_1.5.0         promises_1.2.0.1 xml2_1.3.2      
-[53] bslib_0.3.1      ellipsis_0.3.2   generics_0.1.1   vctrs_0.3.8     
-[57] tools_4.1.2      bit64_4.0.5      glue_1.4.2       hms_1.1.1       
-[61] parallel_4.1.2   fastmap_1.1.0    yaml_2.2.1       colorspace_2.0-2
-[65] filehash_2.4-2   rvest_1.0.2      knitr_1.36       haven_2.4.3     
-[69] sass_0.4.0      </code></pre>
+ [1] Rcpp_1.0.8       lubridate_1.8.0  getPass_0.2-2    ps_1.6.0        
+ [5] assertthat_0.2.1 rprojroot_2.0.2  digest_0.6.29    utf8_1.2.2      
+ [9] cellranger_1.1.0 R6_2.5.1         backports_1.4.1  reprex_2.0.1    
+[13] evaluate_0.14    httr_1.4.2       highr_0.9        pillar_1.7.0    
+[17] rlang_1.0.1      readxl_1.3.1     rstudioapi_0.13  whisker_0.4     
+[21] callr_3.7.0      jquerylib_0.1.4  rmarkdown_2.11   labeling_0.4.2  
+[25] bit_4.0.4        munsell_0.5.0    broom_0.8.0      compiler_4.1.3  
+[29] httpuv_1.6.5     modelr_0.1.8     xfun_0.29        pkgconfig_2.0.3 
+[33] htmltools_0.5.2  tidyselect_1.1.1 fansi_1.0.2      withr_2.4.3     
+[37] crayon_1.4.2     tzdb_0.2.0       dbplyr_2.1.1     later_1.3.0     
+[41] grid_4.1.3       jsonlite_1.7.3   gtable_0.3.0     lifecycle_1.0.1 
+[45] DBI_1.1.2        git2r_0.29.0     magrittr_2.0.2   scales_1.1.1    
+[49] vroom_1.5.7      cli_3.1.1        stringi_1.7.6    farver_2.1.0    
+[53] fs_1.5.2         promises_1.2.0.1 xml2_1.3.3       bslib_0.3.1     
+[57] ellipsis_0.3.2   generics_0.1.2   vctrs_0.3.8      tools_4.1.3     
+[61] bit64_4.0.5      glue_1.6.1       hms_1.1.1        parallel_4.1.3  
+[65] processx_3.5.2   fastmap_1.1.0    yaml_2.2.2       colorspace_2.0-2
+[69] filehash_2.4-2   rvest_1.0.2      knitr_1.37       haven_2.4.3     
+[73] sass_0.4.0      </code></pre>
 </div>
 </div>
 </div>
@@ -6431,7 +6676,7 @@ s.setAttribute('data-timestamp', +new Date());
 
 <!-- Adjust MathJax settings so that all math formulae are shown using
 TeX fonts only; see
-http://docs.mathjax.org/en/latest/configuration.html.  This will make
+https://docs.mathjax.org/en/latest/web/configuration.html. This will make
 the presentation more consistent at the cost of the webpage sometimes
 taking slightly longer to load. Note that this only works because the
 footer is added to webpages before the MathJax javascript. -->
