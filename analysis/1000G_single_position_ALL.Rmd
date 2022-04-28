@@ -41,6 +41,7 @@ using rates we observe nucleotides flanking the same reference allele genome-wid
 $$
 \chi_i = \sum_{x \in \{A,C,G,T\} }\frac{(n_{x,i} - e_{x,i})^2}{e_{x,i}}, i \in (-10,-1),(1,10) 
 $$
+
 ### Log Linear Model Approach
 
 Following the example of Zhu et al (2017), we also construct models of the form
@@ -74,13 +75,19 @@ load_results <- function(subtype, rp, sp){
   f_name <- paste0(data_dir, sp, "/", subtype, "_rp", rp, ".csv")
   df <- read_csv(f_name, col_types = cols())
   df_tall <- df %>% 
-  select(Nuc, singletons, controls) %>%
-  pivot_longer(-Nuc) %>%
-  rename(status = name, n = value)
+    select(Nuc, singletons, controls) %>%
+    pivot_longer(-Nuc) %>%
+    rename(status = name, n = value)
 
   mod_obj <- glm(n ~ Nuc + status, data = df_tall, family = poisson())
+  df_tall$resid <- resid(mod_obj)
   new_dat <- data.frame(Nuc = c("A", "C", "G", "T"), status = "singletons")
   new_dat$pred <- predict(mod_obj, type = "response", newdata = new_dat)
+  new_dat$deviance <- {df_tall %>%
+      select(Nuc, resid) %>%
+      group_by(Nuc) %>% 
+      summarize(resid = sum(resid^2)) %>%
+      pull(resid)}
   df <- df%>%
     inner_join({new_dat %>% select(-status)}, by = "Nuc") %>%
     mutate(pct_pred = pred / sum(pred),
@@ -98,6 +105,16 @@ load_all_results <- function(subtype, sp, r_start = 1){
     df2$rp <- i
     df <- bind_rows(df, df2)
   }
+  return(df)
+}
+
+cpg_stat_by_pos <- function(sp){
+  df <- load_all_results("all_GC_AT", sp)
+  df <- df %>%
+    select(rp, deviance, chi_s) %>%
+    group_by(rp) %>%
+    summarize(deviance = sum(deviance),
+              chi_s = sum(chi_s))
   return(df)
 }
 
@@ -119,7 +136,8 @@ gof_by_position <- function(subtype, sp, r_start = 1){
     final <- bind_rows(final,
                        data.frame(pos = c(i,i), 
                                   chi_sq = c(sum(df$chi_sq_gw, na.rm = T), sum(df$chi_sq_ct, na.rm = T)),
-                                  singletons = c(sum(df$singletons, na.rm = T), sum(df$singletons, na.rm = T)), 
+                                  singletons = c(sum(df$singletons, na.rm = T), sum(df$singletons, na.rm = T)),
+                                  deviance = c(NA, sum(df$deviance, na.rm = T)),
                                   type = c("Genome-wide", "Control")))
   }
   final <- final %>%
@@ -138,6 +156,35 @@ plot_gof_pos_stat <- function(subtype, sp, r_start = 1){
     xlab("Relative Position") +
     ylab("Chi Square Goodness of Fit Statistic") +
     labs(colour = "Background Rate")
+  return(p)
+}
+
+plot_control_gof_pos_stat <- function(subtype, sp, r_start = 1){
+  df <- gof_by_position(subtype, sp, r_start)
+  p <-df %>%
+    filter(type == "Control") %>%
+    ggplot(aes(x = pos, y = chi_sq)) +
+    geom_point() +
+    geom_line() +
+    ggtitle(paste0("1KGP Single-Position Results: ", str_replace_all(subtype, "_", "-")),
+            paste0("Population: ", sp)) +
+    xlab("Relative Position") +
+    ylab("Chi Square Goodness of Fit Statistic") +
+    labs(colour = "Background Rate")
+  return(p)
+}
+
+plot_deviance_pos_stat <- function(subtype, sp, r_start = 1){
+  df <- gof_by_position(subtype, sp, r_start)
+  p <-df %>%
+    filter(type == "Control") %>%
+    ggplot(aes(x = pos, y = deviance)) +
+    geom_point() +
+    geom_line() +
+    ggtitle(paste0("1KGP Single-Position Results: ", str_replace_all(subtype, "_", "-")),
+            paste0("Population: ", sp)) +
+    xlab("Relative Position") +
+    ylab("Deviance Statistic")
   return(p)
 }
 
@@ -287,13 +334,27 @@ plot_signed_nuc_by_pos <- function(subtype, sp, type = "gw", r_start = 1){
     ggtitle(g_title, paste0("Population: ", sp))
   return(p)
 }
+
 ```
+
+### Demonstrate CpG effect
+
+```{r}
+cpg_stat_by_pos("ALL") %>%
+  ggplot(aes(x = rp, y = deviance)) +
+  geom_point() + 
+  geom_line() +
+  ggtitle("C -> T: CpG Effect") +
+  xlab("Relative Position") +
+  ylab("Deviance Statistic")
+```
+
 
 ### AT_CG
 
 ```{r echo=FALSE, message=FALSE}
 st <- "AT_CG"
-p1 <- plot_gof_pos_stat(st, "ALL")
+p1 <- plot_deviance_pos_stat(st, "ALL")
 p2 <- plot_pos_cohen(st, "ALL")
 
 tikz(paste0("/net/snowwhite/home/beckandy/research/documentation/LSCI/output/tikz/single_pos/1KGP_chisq_", st, ".tex"),
