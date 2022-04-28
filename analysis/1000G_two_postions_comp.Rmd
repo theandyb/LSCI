@@ -7,9 +7,388 @@ editor_options:
   chunk_output_type: console
 ---
 
+```{r echo=FALSE, message=FALSE, warning=FALSE}
+library(tidyverse)
+library(tikzDevice)
+library(corrr)
+source("code/two_pos_functions.R")
+
+# latex plot options
+width = 4
+height = 4
+```
+
 ## Introduction
 
-```{r}
+Here in this document we will compare the two-position model results across the 1000G super populations and between the 1000G and BRIDGES data sets. Namely, we will be checking for concordance in:
 
+1. Statistics across pairs of positions
+2. Residuals within each position
+3. Overall conclusions
+
+# Consistency of results at position-pair-level
+
+Let's grab the re values for all pairs of positions for a given sub type across the five super populations and see how correlated they are:
+
+```{r}
+get_all_re <- function(subtype, r_start = 1){
+  df_AFR <- re_all("AFR", subtype, r_start) %>%
+    rename(AFR = statistic)
+  df_AMR <- re_all("AMR", subtype, r_start) %>%
+    rename(AMR = statistic)
+  df_EAS <- re_all("EAS", subtype, r_start) %>%
+    rename(EAS = statistic)
+  df_EUR <- re_all("EUR", subtype, r_start) %>%
+    rename(EUR = statistic)
+  df_SAS <- re_all("SAS", subtype, r_start) %>%
+    rename(SAS = statistic)
+  
+  df <- full_join(df_AFR, df_AMR, by = c("p1", "p2")) %>%
+    full_join(df_EAS, by = c("p1", "p2")) %>%
+    full_join(df_EUR, by = c("p1", "p2")) %>%
+    full_join(df_SAS, by = c("p1", "p2"))
+  return(df)
+}
+
+```
+
+## AT_CG
+
+```{r}
+df <- get_all_re("AT_CG")
+
+df %>%
+  select(-p1, -p2) %>%
+  correlate() %>%
+  fashion()
+```
+
+## AT_GC
+
+```{r}
+df <- get_all_re("AT_GC")
+
+df %>%
+  select(-p1, -p2) %>%
+  correlate() %>%
+  fashion()
+```
+
+## AT_TA
+
+```{r}
+df <- get_all_re("AT_TA")
+
+df %>%
+  select(-p1, -p2) %>%
+  correlate() %>%
+  fashion()
+```
+
+## GC_AT
+
+```{r}
+df <- get_all_re("GC_AT")
+
+df %>%
+  select(-p1, -p2) %>%
+  correlate() %>%
+  fashion()
+```
+
+## cpg_GC_AT
+
+```{r}
+df <- get_all_re("cpg_GC_AT", r_start = 2)
+
+df %>%
+  select(-p1, -p2) %>%
+  correlate() %>%
+  fashion()
+```
+
+## GC_TA
+
+```{r}
+df <- get_all_re("GC_TA")
+
+df %>%
+  select(-p1, -p2) %>%
+  correlate() %>%
+  fashion()
+```
+
+## cpg_GC_TA
+
+```{r}
+df <- get_all_re("cpg_GC_TA", r_start = 2)
+
+df %>%
+  select(-p1, -p2) %>%
+  correlate() %>%
+  fashion()
+```
+
+## GC_CG
+
+```{r}
+df <- get_all_re("GC_CG")
+
+df %>%
+  select(-p1, -p2) %>%
+  correlate() %>%
+  fashion()
+```
+
+## cpg_GC_CG
+
+```{r}
+df <- get_all_re("cpg_GC_CG", r_start = 2)
+
+df %>%
+  select(-p1, -p2) %>%
+  correlate() %>%
+  fashion()
+```
+
+# Consistency of Results in Residuals
+
+```{r}
+nuc_cor <- function(subtype, p1, p2){
+  df_AFR <- nuc_re("AFR",subtype, p1, p2) %>%
+    select(p1, p2, status, re.res) %>%
+    rename(AFR = re.res)
+  df_AMR <- nuc_re("AMR",subtype, p1, p2) %>%
+    select(p1, p2, status, re.res) %>%
+    rename(AMR = re.res)
+  df_EAS <- nuc_re("EAS",subtype, p1, p2) %>%
+    select(p1, p2, status, re.res) %>%
+    rename(EAS = re.res)
+  df_EUR <- nuc_re("EUR",subtype, p1, p2) %>%
+    select(p1, p2, status, re.res) %>%
+    rename(EUR = re.res)
+  df_SAS <- nuc_re("SAS",subtype, p1, p2) %>%
+    select(p1, p2, status, re.res) %>%
+    rename(SAS = re.res)
+  
+  df <- full_join(df_AFR, df_AMR, by = c("p1", "p2", "status")) %>%
+    full_join(df_EAS, by = c("p1", "p2", "status")) %>%
+    full_join(df_EUR, by = c("p1", "p2", "status")) %>%
+    full_join(df_SAS, by = c("p1", "p2", "status"))
+  
+  df <- df %>% 
+    select(-p1, -p2, -status) %>%
+    correlate(quiet = TRUE) %>%
+    stretch() %>%
+    remove_missing(na.rm = T)
+  
+  df$p1 <- p1
+  df$p2 <- p2
+  
+  return(df)
+}
+
+nuc_cor_all <- function(subtype, r_start = 1){
+  df <- data.frame(x = character(), y = character(), r = numeric(), p1 = numeric(), p2 = numeric())
+  for(i in c(-10:-1, r_start:9)){
+    for(j in (i+1):10){
+      if(j == 0) next
+      if(r_start == 2 && j == 1) next
+      df <- df %>%
+        bind_rows(nuc_cor(subtype, i, j))
+    }
+  }
+  return(df)
+}
+```
+
+
+## AT_CG
+
+The above functions look at each pair of positions for each pair of sub types and computes the correlation between the two vectors of 16 residuals (4 nucs x 4 nucs x 2 statuses). Let's take a look at what the results for the A>C sub type look like:
+
+```{r}
+df <- nuc_cor_all("AT_CG")
+
+df %>% head
+```
+
+There are a lot of numbers here, and I'm not sure what would be most useful to look at. Let's first take a look at all the correlations for a pair of populations in the form of a heat map:
+
+```{r}
+df %>%
+  filter(x == "AFR", y == "EUR") %>%
+  ggplot(aes(x = p2, y = p1, fill = r)) +
+  geom_tile() +
+  xlab("Relative Position 2") +
+  ylab("Relative Position 1") +
+  scale_fill_distiller(palette = "Reds", direction = 1, limits = c(0,1)) +
+  labs(fill = "Correlation") +
+  ggtitle("Residual Correaltions: AFR and EUR", paste0("AT_CG: Min = ", min((df %>% 
+                                                                               filter(x == "AFR", y == "EUR") %>%
+                                                                               pull(r) %>%
+                                                                               min() %>%
+                                                                               round(4)))))
+```
+
+Let's wrap this up in a function and get the plots for all pairs of populations:
+
+```{r}
+plot_cor <- function(df, subtype, pop1, pop2){
+  p <- df %>%
+    filter(x == pop1, y == pop2) %>%
+    ggplot(aes(x = p2, y = p1, fill = r)) +
+    geom_tile() +
+    xlab("Relative Position 2") +
+    ylab("Relative Position 1") +
+    scale_fill_distiller(palette = "Reds", direction = 1, limits = c(0,1)) +
+    labs(fill = "Correlation") +
+    ggtitle(paste0("Residual Correaltions: ", pop1, " and ", pop2), 
+            paste0( subtype, ": Min = ", min((df %>% 
+                                           filter(x == pop1, y == pop2) %>%
+                                           pull(r) %>%
+                                           min() %>%
+                                           round(4)))))
+  return(p)
+}
+
+pair_df <- df %>%
+  select(x, y) %>%
+  group_by(x, y) %>%
+  summarize(n = n())
+
+for(i in 1:20){
+  print(plot_cor(df, "AT_CG", pair_df$x[i], pair_df$y[i]))
+}
+```
+
+## AT_GC
+
+```{r}
+subtype <- "AT_GC"
+
+df <- nuc_cor_all(subtype)
+for(i in 1:20){
+  print(plot_cor(df, subtype, pair_df$x[i], pair_df$y[i]))
+}
+```
+
+## AT_TA
+
+```{r}
+subtype <- "AT_TA"
+
+df <- nuc_cor_all(subtype)
+for(i in 1:20){
+  print(plot_cor(df, subtype, pair_df$x[i], pair_df$y[i]))
+}
+```
+
+## GC_AT
+
+```{r}
+subtype <- "GC_AT"
+
+df <- nuc_cor_all(subtype)
+for(i in 1:20){
+  print(plot_cor(df, subtype, pair_df$x[i], pair_df$y[i]))
+}
+```
+
+## cpg_GC_AT
+
+```{r}
+subtype <- "cpg_GC_AT"
+
+df <- nuc_cor_all(subtype, r_start = 2)
+for(i in 1:20){
+  print(plot_cor(df, subtype, pair_df$x[i], pair_df$y[i]))
+}
+```
+
+## GC_TA
+
+```{r}
+subtype <- "GC_TA"
+
+df <- nuc_cor_all(subtype)
+for(i in 1:20){
+  print(plot_cor(df, subtype, pair_df$x[i], pair_df$y[i]))
+}
+```
+
+## cpg_GC_TA
+
+```{r}
+subtype <- "cpg_GC_TA"
+
+df <- nuc_cor_all(subtype, r_start = 2)
+for(i in 1:20){
+  print(plot_cor(df, subtype, pair_df$x[i], pair_df$y[i]))
+}
+```
+
+## GC_CG
+
+```{r}
+subtype <- "GC_CG"
+
+df <- nuc_cor_all(subtype)
+for(i in 1:20){
+  print(plot_cor(df, subtype, pair_df$x[i], pair_df$y[i]))
+}
+```
+
+## cpg_GC_CG
+
+```{r}
+subtype <- "cpg_GC_CG"
+
+df <- nuc_cor_all(subtype, r_start = 2)
+for(i in 1:20){
+  print(plot_cor(df, subtype, pair_df$x[i], pair_df$y[i]))
+}
+```
+
+
+# Goodness of Fit Approach
+
+Here we'll compare how using one population's rates to fit another's observed singletons to how that population's controls do via the chi square goodness of fit statistic.
+
+```{r}
+### Get the data for two pops at a position
+chi_pop_pop <- function(source, target, subtype, p1, p2){
+  df_source <- nuc_re(source, subtype, p1, p2) %>%
+    select(p1, p2, status, n) %>%
+    spread(status, n) %>%
+    select(p1, p2, singletons) %>%
+    mutate(pct = singletons / sum(singletons)) %>%
+    select(-singletons)
+  
+  df_target <- nuc_re(target, subtype, p1, p2) %>%
+    select(p1, p2, status, n) %>%
+    spread(status, n) %>%
+    select(p1, p2, singletons) %>%
+    full_join(df_source, by = c("p1", "p2")) %>%
+    mutate(exp_s = pct * sum(singletons)) %>%
+    mutate(chi_sq = (exp_s - singletons)^2 / exp_s)
+  
+  return(sum(df_target$chi_sq))
+}
+
+chi_pop_control <- function(target, subtype, p1, p2){
+  df_target <- nuc_re(target, subtype, p1, p2) %>%
+    select(p1, p2, status, n) %>%
+    spread(status, n) %>%
+    mutate(pct = controls / sum(controls)) %>%
+    mutate(exp_s = pct * sum(singletons)) %>%
+    mutate(chi_sq = (exp_s - singletons)^2 / exp_s)
+  
+  return(sum(df_target$chi_sq))
+}
+
+all_pop_pop <- function(source, target, subtype, r_start = 1){
+  final <- data.frame(p1 = numeric(), p2 = numeric(), )
+}
 ```
 

@@ -751,6 +751,7 @@ statistic_by_position_all_plot <- function(subtype, sp, r_start = 1){
   df <- statistic_by_position_all(subtype, sp, r_start)
   p <- df %>%
     filter(str_starts(type, "Control")) %>%
+    mutate(type = str_remove(type, "Control_")) %>%
     ggplot(aes(x = pos, y= chi_sq, colour = type)) +
     geom_line() + geom_point() +
     xlab("Relative Position") +
@@ -765,63 +766,174 @@ statistic_by_position_all_plot <- function(subtype, sp, r_start = 1){
 
 ```{r}
 st <- "AT_CG"
-statistic_by_position_all_plot(st, "ALL")
+
+p <- statistic_by_position_all_plot(st, "ALL")
+tikz(paste0("/net/snowwhite/home/beckandy/research/documentation/LSCI/output/tikz/single_pos/",
+              "BRIDGES","_","1KGP","_",st,".tex"))
+p
+dev.off()
+print(p)
 ```
 
 ### AT_GC
 
 ```{r}
 st <- "AT_GC"
-statistic_by_position_all_plot(st, "ALL")
+
+p <- statistic_by_position_all_plot(st, "ALL")
+tikz(paste0("/net/snowwhite/home/beckandy/research/documentation/LSCI/output/tikz/single_pos/",
+              "BRIDGES","_","1KGP","_",st,".tex"))
+p
+dev.off()
+print(p)
 ```
 
 ### AT_TA
 
 ```{r}
 st <- "AT_TA"
-statistic_by_position_all_plot(st, "ALL")
+
+p <- statistic_by_position_all_plot(st, "ALL")
+tikz(paste0("/net/snowwhite/home/beckandy/research/documentation/LSCI/output/tikz/single_pos/",
+              "BRIDGES","_","1KGP","_",st,".tex"))
+p
+dev.off()
+print(p)
 ```
 
 ### GC_AT
 
 ```{r}
 st <- "GC_AT"
-statistic_by_position_all_plot(st, "ALL")
+
+p <- statistic_by_position_all_plot(st, "ALL")
+tikz(paste0("/net/snowwhite/home/beckandy/research/documentation/LSCI/output/tikz/single_pos/",
+              "BRIDGES","_","1KGP","_",st,".tex"))
+p
+dev.off()
+print(p)
 ```
 
 ### cpg_GC_AT
 
 ```{r}
 st <- "cpg_GC_AT"
-statistic_by_position_all_plot(st, "ALL", r_start = 2)
+
+p <- statistic_by_position_all_plot(st, "ALL", r_start = 2)
+tikz(paste0("/net/snowwhite/home/beckandy/research/documentation/LSCI/output/tikz/single_pos/",
+              "BRIDGES","_","1KGP","_",st,".tex"))
+p
+dev.off()
+print(p)
 ```
 
 ### GC_TA
 
 ```{r}
 st <- "GC_TA"
-statistic_by_position_all_plot(st, "ALL")
+
+p <- statistic_by_position_all_plot(st, "ALL")
+tikz(paste0("/net/snowwhite/home/beckandy/research/documentation/LSCI/output/tikz/single_pos/",
+              "BRIDGES","_","1KGP","_",st,".tex"))
+p
+dev.off()
+print(p)
 ```
 
 ### cpg_GC_TA
 
 ```{r}
 st <- "cpg_GC_TA"
-statistic_by_position_all_plot(st, "ALL", r_start = 2)
+
+p <- statistic_by_position_all_plot(st, "ALL", r_start = 2)
+tikz(paste0("/net/snowwhite/home/beckandy/research/documentation/LSCI/output/tikz/single_pos/",
+              "BRIDGES","_","1KGP","_",st,".tex"))
+p
+dev.off()
+print(p)
 ```
 
 ### GC_CG
 
 ```{r}
 st <- "GC_CG"
-statistic_by_position_all_plot(st, "ALL")
+
+p <- statistic_by_position_all_plot(st, "ALL")
+tikz(paste0("/net/snowwhite/home/beckandy/research/documentation/LSCI/output/tikz/single_pos/",
+              "BRIDGES","_","1KGP","_",st,".tex"))
+p
+dev.off()
+print(p)
 ```
 
 ### cpg_GC_CG
 
 ```{r}
 st <- "cpg_GC_CG"
-statistic_by_position_all_plot(st, "ALL", r_start = 2)
+
+p <- statistic_by_position_all_plot(st, "ALL", r_start = 2)
+tikz(paste0("/net/snowwhite/home/beckandy/research/documentation/LSCI/output/tikz/single_pos/",
+              "BRIDGES","_","1KGP","_",st,".tex"))
+p
+dev.off()
+print(p)
 ```
 
-We see that for all the sub-types the BRIDGES results are highly correlated with the 1000G results.
+We see that for all the sub-types the BRIDGES results are highly correlated with the 1000G results. But for the paper I'd like to have a table of correlation values.
+
+```{r}
+load_singletons_b1kgp <- function(subtype, r_start = 2){
+  df_bridges <- load_all_results_bridges(subtype, r_start) %>%
+    select(Nuc, rp, chi_sq_ct) %>%
+    rename(BRIDGES = chi_sq_ct)
+  df_g <- load_all_results(subtype, "ALL", r_start) %>%
+    select(Nuc, rp, chi_sq_ct) %>%
+    rename(`1KGP` = chi_sq_ct)
+  df <- full_join(df_bridges, df_g, by = c("Nuc", "rp"))
+  return(df)
+}
+```
+
+For all sub types we pull the nucleotide-level statistics for both data sets and get the correlations of both the position-level results and the nucleotide-level results:
+
+```{r}
+final <- data.frame(Nuc = character(),
+                    rp = numeric(),
+                    BRIDGES = numeric(),
+                    blank = numeric(),
+                    cat = character()) %>%
+  rename(`1KGP` = blank)
+
+for(st in c("AT_CG", "AT_GC", "AT_TA", "GC_AT", "GC_TA", "GC_CG")){
+  df <- load_singletons_b1kgp(st) %>%
+    mutate(cat = st)
+  final <- bind_rows(final, df)
+}
+
+for(st in c("cpg_GC_AT", "cpg_GC_TA", "cpg_GC_CG")){
+  df <- load_singletons_b1kgp(st, r_start = 2) %>%
+    mutate(cat = st)
+  final <- bind_rows(final, df)
+}
+```
+
+Let's first get the correlation across nucleotide-level residuals:
+
+```{r, results='asis'}
+final %>%
+  group_by(cat) %>%
+  summarize(cor = cor(`1KGP`, BRIDGES)) %>%
+  knitr::kable(format = "latex")
+```
+
+And now let's get the correlations of the position-level statistics:
+
+```{r, results='asis'}
+final %>%
+  group_by(cat, rp) %>%
+  summarize(tgp = sum(`1KGP`), br = sum(BRIDGES)) %>%
+  group_by(cat) %>%
+  summarize(correlation = cor(tgp, br)) %>%
+  knitr::kable(format = "latex")
+```
+

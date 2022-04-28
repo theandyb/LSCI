@@ -80,7 +80,8 @@ get_subtype_3mer <- function(subtype){
                     data_dir, "/", subtype, ".txt")
   df <- vroom::vroom(pipe(awk_cmd), col_names = c("Motif", "n"), show_col_types = FALSE) %>%
     rowwise() %>%
-    mutate(Motif = paste0(str_sub(Motif, 1, 1), "[", str_remove(subtype, "cpg_"), "]", str_sub(Motif, 3, 3)))
+    mutate(subtype = str_replace_all(subtype,"_","->")) %>%
+    mutate(Motif = paste0(str_sub(Motif, 1, 1), "(", str_remove(subtype, "cpg->"), ")", str_sub(Motif, 3, 3)))
   return(df)
 }
 
@@ -105,12 +106,18 @@ bridges_3mer <- bridges_3mer %>%
 ```
 
 ```{r}
-bridges_3mer %>%
+p <- bridges_3mer %>%
   arrange(subtype, Motif) %>%
   mutate(Motif = factor(Motif, levels=Motif)) %>%
   ggplot(aes(x = Motif, y = pct, fill = subtype, order = subtype)) + 
   geom_col() +
   theme(axis.text.x = element_text(angle = 90, vjust = 0.5, hjust=1)) + 
   xlab("Subtype") + ylab("Relative Contribution") + ggtitle("BRIDGES Singleton Spectrum")
+
+p
+
+tikz("output/tikz/3mer_spec_BRIDGES.tex", width = 7, height = 3.2)
+print(p)
+dev.off()
 ```
 

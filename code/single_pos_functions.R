@@ -31,14 +31,17 @@ load_all_results_all_sp <- function(subtype, r_start = 1){
 }
 
 statistic_by_position <- function(subtype, sp, r_start = 1){
-  final <- data.frame(pos = numeric(), chi_sq = numeric(), type = character())
+  final <- data.frame(pos = numeric(), chi_sq = numeric(), singletons = numeric(),type = character())
   for(i in c(-10:-1, r_start:10)){
     df <- load_results(subtype, i, sp)
     final <- bind_rows(final,
                        data.frame(pos = c(i,i),
                                   chi_sq = c(sum(df$chi_sq_gw, na.rm = T), sum(df$chi_sq_ct, na.rm = T) ),
+                                  singletons = c(sum(df$singletons, na.rm = T), sum(df$singletons, na.rm = T) ),
                                   type = c("Genome-wide", "Control")))
   }
+  final <- final %>%
+    mutate(cohen = sqrt(chi_sq / singletons))
   return(final)
 }
 
@@ -48,7 +51,7 @@ plot_pos_stat <- function(subtype, sp, r_start = 1){
     ggplot(aes(x = pos, y = chi_sq, colour = type)) +
     geom_point() +
     geom_line() +
-    ggtitle(paste0("1000G Single-Position Results: ", subtype),
+    ggtitle(paste0("1000G Single-Position Results: ", str_replace_all(subtype, "_", "-")),
             paste0("Population: ", sp)) +
     xlab("Relative Position") +
     ylab("Chi Square Goodness of Fit Statistic") +
@@ -62,13 +65,13 @@ plot_nuc_cont_by_position <- function(subtype, sp, type = "gw", r_start = 1){
       replace_na(list("chi_sq_gw" = 0)) %>%
       group_by(rp) %>%
       mutate(p_chi = chi_sq_gw / sum(chi_sq_gw))
-    g_title <- paste0("Nucleotide Contribution to Genome-wide Statistic: ", subtype)
+    g_title <- paste0("Nucleotide Contribution to Genome-wide Statistic: ", str_replace_all(subtype, "_", "-"))
   } else{
     df <- load_all_results(subtype, sp, r_start) %>%
       replace_na(list("chi_sq_ct" = 0)) %>%
       group_by(rp) %>%
       mutate(p_chi = chi_sq_ct / sum(chi_sq_ct))
-    g_title <- paste0("Nucleotide Contribution to Control-rate Statistic: ", subtype)
+    g_title <- paste0("Nucleotide Contribution to Control-rate Statistic: ", str_replace_all(subtype, "_", "-"))
   }
 
   p <- df %>%
@@ -88,13 +91,13 @@ plot_signed_nuc_by_pos <- function(subtype, sp, type = "gw", r_start = 1){
       replace_na(list("chi_sq_gw" = 0)) %>%
       mutate(s_val = sign(singletons - exp_gw)) %>%
       mutate(signed_chi_sq = s_val * chi_sq_gw)
-    g_title <- paste0("Nucleotide Genome-wide Signed ChiSq Residual: ", subtype)
+    g_title <- paste0("Nucleotide Genome-wide Signed ChiSq Residual: ", str_replace_all(subtype, "_", "-"))
   } else {
     df <- df %>%
       replace_na(list("chi_sq_ct" = 0)) %>%
       mutate(s_val = sign(singletons - exp_ct)) %>%
       mutate(signed_chi_sq = s_val * chi_sq_ct)
-    g_title <- paste0("Nucleotide Control-Rate Signed ChiSq Residual: ", subtype)
+    g_title <- paste0("Nucleotide Control-Rate Signed ChiSq Residual: ", str_replace_all(subtype, "_", "-"))
   }
   p <- df %>%
     ggplot(aes(x = rp, y = signed_chi_sq, colour = Nuc)) +
@@ -120,7 +123,7 @@ load_all_results_bridges <- function(subtype, r_start = 1){
   df <- load_results_bridges(subtype, -10)
   df$rp <- -10
   for(i in c(-9:-1, r_start:10)){
-    df2 <- load_results(subtype, i)
+    df2 <- load_results_bridges(subtype, i)
     df2$rp <- i
     df <- bind_rows(df, df2)
   }
@@ -128,14 +131,17 @@ load_all_results_bridges <- function(subtype, r_start = 1){
 }
 
 statistic_by_position_bridges <- function(subtype, r_start = 1){
-  final <- data.frame(pos = numeric(), chi_sq = numeric(), type = character())
+  final <- data.frame(pos = numeric(), chi_sq = numeric(), singletons = numeric(),type = character())
   for(i in c(-10:-1, r_start:10)){
     df <- load_results_bridges(subtype, i) %>%
       filter(singletons > 0)
     final <- bind_rows(final,
                        data.frame(pos = c(i,i),
                                   chi_sq = c(sum(df$chi_sq_gw), sum(df$chi_sq_ct) ),
+                                  singletons = c(sum(df$singletons), sum(df$singletons) ),
                                   type = c("Genome-wide", "Control")))
   }
+  final <- final %>%
+    mutate(cohen = sqrt(chi_sq / singletons))
   return(final)
 }

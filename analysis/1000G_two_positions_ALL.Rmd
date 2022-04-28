@@ -20,7 +20,7 @@ height = 4
 
 ## Introduction
 
-In a [previous document](1000G_single_position_ALL.html) we evaluated the influence of individual positions on the mutation rate as a function of relative position. In this we marginalized over the nucleotides at other positions, ignoring any potential interaction effect. Here in this document we will being to explore the extent to which interactions among flanking positions influence the rate of substitution at a focal site by first focusing on two-way interactions. 
+In a [previous document](1000G_single_position_ALL.html) we evaluated the influence of individual positions on the mutation rate as a function of relative position. In do this we marginalized over the nucleotides at other positions, ignoring any potential interaction effect. Here in this document we will being to explore the extent to which interactions among flanking positions influence the rate of substitution at a focal site by first focusing on two-way interactions. 
 
 Challenges we face here are:
 
@@ -31,9 +31,11 @@ Challenges we face here are:
 
 For this analysis we'll be looking at only our singleton counts. For each sub type at each pair of positions we observe a 4x4 2-way contingency table. Performing a chi square test of independence asks if we have evidence to reject the null hypothesis that the two "variables" (sites) are independent; i.e. the number of times we see AA is the product of the row marginal for A and the column marginal for A, etc. 
 
+This may seem like a silly thing to do since we already know genome-wide the rate of di-nucleotides is not predicted by the product of the frequency of the two nucleotides. It is in fact the case that this pattern is also observed in the singleton counts, and nothing here is probably worth mentioning in the paper. But anyways, here are those results.
+
 First let's write the code to generate the 4x4 contingency table at a single pair of positions for a sub type:
 ```{r}
-chi_sq_ind_pair <- function(population, subtype, p1, p2){
+singleton_count_2pos <- function(population, subtype, p1, p2){
   
   data_dir <- "/net/snowwhite/home/beckandy/research/1000G_LSCI/output/all_count_2_pos/"
   f_name <- paste0(data_dir, population, "/", subtype, "_p", p1, "_q", p2, ".csv")
@@ -54,8 +56,8 @@ chi_sq_ind_all <- function(population, subtype){
   for(i in c(-10:-1,1:9)){
     for(j in (i+1):10){
       if(j == 0) next
-      df_tab <- chi_sq_ind_pair(population, subtype, i, j)
-      stat_val <- chisq.test(df_tab)$statistic %>% unname()
+      df_tab <- singleton_count_2pos(population, subtype, i, j)
+      stat_val <- (chisq.test(df_tab)$statistic %>% unname()) / sum(df_tab)
       final <- bind_rows(final, data.frame(p1 = i,
                                            p2 = j,
                                            statistic = stat_val))
@@ -92,6 +94,8 @@ chi_sq_ind_plot <- function(population, subtype){
 p <- chi_sq_ind_plot("ALL", "AT_CG")
 p
 ```
+
+We see here the expected pattern that directly adjacent di-nucloetides are not observed at frequencies suggested by the product of their marginal frequencies, even when looking only at those seen flanking a singleton. Might I eventually want to look at a version of this that isn't heavily affected by the large sample size? Maybe.
 
 ### AT_GC
 
