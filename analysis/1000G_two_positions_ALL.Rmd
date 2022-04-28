@@ -57,7 +57,7 @@ chi_sq_ind_all <- function(population, subtype){
     for(j in (i+1):10){
       if(j == 0) next
       df_tab <- singleton_count_2pos(population, subtype, i, j)
-      stat_val <- (chisq.test(df_tab)$statistic %>% unname()) / sum(df_tab)
+      stat_val <- (chisq.test(df_tab)$statistic %>% unname())
       final <- bind_rows(final, data.frame(p1 = i,
                                            p2 = j,
                                            statistic = stat_val))
@@ -134,8 +134,6 @@ chi_sq_ind_plot("ALL", "cpg_GC_TA")
 ```
 
 ## Goodness of Fit: Estimate Distribution with Controls
-
-I don't agree with this approach whatsoever, but Jun wants it. 
 
 The idea here is to estimate the frequency of flanking dimers using the dimers we observe flanking control positions. This ignores the fact that the distribution of individual flanking nucleotides has already been shown to differ between the singletons and the matched controls; what I think we want is a way to test for an interaction while accounting for the different individual marginals.
 
@@ -243,6 +241,103 @@ print(p)
 ```{r}
 subtype <- "GC_CG"
 p <- chi_sq_gof_plot("ALL", subtype)
+print(p)
+```
+
+## GOF: Control interaction estimation
+
+An idea I want to try here is to try and estimate a shared interaction parameter using only the control frequencies and apply this to the singleton frequencies. In a nutshell, we can think of the 16 frequencies we see in the control table as being the product of two marginal frequencies and an additional interaction term (question: should this be additive or multiplicative?). In the multiplicative formulation of the interaction, the frequecy in each cell can be written as:
+
+$$
+f^C_{i,j} = p^C_{i.}p^C_{.j}p_{ij}
+$$
+
+and the idea here would be to estimate the $p_{ij}$ interaction terms using the controls and using these to adjust the cell frequencies in the singletons and then assess the fit using a $\chi^2$ goodness of fit test.
+
+Let's try it out with the multiplicative version:
+
+```{r}
+get_mar <- function(freq_tab){
+  n_t <- sum(freq_tab)
+  col_mar <- colSums(freq_tab) / n_t
+  row_mar <- rowSums(freq_tab) / n_t
+  
+  prod_mat <- row_mar %*% t(col_mar)
+  return(prod_mat)
+}
+
+get_int <- function(freq_tab){
+  n_t <- sum(freq_tab)
+  col_mar <- colSums(freq_tab) / n_t
+  row_mar <- rowSums(freq_tab) / n_t
+  
+  prod_mat <- row_mar %*% t(col_mar)
+  int_mat <- (freq_tab / n_t) / prod_mat
+  return(int_mat)
+}
+
+control_int_mult_pair <- function(population, subtype, p1, p2) {
+  data_dir <- "/net/snowwhite/home/beckandy/research/1000G_LSCI/output/all_count_2_pos/"
+  f_name <- paste0(data_dir, population, "/", subtype, "_p", p1, "_q", p2, ".csv")
+  df <- read_csv(f_name, col_types = cols()) %>%
+    filter(singletons > 0)
+  control_tab <- df %>% 
+    select(p1, p2, controls) %>% 
+    pivot_wider(names_from = p2, values_from = controls) %>%
+    remove_rownames() %>%
+    column_to_rownames(var = 'p1')
+  singleton_tab <- df %>% 
+    select(p1, p2, singletons) %>% 
+    pivot_wider(names_from = p2, values_from = singletons) %>%
+    remove_rownames() %>%
+    column_to_rownames(var = 'p1')
+
+  exp_s <- get_mar(singleton_tab) * get_int(control_tab)
+  exp_s <- exp_s / sum(exp_s) # normalize
+  exp_s <- exp_s * sum(singleton_tab)
+  chi_sq <- (exp_s - singleton_tab)^2 / exp_s
+  return(sum(chi_sq))
+}
+
+control_int_mult_all <- function(population, subtype){
+  final <- data.frame(p1 = numeric(),
+                      p2 = numeric(),
+                      statistic = numeric())
+  for(i in c(-10:-1,1:9)){
+    for(j in (i+1):10){
+      if(j == 0) next
+      stat_val <- control_int_mult_pair(population, subtype, i, j)
+      final <- bind_rows(final, data.frame(p1 = i,
+                                           p2 = j,
+                                           statistic = stat_val))
+    }
+  }
+  return(final)
+}
+
+control_mult_int_plot <- function(population, subtype){
+  df <- control_int_mult_all(population, subtype)
+  subtype2 <- str_replace(subtype, "_", " -> ")
+  p <- df %>%
+    ggplot(aes(x = p2, y = p1, fill = statistic)) +
+    geom_tile() +
+    ggtitle(paste0("Control Interaction GOF: ", subtype2),
+            paste0("Population: ", population,
+                   "; Min: ", round(min(df$statistic), 2), 
+                   "; Max: ", round(max(df$statistic), 2)))+
+    xlab("Relative Position 2") +
+    ylab("Relative Position 1") +
+    labs(fill = "Chi Square Statistic") +
+    scale_fill_distiller(palette = "Reds", direction = 1) +
+    theme_classic()
+  return(p)
+}
+```
+
+### AT_GC
+
+```{r}
+p <- control_mult_int_plot("ALL", "AT_GC")
 print(p)
 ```
 
