@@ -467,16 +467,16 @@ This reproducible <a href="https://rmarkdown.rstudio.com">R Markdown</a> analysi
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomtheandybLSCItreea1e7a6f6606942454f980c778a819e9f3607a560targetblanka1e7a6fa"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/theandyb/LSCI/tree/a1e7a6f6606942454f980c778a819e9f3607a560" target="_blank">a1e7a6f</a> </a>
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomtheandybLSCItreec69b535b8d9228d9e4eaff66a92c7185d2b7ac20targetblankc69b535a"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/theandyb/LSCI/tree/c69b535b8d9228d9e4eaff66a92c7185d2b7ac20" target="_blank">c69b535</a> </a>
 </p>
 </div>
-<div id="strongRepositoryversionstrongahrefhttpsgithubcomtheandybLSCItreea1e7a6f6606942454f980c778a819e9f3607a560targetblanka1e7a6fa" class="panel-collapse collapse">
+<div id="strongRepositoryversionstrongahrefhttpsgithubcomtheandybLSCItreec69b535b8d9228d9e4eaff66a92c7185d2b7ac20targetblankc69b535a" class="panel-collapse collapse">
 <div class="panel-body">
 <p>
 Great! You are using Git for version control. Tracking code development and connecting the code version to the results is critical for reproducibility.
 </p>
 <p>
-The results in this page were generated with repository version <a href="https://github.com/theandyb/LSCI/tree/a1e7a6f6606942454f980c778a819e9f3607a560" target="_blank">a1e7a6f</a>. See the <em>Past versions</em> tab to see a history of the changes made to the R Markdown and HTML files.
+The results in this page were generated with repository version <a href="https://github.com/theandyb/LSCI/tree/c69b535b8d9228d9e4eaff66a92c7185d2b7ac20" target="_blank">c69b535</a>. See the <em>Past versions</em> tab to see a history of the changes made to the R Markdown and HTML files.
 </p>
 <p>
 Note that you need to be careful to ensure that all relevant files for the analysis have been committed to Git prior to generating the results (you can use <code>wflow_publish</code> or <code>wflow_git_commit</code>). workflowr only checks the R Markdown file, but you know if there are other scripts or data files that it depends on. Below is the status of the Git repository when the results were generated:
@@ -486,7 +486,6 @@ Ignored files:
     Ignored:    .Rhistory
     Ignored:    .Rproj.user/
     Ignored:    analysis/disqus.html
-    Ignored:    analysis/figure/
     Ignored:    code/random/
 
 Untracked files:
@@ -534,6 +533,40 @@ Message
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+Rmd
+</td>
+<td>
+<a href="https://github.com/theandyb/LSCI/blob/c69b535b8d9228d9e4eaff66a92c7185d2b7ac20/analysis/1000G_two_positions_ALL.Rmd" target="_blank">c69b535</a>
+</td>
+<td>
+Andy Beck
+</td>
+<td>
+2022-04-28
+</td>
+<td>
+wflow_publish(&quot;analysis/1000G_two_positions_ALL.Rmd&quot;)
+</td>
+</tr>
+<tr>
+<td>
+html
+</td>
+<td>
+<a href="https://rawcdn.githack.com/theandyb/LSCI/c33ff652181aef45b799411a45ed8917457b3dbf/docs/1000G_two_positions_ALL.html" target="_blank">c33ff65</a>
+</td>
+<td>
+Andy Beck
+</td>
+<td>
+2022-04-28
+</td>
+<td>
+Build site.
+</td>
+</tr>
 <tr>
 <td>
 Rmd
@@ -1253,16 +1286,27 @@ Andy Beck
   df$p_s &lt;- df$singletons / sum(df$singletons)
   df$kl_res &lt;- df$p_s * log(df$p_s / df$p_c)
   return(sum(df$chi_res))
+}
+
+chi_sq_re_pair &lt;- function(population, subtype, p1, p2){
+  data_dir &lt;- &quot;/net/snowwhite/home/beckandy/research/1000G_LSCI/output/all_count_2_pos/&quot;
+  f_name &lt;- paste0(data_dir, population, &quot;/&quot;, subtype, &quot;_p&quot;, p1, &quot;_q&quot;, p2, &quot;.csv&quot;)
+  df &lt;- read_csv(f_name, col_types = cols()) %&gt;%
+    filter(singletons &gt; 0) %&gt;%
+    mutate(p_c = controls / sum(controls),
+           p_s = singletons / sum(singletons)) %&gt;%
+    mutate(re = p_s * log(p_s / p_c))
+  return(sum(df$re))
 }</code></pre>
 <p>Naturally we will want this statistic for each population/subtype pair across all pairs of flanking positions:</p>
-<pre class="r"><code>chi_sq_gof_all &lt;- function(population, subtype){
+<pre class="r"><code>chi_sq_gof_all &lt;- function(population, subtype, stat_func = chi_sq_gof_pair){
   final &lt;- data.frame(p1 = numeric(),
                       p2 = numeric(),
                       statistic = numeric())
   for(i in c(-10:-1,1:9)){
     for(j in (i+1):10){
       if(j == 0) next
-      stat_val &lt;- chi_sq_gof_pair(population, subtype, i, j)
+      stat_val &lt;- stat_func(population, subtype, i, j)
       final &lt;- bind_rows(final, data.frame(p1 = i,
                                            p2 = j,
                                            statistic = stat_val))
@@ -1271,8 +1315,8 @@ Andy Beck
   return(final)
 }</code></pre>
 <p>Oh, I know, let's make plots as well!</p>
-<pre class="r"><code>chi_sq_gof_plot &lt;- function(population, subtype){
-  df &lt;- chi_sq_gof_all(population, subtype)
+<pre class="r"><code>chi_sq_gof_plot &lt;- function(population, subtype, stat_func = chi_sq_gof_pair){
+  df &lt;- chi_sq_gof_all(population, subtype, stat_func)
   subtype2 &lt;- str_replace(subtype, &quot;_&quot;, &quot; -&gt; &quot;)
   p &lt;- df %&gt;%
     ggplot(aes(x = p2, y = p1, fill = statistic)) +
@@ -1291,7 +1335,7 @@ Andy Beck
 <div id="at_cg-1" class="section level3">
 <h3>AT_CG</h3>
 <pre class="r"><code>subtype &lt;- &quot;AT_CG&quot;
-p &lt;- chi_sq_gof_plot(&quot;ALL&quot;, subtype)
+p &lt;- chi_sq_gof_plot(&quot;ALL&quot;, subtype, chi_sq_re_pair)
 print(p)</code></pre>
 <p><img src="figure/1000G_two_positions_ALL.Rmd/unnamed-chunk-15-1.png" width="672" style="display: block; margin: auto;" /></p>
 <p>
@@ -1346,7 +1390,7 @@ Andy Beck
 <div id="at_gc-1" class="section level3">
 <h3>AT_GC</h3>
 <pre class="r"><code>subtype &lt;- &quot;AT_GC&quot;
-p &lt;- chi_sq_gof_plot(&quot;ALL&quot;, subtype)
+p &lt;- chi_sq_gof_plot(&quot;ALL&quot;, subtype, chi_sq_re_pair)
 print(p)</code></pre>
 <p><img src="figure/1000G_two_positions_ALL.Rmd/unnamed-chunk-16-1.png" width="672" style="display: block; margin: auto;" /></p>
 <p>
@@ -1401,7 +1445,7 @@ Andy Beck
 <div id="at_ta-1" class="section level3">
 <h3>AT_TA</h3>
 <pre class="r"><code>subtype &lt;- &quot;AT_TA&quot;
-p &lt;- chi_sq_gof_plot(&quot;ALL&quot;, subtype)
+p &lt;- chi_sq_gof_plot(&quot;ALL&quot;, subtype, chi_sq_re_pair)
 print(p)</code></pre>
 <p><img src="figure/1000G_two_positions_ALL.Rmd/unnamed-chunk-17-1.png" width="672" style="display: block; margin: auto;" /></p>
 <p>
@@ -1456,7 +1500,7 @@ Andy Beck
 <div id="gc_at-1" class="section level3">
 <h3>GC_AT</h3>
 <pre class="r"><code>subtype &lt;- &quot;GC_AT&quot;
-p &lt;- chi_sq_gof_plot(&quot;ALL&quot;, subtype)
+p &lt;- chi_sq_gof_plot(&quot;ALL&quot;, subtype, chi_sq_re_pair)
 print(p)</code></pre>
 <p><img src="figure/1000G_two_positions_ALL.Rmd/unnamed-chunk-18-1.png" width="672" style="display: block; margin: auto;" /></p>
 <p>
@@ -1511,7 +1555,7 @@ Andy Beck
 <div id="gc_ta-1" class="section level3">
 <h3>GC_TA</h3>
 <pre class="r"><code>subtype &lt;- &quot;GC_TA&quot;
-p &lt;- chi_sq_gof_plot(&quot;ALL&quot;, subtype)
+p &lt;- chi_sq_gof_plot(&quot;ALL&quot;, subtype, chi_sq_re_pair)
 print(p)</code></pre>
 <p><img src="figure/1000G_two_positions_ALL.Rmd/unnamed-chunk-19-1.png" width="672" style="display: block; margin: auto;" /></p>
 <p>
@@ -1566,7 +1610,7 @@ Andy Beck
 <div id="gc_cg" class="section level3">
 <h3>GC_CG</h3>
 <pre class="r"><code>subtype &lt;- &quot;GC_CG&quot;
-p &lt;- chi_sq_gof_plot(&quot;ALL&quot;, subtype)
+p &lt;- chi_sq_gof_plot(&quot;ALL&quot;, subtype, chi_sq_re_pair)
 print(p)</code></pre>
 <p><img src="figure/1000G_two_positions_ALL.Rmd/unnamed-chunk-20-1.png" width="672" style="display: block; margin: auto;" /></p>
 <p>
@@ -1731,6 +1775,17 @@ Date
 <tbody>
 <tr>
 <td>
+<a href="https://github.com/theandyb/LSCI/blob/c33ff652181aef45b799411a45ed8917457b3dbf/docs/figure/1000G_two_positions_ALL.Rmd/unnamed-chunk-22-1.png" target="_blank">c33ff65</a>
+</td>
+<td>
+Andy Beck
+</td>
+<td>
+2022-04-28
+</td>
+</tr>
+<tr>
+<td>
 <a href="https://github.com/theandyb/LSCI/blob/8f1cb1a25f560e383d98dc8ab9180c403f2a90a5/docs/figure/1000G_two_positions_ALL.Rmd/unnamed-chunk-22-1.png" target="_blank">8f1cb1a</a>
 </td>
 <td>
@@ -1869,6 +1924,17 @@ Date
 <tbody>
 <tr>
 <td>
+<a href="https://github.com/theandyb/LSCI/blob/c33ff652181aef45b799411a45ed8917457b3dbf/docs/figure/1000G_two_positions_ALL.Rmd/unnamed-chunk-24-1.png" target="_blank">c33ff65</a>
+</td>
+<td>
+Andy Beck
+</td>
+<td>
+2022-04-28
+</td>
+</tr>
+<tr>
+<td>
 <a href="https://github.com/theandyb/LSCI/blob/8f1cb1a25f560e383d98dc8ab9180c403f2a90a5/docs/figure/1000G_two_positions_ALL.Rmd/unnamed-chunk-24-1.png" target="_blank">8f1cb1a</a>
 </td>
 <td>
@@ -1905,6 +1971,17 @@ Date
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+<a href="https://github.com/theandyb/LSCI/blob/c33ff652181aef45b799411a45ed8917457b3dbf/docs/figure/1000G_two_positions_ALL.Rmd/unnamed-chunk-24-2.png" target="_blank">c33ff65</a>
+</td>
+<td>
+Andy Beck
+</td>
+<td>
+2022-04-28
+</td>
+</tr>
 <tr>
 <td>
 <a href="https://github.com/theandyb/LSCI/blob/8f1cb1a25f560e383d98dc8ab9180c403f2a90a5/docs/figure/1000G_two_positions_ALL.Rmd/unnamed-chunk-24-2.png" target="_blank">8f1cb1a</a>
@@ -1948,6 +2025,17 @@ Date
 <tbody>
 <tr>
 <td>
+<a href="https://github.com/theandyb/LSCI/blob/c33ff652181aef45b799411a45ed8917457b3dbf/docs/figure/1000G_two_positions_ALL.Rmd/unnamed-chunk-25-1.png" target="_blank">c33ff65</a>
+</td>
+<td>
+Andy Beck
+</td>
+<td>
+2022-04-28
+</td>
+</tr>
+<tr>
+<td>
 <a href="https://github.com/theandyb/LSCI/blob/8f1cb1a25f560e383d98dc8ab9180c403f2a90a5/docs/figure/1000G_two_positions_ALL.Rmd/unnamed-chunk-25-1.png" target="_blank">8f1cb1a</a>
 </td>
 <td>
@@ -1984,6 +2072,17 @@ Date
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+<a href="https://github.com/theandyb/LSCI/blob/c33ff652181aef45b799411a45ed8917457b3dbf/docs/figure/1000G_two_positions_ALL.Rmd/unnamed-chunk-25-2.png" target="_blank">c33ff65</a>
+</td>
+<td>
+Andy Beck
+</td>
+<td>
+2022-04-28
+</td>
+</tr>
 <tr>
 <td>
 <a href="https://github.com/theandyb/LSCI/blob/8f1cb1a25f560e383d98dc8ab9180c403f2a90a5/docs/figure/1000G_two_positions_ALL.Rmd/unnamed-chunk-25-2.png" target="_blank">8f1cb1a</a>
@@ -2027,6 +2126,17 @@ Date
 <tbody>
 <tr>
 <td>
+<a href="https://github.com/theandyb/LSCI/blob/c33ff652181aef45b799411a45ed8917457b3dbf/docs/figure/1000G_two_positions_ALL.Rmd/unnamed-chunk-26-1.png" target="_blank">c33ff65</a>
+</td>
+<td>
+Andy Beck
+</td>
+<td>
+2022-04-28
+</td>
+</tr>
+<tr>
+<td>
 <a href="https://github.com/theandyb/LSCI/blob/8f1cb1a25f560e383d98dc8ab9180c403f2a90a5/docs/figure/1000G_two_positions_ALL.Rmd/unnamed-chunk-26-1.png" target="_blank">8f1cb1a</a>
 </td>
 <td>
@@ -2063,6 +2173,17 @@ Date
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+<a href="https://github.com/theandyb/LSCI/blob/c33ff652181aef45b799411a45ed8917457b3dbf/docs/figure/1000G_two_positions_ALL.Rmd/unnamed-chunk-26-2.png" target="_blank">c33ff65</a>
+</td>
+<td>
+Andy Beck
+</td>
+<td>
+2022-04-28
+</td>
+</tr>
 <tr>
 <td>
 <a href="https://github.com/theandyb/LSCI/blob/8f1cb1a25f560e383d98dc8ab9180c403f2a90a5/docs/figure/1000G_two_positions_ALL.Rmd/unnamed-chunk-26-2.png" target="_blank">8f1cb1a</a>
@@ -2106,6 +2227,17 @@ Date
 <tbody>
 <tr>
 <td>
+<a href="https://github.com/theandyb/LSCI/blob/c33ff652181aef45b799411a45ed8917457b3dbf/docs/figure/1000G_two_positions_ALL.Rmd/unnamed-chunk-27-1.png" target="_blank">c33ff65</a>
+</td>
+<td>
+Andy Beck
+</td>
+<td>
+2022-04-28
+</td>
+</tr>
+<tr>
+<td>
 <a href="https://github.com/theandyb/LSCI/blob/8f1cb1a25f560e383d98dc8ab9180c403f2a90a5/docs/figure/1000G_two_positions_ALL.Rmd/unnamed-chunk-27-1.png" target="_blank">8f1cb1a</a>
 </td>
 <td>
@@ -2142,6 +2274,17 @@ Date
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+<a href="https://github.com/theandyb/LSCI/blob/c33ff652181aef45b799411a45ed8917457b3dbf/docs/figure/1000G_two_positions_ALL.Rmd/unnamed-chunk-27-2.png" target="_blank">c33ff65</a>
+</td>
+<td>
+Andy Beck
+</td>
+<td>
+2022-04-28
+</td>
+</tr>
 <tr>
 <td>
 <a href="https://github.com/theandyb/LSCI/blob/8f1cb1a25f560e383d98dc8ab9180c403f2a90a5/docs/figure/1000G_two_positions_ALL.Rmd/unnamed-chunk-27-2.png" target="_blank">8f1cb1a</a>
@@ -2185,6 +2328,17 @@ Date
 <tbody>
 <tr>
 <td>
+<a href="https://github.com/theandyb/LSCI/blob/c33ff652181aef45b799411a45ed8917457b3dbf/docs/figure/1000G_two_positions_ALL.Rmd/unnamed-chunk-28-1.png" target="_blank">c33ff65</a>
+</td>
+<td>
+Andy Beck
+</td>
+<td>
+2022-04-28
+</td>
+</tr>
+<tr>
+<td>
 <a href="https://github.com/theandyb/LSCI/blob/8f1cb1a25f560e383d98dc8ab9180c403f2a90a5/docs/figure/1000G_two_positions_ALL.Rmd/unnamed-chunk-28-1.png" target="_blank">8f1cb1a</a>
 </td>
 <td>
@@ -2221,6 +2375,17 @@ Date
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+<a href="https://github.com/theandyb/LSCI/blob/c33ff652181aef45b799411a45ed8917457b3dbf/docs/figure/1000G_two_positions_ALL.Rmd/unnamed-chunk-28-2.png" target="_blank">c33ff65</a>
+</td>
+<td>
+Andy Beck
+</td>
+<td>
+2022-04-28
+</td>
+</tr>
 <tr>
 <td>
 <a href="https://github.com/theandyb/LSCI/blob/8f1cb1a25f560e383d98dc8ab9180c403f2a90a5/docs/figure/1000G_two_positions_ALL.Rmd/unnamed-chunk-28-2.png" target="_blank">8f1cb1a</a>
@@ -2264,6 +2429,17 @@ Date
 <tbody>
 <tr>
 <td>
+<a href="https://github.com/theandyb/LSCI/blob/c33ff652181aef45b799411a45ed8917457b3dbf/docs/figure/1000G_two_positions_ALL.Rmd/unnamed-chunk-29-1.png" target="_blank">c33ff65</a>
+</td>
+<td>
+Andy Beck
+</td>
+<td>
+2022-04-28
+</td>
+</tr>
+<tr>
+<td>
 <a href="https://github.com/theandyb/LSCI/blob/8f1cb1a25f560e383d98dc8ab9180c403f2a90a5/docs/figure/1000G_two_positions_ALL.Rmd/unnamed-chunk-29-1.png" target="_blank">8f1cb1a</a>
 </td>
 <td>
@@ -2300,6 +2476,17 @@ Date
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+<a href="https://github.com/theandyb/LSCI/blob/c33ff652181aef45b799411a45ed8917457b3dbf/docs/figure/1000G_two_positions_ALL.Rmd/unnamed-chunk-29-2.png" target="_blank">c33ff65</a>
+</td>
+<td>
+Andy Beck
+</td>
+<td>
+2022-04-28
+</td>
+</tr>
 <tr>
 <td>
 <a href="https://github.com/theandyb/LSCI/blob/8f1cb1a25f560e383d98dc8ab9180c403f2a90a5/docs/figure/1000G_two_positions_ALL.Rmd/unnamed-chunk-29-2.png" target="_blank">8f1cb1a</a>
@@ -2343,6 +2530,17 @@ Date
 <tbody>
 <tr>
 <td>
+<a href="https://github.com/theandyb/LSCI/blob/c33ff652181aef45b799411a45ed8917457b3dbf/docs/figure/1000G_two_positions_ALL.Rmd/unnamed-chunk-30-1.png" target="_blank">c33ff65</a>
+</td>
+<td>
+Andy Beck
+</td>
+<td>
+2022-04-28
+</td>
+</tr>
+<tr>
+<td>
 <a href="https://github.com/theandyb/LSCI/blob/8f1cb1a25f560e383d98dc8ab9180c403f2a90a5/docs/figure/1000G_two_positions_ALL.Rmd/unnamed-chunk-30-1.png" target="_blank">8f1cb1a</a>
 </td>
 <td>
@@ -2381,6 +2579,17 @@ Date
 <tbody>
 <tr>
 <td>
+<a href="https://github.com/theandyb/LSCI/blob/c33ff652181aef45b799411a45ed8917457b3dbf/docs/figure/1000G_two_positions_ALL.Rmd/unnamed-chunk-30-2.png" target="_blank">c33ff65</a>
+</td>
+<td>
+Andy Beck
+</td>
+<td>
+2022-04-28
+</td>
+</tr>
+<tr>
+<td>
 <a href="https://github.com/theandyb/LSCI/blob/8f1cb1a25f560e383d98dc8ab9180c403f2a90a5/docs/figure/1000G_two_positions_ALL.Rmd/unnamed-chunk-30-2.png" target="_blank">8f1cb1a</a>
 </td>
 <td>
@@ -2397,11 +2606,161 @@ Andy Beck
 </div>
 <div id="gc_cg-1" class="section level3">
 <h3>GC_CG</h3>
-<p><img src="figure/1000G_two_positions_ALL.Rmd/unnamed-chunk-31-1.png" width="672" style="display: block; margin: auto;" /><img src="figure/1000G_two_positions_ALL.Rmd/unnamed-chunk-31-2.png" width="672" style="display: block; margin: auto;" /></p>
+<p><img src="figure/1000G_two_positions_ALL.Rmd/unnamed-chunk-31-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-31-1">
+Past versions of unnamed-chunk-31-1.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-31-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/theandyb/LSCI/blob/c33ff652181aef45b799411a45ed8917457b3dbf/docs/figure/1000G_two_positions_ALL.Rmd/unnamed-chunk-31-1.png" target="_blank">c33ff65</a>
+</td>
+<td>
+Andy Beck
+</td>
+<td>
+2022-04-28
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<p><img src="figure/1000G_two_positions_ALL.Rmd/unnamed-chunk-31-2.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-31-2">
+Past versions of unnamed-chunk-31-2.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-31-2" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/theandyb/LSCI/blob/c33ff652181aef45b799411a45ed8917457b3dbf/docs/figure/1000G_two_positions_ALL.Rmd/unnamed-chunk-31-2.png" target="_blank">c33ff65</a>
+</td>
+<td>
+Andy Beck
+</td>
+<td>
+2022-04-28
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 </div>
 <div id="cpg_gc_cg" class="section level3">
 <h3>cpg_GC_CG</h3>
-<p><img src="figure/1000G_two_positions_ALL.Rmd/unnamed-chunk-32-1.png" width="672" style="display: block; margin: auto;" /><img src="figure/1000G_two_positions_ALL.Rmd/unnamed-chunk-32-2.png" width="672" style="display: block; margin: auto;" /></p>
+<p><img src="figure/1000G_two_positions_ALL.Rmd/unnamed-chunk-32-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-32-1">
+Past versions of unnamed-chunk-32-1.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-32-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/theandyb/LSCI/blob/c33ff652181aef45b799411a45ed8917457b3dbf/docs/figure/1000G_two_positions_ALL.Rmd/unnamed-chunk-32-1.png" target="_blank">c33ff65</a>
+</td>
+<td>
+Andy Beck
+</td>
+<td>
+2022-04-28
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<p><img src="figure/1000G_two_positions_ALL.Rmd/unnamed-chunk-32-2.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-32-2">
+Past versions of unnamed-chunk-32-2.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-32-2" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/theandyb/LSCI/blob/c33ff652181aef45b799411a45ed8917457b3dbf/docs/figure/1000G_two_positions_ALL.Rmd/unnamed-chunk-32-2.png" target="_blank">c33ff65</a>
+</td>
+<td>
+Andy Beck
+</td>
+<td>
+2022-04-28
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 </div>
 </div>
 <div id="di-nucleotide-residuals" class="section level2">
@@ -2819,6 +3178,43 @@ heatmap_signed_re_res &lt;- function(subtype, pop, p1, p2){
 <p>And now we plot the signed re residuals for the A&gt;G sub type:</p>
 <pre class="r"><code>heatmap_signed_re_res(&quot;AT_GC&quot;, &quot;ALL&quot;, -2, -1)</code></pre>
 <p><img src="figure/1000G_two_positions_ALL.Rmd/unnamed-chunk-38-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-38-1">
+Past versions of unnamed-chunk-38-1.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-38-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/theandyb/LSCI/blob/c33ff652181aef45b799411a45ed8917457b3dbf/docs/figure/1000G_two_positions_ALL.Rmd/unnamed-chunk-38-1.png" target="_blank">c33ff65</a>
+</td>
+<td>
+Andy Beck
+</td>
+<td>
+2022-04-28
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 <br>
 <p>
 <button type="button" class="btn btn-default btn-workflowr btn-workflowr-sessioninfo" data-toggle="collapse" data-target="#workflowr-sessioninfo" style="display: block;">
