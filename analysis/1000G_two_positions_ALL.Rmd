@@ -152,19 +152,30 @@ chi_sq_gof_pair <- function(population, subtype, p1, p2) {
   df$kl_res <- df$p_s * log(df$p_s / df$p_c)
   return(sum(df$chi_res))
 }
+
+chi_sq_re_pair <- function(population, subtype, p1, p2){
+  data_dir <- "/net/snowwhite/home/beckandy/research/1000G_LSCI/output/all_count_2_pos/"
+  f_name <- paste0(data_dir, population, "/", subtype, "_p", p1, "_q", p2, ".csv")
+  df <- read_csv(f_name, col_types = cols()) %>%
+    filter(singletons > 0) %>%
+    mutate(p_c = controls / sum(controls),
+           p_s = singletons / sum(singletons)) %>%
+    mutate(re = p_s * log(p_s / p_c))
+  return(sum(df$re))
+}
 ```
 
 Naturally we will want this statistic for each population/subtype pair across all pairs of flanking positions:
 
 ```{r}
-chi_sq_gof_all <- function(population, subtype){
+chi_sq_gof_all <- function(population, subtype, stat_func = chi_sq_gof_pair){
   final <- data.frame(p1 = numeric(),
                       p2 = numeric(),
                       statistic = numeric())
   for(i in c(-10:-1,1:9)){
     for(j in (i+1):10){
       if(j == 0) next
-      stat_val <- chi_sq_gof_pair(population, subtype, i, j)
+      stat_val <- stat_func(population, subtype, i, j)
       final <- bind_rows(final, data.frame(p1 = i,
                                            p2 = j,
                                            statistic = stat_val))
@@ -177,8 +188,8 @@ chi_sq_gof_all <- function(population, subtype){
 Oh, I know, let's make plots as well!
 
 ```{r}
-chi_sq_gof_plot <- function(population, subtype){
-  df <- chi_sq_gof_all(population, subtype)
+chi_sq_gof_plot <- function(population, subtype, stat_func = chi_sq_gof_pair){
+  df <- chi_sq_gof_all(population, subtype, stat_func)
   subtype2 <- str_replace(subtype, "_", " -> ")
   p <- df %>%
     ggplot(aes(x = p2, y = p1, fill = statistic)) +
@@ -200,7 +211,7 @@ chi_sq_gof_plot <- function(population, subtype){
 
 ```{r}
 subtype <- "AT_CG"
-p <- chi_sq_gof_plot("ALL", subtype)
+p <- chi_sq_gof_plot("ALL", subtype, chi_sq_re_pair)
 print(p)
 ```
 
@@ -208,7 +219,7 @@ print(p)
 
 ```{r}
 subtype <- "AT_GC"
-p <- chi_sq_gof_plot("ALL", subtype)
+p <- chi_sq_gof_plot("ALL", subtype, chi_sq_re_pair)
 print(p)
 ```
 
@@ -216,7 +227,7 @@ print(p)
 
 ```{r}
 subtype <- "AT_TA"
-p <- chi_sq_gof_plot("ALL", subtype)
+p <- chi_sq_gof_plot("ALL", subtype, chi_sq_re_pair)
 print(p)
 ```
 
@@ -224,7 +235,7 @@ print(p)
 
 ```{r}
 subtype <- "GC_AT"
-p <- chi_sq_gof_plot("ALL", subtype)
+p <- chi_sq_gof_plot("ALL", subtype, chi_sq_re_pair)
 print(p)
 ```
 
@@ -232,7 +243,7 @@ print(p)
 
 ```{r}
 subtype <- "GC_TA"
-p <- chi_sq_gof_plot("ALL", subtype)
+p <- chi_sq_gof_plot("ALL", subtype, chi_sq_re_pair)
 print(p)
 ```
 
@@ -240,7 +251,7 @@ print(p)
 
 ```{r}
 subtype <- "GC_CG"
-p <- chi_sq_gof_plot("ALL", subtype)
+p <- chi_sq_gof_plot("ALL", subtype, chi_sq_re_pair)
 print(p)
 ```
 
