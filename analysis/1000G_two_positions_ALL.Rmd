@@ -188,7 +188,7 @@ chi_sq_gof_all <- function(population, subtype, stat_func = chi_sq_gof_pair){
 Oh, I know, let's make plots as well!
 
 ```{r}
-chi_sq_gof_plot <- function(population, subtype, stat_func = chi_sq_gof_pair){
+chi_sq_gof_plot <- function(population, subtype, stat_func = chi_sq_gof_pair, stat_lab = "Chi Square Statistic"){
   df <- chi_sq_gof_all(population, subtype, stat_func)
   subtype2 <- str_replace(subtype, "_", " -> ")
   p <- df %>%
@@ -200,7 +200,7 @@ chi_sq_gof_plot <- function(population, subtype, stat_func = chi_sq_gof_pair){
                    "; Max: ", round(max(df$statistic), 2)))+
     xlab("Relative Position 2") +
     ylab("Relative Position 1") +
-    labs(fill = "Chi Square Statistic") +
+    labs(fill = stat_lab) +
     scale_fill_distiller(palette = "Reds", direction = 1) +
     theme_classic()
   return(p)
@@ -211,7 +211,7 @@ chi_sq_gof_plot <- function(population, subtype, stat_func = chi_sq_gof_pair){
 
 ```{r}
 subtype <- "AT_CG"
-p <- chi_sq_gof_plot("ALL", subtype, chi_sq_re_pair)
+p <- chi_sq_gof_plot("ALL", subtype, chi_sq_re_pair, "RE")
 print(p)
 ```
 
@@ -219,7 +219,7 @@ print(p)
 
 ```{r}
 subtype <- "AT_GC"
-p <- chi_sq_gof_plot("ALL", subtype, chi_sq_re_pair)
+p <- chi_sq_gof_plot("ALL", subtype, chi_sq_re_pair, "RE")
 print(p)
 ```
 
@@ -257,7 +257,7 @@ print(p)
 
 ## GOF: Control interaction estimation
 
-An idea I want to try here is to try and estimate a shared interaction parameter using only the control frequencies and apply this to the singleton frequencies. In a nutshell, we can think of the 16 frequencies we see in the control table as being the product of two marginal frequencies and an additional interaction term (question: should this be additive or multiplicative?). In the multiplicative formulation of the interaction, the frequecy in each cell can be written as:
+An idea I want to try here is to try and estimate a shared interaction parameter using only the control frequencies and apply this to the singleton frequencies. In a nutshell, we can think of the 16 frequencies we see in the control table as being the product of two marginal frequencies and an additional interaction term (question: should this be additive or multiplicative?). In the multiplicative formulation of the interaction, the frequency in each cell can be written as:
 
 $$
 f^C_{i,j} = p^C_{i.}p^C_{.j}p_{ij}
@@ -287,7 +287,7 @@ get_int <- function(freq_tab){
   return(int_mat)
 }
 
-control_int_mult_pair <- function(population, subtype, p1, p2) {
+control_int_mult_pair <- function(population, subtype, p1, p2, type = "gof") {
   data_dir <- "/net/snowwhite/home/beckandy/research/1000G_LSCI/output/all_count_2_pos/"
   f_name <- paste0(data_dir, population, "/", subtype, "_p", p1, "_q", p2, ".csv")
   df <- read_csv(f_name, col_types = cols()) %>%
@@ -304,20 +304,29 @@ control_int_mult_pair <- function(population, subtype, p1, p2) {
     column_to_rownames(var = 'p1')
 
   exp_s <- get_mar(singleton_tab) * get_int(control_tab)
-  exp_s <- exp_s / sum(exp_s) # normalize
-  exp_s <- exp_s * sum(singleton_tab)
+  exp_p_s <- exp_s / sum(exp_s) # normalize
+  exp_s <- exp_p_s * sum(singleton_tab)
   chi_sq <- (exp_s - singleton_tab)^2 / exp_s
-  return(sum(chi_sq))
+  
+  if(type == "gof"){
+    stat_val <- sum(chi_sq)
+  } else{
+    p_s <- singleton_tab / sum(singleton_tab)
+    re <- p_s * log(p_s / exp_p_s)
+    stat_val <- sum(re)
+  }
+  
+  return(stat_val)
 }
 
-control_int_mult_all <- function(population, subtype){
+control_int_mult_all <- function(population, subtype, type = "gof"){
   final <- data.frame(p1 = numeric(),
                       p2 = numeric(),
                       statistic = numeric())
   for(i in c(-10:-1,1:9)){
     for(j in (i+1):10){
       if(j == 0) next
-      stat_val <- control_int_mult_pair(population, subtype, i, j)
+      stat_val <- control_int_mult_pair(population, subtype, i, j, type = type)
       final <- bind_rows(final, data.frame(p1 = i,
                                            p2 = j,
                                            statistic = stat_val))
@@ -326,8 +335,8 @@ control_int_mult_all <- function(population, subtype){
   return(final)
 }
 
-control_mult_int_plot <- function(population, subtype){
-  df <- control_int_mult_all(population, subtype)
+control_mult_int_plot <- function(population, subtype, type = "gof"){
+  df <- control_int_mult_all(population, subtype, type = type)
   subtype2 <- str_replace(subtype, "_", " -> ")
   p <- df %>%
     ggplot(aes(x = p2, y = p1, fill = statistic)) +
@@ -345,10 +354,75 @@ control_mult_int_plot <- function(population, subtype){
 }
 ```
 
+### AT_CG
+
+```{r}
+subtype <- "AT_GC"
+p <- control_mult_int_plot("ALL", subtype, type = "re")
+print(p)
+```
+
 ### AT_GC
 
 ```{r}
-p <- control_mult_int_plot("ALL", "AT_GC")
+subtype <- "AT_GC"
+p <- control_mult_int_plot("ALL", subtype, type = "re")
+print(p)
+```
+
+### AT_TA
+
+```{r}
+subtype <- "AT_TA"
+p <- control_mult_int_plot("ALL", subtype, type = "re")
+print(p)
+```
+
+### GC_AT
+
+```{r}
+subtype <- "GC_AT"
+p <- control_mult_int_plot("ALL", subtype, type = "re")
+print(p)
+```
+
+### GC_AT
+
+```{r}
+subtype <- "cpg_GC_AT"
+p <- control_mult_int_plot("ALL", subtype, type = "re")
+print(p)
+```
+
+### GC_TA
+
+```{r}
+subtype <- "GC_TA"
+p <- control_mult_int_plot("ALL", subtype, type = "re")
+print(p)
+```
+
+### GC_TA
+
+```{r}
+subtype <- "cpg_GC_TA"
+p <- control_mult_int_plot("ALL", subtype, type = "re")
+print(p)
+```
+
+### GC_CG
+
+```{r}
+subtype <- "GC_CG"
+p <- control_mult_int_plot("ALL", subtype, type = "re")
+print(p)
+```
+
+### cpg_GC_CG
+
+```{r}
+subtype <- "cpg_GC_CG"
+p <- control_mult_int_plot("ALL", subtype, type = "re")
 print(p)
 ```
 
