@@ -514,15 +514,15 @@ project makes it easier to run your code on other machines.</p>
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomtheandybLSCItreea1fa023fd7ac0336eff85572b0291ad85fedea21targetblanka1fa023a">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomtheandybLSCItree5df5f06c6dcd2310a5d7ab57681987d4c23f9fb3targetblank5df5f06a">
 <span class="glyphicon glyphicon-ok text-success"
 aria-hidden="true"></span> <strong>Repository version:</strong>
-<a href="https://github.com/theandyb/LSCI/tree/a1fa023fd7ac0336eff85572b0291ad85fedea21" target="_blank">a1fa023</a>
+<a href="https://github.com/theandyb/LSCI/tree/5df5f06c6dcd2310a5d7ab57681987d4c23f9fb3" target="_blank">5df5f06</a>
 </a>
 </p>
 </div>
 <div
-id="strongRepositoryversionstrongahrefhttpsgithubcomtheandybLSCItreea1fa023fd7ac0336eff85572b0291ad85fedea21targetblanka1fa023a"
+id="strongRepositoryversionstrongahrefhttpsgithubcomtheandybLSCItree5df5f06c6dcd2310a5d7ab57681987d4c23f9fb3targetblank5df5f06a"
 class="panel-collapse collapse">
 <div class="panel-body">
 <p>
@@ -532,7 +532,7 @@ reproducibility.
 </p>
 <p>
 The results in this page were generated with repository version
-<a href="https://github.com/theandyb/LSCI/tree/a1fa023fd7ac0336eff85572b0291ad85fedea21" target="_blank">a1fa023</a>.
+<a href="https://github.com/theandyb/LSCI/tree/5df5f06c6dcd2310a5d7ab57681987d4c23f9fb3" target="_blank">5df5f06</a>.
 See the <em>Past versions</em> tab to see a history of the changes made
 to the R Markdown and HTML files.
 </p>
@@ -550,7 +550,6 @@ Ignored files:
     Ignored:    .Rhistory
     Ignored:    .Rproj.user/
     Ignored:    analysis/disqus.html
-    Ignored:    analysis/figure/
     Ignored:    code/random/
 
 Untracked files:
@@ -606,6 +605,40 @@ Message
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+Rmd
+</td>
+<td>
+<a href="https://github.com/theandyb/LSCI/blob/5df5f06c6dcd2310a5d7ab57681987d4c23f9fb3/analysis/1000G_two_positions_ALL.Rmd" target="_blank">5df5f06</a>
+</td>
+<td>
+Andy Beck
+</td>
+<td>
+2022-05-04
+</td>
+<td>
+wflow_publish("analysis/1000G_two_positions_ALL.Rmd")
+</td>
+</tr>
+<tr>
+<td>
+html
+</td>
+<td>
+<a href="https://rawcdn.githack.com/theandyb/LSCI/fb68fdf5107911fddbd86e60528a5c9612f3488b/docs/1000G_two_positions_ALL.html" target="_blank">fb68fdf</a>
+</td>
+<td>
+Andy Beck
+</td>
+<td>
+2022-05-04
+</td>
+<td>
+Build site.
+</td>
+</tr>
 <tr>
 <td>
 Rmd
@@ -1043,7 +1076,14 @@ stat_pair_all &lt;- function(population, subtype, stat_func, r_start=1, ...){
 heatmap_plot &lt;- function(population, subtype, 
                          statistic_function, plot_title, fill_label, r_start = 1, ...){
   df &lt;- stat_pair_all(population, subtype, statistic_function, r_start, ...)
-  subtype2 &lt;- str_replace(subtype, &quot;_&quot;, &quot; -&gt; &quot;)
+  
+  if(!str_starts(subtype, &quot;cpg&quot;)){
+    subtype2 &lt;- str_replace(subtype, &quot;_&quot;, &quot; -&gt; &quot;)
+  } else {
+    subtype &lt;- str_sub(subtype, 5)
+    subtype2 &lt;- paste0(&quot;(cpg) &quot;, str_replace(subtype, &quot;_&quot;, &quot; -&gt; &quot;))
+  }
+  
   p &lt;- df %&gt;%
     ggplot(aes(x = p2, y = p1, fill = statistic)) +
     geom_tile() +
@@ -1111,6 +1151,43 @@ chi_sq_ind_plot &lt;- function(population, subtype){
 <div id="at_cg" class="section level3">
 <h3>AT_CG</h3>
 <p><img src="figure/1000G_two_positions_ALL.Rmd/unnamed-chunk-4-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-4-1">
+Past versions of unnamed-chunk-4-1.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-4-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/theandyb/LSCI/blob/fb68fdf5107911fddbd86e60528a5c9612f3488b/docs/figure/1000G_two_positions_ALL.Rmd/unnamed-chunk-4-1.png" target="_blank">fb68fdf</a>
+</td>
+<td>
+Andy Beck
+</td>
+<td>
+2022-05-04
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 <p>We see here the expected pattern that directly adjacent
 di-nucloetides are not observed at frequencies suggested by the product
 of their marginal frequencies, even when looking only at those seen
@@ -1142,6 +1219,17 @@ Date
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+<a href="https://github.com/theandyb/LSCI/blob/fb68fdf5107911fddbd86e60528a5c9612f3488b/docs/figure/1000G_two_positions_ALL.Rmd/unnamed-chunk-5-1.png" target="_blank">fb68fdf</a>
+</td>
+<td>
+Andy Beck
+</td>
+<td>
+2022-05-04
+</td>
+</tr>
 <tr>
 <td>
 <a href="https://github.com/theandyb/LSCI/blob/4643ea1a35afece317dde7b808200afca76a8b0b/docs/figure/1000G_two_positions_ALL.Rmd/unnamed-chunk-5-1.png" target="_blank">4643ea1</a>
@@ -1196,6 +1284,17 @@ Date
 <tbody>
 <tr>
 <td>
+<a href="https://github.com/theandyb/LSCI/blob/fb68fdf5107911fddbd86e60528a5c9612f3488b/docs/figure/1000G_two_positions_ALL.Rmd/unnamed-chunk-6-1.png" target="_blank">fb68fdf</a>
+</td>
+<td>
+Andy Beck
+</td>
+<td>
+2022-05-04
+</td>
+</tr>
+<tr>
+<td>
 <a href="https://github.com/theandyb/LSCI/blob/4643ea1a35afece317dde7b808200afca76a8b0b/docs/figure/1000G_two_positions_ALL.Rmd/unnamed-chunk-6-1.png" target="_blank">4643ea1</a>
 </td>
 <td>
@@ -1246,6 +1345,17 @@ Date
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+<a href="https://github.com/theandyb/LSCI/blob/fb68fdf5107911fddbd86e60528a5c9612f3488b/docs/figure/1000G_two_positions_ALL.Rmd/unnamed-chunk-7-1.png" target="_blank">fb68fdf</a>
+</td>
+<td>
+Andy Beck
+</td>
+<td>
+2022-05-04
+</td>
+</tr>
 <tr>
 <td>
 <a href="https://github.com/theandyb/LSCI/blob/4643ea1a35afece317dde7b808200afca76a8b0b/docs/figure/1000G_two_positions_ALL.Rmd/unnamed-chunk-7-1.png" target="_blank">4643ea1</a>
@@ -1300,6 +1410,17 @@ Date
 <tbody>
 <tr>
 <td>
+<a href="https://github.com/theandyb/LSCI/blob/fb68fdf5107911fddbd86e60528a5c9612f3488b/docs/figure/1000G_two_positions_ALL.Rmd/unnamed-chunk-8-1.png" target="_blank">fb68fdf</a>
+</td>
+<td>
+Andy Beck
+</td>
+<td>
+2022-05-04
+</td>
+</tr>
+<tr>
+<td>
 <a href="https://github.com/theandyb/LSCI/blob/4643ea1a35afece317dde7b808200afca76a8b0b/docs/figure/1000G_two_positions_ALL.Rmd/unnamed-chunk-8-1.png" target="_blank">4643ea1</a>
 </td>
 <td>
@@ -1352,6 +1473,17 @@ Date
 <tbody>
 <tr>
 <td>
+<a href="https://github.com/theandyb/LSCI/blob/fb68fdf5107911fddbd86e60528a5c9612f3488b/docs/figure/1000G_two_positions_ALL.Rmd/unnamed-chunk-9-1.png" target="_blank">fb68fdf</a>
+</td>
+<td>
+Andy Beck
+</td>
+<td>
+2022-05-04
+</td>
+</tr>
+<tr>
+<td>
 <a href="https://github.com/theandyb/LSCI/blob/4643ea1a35afece317dde7b808200afca76a8b0b/docs/figure/1000G_two_positions_ALL.Rmd/unnamed-chunk-9-1.png" target="_blank">4643ea1</a>
 </td>
 <td>
@@ -1402,6 +1534,17 @@ Date
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+<a href="https://github.com/theandyb/LSCI/blob/fb68fdf5107911fddbd86e60528a5c9612f3488b/docs/figure/1000G_two_positions_ALL.Rmd/unnamed-chunk-10-1.png" target="_blank">fb68fdf</a>
+</td>
+<td>
+Andy Beck
+</td>
+<td>
+2022-05-04
+</td>
+</tr>
 <tr>
 <td>
 <a href="https://github.com/theandyb/LSCI/blob/4643ea1a35afece317dde7b808200afca76a8b0b/docs/figure/1000G_two_positions_ALL.Rmd/unnamed-chunk-10-1.png" target="_blank">4643ea1</a>
@@ -1505,6 +1648,17 @@ Date
 <tbody>
 <tr>
 <td>
+<a href="https://github.com/theandyb/LSCI/blob/fb68fdf5107911fddbd86e60528a5c9612f3488b/docs/figure/1000G_two_positions_ALL.Rmd/unnamed-chunk-13-1.png" target="_blank">fb68fdf</a>
+</td>
+<td>
+Andy Beck
+</td>
+<td>
+2022-05-04
+</td>
+</tr>
+<tr>
+<td>
 <a href="https://github.com/theandyb/LSCI/blob/8f1cb1a25f560e383d98dc8ab9180c403f2a90a5/docs/figure/1000G_two_positions_ALL.Rmd/unnamed-chunk-13-1.png" target="_blank">8f1cb1a</a>
 </td>
 <td>
@@ -1560,6 +1714,17 @@ Date
 <tbody>
 <tr>
 <td>
+<a href="https://github.com/theandyb/LSCI/blob/fb68fdf5107911fddbd86e60528a5c9612f3488b/docs/figure/1000G_two_positions_ALL.Rmd/unnamed-chunk-14-1.png" target="_blank">fb68fdf</a>
+</td>
+<td>
+Andy Beck
+</td>
+<td>
+2022-05-04
+</td>
+</tr>
+<tr>
+<td>
 <a href="https://github.com/theandyb/LSCI/blob/8f1cb1a25f560e383d98dc8ab9180c403f2a90a5/docs/figure/1000G_two_positions_ALL.Rmd/unnamed-chunk-14-1.png" target="_blank">8f1cb1a</a>
 </td>
 <td>
@@ -1613,6 +1778,17 @@ Date
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+<a href="https://github.com/theandyb/LSCI/blob/fb68fdf5107911fddbd86e60528a5c9612f3488b/docs/figure/1000G_two_positions_ALL.Rmd/unnamed-chunk-15-1.png" target="_blank">fb68fdf</a>
+</td>
+<td>
+Andy Beck
+</td>
+<td>
+2022-05-04
+</td>
+</tr>
 <tr>
 <td>
 <a href="https://github.com/theandyb/LSCI/blob/d206789c1741f96d849c980167670cda330a86fa/docs/figure/1000G_two_positions_ALL.Rmd/unnamed-chunk-15-1.png" target="_blank">d206789</a>
@@ -1692,6 +1868,17 @@ Date
 <tbody>
 <tr>
 <td>
+<a href="https://github.com/theandyb/LSCI/blob/fb68fdf5107911fddbd86e60528a5c9612f3488b/docs/figure/1000G_two_positions_ALL.Rmd/unnamed-chunk-16-1.png" target="_blank">fb68fdf</a>
+</td>
+<td>
+Andy Beck
+</td>
+<td>
+2022-05-04
+</td>
+</tr>
+<tr>
+<td>
 <a href="https://github.com/theandyb/LSCI/blob/d206789c1741f96d849c980167670cda330a86fa/docs/figure/1000G_two_positions_ALL.Rmd/unnamed-chunk-16-1.png" target="_blank">d206789</a>
 </td>
 <td>
@@ -1769,6 +1956,17 @@ Date
 <tbody>
 <tr>
 <td>
+<a href="https://github.com/theandyb/LSCI/blob/fb68fdf5107911fddbd86e60528a5c9612f3488b/docs/figure/1000G_two_positions_ALL.Rmd/unnamed-chunk-17-1.png" target="_blank">fb68fdf</a>
+</td>
+<td>
+Andy Beck
+</td>
+<td>
+2022-05-04
+</td>
+</tr>
+<tr>
+<td>
 <a href="https://github.com/theandyb/LSCI/blob/46d5054caf0b1691ef18540963a6f5b3357dd47e/docs/figure/1000G_two_positions_ALL.Rmd/unnamed-chunk-17-1.png" target="_blank">46d5054</a>
 </td>
 <td>
@@ -1833,6 +2031,17 @@ Date
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+<a href="https://github.com/theandyb/LSCI/blob/fb68fdf5107911fddbd86e60528a5c9612f3488b/docs/figure/1000G_two_positions_ALL.Rmd/unnamed-chunk-18-1.png" target="_blank">fb68fdf</a>
+</td>
+<td>
+Andy Beck
+</td>
+<td>
+2022-05-04
+</td>
+</tr>
 <tr>
 <td>
 <a href="https://github.com/theandyb/LSCI/blob/46d5054caf0b1691ef18540963a6f5b3357dd47e/docs/figure/1000G_two_positions_ALL.Rmd/unnamed-chunk-18-1.png" target="_blank">46d5054</a>
@@ -1901,6 +2110,17 @@ Date
 <tbody>
 <tr>
 <td>
+<a href="https://github.com/theandyb/LSCI/blob/fb68fdf5107911fddbd86e60528a5c9612f3488b/docs/figure/1000G_two_positions_ALL.Rmd/unnamed-chunk-19-1.png" target="_blank">fb68fdf</a>
+</td>
+<td>
+Andy Beck
+</td>
+<td>
+2022-05-04
+</td>
+</tr>
+<tr>
+<td>
 <a href="https://github.com/theandyb/LSCI/blob/46d5054caf0b1691ef18540963a6f5b3357dd47e/docs/figure/1000G_two_positions_ALL.Rmd/unnamed-chunk-19-1.png" target="_blank">46d5054</a>
 </td>
 <td>
@@ -1967,6 +2187,17 @@ Date
 <tbody>
 <tr>
 <td>
+<a href="https://github.com/theandyb/LSCI/blob/fb68fdf5107911fddbd86e60528a5c9612f3488b/docs/figure/1000G_two_positions_ALL.Rmd/unnamed-chunk-20-1.png" target="_blank">fb68fdf</a>
+</td>
+<td>
+Andy Beck
+</td>
+<td>
+2022-05-04
+</td>
+</tr>
+<tr>
+<td>
 <a href="https://github.com/theandyb/LSCI/blob/46d5054caf0b1691ef18540963a6f5b3357dd47e/docs/figure/1000G_two_positions_ALL.Rmd/unnamed-chunk-20-1.png" target="_blank">46d5054</a>
 </td>
 <td>
@@ -2031,6 +2262,17 @@ Date
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+<a href="https://github.com/theandyb/LSCI/blob/fb68fdf5107911fddbd86e60528a5c9612f3488b/docs/figure/1000G_two_positions_ALL.Rmd/unnamed-chunk-21-1.png" target="_blank">fb68fdf</a>
+</td>
+<td>
+Andy Beck
+</td>
+<td>
+2022-05-04
+</td>
+</tr>
 <tr>
 <td>
 <a href="https://github.com/theandyb/LSCI/blob/8f1cb1a25f560e383d98dc8ab9180c403f2a90a5/docs/figure/1000G_two_positions_ALL.Rmd/unnamed-chunk-21-1.png" target="_blank">8f1cb1a</a>
@@ -2137,7 +2379,7 @@ control_mult_int_plot &lt;- function(population, subtype, r_start = 1, type = &q
   }
   p &lt;- heatmap_plot(population, subtype, control_int_mult_pair, 
                     &quot;Control Estimate Interaction: &quot;,
-                    l_title, r_start ,type)
+                    l_title, r_start , type)
   return(p)
 }</code></pre>
 <div id="at_cg-2" class="section level3">
@@ -2168,6 +2410,17 @@ Date
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+<a href="https://github.com/theandyb/LSCI/blob/fb68fdf5107911fddbd86e60528a5c9612f3488b/docs/figure/1000G_two_positions_ALL.Rmd/unnamed-chunk-23-1.png" target="_blank">fb68fdf</a>
+</td>
+<td>
+Andy Beck
+</td>
+<td>
+2022-05-04
+</td>
+</tr>
 <tr>
 <td>
 <a href="https://github.com/theandyb/LSCI/blob/d206789c1741f96d849c980167670cda330a86fa/docs/figure/1000G_two_positions_ALL.Rmd/unnamed-chunk-23-1.png" target="_blank">d206789</a>
@@ -2236,6 +2489,17 @@ Date
 <tbody>
 <tr>
 <td>
+<a href="https://github.com/theandyb/LSCI/blob/fb68fdf5107911fddbd86e60528a5c9612f3488b/docs/figure/1000G_two_positions_ALL.Rmd/unnamed-chunk-24-1.png" target="_blank">fb68fdf</a>
+</td>
+<td>
+Andy Beck
+</td>
+<td>
+2022-05-04
+</td>
+</tr>
+<tr>
+<td>
 <a href="https://github.com/theandyb/LSCI/blob/d206789c1741f96d849c980167670cda330a86fa/docs/figure/1000G_two_positions_ALL.Rmd/unnamed-chunk-24-1.png" target="_blank">d206789</a>
 </td>
 <td>
@@ -2300,6 +2564,17 @@ Date
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+<a href="https://github.com/theandyb/LSCI/blob/fb68fdf5107911fddbd86e60528a5c9612f3488b/docs/figure/1000G_two_positions_ALL.Rmd/unnamed-chunk-25-1.png" target="_blank">fb68fdf</a>
+</td>
+<td>
+Andy Beck
+</td>
+<td>
+2022-05-04
+</td>
+</tr>
 <tr>
 <td>
 <a href="https://github.com/theandyb/LSCI/blob/d206789c1741f96d849c980167670cda330a86fa/docs/figure/1000G_two_positions_ALL.Rmd/unnamed-chunk-25-1.png" target="_blank">d206789</a>
@@ -2368,6 +2643,17 @@ Date
 <tbody>
 <tr>
 <td>
+<a href="https://github.com/theandyb/LSCI/blob/fb68fdf5107911fddbd86e60528a5c9612f3488b/docs/figure/1000G_two_positions_ALL.Rmd/unnamed-chunk-26-1.png" target="_blank">fb68fdf</a>
+</td>
+<td>
+Andy Beck
+</td>
+<td>
+2022-05-04
+</td>
+</tr>
+<tr>
+<td>
 <a href="https://github.com/theandyb/LSCI/blob/d206789c1741f96d849c980167670cda330a86fa/docs/figure/1000G_two_positions_ALL.Rmd/unnamed-chunk-26-1.png" target="_blank">d206789</a>
 </td>
 <td>
@@ -2404,8 +2690,8 @@ Andy Beck
 </div>
 </div>
 </div>
-<div id="gc_at-3" class="section level3">
-<h3>GC_AT</h3>
+<div id="cpg_gc_at-2" class="section level3">
+<h3>cpg_GC_AT</h3>
 <pre class="r"><code>subtype &lt;- &quot;cpg_GC_AT&quot;
 p &lt;- control_mult_int_plot(&quot;ALL&quot;, subtype, type = &quot;re&quot;)
 print(p)</code></pre>
@@ -2432,6 +2718,17 @@ Date
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+<a href="https://github.com/theandyb/LSCI/blob/fb68fdf5107911fddbd86e60528a5c9612f3488b/docs/figure/1000G_two_positions_ALL.Rmd/unnamed-chunk-27-1.png" target="_blank">fb68fdf</a>
+</td>
+<td>
+Andy Beck
+</td>
+<td>
+2022-05-04
+</td>
+</tr>
 <tr>
 <td>
 <a href="https://github.com/theandyb/LSCI/blob/d206789c1741f96d849c980167670cda330a86fa/docs/figure/1000G_two_positions_ALL.Rmd/unnamed-chunk-27-1.png" target="_blank">d206789</a>
@@ -2500,6 +2797,17 @@ Date
 <tbody>
 <tr>
 <td>
+<a href="https://github.com/theandyb/LSCI/blob/fb68fdf5107911fddbd86e60528a5c9612f3488b/docs/figure/1000G_two_positions_ALL.Rmd/unnamed-chunk-28-1.png" target="_blank">fb68fdf</a>
+</td>
+<td>
+Andy Beck
+</td>
+<td>
+2022-05-04
+</td>
+</tr>
+<tr>
+<td>
 <a href="https://github.com/theandyb/LSCI/blob/d206789c1741f96d849c980167670cda330a86fa/docs/figure/1000G_two_positions_ALL.Rmd/unnamed-chunk-28-1.png" target="_blank">d206789</a>
 </td>
 <td>
@@ -2536,8 +2844,8 @@ Andy Beck
 </div>
 </div>
 </div>
-<div id="gc_ta-3" class="section level3">
-<h3>GC_TA</h3>
+<div id="cpg_gc_ta-2" class="section level3">
+<h3>cpg_GC_TA</h3>
 <pre class="r"><code>subtype &lt;- &quot;cpg_GC_TA&quot;
 p &lt;- control_mult_int_plot(&quot;ALL&quot;, subtype, type = &quot;re&quot;)
 print(p)</code></pre>
@@ -2564,6 +2872,17 @@ Date
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+<a href="https://github.com/theandyb/LSCI/blob/fb68fdf5107911fddbd86e60528a5c9612f3488b/docs/figure/1000G_two_positions_ALL.Rmd/unnamed-chunk-29-1.png" target="_blank">fb68fdf</a>
+</td>
+<td>
+Andy Beck
+</td>
+<td>
+2022-05-04
+</td>
+</tr>
 <tr>
 <td>
 <a href="https://github.com/theandyb/LSCI/blob/d206789c1741f96d849c980167670cda330a86fa/docs/figure/1000G_two_positions_ALL.Rmd/unnamed-chunk-29-1.png" target="_blank">d206789</a>
@@ -2632,6 +2951,17 @@ Date
 <tbody>
 <tr>
 <td>
+<a href="https://github.com/theandyb/LSCI/blob/fb68fdf5107911fddbd86e60528a5c9612f3488b/docs/figure/1000G_two_positions_ALL.Rmd/unnamed-chunk-30-1.png" target="_blank">fb68fdf</a>
+</td>
+<td>
+Andy Beck
+</td>
+<td>
+2022-05-04
+</td>
+</tr>
+<tr>
+<td>
 <a href="https://github.com/theandyb/LSCI/blob/d206789c1741f96d849c980167670cda330a86fa/docs/figure/1000G_two_positions_ALL.Rmd/unnamed-chunk-30-1.png" target="_blank">d206789</a>
 </td>
 <td>
@@ -2696,6 +3026,17 @@ Date
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+<a href="https://github.com/theandyb/LSCI/blob/fb68fdf5107911fddbd86e60528a5c9612f3488b/docs/figure/1000G_two_positions_ALL.Rmd/unnamed-chunk-31-1.png" target="_blank">fb68fdf</a>
+</td>
+<td>
+Andy Beck
+</td>
+<td>
+2022-05-04
+</td>
+</tr>
 <tr>
 <td>
 <a href="https://github.com/theandyb/LSCI/blob/d206789c1741f96d849c980167670cda330a86fa/docs/figure/1000G_two_positions_ALL.Rmd/unnamed-chunk-31-1.png" target="_blank">d206789</a>
@@ -2812,6 +3153,17 @@ Date
 <tbody>
 <tr>
 <td>
+<a href="https://github.com/theandyb/LSCI/blob/fb68fdf5107911fddbd86e60528a5c9612f3488b/docs/figure/1000G_two_positions_ALL.Rmd/unnamed-chunk-33-1.png" target="_blank">fb68fdf</a>
+</td>
+<td>
+Andy Beck
+</td>
+<td>
+2022-05-04
+</td>
+</tr>
+<tr>
+<td>
 <a href="https://github.com/theandyb/LSCI/blob/d206789c1741f96d849c980167670cda330a86fa/docs/figure/1000G_two_positions_ALL.Rmd/unnamed-chunk-33-1.png" target="_blank">d206789</a>
 </td>
 <td>
@@ -2848,6 +3200,17 @@ Date
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+<a href="https://github.com/theandyb/LSCI/blob/fb68fdf5107911fddbd86e60528a5c9612f3488b/docs/figure/1000G_two_positions_ALL.Rmd/unnamed-chunk-33-2.png" target="_blank">fb68fdf</a>
+</td>
+<td>
+Andy Beck
+</td>
+<td>
+2022-05-04
+</td>
+</tr>
 <tr>
 <td>
 <a href="https://github.com/theandyb/LSCI/blob/d206789c1741f96d849c980167670cda330a86fa/docs/figure/1000G_two_positions_ALL.Rmd/unnamed-chunk-33-2.png" target="_blank">d206789</a>
@@ -2891,6 +3254,17 @@ Date
 <tbody>
 <tr>
 <td>
+<a href="https://github.com/theandyb/LSCI/blob/fb68fdf5107911fddbd86e60528a5c9612f3488b/docs/figure/1000G_two_positions_ALL.Rmd/unnamed-chunk-34-1.png" target="_blank">fb68fdf</a>
+</td>
+<td>
+Andy Beck
+</td>
+<td>
+2022-05-04
+</td>
+</tr>
+<tr>
+<td>
 <a href="https://github.com/theandyb/LSCI/blob/d206789c1741f96d849c980167670cda330a86fa/docs/figure/1000G_two_positions_ALL.Rmd/unnamed-chunk-34-1.png" target="_blank">d206789</a>
 </td>
 <td>
@@ -2927,6 +3301,17 @@ Date
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+<a href="https://github.com/theandyb/LSCI/blob/fb68fdf5107911fddbd86e60528a5c9612f3488b/docs/figure/1000G_two_positions_ALL.Rmd/unnamed-chunk-34-2.png" target="_blank">fb68fdf</a>
+</td>
+<td>
+Andy Beck
+</td>
+<td>
+2022-05-04
+</td>
+</tr>
 <tr>
 <td>
 <a href="https://github.com/theandyb/LSCI/blob/d206789c1741f96d849c980167670cda330a86fa/docs/figure/1000G_two_positions_ALL.Rmd/unnamed-chunk-34-2.png" target="_blank">d206789</a>
@@ -2970,6 +3355,17 @@ Date
 <tbody>
 <tr>
 <td>
+<a href="https://github.com/theandyb/LSCI/blob/fb68fdf5107911fddbd86e60528a5c9612f3488b/docs/figure/1000G_two_positions_ALL.Rmd/unnamed-chunk-35-1.png" target="_blank">fb68fdf</a>
+</td>
+<td>
+Andy Beck
+</td>
+<td>
+2022-05-04
+</td>
+</tr>
+<tr>
+<td>
 <a href="https://github.com/theandyb/LSCI/blob/d206789c1741f96d849c980167670cda330a86fa/docs/figure/1000G_two_positions_ALL.Rmd/unnamed-chunk-35-1.png" target="_blank">d206789</a>
 </td>
 <td>
@@ -3008,6 +3404,17 @@ Date
 <tbody>
 <tr>
 <td>
+<a href="https://github.com/theandyb/LSCI/blob/fb68fdf5107911fddbd86e60528a5c9612f3488b/docs/figure/1000G_two_positions_ALL.Rmd/unnamed-chunk-35-2.png" target="_blank">fb68fdf</a>
+</td>
+<td>
+Andy Beck
+</td>
+<td>
+2022-05-04
+</td>
+</tr>
+<tr>
+<td>
 <a href="https://github.com/theandyb/LSCI/blob/d206789c1741f96d849c980167670cda330a86fa/docs/figure/1000G_two_positions_ALL.Rmd/unnamed-chunk-35-2.png" target="_blank">d206789</a>
 </td>
 <td>
@@ -3022,7 +3429,7 @@ Andy Beck
 </div>
 </div>
 </div>
-<div id="gc_at-4" class="section level3">
+<div id="gc_at-3" class="section level3">
 <h3>GC_AT</h3>
 <p><img src="figure/1000G_two_positions_ALL.Rmd/unnamed-chunk-36-1.png" width="672" style="display: block; margin: auto;" /></p>
 <p>
@@ -3047,6 +3454,17 @@ Date
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+<a href="https://github.com/theandyb/LSCI/blob/fb68fdf5107911fddbd86e60528a5c9612f3488b/docs/figure/1000G_two_positions_ALL.Rmd/unnamed-chunk-36-1.png" target="_blank">fb68fdf</a>
+</td>
+<td>
+Andy Beck
+</td>
+<td>
+2022-05-04
+</td>
+</tr>
 <tr>
 <td>
 <a href="https://github.com/theandyb/LSCI/blob/d206789c1741f96d849c980167670cda330a86fa/docs/figure/1000G_two_positions_ALL.Rmd/unnamed-chunk-36-1.png" target="_blank">d206789</a>
@@ -3109,6 +3527,17 @@ Date
 <tbody>
 <tr>
 <td>
+<a href="https://github.com/theandyb/LSCI/blob/fb68fdf5107911fddbd86e60528a5c9612f3488b/docs/figure/1000G_two_positions_ALL.Rmd/unnamed-chunk-36-2.png" target="_blank">fb68fdf</a>
+</td>
+<td>
+Andy Beck
+</td>
+<td>
+2022-05-04
+</td>
+</tr>
+<tr>
+<td>
 <a href="https://github.com/theandyb/LSCI/blob/d206789c1741f96d849c980167670cda330a86fa/docs/figure/1000G_two_positions_ALL.Rmd/unnamed-chunk-36-2.png" target="_blank">d206789</a>
 </td>
 <td>
@@ -3123,7 +3552,7 @@ Andy Beck
 </div>
 </div>
 </div>
-<div id="cpg_gc_at-2" class="section level3">
+<div id="cpg_gc_at-3" class="section level3">
 <h3>cpg_GC_AT</h3>
 <p><img src="figure/1000G_two_positions_ALL.Rmd/unnamed-chunk-37-1.png" width="672" style="display: block; margin: auto;" /></p>
 <p>
@@ -3148,6 +3577,17 @@ Date
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+<a href="https://github.com/theandyb/LSCI/blob/fb68fdf5107911fddbd86e60528a5c9612f3488b/docs/figure/1000G_two_positions_ALL.Rmd/unnamed-chunk-37-1.png" target="_blank">fb68fdf</a>
+</td>
+<td>
+Andy Beck
+</td>
+<td>
+2022-05-04
+</td>
+</tr>
 <tr>
 <td>
 <a href="https://github.com/theandyb/LSCI/blob/d206789c1741f96d849c980167670cda330a86fa/docs/figure/1000G_two_positions_ALL.Rmd/unnamed-chunk-37-1.png" target="_blank">d206789</a>
@@ -3188,6 +3628,17 @@ Date
 <tbody>
 <tr>
 <td>
+<a href="https://github.com/theandyb/LSCI/blob/fb68fdf5107911fddbd86e60528a5c9612f3488b/docs/figure/1000G_two_positions_ALL.Rmd/unnamed-chunk-37-2.png" target="_blank">fb68fdf</a>
+</td>
+<td>
+Andy Beck
+</td>
+<td>
+2022-05-04
+</td>
+</tr>
+<tr>
+<td>
 <a href="https://github.com/theandyb/LSCI/blob/d206789c1741f96d849c980167670cda330a86fa/docs/figure/1000G_two_positions_ALL.Rmd/unnamed-chunk-37-2.png" target="_blank">d206789</a>
 </td>
 <td>
@@ -3202,7 +3653,7 @@ Andy Beck
 </div>
 </div>
 </div>
-<div id="gc_ta-4" class="section level3">
+<div id="gc_ta-3" class="section level3">
 <h3>GC_TA</h3>
 <p><img src="figure/1000G_two_positions_ALL.Rmd/unnamed-chunk-38-1.png" width="672" style="display: block; margin: auto;" /></p>
 <p>
@@ -3227,6 +3678,17 @@ Date
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+<a href="https://github.com/theandyb/LSCI/blob/fb68fdf5107911fddbd86e60528a5c9612f3488b/docs/figure/1000G_two_positions_ALL.Rmd/unnamed-chunk-38-1.png" target="_blank">fb68fdf</a>
+</td>
+<td>
+Andy Beck
+</td>
+<td>
+2022-05-04
+</td>
+</tr>
 <tr>
 <td>
 <a href="https://github.com/theandyb/LSCI/blob/d206789c1741f96d849c980167670cda330a86fa/docs/figure/1000G_two_positions_ALL.Rmd/unnamed-chunk-38-1.png" target="_blank">d206789</a>
@@ -3278,6 +3740,17 @@ Date
 <tbody>
 <tr>
 <td>
+<a href="https://github.com/theandyb/LSCI/blob/fb68fdf5107911fddbd86e60528a5c9612f3488b/docs/figure/1000G_two_positions_ALL.Rmd/unnamed-chunk-38-2.png" target="_blank">fb68fdf</a>
+</td>
+<td>
+Andy Beck
+</td>
+<td>
+2022-05-04
+</td>
+</tr>
+<tr>
+<td>
 <a href="https://github.com/theandyb/LSCI/blob/d206789c1741f96d849c980167670cda330a86fa/docs/figure/1000G_two_positions_ALL.Rmd/unnamed-chunk-38-2.png" target="_blank">d206789</a>
 </td>
 <td>
@@ -3292,7 +3765,7 @@ Andy Beck
 </div>
 </div>
 </div>
-<div id="cpg_gc_ta-2" class="section level3">
+<div id="cpg_gc_ta-3" class="section level3">
 <h3>cpg_GC_TA</h3>
 <p><img src="figure/1000G_two_positions_ALL.Rmd/unnamed-chunk-39-1.png" width="672" style="display: block; margin: auto;" /></p>
 <p>
@@ -3317,6 +3790,17 @@ Date
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+<a href="https://github.com/theandyb/LSCI/blob/fb68fdf5107911fddbd86e60528a5c9612f3488b/docs/figure/1000G_two_positions_ALL.Rmd/unnamed-chunk-39-1.png" target="_blank">fb68fdf</a>
+</td>
+<td>
+Andy Beck
+</td>
+<td>
+2022-05-04
+</td>
+</tr>
 <tr>
 <td>
 <a href="https://github.com/theandyb/LSCI/blob/d206789c1741f96d849c980167670cda330a86fa/docs/figure/1000G_two_positions_ALL.Rmd/unnamed-chunk-39-1.png" target="_blank">d206789</a>
@@ -3355,6 +3839,17 @@ Date
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+<a href="https://github.com/theandyb/LSCI/blob/fb68fdf5107911fddbd86e60528a5c9612f3488b/docs/figure/1000G_two_positions_ALL.Rmd/unnamed-chunk-39-2.png" target="_blank">fb68fdf</a>
+</td>
+<td>
+Andy Beck
+</td>
+<td>
+2022-05-04
+</td>
+</tr>
 <tr>
 <td>
 <a href="https://github.com/theandyb/LSCI/blob/d206789c1741f96d849c980167670cda330a86fa/docs/figure/1000G_two_positions_ALL.Rmd/unnamed-chunk-39-2.png" target="_blank">d206789</a>
@@ -3398,6 +3893,17 @@ Date
 <tbody>
 <tr>
 <td>
+<a href="https://github.com/theandyb/LSCI/blob/fb68fdf5107911fddbd86e60528a5c9612f3488b/docs/figure/1000G_two_positions_ALL.Rmd/unnamed-chunk-40-1.png" target="_blank">fb68fdf</a>
+</td>
+<td>
+Andy Beck
+</td>
+<td>
+2022-05-04
+</td>
+</tr>
+<tr>
+<td>
 <a href="https://github.com/theandyb/LSCI/blob/d206789c1741f96d849c980167670cda330a86fa/docs/figure/1000G_two_positions_ALL.Rmd/unnamed-chunk-40-1.png" target="_blank">d206789</a>
 </td>
 <td>
@@ -3436,6 +3942,17 @@ Date
 <tbody>
 <tr>
 <td>
+<a href="https://github.com/theandyb/LSCI/blob/fb68fdf5107911fddbd86e60528a5c9612f3488b/docs/figure/1000G_two_positions_ALL.Rmd/unnamed-chunk-40-2.png" target="_blank">fb68fdf</a>
+</td>
+<td>
+Andy Beck
+</td>
+<td>
+2022-05-04
+</td>
+</tr>
+<tr>
+<td>
 <a href="https://github.com/theandyb/LSCI/blob/d206789c1741f96d849c980167670cda330a86fa/docs/figure/1000G_two_positions_ALL.Rmd/unnamed-chunk-40-2.png" target="_blank">d206789</a>
 </td>
 <td>
@@ -3452,7 +3969,82 @@ Andy Beck
 </div>
 <div id="cpg_gc_cg-2" class="section level3">
 <h3>cpg_GC_CG</h3>
-<p><img src="figure/1000G_two_positions_ALL.Rmd/unnamed-chunk-41-1.png" width="672" style="display: block; margin: auto;" /><img src="figure/1000G_two_positions_ALL.Rmd/unnamed-chunk-41-2.png" width="672" style="display: block; margin: auto;" /></p>
+<p><img src="figure/1000G_two_positions_ALL.Rmd/unnamed-chunk-41-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-41-1">
+Past versions of unnamed-chunk-41-1.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-41-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/theandyb/LSCI/blob/fb68fdf5107911fddbd86e60528a5c9612f3488b/docs/figure/1000G_two_positions_ALL.Rmd/unnamed-chunk-41-1.png" target="_blank">fb68fdf</a>
+</td>
+<td>
+Andy Beck
+</td>
+<td>
+2022-05-04
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<p><img src="figure/1000G_two_positions_ALL.Rmd/unnamed-chunk-41-2.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-41-2">
+Past versions of unnamed-chunk-41-2.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-41-2" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/theandyb/LSCI/blob/fb68fdf5107911fddbd86e60528a5c9612f3488b/docs/figure/1000G_two_positions_ALL.Rmd/unnamed-chunk-41-2.png" target="_blank">fb68fdf</a>
+</td>
+<td>
+Andy Beck
+</td>
+<td>
+2022-05-04
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 </div>
 </div>
 <div id="di-nucleotide-residuals" class="section level2">
@@ -3901,6 +4493,104 @@ heatmap_signed_re_res &lt;- function(subtype, pop, p1, p2){
 <p>And now we plot the signed re residuals for the A&gt;G sub type:</p>
 <pre class="r"><code>heatmap_signed_re_res(&quot;AT_GC&quot;, &quot;ALL&quot;, -2, -1)</code></pre>
 <p><img src="figure/1000G_two_positions_ALL.Rmd/unnamed-chunk-47-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-47-1">
+Past versions of unnamed-chunk-47-1.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-47-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/theandyb/LSCI/blob/fb68fdf5107911fddbd86e60528a5c9612f3488b/docs/figure/1000G_two_positions_ALL.Rmd/unnamed-chunk-47-1.png" target="_blank">fb68fdf</a>
+</td>
+<td>
+Andy Beck
+</td>
+<td>
+2022-05-04
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+<div id="alternative-di-nucleotide-residuals" class="section level2">
+<h2>Alternative Di-nucleotide Residuals</h2>
+<div id="re-contribution-control-intercept-estimation"
+class="section level3">
+<h3>RE Contribution (Control Intercept Estimation)</h3>
+<p>In the analysis above where we used the control samples to estimate
+the interaction and then adjusted marginal products using this
+interaction, we computed the relative entropy between our observed
+singleton distribution and the expectation under marginal independence
+adjusted by control interaction as our measure of influence. This
+statistic is the sum of expected logarithmic differences for each cell
+in the 4x4 table, and we will look at these individual values to assess
+at each pair of positions which di-nucleotides were either over or
+under-represented. We can also look at values for individual nucleotides
+at one position summed over the nucleotides at the other position (not
+sure how this would be interpreted, to be honest).</p>
+<pre class="r"><code>control_int_mult_res &lt;- function(population, subtype, p1, p2) {
+  data_dir &lt;- &quot;/net/snowwhite/home/beckandy/research/1000G_LSCI/output/all_count_2_pos/&quot;
+  f_name &lt;- paste0(data_dir, population, &quot;/&quot;, subtype, &quot;_p&quot;, p1, &quot;_q&quot;, p2, &quot;.csv&quot;)
+  df &lt;- read_csv(f_name, col_types = cols()) %&gt;%
+    filter(singletons &gt; 0)
+  control_tab &lt;- df %&gt;% 
+    select(p1, p2, controls) %&gt;% 
+    pivot_wider(names_from = p2, values_from = controls) %&gt;%
+    remove_rownames() %&gt;%
+    column_to_rownames(var = &#39;p1&#39;)
+  singleton_tab &lt;- df %&gt;% 
+    select(p1, p2, singletons) %&gt;% 
+    pivot_wider(names_from = p2, values_from = singletons) %&gt;%
+    remove_rownames() %&gt;%
+    column_to_rownames(var = &#39;p1&#39;)
+
+  exp_s &lt;- get_mar(singleton_tab) * get_int(control_tab)
+  exp_p_s &lt;- exp_s / sum(exp_s) # normalize
+  exp_s &lt;- exp_p_s * sum(singleton_tab)
+  #chi_sq &lt;- (exp_s - singleton_tab)^2 / exp_s
+  
+  p_s &lt;- singleton_tab / sum(singleton_tab)
+  re &lt;- p_s * log(p_s / exp_p_s)
+  final &lt;- rownames_to_column(re, &quot;p1&quot;) %&gt;% 
+    pivot_longer(-p1, names_to = &quot;p2&quot;, values_to = &quot;statistic&quot;)
+  
+  return(final)
+}
+
+plot_control_mult_res &lt;- function(population, subtype, p1, p2){
+  df &lt;- control_int_mult_res(population, subtype, p1, p2)
+  p &lt;- df %&gt;%
+    ggplot(aes(x = p2, y = p1, fill = statistic)) +
+    geom_tile() +
+    scale_fill_distiller(palette = &quot;RdBu&quot;) +
+    ggtitle(&quot;Singleton di-nucleotide Enrichment/Depletion&quot;) +
+    xlab(&quot;Relative Position 2&quot;) + 
+    ylab(&quot;Relative Position 1&quot;) +
+    labs(fill=&quot;RE&quot;)
+  return(p)
+}</code></pre>
+<p>So, again returning to the example of -2, -1 in AT_GC:</p>
+<pre class="r"><code>plot_control_mult_res(&quot;ALL&quot;, &quot;AT_GC&quot;, -2, -1)</code></pre>
+<p><img src="figure/1000G_two_positions_ALL.Rmd/unnamed-chunk-49-1.png" width="672" style="display: block; margin: auto;" /></p>
 <br>
 <p>
 <button type="button" class="btn btn-default btn-workflowr btn-workflowr-sessioninfo" data-toggle="collapse" data-target="#workflowr-sessioninfo" style="display: block;">
@@ -3955,6 +4645,7 @@ loaded via a namespace (and not attached):
 [65] bit_4.0.4          utf8_1.2.2         rprojroot_2.0.2    stringi_1.7.6     
 [69] parallel_4.2.0     Rcpp_1.0.8         vctrs_0.3.8        dbplyr_2.1.1      
 [73] tidyselect_1.1.1   xfun_0.29         </code></pre>
+</div>
 </div>
 </div>
 </div>
