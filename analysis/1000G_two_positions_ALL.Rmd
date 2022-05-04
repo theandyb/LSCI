@@ -71,7 +71,14 @@ stat_pair_all <- function(population, subtype, stat_func, r_start=1, ...){
 heatmap_plot <- function(population, subtype, 
                          statistic_function, plot_title, fill_label, r_start = 1, ...){
   df <- stat_pair_all(population, subtype, statistic_function, r_start, ...)
-  subtype2 <- str_replace(subtype, "_", " -> ")
+  
+  if(!str_starts(subtype, "cpg")){
+    subtype2 <- str_replace(subtype, "_", " -> ")
+  } else {
+    subtype <- str_sub(subtype, 5)
+    subtype2 <- paste0("(cpg) ", str_replace(subtype, "_", " -> "))
+  }
+  
   p <- df %>%
     ggplot(aes(x = p2, y = p1, fill = statistic)) +
     geom_tile() +
@@ -356,7 +363,7 @@ control_mult_int_plot <- function(population, subtype, r_start = 1, type = "gof"
   }
   p <- heatmap_plot(population, subtype, control_int_mult_pair, 
                     "Control Estimate Interaction: ",
-                    l_title, r_start ,type)
+                    l_title, r_start , type)
   return(p)
 }
 ```
@@ -393,13 +400,14 @@ p <- control_mult_int_plot("ALL", subtype, type = "re")
 print(p)
 ```
 
-### GC_AT
+### cpg_GC_AT
 
 ```{r}
 subtype <- "cpg_GC_AT"
 p <- control_mult_int_plot("ALL", subtype, type = "re")
 print(p)
 ```
+
 
 ### GC_TA
 
@@ -409,7 +417,7 @@ p <- control_mult_int_plot("ALL", subtype, type = "re")
 print(p)
 ```
 
-### GC_TA
+### cpg_GC_TA
 
 ```{r}
 subtype <- "cpg_GC_TA"
@@ -672,5 +680,61 @@ And now we plot the signed re residuals for the A>G sub type:
 
 ```{r}
 heatmap_signed_re_res("AT_GC", "ALL", -2, -1)
+```
+
+## Alternative Di-nucleotide Residuals
+
+### RE Contribution (Control Intercept Estimation)
+
+In the analysis above where we used the control samples to estimate the interaction and then adjusted marginal products using this interaction, we computed the relative entropy between our observed singleton distribution and the expectation under marginal independence adjusted by control interaction as our measure of influence. This statistic is the sum of expected logarithmic differences for each cell in the 4x4 table, and we will look at these individual values to assess at each pair of positions which di-nucleotides were either over or under-represented. We can also look at values for individual nucleotides at one position summed over the nucleotides at the other position (not sure how this would be interpreted, to be honest).
+
+```{r}
+control_int_mult_res <- function(population, subtype, p1, p2) {
+  data_dir <- "/net/snowwhite/home/beckandy/research/1000G_LSCI/output/all_count_2_pos/"
+  f_name <- paste0(data_dir, population, "/", subtype, "_p", p1, "_q", p2, ".csv")
+  df <- read_csv(f_name, col_types = cols()) %>%
+    filter(singletons > 0)
+  control_tab <- df %>% 
+    select(p1, p2, controls) %>% 
+    pivot_wider(names_from = p2, values_from = controls) %>%
+    remove_rownames() %>%
+    column_to_rownames(var = 'p1')
+  singleton_tab <- df %>% 
+    select(p1, p2, singletons) %>% 
+    pivot_wider(names_from = p2, values_from = singletons) %>%
+    remove_rownames() %>%
+    column_to_rownames(var = 'p1')
+
+  exp_s <- get_mar(singleton_tab) * get_int(control_tab)
+  exp_p_s <- exp_s / sum(exp_s) # normalize
+  exp_s <- exp_p_s * sum(singleton_tab)
+  #chi_sq <- (exp_s - singleton_tab)^2 / exp_s
+  
+  p_s <- singleton_tab / sum(singleton_tab)
+  re <- p_s * log(p_s / exp_p_s)
+  final <- rownames_to_column(re, "p1") %>% 
+    pivot_longer(-p1, names_to = "p2", values_to = "statistic")
+  
+  return(final)
+}
+
+plot_control_mult_res <- function(population, subtype, p1, p2){
+  df <- control_int_mult_res(population, subtype, p1, p2)
+  p <- df %>%
+    ggplot(aes(x = p2, y = p1, fill = statistic)) +
+    geom_tile() +
+    scale_fill_distiller(palette = "RdBu") +
+    ggtitle("Singleton di-nucleotide Enrichment/Depletion") +
+    xlab("Relative Position 2") + 
+    ylab("Relative Position 1") +
+    labs(fill="RE")
+  return(p)
+}
+```
+
+So, again returning to the example of -2, -1 in AT_GC:
+
+```{r}
+plot_control_mult_res("ALL", "AT_GC", -2, -1)
 ```
 
