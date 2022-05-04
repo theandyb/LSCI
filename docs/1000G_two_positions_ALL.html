@@ -15,6 +15,7 @@
 
 <title>1000G_two_positions_ALL</title>
 
+<script src="site_libs/header-attrs-2.11/header-attrs.js"></script>
 <script src="site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <link href="site_libs/bootstrap-3.3.5/css/flatly.min.css" rel="stylesheet" />
@@ -46,6 +47,8 @@ div.section {
   padding-top: 12px;
 }
 </style>
+
+
 
 <style type="text/css">
   code{white-space: pre-wrap;}
@@ -358,7 +361,9 @@ div.tocify {
 
 <p>
 <button type="button" class="btn btn-default btn-workflowr btn-workflowr-report" data-toggle="collapse" data-target="#workflowr-report">
-<span class="glyphicon glyphicon-list" aria-hidden="true"></span> workflowr <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span>
+<span class="glyphicon glyphicon-list" aria-hidden="true"></span>
+workflowr <span class="glyphicon glyphicon-ok text-success"
+aria-hidden="true"></span>
 </button>
 </p>
 <div id="workflowr-report" class="collapse">
@@ -367,7 +372,9 @@ div.tocify {
 <a data-toggle="tab" href="#summary">Summary</a>
 </li>
 <li>
-<a data-toggle="tab" href="#checks"> Checks <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> </a>
+<a data-toggle="tab" href="#checks"> Checks <span
+class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span>
+</a>
 </li>
 <li>
 <a data-toggle="tab" href="#versions">Past versions</a>
@@ -376,17 +383,27 @@ div.tocify {
 <div class="tab-content">
 <div id="summary" class="tab-pane fade in active">
 <p>
-<strong>Last updated:</strong> 2022-04-29
+<strong>Last updated:</strong> 2022-05-04
 </p>
 <p>
-<strong>Checks:</strong> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> 7 <span class="glyphicon glyphicon-exclamation-sign text-danger" aria-hidden="true"></span> 0
+<strong>Checks:</strong> <span
+class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> 7
+<span class="glyphicon glyphicon-exclamation-sign text-danger"
+aria-hidden="true"></span> 0
 </p>
 <p>
-<strong>Knit directory:</strong> <code>LSCI/</code> <span class="glyphicon glyphicon-question-sign" aria-hidden="true" title="This is the local directory in which the code in this file was executed."> </span>
+<strong>Knit directory:</strong> <code>LSCI/</code> <span
+class="glyphicon glyphicon-question-sign" aria-hidden="true"
+title="This is the local directory in which the code in this file was executed.">
+</span>
 </p>
 <p>
-This reproducible <a href="https://rmarkdown.rstudio.com">R Markdown</a> analysis was created with <a
-  href="https://github.com/workflowr/workflowr">workflowr</a> (version 1.7.0). The <em>Checks</em> tab describes the reproducibility checks that were applied when the results were created. The <em>Past versions</em> tab lists the development history.
+This reproducible <a href="https://rmarkdown.rstudio.com">R Markdown</a>
+analysis was created with <a
+  href="https://github.com/workflowr/workflowr">workflowr</a> (version
+1.7.0). The <em>Checks</em> tab describes the reproducibility checks
+that were applied when the results were created. The <em>Past
+versions</em> tab lists the development history.
 </p>
 <hr>
 </div>
@@ -395,97 +412,145 @@ This reproducible <a href="https://rmarkdown.rstudio.com">R Markdown</a> analysi
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRMarkdownfilestronguptodate"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>R Markdown file:</strong> up-to-date </a>
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRMarkdownfilestronguptodate">
+<span class="glyphicon glyphicon-ok text-success"
+aria-hidden="true"></span> <strong>R Markdown file:</strong> up-to-date
+</a>
 </p>
 </div>
-<div id="strongRMarkdownfilestronguptodate" class="panel-collapse collapse">
+<div id="strongRMarkdownfilestronguptodate"
+class="panel-collapse collapse">
 <div class="panel-body">
-<p>Great! Since the R Markdown file has been committed to the Git repository, you know the exact version of the code that produced these results.</p>
+<p>Great! Since the R Markdown file has been committed to the Git
+repository, you know the exact version of the code that produced these
+results.</p>
 </div>
 </div>
 </div>
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongEnvironmentstrongempty"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Environment:</strong> empty </a>
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongEnvironmentstrongempty">
+<span class="glyphicon glyphicon-ok text-success"
+aria-hidden="true"></span> <strong>Environment:</strong> empty </a>
 </p>
 </div>
 <div id="strongEnvironmentstrongempty" class="panel-collapse collapse">
 <div class="panel-body">
-<p>Great job! The global environment was empty. Objects defined in the global environment can affect the analysis in your R Markdown file in unknown ways. For reproduciblity it's best to always run the code in an empty environment.</p>
+<p>Great job! The global environment was empty. Objects defined in the
+global environment can affect the analysis in your R Markdown file in
+unknown ways. For reproduciblity it’s best to always run the code in an
+empty environment.</p>
 </div>
 </div>
 </div>
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongSeedstrongcodesetseed20211101code"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Seed:</strong> <code>set.seed(20211101)</code> </a>
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongSeedstrongcodesetseed20211101code">
+<span class="glyphicon glyphicon-ok text-success"
+aria-hidden="true"></span> <strong>Seed:</strong>
+<code>set.seed(20211101)</code> </a>
 </p>
 </div>
-<div id="strongSeedstrongcodesetseed20211101code" class="panel-collapse collapse">
+<div id="strongSeedstrongcodesetseed20211101code"
+class="panel-collapse collapse">
 <div class="panel-body">
-<p>The command <code>set.seed(20211101)</code> was run prior to running the code in the R Markdown file. Setting a seed ensures that any results that rely on randomness, e.g. subsampling or permutations, are reproducible.</p>
+<p>The command <code>set.seed(20211101)</code> was run prior to running
+the code in the R Markdown file. Setting a seed ensures that any results
+that rely on randomness, e.g. subsampling or permutations, are
+reproducible.</p>
 </div>
 </div>
 </div>
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongSessioninformationstrongrecorded"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Session information:</strong> recorded </a>
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongSessioninformationstrongrecorded">
+<span class="glyphicon glyphicon-ok text-success"
+aria-hidden="true"></span> <strong>Session information:</strong>
+recorded </a>
 </p>
 </div>
-<div id="strongSessioninformationstrongrecorded" class="panel-collapse collapse">
+<div id="strongSessioninformationstrongrecorded"
+class="panel-collapse collapse">
 <div class="panel-body">
-<p>Great job! Recording the operating system, R version, and package versions is critical for reproducibility.</p>
+<p>Great job! Recording the operating system, R version, and package
+versions is critical for reproducibility.</p>
 </div>
 </div>
 </div>
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongCachestrongnone"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Cache:</strong> none </a>
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongCachestrongnone">
+<span class="glyphicon glyphicon-ok text-success"
+aria-hidden="true"></span> <strong>Cache:</strong> none </a>
 </p>
 </div>
 <div id="strongCachestrongnone" class="panel-collapse collapse">
 <div class="panel-body">
-<p>Nice! There were no cached chunks for this analysis, so you can be confident that you successfully produced the results during this run.</p>
+<p>Nice! There were no cached chunks for this analysis, so you can be
+confident that you successfully produced the results during this
+run.</p>
 </div>
 </div>
 </div>
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongFilepathsstrongrelative"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>File paths:</strong> relative </a>
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongFilepathsstrongrelative">
+<span class="glyphicon glyphicon-ok text-success"
+aria-hidden="true"></span> <strong>File paths:</strong> relative </a>
 </p>
 </div>
 <div id="strongFilepathsstrongrelative" class="panel-collapse collapse">
 <div class="panel-body">
-<p>Great job! Using relative paths to the files within your workflowr project makes it easier to run your code on other machines.</p>
+<p>Great job! Using relative paths to the files within your workflowr
+project makes it easier to run your code on other machines.</p>
 </div>
 </div>
 </div>
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomtheandybLSCItree8785a91e1d687fc9f5da45833be192b5d83de1e9targetblank8785a91a"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/theandyb/LSCI/tree/8785a91e1d687fc9f5da45833be192b5d83de1e9" target="_blank">8785a91</a> </a>
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomtheandybLSCItreea1fa023fd7ac0336eff85572b0291ad85fedea21targetblanka1fa023a">
+<span class="glyphicon glyphicon-ok text-success"
+aria-hidden="true"></span> <strong>Repository version:</strong>
+<a href="https://github.com/theandyb/LSCI/tree/a1fa023fd7ac0336eff85572b0291ad85fedea21" target="_blank">a1fa023</a>
+</a>
 </p>
 </div>
-<div id="strongRepositoryversionstrongahrefhttpsgithubcomtheandybLSCItree8785a91e1d687fc9f5da45833be192b5d83de1e9targetblank8785a91a" class="panel-collapse collapse">
+<div
+id="strongRepositoryversionstrongahrefhttpsgithubcomtheandybLSCItreea1fa023fd7ac0336eff85572b0291ad85fedea21targetblanka1fa023a"
+class="panel-collapse collapse">
 <div class="panel-body">
 <p>
-Great! You are using Git for version control. Tracking code development and connecting the code version to the results is critical for reproducibility.
+Great! You are using Git for version control. Tracking code development
+and connecting the code version to the results is critical for
+reproducibility.
 </p>
 <p>
-The results in this page were generated with repository version <a href="https://github.com/theandyb/LSCI/tree/8785a91e1d687fc9f5da45833be192b5d83de1e9" target="_blank">8785a91</a>. See the <em>Past versions</em> tab to see a history of the changes made to the R Markdown and HTML files.
+The results in this page were generated with repository version
+<a href="https://github.com/theandyb/LSCI/tree/a1fa023fd7ac0336eff85572b0291ad85fedea21" target="_blank">a1fa023</a>.
+See the <em>Past versions</em> tab to see a history of the changes made
+to the R Markdown and HTML files.
 </p>
 <p>
-Note that you need to be careful to ensure that all relevant files for the analysis have been committed to Git prior to generating the results (you can use <code>wflow_publish</code> or <code>wflow_git_commit</code>). workflowr only checks the R Markdown file, but you know if there are other scripts or data files that it depends on. Below is the status of the Git repository when the results were generated:
+Note that you need to be careful to ensure that all relevant files for
+the analysis have been committed to Git prior to generating the results
+(you can use <code>wflow_publish</code> or
+<code>wflow_git_commit</code>). workflowr only checks the R Markdown
+file, but you know if there are other scripts or data files that it
+depends on. Below is the status of the Git repository when the results
+were generated:
 </p>
 <pre><code>
 Ignored files:
     Ignored:    .Rhistory
     Ignored:    .Rproj.user/
     Ignored:    analysis/disqus.html
+    Ignored:    analysis/figure/
     Ignored:    code/random/
 
 Untracked files:
@@ -498,7 +563,9 @@ Unstaged changes:
 
 </code></pre>
 <p>
-Note that any generated files, e.g. HTML, png, CSS, etc., are not included in this status report because it is ok for generated content to have uncommitted changes.
+Note that any generated files, e.g. HTML, png, CSS, etc., are not
+included in this status report because it is ok for generated content to
+have uncommitted changes.
 </p>
 </div>
 </div>
@@ -509,7 +576,13 @@ Note that any generated files, e.g. HTML, png, CSS, etc., are not included in th
 <div id="versions" class="tab-pane fade">
 
 <p>
-These are the previous versions of the repository in which changes were made to the R Markdown (<code>analysis/1000G_two_positions_ALL.Rmd</code>) and HTML (<code>docs/1000G_two_positions_ALL.html</code>) files. If you've configured a remote Git repository (see <code>?wflow_git_remote</code>), click on the hyperlinks in the table below to view the files as they were in that past version.
+These are the previous versions of the repository in which changes were
+made to the R Markdown
+(<code>analysis/1000G_two_positions_ALL.Rmd</code>) and HTML
+(<code>docs/1000G_two_positions_ALL.html</code>) files. If you’ve
+configured a remote Git repository (see <code>?wflow_git_remote</code>),
+click on the hyperlinks in the table below to view the files as they
+were in that past version.
 </p>
 <div class="table-responsive">
 <table class="table table-condensed table-hover">
@@ -538,6 +611,40 @@ Message
 Rmd
 </td>
 <td>
+<a href="https://github.com/theandyb/LSCI/blob/a1fa023fd7ac0336eff85572b0291ad85fedea21/analysis/1000G_two_positions_ALL.Rmd" target="_blank">a1fa023</a>
+</td>
+<td>
+Andy Beck
+</td>
+<td>
+2022-05-04
+</td>
+<td>
+wflow_publish("analysis/1000G_two_positions_ALL.Rmd")
+</td>
+</tr>
+<tr>
+<td>
+html
+</td>
+<td>
+<a href="https://rawcdn.githack.com/theandyb/LSCI/d206789c1741f96d849c980167670cda330a86fa/docs/1000G_two_positions_ALL.html" target="_blank">d206789</a>
+</td>
+<td>
+Andy Beck
+</td>
+<td>
+2022-04-29
+</td>
+<td>
+Build site.
+</td>
+</tr>
+<tr>
+<td>
+Rmd
+</td>
+<td>
 <a href="https://github.com/theandyb/LSCI/blob/8785a91e1d687fc9f5da45833be192b5d83de1e9/analysis/1000G_two_positions_ALL.Rmd" target="_blank">8785a91</a>
 </td>
 <td>
@@ -547,7 +654,7 @@ Andy Beck
 2022-04-29
 </td>
 <td>
-wflow_publish(&quot;analysis/1000G_two_positions_ALL.Rmd&quot;)
+wflow_publish("analysis/1000G_two_positions_ALL.Rmd")
 </td>
 </tr>
 <tr>
@@ -581,7 +688,7 @@ Andy Beck
 2022-04-28
 </td>
 <td>
-wflow_publish(&quot;analysis/1000G_two_positions_ALL.Rmd&quot;)
+wflow_publish("analysis/1000G_two_positions_ALL.Rmd")
 </td>
 </tr>
 <tr>
@@ -615,7 +722,7 @@ Andy Beck
 2022-04-28
 </td>
 <td>
-wflow_publish(&quot;analysis/1000G_two_positions_ALL.Rmd&quot;)
+wflow_publish("analysis/1000G_two_positions_ALL.Rmd")
 </td>
 </tr>
 <tr>
@@ -666,7 +773,8 @@ Andy Beck
 2022-04-21
 </td>
 <td>
-wflow_publish(c(&quot;analysis/1000G_single_position_ALL.Rmd&quot;, &quot;analysis/1000G_two_positions_ALL.Rmd&quot;))
+wflow_publish(c("analysis/1000G_single_position_ALL.Rmd",
+"analysis/1000G_two_positions_ALL.Rmd"))
 </td>
 </tr>
 <tr>
@@ -700,7 +808,7 @@ Andy Beck
 2022-01-26
 </td>
 <td>
-wflow_publish(c(&quot;analysis/1000G_two_positions_ALL.Rmd&quot;))
+wflow_publish(c("analysis/1000G_two_positions_ALL.Rmd"))
 </td>
 </tr>
 <tr>
@@ -734,7 +842,8 @@ Andy Beck
 2022-01-20
 </td>
 <td>
-wflow_publish(c(&quot;analysis/1000G_two_positions_ALL.Rmd&quot;, &quot;analysis/1000G_two_postions_comp.Rmd&quot;))
+wflow_publish(c("analysis/1000G_two_positions_ALL.Rmd",
+"analysis/1000G_two_postions_comp.Rmd"))
 </td>
 </tr>
 <tr>
@@ -882,65 +991,134 @@ flesh out some pages
 </div>
 <div id="g-two-position-models" class="section level1">
 <h1>1000G Two Position Models</h1>
-<div id="introduction" class="section level2">
-<h2>Introduction</h2>
-<p>In a <a href="1000G_single_position_ALL.html">previous document</a> we evaluated the influence of individual positions on the mutation rate as a function of relative position. In do this we marginalized over the nucleotides at other positions, ignoring any potential interaction effect. Here in this document we will being to explore the extent to which interactions among flanking positions influence the rate of substitution at a focal site by first focusing on two-way interactions.</p>
-<p>Challenges we face here are:</p>
-<ol style="list-style-type: decimal">
-<li>We know that the marginal distributions at single positions in our control samples (and the genome-wide background rate) don't match corresponding marginals in the singletons</li>
-<li>When considering the 2-way contingency table at each pair of positions, the row and column marginals don't predict the observed 4x4 cells in the genome-wide and control counts (i.e. the nucleotides at the two positions are not independent)</li>
-</ol>
-</div>
-<div id="chi-square-test-of-independence" class="section level2">
-<h2>Chi-Square Test of Independence</h2>
-<p>For this analysis we'll be looking at only our singleton counts. For each sub type at each pair of positions we observe a 4x4 2-way contingency table. Performing a chi square test of independence asks if we have evidence to reject the null hypothesis that the two &quot;variables&quot; (sites) are independent; i.e. the number of times we see AA is the product of the row marginal for A and the column marginal for A, etc.</p>
-<p>This may seem like a silly thing to do since we already know genome-wide the rate of di-nucleotides is not predicted by the product of the frequency of the two nucleotides. It is in fact the case that this pattern is also observed in the singleton counts, and nothing here is probably worth mentioning in the paper. But anyways, here are those results.</p>
-<p>First let's write the code to generate the 4x4 contingency table at a single pair of positions for a sub type:</p>
-<pre class="r"><code>singleton_count_2pos &lt;- function(population, subtype, p1, p2){
-  
-  data_dir &lt;- &quot;/net/snowwhite/home/beckandy/research/1000G_LSCI/output/all_count_2_pos/&quot;
+<div id="preface-shared-code" class="section level2">
+<h2>Preface: Shared Code</h2>
+<pre class="r"><code>#&#39; Get contingency table for two positions
+#&#39;
+#&#39; @param population 1KGP superpopulation code
+#&#39; @param subtype Basic mutation subtype
+#&#39; @param p1 First relative position
+#&#39; @param p2 Second relative position
+#&#39; @param data_dir Location of count tables
+#&#39; @return Count table
+singleton_count_2pos &lt;- function(population, subtype, p1, p2,
+                                 data_dir = &quot;/net/snowwhite/home/beckandy/research/1000G_LSCI/output/all_count_2_pos/&quot;){
   f_name &lt;- paste0(data_dir, population, &quot;/&quot;, subtype, &quot;_p&quot;, p1, &quot;_q&quot;, p2, &quot;.csv&quot;)
   df &lt;- read_csv(f_name, col_types = cols()) %&gt;%
     filter(singletons &gt; 0)
   df_tab &lt;- xtabs(singletons ~ p1 + p2, data = df)
   return(df_tab)
-}</code></pre>
-<p>And then we'll want code to get the statistic at each pair of positions for a sub type:</p>
-<pre class="r"><code>chi_sq_ind_all &lt;- function(population, subtype){
+}
+
+#&#39; Perform statistical test for singleton counts stratified by nucleotides at two flanking positions
+#&#39; @param population 1KGP superpopulation code
+#&#39; @param subtype Simple mutation subtype
+#&#39; @param stat_func Function to get statistic for pair of positions
+#&#39; @return Data.frame with statistics at each pair of positions
+stat_pair_all &lt;- function(population, subtype, stat_func, r_start=1, ...){
   final &lt;- data.frame(p1 = numeric(),
                       p2 = numeric(),
                       statistic = numeric())
-  for(i in c(-10:-1,1:9)){
+  for(i in c(-10:-1,r_start:9)){
     for(j in (i+1):10){
       if(j == 0) next
-      df_tab &lt;- singleton_count_2pos(population, subtype, i, j)
-      stat_val &lt;- (chisq.test(df_tab)$statistic %&gt;% unname())
+      if(j == 1 &amp; r_start &gt; 1) next
+      stat_val &lt;- stat_func(population, subtype, i, j, ...)
       final &lt;- bind_rows(final, data.frame(p1 = i,
                                            p2 = j,
                                            statistic = stat_val))
     }
   }
   return(final)
-}</code></pre>
-<p>Naturally we'll want to plot these results to see what patterns we observe across pairs of positions:</p>
-<pre class="r"><code>chi_sq_ind_plot &lt;- function(population, subtype){
-  df &lt;- chi_sq_ind_all(population, subtype)
+}
+
+#&#39; Heatmap plot for two-position statistics
+#&#39; 
+#&#39; @param population 1KGP super-population code
+#&#39; @param subtype Simple mutation subtype
+#&#39; @param statistic_function Function which returns data frame with statistic at pairs of positions
+#&#39; @param plot_title Text to begin plot title
+#&#39; @param fill_label Legend title
+#&#39; @return Figure with statistic values at each pair of positions
+heatmap_plot &lt;- function(population, subtype, 
+                         statistic_function, plot_title, fill_label, r_start = 1, ...){
+  df &lt;- stat_pair_all(population, subtype, statistic_function, r_start, ...)
   subtype2 &lt;- str_replace(subtype, &quot;_&quot;, &quot; -&gt; &quot;)
   p &lt;- df %&gt;%
     ggplot(aes(x = p2, y = p1, fill = statistic)) +
     geom_tile() +
-    ggtitle(paste0(&quot;Chi-Sq Test of Independence: &quot;, subtype2),
+    ggtitle(paste0(plot_title, subtype2),
             paste0(&quot;Population: &quot;, population,
                    &quot;; Min: &quot;, round(min(df$statistic), 2), 
                    &quot;; Max: &quot;, round(max(df$statistic), 2)))+
     xlab(&quot;Relative Position 2&quot;) +
     ylab(&quot;Relative Position 1&quot;) +
-    labs(fill = &quot;Chi Square Statistic&quot;) +
+    labs(fill = fill_label) +
     scale_fill_distiller(palette = &quot;Reds&quot;, direction = 1)
+  return(p)
+}</code></pre>
+</div>
+<div id="introduction" class="section level2">
+<h2>Introduction</h2>
+<p>In a <a href="1000G_single_position_ALL.html">previous document</a>
+we evaluated the influence of individual positions on the mutation rate
+as a function of relative position. In do this we marginalized over the
+nucleotides at other positions, ignoring any potential interaction
+effect. Here in this document we will being to explore the extent to
+which interactions among flanking positions influence the rate of
+substitution at a focal site by first focusing on two-way
+interactions.</p>
+<p>Challenges we face here are:</p>
+<ol style="list-style-type: decimal">
+<li>We know that the marginal distributions at single positions in our
+control samples (and the genome-wide background rate) don’t match
+corresponding marginals in the singletons</li>
+<li>When considering the 2-way contingency table at each pair of
+positions, the row and column marginals don’t predict the observed 4x4
+cells in the genome-wide and control counts (i.e. the nucleotides at the
+two positions are not independent)</li>
+</ol>
+</div>
+<div id="chi-square-test-of-independence" class="section level2">
+<h2>Chi-Square Test of Independence</h2>
+<p>For this analysis we’ll be looking at only our singleton counts. For
+each sub type at each pair of positions we observe a 4x4 2-way
+contingency table. Performing a chi square test of independence asks if
+we have evidence to reject the null hypothesis that the two “variables”
+(sites) are independent; i.e. the number of times we see AA is the
+product of the row marginal for A and the column marginal for A,
+etc.</p>
+<p>This may seem like a silly thing to do since we already know
+genome-wide the rate of di-nucleotides is not predicted by the product
+of the frequency of the two nucleotides. It is in fact the case that
+this pattern is also observed in the singleton counts, and nothing here
+is probably worth mentioning in the paper. But anyways, here are those
+results.</p>
+<pre class="r"><code>#&#39; Perform chi-sq test of independence for singleton counts stratified by nucleotides at two flanking positions
+#&#39; @param population 1KGP superpopulation code
+#&#39; @param subtype Simple mutation subtype
+#&#39; @return Chi square statistic
+chi_sq_ind &lt;- function(population, subtype, p1, p2){
+  df_tab &lt;- singleton_count_2pos(population, subtype, p1, p2)
+  stat_val &lt;- (chisq.test(df_tab)$statistic %&gt;% unname())
+  return(stat_val)
+}
+
+chi_sq_ind_plot &lt;- function(population, subtype){
+  p &lt;- heatmap_plot(population, subtype, chi_sq_ind, &quot;Chi Sq Test of Independence: &quot;, &quot;Chi Sq Statistic&quot;)
   return(p)
 }</code></pre>
 <div id="at_cg" class="section level3">
 <h3>AT_CG</h3>
+<p><img src="figure/1000G_two_positions_ALL.Rmd/unnamed-chunk-4-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>We see here the expected pattern that directly adjacent
+di-nucloetides are not observed at frequencies suggested by the product
+of their marginal frequencies, even when looking only at those seen
+flanking a singleton. Might I eventually want to look at a version of
+this that isn’t heavily affected by the large sample size? Maybe.</p>
+</div>
+<div id="at_gc" class="section level3">
+<h3>AT_GC</h3>
 <p><img src="figure/1000G_two_positions_ALL.Rmd/unnamed-chunk-5-1.png" width="672" style="display: block; margin: auto;" /></p>
 <p>
 <button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-5-1">
@@ -990,10 +1168,9 @@ Andy Beck
 </table>
 </div>
 </div>
-<p>We see here the expected pattern that directly adjacent di-nucloetides are not observed at frequencies suggested by the product of their marginal frequencies, even when looking only at those seen flanking a singleton. Might I eventually want to look at a version of this that isn't heavily affected by the large sample size? Maybe.</p>
 </div>
-<div id="at_gc" class="section level3">
-<h3>AT_GC</h3>
+<div id="at_ta" class="section level3">
+<h3>AT_TA</h3>
 <p><img src="figure/1000G_two_positions_ALL.Rmd/unnamed-chunk-6-1.png" width="672" style="display: block; margin: auto;" /></p>
 <p>
 <button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-6-1">
@@ -1044,8 +1221,8 @@ Andy Beck
 </div>
 </div>
 </div>
-<div id="at_ta" class="section level3">
-<h3>AT_TA</h3>
+<div id="gc_at" class="section level3">
+<h3>GC_AT</h3>
 <p><img src="figure/1000G_two_positions_ALL.Rmd/unnamed-chunk-7-1.png" width="672" style="display: block; margin: auto;" /></p>
 <p>
 <button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-7-1">
@@ -1096,8 +1273,8 @@ Andy Beck
 </div>
 </div>
 </div>
-<div id="gc_at" class="section level3">
-<h3>GC_AT</h3>
+<div id="cpg_gc_at" class="section level3">
+<h3>cpg_GC_AT</h3>
 <p><img src="figure/1000G_two_positions_ALL.Rmd/unnamed-chunk-8-1.png" width="672" style="display: block; margin: auto;" /></p>
 <p>
 <button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-8-1">
@@ -1148,8 +1325,8 @@ Andy Beck
 </div>
 </div>
 </div>
-<div id="cpg_gc_at" class="section level3">
-<h3>cpg_GC_AT</h3>
+<div id="gc_ta" class="section level3">
+<h3>GC_TA</h3>
 <p><img src="figure/1000G_two_positions_ALL.Rmd/unnamed-chunk-9-1.png" width="672" style="display: block; margin: auto;" /></p>
 <p>
 <button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-9-1">
@@ -1200,8 +1377,8 @@ Andy Beck
 </div>
 </div>
 </div>
-<div id="gc_ta" class="section level3">
-<h3>GC_TA</h3>
+<div id="cpg_gc_ta" class="section level3">
+<h3>cpg_GC_TA</h3>
 <p><img src="figure/1000G_two_positions_ALL.Rmd/unnamed-chunk-10-1.png" width="672" style="display: block; margin: auto;" /></p>
 <p>
 <button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-10-1">
@@ -1252,63 +1429,18 @@ Andy Beck
 </div>
 </div>
 </div>
-<div id="cpg_gc_ta" class="section level3">
-<h3>cpg_GC_TA</h3>
-<p><img src="figure/1000G_two_positions_ALL.Rmd/unnamed-chunk-11-1.png" width="672" style="display: block; margin: auto;" /></p>
-<p>
-<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-11-1">
-Past versions of unnamed-chunk-11-1.png
-</button>
-</p>
-<div id="fig-unnamed-chunk-11-1" class="collapse">
-<div class="table-responsive">
-<table class="table table-condensed table-hover">
-<thead>
-<tr>
-<th>
-Version
-</th>
-<th>
-Author
-</th>
-<th>
-Date
-</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>
-<a href="https://github.com/theandyb/LSCI/blob/4643ea1a35afece317dde7b808200afca76a8b0b/docs/figure/1000G_two_positions_ALL.Rmd/unnamed-chunk-11-1.png" target="_blank">4643ea1</a>
-</td>
-<td>
-Andy Beck
-</td>
-<td>
-2022-01-20
-</td>
-</tr>
-<tr>
-<td>
-<a href="https://github.com/theandyb/LSCI/blob/ac3b368b8972b63cf5fd3267a2573e29d47ab89c/docs/figure/1000G_two_positions_ALL.Rmd/unnamed-chunk-11-1.png" target="_blank">ac3b368</a>
-</td>
-<td>
-Andy Beck
-</td>
-<td>
-2021-11-08
-</td>
-</tr>
-</tbody>
-</table>
 </div>
-</div>
-</div>
-</div>
-<div id="goodness-of-fit-estimate-distribution-with-controls" class="section level2">
+<div id="goodness-of-fit-estimate-distribution-with-controls"
+class="section level2">
 <h2>Goodness of Fit: Estimate Distribution with Controls</h2>
-<p>The idea here is to estimate the frequency of flanking dimers using the dimers we observe flanking control positions. This ignores the fact that the distribution of individual flanking nucleotides has already been shown to differ between the singletons and the matched controls; what I think we want is a way to test for an interaction while accounting for the different individual marginals.</p>
-<p>But anyways, here's the code to get the chi square GOF statistic for a given sub type at a pair of positions:</p>
+<p>The idea here is to estimate the frequency of flanking dimers using
+the dimers we observe flanking control positions. This ignores the fact
+that the distribution of individual flanking nucleotides has already
+been shown to differ between the singletons and the matched controls;
+what I think we want is a way to test for an interaction while
+accounting for the different individual marginals.</p>
+<p>But anyways, here’s the code to get the chi square GOF statistic for
+a given sub type at a pair of positions:</p>
 <pre class="r"><code>chi_sq_gof_pair &lt;- function(population, subtype, p1, p2) {
   data_dir &lt;- &quot;/net/snowwhite/home/beckandy/research/1000G_LSCI/output/all_count_2_pos/&quot;
   f_name &lt;- paste0(data_dir, population, &quot;/&quot;, subtype, &quot;_p&quot;, p1, &quot;_q&quot;, p2, &quot;.csv&quot;)
@@ -1332,44 +1464,131 @@ chi_sq_re_pair &lt;- function(population, subtype, p1, p2){
     mutate(re = p_s * log(p_s / p_c))
   return(sum(df$re))
 }</code></pre>
-<p>Naturally we will want this statistic for each population/subtype pair across all pairs of flanking positions:</p>
-<pre class="r"><code>chi_sq_gof_all &lt;- function(population, subtype, stat_func = chi_sq_gof_pair){
-  final &lt;- data.frame(p1 = numeric(),
-                      p2 = numeric(),
-                      statistic = numeric())
-  for(i in c(-10:-1,1:9)){
-    for(j in (i+1):10){
-      if(j == 0) next
-      stat_val &lt;- stat_func(population, subtype, i, j)
-      final &lt;- bind_rows(final, data.frame(p1 = i,
-                                           p2 = j,
-                                           statistic = stat_val))
-    }
-  }
-  return(final)
-}</code></pre>
-<p>Oh, I know, let's make plots as well!</p>
-<pre class="r"><code>chi_sq_gof_plot &lt;- function(population, subtype, stat_func = chi_sq_gof_pair, stat_lab = &quot;Chi Square Statistic&quot;){
-  df &lt;- chi_sq_gof_all(population, subtype, stat_func)
-  subtype2 &lt;- str_replace(subtype, &quot;_&quot;, &quot; -&gt; &quot;)
-  p &lt;- df %&gt;%
-    ggplot(aes(x = p2, y = p1, fill = statistic)) +
-    geom_tile() +
-    ggtitle(paste0(&quot;Control Distribution GOF: &quot;, subtype2),
-            paste0(&quot;Population: &quot;, population,
-                   &quot;; Min: &quot;, round(min(df$statistic), 2), 
-                   &quot;; Max: &quot;, round(max(df$statistic), 2)))+
-    xlab(&quot;Relative Position 2&quot;) +
-    ylab(&quot;Relative Position 1&quot;) +
-    labs(fill = stat_lab) +
-    scale_fill_distiller(palette = &quot;Reds&quot;, direction = 1) +
-    theme_classic()
+<pre class="r"><code>chi_sq_gof_plot &lt;- function(population, subtype){
+  p &lt;- heatmap_plot(population, subtype, chi_sq_gof_pair, 
+                    &quot;Control Di-Nucleotide Rate: &quot;, &quot;Chi Sq Statistic&quot;)
+  return(p)
+}
+
+chi_sq_re_plot &lt;- function(population, subtype){
+  p &lt;- heatmap_plot(population, subtype, chi_sq_re_pair, 
+                    &quot;Control Di-Nucleotide Rate: &quot;, &quot;Relative Entropy&quot;)
   return(p)
 }</code></pre>
 <div id="at_cg-1" class="section level3">
 <h3>AT_CG</h3>
 <pre class="r"><code>subtype &lt;- &quot;AT_CG&quot;
-p &lt;- chi_sq_gof_plot(&quot;ALL&quot;, subtype, chi_sq_re_pair, &quot;RE&quot;)
+p &lt;- chi_sq_re_plot(&quot;ALL&quot;, subtype)
+print(p)</code></pre>
+<p><img src="figure/1000G_two_positions_ALL.Rmd/unnamed-chunk-13-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-13-1">
+Past versions of unnamed-chunk-13-1.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-13-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/theandyb/LSCI/blob/8f1cb1a25f560e383d98dc8ab9180c403f2a90a5/docs/figure/1000G_two_positions_ALL.Rmd/unnamed-chunk-13-1.png" target="_blank">8f1cb1a</a>
+</td>
+<td>
+Andy Beck
+</td>
+<td>
+2022-04-21
+</td>
+</tr>
+<tr>
+<td>
+<a href="https://github.com/theandyb/LSCI/blob/ac3b368b8972b63cf5fd3267a2573e29d47ab89c/docs/figure/1000G_two_positions_ALL.Rmd/unnamed-chunk-13-1.png" target="_blank">ac3b368</a>
+</td>
+<td>
+Andy Beck
+</td>
+<td>
+2021-11-08
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+<div id="at_gc-1" class="section level3">
+<h3>AT_GC</h3>
+<pre class="r"><code>subtype &lt;- &quot;AT_GC&quot;
+p &lt;- chi_sq_re_plot(&quot;ALL&quot;, subtype)
+print(p)</code></pre>
+<p><img src="figure/1000G_two_positions_ALL.Rmd/unnamed-chunk-14-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-14-1">
+Past versions of unnamed-chunk-14-1.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-14-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/theandyb/LSCI/blob/8f1cb1a25f560e383d98dc8ab9180c403f2a90a5/docs/figure/1000G_two_positions_ALL.Rmd/unnamed-chunk-14-1.png" target="_blank">8f1cb1a</a>
+</td>
+<td>
+Andy Beck
+</td>
+<td>
+2022-04-21
+</td>
+</tr>
+<tr>
+<td>
+<a href="https://github.com/theandyb/LSCI/blob/ac3b368b8972b63cf5fd3267a2573e29d47ab89c/docs/figure/1000G_two_positions_ALL.Rmd/unnamed-chunk-14-1.png" target="_blank">ac3b368</a>
+</td>
+<td>
+Andy Beck
+</td>
+<td>
+2021-11-08
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+<div id="at_ta-1" class="section level3">
+<h3>AT_TA</h3>
+<pre class="r"><code>subtype &lt;- &quot;AT_TA&quot;
+p &lt;- chi_sq_re_plot(&quot;ALL&quot;, subtype)
 print(p)</code></pre>
 <p><img src="figure/1000G_two_positions_ALL.Rmd/unnamed-chunk-15-1.png" width="672" style="display: block; margin: auto;" /></p>
 <p>
@@ -1394,6 +1613,17 @@ Date
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+<a href="https://github.com/theandyb/LSCI/blob/d206789c1741f96d849c980167670cda330a86fa/docs/figure/1000G_two_positions_ALL.Rmd/unnamed-chunk-15-1.png" target="_blank">d206789</a>
+</td>
+<td>
+Andy Beck
+</td>
+<td>
+2022-04-29
+</td>
+</tr>
 <tr>
 <td>
 <a href="https://github.com/theandyb/LSCI/blob/46d5054caf0b1691ef18540963a6f5b3357dd47e/docs/figure/1000G_two_positions_ALL.Rmd/unnamed-chunk-15-1.png" target="_blank">46d5054</a>
@@ -1432,10 +1662,10 @@ Andy Beck
 </div>
 </div>
 </div>
-<div id="at_gc-1" class="section level3">
-<h3>AT_GC</h3>
-<pre class="r"><code>subtype &lt;- &quot;AT_GC&quot;
-p &lt;- chi_sq_gof_plot(&quot;ALL&quot;, subtype, chi_sq_re_pair, &quot;RE&quot;)
+<div id="gc_at-1" class="section level3">
+<h3>GC_AT</h3>
+<pre class="r"><code>subtype &lt;- &quot;GC_AT&quot;
+p &lt;- chi_sq_re_plot(&quot;ALL&quot;, subtype)
 print(p)</code></pre>
 <p><img src="figure/1000G_two_positions_ALL.Rmd/unnamed-chunk-16-1.png" width="672" style="display: block; margin: auto;" /></p>
 <p>
@@ -1460,6 +1690,17 @@ Date
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+<a href="https://github.com/theandyb/LSCI/blob/d206789c1741f96d849c980167670cda330a86fa/docs/figure/1000G_two_positions_ALL.Rmd/unnamed-chunk-16-1.png" target="_blank">d206789</a>
+</td>
+<td>
+Andy Beck
+</td>
+<td>
+2022-04-29
+</td>
+</tr>
 <tr>
 <td>
 <a href="https://github.com/theandyb/LSCI/blob/46d5054caf0b1691ef18540963a6f5b3357dd47e/docs/figure/1000G_two_positions_ALL.Rmd/unnamed-chunk-16-1.png" target="_blank">46d5054</a>
@@ -1498,10 +1739,10 @@ Andy Beck
 </div>
 </div>
 </div>
-<div id="at_ta-1" class="section level3">
-<h3>AT_TA</h3>
-<pre class="r"><code>subtype &lt;- &quot;AT_TA&quot;
-p &lt;- chi_sq_gof_plot(&quot;ALL&quot;, subtype, chi_sq_re_pair)
+<div id="cpg_gc_at-1" class="section level3">
+<h3>cpg_GC_AT</h3>
+<pre class="r"><code>subtype &lt;- &quot;cpg_GC_AT&quot;
+p &lt;- chi_sq_re_plot(&quot;ALL&quot;, subtype)
 print(p)</code></pre>
 <p><img src="figure/1000G_two_positions_ALL.Rmd/unnamed-chunk-17-1.png" width="672" style="display: block; margin: auto;" /></p>
 <p>
@@ -1564,10 +1805,10 @@ Andy Beck
 </div>
 </div>
 </div>
-<div id="gc_at-1" class="section level3">
-<h3>GC_AT</h3>
-<pre class="r"><code>subtype &lt;- &quot;GC_AT&quot;
-p &lt;- chi_sq_gof_plot(&quot;ALL&quot;, subtype, chi_sq_re_pair)
+<div id="gc_ta-1" class="section level3">
+<h3>GC_TA</h3>
+<pre class="r"><code>subtype &lt;- &quot;GC_TA&quot;
+p &lt;- chi_sq_re_plot(&quot;ALL&quot;, subtype)
 print(p)</code></pre>
 <p><img src="figure/1000G_two_positions_ALL.Rmd/unnamed-chunk-18-1.png" width="672" style="display: block; margin: auto;" /></p>
 <p>
@@ -1630,10 +1871,10 @@ Andy Beck
 </div>
 </div>
 </div>
-<div id="gc_ta-1" class="section level3">
-<h3>GC_TA</h3>
-<pre class="r"><code>subtype &lt;- &quot;GC_TA&quot;
-p &lt;- chi_sq_gof_plot(&quot;ALL&quot;, subtype, chi_sq_re_pair)
+<div id="cpg_gc_ta-1" class="section level3">
+<h3>cpg_GC_TA</h3>
+<pre class="r"><code>subtype &lt;- &quot;cpg_GC_TA&quot;
+p &lt;- chi_sq_re_plot(&quot;ALL&quot;, subtype)
 print(p)</code></pre>
 <p><img src="figure/1000G_two_positions_ALL.Rmd/unnamed-chunk-19-1.png" width="672" style="display: block; margin: auto;" /></p>
 <p>
@@ -1699,7 +1940,7 @@ Andy Beck
 <div id="gc_cg" class="section level3">
 <h3>GC_CG</h3>
 <pre class="r"><code>subtype &lt;- &quot;GC_CG&quot;
-p &lt;- chi_sq_gof_plot(&quot;ALL&quot;, subtype, chi_sq_re_pair)
+p &lt;- chi_sq_re_plot(&quot;ALL&quot;, subtype)
 print(p)</code></pre>
 <p><img src="figure/1000G_two_positions_ALL.Rmd/unnamed-chunk-20-1.png" width="672" style="display: block; margin: auto;" /></p>
 <p>
@@ -1762,15 +2003,81 @@ Andy Beck
 </div>
 </div>
 </div>
+<div id="cpg_gc_cg" class="section level3">
+<h3>cpg_GC_CG</h3>
+<pre class="r"><code>subtype &lt;- &quot;cpg_GC_CG&quot;
+p &lt;- chi_sq_re_plot(&quot;ALL&quot;, subtype)
+print(p)</code></pre>
+<p><img src="figure/1000G_two_positions_ALL.Rmd/unnamed-chunk-21-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-21-1">
+Past versions of unnamed-chunk-21-1.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-21-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/theandyb/LSCI/blob/8f1cb1a25f560e383d98dc8ab9180c403f2a90a5/docs/figure/1000G_two_positions_ALL.Rmd/unnamed-chunk-21-1.png" target="_blank">8f1cb1a</a>
+</td>
+<td>
+Andy Beck
+</td>
+<td>
+2022-04-21
+</td>
+</tr>
+<tr>
+<td>
+<a href="https://github.com/theandyb/LSCI/blob/ac3b368b8972b63cf5fd3267a2573e29d47ab89c/docs/figure/1000G_two_positions_ALL.Rmd/unnamed-chunk-21-1.png" target="_blank">ac3b368</a>
+</td>
+<td>
+Andy Beck
+</td>
+<td>
+2021-11-08
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
 </div>
 <div id="gof-control-interaction-estimation" class="section level2">
 <h2>GOF: Control interaction estimation</h2>
-<p>An idea I want to try here is to try and estimate a shared interaction parameter using only the control frequencies and apply this to the singleton frequencies. In a nutshell, we can think of the 16 frequencies we see in the control table as being the product of two marginal frequencies and an additional interaction term (question: should this be additive or multiplicative?). In the multiplicative formulation of the interaction, the frequency in each cell can be written as:</p>
+<p>An idea I want to try here is to try and estimate a shared
+interaction parameter using only the control frequencies and apply this
+to the singleton frequencies. In a nutshell, we can think of the 16
+frequencies we see in the control table as being the product of two
+marginal frequencies and an additional interaction term (question:
+should this be additive or multiplicative?). In the multiplicative
+formulation of the interaction, the frequency in each cell can be
+written as:</p>
 <p><span class="math display">\[
 f^C_{i,j} = p^C_{i.}p^C_{.j}p_{ij}
 \]</span></p>
-<p>and the idea here would be to estimate the <span class="math inline">\(p_{ij}\)</span> interaction terms using the controls and using these to adjust the cell frequencies in the singletons and then assess the fit using a <span class="math inline">\(\chi^2\)</span> goodness of fit test.</p>
-<p>Let's try it out with the multiplicative version:</p>
+<p>and the idea here would be to estimate the <span
+class="math inline">\(p_{ij}\)</span> interaction terms using the
+controls and using these to adjust the cell frequencies in the
+singletons and then assess the fit using a <span
+class="math inline">\(\chi^2\)</span> goodness of fit test.</p>
+<p>Let’s try it out with the multiplicative version:</p>
 <pre class="r"><code>get_mar &lt;- function(freq_tab){
   n_t &lt;- sum(freq_tab)
   col_mar &lt;- colSums(freq_tab) / n_t
@@ -1822,96 +2129,19 @@ control_int_mult_pair &lt;- function(population, subtype, p1, p2, type = &quot;g
   return(stat_val)
 }
 
-control_int_mult_all &lt;- function(population, subtype, type = &quot;gof&quot;){
-  final &lt;- data.frame(p1 = numeric(),
-                      p2 = numeric(),
-                      statistic = numeric())
-  for(i in c(-10:-1,1:9)){
-    for(j in (i+1):10){
-      if(j == 0) next
-      stat_val &lt;- control_int_mult_pair(population, subtype, i, j, type = type)
-      final &lt;- bind_rows(final, data.frame(p1 = i,
-                                           p2 = j,
-                                           statistic = stat_val))
-    }
+control_mult_int_plot &lt;- function(population, subtype, r_start = 1, type = &quot;gof&quot;){
+  if(type == &quot;gof&quot;) {
+    l_title &lt;- &quot;Chi Sq. Statistic&quot;
+  } else {
+    l_title &lt;- &quot;Relative Entropy&quot;
   }
-  return(final)
-}
-
-control_mult_int_plot &lt;- function(population, subtype, type = &quot;gof&quot;){
-  df &lt;- control_int_mult_all(population, subtype, type = type)
-  subtype2 &lt;- str_replace(subtype, &quot;_&quot;, &quot; -&gt; &quot;)
-  p &lt;- df %&gt;%
-    ggplot(aes(x = p2, y = p1, fill = statistic)) +
-    geom_tile() +
-    ggtitle(paste0(&quot;Control Interaction GOF: &quot;, subtype2),
-            paste0(&quot;Population: &quot;, population,
-                   &quot;; Min: &quot;, round(min(df$statistic), 2), 
-                   &quot;; Max: &quot;, round(max(df$statistic), 2)))+
-    xlab(&quot;Relative Position 2&quot;) +
-    ylab(&quot;Relative Position 1&quot;) +
-    labs(fill = &quot;Chi Square Statistic&quot;) +
-    scale_fill_distiller(palette = &quot;Reds&quot;, direction = 1) +
-    theme_classic()
+  p &lt;- heatmap_plot(population, subtype, control_int_mult_pair, 
+                    &quot;Control Estimate Interaction: &quot;,
+                    l_title, r_start ,type)
   return(p)
 }</code></pre>
 <div id="at_cg-2" class="section level3">
 <h3>AT_CG</h3>
-<pre class="r"><code>subtype &lt;- &quot;AT_GC&quot;
-p &lt;- control_mult_int_plot(&quot;ALL&quot;, subtype, type = &quot;re&quot;)
-print(p)</code></pre>
-<p><img src="figure/1000G_two_positions_ALL.Rmd/unnamed-chunk-22-1.png" width="672" style="display: block; margin: auto;" /></p>
-<p>
-<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-22-1">
-Past versions of unnamed-chunk-22-1.png
-</button>
-</p>
-<div id="fig-unnamed-chunk-22-1" class="collapse">
-<div class="table-responsive">
-<table class="table table-condensed table-hover">
-<thead>
-<tr>
-<th>
-Version
-</th>
-<th>
-Author
-</th>
-<th>
-Date
-</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>
-<a href="https://github.com/theandyb/LSCI/blob/c33ff652181aef45b799411a45ed8917457b3dbf/docs/figure/1000G_two_positions_ALL.Rmd/unnamed-chunk-22-1.png" target="_blank">c33ff65</a>
-</td>
-<td>
-Andy Beck
-</td>
-<td>
-2022-04-28
-</td>
-</tr>
-<tr>
-<td>
-<a href="https://github.com/theandyb/LSCI/blob/8f1cb1a25f560e383d98dc8ab9180c403f2a90a5/docs/figure/1000G_two_positions_ALL.Rmd/unnamed-chunk-22-1.png" target="_blank">8f1cb1a</a>
-</td>
-<td>
-Andy Beck
-</td>
-<td>
-2022-04-21
-</td>
-</tr>
-</tbody>
-</table>
-</div>
-</div>
-</div>
-<div id="at_gc-2" class="section level3">
-<h3>AT_GC</h3>
 <pre class="r"><code>subtype &lt;- &quot;AT_GC&quot;
 p &lt;- control_mult_int_plot(&quot;ALL&quot;, subtype, type = &quot;re&quot;)
 print(p)</code></pre>
@@ -1940,6 +2170,17 @@ Date
 <tbody>
 <tr>
 <td>
+<a href="https://github.com/theandyb/LSCI/blob/d206789c1741f96d849c980167670cda330a86fa/docs/figure/1000G_two_positions_ALL.Rmd/unnamed-chunk-23-1.png" target="_blank">d206789</a>
+</td>
+<td>
+Andy Beck
+</td>
+<td>
+2022-04-29
+</td>
+</tr>
+<tr>
+<td>
 <a href="https://github.com/theandyb/LSCI/blob/c33ff652181aef45b799411a45ed8917457b3dbf/docs/figure/1000G_two_positions_ALL.Rmd/unnamed-chunk-23-1.png" target="_blank">c33ff65</a>
 </td>
 <td>
@@ -1965,9 +2206,9 @@ Andy Beck
 </div>
 </div>
 </div>
-<div id="at_ta-2" class="section level3">
-<h3>AT_TA</h3>
-<pre class="r"><code>subtype &lt;- &quot;AT_TA&quot;
+<div id="at_gc-2" class="section level3">
+<h3>AT_GC</h3>
+<pre class="r"><code>subtype &lt;- &quot;AT_GC&quot;
 p &lt;- control_mult_int_plot(&quot;ALL&quot;, subtype, type = &quot;re&quot;)
 print(p)</code></pre>
 <p><img src="figure/1000G_two_positions_ALL.Rmd/unnamed-chunk-24-1.png" width="672" style="display: block; margin: auto;" /></p>
@@ -1995,6 +2236,17 @@ Date
 <tbody>
 <tr>
 <td>
+<a href="https://github.com/theandyb/LSCI/blob/d206789c1741f96d849c980167670cda330a86fa/docs/figure/1000G_two_positions_ALL.Rmd/unnamed-chunk-24-1.png" target="_blank">d206789</a>
+</td>
+<td>
+Andy Beck
+</td>
+<td>
+2022-04-29
+</td>
+</tr>
+<tr>
+<td>
 <a href="https://github.com/theandyb/LSCI/blob/c33ff652181aef45b799411a45ed8917457b3dbf/docs/figure/1000G_two_positions_ALL.Rmd/unnamed-chunk-24-1.png" target="_blank">c33ff65</a>
 </td>
 <td>
@@ -2020,9 +2272,9 @@ Andy Beck
 </div>
 </div>
 </div>
-<div id="gc_at-2" class="section level3">
-<h3>GC_AT</h3>
-<pre class="r"><code>subtype &lt;- &quot;GC_AT&quot;
+<div id="at_ta-2" class="section level3">
+<h3>AT_TA</h3>
+<pre class="r"><code>subtype &lt;- &quot;AT_TA&quot;
 p &lt;- control_mult_int_plot(&quot;ALL&quot;, subtype, type = &quot;re&quot;)
 print(p)</code></pre>
 <p><img src="figure/1000G_two_positions_ALL.Rmd/unnamed-chunk-25-1.png" width="672" style="display: block; margin: auto;" /></p>
@@ -2050,6 +2302,17 @@ Date
 <tbody>
 <tr>
 <td>
+<a href="https://github.com/theandyb/LSCI/blob/d206789c1741f96d849c980167670cda330a86fa/docs/figure/1000G_two_positions_ALL.Rmd/unnamed-chunk-25-1.png" target="_blank">d206789</a>
+</td>
+<td>
+Andy Beck
+</td>
+<td>
+2022-04-29
+</td>
+</tr>
+<tr>
+<td>
 <a href="https://github.com/theandyb/LSCI/blob/c33ff652181aef45b799411a45ed8917457b3dbf/docs/figure/1000G_two_positions_ALL.Rmd/unnamed-chunk-25-1.png" target="_blank">c33ff65</a>
 </td>
 <td>
@@ -2075,9 +2338,9 @@ Andy Beck
 </div>
 </div>
 </div>
-<div id="gc_at-3" class="section level3">
+<div id="gc_at-2" class="section level3">
 <h3>GC_AT</h3>
-<pre class="r"><code>subtype &lt;- &quot;cpg_GC_AT&quot;
+<pre class="r"><code>subtype &lt;- &quot;GC_AT&quot;
 p &lt;- control_mult_int_plot(&quot;ALL&quot;, subtype, type = &quot;re&quot;)
 print(p)</code></pre>
 <p><img src="figure/1000G_two_positions_ALL.Rmd/unnamed-chunk-26-1.png" width="672" style="display: block; margin: auto;" /></p>
@@ -2105,6 +2368,17 @@ Date
 <tbody>
 <tr>
 <td>
+<a href="https://github.com/theandyb/LSCI/blob/d206789c1741f96d849c980167670cda330a86fa/docs/figure/1000G_two_positions_ALL.Rmd/unnamed-chunk-26-1.png" target="_blank">d206789</a>
+</td>
+<td>
+Andy Beck
+</td>
+<td>
+2022-04-29
+</td>
+</tr>
+<tr>
+<td>
 <a href="https://github.com/theandyb/LSCI/blob/c33ff652181aef45b799411a45ed8917457b3dbf/docs/figure/1000G_two_positions_ALL.Rmd/unnamed-chunk-26-1.png" target="_blank">c33ff65</a>
 </td>
 <td>
@@ -2130,9 +2404,9 @@ Andy Beck
 </div>
 </div>
 </div>
-<div id="gc_ta-2" class="section level3">
-<h3>GC_TA</h3>
-<pre class="r"><code>subtype &lt;- &quot;GC_TA&quot;
+<div id="gc_at-3" class="section level3">
+<h3>GC_AT</h3>
+<pre class="r"><code>subtype &lt;- &quot;cpg_GC_AT&quot;
 p &lt;- control_mult_int_plot(&quot;ALL&quot;, subtype, type = &quot;re&quot;)
 print(p)</code></pre>
 <p><img src="figure/1000G_two_positions_ALL.Rmd/unnamed-chunk-27-1.png" width="672" style="display: block; margin: auto;" /></p>
@@ -2160,6 +2434,17 @@ Date
 <tbody>
 <tr>
 <td>
+<a href="https://github.com/theandyb/LSCI/blob/d206789c1741f96d849c980167670cda330a86fa/docs/figure/1000G_two_positions_ALL.Rmd/unnamed-chunk-27-1.png" target="_blank">d206789</a>
+</td>
+<td>
+Andy Beck
+</td>
+<td>
+2022-04-29
+</td>
+</tr>
+<tr>
+<td>
 <a href="https://github.com/theandyb/LSCI/blob/c33ff652181aef45b799411a45ed8917457b3dbf/docs/figure/1000G_two_positions_ALL.Rmd/unnamed-chunk-27-1.png" target="_blank">c33ff65</a>
 </td>
 <td>
@@ -2185,9 +2470,9 @@ Andy Beck
 </div>
 </div>
 </div>
-<div id="gc_ta-3" class="section level3">
+<div id="gc_ta-2" class="section level3">
 <h3>GC_TA</h3>
-<pre class="r"><code>subtype &lt;- &quot;cpg_GC_TA&quot;
+<pre class="r"><code>subtype &lt;- &quot;GC_TA&quot;
 p &lt;- control_mult_int_plot(&quot;ALL&quot;, subtype, type = &quot;re&quot;)
 print(p)</code></pre>
 <p><img src="figure/1000G_two_positions_ALL.Rmd/unnamed-chunk-28-1.png" width="672" style="display: block; margin: auto;" /></p>
@@ -2215,6 +2500,17 @@ Date
 <tbody>
 <tr>
 <td>
+<a href="https://github.com/theandyb/LSCI/blob/d206789c1741f96d849c980167670cda330a86fa/docs/figure/1000G_two_positions_ALL.Rmd/unnamed-chunk-28-1.png" target="_blank">d206789</a>
+</td>
+<td>
+Andy Beck
+</td>
+<td>
+2022-04-29
+</td>
+</tr>
+<tr>
+<td>
 <a href="https://github.com/theandyb/LSCI/blob/c33ff652181aef45b799411a45ed8917457b3dbf/docs/figure/1000G_two_positions_ALL.Rmd/unnamed-chunk-28-1.png" target="_blank">c33ff65</a>
 </td>
 <td>
@@ -2240,9 +2536,9 @@ Andy Beck
 </div>
 </div>
 </div>
-<div id="gc_cg-1" class="section level3">
-<h3>GC_CG</h3>
-<pre class="r"><code>subtype &lt;- &quot;GC_CG&quot;
+<div id="gc_ta-3" class="section level3">
+<h3>GC_TA</h3>
+<pre class="r"><code>subtype &lt;- &quot;cpg_GC_TA&quot;
 p &lt;- control_mult_int_plot(&quot;ALL&quot;, subtype, type = &quot;re&quot;)
 print(p)</code></pre>
 <p><img src="figure/1000G_two_positions_ALL.Rmd/unnamed-chunk-29-1.png" width="672" style="display: block; margin: auto;" /></p>
@@ -2270,6 +2566,17 @@ Date
 <tbody>
 <tr>
 <td>
+<a href="https://github.com/theandyb/LSCI/blob/d206789c1741f96d849c980167670cda330a86fa/docs/figure/1000G_two_positions_ALL.Rmd/unnamed-chunk-29-1.png" target="_blank">d206789</a>
+</td>
+<td>
+Andy Beck
+</td>
+<td>
+2022-04-29
+</td>
+</tr>
+<tr>
+<td>
 <a href="https://github.com/theandyb/LSCI/blob/c33ff652181aef45b799411a45ed8917457b3dbf/docs/figure/1000G_two_positions_ALL.Rmd/unnamed-chunk-29-1.png" target="_blank">c33ff65</a>
 </td>
 <td>
@@ -2295,9 +2602,9 @@ Andy Beck
 </div>
 </div>
 </div>
-<div id="cpg_gc_cg" class="section level3">
-<h3>cpg_GC_CG</h3>
-<pre class="r"><code>subtype &lt;- &quot;cpg_GC_CG&quot;
+<div id="gc_cg-1" class="section level3">
+<h3>GC_CG</h3>
+<pre class="r"><code>subtype &lt;- &quot;GC_CG&quot;
 p &lt;- control_mult_int_plot(&quot;ALL&quot;, subtype, type = &quot;re&quot;)
 print(p)</code></pre>
 <p><img src="figure/1000G_two_positions_ALL.Rmd/unnamed-chunk-30-1.png" width="672" style="display: block; margin: auto;" /></p>
@@ -2325,6 +2632,17 @@ Date
 <tbody>
 <tr>
 <td>
+<a href="https://github.com/theandyb/LSCI/blob/d206789c1741f96d849c980167670cda330a86fa/docs/figure/1000G_two_positions_ALL.Rmd/unnamed-chunk-30-1.png" target="_blank">d206789</a>
+</td>
+<td>
+Andy Beck
+</td>
+<td>
+2022-04-29
+</td>
+</tr>
+<tr>
+<td>
 <a href="https://github.com/theandyb/LSCI/blob/c33ff652181aef45b799411a45ed8917457b3dbf/docs/figure/1000G_two_positions_ALL.Rmd/unnamed-chunk-30-1.png" target="_blank">c33ff65</a>
 </td>
 <td>
@@ -2350,10 +2668,80 @@ Andy Beck
 </div>
 </div>
 </div>
+<div id="cpg_gc_cg-1" class="section level3">
+<h3>cpg_GC_CG</h3>
+<pre class="r"><code>subtype &lt;- &quot;cpg_GC_CG&quot;
+p &lt;- control_mult_int_plot(&quot;ALL&quot;, subtype, type = &quot;re&quot;)
+print(p)</code></pre>
+<p><img src="figure/1000G_two_positions_ALL.Rmd/unnamed-chunk-31-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-31-1">
+Past versions of unnamed-chunk-31-1.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-31-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/theandyb/LSCI/blob/d206789c1741f96d849c980167670cda330a86fa/docs/figure/1000G_two_positions_ALL.Rmd/unnamed-chunk-31-1.png" target="_blank">d206789</a>
+</td>
+<td>
+Andy Beck
+</td>
+<td>
+2022-04-29
+</td>
+</tr>
+<tr>
+<td>
+<a href="https://github.com/theandyb/LSCI/blob/c33ff652181aef45b799411a45ed8917457b3dbf/docs/figure/1000G_two_positions_ALL.Rmd/unnamed-chunk-31-1.png" target="_blank">c33ff65</a>
+</td>
+<td>
+Andy Beck
+</td>
+<td>
+2022-04-28
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
 </div>
 <div id="loglinear-models" class="section level2">
 <h2>Loglinear Models</h2>
-<p>The above analyses told us that, in general, the joint distribution of the cell counts in the 4x4 contingency table was not the product of the row and column marginals. This is unsurprising since we see this exact same pattern in both the genome-wide counts and the control counts. That is, it is already well-known that genome-wide occurrence of dinucleotides is not predicted by the product of the frequencies of the individual nucleotides, so it's no surprise we see an interaction in our singletons. But is the interaction we see in the singletons the same that we observe in the controls? That question can be addressed using the log-linear modeling framework employed by Zhu et al (2017). Here, we'll fit a model of the counts for both the singletons and the controls, allowing for each to have their own marginal distributions at each position, but the interaction between the two positions is shared. We then use the deviance statistic to compare the fit of this model to the fully saturated model which allows for different interaction terms between the singletons and the controls.</p>
+<p>The above analyses told us that, in general, the joint distribution
+of the cell counts in the 4x4 contingency table was not the product of
+the row and column marginals. This is unsurprising since we see this
+exact same pattern in both the genome-wide counts and the control
+counts. That is, it is already well-known that genome-wide occurrence of
+dinucleotides is not predicted by the product of the frequencies of the
+individual nucleotides, so it’s no surprise we see an interaction in our
+singletons. But is the interaction we see in the singletons the same
+that we observe in the controls? That question can be addressed using
+the log-linear modeling framework employed by Zhu et al (2017). Here,
+we’ll fit a model of the counts for both the singletons and the
+controls, allowing for each to have their own marginal distributions at
+each position, but the interaction between the two positions is shared.
+We then use the deviance statistic to compare the fit of this model to
+the fully saturated model which allows for different interaction terms
+between the singletons and the controls.</p>
 <pre class="r"><code>deviance_pair &lt;- function(population, subtype, p1, p2){
   
   data_dir &lt;- &quot;/net/snowwhite/home/beckandy/research/1000G_LSCI/output/all_count_2_pos/&quot;
@@ -2386,76 +2774,26 @@ deviance_pair_re &lt;- function(population, subtype, p1, p2){
   return(re)
 }
 
-deviance_all &lt;- function(population, subtype, r_start = 1){
-  final &lt;- data.frame(p1 = numeric(),
-                      p2 = numeric(),
-                      statistic = numeric())
-  for(i in c(-10:-1,r_start:9)){
-    for(j in (i+1):10){
-      if(j == 0) next
-      if(j == 1 &amp; r_start &gt; 1) next
-      stat_val &lt;- deviance_pair(population, subtype, i, j)
-      final &lt;- bind_rows(final, data.frame(p1 = i,
-                                           p2 = j,
-                                           statistic = stat_val))
-    }
-  }
-  return(final)
-}
-
-re_all &lt;- function(population, subtype, r_start = 1){
-  final &lt;- data.frame(p1 = numeric(),
-                      p2 = numeric(),
-                      statistic = numeric())
-  for(i in c(-10:-1,r_start:9)){
-    for(j in (i+1):10){
-      if(j == 0) next
-      if(j == 1 &amp; r_start &gt; 1) next
-      stat_val &lt;- deviance_pair_re(population, subtype, i, j)
-      final &lt;- bind_rows(final, data.frame(p1 = i,
-                                           p2 = j,
-                                           statistic = stat_val))
-    }
-  }
-  return(final)
-}
-
 deviance_plot &lt;- function(population, subtype, r_start = 1){
-  df &lt;- deviance_all(population, subtype, r_start) %&gt;% drop_na()
-  p &lt;- df %&gt;%
-    ggplot(aes(x = p2, y = p1, fill = statistic)) +
-    geom_tile() +
-    ggtitle(paste0(&quot;Deviance Interaction Test: &quot;, subtype),
-            paste0(&quot;Population: &quot;, population,&quot;; Min: &quot;, round(min(df$statistic), 2), &quot;; Max: &quot;, round(max(df$statistic), 2)))+
-    xlab(&quot;Relative Position 2&quot;) +
-    ylab(&quot;Relative Position 1&quot;) +
-    labs(fill = &quot;Deviance&quot;) +
-    scale_fill_distiller(palette = &quot;Reds&quot;, direction = 1)
+  p &lt;- heatmap_plot(population, subtype, deviance_pair,
+                    &quot;Loglinear Model Deviance: &quot;, &quot;Deviance&quot;, r_start)
   return(p)
 }
 
 deviance_re_plot &lt;- function(population, subtype, r_start = 1){
-  df &lt;- re_all(population, subtype, r_start) %&gt;% drop_na()
-  p &lt;- df %&gt;%
-    ggplot(aes(x = p2, y = p1, fill = statistic)) +
-    geom_tile() +
-    ggtitle(paste0(&quot;Interaction RE: &quot;, subtype),
-            paste0(&quot;Population: &quot;, population,&quot;; Min: &quot;, signif(min(df$statistic), 2), &quot;; Max: &quot;, signif(max(df$statistic), 2)))+
-    xlab(&quot;Relative Position 2&quot;) +
-    ylab(&quot;Relative Position 1&quot;) +
-    labs(fill = &quot;RE&quot;) +
-    scale_fill_distiller(palette = &quot;Reds&quot;, direction = 1)
+  p &lt;- heatmap_plot(population, subtype, deviance_pair_re,
+                    &quot;Loglinear Model Relative Entropy: &quot;, &quot;Relative Entropy&quot;, r_start)
   return(p)
 }</code></pre>
 <div id="at_cg-3" class="section level3">
 <h3>AT_CG</h3>
-<p><img src="figure/1000G_two_positions_ALL.Rmd/unnamed-chunk-32-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p><img src="figure/1000G_two_positions_ALL.Rmd/unnamed-chunk-33-1.png" width="672" style="display: block; margin: auto;" /></p>
 <p>
-<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-32-1">
-Past versions of unnamed-chunk-32-1.png
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-33-1">
+Past versions of unnamed-chunk-33-1.png
 </button>
 </p>
-<div id="fig-unnamed-chunk-32-1" class="collapse">
+<div id="fig-unnamed-chunk-33-1" class="collapse">
 <div class="table-responsive">
 <table class="table table-condensed table-hover">
 <thead>
@@ -2474,26 +2812,26 @@ Date
 <tbody>
 <tr>
 <td>
-<a href="https://github.com/theandyb/LSCI/blob/c33ff652181aef45b799411a45ed8917457b3dbf/docs/figure/1000G_two_positions_ALL.Rmd/unnamed-chunk-32-1.png" target="_blank">c33ff65</a>
+<a href="https://github.com/theandyb/LSCI/blob/d206789c1741f96d849c980167670cda330a86fa/docs/figure/1000G_two_positions_ALL.Rmd/unnamed-chunk-33-1.png" target="_blank">d206789</a>
 </td>
 <td>
 Andy Beck
 </td>
 <td>
-2022-04-28
+2022-04-29
 </td>
 </tr>
 </tbody>
 </table>
 </div>
 </div>
-<p><img src="figure/1000G_two_positions_ALL.Rmd/unnamed-chunk-32-2.png" width="672" style="display: block; margin: auto;" /></p>
+<p><img src="figure/1000G_two_positions_ALL.Rmd/unnamed-chunk-33-2.png" width="672" style="display: block; margin: auto;" /></p>
 <p>
-<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-32-2">
-Past versions of unnamed-chunk-32-2.png
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-33-2">
+Past versions of unnamed-chunk-33-2.png
 </button>
 </p>
-<div id="fig-unnamed-chunk-32-2" class="collapse">
+<div id="fig-unnamed-chunk-33-2" class="collapse">
 <div class="table-responsive">
 <table class="table table-condensed table-hover">
 <thead>
@@ -2512,13 +2850,13 @@ Date
 <tbody>
 <tr>
 <td>
-<a href="https://github.com/theandyb/LSCI/blob/c33ff652181aef45b799411a45ed8917457b3dbf/docs/figure/1000G_two_positions_ALL.Rmd/unnamed-chunk-32-2.png" target="_blank">c33ff65</a>
+<a href="https://github.com/theandyb/LSCI/blob/d206789c1741f96d849c980167670cda330a86fa/docs/figure/1000G_two_positions_ALL.Rmd/unnamed-chunk-33-2.png" target="_blank">d206789</a>
 </td>
 <td>
 Andy Beck
 </td>
 <td>
-2022-04-28
+2022-04-29
 </td>
 </tr>
 </tbody>
@@ -2528,18 +2866,164 @@ Andy Beck
 </div>
 <div id="at_gc-3" class="section level3">
 <h3>AT_GC</h3>
-<p><img src="figure/1000G_two_positions_ALL.Rmd/unnamed-chunk-33-1.png" width="672" style="display: block; margin: auto;" /><img src="figure/1000G_two_positions_ALL.Rmd/unnamed-chunk-33-2.png" width="672" style="display: block; margin: auto;" /></p>
+<p><img src="figure/1000G_two_positions_ALL.Rmd/unnamed-chunk-34-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-34-1">
+Past versions of unnamed-chunk-34-1.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-34-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/theandyb/LSCI/blob/d206789c1741f96d849c980167670cda330a86fa/docs/figure/1000G_two_positions_ALL.Rmd/unnamed-chunk-34-1.png" target="_blank">d206789</a>
+</td>
+<td>
+Andy Beck
+</td>
+<td>
+2022-04-29
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<p><img src="figure/1000G_two_positions_ALL.Rmd/unnamed-chunk-34-2.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-34-2">
+Past versions of unnamed-chunk-34-2.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-34-2" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/theandyb/LSCI/blob/d206789c1741f96d849c980167670cda330a86fa/docs/figure/1000G_two_positions_ALL.Rmd/unnamed-chunk-34-2.png" target="_blank">d206789</a>
+</td>
+<td>
+Andy Beck
+</td>
+<td>
+2022-04-29
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 </div>
 <div id="at_ta-3" class="section level3">
 <h3>AT_TA</h3>
-<p><img src="figure/1000G_two_positions_ALL.Rmd/unnamed-chunk-34-1.png" width="672" style="display: block; margin: auto;" /><img src="figure/1000G_two_positions_ALL.Rmd/unnamed-chunk-34-2.png" width="672" style="display: block; margin: auto;" /></p>
+<p><img src="figure/1000G_two_positions_ALL.Rmd/unnamed-chunk-35-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-35-1">
+Past versions of unnamed-chunk-35-1.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-35-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/theandyb/LSCI/blob/d206789c1741f96d849c980167670cda330a86fa/docs/figure/1000G_two_positions_ALL.Rmd/unnamed-chunk-35-1.png" target="_blank">d206789</a>
+</td>
+<td>
+Andy Beck
+</td>
+<td>
+2022-04-29
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<p><img src="figure/1000G_two_positions_ALL.Rmd/unnamed-chunk-35-2.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-35-2">
+Past versions of unnamed-chunk-35-2.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-35-2" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/theandyb/LSCI/blob/d206789c1741f96d849c980167670cda330a86fa/docs/figure/1000G_two_positions_ALL.Rmd/unnamed-chunk-35-2.png" target="_blank">d206789</a>
+</td>
+<td>
+Andy Beck
+</td>
+<td>
+2022-04-29
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 </div>
 <div id="gc_at-4" class="section level3">
 <h3>GC_AT</h3>
-<p><img src="figure/1000G_two_positions_ALL.Rmd/unnamed-chunk-35-1.png" width="672" style="display: block; margin: auto;" /><img src="figure/1000G_two_positions_ALL.Rmd/unnamed-chunk-35-2.png" width="672" style="display: block; margin: auto;" /></p>
-</div>
-<div id="cpg_gc_at-1" class="section level3">
-<h3>cpg_GC_AT</h3>
 <p><img src="figure/1000G_two_positions_ALL.Rmd/unnamed-chunk-36-1.png" width="672" style="display: block; margin: auto;" /></p>
 <p>
 <button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-36-1">
@@ -2563,6 +3047,17 @@ Date
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+<a href="https://github.com/theandyb/LSCI/blob/d206789c1741f96d849c980167670cda330a86fa/docs/figure/1000G_two_positions_ALL.Rmd/unnamed-chunk-36-1.png" target="_blank">d206789</a>
+</td>
+<td>
+Andy Beck
+</td>
+<td>
+2022-04-29
+</td>
+</tr>
 <tr>
 <td>
 <a href="https://github.com/theandyb/LSCI/blob/c33ff652181aef45b799411a45ed8917457b3dbf/docs/figure/1000G_two_positions_ALL.Rmd/unnamed-chunk-36-1.png" target="_blank">c33ff65</a>
@@ -2590,13 +3085,125 @@ Andy Beck
 </div>
 </div>
 <p><img src="figure/1000G_two_positions_ALL.Rmd/unnamed-chunk-36-2.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-36-2">
+Past versions of unnamed-chunk-36-2.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-36-2" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/theandyb/LSCI/blob/d206789c1741f96d849c980167670cda330a86fa/docs/figure/1000G_two_positions_ALL.Rmd/unnamed-chunk-36-2.png" target="_blank">d206789</a>
+</td>
+<td>
+Andy Beck
+</td>
+<td>
+2022-04-29
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+<div id="cpg_gc_at-2" class="section level3">
+<h3>cpg_GC_AT</h3>
+<p><img src="figure/1000G_two_positions_ALL.Rmd/unnamed-chunk-37-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-37-1">
+Past versions of unnamed-chunk-37-1.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-37-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/theandyb/LSCI/blob/d206789c1741f96d849c980167670cda330a86fa/docs/figure/1000G_two_positions_ALL.Rmd/unnamed-chunk-37-1.png" target="_blank">d206789</a>
+</td>
+<td>
+Andy Beck
+</td>
+<td>
+2022-04-29
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<p><img src="figure/1000G_two_positions_ALL.Rmd/unnamed-chunk-37-2.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-37-2">
+Past versions of unnamed-chunk-37-2.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-37-2" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/theandyb/LSCI/blob/d206789c1741f96d849c980167670cda330a86fa/docs/figure/1000G_two_positions_ALL.Rmd/unnamed-chunk-37-2.png" target="_blank">d206789</a>
+</td>
+<td>
+Andy Beck
+</td>
+<td>
+2022-04-29
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 </div>
 <div id="gc_ta-4" class="section level3">
 <h3>GC_TA</h3>
-<p><img src="figure/1000G_two_positions_ALL.Rmd/unnamed-chunk-37-1.png" width="672" style="display: block; margin: auto;" /><img src="figure/1000G_two_positions_ALL.Rmd/unnamed-chunk-37-2.png" width="672" style="display: block; margin: auto;" /></p>
-</div>
-<div id="cpg_gc_ta-1" class="section level3">
-<h3>cpg_GC_TA</h3>
 <p><img src="figure/1000G_two_positions_ALL.Rmd/unnamed-chunk-38-1.png" width="672" style="display: block; margin: auto;" /></p>
 <p>
 <button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-38-1">
@@ -2622,6 +3229,17 @@ Date
 <tbody>
 <tr>
 <td>
+<a href="https://github.com/theandyb/LSCI/blob/d206789c1741f96d849c980167670cda330a86fa/docs/figure/1000G_two_positions_ALL.Rmd/unnamed-chunk-38-1.png" target="_blank">d206789</a>
+</td>
+<td>
+Andy Beck
+</td>
+<td>
+2022-04-29
+</td>
+</tr>
+<tr>
+<td>
 <a href="https://github.com/theandyb/LSCI/blob/c33ff652181aef45b799411a45ed8917457b3dbf/docs/figure/1000G_two_positions_ALL.Rmd/unnamed-chunk-38-1.png" target="_blank">c33ff65</a>
 </td>
 <td>
@@ -2636,20 +3254,222 @@ Andy Beck
 </div>
 </div>
 <p><img src="figure/1000G_two_positions_ALL.Rmd/unnamed-chunk-38-2.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-38-2">
+Past versions of unnamed-chunk-38-2.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-38-2" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/theandyb/LSCI/blob/d206789c1741f96d849c980167670cda330a86fa/docs/figure/1000G_two_positions_ALL.Rmd/unnamed-chunk-38-2.png" target="_blank">d206789</a>
+</td>
+<td>
+Andy Beck
+</td>
+<td>
+2022-04-29
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+<div id="cpg_gc_ta-2" class="section level3">
+<h3>cpg_GC_TA</h3>
+<p><img src="figure/1000G_two_positions_ALL.Rmd/unnamed-chunk-39-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-39-1">
+Past versions of unnamed-chunk-39-1.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-39-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/theandyb/LSCI/blob/d206789c1741f96d849c980167670cda330a86fa/docs/figure/1000G_two_positions_ALL.Rmd/unnamed-chunk-39-1.png" target="_blank">d206789</a>
+</td>
+<td>
+Andy Beck
+</td>
+<td>
+2022-04-29
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<p><img src="figure/1000G_two_positions_ALL.Rmd/unnamed-chunk-39-2.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-39-2">
+Past versions of unnamed-chunk-39-2.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-39-2" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/theandyb/LSCI/blob/d206789c1741f96d849c980167670cda330a86fa/docs/figure/1000G_two_positions_ALL.Rmd/unnamed-chunk-39-2.png" target="_blank">d206789</a>
+</td>
+<td>
+Andy Beck
+</td>
+<td>
+2022-04-29
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 </div>
 <div id="gc_cg-2" class="section level3">
 <h3>GC_CG</h3>
-<p><img src="figure/1000G_two_positions_ALL.Rmd/unnamed-chunk-39-1.png" width="672" style="display: block; margin: auto;" /><img src="figure/1000G_two_positions_ALL.Rmd/unnamed-chunk-39-2.png" width="672" style="display: block; margin: auto;" /></p>
+<p><img src="figure/1000G_two_positions_ALL.Rmd/unnamed-chunk-40-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-40-1">
+Past versions of unnamed-chunk-40-1.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-40-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/theandyb/LSCI/blob/d206789c1741f96d849c980167670cda330a86fa/docs/figure/1000G_two_positions_ALL.Rmd/unnamed-chunk-40-1.png" target="_blank">d206789</a>
+</td>
+<td>
+Andy Beck
+</td>
+<td>
+2022-04-29
+</td>
+</tr>
+</tbody>
+</table>
 </div>
-<div id="cpg_gc_cg-1" class="section level3">
+</div>
+<p><img src="figure/1000G_two_positions_ALL.Rmd/unnamed-chunk-40-2.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-40-2">
+Past versions of unnamed-chunk-40-2.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-40-2" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/theandyb/LSCI/blob/d206789c1741f96d849c980167670cda330a86fa/docs/figure/1000G_two_positions_ALL.Rmd/unnamed-chunk-40-2.png" target="_blank">d206789</a>
+</td>
+<td>
+Andy Beck
+</td>
+<td>
+2022-04-29
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+<div id="cpg_gc_cg-2" class="section level3">
 <h3>cpg_GC_CG</h3>
-<p><img src="figure/1000G_two_positions_ALL.Rmd/unnamed-chunk-40-1.png" width="672" style="display: block; margin: auto;" /><img src="figure/1000G_two_positions_ALL.Rmd/unnamed-chunk-40-2.png" width="672" style="display: block; margin: auto;" /></p>
+<p><img src="figure/1000G_two_positions_ALL.Rmd/unnamed-chunk-41-1.png" width="672" style="display: block; margin: auto;" /><img src="figure/1000G_two_positions_ALL.Rmd/unnamed-chunk-41-2.png" width="672" style="display: block; margin: auto;" /></p>
 </div>
 </div>
 <div id="di-nucleotide-residuals" class="section level2">
 <h2>Di-nucleotide Residuals</h2>
-<p>Similar to what we investigated in the single model case, here we look into each pair of position's deviance/RE result and break it down into the contributions from each pair of nucleotides. Here we have a challenge that we did not have in the single position case: for each pair of nucleotides we have two residuals: one for the fitted singleton value, and the other for the fitted control count. While they are both used to calculate the overall statistic for the position, for this first approach I am only going to look at the dinucleotide residuals for the singleton fitted values. This is because I find this case to be more straightforward in regards to assigning a sign and interpreting (i.e., do we observe more XY in the singletons than expected? etc.)</p>
-<p>First let's get the single-position level residuals for a given sub type and population:</p>
+<p>Similar to what we investigated in the single model case, here we
+look into each pair of position’s deviance/RE result and break it down
+into the contributions from each pair of nucleotides. Here we have a
+challenge that we did not have in the single position case: for each
+pair of nucleotides we have two residuals: one for the fitted singleton
+value, and the other for the fitted control count. While they are both
+used to calculate the overall statistic for the position, for this first
+approach I am only going to look at the dinucleotide residuals for the
+singleton fitted values. This is because I find this case to be more
+straightforward in regards to assigning a sign and interpreting (i.e.,
+do we observe more XY in the singletons than expected? etc.)</p>
+<p>First let’s get the single-position level residuals for a given sub
+type and population:</p>
 <pre class="r"><code>get_residuals_re &lt;- function(subtype, population, p1, p2){
   data_dir &lt;- &quot;/net/snowwhite/home/beckandy/research/1000G_LSCI/output/all_count_2_pos/&quot;
   f_name &lt;- paste0(data_dir, population, &quot;/&quot;, subtype, &quot;_p&quot;, p1, &quot;_q&quot;, p2, &quot;.csv&quot;)
@@ -2674,10 +3494,23 @@ Andy Beck
     arrange(desc(res))
   return(df)
 }</code></pre>
-<p>Now, as an example let's look at the residuals for the A&gt;G sub type at the -2, -1 positions:</p>
+<p>Now, as an example let’s look at the residuals for the A&gt;G sub
+type at the -2, -1 positions:</p>
 <pre class="r"><code>get_residuals_re(&quot;AT_GC&quot;, &quot;ALL&quot;, -2, -1) %&gt;%
   knitr::kable()</code></pre>
 <table>
+<colgroup>
+<col width="3%" />
+<col width="3%" />
+<col width="13%" />
+<col width="9%" />
+<col width="14%" />
+<col width="12%" />
+<col width="12%" />
+<col width="4%" />
+<col width="13%" />
+<col width="12%" />
+</colgroup>
 <thead>
 <tr class="header">
 <th align="left">p1</th>
@@ -2887,7 +3720,12 @@ Andy Beck
 </tr>
 </tbody>
 </table>
-<p>Here we see that among the two position influences the biggest difference between the singleton and the control distributions was for the CA dinucleotide; this is the same as what Zhu et al (2017) observed at this position for this sub type. Let's take a look at what happens if we summarize each pair of positions by the sum of the two re/deviance residuals instead of just ignoring the control residual:</p>
+<p>Here we see that among the two position influences the biggest
+difference between the singleton and the control distributions was for
+the CA dinucleotide; this is the same as what Zhu et al (2017) observed
+at this position for this sub type. Let’s take a look at what happens if
+we summarize each pair of positions by the sum of the two re/deviance
+residuals instead of just ignoring the control residual:</p>
 <pre class="r"><code>get_residuals_re2 &lt;- function(subtype, population, p1, p2){
   data_dir &lt;- &quot;/net/snowwhite/home/beckandy/research/1000G_LSCI/output/all_count_2_pos/&quot;
   f_name &lt;- paste0(data_dir, population, &quot;/&quot;, subtype, &quot;_p&quot;, p1, &quot;_q&quot;, p2, &quot;.csv&quot;)
@@ -2912,7 +3750,9 @@ Andy Beck
     arrange(desc(re.res))
   return(df)
 }</code></pre>
-<p>Here again we see that the top contribution for any dinucleotide pair is CT at the -2, -1 positions when we account for both the singleton and the control residuals:</p>
+<p>Here again we see that the top contribution for any dinucleotide pair
+is CT at the -2, -1 positions when we account for both the singleton and
+the control residuals:</p>
 <pre class="r"><code>get_residuals_re2(&quot;AT_GC&quot;, &quot;ALL&quot;, -2, -1) %&gt;%
   knitr::kable()</code></pre>
 <pre><code>`summarise()` has grouped output by &#39;p1&#39;. You can override using the `.groups`
@@ -3025,7 +3865,7 @@ argument.</code></pre>
 </tr>
 </tbody>
 </table>
-<p>Perhaps we'd like to visualize these results in a heatmap?</p>
+<p>Perhaps we’d like to visualize these results in a heatmap?</p>
 <pre class="r"><code>heatmap_re_res &lt;- function(subtype, pop, p1, p2, singletons_only = TRUE){
   if(singletons_only){
     df &lt;- get_residuals_re(subtype, pop, p1, p2)
@@ -3060,11 +3900,12 @@ heatmap_signed_re_res &lt;- function(subtype, pop, p1, p2){
 }</code></pre>
 <p>And now we plot the signed re residuals for the A&gt;G sub type:</p>
 <pre class="r"><code>heatmap_signed_re_res(&quot;AT_GC&quot;, &quot;ALL&quot;, -2, -1)</code></pre>
-<p><img src="figure/1000G_two_positions_ALL.Rmd/unnamed-chunk-46-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p><img src="figure/1000G_two_positions_ALL.Rmd/unnamed-chunk-47-1.png" width="672" style="display: block; margin: auto;" /></p>
 <br>
 <p>
 <button type="button" class="btn btn-default btn-workflowr btn-workflowr-sessioninfo" data-toggle="collapse" data-target="#workflowr-sessioninfo" style="display: block;">
-<span class="glyphicon glyphicon-wrench" aria-hidden="true"></span> Session information
+<span class="glyphicon glyphicon-wrench" aria-hidden="true"></span>
+Session information
 </button>
 </p>
 <div id="workflowr-sessioninfo" class="collapse">
@@ -3142,6 +3983,8 @@ footer is added to webpages before the MathJax javascript. -->
     "HTML-CSS": { availableFonts: ["TeX"] }
   });
 </script>
+
+
 
 
 </div>
