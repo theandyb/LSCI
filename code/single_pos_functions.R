@@ -1,104 +1,143 @@
-# 1000G Functions
-load_results <- function(subtype, rp, sp){
-  data_dir <- "/net/snowwhite/home/beckandy/research/1000G_LSCI/output/single_pos_df/"
-  f_name <- paste0(data_dir, sp, "/", subtype, "_rp", rp, ".csv")
+#' Load single position results for a single flanking position
+#'
+#' @param population 1KGP super population code (AMR, AFR, EUR, EAS, SAS, ALL)
+#' @param subtype Mutation subtype
+#' @param rp Relative position
+#' @param data_dir Location of count files
+#' @return Data frame with nucleotide-level statistics ("residuals")
+load_sp_results <- function(population, subtype, rp,
+                            data_dir = "/net/snowwhite/home/beckandy/research/1000G_LSCI/output/single_pos_df/"){
+  if(population == "BRIDGES"){
+    f_name <- paste0(data_dir, subtype, "_rp", rp, ".csv")
+  } else{
+    f_name <- paste0(data_dir, population, "/", subtype, "_rp", rp, ".csv")
+  }
   df <- read_csv(f_name, col_types = cols())
+  df_tall <- df %>%
+    select(Nuc, singletons, controls) %>%
+    pivot_longer(-Nuc) %>%
+    rename(status = name, n = value)
+
+  mod_obj <- glm(n ~ Nuc + status, data = df_tall, family = poisson())
+  df_tall$resid <- resid(mod_obj)
+  new_dat <- data.frame(Nuc = c("A", "C", "G", "T"), status = "singletons")
+  new_dat$pred <- predict(mod_obj, type = "response", newdata = new_dat)
+  new_dat$deviance <- {df_tall %>%
+      select(Nuc, resid) %>%
+      group_by(Nuc) %>%
+      summarize(resid = sum(resid^2)) %>%
+      pull(resid)}
+  df <- df%>%
+    inner_join({new_dat %>% select(-status)}, by = "Nuc") %>%
+    mutate(pct_pred = pred / sum(pred),
+           pct_s = singletons / sum(singletons)) %>%
+    mutate(kl_r = pct_s * log(pct_s / pct_pred)) %>%
+    select(-starts_with("pct"), -pred)
   return(df)
 }
 
-load_all_results <- function(subtype, sp, r_start = 1){
-  df <- load_results(subtype, -10, sp)
+#' Load all single position results for a subtype
+load_all_sp_results <- function(population, subtype, r_start = 1,
+                                data_dir = "/net/snowwhite/home/beckandy/research/1000G_LSCI/output/single_pos_df/"){
+  df <- load_sp_results(population, subtype, -10, data_dir)
   df$rp <- -10
   for(i in c(-9:-1, r_start:10)){
-    df2 <- load_results(subtype, i, sp)
+    df2 <- load_sp_results(population, subtype, i, data_dir)
     df2$rp <- i
     df <- bind_rows(df, df2)
   }
   return(df)
 }
 
-load_all_results_all_sp <- function(subtype, r_start = 1){
-  df <- load_all_results(subtype, "AFR") %>%
-    select(Nuc, rp, chi_sq_gw, chi_sq_ct) %>%
-    rename_with(.fn = ~paste0(., ".AFR"), .cols = starts_with("chi"))
-  for(sp in c("AMR", "EAS", "EUR", "SAS")){
-    df2 <- load_all_results(subtype, sp, r_start) %>%
-      select(Nuc, rp, chi_sq_gw, chi_sq_ct) %>%
-      rename_with(.fn = ~paste0(., ".", sp), .cols = starts_with("chi"))
-    df <- full_join(df, df2, by = c("Nuc", "rp"))
-  }
-  return(df)
-}
-
-statistic_by_position <- function(subtype, sp, r_start = 1){
-  final <- data.frame(pos = numeric(), chi_sq = numeric(), singletons = numeric(),type = character())
+#' Relative entropy by position
+#'
+kl_by_position <- function(population ,subtype, r_start = 1,
+                           data_dir = "/net/snowwhite/home/beckandy/research/1000G_LSCI/output/single_pos_df/"){
+  final <- data.frame(pos = numeric(), kl_stat = numeric())
   for(i in c(-10:-1, r_start:10)){
-    df <- load_results(subtype, i, sp)
+    df <- load_sp_results(population, subtype, i, data_dir)
     final <- bind_rows(final,
-                       data.frame(pos = c(i,i),
-                                  chi_sq = c(sum(df$chi_sq_gw, na.rm = T), sum(df$chi_sq_ct, na.rm = T) ),
-                                  singletons = c(sum(df$singletons, na.rm = T), sum(df$singletons, na.rm = T) ),
-                                  type = c("Genome-wide", "Control")))
+                       data.frame(pos = i,
+                                  kl_stat = sum(df$kl_r)))
   }
-  final <- final %>%
-    mutate(cohen = sqrt(chi_sq / singletons))
   return(final)
 }
 
-plot_pos_stat <- function(subtype, sp, r_start = 1){
-  df <- statistic_by_position(subtype, sp, r_start)
+#' Goodness of fit chi sq by position - control model
+gof_by_position <- function(population, subtype, r_start = 1,
+                            data_dir = "/net/snowwhite/home/beckandy/research/1000G_LSCI/output/single_pos_df/"){
+  final <- data.frame(pos = numeric(), statistic = numeric())
+  for(i in c(-10:-1, r_start:10)){
+    df <- load_sp_results(population, subtype, i, data_dir)
+    final <- bind_rows(final,
+                       data.frame(pos = i,
+                                  statistic = sum(df$chi_sq_ct, na.rm = T)))
+  }
+  return(final)
+}
+
+#' Relative entropy by position - control model
+re_by_position <- function(population, subtype, r_start = 1,
+                           data_dir = "/net/snowwhite/home/beckandy/research/1000G_LSCI/output/single_pos_df/"){
+  final <- data.frame(pos = numeric(), statistic = numeric())
+  for(i in c(-10:-1, r_start:10)){
+    df <- load_sp_results(population, subtype, i, data_dir)
+    final <- bind_rows(final,
+                       data.frame(pos = i,
+                                  statistic = sum(df$kl_r, na.rm = T)))
+  }
+  return(final)
+}
+
+#' Plot position x statistic
+plot_pos_stat <- function(population, subtype, stat_func,
+                          title_text, ylab_text,
+                          r_start = 1,
+                          data_dir = "/net/snowwhite/home/beckandy/research/1000G_LSCI/output/single_pos_df/" ){
+  df <- stat_func(population, subtype, r_start, data_dir)
   p <-df %>%
-    ggplot(aes(x = pos, y = chi_sq, colour = type)) +
+    ggplot(aes(x = pos, y = statistic)) +
     geom_point() +
     geom_line() +
-    ggtitle(paste0("1000G Single-Position Results: ", str_replace_all(subtype, "_", "-")),
-            paste0("Population: ", sp)) +
+    ggtitle(paste0(title_text, subtype),
+            paste0("Population: ", population)) +
     xlab("Relative Position") +
-    ylab("Chi Square Goodness of Fit Statistic") +
-    labs(colour = "Background Rate")
+    ylab(ylab_text)
   return(p)
 }
 
-plot_nuc_cont_by_position <- function(subtype, sp, type = "gw", r_start = 1){
-  if(type == "gw"){
-    df <- load_all_results(subtype, sp, r_start) %>%
-      replace_na(list("chi_sq_gw" = 0)) %>%
-      group_by(rp) %>%
-      mutate(p_chi = chi_sq_gw / sum(chi_sq_gw))
-    g_title <- paste0("Nucleotide Contribution to Genome-wide Statistic: ", str_replace_all(subtype, "_", "-"))
-  } else{
-    df <- load_all_results(subtype, sp, r_start) %>%
-      replace_na(list("chi_sq_ct" = 0)) %>%
-      group_by(rp) %>%
-      mutate(p_chi = chi_sq_ct / sum(chi_sq_ct))
-    g_title <- paste0("Nucleotide Contribution to Control-rate Statistic: ", str_replace_all(subtype, "_", "-"))
-  }
+plot_nuc_level_bar <- function(population, subtype, stat_col,
+                               title_text, sub_text = "", r_start=1,
+                               data_dir = "/net/snowwhite/home/beckandy/research/1000G_LSCI/output/single_pos_df/"){
+  df <- load_all_sp_results(population, subtype, r_start, data_dir) %>%
+    replace_na(list(stat_col = 0)) %>%
+    group_by(rp) %>%
+    mutate(pct = !!rlang::sym(stat_col) / sum(!!rlang::sym(stat_col)))
 
   p <- df %>%
-    ggplot(aes(x = rp, y = p_chi, fill = Nuc)) +
+    ggplot(aes(x = rp, y = pct, fill = Nuc)) +
     geom_col() +
     xlab("Relative Position") +
     ylab("Proportion Contributed") +
-    labs(fill = "Nucleotide") +
-    ggtitle(g_title, paste0("Population: ", sp))
+    labs(fill = "Nucleotide")
+ if(sub_text != ""){
+   p <- p + ggtitle(title_text, sub_text)
+ }
+  else {
+    p <- p + ggtitle(title_text)
+  }
   return(p)
 }
 
-plot_signed_nuc_by_pos <- function(subtype, sp, type = "gw", r_start = 1){
-  df <- load_all_results(subtype, sp, r_start)
-  if(type == "gw"){
-    df <- df %>%
-      replace_na(list("chi_sq_gw" = 0)) %>%
-      mutate(s_val = sign(singletons - exp_gw)) %>%
-      mutate(signed_chi_sq = s_val * chi_sq_gw)
-    g_title <- paste0("Nucleotide Genome-wide Signed ChiSq Residual: ", str_replace_all(subtype, "_", "-"))
-  } else {
-    df <- df %>%
-      replace_na(list("chi_sq_ct" = 0)) %>%
-      mutate(s_val = sign(singletons - exp_ct)) %>%
-      mutate(signed_chi_sq = s_val * chi_sq_ct)
-    g_title <- paste0("Nucleotide Control-Rate Signed ChiSq Residual: ", str_replace_all(subtype, "_", "-"))
-  }
+plot_signed_nuc_by_pos <- function(population, subtype, r_start = 1,
+                                   data_dir = "/net/snowwhite/home/beckandy/research/1000G_LSCI/output/single_pos_df/"){
+  df <- load_all_sp_results(population, subtype, r_start, data_dir = data_dir)
+  df <- df %>%
+    replace_na(list("chi_sq_ct" = 0)) %>%
+    mutate(s_val = sign(singletons - exp_ct)) %>%
+    mutate(signed_chi_sq = s_val * chi_sq_ct)
+  g_title <- paste0("Nucleotide Level Signed ChiSq Residual: ", str_replace_all(subtype, "_", "-"))
+
   p <- df %>%
     ggplot(aes(x = rp, y = signed_chi_sq, colour = Nuc)) +
     geom_point() +
@@ -106,42 +145,6 @@ plot_signed_nuc_by_pos <- function(subtype, sp, type = "gw", r_start = 1){
     xlab("Relative Position") +
     ylab("Signed ChiSq Contribution") +
     labs(fill = "Nucleotide") +
-    ggtitle(g_title, paste0("Population: ", sp))
+    ggtitle(g_title, paste0("Population: ", population))
   return(p)
-}
-
-### Functions for dealing with BRIDGES data
-
-load_results_bridges <- function(subtype, rp){
-  data_dir <- "/net/snowwhite/home/beckandy/research/BRIDGES_redo/output/single_pos_df/"
-  f_name <- paste0(data_dir, subtype, "_rp", rp, ".csv")
-  df <- read_csv(f_name, col_types = cols())
-  return(df)
-}
-
-load_all_results_bridges <- function(subtype, r_start = 1){
-  df <- load_results_bridges(subtype, -10)
-  df$rp <- -10
-  for(i in c(-9:-1, r_start:10)){
-    df2 <- load_results_bridges(subtype, i)
-    df2$rp <- i
-    df <- bind_rows(df, df2)
-  }
-  return(df)
-}
-
-statistic_by_position_bridges <- function(subtype, r_start = 1){
-  final <- data.frame(pos = numeric(), chi_sq = numeric(), singletons = numeric(),type = character())
-  for(i in c(-10:-1, r_start:10)){
-    df <- load_results_bridges(subtype, i) %>%
-      filter(singletons > 0)
-    final <- bind_rows(final,
-                       data.frame(pos = c(i,i),
-                                  chi_sq = c(sum(df$chi_sq_gw), sum(df$chi_sq_ct) ),
-                                  singletons = c(sum(df$singletons), sum(df$singletons) ),
-                                  type = c("Genome-wide", "Control")))
-  }
-  final <- final %>%
-    mutate(cohen = sqrt(chi_sq / singletons))
-  return(final)
 }
