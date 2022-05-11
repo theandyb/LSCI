@@ -40,7 +40,7 @@
 <link href="site_libs/font-awesome-5.1.0/css/all.css" rel="stylesheet" />
 <link href="site_libs/font-awesome-5.1.0/css/v4-shims.css" rel="stylesheet" />
 
-<link rel="icon" href="https://github.com/workflowr/workflowr-assets/raw/master/img/reproducible.png">
+<link rel="icon" href="https://github.com/workflowr/workflowr-assets/raw/main/img/reproducible.png">
 <!-- Add a small amount of space between sections. -->
 <style type="text/css">
 div.section {
@@ -361,7 +361,9 @@ div.tocify {
 
 <p>
 <button type="button" class="btn btn-default btn-workflowr btn-workflowr-report" data-toggle="collapse" data-target="#workflowr-report">
-<span class="glyphicon glyphicon-list" aria-hidden="true"></span> workflowr <span class="glyphicon glyphicon-exclamation-sign text-danger" aria-hidden="true"></span>
+<span class="glyphicon glyphicon-list" aria-hidden="true"></span>
+workflowr <span class="glyphicon glyphicon-ok text-success"
+aria-hidden="true"></span>
 </button>
 </p>
 <div id="workflowr-report" class="collapse">
@@ -370,7 +372,9 @@ div.tocify {
 <a data-toggle="tab" href="#summary">Summary</a>
 </li>
 <li>
-<a data-toggle="tab" href="#checks"> Checks <span class="glyphicon glyphicon-exclamation-sign text-danger" aria-hidden="true"></span> </a>
+<a data-toggle="tab" href="#checks"> Checks <span
+class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span>
+</a>
 </li>
 <li>
 <a data-toggle="tab" href="#versions">Past versions</a>
@@ -379,17 +383,27 @@ div.tocify {
 <div class="tab-content">
 <div id="summary" class="tab-pane fade in active">
 <p>
-<strong>Last updated:</strong> 2021-12-15
+<strong>Last updated:</strong> 2022-05-11
 </p>
 <p>
-<strong>Checks:</strong> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> 5 <span class="glyphicon glyphicon-exclamation-sign text-danger" aria-hidden="true"></span> 2
+<strong>Checks:</strong> <span
+class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> 7
+<span class="glyphicon glyphicon-exclamation-sign text-danger"
+aria-hidden="true"></span> 0
 </p>
 <p>
-<strong>Knit directory:</strong> <code>LSCI/</code> <span class="glyphicon glyphicon-question-sign" aria-hidden="true" title="This is the local directory in which the code in this file was executed."> </span>
+<strong>Knit directory:</strong> <code>LSCI/</code> <span
+class="glyphicon glyphicon-question-sign" aria-hidden="true"
+title="This is the local directory in which the code in this file was executed.">
+</span>
 </p>
 <p>
-This reproducible <a href="http://rmarkdown.rstudio.com">R Markdown</a> analysis was created with <a
-  href="https://github.com/jdblischak/workflowr">workflowr</a> (version 1.6.2). The <em>Checks</em> tab describes the reproducibility checks that were applied when the results were created. The <em>Past versions</em> tab lists the development history.
+This reproducible <a href="https://rmarkdown.rstudio.com">R Markdown</a>
+analysis was created with <a
+  href="https://github.com/workflowr/workflowr">workflowr</a> (version
+1.7.0). The <em>Checks</em> tab describes the reproducibility checks
+that were applied when the results were created. The <em>Past
+versions</em> tab lists the development history.
 </p>
 <hr>
 </div>
@@ -398,180 +412,162 @@ This reproducible <a href="http://rmarkdown.rstudio.com">R Markdown</a> analysis
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRMarkdownfilestronguptodate"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>R Markdown file:</strong> up-to-date </a>
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRMarkdownfilestronguptodate">
+<span class="glyphicon glyphicon-ok text-success"
+aria-hidden="true"></span> <strong>R Markdown file:</strong> up-to-date
+</a>
 </p>
 </div>
-<div id="strongRMarkdownfilestronguptodate" class="panel-collapse collapse">
+<div id="strongRMarkdownfilestronguptodate"
+class="panel-collapse collapse">
 <div class="panel-body">
-<p>Great! Since the R Markdown file has been committed to the Git repository, you know the exact version of the code that produced these results.</p>
+<p>Great! Since the R Markdown file has been committed to the Git
+repository, you know the exact version of the code that produced these
+results.</p>
 </div>
 </div>
 </div>
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongEnvironmentstrongempty"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Environment:</strong> empty </a>
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongEnvironmentstrongempty">
+<span class="glyphicon glyphicon-ok text-success"
+aria-hidden="true"></span> <strong>Environment:</strong> empty </a>
 </p>
 </div>
 <div id="strongEnvironmentstrongempty" class="panel-collapse collapse">
 <div class="panel-body">
-<p>Great job! The global environment was empty. Objects defined in the global environment can affect the analysis in your R Markdown file in unknown ways. For reproduciblity it’s best to always run the code in an empty environment.</p>
+<p>Great job! The global environment was empty. Objects defined in the
+global environment can affect the analysis in your R Markdown file in
+unknown ways. For reproduciblity it’s best to always run the code in an
+empty environment.</p>
 </div>
 </div>
 </div>
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongSeedstrongcodesetseed20211101code"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Seed:</strong> <code>set.seed(20211101)</code> </a>
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongSeedstrongcodesetseed20211101code">
+<span class="glyphicon glyphicon-ok text-success"
+aria-hidden="true"></span> <strong>Seed:</strong>
+<code>set.seed(20211101)</code> </a>
 </p>
 </div>
-<div id="strongSeedstrongcodesetseed20211101code" class="panel-collapse collapse">
+<div id="strongSeedstrongcodesetseed20211101code"
+class="panel-collapse collapse">
 <div class="panel-body">
-<p>The command <code>set.seed(20211101)</code> was run prior to running the code in the R Markdown file. Setting a seed ensures that any results that rely on randomness, e.g. subsampling or permutations, are reproducible.</p>
+<p>The command <code>set.seed(20211101)</code> was run prior to running
+the code in the R Markdown file. Setting a seed ensures that any results
+that rely on randomness, e.g. subsampling or permutations, are
+reproducible.</p>
 </div>
 </div>
 </div>
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongSessioninformationstrongrecorded"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Session information:</strong> recorded </a>
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongSessioninformationstrongrecorded">
+<span class="glyphicon glyphicon-ok text-success"
+aria-hidden="true"></span> <strong>Session information:</strong>
+recorded </a>
 </p>
 </div>
-<div id="strongSessioninformationstrongrecorded" class="panel-collapse collapse">
+<div id="strongSessioninformationstrongrecorded"
+class="panel-collapse collapse">
 <div class="panel-body">
-<p>Great job! Recording the operating system, R version, and package versions is critical for reproducibility.</p>
+<p>Great job! Recording the operating system, R version, and package
+versions is critical for reproducibility.</p>
 </div>
 </div>
 </div>
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongCachestrongdetected"> <span class="glyphicon glyphicon-exclamation-sign text-danger" aria-hidden="true"></span> <strong>Cache:</strong> detected </a>
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongCachestrongnone">
+<span class="glyphicon glyphicon-ok text-success"
+aria-hidden="true"></span> <strong>Cache:</strong> none </a>
 </p>
 </div>
-<div id="strongCachestrongdetected" class="panel-collapse collapse">
+<div id="strongCachestrongnone" class="panel-collapse collapse">
 <div class="panel-body">
-The following chunks had caches available:
-<ul>
-<li>
-at_cg_pop_plot
-</li>
-<li>
-at_gc_pop_plot
-</li>
-<li>
-at_ta_pop_plot
-</li>
-<li>
-cpg_gc_at_pop_plot
-</li>
-<li>
-cpg_gc_cg_pop_plot
-</li>
-<li>
-cpg_gc_ta_pop_plot
-</li>
-<li>
-gc_at_pop_plot
-</li>
-<li>
-gc_cg_pop_plot
-</li>
-<li>
-gc_ta_pop_plot
-</li>
-<li>
-load_2pop
-</li>
-<li>
-plot_2pop
-</li>
-</ul>
-<p>To ensure reproducibility of the results, delete the cache directory <code>1000G_single_postion_comp_cache</code> and re-run the analysis. To have workflowr automatically delete the cache directory prior to building the file, set <code>delete_cache = TRUE</code> when running <code>wflow_build()</code> or <code>wflow_publish()</code>.</p>
+<p>Nice! There were no cached chunks for this analysis, so you can be
+confident that you successfully produced the results during this
+run.</p>
 </div>
 </div>
 </div>
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongFilepathsstrongabsolute"> <span class="glyphicon glyphicon-exclamation-sign text-danger" aria-hidden="true"></span> <strong>File paths:</strong> absolute </a>
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongFilepathsstrongrelative">
+<span class="glyphicon glyphicon-ok text-success"
+aria-hidden="true"></span> <strong>File paths:</strong> relative </a>
 </p>
 </div>
-<div id="strongFilepathsstrongabsolute" class="panel-collapse collapse">
+<div id="strongFilepathsstrongrelative" class="panel-collapse collapse">
 <div class="panel-body">
-<p>
-Using absolute paths to the files within your workflowr project makes it difficult for you and others to run your code on a different machine. Change the absolute path(s) below to the suggested relative path(s) to make your code more reproducible.
-</p>
-<table class="table table-condensed table-hover">
-<thead>
-<tr>
-<th style="text-align:left;">
-absolute
-</th>
-<th style="text-align:left;">
-relative
-</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td style="text-align:left;">
-/net/snowwhite/home/beckandy/research/documentation/LSCI/output/tikz/single_pos/AFR_EUR_AT_CG.tex
-</td>
-<td style="text-align:left;">
-output/tikz/single_pos/AFR_EUR_AT_CG.tex
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-/net/snowwhite/home/beckandy/research/documentation/LSCI/output/tikz/single_pos/
-</td>
-<td style="text-align:left;">
-output/tikz/single_pos
-</td>
-</tr>
-</tbody>
-</table>
+<p>Great job! Using relative paths to the files within your workflowr
+project makes it easier to run your code on other machines.</p>
 </div>
 </div>
 </div>
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomtheandybLSCItree548c94347f658a4303bafa603080df774e8b4af5targetblank548c943a"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/theandyb/LSCI/tree/548c94347f658a4303bafa603080df774e8b4af5" target="_blank">548c943</a> </a>
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomtheandybLSCItreeec3c170f4923b2ec78644331d2fe1be4e572c7bdtargetblankec3c170a">
+<span class="glyphicon glyphicon-ok text-success"
+aria-hidden="true"></span> <strong>Repository version:</strong>
+<a href="https://github.com/theandyb/LSCI/tree/ec3c170f4923b2ec78644331d2fe1be4e572c7bd" target="_blank">ec3c170</a>
+</a>
 </p>
 </div>
-<div id="strongRepositoryversionstrongahrefhttpsgithubcomtheandybLSCItree548c94347f658a4303bafa603080df774e8b4af5targetblank548c943a" class="panel-collapse collapse">
+<div
+id="strongRepositoryversionstrongahrefhttpsgithubcomtheandybLSCItreeec3c170f4923b2ec78644331d2fe1be4e572c7bdtargetblankec3c170a"
+class="panel-collapse collapse">
 <div class="panel-body">
 <p>
-Great! You are using Git for version control. Tracking code development and connecting the code version to the results is critical for reproducibility.
+Great! You are using Git for version control. Tracking code development
+and connecting the code version to the results is critical for
+reproducibility.
 </p>
 <p>
-The results in this page were generated with repository version <a href="https://github.com/theandyb/LSCI/tree/548c94347f658a4303bafa603080df774e8b4af5" target="_blank">548c943</a>. See the <em>Past versions</em> tab to see a history of the changes made to the R Markdown and HTML files.
+The results in this page were generated with repository version
+<a href="https://github.com/theandyb/LSCI/tree/ec3c170f4923b2ec78644331d2fe1be4e572c7bd" target="_blank">ec3c170</a>.
+See the <em>Past versions</em> tab to see a history of the changes made
+to the R Markdown and HTML files.
 </p>
 <p>
-Note that you need to be careful to ensure that all relevant files for the analysis have been committed to Git prior to generating the results (you can use <code>wflow_publish</code> or <code>wflow_git_commit</code>). workflowr only checks the R Markdown file, but you know if there are other scripts or data files that it depends on. Below is the status of the Git repository when the results were generated:
+Note that you need to be careful to ensure that all relevant files for
+the analysis have been committed to Git prior to generating the results
+(you can use <code>wflow_publish</code> or
+<code>wflow_git_commit</code>). workflowr only checks the R Markdown
+file, but you know if there are other scripts or data files that it
+depends on. Below is the status of the Git repository when the results
+were generated:
 </p>
 <pre><code>
 Ignored files:
     Ignored:    .Rhistory
     Ignored:    .Rproj.user/
-    Ignored:    analysis/1000G_single_postion_comp_cache/
     Ignored:    analysis/disqus.html
+    Ignored:    analysis/figure/
+    Ignored:    code/random/
 
 Untracked files:
     Untracked:  1000G_single_position_ALL-tikzDictionary
-    Untracked:  BRIDGES_single_position-tikzDictionary
-    Untracked:  BRIDGES_summary_stats-tikzDictionary
+    Untracked:  analysis/1000G_two_positions_comp.Rmd
+    Untracked:  code/two_pos_functions.R
     Untracked:  output/tikz/
 
 Unstaged changes:
-    Modified:   analysis/BRIDGES_summary_stats.Rmd
-    Modified:   code/single_pos_functions.R
+    Deleted:    analysis/1000G_two_postions_comp.Rmd
+    Modified:   analysis/BRIDGES_two_positions.Rmd
 
 </code></pre>
 <p>
-Note that any generated files, e.g. HTML, png, CSS, etc., are not included in this status report because it is ok for generated content to have uncommitted changes.
+Note that any generated files, e.g. HTML, png, CSS, etc., are not
+included in this status report because it is ok for generated content to
+have uncommitted changes.
 </p>
 </div>
 </div>
@@ -582,7 +578,13 @@ Note that any generated files, e.g. HTML, png, CSS, etc., are not included in t
 <div id="versions" class="tab-pane fade">
 
 <p>
-These are the previous versions of the repository in which changes were made to the R Markdown (<code>analysis/1000G_single_postion_comp.Rmd</code>) and HTML (<code>docs/1000G_single_postion_comp.html</code>) files. If you’ve configured a remote Git repository (see <code>?wflow_git_remote</code>), click on the hyperlinks in the table below to view the files as they were in that past version.
+These are the previous versions of the repository in which changes were
+made to the R Markdown
+(<code>analysis/1000G_single_postion_comp.Rmd</code>) and HTML
+(<code>docs/1000G_single_postion_comp.html</code>) files. If you’ve
+configured a remote Git repository (see <code>?wflow_git_remote</code>),
+click on the hyperlinks in the table below to view the files as they
+were in that past version.
 </p>
 <div class="table-responsive">
 <table class="table table-condensed table-hover">
@@ -606,6 +608,58 @@ Message
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+Rmd
+</td>
+<td>
+<a href="https://github.com/theandyb/LSCI/blob/ec3c170f4923b2ec78644331d2fe1be4e572c7bd/analysis/1000G_single_postion_comp.Rmd" target="_blank">ec3c170</a>
+</td>
+<td>
+Andy Beck
+</td>
+<td>
+2022-05-11
+</td>
+<td>
+wflow_publish(c("code/single_pos_functions.R",
+"analysis/1000G_single_postion_comp.Rmd"))
+</td>
+</tr>
+<tr>
+<td>
+Rmd
+</td>
+<td>
+<a href="https://github.com/theandyb/LSCI/blob/2aaffb26a379239076a7a15c719eca81eb176983/analysis/1000G_single_postion_comp.Rmd" target="_blank">2aaffb2</a>
+</td>
+<td>
+Andy Beck
+</td>
+<td>
+2022-04-28
+</td>
+<td>
+Update documentation 28April2022
+</td>
+</tr>
+<tr>
+<td>
+html
+</td>
+<td>
+<a href="https://rawcdn.githack.com/theandyb/LSCI/ca9411ef9dfe687e4dccfe121d0d6caf51134ee3/docs/1000G_single_postion_comp.html" target="_blank">ca9411e</a>
+</td>
+<td>
+Andy Beck
+</td>
+<td>
+2021-12-16
+</td>
+<td>
+Build site.
+</td>
+</tr>
 <tr>
 <td>
 Rmd
@@ -722,7 +776,8 @@ Andy Beck
 2021-11-09
 </td>
 <td>
-wflow_publish(c("analysis/1000G_single_postion_comp.Rmd", "analysis/outline.Rmd"))
+wflow_publish(c("analysis/1000G_single_postion_comp.Rmd",
+"analysis/outline.Rmd"))
 </td>
 </tr>
 <tr>
@@ -834,11 +889,21 @@ flesh out some pages
 </div>
 </div>
 </div>
-<div id="g-single-position-models---population-comparisons" class="section level1">
+<div id="g-single-position-models---population-comparisons"
+class="section level1">
 <h1>1000G Single Position Models - Population Comparisons</h1>
 <div id="introduction" class="section level2">
 <h2>Introduction</h2>
-<p>In <a href="1000G_single_position_ALL.Rmd">another document</a>, we evaluated the single position models using singletons aggregated across all five of the 1000 Genomes super-populations. A natural question we can ask is if there is any heterogeneity across the populations. To address this, we perform our analyses again with the singletons, but this time we analyze each super-population separately. Having done this, we assess consistency of the results by checking the correlations of not only the position-level results, but also the contribution to each statistic from the nucleotides at the flanking position under consideration.</p>
+<p>In <a href="1000G_single_position_ALL.Rmd">another document</a>, we
+evaluated the single position models using singletons aggregated across
+all five of the 1000 Genomes super-populations. A natural question we
+can ask is if there is any heterogeneity across the populations. To
+address this, we perform our analyses again with the singletons, but
+this time we analyze each super-population separately. Having done this,
+we assess consistency of the results by checking the correlations of not
+only the position-level results, but also the contribution to each
+statistic from the nucleotides at the flanking position under
+consideration.</p>
 </div>
 <div id="simple-correlation-analysis" class="section level2">
 <h2>Simple Correlation Analysis</h2>
@@ -871,6 +936,17 @@ Date
 <tbody>
 <tr>
 <td>
+<a href="https://github.com/theandyb/LSCI/blob/ca9411ef9dfe687e4dccfe121d0d6caf51134ee3/docs/figure/1000G_single_postion_comp.Rmd/unnamed-chunk-2-1.png" target="_blank">ca9411e</a>
+</td>
+<td>
+Andy Beck
+</td>
+<td>
+2021-12-16
+</td>
+</tr>
+<tr>
+<td>
 <a href="https://github.com/theandyb/LSCI/blob/a878a58d134536c00f6497b1f35f4ede5facba80/docs/figure/1000G_single_postion_comp.Rmd/unnamed-chunk-2-1.png" target="_blank">a878a58</a>
 </td>
 <td>
@@ -884,7 +960,9 @@ Andy Beck
 </table>
 </div>
 </div>
-<p>As a reminder, here we plot the single position statistics for the A(T)&gt;C(G) sub-type using singletons aggregated across all 5 super-populations.</p>
+<p>As a reminder, here we plot the single position statistics for the
+A(T)&gt;C(G) sub-type using singletons aggregated across all 5
+super-populations.</p>
 </div>
 <div id="afr" class="section level4">
 <h4>AFR</h4>
@@ -913,6 +991,17 @@ Date
 <tbody>
 <tr>
 <td>
+<a href="https://github.com/theandyb/LSCI/blob/ca9411ef9dfe687e4dccfe121d0d6caf51134ee3/docs/figure/1000G_single_postion_comp.Rmd/unnamed-chunk-3-1.png" target="_blank">ca9411e</a>
+</td>
+<td>
+Andy Beck
+</td>
+<td>
+2021-12-16
+</td>
+</tr>
+<tr>
+<td>
 <a href="https://github.com/theandyb/LSCI/blob/a878a58d134536c00f6497b1f35f4ede5facba80/docs/figure/1000G_single_postion_comp.Rmd/unnamed-chunk-3-1.png" target="_blank">a878a58</a>
 </td>
 <td>
@@ -926,7 +1015,11 @@ Andy Beck
 </table>
 </div>
 </div>
-<p>When we look at the AFR super-population, our results across all the positions looks strikingly similar to what we saw above in the ALL analysis. This might be driven by AFR contributing a larger fraction of the singletons than the other 4 super-populations, so let us now take a look at those.</p>
+<p>When we look at the AFR super-population, our results across all the
+positions looks strikingly similar to what we saw above in the ALL
+analysis. This might be driven by AFR contributing a larger fraction of
+the singletons than the other 4 super-populations, so let us now take a
+look at those.</p>
 </div>
 <div id="amr" class="section level4">
 <h4>AMR</h4>
@@ -953,6 +1046,17 @@ Date
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+<a href="https://github.com/theandyb/LSCI/blob/ca9411ef9dfe687e4dccfe121d0d6caf51134ee3/docs/figure/1000G_single_postion_comp.Rmd/unnamed-chunk-4-1.png" target="_blank">ca9411e</a>
+</td>
+<td>
+Andy Beck
+</td>
+<td>
+2021-12-16
+</td>
+</tr>
 <tr>
 <td>
 <a href="https://github.com/theandyb/LSCI/blob/a878a58d134536c00f6497b1f35f4ede5facba80/docs/figure/1000G_single_postion_comp.Rmd/unnamed-chunk-4-1.png" target="_blank">a878a58</a>
@@ -996,6 +1100,17 @@ Date
 <tbody>
 <tr>
 <td>
+<a href="https://github.com/theandyb/LSCI/blob/ca9411ef9dfe687e4dccfe121d0d6caf51134ee3/docs/figure/1000G_single_postion_comp.Rmd/unnamed-chunk-5-1.png" target="_blank">ca9411e</a>
+</td>
+<td>
+Andy Beck
+</td>
+<td>
+2021-12-16
+</td>
+</tr>
+<tr>
+<td>
 <a href="https://github.com/theandyb/LSCI/blob/a878a58d134536c00f6497b1f35f4ede5facba80/docs/figure/1000G_single_postion_comp.Rmd/unnamed-chunk-5-1.png" target="_blank">a878a58</a>
 </td>
 <td>
@@ -1035,6 +1150,17 @@ Date
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+<a href="https://github.com/theandyb/LSCI/blob/ca9411ef9dfe687e4dccfe121d0d6caf51134ee3/docs/figure/1000G_single_postion_comp.Rmd/unnamed-chunk-6-1.png" target="_blank">ca9411e</a>
+</td>
+<td>
+Andy Beck
+</td>
+<td>
+2021-12-16
+</td>
+</tr>
 <tr>
 <td>
 <a href="https://github.com/theandyb/LSCI/blob/a878a58d134536c00f6497b1f35f4ede5facba80/docs/figure/1000G_single_postion_comp.Rmd/unnamed-chunk-6-1.png" target="_blank">a878a58</a>
@@ -1078,6 +1204,17 @@ Date
 <tbody>
 <tr>
 <td>
+<a href="https://github.com/theandyb/LSCI/blob/ca9411ef9dfe687e4dccfe121d0d6caf51134ee3/docs/figure/1000G_single_postion_comp.Rmd/unnamed-chunk-7-1.png" target="_blank">ca9411e</a>
+</td>
+<td>
+Andy Beck
+</td>
+<td>
+2021-12-16
+</td>
+</tr>
+<tr>
+<td>
 <a href="https://github.com/theandyb/LSCI/blob/a878a58d134536c00f6497b1f35f4ede5facba80/docs/figure/1000G_single_postion_comp.Rmd/unnamed-chunk-7-1.png" target="_blank">a878a58</a>
 </td>
 <td>
@@ -1091,1762 +1228,219 @@ Andy Beck
 </table>
 </div>
 </div>
-<p>Across all five super-populations we see the same pattern as we look across positions, suggesting that the results are consistent across the five super-populations. The only difference we really see is a shift in the magnitude of the statistic, which is likely driven by differences in the number of singletons across the super-populations.</p>
-<p>To quantify our observation that the statistics are consistent across super-populations, let’s look at the pairwise correlations of statistics across positions for each pair of super-populations:</p>
+<p>Across all five super-populations we see the same pattern as we look
+across positions, suggesting that the results are consistent across the
+five super-populations. The only difference we really see is a shift in
+the magnitude of the statistic, which is likely driven by differences in
+the number of singletons across the super-populations.</p>
+<p>To quantify our observation that the statistics are consistent across
+super-populations, let’s look at the pairwise correlations of statistics
+across positions for each pair of super-populations:</p>
 <pre><code>
 Correlation method: &#39;pearson&#39;
 Missing treated using: &#39;pairwise.complete.obs&#39;</code></pre>
-<table>
-<thead>
-<tr class="header">
-<th align="left">term</th>
-<th align="left">chi_sq_ct.AFR</th>
-<th align="left">chi_sq_ct.AMR</th>
-<th align="left">chi_sq_ct.EAS</th>
-<th align="left">chi_sq_ct.EUR</th>
-<th align="left">chi_sq_ct.SAS</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td align="left">chi_sq_ct.AFR</td>
-<td align="left"></td>
-<td align="left">1.00</td>
-<td align="left">.99</td>
-<td align="left">1.00</td>
-<td align="left">1.00</td>
-</tr>
-<tr class="even">
-<td align="left">chi_sq_ct.AMR</td>
-<td align="left">1.00</td>
-<td align="left"></td>
-<td align="left">1.00</td>
-<td align="left">1.00</td>
-<td align="left">1.00</td>
-</tr>
-<tr class="odd">
-<td align="left">chi_sq_ct.EAS</td>
-<td align="left">.99</td>
-<td align="left">1.00</td>
-<td align="left"></td>
-<td align="left">.99</td>
-<td align="left">1.00</td>
-</tr>
-<tr class="even">
-<td align="left">chi_sq_ct.EUR</td>
-<td align="left">1.00</td>
-<td align="left">1.00</td>
-<td align="left">.99</td>
-<td align="left"></td>
-<td align="left">1.00</td>
-</tr>
-<tr class="odd">
-<td align="left">chi_sq_ct.SAS</td>
-<td align="left">1.00</td>
-<td align="left">1.00</td>
-<td align="left">1.00</td>
-<td align="left">1.00</td>
-<td align="left"></td>
-</tr>
-</tbody>
-</table>
-<p>We see here that the statistics at each position are highly correlated across the super-populations. We can also ask if the “residuals” (contribution of each nucleotide to each position’s statistic) is also correlated:</p>
-<pre><code>
-Correlation method: &#39;pearson&#39;
-Missing treated using: &#39;pairwise.complete.obs&#39;</code></pre>
-<p>and it appears that they are for this sub-type. Let’s now take a look at the other sub-types</p>
 </div>
 </div>
+</div>
+</div>
+<div id="a-tibble-5-6" class="section level1">
+<h1>A tibble: 5 × 6</h1>
+<p>term AFR AMR EAS EUR SAS <chr> <dbl> <dbl> <dbl> <dbl> <dbl> 1 AFR NA
+0.999 0.995 0.997 0.999 2 AMR 0.999 NA 0.996 0.998 0.998 3 EAS 0.995
+0.996 NA 0.989 0.997 4 EUR 0.997 0.998 0.989 NA 0.995 5 SAS 0.999 0.998
+0.997 0.995 NA</p>
+<p>We see in the above pairwise correlation matrix that the position
+level statistics are highly correlated between super populations which
+is what we’d like to see: the patterns of influence at single positions
+seem to be consistent across 1KGP super-populations. However, this is
+only a surface-level result; the position-level statistics are the sum
+of nucleotide-specific contributions, and we’d like to assess whether or
+not these are also consistent across populations.</p>
+<p><img src="figure/1000G_single_postion_comp.Rmd/unnamed-chunk-9-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>In the above plot we can see that across all positions, the results
+for the AFR super-population are highly correlated with the other
+super-populations. Let’s wrap the above analyses into a function and run
+them on the other subtypes.</p>
+<pre class="r"><code>corr_analysis &lt;- function(subtype, r_start = 1, stat_col = &quot;kl_r&quot;){
+  df &lt;- load_all_results_all_sp(subtype, r_start = r_start)
+  
+  df_wide &lt;- df %&gt;%
+    select(Nuc, rp, pop, !!sym(stat_col)) %&gt;%
+    pivot_wider(names_from = pop, values_from = !!sym(stat_col))
+  
+  # position-level statistics
+  df_pos &lt;- df_wide_at_cg %&gt;%
+    group_by(rp) %&gt;%
+    summarize(across(AFR:SAS, ~sum(.)))
+  
+  df_pos %&gt;%
+    select(-rp) %&gt;%
+    correlate(quiet = TRUE) %&gt;%
+    print()
+  
+  df_cor &lt;- df_wide %&gt;%
+    group_by(rp) %&gt;%
+    summarise(across(AMR:SAS, ~cor(., AFR), .names = &quot;AFR_{.col}&quot;),
+              across(EAS:SAS, ~cor(., AMR), .names = &quot;AMR_{.col}&quot;),
+              across(EUR:SAS, ~cor(., EAS), .names = &quot;EAS_{.col}&quot;),
+              across(SAS, ~cor(., EUR), .names = &quot;EUR_{.col}&quot;))
+  p &lt;- df_cor %&gt;%
+    select(rp, starts_with(&quot;AFR&quot;)) %&gt;%
+    pivot_longer(-rp, names_to = &quot;pair&quot;, values_to = &quot;cor&quot;) %&gt;%
+    mutate(pair = str_remove(pair, &quot;AFR_&quot;)) %&gt;%
+    ggplot(aes(x = rp, y = cor, group_by = pair, colour = pair)) +
+    geom_point() + 
+    geom_line() +
+    ylim(c(0,1)) +
+    ggtitle(&quot;Nucleotide residual correlations&quot;, paste0(&quot;Reference Population: AFR; subtype: &quot;, subtype)) +
+    xlab(&quot;Relative Position&quot;) +
+    ylab(&quot;Nucleotide Contribution Correlation&quot;) +
+    labs(colour = &quot;Population&quot;)
+  print(p)
+}</code></pre>
 <div id="at_gc" class="section level3">
 <h3>AT_GC</h3>
-<div id="position-level" class="section level4">
-<h4>Position-level</h4>
-<table>
-<thead>
-<tr class="header">
-<th align="left">term</th>
-<th align="left">chi_sq_ct.AFR</th>
-<th align="left">chi_sq_ct.AMR</th>
-<th align="left">chi_sq_ct.EAS</th>
-<th align="left">chi_sq_ct.EUR</th>
-<th align="left">chi_sq_ct.SAS</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td align="left">chi_sq_ct.AFR</td>
-<td align="left"></td>
-<td align="left">1.00</td>
-<td align="left">1.00</td>
-<td align="left">1.00</td>
-<td align="left">1.00</td>
-</tr>
-<tr class="even">
-<td align="left">chi_sq_ct.AMR</td>
-<td align="left">1.00</td>
-<td align="left"></td>
-<td align="left">1.00</td>
-<td align="left">1.00</td>
-<td align="left">1.00</td>
-</tr>
-<tr class="odd">
-<td align="left">chi_sq_ct.EAS</td>
-<td align="left">1.00</td>
-<td align="left">1.00</td>
-<td align="left"></td>
-<td align="left">1.00</td>
-<td align="left">1.00</td>
-</tr>
-<tr class="even">
-<td align="left">chi_sq_ct.EUR</td>
-<td align="left">1.00</td>
-<td align="left">1.00</td>
-<td align="left">1.00</td>
-<td align="left"></td>
-<td align="left">1.00</td>
-</tr>
-<tr class="odd">
-<td align="left">chi_sq_ct.SAS</td>
-<td align="left">1.00</td>
-<td align="left">1.00</td>
-<td align="left">1.00</td>
-<td align="left">1.00</td>
-<td align="left"></td>
-</tr>
-</tbody>
-</table>
-</div>
-<div id="nucleotide-level" class="section level4">
-<h4>Nucleotide-level</h4>
-<table>
-<thead>
-<tr class="header">
-<th align="left">term</th>
-<th align="left">chi_sq_ct.AFR</th>
-<th align="left">chi_sq_ct.AMR</th>
-<th align="left">chi_sq_ct.EAS</th>
-<th align="left">chi_sq_ct.EUR</th>
-<th align="left">chi_sq_ct.SAS</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td align="left">chi_sq_ct.AFR</td>
-<td align="left"></td>
-<td align="left">1.00</td>
-<td align="left">1.00</td>
-<td align="left">1.00</td>
-<td align="left">1.00</td>
-</tr>
-<tr class="even">
-<td align="left">chi_sq_ct.AMR</td>
-<td align="left">1.00</td>
-<td align="left"></td>
-<td align="left">1.00</td>
-<td align="left">1.00</td>
-<td align="left">1.00</td>
-</tr>
-<tr class="odd">
-<td align="left">chi_sq_ct.EAS</td>
-<td align="left">1.00</td>
-<td align="left">1.00</td>
-<td align="left"></td>
-<td align="left">1.00</td>
-<td align="left">1.00</td>
-</tr>
-<tr class="even">
-<td align="left">chi_sq_ct.EUR</td>
-<td align="left">1.00</td>
-<td align="left">1.00</td>
-<td align="left">1.00</td>
-<td align="left"></td>
-<td align="left">1.00</td>
-</tr>
-<tr class="odd">
-<td align="left">chi_sq_ct.SAS</td>
-<td align="left">1.00</td>
-<td align="left">1.00</td>
-<td align="left">1.00</td>
-<td align="left">1.00</td>
-<td align="left"></td>
-</tr>
-</tbody>
-</table>
-</div>
+<pre class="r"><code>subtype &lt;- &quot;AT_GC&quot;
+corr_analysis(subtype)</code></pre>
+<pre><code># A tibble: 5 × 6
+  term     AFR    AMR    EAS    EUR    SAS
+  &lt;chr&gt;  &lt;dbl&gt;  &lt;dbl&gt;  &lt;dbl&gt;  &lt;dbl&gt;  &lt;dbl&gt;
+1 AFR   NA      0.999  0.995  0.997  0.999
+2 AMR    0.999 NA      0.996  0.998  0.998
+3 EAS    0.995  0.996 NA      0.989  0.997
+4 EUR    0.997  0.998  0.989 NA      0.995
+5 SAS    0.999  0.998  0.997  0.995 NA    </code></pre>
+<p><img src="figure/1000G_single_postion_comp.Rmd/unnamed-chunk-11-1.png" width="672" style="display: block; margin: auto;" /></p>
 </div>
 <div id="at_ta" class="section level3">
 <h3>AT_TA</h3>
-<div id="position-level-1" class="section level4">
-<h4>Position-level</h4>
-<table>
-<thead>
-<tr class="header">
-<th align="left">term</th>
-<th align="left">chi_sq_ct.AFR</th>
-<th align="left">chi_sq_ct.AMR</th>
-<th align="left">chi_sq_ct.EAS</th>
-<th align="left">chi_sq_ct.EUR</th>
-<th align="left">chi_sq_ct.SAS</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td align="left">chi_sq_ct.AFR</td>
-<td align="left"></td>
-<td align="left">1.00</td>
-<td align="left">1.00</td>
-<td align="left">1.00</td>
-<td align="left">1.00</td>
-</tr>
-<tr class="even">
-<td align="left">chi_sq_ct.AMR</td>
-<td align="left">1.00</td>
-<td align="left"></td>
-<td align="left">1.00</td>
-<td align="left">1.00</td>
-<td align="left">1.00</td>
-</tr>
-<tr class="odd">
-<td align="left">chi_sq_ct.EAS</td>
-<td align="left">1.00</td>
-<td align="left">1.00</td>
-<td align="left"></td>
-<td align="left">1.00</td>
-<td align="left">1.00</td>
-</tr>
-<tr class="even">
-<td align="left">chi_sq_ct.EUR</td>
-<td align="left">1.00</td>
-<td align="left">1.00</td>
-<td align="left">1.00</td>
-<td align="left"></td>
-<td align="left">1.00</td>
-</tr>
-<tr class="odd">
-<td align="left">chi_sq_ct.SAS</td>
-<td align="left">1.00</td>
-<td align="left">1.00</td>
-<td align="left">1.00</td>
-<td align="left">1.00</td>
-<td align="left"></td>
-</tr>
-</tbody>
-</table>
-</div>
-<div id="nucleotide-level-1" class="section level4">
-<h4>Nucleotide-level</h4>
-<table>
-<thead>
-<tr class="header">
-<th align="left">term</th>
-<th align="left">chi_sq_ct.AFR</th>
-<th align="left">chi_sq_ct.AMR</th>
-<th align="left">chi_sq_ct.EAS</th>
-<th align="left">chi_sq_ct.EUR</th>
-<th align="left">chi_sq_ct.SAS</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td align="left">chi_sq_ct.AFR</td>
-<td align="left"></td>
-<td align="left">1.00</td>
-<td align="left">1.00</td>
-<td align="left">1.00</td>
-<td align="left">1.00</td>
-</tr>
-<tr class="even">
-<td align="left">chi_sq_ct.AMR</td>
-<td align="left">1.00</td>
-<td align="left"></td>
-<td align="left">1.00</td>
-<td align="left">1.00</td>
-<td align="left">1.00</td>
-</tr>
-<tr class="odd">
-<td align="left">chi_sq_ct.EAS</td>
-<td align="left">1.00</td>
-<td align="left">1.00</td>
-<td align="left"></td>
-<td align="left">1.00</td>
-<td align="left">1.00</td>
-</tr>
-<tr class="even">
-<td align="left">chi_sq_ct.EUR</td>
-<td align="left">1.00</td>
-<td align="left">1.00</td>
-<td align="left">1.00</td>
-<td align="left"></td>
-<td align="left">1.00</td>
-</tr>
-<tr class="odd">
-<td align="left">chi_sq_ct.SAS</td>
-<td align="left">1.00</td>
-<td align="left">1.00</td>
-<td align="left">1.00</td>
-<td align="left">1.00</td>
-<td align="left"></td>
-</tr>
-</tbody>
-</table>
-</div>
+<pre class="r"><code>subtype &lt;- &quot;AT_TA&quot;
+corr_analysis(subtype)</code></pre>
+<pre><code># A tibble: 5 × 6
+  term     AFR    AMR    EAS    EUR    SAS
+  &lt;chr&gt;  &lt;dbl&gt;  &lt;dbl&gt;  &lt;dbl&gt;  &lt;dbl&gt;  &lt;dbl&gt;
+1 AFR   NA      0.999  0.995  0.997  0.999
+2 AMR    0.999 NA      0.996  0.998  0.998
+3 EAS    0.995  0.996 NA      0.989  0.997
+4 EUR    0.997  0.998  0.989 NA      0.995
+5 SAS    0.999  0.998  0.997  0.995 NA    </code></pre>
+<p><img src="figure/1000G_single_postion_comp.Rmd/unnamed-chunk-12-1.png" width="672" style="display: block; margin: auto;" /></p>
 </div>
 <div id="gc_at" class="section level3">
 <h3>GC_AT</h3>
-<div id="position-level-2" class="section level4">
-<h4>Position-level</h4>
-<table>
-<thead>
-<tr class="header">
-<th align="left">term</th>
-<th align="left">chi_sq_ct.AFR</th>
-<th align="left">chi_sq_ct.AMR</th>
-<th align="left">chi_sq_ct.EAS</th>
-<th align="left">chi_sq_ct.EUR</th>
-<th align="left">chi_sq_ct.SAS</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td align="left">chi_sq_ct.AFR</td>
-<td align="left"></td>
-<td align="left">.99</td>
-<td align="left">.99</td>
-<td align="left">.99</td>
-<td align="left">.99</td>
-</tr>
-<tr class="even">
-<td align="left">chi_sq_ct.AMR</td>
-<td align="left">.99</td>
-<td align="left"></td>
-<td align="left">1.00</td>
-<td align="left">1.00</td>
-<td align="left">1.00</td>
-</tr>
-<tr class="odd">
-<td align="left">chi_sq_ct.EAS</td>
-<td align="left">.99</td>
-<td align="left">1.00</td>
-<td align="left"></td>
-<td align="left">1.00</td>
-<td align="left">1.00</td>
-</tr>
-<tr class="even">
-<td align="left">chi_sq_ct.EUR</td>
-<td align="left">.99</td>
-<td align="left">1.00</td>
-<td align="left">1.00</td>
-<td align="left"></td>
-<td align="left">1.00</td>
-</tr>
-<tr class="odd">
-<td align="left">chi_sq_ct.SAS</td>
-<td align="left">.99</td>
-<td align="left">1.00</td>
-<td align="left">1.00</td>
-<td align="left">1.00</td>
-<td align="left"></td>
-</tr>
-</tbody>
-</table>
-</div>
-<div id="nucleotide-level-2" class="section level4">
-<h4>Nucleotide-level</h4>
-<table>
-<thead>
-<tr class="header">
-<th align="left">term</th>
-<th align="left">chi_sq_ct.AFR</th>
-<th align="left">chi_sq_ct.AMR</th>
-<th align="left">chi_sq_ct.EAS</th>
-<th align="left">chi_sq_ct.EUR</th>
-<th align="left">chi_sq_ct.SAS</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td align="left">chi_sq_ct.AFR</td>
-<td align="left"></td>
-<td align="left">.99</td>
-<td align="left">.99</td>
-<td align="left">.98</td>
-<td align="left">.97</td>
-</tr>
-<tr class="even">
-<td align="left">chi_sq_ct.AMR</td>
-<td align="left">.99</td>
-<td align="left"></td>
-<td align="left">.99</td>
-<td align="left">.99</td>
-<td align="left">.99</td>
-</tr>
-<tr class="odd">
-<td align="left">chi_sq_ct.EAS</td>
-<td align="left">.99</td>
-<td align="left">.99</td>
-<td align="left"></td>
-<td align="left">.98</td>
-<td align="left">.97</td>
-</tr>
-<tr class="even">
-<td align="left">chi_sq_ct.EUR</td>
-<td align="left">.98</td>
-<td align="left">.99</td>
-<td align="left">.98</td>
-<td align="left"></td>
-<td align="left">1.00</td>
-</tr>
-<tr class="odd">
-<td align="left">chi_sq_ct.SAS</td>
-<td align="left">.97</td>
-<td align="left">.99</td>
-<td align="left">.97</td>
-<td align="left">1.00</td>
-<td align="left"></td>
-</tr>
-</tbody>
-</table>
-</div>
+<pre class="r"><code>subtype &lt;- &quot;GC_AT&quot;
+corr_analysis(subtype)</code></pre>
+<pre><code># A tibble: 5 × 6
+  term     AFR    AMR    EAS    EUR    SAS
+  &lt;chr&gt;  &lt;dbl&gt;  &lt;dbl&gt;  &lt;dbl&gt;  &lt;dbl&gt;  &lt;dbl&gt;
+1 AFR   NA      0.999  0.995  0.997  0.999
+2 AMR    0.999 NA      0.996  0.998  0.998
+3 EAS    0.995  0.996 NA      0.989  0.997
+4 EUR    0.997  0.998  0.989 NA      0.995
+5 SAS    0.999  0.998  0.997  0.995 NA    </code></pre>
+<pre><code>Warning: Removed 4 rows containing missing values (geom_point).</code></pre>
+<p><img src="figure/1000G_single_postion_comp.Rmd/unnamed-chunk-13-1.png" width="672" style="display: block; margin: auto;" /></p>
 </div>
 <div id="cpg_gc_at" class="section level3">
 <h3>cpg_GC_AT</h3>
-<div id="position-level-3" class="section level4">
-<h4>Position-level</h4>
-<table>
-<thead>
-<tr class="header">
-<th align="left">term</th>
-<th align="left">chi_sq_ct.AFR</th>
-<th align="left">chi_sq_ct.AMR</th>
-<th align="left">chi_sq_ct.EAS</th>
-<th align="left">chi_sq_ct.EUR</th>
-<th align="left">chi_sq_ct.SAS</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td align="left">chi_sq_ct.AFR</td>
-<td align="left"></td>
-<td align="left">1.00</td>
-<td align="left">1.00</td>
-<td align="left">1.00</td>
-<td align="left">1.00</td>
-</tr>
-<tr class="even">
-<td align="left">chi_sq_ct.AMR</td>
-<td align="left">1.00</td>
-<td align="left"></td>
-<td align="left">1.00</td>
-<td align="left">1.00</td>
-<td align="left">1.00</td>
-</tr>
-<tr class="odd">
-<td align="left">chi_sq_ct.EAS</td>
-<td align="left">1.00</td>
-<td align="left">1.00</td>
-<td align="left"></td>
-<td align="left">1.00</td>
-<td align="left">1.00</td>
-</tr>
-<tr class="even">
-<td align="left">chi_sq_ct.EUR</td>
-<td align="left">1.00</td>
-<td align="left">1.00</td>
-<td align="left">1.00</td>
-<td align="left"></td>
-<td align="left">1.00</td>
-</tr>
-<tr class="odd">
-<td align="left">chi_sq_ct.SAS</td>
-<td align="left">1.00</td>
-<td align="left">1.00</td>
-<td align="left">1.00</td>
-<td align="left">1.00</td>
-<td align="left"></td>
-</tr>
-</tbody>
-</table>
-</div>
-<div id="nucleotide-level-3" class="section level4">
-<h4>Nucleotide-level</h4>
-<table>
-<thead>
-<tr class="header">
-<th align="left">term</th>
-<th align="left">chi_sq_ct.AFR</th>
-<th align="left">chi_sq_ct.AMR</th>
-<th align="left">chi_sq_ct.EAS</th>
-<th align="left">chi_sq_ct.EUR</th>
-<th align="left">chi_sq_ct.SAS</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td align="left">chi_sq_ct.AFR</td>
-<td align="left"></td>
-<td align="left">1.00</td>
-<td align="left">1.00</td>
-<td align="left">1.00</td>
-<td align="left">1.00</td>
-</tr>
-<tr class="even">
-<td align="left">chi_sq_ct.AMR</td>
-<td align="left">1.00</td>
-<td align="left"></td>
-<td align="left">1.00</td>
-<td align="left">1.00</td>
-<td align="left">1.00</td>
-</tr>
-<tr class="odd">
-<td align="left">chi_sq_ct.EAS</td>
-<td align="left">1.00</td>
-<td align="left">1.00</td>
-<td align="left"></td>
-<td align="left">1.00</td>
-<td align="left">1.00</td>
-</tr>
-<tr class="even">
-<td align="left">chi_sq_ct.EUR</td>
-<td align="left">1.00</td>
-<td align="left">1.00</td>
-<td align="left">1.00</td>
-<td align="left"></td>
-<td align="left">1.00</td>
-</tr>
-<tr class="odd">
-<td align="left">chi_sq_ct.SAS</td>
-<td align="left">1.00</td>
-<td align="left">1.00</td>
-<td align="left">1.00</td>
-<td align="left">1.00</td>
-<td align="left"></td>
-</tr>
-</tbody>
-</table>
-</div>
+<pre class="r"><code>subtype &lt;- &quot;cpg_GC_AT&quot;
+corr_analysis(subtype, r_start = 2)</code></pre>
+<pre><code># A tibble: 5 × 6
+  term     AFR    AMR    EAS    EUR    SAS
+  &lt;chr&gt;  &lt;dbl&gt;  &lt;dbl&gt;  &lt;dbl&gt;  &lt;dbl&gt;  &lt;dbl&gt;
+1 AFR   NA      0.999  0.995  0.997  0.999
+2 AMR    0.999 NA      0.996  0.998  0.998
+3 EAS    0.995  0.996 NA      0.989  0.997
+4 EUR    0.997  0.998  0.989 NA      0.995
+5 SAS    0.999  0.998  0.997  0.995 NA    </code></pre>
+<p><img src="figure/1000G_single_postion_comp.Rmd/unnamed-chunk-14-1.png" width="672" style="display: block; margin: auto;" /></p>
 </div>
 <div id="gc_cg" class="section level3">
 <h3>GC_CG</h3>
-<div id="position-level-4" class="section level4">
-<h4>Position-level</h4>
-<table>
-<thead>
-<tr class="header">
-<th align="left">term</th>
-<th align="left">chi_sq_ct.AFR</th>
-<th align="left">chi_sq_ct.AMR</th>
-<th align="left">chi_sq_ct.EAS</th>
-<th align="left">chi_sq_ct.EUR</th>
-<th align="left">chi_sq_ct.SAS</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td align="left">chi_sq_ct.AFR</td>
-<td align="left"></td>
-<td align="left">1.00</td>
-<td align="left">.99</td>
-<td align="left">.99</td>
-<td align="left">1.00</td>
-</tr>
-<tr class="even">
-<td align="left">chi_sq_ct.AMR</td>
-<td align="left">1.00</td>
-<td align="left"></td>
-<td align="left">1.00</td>
-<td align="left">1.00</td>
-<td align="left">1.00</td>
-</tr>
-<tr class="odd">
-<td align="left">chi_sq_ct.EAS</td>
-<td align="left">.99</td>
-<td align="left">1.00</td>
-<td align="left"></td>
-<td align="left">1.00</td>
-<td align="left">1.00</td>
-</tr>
-<tr class="even">
-<td align="left">chi_sq_ct.EUR</td>
-<td align="left">.99</td>
-<td align="left">1.00</td>
-<td align="left">1.00</td>
-<td align="left"></td>
-<td align="left">1.00</td>
-</tr>
-<tr class="odd">
-<td align="left">chi_sq_ct.SAS</td>
-<td align="left">1.00</td>
-<td align="left">1.00</td>
-<td align="left">1.00</td>
-<td align="left">1.00</td>
-<td align="left"></td>
-</tr>
-</tbody>
-</table>
-</div>
-<div id="nucleotide-level-4" class="section level4">
-<h4>Nucleotide-level</h4>
-<table>
-<thead>
-<tr class="header">
-<th align="left">term</th>
-<th align="left">chi_sq_ct.AFR</th>
-<th align="left">chi_sq_ct.AMR</th>
-<th align="left">chi_sq_ct.EAS</th>
-<th align="left">chi_sq_ct.EUR</th>
-<th align="left">chi_sq_ct.SAS</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td align="left">chi_sq_ct.AFR</td>
-<td align="left"></td>
-<td align="left">.99</td>
-<td align="left">.99</td>
-<td align="left">.99</td>
-<td align="left">.99</td>
-</tr>
-<tr class="even">
-<td align="left">chi_sq_ct.AMR</td>
-<td align="left">.99</td>
-<td align="left"></td>
-<td align="left">1.00</td>
-<td align="left">1.00</td>
-<td align="left">1.00</td>
-</tr>
-<tr class="odd">
-<td align="left">chi_sq_ct.EAS</td>
-<td align="left">.99</td>
-<td align="left">1.00</td>
-<td align="left"></td>
-<td align="left">1.00</td>
-<td align="left">1.00</td>
-</tr>
-<tr class="even">
-<td align="left">chi_sq_ct.EUR</td>
-<td align="left">.99</td>
-<td align="left">1.00</td>
-<td align="left">1.00</td>
-<td align="left"></td>
-<td align="left">1.00</td>
-</tr>
-<tr class="odd">
-<td align="left">chi_sq_ct.SAS</td>
-<td align="left">.99</td>
-<td align="left">1.00</td>
-<td align="left">1.00</td>
-<td align="left">1.00</td>
-<td align="left"></td>
-</tr>
-</tbody>
-</table>
-</div>
+<pre class="r"><code>subtype &lt;- &quot;GC_CG&quot;
+corr_analysis(subtype)</code></pre>
+<pre><code># A tibble: 5 × 6
+  term     AFR    AMR    EAS    EUR    SAS
+  &lt;chr&gt;  &lt;dbl&gt;  &lt;dbl&gt;  &lt;dbl&gt;  &lt;dbl&gt;  &lt;dbl&gt;
+1 AFR   NA      0.999  0.995  0.997  0.999
+2 AMR    0.999 NA      0.996  0.998  0.998
+3 EAS    0.995  0.996 NA      0.989  0.997
+4 EUR    0.997  0.998  0.989 NA      0.995
+5 SAS    0.999  0.998  0.997  0.995 NA    </code></pre>
+<pre><code>Warning: Removed 4 rows containing missing values (geom_point).</code></pre>
+<p><img src="figure/1000G_single_postion_comp.Rmd/unnamed-chunk-15-1.png" width="672" style="display: block; margin: auto;" /></p>
 </div>
 <div id="cpg_gc_cg" class="section level3">
 <h3>cpg_GC_CG</h3>
-<div id="position-level-5" class="section level4">
-<h4>Position-level</h4>
-<table>
-<thead>
-<tr class="header">
-<th align="left">term</th>
-<th align="left">chi_sq_ct.AFR</th>
-<th align="left">chi_sq_ct.AMR</th>
-<th align="left">chi_sq_ct.EAS</th>
-<th align="left">chi_sq_ct.EUR</th>
-<th align="left">chi_sq_ct.SAS</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td align="left">chi_sq_ct.AFR</td>
-<td align="left"></td>
-<td align="left">1.00</td>
-<td align="left">.99</td>
-<td align="left">.99</td>
-<td align="left">.99</td>
-</tr>
-<tr class="even">
-<td align="left">chi_sq_ct.AMR</td>
-<td align="left">1.00</td>
-<td align="left"></td>
-<td align="left">.99</td>
-<td align="left">1.00</td>
-<td align="left">1.00</td>
-</tr>
-<tr class="odd">
-<td align="left">chi_sq_ct.EAS</td>
-<td align="left">.99</td>
-<td align="left">.99</td>
-<td align="left"></td>
-<td align="left">1.00</td>
-<td align="left">1.00</td>
-</tr>
-<tr class="even">
-<td align="left">chi_sq_ct.EUR</td>
-<td align="left">.99</td>
-<td align="left">1.00</td>
-<td align="left">1.00</td>
-<td align="left"></td>
-<td align="left">1.00</td>
-</tr>
-<tr class="odd">
-<td align="left">chi_sq_ct.SAS</td>
-<td align="left">.99</td>
-<td align="left">1.00</td>
-<td align="left">1.00</td>
-<td align="left">1.00</td>
-<td align="left"></td>
-</tr>
-</tbody>
-</table>
-</div>
-<div id="nucleotide-level-5" class="section level4">
-<h4>Nucleotide-level</h4>
-<table>
-<thead>
-<tr class="header">
-<th align="left">term</th>
-<th align="left">chi_sq_ct.AFR</th>
-<th align="left">chi_sq_ct.AMR</th>
-<th align="left">chi_sq_ct.EAS</th>
-<th align="left">chi_sq_ct.EUR</th>
-<th align="left">chi_sq_ct.SAS</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td align="left">chi_sq_ct.AFR</td>
-<td align="left"></td>
-<td align="left">.99</td>
-<td align="left">.98</td>
-<td align="left">.98</td>
-<td align="left">.98</td>
-</tr>
-<tr class="even">
-<td align="left">chi_sq_ct.AMR</td>
-<td align="left">.99</td>
-<td align="left"></td>
-<td align="left">.99</td>
-<td align="left">.99</td>
-<td align="left">.99</td>
-</tr>
-<tr class="odd">
-<td align="left">chi_sq_ct.EAS</td>
-<td align="left">.98</td>
-<td align="left">.99</td>
-<td align="left"></td>
-<td align="left">.99</td>
-<td align="left">.99</td>
-</tr>
-<tr class="even">
-<td align="left">chi_sq_ct.EUR</td>
-<td align="left">.98</td>
-<td align="left">.99</td>
-<td align="left">.99</td>
-<td align="left"></td>
-<td align="left">.99</td>
-</tr>
-<tr class="odd">
-<td align="left">chi_sq_ct.SAS</td>
-<td align="left">.98</td>
-<td align="left">.99</td>
-<td align="left">.99</td>
-<td align="left">.99</td>
-<td align="left"></td>
-</tr>
-</tbody>
-</table>
-</div>
+<pre class="r"><code>subtype &lt;- &quot;cpg_GC_CG&quot;
+corr_analysis(subtype, r_start = 2)</code></pre>
+<pre><code># A tibble: 5 × 6
+  term     AFR    AMR    EAS    EUR    SAS
+  &lt;chr&gt;  &lt;dbl&gt;  &lt;dbl&gt;  &lt;dbl&gt;  &lt;dbl&gt;  &lt;dbl&gt;
+1 AFR   NA      0.999  0.995  0.997  0.999
+2 AMR    0.999 NA      0.996  0.998  0.998
+3 EAS    0.995  0.996 NA      0.989  0.997
+4 EUR    0.997  0.998  0.989 NA      0.995
+5 SAS    0.999  0.998  0.997  0.995 NA    </code></pre>
+<p><img src="figure/1000G_single_postion_comp.Rmd/unnamed-chunk-16-1.png" width="672" style="display: block; margin: auto;" /></p>
 </div>
 <div id="gc_ta" class="section level3">
 <h3>GC_TA</h3>
-<div id="position-level-6" class="section level4">
-<h4>Position-level</h4>
-<table>
-<thead>
-<tr class="header">
-<th align="left">term</th>
-<th align="left">chi_sq_ct.AFR</th>
-<th align="left">chi_sq_ct.AMR</th>
-<th align="left">chi_sq_ct.EAS</th>
-<th align="left">chi_sq_ct.EUR</th>
-<th align="left">chi_sq_ct.SAS</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td align="left">chi_sq_ct.AFR</td>
-<td align="left"></td>
-<td align="left">1.00</td>
-<td align="left">.99</td>
-<td align="left">1.00</td>
-<td align="left">.99</td>
-</tr>
-<tr class="even">
-<td align="left">chi_sq_ct.AMR</td>
-<td align="left">1.00</td>
-<td align="left"></td>
-<td align="left">1.00</td>
-<td align="left">1.00</td>
-<td align="left">1.00</td>
-</tr>
-<tr class="odd">
-<td align="left">chi_sq_ct.EAS</td>
-<td align="left">.99</td>
-<td align="left">1.00</td>
-<td align="left"></td>
-<td align="left">1.00</td>
-<td align="left">1.00</td>
-</tr>
-<tr class="even">
-<td align="left">chi_sq_ct.EUR</td>
-<td align="left">1.00</td>
-<td align="left">1.00</td>
-<td align="left">1.00</td>
-<td align="left"></td>
-<td align="left">.99</td>
-</tr>
-<tr class="odd">
-<td align="left">chi_sq_ct.SAS</td>
-<td align="left">.99</td>
-<td align="left">1.00</td>
-<td align="left">1.00</td>
-<td align="left">.99</td>
-<td align="left"></td>
-</tr>
-</tbody>
-</table>
-</div>
-<div id="nucleotide-level-6" class="section level4">
-<h4>Nucleotide-level</h4>
-<table>
-<thead>
-<tr class="header">
-<th align="left">term</th>
-<th align="left">chi_sq_ct.AFR</th>
-<th align="left">chi_sq_ct.AMR</th>
-<th align="left">chi_sq_ct.EAS</th>
-<th align="left">chi_sq_ct.EUR</th>
-<th align="left">chi_sq_ct.SAS</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td align="left">chi_sq_ct.AFR</td>
-<td align="left"></td>
-<td align="left">1.00</td>
-<td align="left">.99</td>
-<td align="left">1.00</td>
-<td align="left">.99</td>
-</tr>
-<tr class="even">
-<td align="left">chi_sq_ct.AMR</td>
-<td align="left">1.00</td>
-<td align="left"></td>
-<td align="left">1.00</td>
-<td align="left">.99</td>
-<td align="left">1.00</td>
-</tr>
-<tr class="odd">
-<td align="left">chi_sq_ct.EAS</td>
-<td align="left">.99</td>
-<td align="left">1.00</td>
-<td align="left"></td>
-<td align="left">.99</td>
-<td align="left">1.00</td>
-</tr>
-<tr class="even">
-<td align="left">chi_sq_ct.EUR</td>
-<td align="left">1.00</td>
-<td align="left">.99</td>
-<td align="left">.99</td>
-<td align="left"></td>
-<td align="left">.99</td>
-</tr>
-<tr class="odd">
-<td align="left">chi_sq_ct.SAS</td>
-<td align="left">.99</td>
-<td align="left">1.00</td>
-<td align="left">1.00</td>
-<td align="left">.99</td>
-<td align="left"></td>
-</tr>
-</tbody>
-</table>
-</div>
+<pre class="r"><code>subtype &lt;- &quot;GC_TA&quot;
+corr_analysis(subtype)</code></pre>
+<pre><code># A tibble: 5 × 6
+  term     AFR    AMR    EAS    EUR    SAS
+  &lt;chr&gt;  &lt;dbl&gt;  &lt;dbl&gt;  &lt;dbl&gt;  &lt;dbl&gt;  &lt;dbl&gt;
+1 AFR   NA      0.999  0.995  0.997  0.999
+2 AMR    0.999 NA      0.996  0.998  0.998
+3 EAS    0.995  0.996 NA      0.989  0.997
+4 EUR    0.997  0.998  0.989 NA      0.995
+5 SAS    0.999  0.998  0.997  0.995 NA    </code></pre>
+<pre><code>Warning: Removed 4 rows containing missing values (geom_point).</code></pre>
+<p><img src="figure/1000G_single_postion_comp.Rmd/unnamed-chunk-17-1.png" width="672" style="display: block; margin: auto;" /></p>
 </div>
 <div id="cpg_gc_ta" class="section level3">
 <h3>cpg_GC_TA</h3>
-<div id="position-level-7" class="section level4">
-<h4>Position-level</h4>
-<table>
-<thead>
-<tr class="header">
-<th align="left">term</th>
-<th align="left">chi_sq_ct.AFR</th>
-<th align="left">chi_sq_ct.AMR</th>
-<th align="left">chi_sq_ct.EAS</th>
-<th align="left">chi_sq_ct.EUR</th>
-<th align="left">chi_sq_ct.SAS</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td align="left">chi_sq_ct.AFR</td>
-<td align="left"></td>
-<td align="left">1.00</td>
-<td align="left">1.00</td>
-<td align="left">1.00</td>
-<td align="left">1.00</td>
-</tr>
-<tr class="even">
-<td align="left">chi_sq_ct.AMR</td>
-<td align="left">1.00</td>
-<td align="left"></td>
-<td align="left">1.00</td>
-<td align="left">1.00</td>
-<td align="left">1.00</td>
-</tr>
-<tr class="odd">
-<td align="left">chi_sq_ct.EAS</td>
-<td align="left">1.00</td>
-<td align="left">1.00</td>
-<td align="left"></td>
-<td align="left">1.00</td>
-<td align="left">1.00</td>
-</tr>
-<tr class="even">
-<td align="left">chi_sq_ct.EUR</td>
-<td align="left">1.00</td>
-<td align="left">1.00</td>
-<td align="left">1.00</td>
-<td align="left"></td>
-<td align="left">1.00</td>
-</tr>
-<tr class="odd">
-<td align="left">chi_sq_ct.SAS</td>
-<td align="left">1.00</td>
-<td align="left">1.00</td>
-<td align="left">1.00</td>
-<td align="left">1.00</td>
-<td align="left"></td>
-</tr>
-</tbody>
-</table>
-</div>
-<div id="nucleotide-level-7" class="section level4">
-<h4>Nucleotide-level</h4>
-<table>
-<thead>
-<tr class="header">
-<th align="left">term</th>
-<th align="left">chi_sq_ct.AFR</th>
-<th align="left">chi_sq_ct.AMR</th>
-<th align="left">chi_sq_ct.EAS</th>
-<th align="left">chi_sq_ct.EUR</th>
-<th align="left">chi_sq_ct.SAS</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td align="left">chi_sq_ct.AFR</td>
-<td align="left"></td>
-<td align="left">1.00</td>
-<td align="left">1.00</td>
-<td align="left">1.00</td>
-<td align="left">1.00</td>
-</tr>
-<tr class="even">
-<td align="left">chi_sq_ct.AMR</td>
-<td align="left">1.00</td>
-<td align="left"></td>
-<td align="left">.99</td>
-<td align="left">.99</td>
-<td align="left">1.00</td>
-</tr>
-<tr class="odd">
-<td align="left">chi_sq_ct.EAS</td>
-<td align="left">1.00</td>
-<td align="left">.99</td>
-<td align="left"></td>
-<td align="left">1.00</td>
-<td align="left">1.00</td>
-</tr>
-<tr class="even">
-<td align="left">chi_sq_ct.EUR</td>
-<td align="left">1.00</td>
-<td align="left">.99</td>
-<td align="left">1.00</td>
-<td align="left"></td>
-<td align="left">1.00</td>
-</tr>
-<tr class="odd">
-<td align="left">chi_sq_ct.SAS</td>
-<td align="left">1.00</td>
-<td align="left">1.00</td>
-<td align="left">1.00</td>
-<td align="left">1.00</td>
-<td align="left"></td>
-</tr>
-</tbody>
-</table>
-</div>
-</div>
+<pre class="r"><code>subtype &lt;- &quot;cpg_GC_TA&quot;
+corr_analysis(subtype, r_start = 2)</code></pre>
+<pre><code># A tibble: 5 × 6
+  term     AFR    AMR    EAS    EUR    SAS
+  &lt;chr&gt;  &lt;dbl&gt;  &lt;dbl&gt;  &lt;dbl&gt;  &lt;dbl&gt;  &lt;dbl&gt;
+1 AFR   NA      0.999  0.995  0.997  0.999
+2 AMR    0.999 NA      0.996  0.998  0.998
+3 EAS    0.995  0.996 NA      0.989  0.997
+4 EUR    0.997  0.998  0.989 NA      0.995
+5 SAS    0.999  0.998  0.997  0.995 NA    </code></pre>
+<pre><code>Warning: Removed 1 rows containing missing values (geom_point).</code></pre>
+<p><img src="figure/1000G_single_postion_comp.Rmd/unnamed-chunk-18-1.png" width="672" style="display: block; margin: auto;" /></p>
 </div>
 <div id="chi-square-approach" class="section level2">
 <h2>Chi Square Approach</h2>
-<p>Similar to what we did with the single position models, we can also use the chi square goodness of fit test to evaluate, for each sub-type and at each relative position, how similar are the counts between each super-population, and how does this statistic compare to what we observe comparing each super-population to its control sample? We can also do this to compare the BRIDGES data to the 1000G data as well.</p>
-<pre class="r"><code>load_singletons_2pop &lt;- function(subtype, sp1, sp2, r_start = 1){
-  df1 &lt;- load_all_results(subtype, sp1, r_start) %&gt;%
-    filter(singletons &gt; 0) %&gt;%
-    select(rp, Nuc, singletons, chi_sq_ct) %&gt;%
-    rename_with(.fn = ~paste0(., &quot;.&quot;, sp1), .cols = c(starts_with(&quot;chi&quot;),starts_with(&quot;singletons&quot;) ))
-  df2 &lt;- load_all_results(subtype, sp2, r_start) %&gt;%
-    filter(singletons &gt; 0) %&gt;%
-    select(rp, Nuc, singletons, chi_sq_ct) %&gt;%
-    rename_with(.fn = ~paste0(., &quot;.&quot;, sp2),  .cols = c(starts_with(&quot;chi&quot;),starts_with(&quot;singletons&quot;) ))
-  
-  df &lt;- full_join(df1, df2, by = c(&quot;rp&quot;, &quot;Nuc&quot;))
-  return(df)
-}
-
-chi_sq_2pop &lt;- function(subtype, sp1, sp2, r_start = 1){
-  df &lt;- load_singletons_2pop(subtype, sp1, sp2, r_start)
-  chi_vec1 &lt;- c()
-  chi_vec2 &lt;- c()
-  for(i in c(-10:-1, r_start:10)){
-    df2 &lt;- df %&gt;% 
-      filter(rp == i)
-    vec1 &lt;- df2 %&gt;% select(starts_with(&quot;singletons&quot;) &amp; contains(sp1)) %&gt;% pull(1)
-    vec2 &lt;- df2 %&gt;% select(starts_with(&quot;singletons&quot;) &amp; contains(sp2)) %&gt;% pull(1)
-    chi_obj1 &lt;- chisq.test(vec1, p = vec2 / sum(vec2))
-    chi_obj2 &lt;- chisq.test(vec2, p = vec1 / sum(vec1))
-    chi_vec1 &lt;- c(chi_vec1, unname(chi_obj1$statistic))
-    chi_vec2 &lt;- c(chi_vec2, unname(chi_obj2$statistic))
-  }
-  control_df &lt;- df %&gt;% 
-    group_by(rp) %&gt;% 
-    summarize_at(vars(starts_with(&quot;chi&quot;)), sum)
-  final &lt;- data.frame(rp = c(-10:-1, r_start:10))
-  final[,paste0(sp1, &quot;-&quot;, sp2,&quot;&quot;)] &lt;- chi_vec1
-  final[,paste0(sp2, &quot;-&quot;, sp1,&quot;&quot;)] &lt;- chi_vec2
-  final[,paste0(&quot;Control - &quot;, sp1)] &lt;- control_df[,2]
-  final[,paste0(&quot;Control - &quot;, sp2)] &lt;- control_df[,3]
-  return(final)
-}</code></pre>
-<p>For an illustrative example, let’s take a look at the A(T)&gt;C(G) sub-type in the EUR and AFR super-populations. Here we’ll use the frequencies observed in EUR to fit the AFR counts, and compare these chi-square statistics to those that we obtain when we compare the EUR and AFR super-populations to their corresponding control distributions:</p>
-<pre class="r"><code>chi_sq_2pop(&quot;AT_CG&quot;, &quot;AFR&quot;, &quot;EUR&quot;) %&gt;%
-  knitr::kable()</code></pre>
-<table>
-<thead>
-<tr class="header">
-<th align="right">rp</th>
-<th align="right">AFR-EUR</th>
-<th align="right">EUR-AFR</th>
-<th align="right">Control - AFR</th>
-<th align="right">Control - EUR</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td align="right">-10</td>
-<td align="right">7.5391719</td>
-<td align="right">4.2578864</td>
-<td align="right">1186.8901</td>
-<td align="right">631.4449</td>
-</tr>
-<tr class="even">
-<td align="right">-9</td>
-<td align="right">44.9861222</td>
-<td align="right">25.4506628</td>
-<td align="right">1621.3459</td>
-<td align="right">803.8297</td>
-</tr>
-<tr class="odd">
-<td align="right">-8</td>
-<td align="right">4.0077941</td>
-<td align="right">2.2587731</td>
-<td align="right">4946.1649</td>
-<td align="right">2633.5473</td>
-</tr>
-<tr class="even">
-<td align="right">-7</td>
-<td align="right">72.2343613</td>
-<td align="right">40.8556933</td>
-<td align="right">1870.6509</td>
-<td align="right">951.6402</td>
-</tr>
-<tr class="odd">
-<td align="right">-6</td>
-<td align="right">18.0990712</td>
-<td align="right">10.1917552</td>
-<td align="right">354.8839</td>
-<td align="right">217.7364</td>
-</tr>
-<tr class="even">
-<td align="right">-5</td>
-<td align="right">8.4663138</td>
-<td align="right">4.7698033</td>
-<td align="right">1083.8042</td>
-<td align="right">652.7956</td>
-</tr>
-<tr class="odd">
-<td align="right">-4</td>
-<td align="right">3.4910302</td>
-<td align="right">1.9619761</td>
-<td align="right">5319.2078</td>
-<td align="right">3088.2815</td>
-</tr>
-<tr class="even">
-<td align="right">-3</td>
-<td align="right">16.9445593</td>
-<td align="right">9.5323050</td>
-<td align="right">12714.3402</td>
-<td align="right">7428.7099</td>
-</tr>
-<tr class="odd">
-<td align="right">-2</td>
-<td align="right">248.8627251</td>
-<td align="right">137.9003157</td>
-<td align="right">1580.6858</td>
-<td align="right">725.4913</td>
-</tr>
-<tr class="even">
-<td align="right">-1</td>
-<td align="right">794.2131437</td>
-<td align="right">440.9576991</td>
-<td align="right">30410.0547</td>
-<td align="right">15884.8267</td>
-</tr>
-<tr class="odd">
-<td align="right">1</td>
-<td align="right">220.0362977</td>
-<td align="right">122.9139500</td>
-<td align="right">7547.6115</td>
-<td align="right">3586.2249</td>
-</tr>
-<tr class="even">
-<td align="right">2</td>
-<td align="right">62.3069361</td>
-<td align="right">35.0448272</td>
-<td align="right">9096.9351</td>
-<td align="right">5434.6276</td>
-</tr>
-<tr class="odd">
-<td align="right">3</td>
-<td align="right">75.2559084</td>
-<td align="right">42.5037436</td>
-<td align="right">4636.2154</td>
-<td align="right">2230.1355</td>
-</tr>
-<tr class="even">
-<td align="right">4</td>
-<td align="right">14.8148455</td>
-<td align="right">8.3817845</td>
-<td align="right">3588.4880</td>
-<td align="right">2003.0427</td>
-</tr>
-<tr class="odd">
-<td align="right">5</td>
-<td align="right">24.3508443</td>
-<td align="right">13.6920081</td>
-<td align="right">2035.7775</td>
-<td align="right">1200.7259</td>
-</tr>
-<tr class="even">
-<td align="right">6</td>
-<td align="right">38.5364052</td>
-<td align="right">21.6432210</td>
-<td align="right">581.2987</td>
-<td align="right">330.1384</td>
-</tr>
-<tr class="odd">
-<td align="right">7</td>
-<td align="right">0.3760972</td>
-<td align="right">0.2116272</td>
-<td align="right">981.5089</td>
-<td align="right">543.7594</td>
-</tr>
-<tr class="even">
-<td align="right">8</td>
-<td align="right">1.5279372</td>
-<td align="right">0.8600353</td>
-<td align="right">1106.3501</td>
-<td align="right">692.4116</td>
-</tr>
-<tr class="odd">
-<td align="right">9</td>
-<td align="right">9.9249834</td>
-<td align="right">5.5831780</td>
-<td align="right">1593.4133</td>
-<td align="right">943.3943</td>
-</tr>
-<tr class="even">
-<td align="right">10</td>
-<td align="right">5.4679169</td>
-<td align="right">3.0820775</td>
-<td align="right">616.9773</td>
-<td align="right">320.1158</td>
-</tr>
-</tbody>
-</table>
-<p>Here we can see that the statistics when we use EUR proportions to fit AFR and vice versa are much smaller that what we observe using the controls to fit either population’s counts. We can also plot these to make the exact same conclusion:</p>
-<pre class="r"><code>p &lt;- chi_sq_2pop_plot(&quot;AT_CG&quot;, &quot;AFR&quot;, &quot;EUR&quot;)
-
-tikz(&quot;/net/snowwhite/home/beckandy/research/documentation/LSCI/output/tikz/single_pos/AFR_EUR_AT_CG.tex&quot;,
-     width = 7, height = 4)
-p
-dev.off()</code></pre>
-<pre><code>png 
-  2 </code></pre>
-<pre class="r"><code>p</code></pre>
-<p><img src="figure/1000G_single_postion_comp.Rmd/unnamed-chunk-29-1.png" width="672" style="display: block; margin: auto;" /></p>
-<p>
-<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-29-1">
-Past versions of unnamed-chunk-29-1.png
-</button>
-</p>
-<div id="fig-unnamed-chunk-29-1" class="collapse">
-<div class="table-responsive">
-<table class="table table-condensed table-hover">
-<thead>
-<tr>
-<th>
-Version
-</th>
-<th>
-Author
-</th>
-<th>
-Date
-</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>
-<a href="https://github.com/theandyb/LSCI/blob/ebe7aed98187e66def5e8b01b75ce9d1924afb28/docs/figure/1000G_single_postion_comp.Rmd/unnamed-chunk-29-1.png" target="_blank">ebe7aed</a>
-</td>
-<td>
-Andy Beck
-</td>
-<td>
-2021-11-10
-</td>
-</tr>
-</tbody>
-</table>
-</div>
-</div>
-<div id="at_cg-1" class="section level3">
-<h3>AT_CG</h3>
-<pre class="r"><code>st &lt;- &quot;AT_CG&quot;
-for(sp in c(&quot;AMR&quot;, &quot;EAS&quot;, &quot;EUR&quot;, &quot;SAS&quot;)){
-  p &lt;- chi_sq_2pop_plot(st, &quot;AFR&quot;, sp)
-  tikz(paste0(&quot;/net/snowwhite/home/beckandy/research/documentation/LSCI/output/tikz/single_pos/&quot;,
-              &quot;AFR&quot;,&quot;_&quot;,sp,&quot;_&quot;,st,&quot;.tex&quot;),
-     width = 7, height = 4)
-  p
-  dev.off()
-  print(p)
-}</code></pre>
-<p><img src="figure/1000G_single_postion_comp.Rmd/unnamed-chunk-30-1.png" width="672" style="display: block; margin: auto;" /></p>
-<p>
-<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-30-1">
-Past versions of unnamed-chunk-30-1.png
-</button>
-</p>
-<div id="fig-unnamed-chunk-30-1" class="collapse">
-<div class="table-responsive">
-<table class="table table-condensed table-hover">
-<thead>
-<tr>
-<th>
-Version
-</th>
-<th>
-Author
-</th>
-<th>
-Date
-</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>
-<a href="https://github.com/theandyb/LSCI/blob/ebe7aed98187e66def5e8b01b75ce9d1924afb28/docs/figure/1000G_single_postion_comp.Rmd/unnamed-chunk-30-1.png" target="_blank">ebe7aed</a>
-</td>
-<td>
-Andy Beck
-</td>
-<td>
-2021-11-10
-</td>
-</tr>
-</tbody>
-</table>
-</div>
-</div>
-<p><img src="figure/1000G_single_postion_comp.Rmd/unnamed-chunk-30-2.png" width="672" style="display: block; margin: auto;" /><img src="figure/1000G_single_postion_comp.Rmd/unnamed-chunk-30-3.png" width="672" style="display: block; margin: auto;" /><img src="figure/1000G_single_postion_comp.Rmd/unnamed-chunk-30-4.png" width="672" style="display: block; margin: auto;" /></p>
-<pre class="r"><code>for(sp in c(&quot;EAS&quot;, &quot;EUR&quot;, &quot;SAS&quot;)){
-  p &lt;- chi_sq_2pop_plot(st, &quot;AMR&quot;, sp)
-  tikz(paste0(&quot;/net/snowwhite/home/beckandy/research/documentation/LSCI/output/tikz/single_pos/&quot;,
-              &quot;AMR&quot;,&quot;_&quot;,sp,&quot;_&quot;,st,&quot;.tex&quot;),
-     width = 7, height = 4)
-  p
-  dev.off()
-  print(p)
-}</code></pre>
-<p><img src="figure/1000G_single_postion_comp.Rmd/unnamed-chunk-30-5.png" width="672" style="display: block; margin: auto;" /><img src="figure/1000G_single_postion_comp.Rmd/unnamed-chunk-30-6.png" width="672" style="display: block; margin: auto;" /><img src="figure/1000G_single_postion_comp.Rmd/unnamed-chunk-30-7.png" width="672" style="display: block; margin: auto;" /></p>
-<pre class="r"><code>for(sp in c(&quot;EUR&quot;, &quot;SAS&quot;)){
-  p &lt;- chi_sq_2pop_plot(st, &quot;EAS&quot;, sp)
-  tikz(paste0(&quot;/net/snowwhite/home/beckandy/research/documentation/LSCI/output/tikz/single_pos/&quot;,
-              &quot;EAS&quot;,&quot;_&quot;,sp,&quot;_&quot;,st,&quot;.tex&quot;),
-     width = 7, height = 4)
-  p
-  dev.off()
-  print(p)
-}</code></pre>
-<p><img src="figure/1000G_single_postion_comp.Rmd/unnamed-chunk-30-8.png" width="672" style="display: block; margin: auto;" /><img src="figure/1000G_single_postion_comp.Rmd/unnamed-chunk-30-9.png" width="672" style="display: block; margin: auto;" /></p>
-<pre class="r"><code>p &lt;- chi_sq_2pop_plot(st, &quot;EUR&quot;, &quot;SAS&quot;)
-tikz(paste0(&quot;/net/snowwhite/home/beckandy/research/documentation/LSCI/output/tikz/single_pos/&quot;,
-              &quot;EAS&quot;,&quot;_&quot;,&quot;SAS&quot;,&quot;_&quot;,st,&quot;.tex&quot;))
-p
-dev.off()</code></pre>
-<pre><code>png 
-  2 </code></pre>
-<pre class="r"><code>print(p)</code></pre>
-<p><img src="figure/1000G_single_postion_comp.Rmd/unnamed-chunk-30-10.png" width="672" style="display: block; margin: auto;" /></p>
-</div>
-<div id="at_gc-1" class="section level3">
-<h3>AT_GC</h3>
-<pre class="r"><code>st &lt;- &quot;AT_GC&quot;
-for(sp in c(&quot;AMR&quot;, &quot;EAS&quot;, &quot;EUR&quot;, &quot;SAS&quot;)){
-  p &lt;- chi_sq_2pop_plot(st, &quot;AFR&quot;, sp)
-  tikz(paste0(&quot;/net/snowwhite/home/beckandy/research/documentation/LSCI/output/tikz/single_pos/&quot;,
-              &quot;AFR&quot;,&quot;_&quot;,sp,&quot;_&quot;,st,&quot;.tex&quot;),
-     width = 7, height = 4)
-  p
-  dev.off()
-  print(p)
-}</code></pre>
-<p><img src="figure/1000G_single_postion_comp.Rmd/unnamed-chunk-31-1.png" width="672" style="display: block; margin: auto;" /></p>
-<p>
-<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-31-1">
-Past versions of unnamed-chunk-31-1.png
-</button>
-</p>
-<div id="fig-unnamed-chunk-31-1" class="collapse">
-<div class="table-responsive">
-<table class="table table-condensed table-hover">
-<thead>
-<tr>
-<th>
-Version
-</th>
-<th>
-Author
-</th>
-<th>
-Date
-</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>
-<a href="https://github.com/theandyb/LSCI/blob/ebe7aed98187e66def5e8b01b75ce9d1924afb28/docs/figure/1000G_single_postion_comp.Rmd/unnamed-chunk-31-1.png" target="_blank">ebe7aed</a>
-</td>
-<td>
-Andy Beck
-</td>
-<td>
-2021-11-10
-</td>
-</tr>
-</tbody>
-</table>
-</div>
-</div>
-<p><img src="figure/1000G_single_postion_comp.Rmd/unnamed-chunk-31-2.png" width="672" style="display: block; margin: auto;" /><img src="figure/1000G_single_postion_comp.Rmd/unnamed-chunk-31-3.png" width="672" style="display: block; margin: auto;" /><img src="figure/1000G_single_postion_comp.Rmd/unnamed-chunk-31-4.png" width="672" style="display: block; margin: auto;" /></p>
-<pre class="r"><code>for(sp in c(&quot;EAS&quot;, &quot;EUR&quot;, &quot;SAS&quot;)){
-  p &lt;- chi_sq_2pop_plot(st, &quot;AMR&quot;, sp)
-  tikz(paste0(&quot;/net/snowwhite/home/beckandy/research/documentation/LSCI/output/tikz/single_pos/&quot;,
-              &quot;AMR&quot;,&quot;_&quot;,sp,&quot;_&quot;,st,&quot;.tex&quot;),
-     width = 7, height = 4)
-  p
-  dev.off()
-  print(p)
-}</code></pre>
-<p><img src="figure/1000G_single_postion_comp.Rmd/unnamed-chunk-31-5.png" width="672" style="display: block; margin: auto;" /><img src="figure/1000G_single_postion_comp.Rmd/unnamed-chunk-31-6.png" width="672" style="display: block; margin: auto;" /><img src="figure/1000G_single_postion_comp.Rmd/unnamed-chunk-31-7.png" width="672" style="display: block; margin: auto;" /></p>
-<pre class="r"><code>for(sp in c(&quot;EUR&quot;, &quot;SAS&quot;)){
-  p &lt;- chi_sq_2pop_plot(st, &quot;EAS&quot;, sp)
-  tikz(paste0(&quot;/net/snowwhite/home/beckandy/research/documentation/LSCI/output/tikz/single_pos/&quot;,
-              &quot;EAS&quot;,&quot;_&quot;,sp,&quot;_&quot;,st,&quot;.tex&quot;),
-     width = 7, height = 4)
-  p
-  dev.off()
-  print(p)
-}</code></pre>
-<p><img src="figure/1000G_single_postion_comp.Rmd/unnamed-chunk-31-8.png" width="672" style="display: block; margin: auto;" /><img src="figure/1000G_single_postion_comp.Rmd/unnamed-chunk-31-9.png" width="672" style="display: block; margin: auto;" /></p>
-<pre class="r"><code>p &lt;- chi_sq_2pop_plot(st, &quot;EUR&quot;, &quot;SAS&quot;)
-tikz(paste0(&quot;/net/snowwhite/home/beckandy/research/documentation/LSCI/output/tikz/single_pos/&quot;,
-              &quot;EAS&quot;,&quot;_&quot;,&quot;SAS&quot;,&quot;_&quot;,st,&quot;.tex&quot;))
-p
-dev.off()</code></pre>
-<pre><code>png 
-  2 </code></pre>
-<pre class="r"><code>print(p)</code></pre>
-<p><img src="figure/1000G_single_postion_comp.Rmd/unnamed-chunk-31-10.png" width="672" style="display: block; margin: auto;" /></p>
-</div>
-<div id="at_ta-1" class="section level3">
-<h3>AT_TA</h3>
-<p><img src="figure/1000G_single_postion_comp.Rmd/unnamed-chunk-32-1.png" width="672" style="display: block; margin: auto;" /></p>
-<p>
-<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-32-1">
-Past versions of unnamed-chunk-32-1.png
-</button>
-</p>
-<div id="fig-unnamed-chunk-32-1" class="collapse">
-<div class="table-responsive">
-<table class="table table-condensed table-hover">
-<thead>
-<tr>
-<th>
-Version
-</th>
-<th>
-Author
-</th>
-<th>
-Date
-</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>
-<a href="https://github.com/theandyb/LSCI/blob/ebe7aed98187e66def5e8b01b75ce9d1924afb28/docs/figure/1000G_single_postion_comp.Rmd/unnamed-chunk-32-1.png" target="_blank">ebe7aed</a>
-</td>
-<td>
-Andy Beck
-</td>
-<td>
-2021-11-10
-</td>
-</tr>
-</tbody>
-</table>
-</div>
-</div>
-<p><img src="figure/1000G_single_postion_comp.Rmd/unnamed-chunk-32-2.png" width="672" style="display: block; margin: auto;" /><img src="figure/1000G_single_postion_comp.Rmd/unnamed-chunk-32-3.png" width="672" style="display: block; margin: auto;" /><img src="figure/1000G_single_postion_comp.Rmd/unnamed-chunk-32-4.png" width="672" style="display: block; margin: auto;" /><img src="figure/1000G_single_postion_comp.Rmd/unnamed-chunk-32-5.png" width="672" style="display: block; margin: auto;" /><img src="figure/1000G_single_postion_comp.Rmd/unnamed-chunk-32-6.png" width="672" style="display: block; margin: auto;" /><img src="figure/1000G_single_postion_comp.Rmd/unnamed-chunk-32-7.png" width="672" style="display: block; margin: auto;" /><img src="figure/1000G_single_postion_comp.Rmd/unnamed-chunk-32-8.png" width="672" style="display: block; margin: auto;" /><img src="figure/1000G_single_postion_comp.Rmd/unnamed-chunk-32-9.png" width="672" style="display: block; margin: auto;" /></p>
-<pre><code>png 
-  2 </code></pre>
-<p><img src="figure/1000G_single_postion_comp.Rmd/unnamed-chunk-32-10.png" width="672" style="display: block; margin: auto;" /></p>
-</div>
-<div id="gc_at-1" class="section level3">
-<h3>GC_AT</h3>
-<p><img src="figure/1000G_single_postion_comp.Rmd/unnamed-chunk-33-1.png" width="672" style="display: block; margin: auto;" /></p>
-<p>
-<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-33-1">
-Past versions of unnamed-chunk-33-1.png
-</button>
-</p>
-<div id="fig-unnamed-chunk-33-1" class="collapse">
-<div class="table-responsive">
-<table class="table table-condensed table-hover">
-<thead>
-<tr>
-<th>
-Version
-</th>
-<th>
-Author
-</th>
-<th>
-Date
-</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>
-<a href="https://github.com/theandyb/LSCI/blob/ebe7aed98187e66def5e8b01b75ce9d1924afb28/docs/figure/1000G_single_postion_comp.Rmd/unnamed-chunk-33-1.png" target="_blank">ebe7aed</a>
-</td>
-<td>
-Andy Beck
-</td>
-<td>
-2021-11-10
-</td>
-</tr>
-</tbody>
-</table>
-</div>
-</div>
-<p><img src="figure/1000G_single_postion_comp.Rmd/unnamed-chunk-33-2.png" width="672" style="display: block; margin: auto;" /><img src="figure/1000G_single_postion_comp.Rmd/unnamed-chunk-33-3.png" width="672" style="display: block; margin: auto;" /><img src="figure/1000G_single_postion_comp.Rmd/unnamed-chunk-33-4.png" width="672" style="display: block; margin: auto;" /><img src="figure/1000G_single_postion_comp.Rmd/unnamed-chunk-33-5.png" width="672" style="display: block; margin: auto;" /><img src="figure/1000G_single_postion_comp.Rmd/unnamed-chunk-33-6.png" width="672" style="display: block; margin: auto;" /><img src="figure/1000G_single_postion_comp.Rmd/unnamed-chunk-33-7.png" width="672" style="display: block; margin: auto;" /><img src="figure/1000G_single_postion_comp.Rmd/unnamed-chunk-33-8.png" width="672" style="display: block; margin: auto;" /><img src="figure/1000G_single_postion_comp.Rmd/unnamed-chunk-33-9.png" width="672" style="display: block; margin: auto;" /></p>
-<pre><code>png 
-  2 </code></pre>
-<p><img src="figure/1000G_single_postion_comp.Rmd/unnamed-chunk-33-10.png" width="672" style="display: block; margin: auto;" /></p>
-</div>
-<div id="cpg_gc_at-1" class="section level3">
-<h3>cpg_GC_AT</h3>
-<p><img src="figure/1000G_single_postion_comp.Rmd/unnamed-chunk-34-1.png" width="672" style="display: block; margin: auto;" /></p>
-<p>
-<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-34-1">
-Past versions of unnamed-chunk-34-1.png
-</button>
-</p>
-<div id="fig-unnamed-chunk-34-1" class="collapse">
-<div class="table-responsive">
-<table class="table table-condensed table-hover">
-<thead>
-<tr>
-<th>
-Version
-</th>
-<th>
-Author
-</th>
-<th>
-Date
-</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>
-<a href="https://github.com/theandyb/LSCI/blob/ebe7aed98187e66def5e8b01b75ce9d1924afb28/docs/figure/1000G_single_postion_comp.Rmd/unnamed-chunk-34-1.png" target="_blank">ebe7aed</a>
-</td>
-<td>
-Andy Beck
-</td>
-<td>
-2021-11-10
-</td>
-</tr>
-</tbody>
-</table>
-</div>
-</div>
-<p><img src="figure/1000G_single_postion_comp.Rmd/unnamed-chunk-34-2.png" width="672" style="display: block; margin: auto;" /><img src="figure/1000G_single_postion_comp.Rmd/unnamed-chunk-34-3.png" width="672" style="display: block; margin: auto;" /><img src="figure/1000G_single_postion_comp.Rmd/unnamed-chunk-34-4.png" width="672" style="display: block; margin: auto;" /><img src="figure/1000G_single_postion_comp.Rmd/unnamed-chunk-34-5.png" width="672" style="display: block; margin: auto;" /><img src="figure/1000G_single_postion_comp.Rmd/unnamed-chunk-34-6.png" width="672" style="display: block; margin: auto;" /><img src="figure/1000G_single_postion_comp.Rmd/unnamed-chunk-34-7.png" width="672" style="display: block; margin: auto;" /><img src="figure/1000G_single_postion_comp.Rmd/unnamed-chunk-34-8.png" width="672" style="display: block; margin: auto;" /><img src="figure/1000G_single_postion_comp.Rmd/unnamed-chunk-34-9.png" width="672" style="display: block; margin: auto;" /></p>
-<pre><code>png 
-  2 </code></pre>
-<p><img src="figure/1000G_single_postion_comp.Rmd/unnamed-chunk-34-10.png" width="672" style="display: block; margin: auto;" /></p>
-</div>
-<div id="gc_ta-1" class="section level3">
-<h3>GC_TA</h3>
-<p><img src="figure/1000G_single_postion_comp.Rmd/unnamed-chunk-35-1.png" width="672" style="display: block; margin: auto;" /></p>
-<p>
-<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-35-1">
-Past versions of unnamed-chunk-35-1.png
-</button>
-</p>
-<div id="fig-unnamed-chunk-35-1" class="collapse">
-<div class="table-responsive">
-<table class="table table-condensed table-hover">
-<thead>
-<tr>
-<th>
-Version
-</th>
-<th>
-Author
-</th>
-<th>
-Date
-</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>
-<a href="https://github.com/theandyb/LSCI/blob/ebe7aed98187e66def5e8b01b75ce9d1924afb28/docs/figure/1000G_single_postion_comp.Rmd/unnamed-chunk-35-1.png" target="_blank">ebe7aed</a>
-</td>
-<td>
-Andy Beck
-</td>
-<td>
-2021-11-10
-</td>
-</tr>
-</tbody>
-</table>
-</div>
-</div>
-<p><img src="figure/1000G_single_postion_comp.Rmd/unnamed-chunk-35-2.png" width="672" style="display: block; margin: auto;" /><img src="figure/1000G_single_postion_comp.Rmd/unnamed-chunk-35-3.png" width="672" style="display: block; margin: auto;" /><img src="figure/1000G_single_postion_comp.Rmd/unnamed-chunk-35-4.png" width="672" style="display: block; margin: auto;" /><img src="figure/1000G_single_postion_comp.Rmd/unnamed-chunk-35-5.png" width="672" style="display: block; margin: auto;" /><img src="figure/1000G_single_postion_comp.Rmd/unnamed-chunk-35-6.png" width="672" style="display: block; margin: auto;" /><img src="figure/1000G_single_postion_comp.Rmd/unnamed-chunk-35-7.png" width="672" style="display: block; margin: auto;" /><img src="figure/1000G_single_postion_comp.Rmd/unnamed-chunk-35-8.png" width="672" style="display: block; margin: auto;" /><img src="figure/1000G_single_postion_comp.Rmd/unnamed-chunk-35-9.png" width="672" style="display: block; margin: auto;" /></p>
-<pre><code>png 
-  2 </code></pre>
-<p><img src="figure/1000G_single_postion_comp.Rmd/unnamed-chunk-35-10.png" width="672" style="display: block; margin: auto;" /></p>
-</div>
-<div id="cpg_gc_ta-1" class="section level3">
-<h3>cpg_GC_TA</h3>
-<p><img src="figure/1000G_single_postion_comp.Rmd/unnamed-chunk-36-1.png" width="672" style="display: block; margin: auto;" /></p>
-<p>
-<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-36-1">
-Past versions of unnamed-chunk-36-1.png
-</button>
-</p>
-<div id="fig-unnamed-chunk-36-1" class="collapse">
-<div class="table-responsive">
-<table class="table table-condensed table-hover">
-<thead>
-<tr>
-<th>
-Version
-</th>
-<th>
-Author
-</th>
-<th>
-Date
-</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>
-<a href="https://github.com/theandyb/LSCI/blob/ebe7aed98187e66def5e8b01b75ce9d1924afb28/docs/figure/1000G_single_postion_comp.Rmd/unnamed-chunk-36-1.png" target="_blank">ebe7aed</a>
-</td>
-<td>
-Andy Beck
-</td>
-<td>
-2021-11-10
-</td>
-</tr>
-</tbody>
-</table>
-</div>
-</div>
-<p><img src="figure/1000G_single_postion_comp.Rmd/unnamed-chunk-36-2.png" width="672" style="display: block; margin: auto;" /><img src="figure/1000G_single_postion_comp.Rmd/unnamed-chunk-36-3.png" width="672" style="display: block; margin: auto;" /><img src="figure/1000G_single_postion_comp.Rmd/unnamed-chunk-36-4.png" width="672" style="display: block; margin: auto;" /><img src="figure/1000G_single_postion_comp.Rmd/unnamed-chunk-36-5.png" width="672" style="display: block; margin: auto;" /><img src="figure/1000G_single_postion_comp.Rmd/unnamed-chunk-36-6.png" width="672" style="display: block; margin: auto;" /><img src="figure/1000G_single_postion_comp.Rmd/unnamed-chunk-36-7.png" width="672" style="display: block; margin: auto;" /><img src="figure/1000G_single_postion_comp.Rmd/unnamed-chunk-36-8.png" width="672" style="display: block; margin: auto;" /><img src="figure/1000G_single_postion_comp.Rmd/unnamed-chunk-36-9.png" width="672" style="display: block; margin: auto;" /></p>
-<pre><code>png 
-  2 </code></pre>
-<p><img src="figure/1000G_single_postion_comp.Rmd/unnamed-chunk-36-10.png" width="672" style="display: block; margin: auto;" /></p>
-</div>
-<div id="gc_cg-1" class="section level3">
-<h3>GC_CG</h3>
-<p><img src="figure/1000G_single_postion_comp.Rmd/unnamed-chunk-37-1.png" width="672" style="display: block; margin: auto;" /></p>
-<p>
-<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-37-1">
-Past versions of unnamed-chunk-37-1.png
-</button>
-</p>
-<div id="fig-unnamed-chunk-37-1" class="collapse">
-<div class="table-responsive">
-<table class="table table-condensed table-hover">
-<thead>
-<tr>
-<th>
-Version
-</th>
-<th>
-Author
-</th>
-<th>
-Date
-</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>
-<a href="https://github.com/theandyb/LSCI/blob/ebe7aed98187e66def5e8b01b75ce9d1924afb28/docs/figure/1000G_single_postion_comp.Rmd/unnamed-chunk-37-1.png" target="_blank">ebe7aed</a>
-</td>
-<td>
-Andy Beck
-</td>
-<td>
-2021-11-10
-</td>
-</tr>
-</tbody>
-</table>
-</div>
-</div>
-<p><img src="figure/1000G_single_postion_comp.Rmd/unnamed-chunk-37-2.png" width="672" style="display: block; margin: auto;" /><img src="figure/1000G_single_postion_comp.Rmd/unnamed-chunk-37-3.png" width="672" style="display: block; margin: auto;" /><img src="figure/1000G_single_postion_comp.Rmd/unnamed-chunk-37-4.png" width="672" style="display: block; margin: auto;" /><img src="figure/1000G_single_postion_comp.Rmd/unnamed-chunk-37-5.png" width="672" style="display: block; margin: auto;" /><img src="figure/1000G_single_postion_comp.Rmd/unnamed-chunk-37-6.png" width="672" style="display: block; margin: auto;" /><img src="figure/1000G_single_postion_comp.Rmd/unnamed-chunk-37-7.png" width="672" style="display: block; margin: auto;" /><img src="figure/1000G_single_postion_comp.Rmd/unnamed-chunk-37-8.png" width="672" style="display: block; margin: auto;" /><img src="figure/1000G_single_postion_comp.Rmd/unnamed-chunk-37-9.png" width="672" style="display: block; margin: auto;" /></p>
-<pre><code>png 
-  2 </code></pre>
-<p><img src="figure/1000G_single_postion_comp.Rmd/unnamed-chunk-37-10.png" width="672" style="display: block; margin: auto;" /></p>
-</div>
-<div id="cpg_gc_cg-1" class="section level3">
-<h3>cpg_GC_CG</h3>
-<p><img src="figure/1000G_single_postion_comp.Rmd/unnamed-chunk-38-1.png" width="672" style="display: block; margin: auto;" /><img src="figure/1000G_single_postion_comp.Rmd/unnamed-chunk-38-2.png" width="672" style="display: block; margin: auto;" /><img src="figure/1000G_single_postion_comp.Rmd/unnamed-chunk-38-3.png" width="672" style="display: block; margin: auto;" /><img src="figure/1000G_single_postion_comp.Rmd/unnamed-chunk-38-4.png" width="672" style="display: block; margin: auto;" /><img src="figure/1000G_single_postion_comp.Rmd/unnamed-chunk-38-5.png" width="672" style="display: block; margin: auto;" /><img src="figure/1000G_single_postion_comp.Rmd/unnamed-chunk-38-6.png" width="672" style="display: block; margin: auto;" /><img src="figure/1000G_single_postion_comp.Rmd/unnamed-chunk-38-7.png" width="672" style="display: block; margin: auto;" /><img src="figure/1000G_single_postion_comp.Rmd/unnamed-chunk-38-8.png" width="672" style="display: block; margin: auto;" /><img src="figure/1000G_single_postion_comp.Rmd/unnamed-chunk-38-9.png" width="672" style="display: block; margin: auto;" /></p>
-<pre><code>png 
-  2 </code></pre>
-<p><img src="figure/1000G_single_postion_comp.Rmd/unnamed-chunk-38-10.png" width="672" style="display: block; margin: auto;" /></p>
-</div>
+<p>Similar to what we did with the single position models, we can also
+use the chi square goodness of fit test to evaluate, for each sub-type
+and at each relative position, how similar are the counts between each
+super-population, and how does this statistic compare to what we observe
+comparing each super-population to its control sample? We can also do
+this to compare the BRIDGES data to the 1000G data as well.</p>
 </div>
 <div id="compare-to-bridges" class="section level2">
 <h2>Compare to BRIDGES</h2>
-<p>Considering the above results suggested that the super-populations are comparable in terms of the single model results, for comparisons with the BRIDGES data set we’ll use the ALL “population” for comparisons.</p>
-<div id="at_cg-2" class="section level3">
-<h3>AT_CG</h3>
-<pre class="r"><code>st &lt;- &quot;AT_CG&quot;
-statistic_by_position_all_plot(st, &quot;ALL&quot;)</code></pre>
-<p><img src="figure/1000G_single_postion_comp.Rmd/unnamed-chunk-40-1.png" width="672" style="display: block; margin: auto;" /></p>
-</div>
-<div id="at_gc-2" class="section level3">
-<h3>AT_GC</h3>
-<pre class="r"><code>st &lt;- &quot;AT_GC&quot;
-statistic_by_position_all_plot(st, &quot;ALL&quot;)</code></pre>
-<p><img src="figure/1000G_single_postion_comp.Rmd/unnamed-chunk-41-1.png" width="672" style="display: block; margin: auto;" /></p>
-</div>
-<div id="at_ta-2" class="section level3">
-<h3>AT_TA</h3>
-<pre class="r"><code>st &lt;- &quot;AT_TA&quot;
-statistic_by_position_all_plot(st, &quot;ALL&quot;)</code></pre>
-<p><img src="figure/1000G_single_postion_comp.Rmd/unnamed-chunk-42-1.png" width="672" style="display: block; margin: auto;" /></p>
-</div>
-<div id="gc_at-2" class="section level3">
-<h3>GC_AT</h3>
-<pre class="r"><code>st &lt;- &quot;GC_AT&quot;
-statistic_by_position_all_plot(st, &quot;ALL&quot;)</code></pre>
-<p><img src="figure/1000G_single_postion_comp.Rmd/unnamed-chunk-43-1.png" width="672" style="display: block; margin: auto;" /></p>
-</div>
-<div id="cpg_gc_at-2" class="section level3">
-<h3>cpg_GC_AT</h3>
-<pre class="r"><code>st &lt;- &quot;cpg_GC_AT&quot;
-statistic_by_position_all_plot(st, &quot;ALL&quot;, r_start = 2)</code></pre>
-<p><img src="figure/1000G_single_postion_comp.Rmd/unnamed-chunk-44-1.png" width="672" style="display: block; margin: auto;" /></p>
-</div>
-<div id="gc_ta-2" class="section level3">
-<h3>GC_TA</h3>
-<pre class="r"><code>st &lt;- &quot;GC_TA&quot;
-statistic_by_position_all_plot(st, &quot;ALL&quot;)</code></pre>
-<p><img src="figure/1000G_single_postion_comp.Rmd/unnamed-chunk-45-1.png" width="672" style="display: block; margin: auto;" /></p>
-</div>
-<div id="cpg_gc_ta-2" class="section level3">
-<h3>cpg_GC_TA</h3>
-<pre class="r"><code>st &lt;- &quot;cpg_GC_TA&quot;
-statistic_by_position_all_plot(st, &quot;ALL&quot;, r_start = 2)</code></pre>
-<p><img src="figure/1000G_single_postion_comp.Rmd/unnamed-chunk-46-1.png" width="672" style="display: block; margin: auto;" /></p>
-</div>
-<div id="gc_cg-2" class="section level3">
-<h3>GC_CG</h3>
-<pre class="r"><code>st &lt;- &quot;GC_CG&quot;
-statistic_by_position_all_plot(st, &quot;ALL&quot;)</code></pre>
-<p><img src="figure/1000G_single_postion_comp.Rmd/unnamed-chunk-47-1.png" width="672" style="display: block; margin: auto;" /></p>
-</div>
-<div id="cpg_gc_cg-2" class="section level3">
-<h3>cpg_GC_CG</h3>
-<pre class="r"><code>st &lt;- &quot;cpg_GC_CG&quot;
-statistic_by_position_all_plot(st, &quot;ALL&quot;, r_start = 2)</code></pre>
-<p><img src="figure/1000G_single_postion_comp.Rmd/unnamed-chunk-48-1.png" width="672" style="display: block; margin: auto;" /></p>
-<p>We see that for all the sub-types the BRIDGES results are highly correlated with the 1000G results.</p>
+<p>Considering the above results suggested that the super-populations
+are comparable in terms of the single model results, for comparisons
+with the BRIDGES data set we’ll use the ALL “population” for
+comparisons.</p>
 <br>
 <p>
 <button type="button" class="btn btn-default btn-workflowr btn-workflowr-sessioninfo" data-toggle="collapse" data-target="#workflowr-sessioninfo" style="display: block;">
-<span class="glyphicon glyphicon-wrench" aria-hidden="true"></span> Session information
+<span class="glyphicon glyphicon-wrench" aria-hidden="true"></span>
+Session information
 </button>
 </p>
 <div id="workflowr-sessioninfo" class="collapse">
 <pre class="r"><code>sessionInfo()</code></pre>
-<pre><code>R version 4.1.2 (2021-11-01)
+<pre><code>R version 4.2.0 (2022-04-22)
 Platform: x86_64-pc-linux-gnu (64-bit)
-Running under: Ubuntu 18.04.5 LTS
+Running under: Ubuntu 18.04.6 LTS
 
 Matrix products: default
 BLAS:   /usr/lib/x86_64-linux-gnu/openblas/libblas.so.3
@@ -2865,30 +1459,30 @@ attached base packages:
 
 other attached packages:
  [1] tikzDevice_0.12.3.1 corrr_0.4.3         forcats_0.5.1      
- [4] stringr_1.4.0       dplyr_1.0.7         purrr_0.3.4        
- [7] readr_2.0.2         tidyr_1.1.4         tibble_3.1.5       
-[10] ggplot2_3.3.5       tidyverse_1.3.1     workflowr_1.6.2    
+ [4] stringr_1.4.0       dplyr_1.0.8         purrr_0.3.4        
+ [7] readr_2.1.2         tidyr_1.2.0         tibble_3.1.6       
+[10] ggplot2_3.3.5       tidyverse_1.3.1     workflowr_1.7.0    
 
 loaded via a namespace (and not attached):
- [1] Rcpp_1.0.7       lubridate_1.8.0  assertthat_0.2.1 rprojroot_2.0.2 
- [5] digest_0.6.28    utf8_1.2.2       R6_2.5.1         cellranger_1.1.0
- [9] backports_1.3.0  reprex_2.0.1     evaluate_0.14    httr_1.4.2      
-[13] highr_0.9        pillar_1.6.4     rlang_0.4.12     readxl_1.3.1    
-[17] rstudioapi_0.13  whisker_0.4      jquerylib_0.1.4  rmarkdown_2.11  
-[21] labeling_0.4.2   bit_4.0.4        munsell_0.5.0    broom_0.7.9     
-[25] compiler_4.1.2   httpuv_1.6.3     modelr_0.1.8     xfun_0.27       
-[29] pkgconfig_2.0.3  htmltools_0.5.2  tidyselect_1.1.1 fansi_0.5.0     
-[33] crayon_1.4.1     tzdb_0.1.2       dbplyr_2.1.1     withr_2.4.2     
-[37] later_1.3.0      grid_4.1.2       jsonlite_1.7.2   gtable_0.3.0    
-[41] lifecycle_1.0.1  DBI_1.1.1        git2r_0.28.0     magrittr_2.0.1  
-[45] scales_1.1.1     vroom_1.5.5      cli_3.0.1        stringi_1.7.5   
-[49] farver_2.1.0     fs_1.5.0         promises_1.2.0.1 xml2_1.3.2      
-[53] bslib_0.3.1      ellipsis_0.3.2   generics_0.1.1   vctrs_0.3.8     
-[57] tools_4.1.2      bit64_4.0.5      glue_1.4.2       hms_1.1.1       
-[61] parallel_4.1.2   fastmap_1.1.0    yaml_2.2.1       colorspace_2.0-2
-[65] filehash_2.4-2   rvest_1.0.2      knitr_1.36       haven_2.4.3     
-[69] sass_0.4.0      </code></pre>
-</div>
+ [1] httr_1.4.2       sass_0.4.0       bit64_4.0.5      vroom_1.5.7     
+ [5] jsonlite_1.7.3   modelr_0.1.8     bslib_0.3.1      assertthat_0.2.1
+ [9] getPass_0.2-2    highr_0.9        cellranger_1.1.0 yaml_2.2.2      
+[13] pillar_1.7.0     backports_1.4.1  glue_1.6.1       digest_0.6.29   
+[17] promises_1.2.0.1 rvest_1.0.2      colorspace_2.0-2 htmltools_0.5.2 
+[21] httpuv_1.6.5     pkgconfig_2.0.3  broom_0.8.0      haven_2.4.3     
+[25] scales_1.1.1     processx_3.5.2   whisker_0.4      later_1.3.0     
+[29] tzdb_0.2.0       git2r_0.29.0     generics_0.1.2   farver_2.1.0    
+[33] ellipsis_0.3.2   withr_2.4.3      cli_3.1.1        magrittr_2.0.2  
+[37] crayon_1.4.2     readxl_1.3.1     evaluate_0.14    ps_1.6.0        
+[41] fs_1.5.2         fansi_1.0.2      xml2_1.3.3       tools_4.2.0     
+[45] hms_1.1.1        lifecycle_1.0.1  munsell_0.5.0    reprex_2.0.1    
+[49] callr_3.7.0      compiler_4.2.0   jquerylib_0.1.4  rlang_1.0.1     
+[53] grid_4.2.0       rstudioapi_0.13  filehash_2.4-2   labeling_0.4.2  
+[57] rmarkdown_2.11   gtable_0.3.0     DBI_1.1.2        R6_2.5.1        
+[61] lubridate_1.8.0  knitr_1.37       fastmap_1.1.0    bit_4.0.4       
+[65] utf8_1.2.2       rprojroot_2.0.2  stringi_1.7.6    parallel_4.2.0  
+[69] Rcpp_1.0.8       vctrs_0.3.8      dbplyr_2.1.1     tidyselect_1.1.1
+[73] xfun_0.29       </code></pre>
 </div>
 </div>
 </div>
@@ -2908,7 +1502,7 @@ s.setAttribute('data-timestamp', +new Date());
 
 <!-- Adjust MathJax settings so that all math formulae are shown using
 TeX fonts only; see
-http://docs.mathjax.org/en/latest/configuration.html.  This will make
+https://docs.mathjax.org/en/latest/web/configuration.html. This will make
 the presentation more consistent at the cost of the webpage sometimes
 taking slightly longer to load. Note that this only works because the
 footer is added to webpages before the MathJax javascript. -->
