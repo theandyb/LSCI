@@ -49,16 +49,30 @@ load_all_sp_results <- function(population, subtype, r_start = 1,
   return(df)
 }
 
+load_all_results_all_sp <- function(subtype, r_start = 1,
+                                    data_dir = "/net/snowwhite/home/beckandy/research/1000G_LSCI/output/single_pos_df/"){
+  final <- load_all_sp_results("AFR", subtype, r_start = r_start, data_dir = data_dir)
+  final$pop <- "AFR"
+
+  for(pop in c("AMR", "EAS" ,"EUR", "SAS")){
+    df <- load_all_sp_results(pop, subtype, r_start = r_start, data_dir = data_dir)
+    df$pop <- pop
+    final <- bind_rows(final, df)
+  }
+
+  return(final)
+}
+
 #' Relative entropy by position
 #'
 kl_by_position <- function(population ,subtype, r_start = 1,
                            data_dir = "/net/snowwhite/home/beckandy/research/1000G_LSCI/output/single_pos_df/"){
-  final <- data.frame(pos = numeric(), kl_stat = numeric())
+  final <- data.frame(pos = numeric(), statistic = numeric())
   for(i in c(-10:-1, r_start:10)){
     df <- load_sp_results(population, subtype, i, data_dir)
     final <- bind_rows(final,
                        data.frame(pos = i,
-                                  kl_stat = sum(df$kl_r)))
+                                  statistic = sum(df$kl_r)))
   }
   return(final)
 }

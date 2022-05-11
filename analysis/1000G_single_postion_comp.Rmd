@@ -27,7 +27,7 @@ In [another document](1000G_single_position_ALL.Rmd), we evaluated the single po
 #### ALL
 
 ```{r echo=FALSE}
-plot_pos_stat("AT_CG", "ALL")
+plot_pos_stat("ALL", "AT_CG", kl_by_position, title_text = "Relative Entropy by Relative Position: ", ylab_text = "Relative Entropy")
 ```
 
 As a reminder, here we plot the single position statistics for the A(T)>C(G) sub-type using singletons aggregated across all 5 super-populations.
@@ -35,7 +35,7 @@ As a reminder, here we plot the single position statistics for the A(T)>C(G) sub
 #### AFR
 
 ```{r echo=FALSE}
-plot_pos_stat("AT_CG", "AFR")
+plot_pos_stat("AFR", "AT_CG", re_by_position, title_text = "Relative Entropy by Relative Position: ", ylab_text = "Relative Entropy")
 ```
 
 When we look at the AFR super-population, our results across all the positions looks strikingly similar to what we saw above in the ALL analysis. This might be driven by AFR contributing a larger fraction of the singletons than the other 4 super-populations, so let us now take a look at those.
@@ -43,25 +43,25 @@ When we look at the AFR super-population, our results across all the positions l
 #### AMR
 
 ```{r echo=FALSE}
-plot_pos_stat("AT_CG", "AMR")
+plot_pos_stat("AMR", "AT_CG", re_by_position, title_text = "Relative Entropy by Relative Position: ", ylab_text = "Relative Entropy")
 ```
 
 #### EAS
 
 ```{r echo=FALSE}
-plot_pos_stat("AT_CG", "EAS")
+plot_pos_stat("EAS", "AT_CG", re_by_position, title_text = "Relative Entropy by Relative Position: ", ylab_text = "Relative Entropy")
 ```
 
 #### EUR
 
 ```{r echo=FALSE}
-plot_pos_stat("AT_CG", "EUR")
+plot_pos_stat("EUR", "AT_CG", re_by_position, title_text = "Relative Entropy by Relative Position: ", ylab_text = "Relative Entropy")
 ```
 
 #### SAS
 
 ```{r echo=FALSE}
-plot_pos_stat("AT_CG", "SAS")
+plot_pos_stat("SAS", "AT_CG", re_by_position, title_text = "Relative Entropy by Relative Position: ", ylab_text = "Relative Entropy")
 ```
 
 Across all five super-populations we see the same pattern as we look across positions, suggesting that the results are consistent across the five super-populations. The only difference we really see is a shift in the magnitude of the statistic, which is likely driven by differences in the number of singletons across the super-populations.
@@ -69,871 +69,152 @@ Across all five super-populations we see the same pattern as we look across posi
 To quantify our observation that the statistics are consistent across super-populations, let's look at the pairwise correlations of statistics across positions for each pair of super-populations:
 
 ```{r results='asis', echo=FALSE}
-df_corr_at_cg <- load_all_results_all_sp("AT_CG")
-corr_mat_at_cg <- df_corr_at_cg %>%
-  select(rp, starts_with("chi_sq_ct")) %>%
-  group_by(rp) %>%
-  summarize_all(sum) %>%
-  ungroup() %>% select(-rp) %>%
-  correlate()
+df_at_cg <- load_all_results_all_sp("AT_CG")
 
-corr_mat_at_cg %>% fashion() %>% knitr::kable()
+df_wide_at_cg <- 
+  df_at_cg %>%
+  select(Nuc, rp, pop, kl_r) %>%
+  pivot_wider(names_from = pop, values_from = kl_r)
+
+df_pos_at_cg <- df_wide_at_cg %>%
+  group_by(rp) %>%
+  summarize(across(AFR:SAS, ~sum(.)))
+
+df_pos_at_cg %>%
+  select(-rp) %>%
+  correlate()
 ```
 
-We see here that the statistics at each position are highly correlated across the super-populations. We can also ask if the "residuals" (contribution of each nucleotide to each position's statistic) is also correlated:
+We see in the above pairwise correlation matrix that the position level statistics are highly correlated between super populations which is what we'd like to see: the patterns of influence at single positions seem to be consistent across 1KGP super-populations. However, this is only a surface-level result; the position-level statistics are the sum of nucleotide-specific contributions, and we'd like to assess whether or not these are also consistent across populations.
 
 ```{r results='asis', echo=FALSE}
-df_corr_at_cg %>%
-  select(starts_with("chi_sq_ct")) %>%
-  correlate() %>%
-  fashion() %>%
-  knitr::kable(format = "latex")
+df_cor_at_cg <- df_wide_at_cg %>%
+  group_by(rp) %>%
+  summarise(across(AMR:SAS, ~cor(., AFR), .names = "AFR_{.col}"),
+            across(EAS:SAS, ~cor(., AMR), .names = "AMR_{.col}"),
+            across(EUR:SAS, ~cor(., EAS), .names = "EAS_{.col}"),
+            across(SAS, ~cor(., EUR), .names = "EUR_{.col}"))
+
+df_cor_at_cg %>%
+  select(rp, starts_with("AFR")) %>%
+  pivot_longer(-rp, names_to = "pair", values_to = "cor") %>%
+  mutate(pair = str_remove(pair, "AFR_")) %>%
+  ggplot(aes(x = rp, y = cor, group_by = pair, colour = pair)) +
+  geom_point() + 
+  geom_line() +
+  ylim(c(0,1)) +
+  ggtitle("Nucleotide residual correlations", "Reference Population: AFR; subtype: AT_CG") +
+  xlab("Relative Position") +
+  ylab("Nucleotide Contribution Correlation") +
+  labs(colour = "Population")
 ```
-and it appears that they are for this sub-type. Let's now take a look at the other sub-types
+
+In the above plot we can see that across all positions, the results for the AFR super-population are highly correlated with the other super-populations. Let's wrap the above analyses into a function and run them on the other subtypes.
+
+```{r}
+corr_analysis <- function(subtype, r_start = 1, stat_col = "kl_r"){
+  df <- load_all_results_all_sp(subtype, r_start = r_start)
+  
+  df_wide <- df %>%
+    select(Nuc, rp, pop, !!sym(stat_col)) %>%
+    pivot_wider(names_from = pop, values_from = !!sym(stat_col))
+  
+  # position-level statistics
+  df_pos <- df_wide_at_cg %>%
+    group_by(rp) %>%
+    summarize(across(AFR:SAS, ~sum(.)))
+  
+  df_pos %>%
+    select(-rp) %>%
+    correlate(quiet = TRUE) %>%
+    print()
+  
+  df_cor <- df_wide %>%
+    group_by(rp) %>%
+    summarise(across(AMR:SAS, ~cor(., AFR), .names = "AFR_{.col}"),
+              across(EAS:SAS, ~cor(., AMR), .names = "AMR_{.col}"),
+              across(EUR:SAS, ~cor(., EAS), .names = "EAS_{.col}"),
+              across(SAS, ~cor(., EUR), .names = "EUR_{.col}"))
+  p <- df_cor %>%
+    select(rp, starts_with("AFR")) %>%
+    pivot_longer(-rp, names_to = "pair", values_to = "cor") %>%
+    mutate(pair = str_remove(pair, "AFR_")) %>%
+    ggplot(aes(x = rp, y = cor, group_by = pair, colour = pair)) +
+    geom_point() + 
+    geom_line() +
+    ylim(c(0,1)) +
+    ggtitle("Nucleotide residual correlations", paste0("Reference Population: AFR; subtype: ", subtype)) +
+    xlab("Relative Position") +
+    ylab("Nucleotide Contribution Correlation") +
+    labs(colour = "Population")
+  print(p)
+}
+```
+
 
 ### AT_GC
 
-#### Position-level
-
-```{r results='asis', echo=FALSE, message=FALSE}
-df_corr <- load_all_results_all_sp("AT_GC")
-df_corr %>%
-  select(rp, starts_with("chi_sq_ct")) %>%
-  group_by(rp) %>%
-  summarize_all(sum) %>%
-  ungroup() %>% select(-rp) %>%
-  correlate() %>% 
-  fashion() %>% 
-  knitr::kable()
+```{r}
+subtype <- "AT_GC"
+corr_analysis(subtype)
 ```
 
-#### Nucleotide-level
-
-```{r results='asis', echo=FALSE, message=FALSE}
-df_corr %>%
-  select(starts_with("chi_sq_ct")) %>%
-  correlate() %>% 
-  fashion() %>% 
-  knitr::kable()
-```
 
 ### AT_TA
 
-#### Position-level
-
-```{r results='asis', echo=FALSE, message=FALSE}
-df_corr <- load_all_results_all_sp("AT_TA")
-df_corr %>%
-  select(rp, starts_with("chi_sq_ct")) %>%
-  group_by(rp) %>%
-  summarize_all(sum) %>%
-  ungroup() %>% select(-rp) %>%
-  correlate() %>% 
-  fashion() %>% 
-  knitr::kable()
-```
-
-#### Nucleotide-level
-
-```{r results='asis', echo=FALSE, message=FALSE}
-df_corr %>%
-  select(starts_with("chi_sq_ct")) %>%
-  correlate() %>% 
-  fashion() %>% 
-  knitr::kable()
+```{r}
+subtype <- "AT_TA"
+corr_analysis(subtype)
 ```
 
 ### GC_AT
 
-#### Position-level
-
-```{r results='asis', echo=FALSE, message=FALSE}
-df_corr <- load_all_results_all_sp("GC_AT")
-df_corr %>%
-  select(rp, starts_with("chi_sq_ct")) %>%
-  group_by(rp) %>%
-  summarize_all(sum) %>%
-  ungroup() %>% select(-rp) %>%
-  correlate() %>% 
-  fashion() %>% 
-  knitr::kable()
-```
-
-#### Nucleotide-level
-
-```{r results='asis', echo=FALSE, message=FALSE}
-df_corr %>%
-  select(starts_with("chi_sq_ct")) %>%
-  correlate() %>% 
-  fashion() %>% 
-  knitr::kable()
+```{r}
+subtype <- "GC_AT"
+corr_analysis(subtype)
 ```
 
 ### cpg_GC_AT
 
-#### Position-level
-
-```{r results='asis', echo=FALSE, message=FALSE}
-df_corr <- load_all_results_all_sp("cpg_GC_AT", r_start = 2)
-df_corr %>%
-  select(rp, starts_with("chi_sq_ct")) %>%
-  group_by(rp) %>%
-  summarize_all(sum) %>%
-  ungroup() %>% select(-rp) %>%
-  correlate() %>% 
-  fashion() %>% 
-  knitr::kable()
-```
-
-#### Nucleotide-level
-
-```{r results='asis', echo=FALSE, message=FALSE}
-df_corr %>%
-  select(starts_with("chi_sq_ct")) %>%
-  correlate() %>% 
-  fashion() %>% 
-  knitr::kable()
+```{r}
+subtype <- "cpg_GC_AT"
+corr_analysis(subtype, r_start = 2)
 ```
 
 ### GC_CG
 
-#### Position-level
-
-```{r results='asis', echo=FALSE, message=FALSE}
-df_corr <- load_all_results_all_sp("GC_CG")
-df_corr %>%
-  select(rp, starts_with("chi_sq_ct")) %>%
-  group_by(rp) %>%
-  summarize_all(sum) %>%
-  ungroup() %>% select(-rp) %>%
-  correlate() %>% 
-  fashion() %>% 
-  knitr::kable()
-```
-
-#### Nucleotide-level
-
-```{r results='asis', echo=FALSE, message=FALSE}
-df_corr %>%
-  select(starts_with("chi_sq_ct")) %>%
-  correlate() %>% 
-  fashion() %>% 
-  knitr::kable()
+```{r}
+subtype <- "GC_CG"
+corr_analysis(subtype)
 ```
 
 ### cpg_GC_CG
 
-#### Position-level
-
-```{r results='asis', echo=FALSE, message=FALSE}
-df_corr <- load_all_results_all_sp("cpg_GC_CG", r_start = 2)
-df_corr %>%
-  select(rp, starts_with("chi_sq_ct")) %>%
-  group_by(rp) %>%
-  summarize_all(sum) %>%
-  ungroup() %>% select(-rp) %>%
-  correlate() %>% 
-  fashion() %>% 
-  knitr::kable()
-```
-
-#### Nucleotide-level
-
-```{r results='asis', echo=FALSE, message=FALSE}
-df_corr %>%
-  select(starts_with("chi_sq_ct")) %>%
-  correlate() %>% 
-  fashion() %>% 
-  knitr::kable()
+```{r}
+subtype <- "cpg_GC_CG"
+corr_analysis(subtype, r_start = 2)
 ```
 
 ### GC_TA
 
-#### Position-level
-
-```{r results='asis', echo=FALSE, message=FALSE}
-df_corr <- load_all_results_all_sp("GC_TA")
-df_corr %>%
-  select(rp, starts_with("chi_sq_ct")) %>%
-  group_by(rp) %>%
-  summarize_all(sum) %>%
-  ungroup() %>% select(-rp) %>%
-  correlate() %>% 
-  fashion() %>% 
-  knitr::kable()
-```
-
-#### Nucleotide-level
-
-```{r results='asis', echo=FALSE, message=FALSE}
-df_corr %>%
-  select(starts_with("chi_sq_ct")) %>%
-  correlate() %>% 
-  fashion() %>% 
-  knitr::kable()
+```{r}
+subtype <- "GC_TA"
+corr_analysis(subtype)
 ```
 
 ### cpg_GC_TA
 
-#### Position-level
-
-```{r results='asis', echo=FALSE, message=FALSE}
-df_corr <- load_all_results_all_sp("cpg_GC_TA", r_start = 2)
-df_corr %>%
-  select(rp, starts_with("chi_sq_ct")) %>%
-  group_by(rp) %>%
-  summarize_all(sum) %>%
-  ungroup() %>% select(-rp) %>%
-  correlate() %>% 
-  fashion() %>% 
-  knitr::kable()
-```
-
-#### Nucleotide-level
-
-```{r results='asis', echo=FALSE, message=FALSE}
-df_corr %>%
-  select(starts_with("chi_sq_ct")) %>%
-  correlate() %>% 
-  fashion() %>% 
-  knitr::kable()
+```{r}
+subtype <- "cpg_GC_TA"
+corr_analysis(subtype, r_start = 2)
 ```
 
 ## Chi Square Approach
 
 Similar to what we did with the single position models, we can also use the chi square goodness of fit test to evaluate, for each sub-type and at each relative position, how similar are the counts between each super-population, and how does this statistic compare to what we observe comparing each super-population to its control sample? We can also do this to compare the BRIDGES data to the 1000G data as well.
 
-```{r}
-load_singletons_2pop <- function(subtype, sp1, sp2, r_start = 1){
-  df1 <- load_all_results(subtype, sp1, r_start) %>%
-    filter(singletons > 0) %>%
-    select(rp, Nuc, singletons, chi_sq_ct) %>%
-    rename_with(.fn = ~paste0(., ".", sp1), .cols = c(starts_with("chi"),starts_with("singletons") ))
-  df2 <- load_all_results(subtype, sp2, r_start) %>%
-    filter(singletons > 0) %>%
-    select(rp, Nuc, singletons, chi_sq_ct) %>%
-    rename_with(.fn = ~paste0(., ".", sp2),  .cols = c(starts_with("chi"),starts_with("singletons") ))
-  
-  df <- full_join(df1, df2, by = c("rp", "Nuc"))
-  return(df)
-}
-
-chi_sq_2pop <- function(subtype, sp1, sp2, r_start = 1){
-  df <- load_singletons_2pop(subtype, sp1, sp2, r_start)
-  chi_vec1 <- c()
-  chi_vec2 <- c()
-  for(i in c(-10:-1, r_start:10)){
-    df2 <- df %>% 
-      filter(rp == i)
-    vec1 <- df2 %>% select(starts_with("singletons") & contains(sp1)) %>% pull(1)
-    vec2 <- df2 %>% select(starts_with("singletons") & contains(sp2)) %>% pull(1)
-    chi_obj1 <- chisq.test(vec1, p = vec2 / sum(vec2))
-    chi_obj2 <- chisq.test(vec2, p = vec1 / sum(vec1))
-    chi_vec1 <- c(chi_vec1, unname(chi_obj1$statistic))
-    chi_vec2 <- c(chi_vec2, unname(chi_obj2$statistic))
-  }
-  control_df <- df %>% 
-    group_by(rp) %>% 
-    summarize_at(vars(starts_with("chi")), sum)
-  final <- data.frame(rp = c(-10:-1, r_start:10))
-  final[,paste0(sp1, "-", sp2,"")] <- chi_vec1
-  final[,paste0(sp2, "-", sp1,"")] <- chi_vec2
-  final[,paste0("Control - ", sp1)] <- control_df[,2]
-  final[,paste0("Control - ", sp2)] <- control_df[,3]
-  return(final)
-}
-```
-
-For an illustrative example, let's take a look at the A(T)>C(G) sub-type in the EUR and AFR super-populations. Here we'll use the frequencies observed in EUR to fit the AFR counts, and compare these chi-square statistics to those that we obtain when we compare the EUR and AFR super-populations to their corresponding control distributions:
-
-```{r results='asis'}
-chi_sq_2pop("AT_CG", "AFR", "EUR") %>%
-  knitr::kable()
-```
-
-Here we can see that the statistics when we use EUR proportions to fit AFR and vice versa are much smaller that what we observe using the controls to fit either population's counts. We can also plot these to make the exact same conclusion:
-
-```{r echo=FALSE}
-chi_sq_2pop_plot <- function(subtype, sp1, sp2, r_start = 1){
-  df <- chi_sq_2pop(subtype, sp1, sp2, r_start) %>%
-    gather(type, statistic, -rp)
-  
-  p <- df %>%
-    ggplot(aes(x = rp, y = statistic, colour = type)) + 
-    geom_point() +
-    geom_line() +
-    ggtitle(paste0("Single Position Chi Square Statistic: ", str_replace_all(subtype, "_", "-")),
-            paste0("Pop 1: ", sp1, "; Pop 2: ", sp2)) +
-    xlab("Relative Position") + 
-    ylab("Statistic") +
-    labs(fill="Statistic Type")
-  return(p)
-}
-```
-
-```{r message=FALSE}
-p <- chi_sq_2pop_plot("AT_CG", "AFR", "EUR")
-
-tikz("/net/snowwhite/home/beckandy/research/documentation/LSCI/output/tikz/single_pos/AFR_EUR_AT_CG.tex",
-     width = 7, height = 4)
-p
-dev.off()
-
-p
-```
-
-### AT_CG
-
-```{r message=FALSE}
-st <- "AT_CG"
-for(sp in c("AMR", "EAS", "EUR", "SAS")){
-  p <- chi_sq_2pop_plot(st, "AFR", sp)
-  tikz(paste0("/net/snowwhite/home/beckandy/research/documentation/LSCI/output/tikz/single_pos/",
-              "AFR","_",sp,"_",st,".tex"),
-     width = 7, height = 4)
-  p
-  dev.off()
-  print(p)
-}
-for(sp in c("EAS", "EUR", "SAS")){
-  p <- chi_sq_2pop_plot(st, "AMR", sp)
-  tikz(paste0("/net/snowwhite/home/beckandy/research/documentation/LSCI/output/tikz/single_pos/",
-              "AMR","_",sp,"_",st,".tex"),
-     width = 7, height = 4)
-  p
-  dev.off()
-  print(p)
-}
-for(sp in c("EUR", "SAS")){
-  p <- chi_sq_2pop_plot(st, "EAS", sp)
-  tikz(paste0("/net/snowwhite/home/beckandy/research/documentation/LSCI/output/tikz/single_pos/",
-              "EAS","_",sp,"_",st,".tex"),
-     width = 7, height = 4)
-  p
-  dev.off()
-  print(p)
-}
-p <- chi_sq_2pop_plot(st, "EUR", "SAS")
-tikz(paste0("/net/snowwhite/home/beckandy/research/documentation/LSCI/output/tikz/single_pos/",
-              "EAS","_","SAS","_",st,".tex"))
-p
-dev.off()
-print(p)
-```
-
-### AT_GC
-
-```{r message=FALSE}
-st <- "AT_GC"
-for(sp in c("AMR", "EAS", "EUR", "SAS")){
-  p <- chi_sq_2pop_plot(st, "AFR", sp)
-  tikz(paste0("/net/snowwhite/home/beckandy/research/documentation/LSCI/output/tikz/single_pos/",
-              "AFR","_",sp,"_",st,".tex"),
-     width = 7, height = 4)
-  p
-  dev.off()
-  print(p)
-}
-for(sp in c("EAS", "EUR", "SAS")){
-  p <- chi_sq_2pop_plot(st, "AMR", sp)
-  tikz(paste0("/net/snowwhite/home/beckandy/research/documentation/LSCI/output/tikz/single_pos/",
-              "AMR","_",sp,"_",st,".tex"),
-     width = 7, height = 4)
-  p
-  dev.off()
-  print(p)
-}
-for(sp in c("EUR", "SAS")){
-  p <- chi_sq_2pop_plot(st, "EAS", sp)
-  tikz(paste0("/net/snowwhite/home/beckandy/research/documentation/LSCI/output/tikz/single_pos/",
-              "EAS","_",sp,"_",st,".tex"),
-     width = 7, height = 4)
-  p
-  dev.off()
-  print(p)
-}
-p <- chi_sq_2pop_plot(st, "EUR", "SAS")
-tikz(paste0("/net/snowwhite/home/beckandy/research/documentation/LSCI/output/tikz/single_pos/",
-              "EAS","_","SAS","_",st,".tex"))
-p
-dev.off()
-print(p)
-```
-
-### AT_TA
-
-```{r echo=FALSE, message=FALSE}
-st <- "AT_TA"
-for(sp in c("AMR", "EAS", "EUR", "SAS")){
-  p <- chi_sq_2pop_plot(st, "AFR", sp)
-  tikz(paste0("/net/snowwhite/home/beckandy/research/documentation/LSCI/output/tikz/single_pos/",
-              "AFR","_",sp,"_",st,".tex"),
-     width = 7, height = 4)
-  p
-  dev.off()
-  print(p)
-}
-for(sp in c("EAS", "EUR", "SAS")){
-  p <- chi_sq_2pop_plot(st, "AMR", sp)
-  tikz(paste0("/net/snowwhite/home/beckandy/research/documentation/LSCI/output/tikz/single_pos/",
-              "AMR","_",sp,"_",st,".tex"),
-     width = 7, height = 4)
-  p
-  dev.off()
-  print(p)
-}
-for(sp in c("EUR", "SAS")){
-  p <- chi_sq_2pop_plot(st, "EAS", sp)
-  tikz(paste0("/net/snowwhite/home/beckandy/research/documentation/LSCI/output/tikz/single_pos/",
-              "EAS","_",sp,"_",st,".tex"),
-     width = 7, height = 4)
-  p
-  dev.off()
-  print(p)
-}
-p <- chi_sq_2pop_plot(st, "EUR", "SAS")
-tikz(paste0("/net/snowwhite/home/beckandy/research/documentation/LSCI/output/tikz/single_pos/",
-              "EAS","_","SAS","_",st,".tex"))
-p
-dev.off()
-print(p)
-```
-
-### GC_AT
-
-```{r echo=FALSE, message=FALSE}
-st <- "GC_AT"
-for(sp in c("AMR", "EAS", "EUR", "SAS")){
-  p <- chi_sq_2pop_plot(st, "AFR", sp)
-  tikz(paste0("/net/snowwhite/home/beckandy/research/documentation/LSCI/output/tikz/single_pos/",
-              "AFR","_",sp,"_",st,".tex"),
-     width = 7, height = 4)
-  p
-  dev.off()
-  print(p)
-}
-for(sp in c("EAS", "EUR", "SAS")){
-  p <- chi_sq_2pop_plot(st, "AMR", sp)
-  tikz(paste0("/net/snowwhite/home/beckandy/research/documentation/LSCI/output/tikz/single_pos/",
-              "AMR","_",sp,"_",st,".tex"),
-     width = 7, height = 4)
-  p
-  dev.off()
-  print(p)
-}
-for(sp in c("EUR", "SAS")){
-  p <- chi_sq_2pop_plot(st, "EAS", sp)
-  tikz(paste0("/net/snowwhite/home/beckandy/research/documentation/LSCI/output/tikz/single_pos/",
-              "EAS","_",sp,"_",st,".tex"),
-     width = 7, height = 4)
-  p
-  dev.off()
-  print(p)
-}
-p <- chi_sq_2pop_plot(st, "EUR", "SAS")
-tikz(paste0("/net/snowwhite/home/beckandy/research/documentation/LSCI/output/tikz/single_pos/",
-              "EAS","_","SAS","_",st,".tex"))
-p
-dev.off()
-print(p)
-```
-
-### cpg_GC_AT
-
-```{r echo=FALSE, message=FALSE}
-st <- "cpg_GC_AT"
-for(sp in c("AMR", "EAS", "EUR", "SAS")){
-  p <- chi_sq_2pop_plot(st, "AFR", sp, r_start = 2)
-  tikz(paste0("/net/snowwhite/home/beckandy/research/documentation/LSCI/output/tikz/single_pos/",
-              "AFR","_",sp,"_",st,".tex"),
-     width = 7, height = 4)
-  p
-  dev.off()
-  print(p)
-}
-for(sp in c("EAS", "EUR", "SAS")){
-  p <- chi_sq_2pop_plot(st, "AMR", sp, r_start = 2)
-  tikz(paste0("/net/snowwhite/home/beckandy/research/documentation/LSCI/output/tikz/single_pos/",
-              "AMR","_",sp,"_",st,".tex"),
-     width = 7, height = 4)
-  p
-  dev.off()
-  print(p)
-}
-for(sp in c("EUR", "SAS")){
-  p <- chi_sq_2pop_plot(st, "EAS", sp, r_start = 2)
-  tikz(paste0("/net/snowwhite/home/beckandy/research/documentation/LSCI/output/tikz/single_pos/",
-              "EAS","_",sp,"_",st,".tex"),
-     width = 7, height = 4)
-  p
-  dev.off()
-  print(p)
-}
-p <- chi_sq_2pop_plot(st, "EUR", "SAS", r_start = 2)
-tikz(paste0("/net/snowwhite/home/beckandy/research/documentation/LSCI/output/tikz/single_pos/",
-              "EAS","_","SAS","_",st,".tex"))
-p
-dev.off()
-print(p)
-```
-
-### GC_TA
-
-```{r echo=FALSE, message=FALSE}
-st <- "GC_TA"
-for(sp in c("AMR", "EAS", "EUR", "SAS")){
-  p <- chi_sq_2pop_plot(st, "AFR", sp)
-  tikz(paste0("/net/snowwhite/home/beckandy/research/documentation/LSCI/output/tikz/single_pos/",
-              "AFR","_",sp,"_",st,".tex"),
-     width = 7, height = 4)
-  p
-  dev.off()
-  print(p)
-}
-for(sp in c("EAS", "EUR", "SAS")){
-  p <- chi_sq_2pop_plot(st, "AMR", sp)
-  tikz(paste0("/net/snowwhite/home/beckandy/research/documentation/LSCI/output/tikz/single_pos/",
-              "AMR","_",sp,"_",st,".tex"),
-     width = 7, height = 4)
-  p
-  dev.off()
-  print(p)
-}
-for(sp in c("EUR", "SAS")){
-  p <- chi_sq_2pop_plot(st, "EAS", sp)
-  tikz(paste0("/net/snowwhite/home/beckandy/research/documentation/LSCI/output/tikz/single_pos/",
-              "EAS","_",sp,"_",st,".tex"),
-     width = 7, height = 4)
-  p
-  dev.off()
-  print(p)
-}
-p <- chi_sq_2pop_plot(st, "EUR", "SAS")
-tikz(paste0("/net/snowwhite/home/beckandy/research/documentation/LSCI/output/tikz/single_pos/",
-              "EAS","_","SAS","_",st,".tex"))
-p
-dev.off()
-print(p)
-```
-
-### cpg_GC_TA
-
-```{r echo=FALSE, message=FALSE}
-st <- "cpg_GC_TA"
-for(sp in c("AMR", "EAS", "EUR", "SAS")){
-  p <- chi_sq_2pop_plot(st, "AFR", sp, r_start = 2)
-  tikz(paste0("/net/snowwhite/home/beckandy/research/documentation/LSCI/output/tikz/single_pos/",
-              "AFR","_",sp,"_",st,".tex"),
-     width = 7, height = 4)
-  p
-  dev.off()
-  print(p)
-}
-for(sp in c("EAS", "EUR", "SAS")){
-  p <- chi_sq_2pop_plot(st, "AMR", sp, r_start = 2)
-  tikz(paste0("/net/snowwhite/home/beckandy/research/documentation/LSCI/output/tikz/single_pos/",
-              "AMR","_",sp,"_",st,".tex"),
-     width = 7, height = 4)
-  p
-  dev.off()
-  print(p)
-}
-for(sp in c("EUR", "SAS")){
-  p <- chi_sq_2pop_plot(st, "EAS", sp, r_start = 2)
-  tikz(paste0("/net/snowwhite/home/beckandy/research/documentation/LSCI/output/tikz/single_pos/",
-              "EAS","_",sp,"_",st,".tex"),
-     width = 7, height = 4)
-  p
-  dev.off()
-  print(p)
-}
-p <- chi_sq_2pop_plot(st, "EUR", "SAS", r_start = 2)
-tikz(paste0("/net/snowwhite/home/beckandy/research/documentation/LSCI/output/tikz/single_pos/",
-              "EAS","_","SAS","_",st,".tex"))
-p
-dev.off()
-print(p)
-```
-
-### GC_CG
-
-```{r echo=FALSE, message=FALSE}
-st <- "GC_CG"
-for(sp in c("AMR", "EAS", "EUR", "SAS")){
-  p <- chi_sq_2pop_plot(st, "AFR", sp)
-  tikz(paste0("/net/snowwhite/home/beckandy/research/documentation/LSCI/output/tikz/single_pos/",
-              "AFR","_",sp,"_",st,".tex"),
-     width = 7, height = 4)
-  p
-  dev.off()
-  print(p)
-}
-for(sp in c("EAS", "EUR", "SAS")){
-  p <- chi_sq_2pop_plot(st, "AMR", sp)
-  tikz(paste0("/net/snowwhite/home/beckandy/research/documentation/LSCI/output/tikz/single_pos/",
-              "AMR","_",sp,"_",st,".tex"),
-     width = 7, height = 4)
-  p
-  dev.off()
-  print(p)
-}
-for(sp in c("EUR", "SAS")){
-  p <- chi_sq_2pop_plot(st, "EAS", sp)
-  tikz(paste0("/net/snowwhite/home/beckandy/research/documentation/LSCI/output/tikz/single_pos/",
-              "EAS","_",sp,"_",st,".tex"),
-     width = 7, height = 4)
-  p
-  dev.off()
-  print(p)
-}
-p <- chi_sq_2pop_plot(st, "EUR", "SAS")
-tikz(paste0("/net/snowwhite/home/beckandy/research/documentation/LSCI/output/tikz/single_pos/",
-              "EAS","_","SAS","_",st,".tex"))
-p
-dev.off()
-print(p)
-```
-
-### cpg_GC_CG
-
-```{r echo=FALSE, message=FALSE}
-st <- "cpg_GC_CG"
-for(sp in c("AMR", "EAS", "EUR", "SAS")){
-  p <- chi_sq_2pop_plot(st, "AFR", sp, r_start = 2)
-  tikz(paste0("/net/snowwhite/home/beckandy/research/documentation/LSCI/output/tikz/single_pos/",
-              "AFR","_",sp,"_",st,".tex"),
-     width = 7, height = 4)
-  p
-  dev.off()
-  print(p)
-}
-for(sp in c("EAS", "EUR", "SAS")){
-  p <- chi_sq_2pop_plot(st, "AMR", sp, r_start = 2)
-  tikz(paste0("/net/snowwhite/home/beckandy/research/documentation/LSCI/output/tikz/single_pos/",
-              "AMR","_",sp,"_",st,".tex"),
-     width = 7, height = 4)
-  p
-  dev.off()
-  print(p)
-}
-for(sp in c("EUR", "SAS")){
-  p <- chi_sq_2pop_plot(st, "EAS", sp, r_start = 2)
-  tikz(paste0("/net/snowwhite/home/beckandy/research/documentation/LSCI/output/tikz/single_pos/",
-              "EAS","_",sp,"_",st,".tex"),
-     width = 7, height = 4)
-  p
-  dev.off()
-  print(p)
-}
-p <- chi_sq_2pop_plot(st, "EUR", "SAS", r_start = 2)
-tikz(paste0("/net/snowwhite/home/beckandy/research/documentation/LSCI/output/tikz/single_pos/",
-              "EAS","_","SAS","_",st,".tex"))
-p
-dev.off()
-print(p)
-```
 
 ## Compare to BRIDGES
 
 Considering the above results suggested that the super-populations are comparable in terms of the single model results, for comparisons with the BRIDGES data set we'll use the ALL "population" for comparisons.
-
-```{r echo=FALSE}
-statistic_by_position_all <- function(subtype, sp, r_start = 1){
-  df_1000G <- statistic_by_position(subtype, sp, r_start) %>%
-    mutate(type = paste0(type, "_1000G"))
-  df_bridges <- statistic_by_position_bridges(subtype, r_start) %>%
-    mutate(type = paste0(type, "_BRIDGES"))
-  df <- bind_rows(df_1000G, df_bridges)
-  return(df)
-}
-
-statistic_by_position_all_plot <- function(subtype, sp, r_start = 1){
-  df <- statistic_by_position_all(subtype, sp, r_start)
-  p <- df %>%
-    filter(str_starts(type, "Control")) %>%
-    mutate(type = str_remove(type, "Control_")) %>%
-    ggplot(aes(x = pos, y= chi_sq, colour = type)) +
-    geom_line() + geom_point() +
-    xlab("Relative Position") +
-    ylab("Statistic") +
-    labs(colour = "Data Set") +
-    ggtitle(paste0("BRIDGES and 1000G: ", subtype))
-  return(p)
-}
-```
-
-### AT_CG
-
-```{r}
-st <- "AT_CG"
-
-p <- statistic_by_position_all_plot(st, "ALL")
-tikz(paste0("/net/snowwhite/home/beckandy/research/documentation/LSCI/output/tikz/single_pos/",
-              "BRIDGES","_","1KGP","_",st,".tex"))
-p
-dev.off()
-print(p)
-```
-
-### AT_GC
-
-```{r}
-st <- "AT_GC"
-
-p <- statistic_by_position_all_plot(st, "ALL")
-tikz(paste0("/net/snowwhite/home/beckandy/research/documentation/LSCI/output/tikz/single_pos/",
-              "BRIDGES","_","1KGP","_",st,".tex"))
-p
-dev.off()
-print(p)
-```
-
-### AT_TA
-
-```{r}
-st <- "AT_TA"
-
-p <- statistic_by_position_all_plot(st, "ALL")
-tikz(paste0("/net/snowwhite/home/beckandy/research/documentation/LSCI/output/tikz/single_pos/",
-              "BRIDGES","_","1KGP","_",st,".tex"))
-p
-dev.off()
-print(p)
-```
-
-### GC_AT
-
-```{r}
-st <- "GC_AT"
-
-p <- statistic_by_position_all_plot(st, "ALL")
-tikz(paste0("/net/snowwhite/home/beckandy/research/documentation/LSCI/output/tikz/single_pos/",
-              "BRIDGES","_","1KGP","_",st,".tex"))
-p
-dev.off()
-print(p)
-```
-
-### cpg_GC_AT
-
-```{r}
-st <- "cpg_GC_AT"
-
-p <- statistic_by_position_all_plot(st, "ALL", r_start = 2)
-tikz(paste0("/net/snowwhite/home/beckandy/research/documentation/LSCI/output/tikz/single_pos/",
-              "BRIDGES","_","1KGP","_",st,".tex"))
-p
-dev.off()
-print(p)
-```
-
-### GC_TA
-
-```{r}
-st <- "GC_TA"
-
-p <- statistic_by_position_all_plot(st, "ALL")
-tikz(paste0("/net/snowwhite/home/beckandy/research/documentation/LSCI/output/tikz/single_pos/",
-              "BRIDGES","_","1KGP","_",st,".tex"))
-p
-dev.off()
-print(p)
-```
-
-### cpg_GC_TA
-
-```{r}
-st <- "cpg_GC_TA"
-
-p <- statistic_by_position_all_plot(st, "ALL", r_start = 2)
-tikz(paste0("/net/snowwhite/home/beckandy/research/documentation/LSCI/output/tikz/single_pos/",
-              "BRIDGES","_","1KGP","_",st,".tex"))
-p
-dev.off()
-print(p)
-```
-
-### GC_CG
-
-```{r}
-st <- "GC_CG"
-
-p <- statistic_by_position_all_plot(st, "ALL")
-tikz(paste0("/net/snowwhite/home/beckandy/research/documentation/LSCI/output/tikz/single_pos/",
-              "BRIDGES","_","1KGP","_",st,".tex"))
-p
-dev.off()
-print(p)
-```
-
-### cpg_GC_CG
-
-```{r}
-st <- "cpg_GC_CG"
-
-p <- statistic_by_position_all_plot(st, "ALL", r_start = 2)
-tikz(paste0("/net/snowwhite/home/beckandy/research/documentation/LSCI/output/tikz/single_pos/",
-              "BRIDGES","_","1KGP","_",st,".tex"))
-p
-dev.off()
-print(p)
-```
-
-We see that for all the sub-types the BRIDGES results are highly correlated with the 1000G results. But for the paper I'd like to have a table of correlation values.
-
-```{r}
-load_singletons_b1kgp <- function(subtype, r_start = 2){
-  df_bridges <- load_all_results_bridges(subtype, r_start) %>%
-    select(Nuc, rp, chi_sq_ct) %>%
-    rename(BRIDGES = chi_sq_ct)
-  df_g <- load_all_results(subtype, "ALL", r_start) %>%
-    select(Nuc, rp, chi_sq_ct) %>%
-    rename(`1KGP` = chi_sq_ct)
-  df <- full_join(df_bridges, df_g, by = c("Nuc", "rp"))
-  return(df)
-}
-```
-
-For all sub types we pull the nucleotide-level statistics for both data sets and get the correlations of both the position-level results and the nucleotide-level results:
-
-```{r}
-final <- data.frame(Nuc = character(),
-                    rp = numeric(),
-                    BRIDGES = numeric(),
-                    blank = numeric(),
-                    cat = character()) %>%
-  rename(`1KGP` = blank)
-
-for(st in c("AT_CG", "AT_GC", "AT_TA", "GC_AT", "GC_TA", "GC_CG")){
-  df <- load_singletons_b1kgp(st) %>%
-    mutate(cat = st)
-  final <- bind_rows(final, df)
-}
-
-for(st in c("cpg_GC_AT", "cpg_GC_TA", "cpg_GC_CG")){
-  df <- load_singletons_b1kgp(st, r_start = 2) %>%
-    mutate(cat = st)
-  final <- bind_rows(final, df)
-}
-```
-
-Let's first get the correlation across nucleotide-level residuals:
-
-```{r, results='asis'}
-final %>%
-  group_by(cat) %>%
-  summarize(cor = cor(`1KGP`, BRIDGES)) %>%
-  knitr::kable(format = "latex")
-```
-
-And now let's get the correlations of the position-level statistics:
-
-```{r, results='asis'}
-final %>%
-  group_by(cat, rp) %>%
-  summarize(tgp = sum(`1KGP`), br = sum(BRIDGES)) %>%
-  group_by(cat) %>%
-  summarize(correlation = cor(tgp, br)) %>%
-  knitr::kable(format = "latex")
-```
 
