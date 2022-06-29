@@ -428,3 +428,31 @@ for(st in subtypes){
 knitr::kable(final)
 ```
 
+## All subtypes plot
+
+```{r}
+final <- zhu_by_pos("ALL", subtypes[1])
+final$subtype <- subtypes[1]
+
+for(st in c("AT_GC", "AT_TA",
+              "GC_AT", "GC_TA", "GC_CG")){
+  df <- zhu_by_pos("ALL", st)
+  df$subtype <- st
+  final <- bind_rows(final, df)
+}
+
+for(st in c("cpg_GC_AT", "cpg_GC_TA", "cpg_GC_CG")){
+  df <- zhu_by_pos("ALL", st, r_start = 2)
+  df$subtype <- st
+  final <- bind_rows(final, df)
+}
+
+final %>% 
+  ggplot(aes(x = pos, y = statistic, colour = subtype)) +
+  geom_point() +
+  geom_line() +
+  ggtitle("Single Position Model Results", "All 1KGP Super Populations") +
+  xlab("Relative Position") +
+  ylab("Relative Entropy")
+```
+
