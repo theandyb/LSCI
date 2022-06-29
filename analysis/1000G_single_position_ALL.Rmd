@@ -83,10 +83,10 @@ The nine basic subtypes are AT_CG, AT_GC, AT_TA, GC_AT, GC_TA, GC_CG, cpg_GC_AT,
 cpg_stat_by_pos <- function(sp, data_dir = "/net/snowwhite/home/beckandy/research/1000G_LSCI/output/single_pos_df/"){
   df <- load_all_sp_results(sp, "all_GC_AT", data_dir = data_dir)
   df <- df %>%
-    select(rp, deviance, chi_s) %>%
+    select(rp, deviance, re) %>%
     group_by(rp) %>%
     summarize(deviance = sum(deviance),
-              chi_s = sum(chi_s))
+              re = sum(re))
   return(df)
 }
 
@@ -96,12 +96,12 @@ cpg_stat_by_pos <- function(sp, data_dir = "/net/snowwhite/home/beckandy/researc
 
 ```{r}
 cpg_stat_by_pos("ALL") %>%
-  ggplot(aes(x = rp, y = deviance)) +
+  ggplot(aes(x = rp, y = re)) +
   geom_point() + 
   geom_line() +
-  ggtitle("C -> T: CpG Effect") +
+  ggtitle("C → T: CpG Effect") +
   xlab("Relative Position") +
-  ylab("Deviance Statistic")
+  ylab("Relative Entropy")
 ```
 
 
@@ -109,10 +109,10 @@ cpg_stat_by_pos("ALL") %>%
 
 ```{r echo=FALSE, message=FALSE}
 st <- "AT_CG"
-p1 <- plot_pos_stat("ALL", st, re_by_position, "Relative Entropy by Position: ", ylab_text = "Relative Entropy")
-p2 <- plot_nuc_level_bar("ALL", st, "chi_sq_ct", "Nucleotide Contribution to Overall Statistic",
+p1 <- plot_pos_stat("ALL", st, zhu_by_pos, "Relative Entropy by Position: ", ylab_text = "Relative Entropy")
+p2 <- plot_nuc_level_bar("ALL", st, "re", "Nucleotide Contribution to Overall Statistic",
                          paste0("Subtype: ", st, "; Population: All"))
-p3 <- plot_signed_nuc_by_pos("ALL", st)
+p3 <- plot_signed_re_by_pos("ALL", st)
 
 p1
 p2
@@ -132,7 +132,7 @@ st <- "AT_GC"
 p1 <- plot_pos_stat("ALL", st, re_by_position, "Relative Entropy by Position: ", ylab_text = "Relative Entropy")
 p2 <- plot_nuc_level_bar("ALL", st, "chi_sq_ct", "Nucleotide Contribution to Overall Statistic",
                          paste0("Subtype: ", st, "; Population: All"))
-p3 <- plot_signed_nuc_by_pos("ALL", st)
+p3 <- plot_signed_re_by_pos("ALL", st)
 
 p1
 p2
@@ -149,7 +149,7 @@ st <- "AT_TA"
 p1 <- plot_pos_stat("ALL", st, re_by_position, "Relative Entropy by Position: ", ylab_text = "Relative Entropy")
 p2 <- plot_nuc_level_bar("ALL", st, "chi_sq_ct", "Nucleotide Contribution to Overall Statistic",
                          paste0("Subtype: ", st, "; Population: All"))
-p3 <- plot_signed_nuc_by_pos("ALL", st)
+p3 <- plot_signed_re_by_pos("ALL", st)
 
 p1
 p2
@@ -165,7 +165,7 @@ st <- "GC_AT"
 p1 <- plot_pos_stat("ALL", st, re_by_position, "Relative Entropy by Position: ", ylab_text = "Relative Entropy")
 p2 <- plot_nuc_level_bar("ALL", st, "chi_sq_ct", "Nucleotide Contribution to Overall Statistic",
                          paste0("Subtype: ", st, "; Population: All"))
-p3 <- plot_signed_nuc_by_pos("ALL", st)
+p3 <- plot_signed_re_by_pos("ALL", st)
 
 p1
 p2
@@ -180,8 +180,8 @@ Here we look at the G>A (C>T) transition, conditioning on sites not being CpGs (
 st <- "cpg_GC_AT"
 p1 <- plot_pos_stat("ALL", st, re_by_position, "Relative Entropy by Position: ", ylab_text = "Relative Entropy", r_start = 2)
 p2 <- plot_nuc_level_bar("ALL", st, "chi_sq_ct", "Nucleotide Contribution to Overall Statistic",
-                         paste0("Subtype: ", st, "; Population: All"), r_start = 2)
-p3 <- plot_signed_nuc_by_pos("ALL", st, r_start = 2)
+                         paste0("Subtype: ", st, "; Population: All"), r_start =2)
+p3 <- plot_signed_re_by_pos("ALL", st, r_start = 2)
 
 p1
 p2
@@ -197,7 +197,7 @@ st <- "GC_TA"
 p1 <- plot_pos_stat("ALL", st, re_by_position, "Relative Entropy by Position: ", ylab_text = "Relative Entropy")
 p2 <- plot_nuc_level_bar("ALL", st, "chi_sq_ct", "Nucleotide Contribution to Overall Statistic",
                          paste0("Subtype: ", st, "; Population: All"))
-p3 <- plot_signed_nuc_by_pos("ALL", st)
+p3 <- plot_signed_re_by_pos("ALL", st)
 
 p1
 p2
@@ -213,8 +213,8 @@ For the G>T(C>A) transversion at non-CpG sites we see that the largest marginal 
 st <- "cpg_GC_TA"
 p1 <- plot_pos_stat("ALL", st, re_by_position, "Relative Entropy by Position: ", ylab_text = "Relative Entropy", r_start = 2)
 p2 <- plot_nuc_level_bar("ALL", st, "chi_sq_ct", "Nucleotide Contribution to Overall Statistic",
-                         paste0("Subtype: ", st, "; Population: All"), r_start = 2)
-p3 <- plot_signed_nuc_by_pos("ALL", st, r_start = 2)
+                         paste0("Subtype: ", st, "; Population: All"), r_start =2)
+p3 <- plot_signed_re_by_pos("ALL", st, r_start = 2)
 
 p1
 p2
@@ -230,7 +230,7 @@ st <- "GC_CG"
 p1 <- plot_pos_stat("ALL", st, re_by_position, "Relative Entropy by Position: ", ylab_text = "Relative Entropy")
 p2 <- plot_nuc_level_bar("ALL", st, "chi_sq_ct", "Nucleotide Contribution to Overall Statistic",
                          paste0("Subtype: ", st, "; Population: All"))
-p3 <- plot_signed_nuc_by_pos("ALL", st)
+p3 <- plot_signed_re_by_pos("ALL", st)
 
 p1
 p2
@@ -245,8 +245,8 @@ For the G<->C transversion at non-CpG sites we observe the largest marginal sign
 st <- "cpg_GC_CG"
 p1 <- plot_pos_stat("ALL", st, re_by_position, "Relative Entropy by Position: ", ylab_text = "Relative Entropy", r_start = 2)
 p2 <- plot_nuc_level_bar("ALL", st, "chi_sq_ct", "Nucleotide Contribution to Overall Statistic",
-                         paste0("Subtype: ", st, "; Population: All"), r_start = 2)
-p3 <- plot_signed_nuc_by_pos("ALL", st, r_start = 2)
+                         paste0("Subtype: ", st, "; Population: All"), r_start =2)
+p3 <- plot_signed_re_by_pos("ALL", st, r_start = 2)
 
 p1
 p2
