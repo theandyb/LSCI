@@ -102,6 +102,8 @@ cpg_stat_by_pos("ALL") %>%
   ggtitle("C → T: CpG Effect") +
   xlab("Relative Position") +
   ylab("Relative Entropy")
+
+plot_signed_re_by_pos("ALL","all_GC_AT")
 ```
 
 
@@ -120,7 +122,7 @@ p3
 ```
 
 ```{r results='asis', echo=FALSE}
-gof_by_position("ALL", st) %>% knitr::kable()
+zhu_by_pos("ALL", st) %>% knitr::kable()
 ```
 
 Here we see that the  strongest influence (or deviation from expectation) occurs at the -1 relative position, and in general decreases as we move further from the focal site. Although the statistics do drop drastically as we move towards +/- 10, the unadjusted statistics are still statistically significant (chi-square null distribution with 4 - 1 = 3 degrees of freedom).
@@ -405,4 +407,24 @@ plot_simple_pos_stat("cpg_G_C", "ALL", rc = TRUE, r_start = 2)
 ```
 
 I do not see any substantial differences between simple sub-type pairs, and so forth I will only consider the 9 collapsed categories.
+
+## Max RE across subtypes
+
+```{r}
+subtypes <- c("AT_CG", "AT_GC", "AT_TA",
+              "GC_AT", "GC_TA", "GC_CG",
+              "cpg_GC_AT", "cpg_GC_TA", "cpg_GC_CG")
+final <- data.frame(subtype = character(), position = numeric(), re =numeric())
+
+for(st in subtypes){
+  df <- zhu_by_pos("ALL", st)
+  df <- df %>% filter(statistic == max(statistic, na.rm = T))
+  final <- bind_rows(final, 
+                     data.frame(subtype = st, 
+                                position = df$pos[1], 
+                                re = df$statistic[1]))
+}
+
+knitr::kable(final)
+```
 
