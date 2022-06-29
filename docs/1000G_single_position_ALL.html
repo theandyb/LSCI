@@ -518,15 +518,15 @@ project makes it easier to run your code on other machines.</p>
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomtheandybLSCItree54eaf05327d6b16593370b73ffc7194a491dd06dtargetblank54eaf05a">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomtheandybLSCItreedeae5f59f475a188c026bbc1bc9ac10feca16888targetblankdeae5f5a">
 <span class="glyphicon glyphicon-ok text-success"
 aria-hidden="true"></span> <strong>Repository version:</strong>
-<a href="https://github.com/theandyb/LSCI/tree/54eaf05327d6b16593370b73ffc7194a491dd06d" target="_blank">54eaf05</a>
+<a href="https://github.com/theandyb/LSCI/tree/deae5f59f475a188c026bbc1bc9ac10feca16888" target="_blank">deae5f5</a>
 </a>
 </p>
 </div>
 <div
-id="strongRepositoryversionstrongahrefhttpsgithubcomtheandybLSCItree54eaf05327d6b16593370b73ffc7194a491dd06dtargetblank54eaf05a"
+id="strongRepositoryversionstrongahrefhttpsgithubcomtheandybLSCItreedeae5f59f475a188c026bbc1bc9ac10feca16888targetblankdeae5f5a"
 class="panel-collapse collapse">
 <div class="panel-body">
 <p>
@@ -536,7 +536,7 @@ reproducibility.
 </p>
 <p>
 The results in this page were generated with repository version
-<a href="https://github.com/theandyb/LSCI/tree/54eaf05327d6b16593370b73ffc7194a491dd06d" target="_blank">54eaf05</a>.
+<a href="https://github.com/theandyb/LSCI/tree/deae5f59f475a188c026bbc1bc9ac10feca16888" target="_blank">deae5f5</a>.
 See the <em>Past versions</em> tab to see a history of the changes made
 to the R Markdown and HTML files.
 </p>
@@ -612,6 +612,40 @@ Message
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+Rmd
+</td>
+<td>
+<a href="https://github.com/theandyb/LSCI/blob/deae5f59f475a188c026bbc1bc9ac10feca16888/analysis/1000G_single_position_ALL.Rmd" target="_blank">deae5f5</a>
+</td>
+<td>
+Andy Beck
+</td>
+<td>
+2022-06-29
+</td>
+<td>
+wflow_publish("analysis/1000G_single_position_ALL.Rmd")
+</td>
+</tr>
+<tr>
+<td>
+html
+</td>
+<td>
+<a href="https://rawcdn.githack.com/theandyb/LSCI/808a0d2947485add63c05e18181cde7242f5cd1d/docs/1000G_single_position_ALL.html" target="_blank">808a0d2</a>
+</td>
+<td>
+Andy Beck
+</td>
+<td>
+2022-06-29
+</td>
+<td>
+Build site.
+</td>
+</tr>
 <tr>
 <td>
 Rmd
@@ -1309,6 +1343,17 @@ Date
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+<a href="https://github.com/theandyb/LSCI/blob/808a0d2947485add63c05e18181cde7242f5cd1d/docs/figure/1000G_single_position_ALL.Rmd/unnamed-chunk-3-2.png" target="_blank">808a0d2</a>
+</td>
+<td>
+Andy Beck
+</td>
+<td>
+2022-06-29
+</td>
+</tr>
 <tr>
 <td>
 <a href="https://github.com/theandyb/LSCI/blob/ff1a8c18b01e59a477bc209b7fcddcc4bacf3b9b/docs/figure/1000G_single_position_ALL.Rmd/unnamed-chunk-3-2.png" target="_blank">ff1a8c1</a>
@@ -4254,8 +4299,8 @@ knitr::kable(final)</code></pre>
 </tr>
 <tr class="odd">
 <td align="left">GC_TA</td>
-<td align="right">-2</td>
-<td align="right">0.0017801</td>
+<td align="right">1</td>
+<td align="right">0.0038106</td>
 </tr>
 <tr class="even">
 <td align="left">GC_CG</td>
@@ -4279,6 +4324,103 @@ knitr::kable(final)</code></pre>
 </tr>
 </tbody>
 </table>
+</div>
+<div id="all-subtypes-plot" class="section level2">
+<h2>All subtypes plot</h2>
+<pre class="r"><code>final &lt;- zhu_by_pos(&quot;ALL&quot;, subtypes[1])
+final$subtype &lt;- subtypes[1]
+
+for(st in c(&quot;AT_GC&quot;, &quot;AT_TA&quot;,
+              &quot;GC_AT&quot;, &quot;GC_TA&quot;, &quot;GC_CG&quot;)){
+  df &lt;- zhu_by_pos(&quot;ALL&quot;, st)
+  df$subtype &lt;- st
+  final &lt;- bind_rows(final, df)
+}
+
+for(st in c(&quot;cpg_GC_AT&quot;, &quot;cpg_GC_TA&quot;, &quot;cpg_GC_CG&quot;)){
+  df &lt;- zhu_by_pos(&quot;ALL&quot;, st, r_start = 2)
+  df$subtype &lt;- st
+  final &lt;- bind_rows(final, df)
+}
+
+final %&gt;% 
+  ggplot(aes(x = pos, y = statistic, colour = subtype)) +
+  geom_point() +
+  geom_line() +
+  ggtitle(&quot;Single Position Model Results&quot;, &quot;All 1KGP Super Populations&quot;) +
+  xlab(&quot;Relative Position&quot;) +
+  ylab(&quot;Relative Entropy&quot;)</code></pre>
+<p><img src="figure/1000G_single_position_ALL.Rmd/unnamed-chunk-25-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-25-1">
+Past versions of unnamed-chunk-25-1.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-25-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/theandyb/LSCI/blob/f09d3f581fbdd6b63c6a979ab8292335488a38b9/docs/figure/1000G_single_position_ALL.Rmd/unnamed-chunk-25-1.png" target="_blank">f09d3f5</a>
+</td>
+<td>
+Andy Beck
+</td>
+<td>
+2022-05-09
+</td>
+</tr>
+<tr>
+<td>
+<a href="https://github.com/theandyb/LSCI/blob/ff1a8c18b01e59a477bc209b7fcddcc4bacf3b9b/docs/figure/1000G_single_position_ALL.Rmd/unnamed-chunk-25-1.png" target="_blank">ff1a8c1</a>
+</td>
+<td>
+Andy Beck
+</td>
+<td>
+2022-04-28
+</td>
+</tr>
+<tr>
+<td>
+<a href="https://github.com/theandyb/LSCI/blob/d54d5aaf2e79814abeecfb0b9d91de44968ad4ba/docs/figure/1000G_single_position_ALL.Rmd/unnamed-chunk-25-1.png" target="_blank">d54d5aa</a>
+</td>
+<td>
+Andy Beck
+</td>
+<td>
+2021-12-15
+</td>
+</tr>
+<tr>
+<td>
+<a href="https://github.com/theandyb/LSCI/blob/ddbf84923ab14a1bdb4e654158be84c6aa088e7c/docs/figure/1000G_single_position_ALL.Rmd/unnamed-chunk-25-1.png" target="_blank">ddbf849</a>
+</td>
+<td>
+Andy Beck
+</td>
+<td>
+2021-11-03
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 <br>
 <p>
 <button type="button" class="btn btn-default btn-workflowr btn-workflowr-sessioninfo" data-toggle="collapse" data-target="#workflowr-sessioninfo" style="display: block;">
