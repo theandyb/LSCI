@@ -15,7 +15,7 @@
 
 <title>1000G_single_position_ALL</title>
 
-<script src="site_libs/header-attrs-2.11/header-attrs.js"></script>
+<script src="site_libs/header-attrs-2.14/header-attrs.js"></script>
 <script src="site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <link href="site_libs/bootstrap-3.3.5/css/flatly.min.css" rel="stylesheet" />
@@ -77,6 +77,7 @@ if (window.hljs) {
 
 
 
+
 <style type = "text/css">
 .main-container {
   max-width: 940px;
@@ -97,6 +98,9 @@ button.code-folding-btn:focus {
 }
 summary {
   display: list-item;
+}
+details > summary > p:only-child {
+  display: inline;
 }
 pre code {
   padding: 0;
@@ -322,7 +326,7 @@ div.tocify {
 <div class="navbar navbar-default  navbar-fixed-top" role="navigation">
   <div class="container">
     <div class="navbar-header">
-      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-bs-toggle="collapse" data-target="#navbar" data-bs-target="#navbar">
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
@@ -383,7 +387,7 @@ class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span>
 <div class="tab-content">
 <div id="summary" class="tab-pane fade in active">
 <p>
-<strong>Last updated:</strong> 2022-05-09
+<strong>Last updated:</strong> 2022-06-29
 </p>
 <p>
 <strong>Checks:</strong> <span
@@ -514,15 +518,15 @@ project makes it easier to run your code on other machines.</p>
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomtheandybLSCItree89cc15a665cc3557316739891fa0ea172b64759atargetblank89cc15aa">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomtheandybLSCItree9cca6c5b25daf675e99f9d750170446a29114809targetblank9cca6c5a">
 <span class="glyphicon glyphicon-ok text-success"
 aria-hidden="true"></span> <strong>Repository version:</strong>
-<a href="https://github.com/theandyb/LSCI/tree/89cc15a665cc3557316739891fa0ea172b64759a" target="_blank">89cc15a</a>
+<a href="https://github.com/theandyb/LSCI/tree/9cca6c5b25daf675e99f9d750170446a29114809" target="_blank">9cca6c5</a>
 </a>
 </p>
 </div>
 <div
-id="strongRepositoryversionstrongahrefhttpsgithubcomtheandybLSCItree89cc15a665cc3557316739891fa0ea172b64759atargetblank89cc15aa"
+id="strongRepositoryversionstrongahrefhttpsgithubcomtheandybLSCItree9cca6c5b25daf675e99f9d750170446a29114809targetblank9cca6c5a"
 class="panel-collapse collapse">
 <div class="panel-body">
 <p>
@@ -532,7 +536,7 @@ reproducibility.
 </p>
 <p>
 The results in this page were generated with repository version
-<a href="https://github.com/theandyb/LSCI/tree/89cc15a665cc3557316739891fa0ea172b64759a" target="_blank">89cc15a</a>.
+<a href="https://github.com/theandyb/LSCI/tree/9cca6c5b25daf675e99f9d750170446a29114809" target="_blank">9cca6c5</a>.
 See the <em>Past versions</em> tab to see a history of the changes made
 to the R Markdown and HTML files.
 </p>
@@ -550,7 +554,6 @@ Ignored files:
     Ignored:    .Rhistory
     Ignored:    .Rproj.user/
     Ignored:    analysis/disqus.html
-    Ignored:    analysis/figure/
     Ignored:    code/random/
 
 Untracked files:
@@ -560,8 +563,10 @@ Untracked files:
     Untracked:  output/tikz/
 
 Unstaged changes:
+    Modified:   analysis/1000G_single_postion_comp.Rmd
     Deleted:    analysis/1000G_two_postions_comp.Rmd
     Modified:   analysis/BRIDGES_two_positions.Rmd
+    Modified:   code/single_pos_functions.R
 
 </code></pre>
 <p>
@@ -608,6 +613,40 @@ Message
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+Rmd
+</td>
+<td>
+<a href="https://github.com/theandyb/LSCI/blob/9cca6c5b25daf675e99f9d750170446a29114809/analysis/1000G_single_position_ALL.Rmd" target="_blank">9cca6c5</a>
+</td>
+<td>
+Andy Beck
+</td>
+<td>
+2022-06-29
+</td>
+<td>
+wflow_publish("analysis/1000G_single_position_ALL.Rmd")
+</td>
+</tr>
+<tr>
+<td>
+html
+</td>
+<td>
+<a href="https://rawcdn.githack.com/theandyb/LSCI/f09d3f581fbdd6b63c6a979ab8292335488a38b9/docs/1000G_single_position_ALL.html" target="_blank">f09d3f5</a>
+</td>
+<td>
+Andy Beck
+</td>
+<td>
+2022-05-09
+</td>
+<td>
+Build site.
+</td>
+</tr>
 <tr>
 <td>
 Rmd
@@ -1136,12 +1175,12 @@ we observe at each relative position for each sub-type.</p>
 <div id="demonstrate-cpg-effect" class="section level3">
 <h3>Demonstrate CpG effect</h3>
 <pre class="r"><code>cpg_stat_by_pos(&quot;ALL&quot;) %&gt;%
-  ggplot(aes(x = rp, y = deviance)) +
+  ggplot(aes(x = rp, y = re)) +
   geom_point() + 
   geom_line() +
-  ggtitle(&quot;C -&gt; T: CpG Effect&quot;) +
+  ggtitle(&quot;C → T: CpG Effect&quot;) +
   xlab(&quot;Relative Position&quot;) +
-  ylab(&quot;Deviance Statistic&quot;)</code></pre>
+  ylab(&quot;Relative Entropy&quot;)</code></pre>
 <p><img src="figure/1000G_single_position_ALL.Rmd/unnamed-chunk-3-1.png" width="672" style="display: block; margin: auto;" /></p>
 <p>
 <button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-3-1">
@@ -1230,6 +1269,17 @@ Date
 <tbody>
 <tr>
 <td>
+<a href="https://github.com/theandyb/LSCI/blob/f09d3f581fbdd6b63c6a979ab8292335488a38b9/docs/figure/1000G_single_position_ALL.Rmd/unnamed-chunk-4-1.png" target="_blank">f09d3f5</a>
+</td>
+<td>
+Andy Beck
+</td>
+<td>
+2022-05-09
+</td>
+</tr>
+<tr>
+<td>
 <a href="https://github.com/theandyb/LSCI/blob/ff1a8c18b01e59a477bc209b7fcddcc4bacf3b9b/docs/figure/1000G_single_position_ALL.Rmd/unnamed-chunk-4-1.png" target="_blank">ff1a8c1</a>
 </td>
 <td>
@@ -1290,6 +1340,17 @@ Date
 <tbody>
 <tr>
 <td>
+<a href="https://github.com/theandyb/LSCI/blob/f09d3f581fbdd6b63c6a979ab8292335488a38b9/docs/figure/1000G_single_position_ALL.Rmd/unnamed-chunk-4-2.png" target="_blank">f09d3f5</a>
+</td>
+<td>
+Andy Beck
+</td>
+<td>
+2022-05-09
+</td>
+</tr>
+<tr>
+<td>
 <a href="https://github.com/theandyb/LSCI/blob/ff1a8c18b01e59a477bc209b7fcddcc4bacf3b9b/docs/figure/1000G_single_position_ALL.Rmd/unnamed-chunk-4-2.png" target="_blank">ff1a8c1</a>
 </td>
 <td>
@@ -1304,6 +1365,43 @@ Andy Beck
 </div>
 </div>
 <p><img src="figure/1000G_single_position_ALL.Rmd/unnamed-chunk-4-3.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-4-3">
+Past versions of unnamed-chunk-4-3.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-4-3" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/theandyb/LSCI/blob/f09d3f581fbdd6b63c6a979ab8292335488a38b9/docs/figure/1000G_single_position_ALL.Rmd/unnamed-chunk-4-3.png" target="_blank">f09d3f5</a>
+</td>
+<td>
+Andy Beck
+</td>
+<td>
+2022-05-09
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 <table>
 <thead>
 <tr class="header">
@@ -1428,6 +1526,17 @@ Date
 <tbody>
 <tr>
 <td>
+<a href="https://github.com/theandyb/LSCI/blob/f09d3f581fbdd6b63c6a979ab8292335488a38b9/docs/figure/1000G_single_position_ALL.Rmd/unnamed-chunk-6-1.png" target="_blank">f09d3f5</a>
+</td>
+<td>
+Andy Beck
+</td>
+<td>
+2022-05-09
+</td>
+</tr>
+<tr>
+<td>
 <a href="https://github.com/theandyb/LSCI/blob/ff1a8c18b01e59a477bc209b7fcddcc4bacf3b9b/docs/figure/1000G_single_position_ALL.Rmd/unnamed-chunk-6-1.png" target="_blank">ff1a8c1</a>
 </td>
 <td>
@@ -1488,6 +1597,17 @@ Date
 <tbody>
 <tr>
 <td>
+<a href="https://github.com/theandyb/LSCI/blob/f09d3f581fbdd6b63c6a979ab8292335488a38b9/docs/figure/1000G_single_position_ALL.Rmd/unnamed-chunk-6-2.png" target="_blank">f09d3f5</a>
+</td>
+<td>
+Andy Beck
+</td>
+<td>
+2022-05-09
+</td>
+</tr>
+<tr>
+<td>
 <a href="https://github.com/theandyb/LSCI/blob/ff1a8c18b01e59a477bc209b7fcddcc4bacf3b9b/docs/figure/1000G_single_position_ALL.Rmd/unnamed-chunk-6-2.png" target="_blank">ff1a8c1</a>
 </td>
 <td>
@@ -1502,6 +1622,43 @@ Andy Beck
 </div>
 </div>
 <p><img src="figure/1000G_single_position_ALL.Rmd/unnamed-chunk-6-3.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-6-3">
+Past versions of unnamed-chunk-6-3.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-6-3" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/theandyb/LSCI/blob/f09d3f581fbdd6b63c6a979ab8292335488a38b9/docs/figure/1000G_single_position_ALL.Rmd/unnamed-chunk-6-3.png" target="_blank">f09d3f5</a>
+</td>
+<td>
+Andy Beck
+</td>
+<td>
+2022-05-09
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 <p>Here for the AT_GC transition we see a similar pattern to what we
 observed above, but with the most influential marginal effect occurring
 at the +1 position.</p>
@@ -1531,6 +1688,17 @@ Date
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+<a href="https://github.com/theandyb/LSCI/blob/f09d3f581fbdd6b63c6a979ab8292335488a38b9/docs/figure/1000G_single_position_ALL.Rmd/unnamed-chunk-7-1.png" target="_blank">f09d3f5</a>
+</td>
+<td>
+Andy Beck
+</td>
+<td>
+2022-05-09
+</td>
+</tr>
 <tr>
 <td>
 <a href="https://github.com/theandyb/LSCI/blob/ff1a8c18b01e59a477bc209b7fcddcc4bacf3b9b/docs/figure/1000G_single_position_ALL.Rmd/unnamed-chunk-7-1.png" target="_blank">ff1a8c1</a>
@@ -1604,6 +1772,17 @@ Date
 <tbody>
 <tr>
 <td>
+<a href="https://github.com/theandyb/LSCI/blob/f09d3f581fbdd6b63c6a979ab8292335488a38b9/docs/figure/1000G_single_position_ALL.Rmd/unnamed-chunk-7-2.png" target="_blank">f09d3f5</a>
+</td>
+<td>
+Andy Beck
+</td>
+<td>
+2022-05-09
+</td>
+</tr>
+<tr>
+<td>
 <a href="https://github.com/theandyb/LSCI/blob/ff1a8c18b01e59a477bc209b7fcddcc4bacf3b9b/docs/figure/1000G_single_position_ALL.Rmd/unnamed-chunk-7-2.png" target="_blank">ff1a8c1</a>
 </td>
 <td>
@@ -1629,6 +1808,43 @@ Andy Beck
 </div>
 </div>
 <p><img src="figure/1000G_single_position_ALL.Rmd/unnamed-chunk-7-3.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-7-3">
+Past versions of unnamed-chunk-7-3.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-7-3" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/theandyb/LSCI/blob/f09d3f581fbdd6b63c6a979ab8292335488a38b9/docs/figure/1000G_single_position_ALL.Rmd/unnamed-chunk-7-3.png" target="_blank">f09d3f5</a>
+</td>
+<td>
+Andy Beck
+</td>
+<td>
+2022-05-09
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 <p>Here for the A&gt;T(T&gt;A) transversion we see that the signal at
 the +1 is far greater than what we observe at other relative positions.
 This is in contrast to what we observed above where marginal signals at
@@ -1661,6 +1877,17 @@ Date
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+<a href="https://github.com/theandyb/LSCI/blob/f09d3f581fbdd6b63c6a979ab8292335488a38b9/docs/figure/1000G_single_position_ALL.Rmd/unnamed-chunk-8-1.png" target="_blank">f09d3f5</a>
+</td>
+<td>
+Andy Beck
+</td>
+<td>
+2022-05-09
+</td>
+</tr>
 <tr>
 <td>
 <a href="https://github.com/theandyb/LSCI/blob/ff1a8c18b01e59a477bc209b7fcddcc4bacf3b9b/docs/figure/1000G_single_position_ALL.Rmd/unnamed-chunk-8-1.png" target="_blank">ff1a8c1</a>
@@ -1724,6 +1951,17 @@ Date
 <tbody>
 <tr>
 <td>
+<a href="https://github.com/theandyb/LSCI/blob/f09d3f581fbdd6b63c6a979ab8292335488a38b9/docs/figure/1000G_single_position_ALL.Rmd/unnamed-chunk-8-2.png" target="_blank">f09d3f5</a>
+</td>
+<td>
+Andy Beck
+</td>
+<td>
+2022-05-09
+</td>
+</tr>
+<tr>
+<td>
 <a href="https://github.com/theandyb/LSCI/blob/ff1a8c18b01e59a477bc209b7fcddcc4bacf3b9b/docs/figure/1000G_single_position_ALL.Rmd/unnamed-chunk-8-2.png" target="_blank">ff1a8c1</a>
 </td>
 <td>
@@ -1737,7 +1975,45 @@ Andy Beck
 </table>
 </div>
 </div>
+<pre><code>Warning: Removed 1 rows containing missing values (geom_point).</code></pre>
 <p><img src="figure/1000G_single_position_ALL.Rmd/unnamed-chunk-8-3.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-8-3">
+Past versions of unnamed-chunk-8-3.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-8-3" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/theandyb/LSCI/blob/f09d3f581fbdd6b63c6a979ab8292335488a38b9/docs/figure/1000G_single_position_ALL.Rmd/unnamed-chunk-8-3.png" target="_blank">f09d3f5</a>
+</td>
+<td>
+Andy Beck
+</td>
+<td>
+2022-05-09
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 <p>Here we look at the G&gt;A (C&gt;T) transition, conditioning on sites
 not being CpGs (note: due to this the degrees of freedom for the test
 statistic at the +1 position is 2 instead of 3). Here we see that, with
@@ -1770,6 +2046,17 @@ Date
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+<a href="https://github.com/theandyb/LSCI/blob/f09d3f581fbdd6b63c6a979ab8292335488a38b9/docs/figure/1000G_single_position_ALL.Rmd/unnamed-chunk-9-1.png" target="_blank">f09d3f5</a>
+</td>
+<td>
+Andy Beck
+</td>
+<td>
+2022-05-09
+</td>
+</tr>
 <tr>
 <td>
 <a href="https://github.com/theandyb/LSCI/blob/ff1a8c18b01e59a477bc209b7fcddcc4bacf3b9b/docs/figure/1000G_single_position_ALL.Rmd/unnamed-chunk-9-1.png" target="_blank">ff1a8c1</a>
@@ -1843,6 +2130,17 @@ Date
 <tbody>
 <tr>
 <td>
+<a href="https://github.com/theandyb/LSCI/blob/f09d3f581fbdd6b63c6a979ab8292335488a38b9/docs/figure/1000G_single_position_ALL.Rmd/unnamed-chunk-9-2.png" target="_blank">f09d3f5</a>
+</td>
+<td>
+Andy Beck
+</td>
+<td>
+2022-05-09
+</td>
+</tr>
+<tr>
+<td>
 <a href="https://github.com/theandyb/LSCI/blob/ff1a8c18b01e59a477bc209b7fcddcc4bacf3b9b/docs/figure/1000G_single_position_ALL.Rmd/unnamed-chunk-9-2.png" target="_blank">ff1a8c1</a>
 </td>
 <td>
@@ -1868,6 +2166,43 @@ Andy Beck
 </div>
 </div>
 <p><img src="figure/1000G_single_position_ALL.Rmd/unnamed-chunk-9-3.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-9-3">
+Past versions of unnamed-chunk-9-3.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-9-3" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/theandyb/LSCI/blob/f09d3f581fbdd6b63c6a979ab8292335488a38b9/docs/figure/1000G_single_position_ALL.Rmd/unnamed-chunk-9-3.png" target="_blank">f09d3f5</a>
+</td>
+<td>
+Andy Beck
+</td>
+<td>
+2022-05-09
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 <p>Here we condition on the +1 being a G for the G&gt;A(C&gt;T)
 transition. It is interesting to see for this sub-type that when we
 condition on the +1 being a G, we see that the control-based statistic
@@ -1901,6 +2236,17 @@ Date
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+<a href="https://github.com/theandyb/LSCI/blob/f09d3f581fbdd6b63c6a979ab8292335488a38b9/docs/figure/1000G_single_position_ALL.Rmd/unnamed-chunk-10-1.png" target="_blank">f09d3f5</a>
+</td>
+<td>
+Andy Beck
+</td>
+<td>
+2022-05-09
+</td>
+</tr>
 <tr>
 <td>
 <a href="https://github.com/theandyb/LSCI/blob/ff1a8c18b01e59a477bc209b7fcddcc4bacf3b9b/docs/figure/1000G_single_position_ALL.Rmd/unnamed-chunk-10-1.png" target="_blank">ff1a8c1</a>
@@ -1964,6 +2310,17 @@ Date
 <tbody>
 <tr>
 <td>
+<a href="https://github.com/theandyb/LSCI/blob/f09d3f581fbdd6b63c6a979ab8292335488a38b9/docs/figure/1000G_single_position_ALL.Rmd/unnamed-chunk-10-2.png" target="_blank">f09d3f5</a>
+</td>
+<td>
+Andy Beck
+</td>
+<td>
+2022-05-09
+</td>
+</tr>
+<tr>
+<td>
 <a href="https://github.com/theandyb/LSCI/blob/ff1a8c18b01e59a477bc209b7fcddcc4bacf3b9b/docs/figure/1000G_single_position_ALL.Rmd/unnamed-chunk-10-2.png" target="_blank">ff1a8c1</a>
 </td>
 <td>
@@ -1977,7 +2334,45 @@ Andy Beck
 </table>
 </div>
 </div>
+<pre><code>Warning: Removed 1 rows containing missing values (geom_point).</code></pre>
 <p><img src="figure/1000G_single_position_ALL.Rmd/unnamed-chunk-10-3.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-10-3">
+Past versions of unnamed-chunk-10-3.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-10-3" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/theandyb/LSCI/blob/f09d3f581fbdd6b63c6a979ab8292335488a38b9/docs/figure/1000G_single_position_ALL.Rmd/unnamed-chunk-10-3.png" target="_blank">f09d3f5</a>
+</td>
+<td>
+Andy Beck
+</td>
+<td>
+2022-05-09
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 <p>For the G&gt;T(C&gt;A) transversion at non-CpG sites we see that the
 largest marginal effect for the control-rate models appears at the +1
 position, with the -1 position also appearing to be influential as
@@ -2008,6 +2403,17 @@ Date
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+<a href="https://github.com/theandyb/LSCI/blob/f09d3f581fbdd6b63c6a979ab8292335488a38b9/docs/figure/1000G_single_position_ALL.Rmd/unnamed-chunk-11-1.png" target="_blank">f09d3f5</a>
+</td>
+<td>
+Andy Beck
+</td>
+<td>
+2022-05-09
+</td>
+</tr>
 <tr>
 <td>
 <a href="https://github.com/theandyb/LSCI/blob/ff1a8c18b01e59a477bc209b7fcddcc4bacf3b9b/docs/figure/1000G_single_position_ALL.Rmd/unnamed-chunk-11-1.png" target="_blank">ff1a8c1</a>
@@ -2081,6 +2487,17 @@ Date
 <tbody>
 <tr>
 <td>
+<a href="https://github.com/theandyb/LSCI/blob/f09d3f581fbdd6b63c6a979ab8292335488a38b9/docs/figure/1000G_single_position_ALL.Rmd/unnamed-chunk-11-2.png" target="_blank">f09d3f5</a>
+</td>
+<td>
+Andy Beck
+</td>
+<td>
+2022-05-09
+</td>
+</tr>
+<tr>
+<td>
 <a href="https://github.com/theandyb/LSCI/blob/ff1a8c18b01e59a477bc209b7fcddcc4bacf3b9b/docs/figure/1000G_single_position_ALL.Rmd/unnamed-chunk-11-2.png" target="_blank">ff1a8c1</a>
 </td>
 <td>
@@ -2106,6 +2523,43 @@ Andy Beck
 </div>
 </div>
 <p><img src="figure/1000G_single_position_ALL.Rmd/unnamed-chunk-11-3.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-11-3">
+Past versions of unnamed-chunk-11-3.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-11-3" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/theandyb/LSCI/blob/f09d3f581fbdd6b63c6a979ab8292335488a38b9/docs/figure/1000G_single_position_ALL.Rmd/unnamed-chunk-11-3.png" target="_blank">f09d3f5</a>
+</td>
+<td>
+Andy Beck
+</td>
+<td>
+2022-05-09
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 <p>When we condition on the site being a CpG, we see that the largest
 marginal influence appears at the -1 site, with a modest signal at the
 -4 and -5 positions as well.</p>
@@ -2135,6 +2589,17 @@ Date
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+<a href="https://github.com/theandyb/LSCI/blob/f09d3f581fbdd6b63c6a979ab8292335488a38b9/docs/figure/1000G_single_position_ALL.Rmd/unnamed-chunk-12-1.png" target="_blank">f09d3f5</a>
+</td>
+<td>
+Andy Beck
+</td>
+<td>
+2022-05-09
+</td>
+</tr>
 <tr>
 <td>
 <a href="https://github.com/theandyb/LSCI/blob/ff1a8c18b01e59a477bc209b7fcddcc4bacf3b9b/docs/figure/1000G_single_position_ALL.Rmd/unnamed-chunk-12-1.png" target="_blank">ff1a8c1</a>
@@ -2176,6 +2641,17 @@ Date
 <tbody>
 <tr>
 <td>
+<a href="https://github.com/theandyb/LSCI/blob/f09d3f581fbdd6b63c6a979ab8292335488a38b9/docs/figure/1000G_single_position_ALL.Rmd/unnamed-chunk-12-2.png" target="_blank">f09d3f5</a>
+</td>
+<td>
+Andy Beck
+</td>
+<td>
+2022-05-09
+</td>
+</tr>
+<tr>
+<td>
 <a href="https://github.com/theandyb/LSCI/blob/ff1a8c18b01e59a477bc209b7fcddcc4bacf3b9b/docs/figure/1000G_single_position_ALL.Rmd/unnamed-chunk-12-2.png" target="_blank">ff1a8c1</a>
 </td>
 <td>
@@ -2189,7 +2665,45 @@ Andy Beck
 </table>
 </div>
 </div>
+<pre><code>Warning: Removed 1 rows containing missing values (geom_point).</code></pre>
 <p><img src="figure/1000G_single_position_ALL.Rmd/unnamed-chunk-12-3.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-12-3">
+Past versions of unnamed-chunk-12-3.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-12-3" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/theandyb/LSCI/blob/f09d3f581fbdd6b63c6a979ab8292335488a38b9/docs/figure/1000G_single_position_ALL.Rmd/unnamed-chunk-12-3.png" target="_blank">f09d3f5</a>
+</td>
+<td>
+Andy Beck
+</td>
+<td>
+2022-05-09
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 <p>For the G&lt;-&gt;C transversion at non-CpG sites we observe the
 largest marginal signal occurring at the -1 position.</p>
 </div>
@@ -2218,6 +2732,17 @@ Date
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+<a href="https://github.com/theandyb/LSCI/blob/f09d3f581fbdd6b63c6a979ab8292335488a38b9/docs/figure/1000G_single_position_ALL.Rmd/unnamed-chunk-13-1.png" target="_blank">f09d3f5</a>
+</td>
+<td>
+Andy Beck
+</td>
+<td>
+2022-05-09
+</td>
+</tr>
 <tr>
 <td>
 <a href="https://github.com/theandyb/LSCI/blob/ff1a8c18b01e59a477bc209b7fcddcc4bacf3b9b/docs/figure/1000G_single_position_ALL.Rmd/unnamed-chunk-13-1.png" target="_blank">ff1a8c1</a>
@@ -2280,6 +2805,17 @@ Date
 <tbody>
 <tr>
 <td>
+<a href="https://github.com/theandyb/LSCI/blob/f09d3f581fbdd6b63c6a979ab8292335488a38b9/docs/figure/1000G_single_position_ALL.Rmd/unnamed-chunk-13-2.png" target="_blank">f09d3f5</a>
+</td>
+<td>
+Andy Beck
+</td>
+<td>
+2022-05-09
+</td>
+</tr>
+<tr>
+<td>
 <a href="https://github.com/theandyb/LSCI/blob/ff1a8c18b01e59a477bc209b7fcddcc4bacf3b9b/docs/figure/1000G_single_position_ALL.Rmd/unnamed-chunk-13-2.png" target="_blank">ff1a8c1</a>
 </td>
 <td>
@@ -2305,6 +2841,43 @@ Andy Beck
 </div>
 </div>
 <p><img src="figure/1000G_single_position_ALL.Rmd/unnamed-chunk-13-3.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-13-3">
+Past versions of unnamed-chunk-13-3.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-13-3" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/theandyb/LSCI/blob/f09d3f581fbdd6b63c6a979ab8292335488a38b9/docs/figure/1000G_single_position_ALL.Rmd/unnamed-chunk-13-3.png" target="_blank">f09d3f5</a>
+</td>
+<td>
+Andy Beck
+</td>
+<td>
+2022-05-09
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 <p>When we condition on the C&lt;-&gt;G transversion being at a CpG
 site, we notice that the strongest marginal effect appears at the +2
 position for both models, with sharp declines as we move away from +/- 3
@@ -2352,6 +2925,17 @@ Date
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+<a href="https://github.com/theandyb/LSCI/blob/f09d3f581fbdd6b63c6a979ab8292335488a38b9/docs/figure/1000G_single_position_ALL.Rmd/unnamed-chunk-15-1.png" target="_blank">f09d3f5</a>
+</td>
+<td>
+Andy Beck
+</td>
+<td>
+2022-05-09
+</td>
+</tr>
 <tr>
 <td>
 <a href="https://github.com/theandyb/LSCI/blob/ff1a8c18b01e59a477bc209b7fcddcc4bacf3b9b/docs/figure/1000G_single_position_ALL.Rmd/unnamed-chunk-15-1.png" target="_blank">ff1a8c1</a>
@@ -2414,6 +2998,17 @@ Date
 <tbody>
 <tr>
 <td>
+<a href="https://github.com/theandyb/LSCI/blob/f09d3f581fbdd6b63c6a979ab8292335488a38b9/docs/figure/1000G_single_position_ALL.Rmd/unnamed-chunk-15-2.png" target="_blank">f09d3f5</a>
+</td>
+<td>
+Andy Beck
+</td>
+<td>
+2022-05-09
+</td>
+</tr>
+<tr>
+<td>
 <a href="https://github.com/theandyb/LSCI/blob/ff1a8c18b01e59a477bc209b7fcddcc4bacf3b9b/docs/figure/1000G_single_position_ALL.Rmd/unnamed-chunk-15-2.png" target="_blank">ff1a8c1</a>
 </td>
 <td>
@@ -2469,6 +3064,17 @@ Date
 <tbody>
 <tr>
 <td>
+<a href="https://github.com/theandyb/LSCI/blob/f09d3f581fbdd6b63c6a979ab8292335488a38b9/docs/figure/1000G_single_position_ALL.Rmd/unnamed-chunk-16-1.png" target="_blank">f09d3f5</a>
+</td>
+<td>
+Andy Beck
+</td>
+<td>
+2022-05-09
+</td>
+</tr>
+<tr>
+<td>
 <a href="https://github.com/theandyb/LSCI/blob/ff1a8c18b01e59a477bc209b7fcddcc4bacf3b9b/docs/figure/1000G_single_position_ALL.Rmd/unnamed-chunk-16-1.png" target="_blank">ff1a8c1</a>
 </td>
 <td>
@@ -2505,6 +3111,17 @@ Date
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+<a href="https://github.com/theandyb/LSCI/blob/f09d3f581fbdd6b63c6a979ab8292335488a38b9/docs/figure/1000G_single_position_ALL.Rmd/unnamed-chunk-16-2.png" target="_blank">f09d3f5</a>
+</td>
+<td>
+Andy Beck
+</td>
+<td>
+2022-05-09
+</td>
+</tr>
 <tr>
 <td>
 <a href="https://github.com/theandyb/LSCI/blob/ff1a8c18b01e59a477bc209b7fcddcc4bacf3b9b/docs/figure/1000G_single_position_ALL.Rmd/unnamed-chunk-16-2.png" target="_blank">ff1a8c1</a>
@@ -2546,6 +3163,17 @@ Date
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+<a href="https://github.com/theandyb/LSCI/blob/f09d3f581fbdd6b63c6a979ab8292335488a38b9/docs/figure/1000G_single_position_ALL.Rmd/unnamed-chunk-17-1.png" target="_blank">f09d3f5</a>
+</td>
+<td>
+Andy Beck
+</td>
+<td>
+2022-05-09
+</td>
+</tr>
 <tr>
 <td>
 <a href="https://github.com/theandyb/LSCI/blob/ff1a8c18b01e59a477bc209b7fcddcc4bacf3b9b/docs/figure/1000G_single_position_ALL.Rmd/unnamed-chunk-17-1.png" target="_blank">ff1a8c1</a>
@@ -2608,6 +3236,17 @@ Date
 <tbody>
 <tr>
 <td>
+<a href="https://github.com/theandyb/LSCI/blob/f09d3f581fbdd6b63c6a979ab8292335488a38b9/docs/figure/1000G_single_position_ALL.Rmd/unnamed-chunk-17-2.png" target="_blank">f09d3f5</a>
+</td>
+<td>
+Andy Beck
+</td>
+<td>
+2022-05-09
+</td>
+</tr>
+<tr>
+<td>
 <a href="https://github.com/theandyb/LSCI/blob/ff1a8c18b01e59a477bc209b7fcddcc4bacf3b9b/docs/figure/1000G_single_position_ALL.Rmd/unnamed-chunk-17-2.png" target="_blank">ff1a8c1</a>
 </td>
 <td>
@@ -2660,6 +3299,17 @@ Date
 <tbody>
 <tr>
 <td>
+<a href="https://github.com/theandyb/LSCI/blob/f09d3f581fbdd6b63c6a979ab8292335488a38b9/docs/figure/1000G_single_position_ALL.Rmd/unnamed-chunk-18-1.png" target="_blank">f09d3f5</a>
+</td>
+<td>
+Andy Beck
+</td>
+<td>
+2022-05-09
+</td>
+</tr>
+<tr>
+<td>
 <a href="https://github.com/theandyb/LSCI/blob/ff1a8c18b01e59a477bc209b7fcddcc4bacf3b9b/docs/figure/1000G_single_position_ALL.Rmd/unnamed-chunk-18-1.png" target="_blank">ff1a8c1</a>
 </td>
 <td>
@@ -2696,6 +3346,17 @@ Date
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+<a href="https://github.com/theandyb/LSCI/blob/f09d3f581fbdd6b63c6a979ab8292335488a38b9/docs/figure/1000G_single_position_ALL.Rmd/unnamed-chunk-18-2.png" target="_blank">f09d3f5</a>
+</td>
+<td>
+Andy Beck
+</td>
+<td>
+2022-05-09
+</td>
+</tr>
 <tr>
 <td>
 <a href="https://github.com/theandyb/LSCI/blob/ff1a8c18b01e59a477bc209b7fcddcc4bacf3b9b/docs/figure/1000G_single_position_ALL.Rmd/unnamed-chunk-18-2.png" target="_blank">ff1a8c1</a>
@@ -2737,6 +3398,17 @@ Date
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+<a href="https://github.com/theandyb/LSCI/blob/f09d3f581fbdd6b63c6a979ab8292335488a38b9/docs/figure/1000G_single_position_ALL.Rmd/unnamed-chunk-19-1.png" target="_blank">f09d3f5</a>
+</td>
+<td>
+Andy Beck
+</td>
+<td>
+2022-05-09
+</td>
+</tr>
 <tr>
 <td>
 <a href="https://github.com/theandyb/LSCI/blob/ff1a8c18b01e59a477bc209b7fcddcc4bacf3b9b/docs/figure/1000G_single_position_ALL.Rmd/unnamed-chunk-19-1.png" target="_blank">ff1a8c1</a>
@@ -2799,6 +3471,17 @@ Date
 <tbody>
 <tr>
 <td>
+<a href="https://github.com/theandyb/LSCI/blob/f09d3f581fbdd6b63c6a979ab8292335488a38b9/docs/figure/1000G_single_position_ALL.Rmd/unnamed-chunk-19-2.png" target="_blank">f09d3f5</a>
+</td>
+<td>
+Andy Beck
+</td>
+<td>
+2022-05-09
+</td>
+</tr>
+<tr>
+<td>
 <a href="https://github.com/theandyb/LSCI/blob/ff1a8c18b01e59a477bc209b7fcddcc4bacf3b9b/docs/figure/1000G_single_position_ALL.Rmd/unnamed-chunk-19-2.png" target="_blank">ff1a8c1</a>
 </td>
 <td>
@@ -2851,6 +3534,17 @@ Date
 <tbody>
 <tr>
 <td>
+<a href="https://github.com/theandyb/LSCI/blob/f09d3f581fbdd6b63c6a979ab8292335488a38b9/docs/figure/1000G_single_position_ALL.Rmd/unnamed-chunk-20-1.png" target="_blank">f09d3f5</a>
+</td>
+<td>
+Andy Beck
+</td>
+<td>
+2022-05-09
+</td>
+</tr>
+<tr>
+<td>
 <a href="https://github.com/theandyb/LSCI/blob/ff1a8c18b01e59a477bc209b7fcddcc4bacf3b9b/docs/figure/1000G_single_position_ALL.Rmd/unnamed-chunk-20-1.png" target="_blank">ff1a8c1</a>
 </td>
 <td>
@@ -2887,6 +3581,17 @@ Date
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+<a href="https://github.com/theandyb/LSCI/blob/f09d3f581fbdd6b63c6a979ab8292335488a38b9/docs/figure/1000G_single_position_ALL.Rmd/unnamed-chunk-20-2.png" target="_blank">f09d3f5</a>
+</td>
+<td>
+Andy Beck
+</td>
+<td>
+2022-05-09
+</td>
+</tr>
 <tr>
 <td>
 <a href="https://github.com/theandyb/LSCI/blob/ff1a8c18b01e59a477bc209b7fcddcc4bacf3b9b/docs/figure/1000G_single_position_ALL.Rmd/unnamed-chunk-20-2.png" target="_blank">ff1a8c1</a>
@@ -2930,6 +3635,17 @@ Date
 <tbody>
 <tr>
 <td>
+<a href="https://github.com/theandyb/LSCI/blob/f09d3f581fbdd6b63c6a979ab8292335488a38b9/docs/figure/1000G_single_position_ALL.Rmd/unnamed-chunk-21-1.png" target="_blank">f09d3f5</a>
+</td>
+<td>
+Andy Beck
+</td>
+<td>
+2022-05-09
+</td>
+</tr>
+<tr>
+<td>
 <a href="https://github.com/theandyb/LSCI/blob/ff1a8c18b01e59a477bc209b7fcddcc4bacf3b9b/docs/figure/1000G_single_position_ALL.Rmd/unnamed-chunk-21-1.png" target="_blank">ff1a8c1</a>
 </td>
 <td>
@@ -2955,6 +3671,43 @@ Andy Beck
 </div>
 </div>
 <p><img src="figure/1000G_single_position_ALL.Rmd/unnamed-chunk-21-2.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-21-2">
+Past versions of unnamed-chunk-21-2.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-21-2" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/theandyb/LSCI/blob/f09d3f581fbdd6b63c6a979ab8292335488a38b9/docs/figure/1000G_single_position_ALL.Rmd/unnamed-chunk-21-2.png" target="_blank">f09d3f5</a>
+</td>
+<td>
+Andy Beck
+</td>
+<td>
+2022-05-09
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 </div>
 <div id="gc_cg-1" class="section level3">
 <h3>GC_CG</h3>
@@ -2981,6 +3734,17 @@ Date
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+<a href="https://github.com/theandyb/LSCI/blob/f09d3f581fbdd6b63c6a979ab8292335488a38b9/docs/figure/1000G_single_position_ALL.Rmd/unnamed-chunk-22-1.png" target="_blank">f09d3f5</a>
+</td>
+<td>
+Andy Beck
+</td>
+<td>
+2022-05-09
+</td>
+</tr>
 <tr>
 <td>
 <a href="https://github.com/theandyb/LSCI/blob/ff1a8c18b01e59a477bc209b7fcddcc4bacf3b9b/docs/figure/1000G_single_position_ALL.Rmd/unnamed-chunk-22-1.png" target="_blank">ff1a8c1</a>
@@ -3043,6 +3807,17 @@ Date
 <tbody>
 <tr>
 <td>
+<a href="https://github.com/theandyb/LSCI/blob/f09d3f581fbdd6b63c6a979ab8292335488a38b9/docs/figure/1000G_single_position_ALL.Rmd/unnamed-chunk-22-2.png" target="_blank">f09d3f5</a>
+</td>
+<td>
+Andy Beck
+</td>
+<td>
+2022-05-09
+</td>
+</tr>
+<tr>
+<td>
 <a href="https://github.com/theandyb/LSCI/blob/d54d5aaf2e79814abeecfb0b9d91de44968ad4ba/docs/figure/1000G_single_position_ALL.Rmd/unnamed-chunk-22-2.png" target="_blank">d54d5aa</a>
 </td>
 <td>
@@ -3093,6 +3868,17 @@ Date
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+<a href="https://github.com/theandyb/LSCI/blob/f09d3f581fbdd6b63c6a979ab8292335488a38b9/docs/figure/1000G_single_position_ALL.Rmd/unnamed-chunk-23-1.png" target="_blank">f09d3f5</a>
+</td>
+<td>
+Andy Beck
+</td>
+<td>
+2022-05-09
+</td>
+</tr>
 <tr>
 <td>
 <a href="https://github.com/theandyb/LSCI/blob/ff1a8c18b01e59a477bc209b7fcddcc4bacf3b9b/docs/figure/1000G_single_position_ALL.Rmd/unnamed-chunk-23-1.png" target="_blank">ff1a8c1</a>
@@ -3153,6 +3939,17 @@ Date
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+<a href="https://github.com/theandyb/LSCI/blob/f09d3f581fbdd6b63c6a979ab8292335488a38b9/docs/figure/1000G_single_position_ALL.Rmd/unnamed-chunk-23-2.png" target="_blank">f09d3f5</a>
+</td>
+<td>
+Andy Beck
+</td>
+<td>
+2022-05-09
+</td>
+</tr>
 <tr>
 <td>
 <a href="https://github.com/theandyb/LSCI/blob/ff1a8c18b01e59a477bc209b7fcddcc4bacf3b9b/docs/figure/1000G_single_position_ALL.Rmd/unnamed-chunk-23-2.png" target="_blank">ff1a8c1</a>
@@ -3222,30 +4019,30 @@ attached base packages:
 
 other attached packages:
  [1] tikzDevice_0.12.3.1 forcats_0.5.1       stringr_1.4.0      
- [4] dplyr_1.0.8         purrr_0.3.4         readr_2.1.2        
- [7] tidyr_1.2.0         tibble_3.1.6        ggplot2_3.3.5      
+ [4] dplyr_1.0.9         purrr_0.3.4         readr_2.1.2        
+ [7] tidyr_1.2.0         tibble_3.1.7        ggplot2_3.3.6      
 [10] tidyverse_1.3.1     workflowr_1.7.0    
 
 loaded via a namespace (and not attached):
- [1] Rcpp_1.0.8       lubridate_1.8.0  getPass_0.2-2    ps_1.6.0        
- [5] assertthat_0.2.1 rprojroot_2.0.2  digest_0.6.29    utf8_1.2.2      
+ [1] Rcpp_1.0.8.3     lubridate_1.8.0  getPass_0.2-2    ps_1.7.0        
+ [5] assertthat_0.2.1 rprojroot_2.0.3  digest_0.6.29    utf8_1.2.2      
  [9] R6_2.5.1         cellranger_1.1.0 backports_1.4.1  reprex_2.0.1    
-[13] evaluate_0.14    highr_0.9        httr_1.4.2       pillar_1.7.0    
-[17] rlang_1.0.1      readxl_1.3.1     rstudioapi_0.13  whisker_0.4     
-[21] callr_3.7.0      jquerylib_0.1.4  rmarkdown_2.11   labeling_0.4.2  
+[13] evaluate_0.15    highr_0.9        httr_1.4.3       pillar_1.7.0    
+[17] rlang_1.0.2      readxl_1.4.0     rstudioapi_0.13  whisker_0.4     
+[21] callr_3.7.0      jquerylib_0.1.4  rmarkdown_2.14   labeling_0.4.2  
 [25] bit_4.0.4        munsell_0.5.0    broom_0.8.0      compiler_4.2.0  
-[29] httpuv_1.6.5     modelr_0.1.8     xfun_0.29        pkgconfig_2.0.3 
-[33] htmltools_0.5.2  tidyselect_1.1.1 fansi_1.0.2      withr_2.4.3     
-[37] crayon_1.4.2     tzdb_0.2.0       dbplyr_2.1.1     later_1.3.0     
-[41] grid_4.2.0       jsonlite_1.7.3   gtable_0.3.0     lifecycle_1.0.1 
-[45] DBI_1.1.2        git2r_0.29.0     magrittr_2.0.2   scales_1.1.1    
-[49] vroom_1.5.7      cli_3.1.1        stringi_1.7.6    farver_2.1.0    
+[29] httpuv_1.6.5     modelr_0.1.8     xfun_0.31        pkgconfig_2.0.3 
+[33] htmltools_0.5.2  tidyselect_1.1.2 fansi_1.0.3      withr_2.5.0     
+[37] crayon_1.5.1     tzdb_0.3.0       dbplyr_2.1.1     later_1.3.0     
+[41] grid_4.2.0       jsonlite_1.8.0   gtable_0.3.0     lifecycle_1.0.1 
+[45] DBI_1.1.2        git2r_0.30.1     magrittr_2.0.3   scales_1.2.0    
+[49] vroom_1.5.7      cli_3.3.0        stringi_1.7.6    farver_2.1.0    
 [53] fs_1.5.2         promises_1.2.0.1 xml2_1.3.3       bslib_0.3.1     
-[57] ellipsis_0.3.2   generics_0.1.2   vctrs_0.3.8      tools_4.2.0     
-[61] bit64_4.0.5      glue_1.6.1       hms_1.1.1        parallel_4.2.0  
-[65] processx_3.5.2   fastmap_1.1.0    yaml_2.2.2       colorspace_2.0-2
-[69] filehash_2.4-2   rvest_1.0.2      knitr_1.37       haven_2.4.3     
-[73] sass_0.4.0      </code></pre>
+[57] ellipsis_0.3.2   generics_0.1.2   vctrs_0.4.1      tools_4.2.0     
+[61] bit64_4.0.5      glue_1.6.2       hms_1.1.1        parallel_4.2.0  
+[65] processx_3.5.3   fastmap_1.1.0    yaml_2.3.5       colorspace_2.0-3
+[69] filehash_2.4-3   rvest_1.0.2      knitr_1.39       haven_2.5.0     
+[73] sass_0.4.1      </code></pre>
 </div>
 </div>
 </div>
