@@ -27,7 +27,7 @@ In [another document](1000G_single_position_ALL.Rmd), we evaluated the single po
 #### ALL
 
 ```{r echo=FALSE}
-plot_pos_stat("ALL", "AT_CG", kl_by_position, title_text = "Relative Entropy by Relative Position: ", ylab_text = "Relative Entropy")
+plot_pos_stat("ALL", "AT_CG", zhu_by_pos, title_text = "Relative Entropy by Relative Position: ", ylab_text = "Relative Entropy")
 ```
 
 As a reminder, here we plot the single position statistics for the A(T)>C(G) sub-type using singletons aggregated across all 5 super-populations.
@@ -35,7 +35,7 @@ As a reminder, here we plot the single position statistics for the A(T)>C(G) sub
 #### AFR
 
 ```{r echo=FALSE}
-plot_pos_stat("AFR", "AT_CG", re_by_position, title_text = "Relative Entropy by Relative Position: ", ylab_text = "Relative Entropy")
+plot_pos_stat("AFR", "AT_CG", zhu_by_pos, title_text = "Relative Entropy by Relative Position: ", ylab_text = "Relative Entropy")
 ```
 
 When we look at the AFR super-population, our results across all the positions looks strikingly similar to what we saw above in the ALL analysis. This might be driven by AFR contributing a larger fraction of the singletons than the other 4 super-populations, so let us now take a look at those.
@@ -43,25 +43,25 @@ When we look at the AFR super-population, our results across all the positions l
 #### AMR
 
 ```{r echo=FALSE}
-plot_pos_stat("AMR", "AT_CG", re_by_position, title_text = "Relative Entropy by Relative Position: ", ylab_text = "Relative Entropy")
+plot_pos_stat("AMR", "AT_CG", zhu_by_pos, title_text = "Relative Entropy by Relative Position: ", ylab_text = "Relative Entropy")
 ```
 
 #### EAS
 
 ```{r echo=FALSE}
-plot_pos_stat("EAS", "AT_CG", re_by_position, title_text = "Relative Entropy by Relative Position: ", ylab_text = "Relative Entropy")
+plot_pos_stat("EAS", "AT_CG", zhu_by_pos, title_text = "Relative Entropy by Relative Position: ", ylab_text = "Relative Entropy")
 ```
 
 #### EUR
 
 ```{r echo=FALSE}
-plot_pos_stat("EUR", "AT_CG", re_by_position, title_text = "Relative Entropy by Relative Position: ", ylab_text = "Relative Entropy")
+plot_pos_stat("EUR", "AT_CG", zhu_by_pos, title_text = "Relative Entropy by Relative Position: ", ylab_text = "Relative Entropy")
 ```
 
 #### SAS
 
 ```{r echo=FALSE}
-plot_pos_stat("SAS", "AT_CG", re_by_position, title_text = "Relative Entropy by Relative Position: ", ylab_text = "Relative Entropy")
+plot_pos_stat("SAS", "AT_CG", zhu_by_pos, title_text = "Relative Entropy by Relative Position: ", ylab_text = "Relative Entropy")
 ```
 
 Across all five super-populations we see the same pattern as we look across positions, suggesting that the results are consistent across the five super-populations. The only difference we really see is a shift in the magnitude of the statistic, which is likely driven by differences in the number of singletons across the super-populations.
@@ -73,12 +73,12 @@ df_at_cg <- load_all_results_all_sp("AT_CG")
 
 df_wide_at_cg <- 
   df_at_cg %>%
-  select(Nuc, rp, pop, kl_r) %>%
-  pivot_wider(names_from = pop, values_from = kl_r)
+  select(Nuc, rp, pop, s_re) %>%
+  pivot_wider(names_from = pop, values_from = s_re)
 
 df_pos_at_cg <- df_wide_at_cg %>%
   group_by(rp) %>%
-  summarize(across(AFR:SAS, ~sum(.)))
+  summarize(across(AFR:SAS, ~sum(abs(.))))
 
 df_pos_at_cg %>%
   select(-rp) %>%
@@ -109,10 +109,26 @@ df_cor_at_cg %>%
   labs(colour = "Population")
 ```
 
-In the above plot we can see that across all positions, the results for the AFR super-population are highly correlated with the other super-populations. Let's wrap the above analyses into a function and run them on the other subtypes.
+In the above plot we can see that across all positions, the results for the AFR super-population are highly correlated with the other super-populations. The lowest value appears at 1 where the AFR and SAS populations appear to have a lower correlation. But if we look at the nucleotide-level relative entropy residuals at this site we see that the order of the statistics is shared between the two:
 
 ```{r}
-corr_analysis <- function(subtype, r_start = 1, stat_col = "kl_r"){
+df_wide_at_cg %>% 
+  filter(rp == 1) %>% 
+  select(Nuc, AFR, SAS) %>% 
+  pivot_longer(AFR:SAS) %>% 
+  ggplot(aes(x = Nuc, y = value, color = name, group = name)) + 
+  geom_point() +
+  geom_line() +
+  ggtitle("AT→CG, +1", "AFR and SAS") +
+  xlab("Nucleotide")+
+  ylab("Signed Relative Entropy Residual")
+```
+
+
+Let's wrap the above analyses into a function and run them on the other subtypes.
+
+```{r}
+corr_analysis <- function(subtype, r_start = 1, stat_col = "s_re"){
   df <- load_all_results_all_sp(subtype, r_start = r_start)
   
   df_wide <- df %>%
@@ -122,7 +138,7 @@ corr_analysis <- function(subtype, r_start = 1, stat_col = "kl_r"){
   # position-level statistics
   df_pos <- df_wide_at_cg %>%
     group_by(rp) %>%
-    summarize(across(AFR:SAS, ~sum(.)))
+    summarize(across(AFR:SAS, ~sum(abs(.))))
   
   df_pos %>%
     select(-rp) %>%
@@ -212,6 +228,22 @@ corr_analysis(subtype, r_start = 2)
 ## Chi Square Approach
 
 Similar to what we did with the single position models, we can also use the chi square goodness of fit test to evaluate, for each sub-type and at each relative position, how similar are the counts between each super-population, and how does this statistic compare to what we observe comparing each super-population to its control sample? We can also do this to compare the BRIDGES data to the 1000G data as well.
+
+Let's first work this out for a sub type at one position, and then move on from there:
+
+```{r}
+df_AFR <- load_sp_results("AFR", "AT_CG", -1) %>%
+  select(Nuc, singletons) %>%
+  mutate(rate = singletons/sum(singletons))
+
+df_AMR <- load_sp_results("AMR", "AT_CG", -1) %>%
+  select(Nuc, singletons) %>%
+  full_join({df_AFR %>% select(Nuc, rate)}, by = "Nuc") %>%
+  mutate(expected = rate * sum(singletons)) %>%
+  mutate(chi_sq = (singletons - expected)^2 / expected)
+
+```
+
 
 
 ## Compare to BRIDGES
