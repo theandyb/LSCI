@@ -52,19 +52,17 @@ heatmap_plot <- function(population, subtype,
   df <- stat_pair_all(population, subtype, statistic_function, r_start, data_dir, ...)
 
   if(!str_starts(subtype, "cpg")){
-    subtype2 <- str_replace(subtype, "_", " -> ")
+    subtype2 <- str_replace(subtype, "_", " → ")
   } else {
     subtype <- str_sub(subtype, 5)
-    subtype2 <- paste0("(cpg) ", str_replace(subtype, "_", " -> "))
+    subtype2 <- paste0("(cpg) ", str_replace(subtype, "_", " → "))
   }
 
   p <- df %>%
     ggplot(aes(x = p2, y = p1, fill = statistic)) +
     geom_tile() +
     ggtitle(paste0(plot_title, subtype2),
-            paste0("Population: ", population,
-                   "; Min: ", round(min(df$statistic), 2),
-                   "; Max: ", round(max(df$statistic), 2)))+
+            paste0("Population: ", population))+
     xlab("Relative Position 2") +
     ylab("Relative Position 1") +
     labs(fill = fill_label) +
@@ -216,6 +214,21 @@ deviance_pair_re <- function(population, subtype, p1, p2, data_dir = "/net/snoww
   return(re)
 }
 
+zhu_pair_re <- function(population, subtype, p1, p2, data_dir = "/net/snowwhite/home/beckandy/research/1000G_LSCI/output/all_count_2_pos/"){
+
+  f_name <- paste0(data_dir, population, "/", subtype, "_p", p1, "_q", p2, ".csv")
+  df <- read_csv(f_name, col_types = cols()) %>%
+    filter(singletons > 0) %>%
+    select(p1, p2, singletons, controls) %>%
+    gather(status, n, singletons:controls)
+  mod_obj <- glm(n ~ (p1 + p2 + status)^2, data = df, family = poisson())
+  df$res <- residuals(mod_obj) ^ 2
+  n_obs <- sum(df$n)
+  re <- sum(df$res)
+  re <- re / (2*n_obs)
+  return(re)
+}
+
 deviance_plot <- function(population, subtype, r_start = 1, data_dir = "/net/snowwhite/home/beckandy/research/1000G_LSCI/output/all_count_2_pos/"){
   p <- heatmap_plot(population, subtype, deviance_pair,
                     "Loglinear Model Deviance: ", "Deviance", r_start = r_start, data_dir = data_dir)
@@ -224,6 +237,12 @@ deviance_plot <- function(population, subtype, r_start = 1, data_dir = "/net/sno
 
 deviance_re_plot <- function(population, subtype, r_start = 1, data_dir = "/net/snowwhite/home/beckandy/research/1000G_LSCI/output/all_count_2_pos/"){
   p <- heatmap_plot(population, subtype, deviance_pair_re,
+                    "Loglinear Model Relative Entropy: ", "Relative Entropy", r_start = r_start, data_dir = data_dir)
+  return(p)
+}
+
+zhu_re_plot <- function(population, subtype, r_start = 1, data_dir = "/net/snowwhite/home/beckandy/research/1000G_LSCI/output/all_count_2_pos/"){
+  p <- heatmap_plot(population, subtype, zhu_pair_re,
                     "Loglinear Model Relative Entropy: ", "Relative Entropy", r_start = r_start, data_dir = data_dir)
   return(p)
 }
@@ -278,6 +297,71 @@ get_residuals_re2 <- function(subtype, population, p1, p2,
     mutate(prop.re = re.res / sum(re.res)) %>%
     arrange(desc(re.res))
   return(df)
+}
+
+get_res_zhu <- function(subtype, population, p1, p2,
+                                data_dir = "/net/snowwhite/home/beckandy/research/1000G_LSCI/output/all_count_2_pos/"){
+
+  f_name <- paste0(data_dir, population, "/", subtype, "_p", p1, "_q", p2, ".csv")
+  df <- read_csv(f_name, col_types = cols()) %>%
+    filter(singletons > 0) %>%
+    select(p1, p2, singletons, controls) %>%
+    gather(status, n, singletons:controls)
+  mod_obj <- glm(n ~ (p1 + p2 + status)^2, data = df, family = poisson())
+  df$res <- residuals(mod_obj) ^ 2
+  df$fit <- predict(mod_obj, type = "response")
+  n_obs <- sum(df$n)
+  df$re.res <- df$res / (2*n_obs)
+  df <- df %>%
+    select(p1, p2, re.res) %>%
+    group_by(p1, p2) %>%
+    summarize(re.res = sum(re.res)) %>%
+    ungroup() %>%
+    mutate(prop.re = re.res / sum(re.res)) %>%
+    arrange(desc(re.res))
+  return(df)
+}
+
+get_res_zhu_sign <- function(subtype, population, p1, p2,
+                             data_dir = "/net/snowwhite/home/beckandy/research/1000G_LSCI/output/all_count_2_pos/"){
+
+  f_name <- paste0(data_dir, population, "/", subtype, "_p", p1, "_q", p2, ".csv")
+  df <- read_csv(f_name, col_types = cols()) %>%
+    filter(singletons > 0) %>%
+    select(p1, p2, singletons, controls) %>%
+    gather(status, n, singletons:controls)
+  mod_obj <- glm(n ~ (p1 + p2 + status)^2, data = df, family = poisson())
+  df$res <- residuals(mod_obj) ^ 2
+  df$fit <- predict(mod_obj, type = "response")
+  df$sign <- sign(df$n - df$fit)
+  n_obs <- sum(df$n)
+  df$re.res <- df$res / (2*n_obs)
+  df$s_re <- df$re.res * df$sign
+  return(df)
+}
+
+heatmap_zhu <- function(subtype, pop, p1, p2,
+                        data_dir = "/net/snowwhite/home/beckandy/research/1000G_LSCI/output/all_count_2_pos/"){
+  df <- get_res_zhu_sign(subtype, pop, p1, p2, data_dir) %>%
+    filter(status == "singletons")
+
+  if(!str_starts(subtype, "cpg")){
+    subtype2 <- str_replace(subtype, "_", " → ")
+  } else {
+    subtype <- str_sub(subtype, 5)
+    subtype2 <- paste0("(cpg) ", str_replace(subtype, "_", " → "))
+  }
+
+  p <- df %>%
+    ggplot(aes(x = p2, y = p1, fill = s_re)) +
+    geom_tile() +
+    ggtitle(paste0("Interaction Relative Entropy: ", subtype2),
+            paste0("Population: ", pop))+
+    xlab(paste0("Relative Position: ", p2)) +
+    ylab(paste0("Relative Position: ", p1)) +
+    labs(fill = "Signed RE Residual") +
+    scale_fill_distiller(palette = "RdBu", direction = -1)
+  return(p)
 }
 
 heatmap_re_res <- function(subtype, pop, p1, p2, singletons_only = TRUE,

@@ -19,7 +19,13 @@ load_sp_results <- function(population, subtype, rp,
     rename(status = name, n = value)
 
   mod_obj <- glm(n ~ Nuc + status, data = df_tall, family = poisson())
+  n_s <- df_tall %>% filter(status == "singletons") %>% pull(n) %>% sum()
+  n_c <- df_tall %>% filter(status == "controls") %>% pull(n) %>% sum()
+  n_t <- n_s + n_c
   df_tall$resid <- resid(mod_obj)
+  df_tall$fitted <- mod_obj$fitted.values
+  df_tall$re <- 2 * df_tall$n * log(df_tall$n / mod_obj$fitted.values) / (2 * sum(df_tall$n))
+  #df_tall$pred <- predict(mod_obj, type = "response")
   new_dat <- data.frame(Nuc = c("A", "C", "G", "T"), status = "singletons")
   new_dat$pred <- predict(mod_obj, type = "response", newdata = new_dat)
   new_dat$deviance <- {df_tall %>%
@@ -32,7 +38,14 @@ load_sp_results <- function(population, subtype, rp,
     mutate(pct_pred = pred / sum(pred),
            pct_s = singletons / sum(singletons)) %>%
     mutate(kl_r = pct_s * log(pct_s / pct_pred)) %>%
-    select(-starts_with("pct"), -pred)
+    select(-starts_with("pct"))
+  df <- df %>%
+    inner_join({df_tall %>%
+        select(Nuc, re) %>%
+        group_by(Nuc) %>%
+        summarize(re = sum(re))},
+        by = "Nuc") %>%
+    mutate(s_re = sign(kl_r) * re)
   return(df)
 }
 
@@ -64,6 +77,7 @@ load_all_results_all_sp <- function(subtype, r_start = 1,
 }
 
 #' Relative entropy by position
+#' This is the version not based on the loglinear model
 #'
 kl_by_position <- function(population ,subtype, r_start = 1,
                            data_dir = "/net/snowwhite/home/beckandy/research/1000G_LSCI/output/single_pos_df/"){
@@ -73,6 +87,51 @@ kl_by_position <- function(population ,subtype, r_start = 1,
     final <- bind_rows(final,
                        data.frame(pos = i,
                                   statistic = sum(df$kl_r)))
+  }
+  return(final)
+}
+
+#' Zhu et al re by position
+#'
+zhu_by_pos <- function(population, subtype, r_start = 1,
+                       data_dir = "/net/snowwhite/home/beckandy/research/1000G_LSCI/output/single_pos_df/"){
+  final <- data.frame(pos = numeric(), statistic = numeric())
+  for(i in c(-10:-1, r_start:10)){
+    df <- load_sp_results(population, subtype, i, data_dir)
+    final <- bind_rows(final,
+                       data.frame(pos = i,
+                                  statistic = sum(df$re, na.rm = T)))
+  }
+  return(final)
+}
+
+#' Relative Entropy from loglinear model
+#'
+dev_re <- function(population, subtype, rp, data_dir = "/net/snowwhite/home/beckandy/research/1000G_LSCI/output/single_pos_df/"){
+  df <- load_sp_results(population, subtype, rp, data_dir) %>%
+    select(Nuc, singletons, controls) %>%
+    pivot_longer(singletons:controls, names_to = "status", values_to = "n")
+  mod_obj <- glm(n ~ status + Nuc, family = "poisson", data = df)
+  df <- mod_obj$data
+  df$res <- residuals(mod_obj)^2
+  n_s <- df %>%
+    filter(status == "singletons") %>%
+    pull(n) %>%
+    sum()
+  df <- df %>%
+    mutate(re = ifelse(status == "singletons",  res / (2*n_s), res / (10*n_s)))
+  return(sum(df$re))
+}
+
+#' Loglinear model relative entropy across positions
+#'
+dev_re_by_position <- function(population, subtype, r_start = 1,
+                               data_dir = "/net/snowwhite/home/beckandy/research/1000G_LSCI/output/single_pos_df/"){
+  final <- data.frame(pos = numeric(), statistic = numeric())
+  for(i in c(-10:-1, r_start:10)){
+    final <- bind_rows(final,
+                       data.frame(pos = i,
+                                  statistic = dev_re(population, subtype, i, data_dir)))
   }
   return(final)
 }
@@ -158,6 +217,22 @@ plot_signed_nuc_by_pos <- function(population, subtype, r_start = 1,
     geom_line() +
     xlab("Relative Position") +
     ylab("Signed ChiSq Contribution") +
+    labs(fill = "Nucleotide") +
+    ggtitle(g_title, paste0("Population: ", population))
+  return(p)
+}
+
+plot_signed_re_by_pos <- function(population, subtype, r_start = 1,
+                                   data_dir = "/net/snowwhite/home/beckandy/research/1000G_LSCI/output/single_pos_df/"){
+  df <- load_all_sp_results(population, subtype, r_start, data_dir = data_dir)
+  g_title <- paste0("Nucleotide Level Relative Entropy: ", str_replace_all(subtype, "_", "-"))
+
+  p <- df %>%
+    ggplot(aes(x = rp, y = s_re, colour = Nuc)) +
+    geom_point() +
+    geom_line() +
+    xlab("Relative Position") +
+    ylab("Relative Entropy") +
     labs(fill = "Nucleotide") +
     ggtitle(g_title, paste0("Population: ", population))
   return(p)

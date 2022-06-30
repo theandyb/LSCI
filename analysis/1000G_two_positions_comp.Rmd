@@ -1,0 +1,124 @@
+---
+title: "1000G_two_postions_comp"
+author: "Andy Beck"
+date: "2021-11-01"
+output: workflowr::wflow_html
+editor_options:
+  chunk_output_type: console
+---
+
+```{r echo=FALSE, message=FALSE, warning=FALSE}
+library(tidyverse)
+library(tikzDevice)
+library(corrr)
+library(reshape2)
+source("code/two_pos_new.R")
+
+# latex plot options
+width = 4
+height = 4
+```
+
+## Position-level results
+
+Here in this section of the document we will assess the correlation of position-level results across pairs of populations for all of the mutation subtypes.
+
+### Get position-level statistic for each superpopulation
+
+```{r}
+get_pos <- function(subtype, r_start=1, data_dir = "/net/snowwhite/home/beckandy/research/1000G_LSCI/output/all_count_2_pos/"){
+  final <- stat_pair_all("AFR", subtype, zhu_pair_re, r_start = r_start, data_dir = data_dir )
+  colnames(final)[3] <- "AFR"
+  for(pop in c("AMR", "EAS", "EUR", "SAS")){
+    df <- stat_pair_all(pop, subtype, zhu_pair_re, r_start = r_start, data_dir = data_dir)
+    colnames(df)[3] <- pop
+    final <- full_join(final, df, by = c("p1", "p2"))
+  }
+  return(final)
+}
+```
+
+### AT_CG
+
+```{r}
+st <- "AT_CG"
+
+simple_cor <- function(st, r_start = 1){
+  df <- get_pos(st, r_start = r_start)
+  
+  cor({df %>% select(-p1, -p2)}) %>% knitr::kable() %>% print()
+  
+  if(!str_starts(st, "cpg")){
+    subtype2 <- str_replace(st, "_", " → ")
+  } else {
+    subtype <- str_sub(st, 5)
+    subtype2 <- paste0("(cpg) ", str_replace(subtype, "_", " → "))
+  }
+  
+  p <- cor({df %>% select(-p1, -p2)}) %>% 
+    melt %>%
+    ggplot(aes(x=Var1, y=Var2, fill=value)) +
+    geom_tile() +
+    xlab("Population") + ylab("Population") + 
+    ggtitle("Correlation of Position-Level Results", paste0("Subtype: ", subtype2)) +
+    scale_fill_distiller(palette = "Reds", direction = 1, limits = c(0,1))
+  print(p)
+}
+simple_cor(st)
+```
+
+### AT_GC
+
+```{r}
+st <- "AT_GC"
+simple_cor(st)
+```
+
+### AT_TA
+
+```{r}
+st <- "AT_TA"
+simple_cor(st)
+```
+
+### GC_AT
+
+```{r}
+st <- "GC_AT"
+simple_cor(st)
+```
+
+### cpg_GC_AT
+
+```{r}
+st <- "cpg_GC_AT"
+simple_cor(st, r_start = 2)
+```
+
+### GC_TA
+
+```{r}
+st <- "GC_TA"
+simple_cor(st)
+```
+
+### cpg_GC_TA
+
+```{r}
+st <- "cpg_GC_TA"
+simple_cor(st, r_start = 2)
+```
+
+### GC_CG
+
+```{r}
+st <- "GC_CG"
+simple_cor(st)
+```
+
+### cpg_GC_CG
+
+```{r}
+st <- "cpg_GC_CG"
+simple_cor(st, r_start = 2)
+```
