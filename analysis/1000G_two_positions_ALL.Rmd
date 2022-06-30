@@ -20,83 +20,6 @@ height = 4
 
 # 1000G Two Position Models
 
-## Preface: Shared Code
-
-```{r}
-#' Get contingency table for two positions
-#'
-#' @param population 1KGP superpopulation code
-#' @param subtype Basic mutation subtype
-#' @param p1 First relative position
-#' @param p2 Second relative position
-#' @param data_dir Location of count tables
-#' @return Count table
-singleton_count_2pos <- function(population, subtype, p1, p2,
-                                 data_dir = "/net/snowwhite/home/beckandy/research/1000G_LSCI/output/all_count_2_pos/"){
-  f_name <- paste0(data_dir, population, "/", subtype, "_p", p1, "_q", p2, ".csv")
-  df <- read_csv(f_name, col_types = cols()) %>%
-    filter(singletons > 0)
-  df_tab <- xtabs(singletons ~ p1 + p2, data = df)
-  return(df_tab)
-}
-
-#' Perform statistical test for singleton counts stratified by nucleotides at two flanking positions
-#' @param population 1KGP superpopulation code
-#' @param subtype Simple mutation subtype
-#' @param stat_func Function to get statistic for pair of positions
-#' @return Data.frame with statistics at each pair of positions
-stat_pair_all <- function(population, subtype, stat_func, r_start=1, ...){
-  final <- data.frame(p1 = numeric(),
-                      p2 = numeric(),
-                      statistic = numeric())
-  for(i in c(-10:-1,r_start:9)){
-    for(j in (i+1):10){
-      if(j == 0) next
-      if(j == 1 & r_start > 1) next
-      stat_val <- stat_func(population, subtype, i, j, ...)
-      final <- bind_rows(final, data.frame(p1 = i,
-                                           p2 = j,
-                                           statistic = stat_val))
-    }
-  }
-  return(final)
-}
-
-#' Heatmap plot for two-position statistics
-#' 
-#' @param population 1KGP super-population code
-#' @param subtype Simple mutation subtype
-#' @param statistic_function Function which returns data frame with statistic at pairs of positions
-#' @param plot_title Text to begin plot title
-#' @param fill_label Legend title
-#' @return Figure with statistic values at each pair of positions
-heatmap_plot <- function(population, subtype, 
-                         statistic_function, plot_title, fill_label, r_start = 1, ...){
-  df <- stat_pair_all(population, subtype, statistic_function, r_start, ...)
-  
-  if(!str_starts(subtype, "cpg")){
-    subtype2 <- str_replace(subtype, "_", " -> ")
-  } else {
-    subtype <- str_sub(subtype, 5)
-    subtype2 <- paste0("(cpg) ", str_replace(subtype, "_", " -> "))
-  }
-  
-  p <- df %>%
-    ggplot(aes(x = p2, y = p1, fill = statistic)) +
-    geom_tile() +
-    ggtitle(paste0(plot_title, subtype2),
-            paste0("Population: ", population,
-                   "; Min: ", round(min(df$statistic), 2), 
-                   "; Max: ", round(max(df$statistic), 2)))+
-    xlab("Relative Position 2") +
-    ylab("Relative Position 1") +
-    labs(fill = fill_label) +
-    scale_fill_distiller(palette = "Reds", direction = 1)
-  return(p)
-}
-```
-
-
 ## Introduction
 
 In a [previous document](1000G_single_position_ALL.html) we evaluated the influence of individual positions on the mutation rate as a function of relative position. In do this we marginalized over the nucleotides at other positions, ignoring any potential interaction effect. Here in this document we will being to explore the extent to which interactions among flanking positions influence the rate of substitution at a focal site by first focusing on two-way interactions. 
@@ -327,7 +250,7 @@ The above analyses told us that, in general, the joint distribution of the cell 
 ```{r echo=FALSE}
 deviance_plot("ALL", "AT_CG")
 
-deviance_re_plot("ALL", "AT_CG")
+zhu_re_plot("ALL", "AT_CG")
 ```
 
 ### AT_GC
@@ -335,7 +258,7 @@ deviance_re_plot("ALL", "AT_CG")
 ```{r echo=FALSE}
 deviance_plot("ALL", "AT_GC")
 
-deviance_re_plot("ALL", "AT_GC")
+zhu_re_plot("ALL", "AT_GC")
 ```
 
 ### AT_TA
@@ -343,7 +266,7 @@ deviance_re_plot("ALL", "AT_GC")
 ```{r echo=FALSE}
 deviance_plot("ALL", "AT_TA")
 
-deviance_re_plot("ALL", "AT_TA")
+zhu_re_plot("ALL", "AT_TA")
 ```
 
 ### GC_AT
@@ -351,7 +274,7 @@ deviance_re_plot("ALL", "AT_TA")
 ```{r echo=FALSE}
 deviance_plot("ALL", "GC_AT")
 
-deviance_re_plot("ALL", "GC_AT")
+zhu_re_plot("ALL", "GC_AT")
 ```
 
 ### cpg_GC_AT
@@ -359,7 +282,7 @@ deviance_re_plot("ALL", "GC_AT")
 ```{r echo=FALSE}
 deviance_plot("ALL", "cpg_GC_AT", r_start = 2)
 
-deviance_re_plot("ALL", "cpg_GC_AT", r_start = 2)
+zhu_re_plot("ALL", "cpg_GC_AT", r_start = 2)
 ```
 
 ### GC_TA
@@ -367,7 +290,7 @@ deviance_re_plot("ALL", "cpg_GC_AT", r_start = 2)
 ```{r echo=FALSE}
 deviance_plot("ALL", "GC_TA")
 
-deviance_re_plot("ALL", "GC_TA")
+zhu_re_plot("ALL", "GC_TA")
 ```
 
 ### cpg_GC_TA
@@ -375,7 +298,7 @@ deviance_re_plot("ALL", "GC_TA")
 ```{r echo=FALSE}
 deviance_plot("ALL", "cpg_GC_TA", r_start = 2)
 
-deviance_re_plot("ALL", "cpg_GC_TA", r_start = 2)
+zhu_re_plot("ALL", "cpg_GC_TA", r_start = 2)
 ```
 
 ### GC_CG
@@ -383,7 +306,7 @@ deviance_re_plot("ALL", "cpg_GC_TA", r_start = 2)
 ```{r echo=FALSE}
 deviance_plot("ALL", "GC_CG")
 
-deviance_re_plot("ALL", "GC_CG")
+zhu_re_plot("ALL", "GC_CG")
 ```
 
 ### cpg_GC_CG
@@ -391,7 +314,7 @@ deviance_re_plot("ALL", "GC_CG")
 ```{r echo=FALSE}
 deviance_plot("ALL", "cpg_GC_CG", r_start = 2)
 
-deviance_re_plot("ALL", "cpg_GC_CG", r_start = 2)
+zhu_re_plot("ALL", "cpg_GC_CG", r_start = 2)
 ```
 
 ## Di-nucleotide Residuals
@@ -401,34 +324,61 @@ Similar to what we investigated in the single model case, here we look into each
 As an example let's look at the residuals for the A>G sub type at the -2, -1 positions:
 
 ```{r}
-get_residuals_re("AT_GC", "ALL", -2, -1) %>%
+get_res_zhu("AT_GC", "ALL", -2, -1) %>%
   knitr::kable()
 ```
 
-Here we see that among the two position influences the biggest difference between the singleton and the control distributions was for the CA dinucleotide; this is the same as what Zhu et al (2017) observed at this position for this sub type.  Let's take a look at what happens if we summarize each pair of positions by the sum of the two re/deviance residuals instead of just ignoring the control residual.
-
-Here again we see that the top contribution for any dinucleotide pair is CT at the -2, -1 positions when we account for both the singleton and the control residuals:
-
-```{r}
-get_residuals_re2("AT_GC", "ALL", -2, -1) %>%
-  knitr::kable()
-```
+Here we see that among the two position influences the biggest difference between the singleton and the control distributions was for the CA dinucleotide; this is the same as what Zhu et al (2017) observed at this position for this sub type.  
 
 Perhaps we'd like to visualize these results in a heatmap?
 
 ```{r}
-heatmap_signed_re_res("AT_GC", "ALL", -2, -1)
+heatmap_zhu("AT_GC", "ALL", -2, -1)
 ```
 
-## Alternative Di-nucleotide Residuals
-
-### RE Contribution (Control Intercept Estimation)
-
-In the analysis above where we used the control samples to estimate the interaction and then adjusted marginal products using this interaction, we computed the relative entropy between our observed singleton distribution and the expectation under marginal independence adjusted by control interaction as our measure of influence. This statistic is the sum of expected logarithmic differences for each cell in the 4x4 table, and we will look at these individual values to assess at each pair of positions which di-nucleotides were either over or under-represented. We can also look at values for individual nucleotides at one position summed over the nucleotides at the other position (not sure how this would be interpreted, to be honest).
-
-So, again returning to the example of -2, -1 in AT_GC:
+## Highest RE for each subtype
 
 ```{r}
-plot_control_mult_res("ALL", "AT_GC", -2, -1)
+final <- data.frame(st = character(),
+                    p1 = numeric(),
+                    p2 = numeric(),
+                    statistic = numeric())
+
+for(st in c("AT_CG", "AT_GC", "AT_TA", "GC_AT", "GC_TA", "GC_CG")){
+  df <- stat_pair_all("ALL", st, zhu_pair_re) %>%
+    arrange(desc(statistic))
+  p1 <- df$p1[1]
+  p2 <- df$p2[1]
+  statistic <- df$statistic[1]
+  final <- bind_rows(final,
+                     data.frame(st = st,
+                                p1 = p1,
+                                p2 = p2,
+                                statistic = statistic))
+}
+for(st in c("cpg_GC_AT", "cpg_GC_TA", "cpg_GC_CG")){
+  df <- stat_pair_all("ALL", st, zhu_pair_re, r_start = 2) %>%
+    arrange(desc(statistic))
+  p1 <- df$p1[1]
+  p2 <- df$p2[1]
+  statistic <- df$statistic[1]
+  final <- bind_rows(final,
+                     data.frame(st = st,
+                                p1 = p1,
+                                p2 = p2,
+                                statistic = statistic))
+}
+
+final %>% knitr::kable()
 ```
+
+### Plot nucleotide residuals at highest statistic
+
+```{r}
+for(i in 1:length(final$st)){
+  p <- heatmap_zhu(final$st[i], "ALL", final$p1[i], final$p2[i])
+  print(p)
+}
+```
+
 
