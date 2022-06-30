@@ -122,3 +122,93 @@ simple_cor(st)
 st <- "cpg_GC_CG"
 simple_cor(st, r_start = 2)
 ```
+
+
+## Do populations share location of highest RE?
+
+```{r}
+get_table_re <- function(pop){
+  
+  final <- data.frame(st = character(),
+                      p1 = numeric(),
+                      p2 = numeric(),
+                      statistic = numeric())
+  
+  for(st in c("AT_CG", "AT_GC", "AT_TA", "GC_AT", "GC_TA", "GC_CG")){
+    df <- stat_pair_all(pop, st, zhu_pair_re) %>%
+      arrange(desc(statistic))
+    p1 <- df$p1[1]
+    p2 <- df$p2[1]
+    statistic <- df$statistic[1]
+    final <- bind_rows(final,
+                       data.frame(st = st,
+                                  p1 = p1,
+                                  p2 = p2,
+                                  statistic = statistic))
+  }
+  for(st in c("cpg_GC_AT", "cpg_GC_TA", "cpg_GC_CG")){
+    df <- stat_pair_all("ALL", st, zhu_pair_re, r_start = 2) %>%
+      arrange(desc(statistic))
+    p1 <- df$p1[1]
+    p2 <- df$p2[1]
+    statistic <- df$statistic[1]
+    final <- bind_rows(final,
+                       data.frame(st = st,
+                                  p1 = p1,
+                                  p2 = p2,
+                                  statistic = statistic))
+  }
+  
+  final$pop <- pop
+  return(final)
+}
+```
+### ALL
+
+```{r}
+pop <- "ALL"
+get_table_re(pop) %>%
+  knitr::kable()
+```
+
+### AFR
+
+```{r}
+pop <- "AFR"
+get_table_re(pop) %>%
+  knitr::kable()
+```
+
+### AMR
+
+```{r}
+pop <- "AMR"
+get_table_re(pop) %>%
+  knitr::kable()
+```
+
+### EAS
+
+```{r}
+pop <- "EAS"
+get_table_re(pop) %>%
+  knitr::kable()
+```
+
+### EUR
+
+```{r}
+pop <- "EUR"
+get_table_re(pop) %>%
+  knitr::kable()
+```
+
+### SAS
+
+```{r}
+pop <- "SAS"
+get_table_re(pop) %>%
+  knitr::kable()
+```
+
+
