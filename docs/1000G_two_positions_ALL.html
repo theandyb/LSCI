@@ -15,7 +15,7 @@
 
 <title>1000G_two_positions_ALL</title>
 
-<script src="site_libs/header-attrs-2.11/header-attrs.js"></script>
+<script src="site_libs/header-attrs-2.14/header-attrs.js"></script>
 <script src="site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <link href="site_libs/bootstrap-3.3.5/css/flatly.min.css" rel="stylesheet" />
@@ -77,6 +77,7 @@ if (window.hljs) {
 
 
 
+
 <style type = "text/css">
 .main-container {
   max-width: 940px;
@@ -97,6 +98,9 @@ button.code-folding-btn:focus {
 }
 summary {
   display: list-item;
+}
+details > summary > p:only-child {
+  display: inline;
 }
 pre code {
   padding: 0;
@@ -322,7 +326,7 @@ div.tocify {
 <div class="navbar navbar-default  navbar-fixed-top" role="navigation">
   <div class="container">
     <div class="navbar-header">
-      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-bs-toggle="collapse" data-target="#navbar" data-bs-target="#navbar">
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
@@ -383,7 +387,7 @@ class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span>
 <div class="tab-content">
 <div id="summary" class="tab-pane fade in active">
 <p>
-<strong>Last updated:</strong> 2022-05-05
+<strong>Last updated:</strong> 2022-06-30
 </p>
 <p>
 <strong>Checks:</strong> <span
@@ -514,15 +518,15 @@ project makes it easier to run your code on other machines.</p>
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomtheandybLSCItree77d4a45cf616cdae00830b4044b911f124b6bdf7targetblank77d4a45a">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomtheandybLSCItree07ba5305c8f36da7d5f984e38bef9795f8dfedf8targetblank07ba530a">
 <span class="glyphicon glyphicon-ok text-success"
 aria-hidden="true"></span> <strong>Repository version:</strong>
-<a href="https://github.com/theandyb/LSCI/tree/77d4a45cf616cdae00830b4044b911f124b6bdf7" target="_blank">77d4a45</a>
+<a href="https://github.com/theandyb/LSCI/tree/07ba5305c8f36da7d5f984e38bef9795f8dfedf8" target="_blank">07ba530</a>
 </a>
 </p>
 </div>
 <div
-id="strongRepositoryversionstrongahrefhttpsgithubcomtheandybLSCItree77d4a45cf616cdae00830b4044b911f124b6bdf7targetblank77d4a45a"
+id="strongRepositoryversionstrongahrefhttpsgithubcomtheandybLSCItree07ba5305c8f36da7d5f984e38bef9795f8dfedf8targetblank07ba530a"
 class="panel-collapse collapse">
 <div class="panel-body">
 <p>
@@ -532,7 +536,7 @@ reproducibility.
 </p>
 <p>
 The results in this page were generated with repository version
-<a href="https://github.com/theandyb/LSCI/tree/77d4a45cf616cdae00830b4044b911f124b6bdf7" target="_blank">77d4a45</a>.
+<a href="https://github.com/theandyb/LSCI/tree/07ba5305c8f36da7d5f984e38bef9795f8dfedf8" target="_blank">07ba530</a>.
 See the <em>Past versions</em> tab to see a history of the changes made
 to the R Markdown and HTML files.
 </p>
@@ -554,11 +558,15 @@ Ignored files:
 
 Untracked files:
     Untracked:  1000G_single_position_ALL-tikzDictionary
+    Untracked:  analysis/1000G_two_positions_comp.Rmd
     Untracked:  code/two_pos_functions.R
     Untracked:  output/tikz/
 
 Unstaged changes:
+    Deleted:    analysis/1000G_two_postions_comp.Rmd
     Modified:   analysis/BRIDGES_two_positions.Rmd
+    Modified:   code/single_pos_functions.R
+    Modified:   code/two_pos_new.R
 
 </code></pre>
 <p>
@@ -605,6 +613,40 @@ Message
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+Rmd
+</td>
+<td>
+<a href="https://github.com/theandyb/LSCI/blob/07ba5305c8f36da7d5f984e38bef9795f8dfedf8/analysis/1000G_two_positions_ALL.Rmd" target="_blank">07ba530</a>
+</td>
+<td>
+Andy Beck
+</td>
+<td>
+2022-06-30
+</td>
+<td>
+wflow_publish("analysis/1000G_two_positions_ALL.Rmd")
+</td>
+</tr>
+<tr>
+<td>
+html
+</td>
+<td>
+<a href="https://rawcdn.githack.com/theandyb/LSCI/c27dddb14f4ae794ba1e6422f7e19cc8c3bead99/docs/1000G_two_positions_ALL.html" target="_blank">c27dddb</a>
+</td>
+<td>
+Andy Beck
+</td>
+<td>
+2022-05-05
+</td>
+<td>
+Build site.
+</td>
+</tr>
 <tr>
 <td>
 Rmd
@@ -1058,80 +1100,6 @@ flesh out some pages
 </div>
 <div id="g-two-position-models" class="section level1">
 <h1>1000G Two Position Models</h1>
-<div id="preface-shared-code" class="section level2">
-<h2>Preface: Shared Code</h2>
-<pre class="r"><code>#&#39; Get contingency table for two positions
-#&#39;
-#&#39; @param population 1KGP superpopulation code
-#&#39; @param subtype Basic mutation subtype
-#&#39; @param p1 First relative position
-#&#39; @param p2 Second relative position
-#&#39; @param data_dir Location of count tables
-#&#39; @return Count table
-singleton_count_2pos &lt;- function(population, subtype, p1, p2,
-                                 data_dir = &quot;/net/snowwhite/home/beckandy/research/1000G_LSCI/output/all_count_2_pos/&quot;){
-  f_name &lt;- paste0(data_dir, population, &quot;/&quot;, subtype, &quot;_p&quot;, p1, &quot;_q&quot;, p2, &quot;.csv&quot;)
-  df &lt;- read_csv(f_name, col_types = cols()) %&gt;%
-    filter(singletons &gt; 0)
-  df_tab &lt;- xtabs(singletons ~ p1 + p2, data = df)
-  return(df_tab)
-}
-
-#&#39; Perform statistical test for singleton counts stratified by nucleotides at two flanking positions
-#&#39; @param population 1KGP superpopulation code
-#&#39; @param subtype Simple mutation subtype
-#&#39; @param stat_func Function to get statistic for pair of positions
-#&#39; @return Data.frame with statistics at each pair of positions
-stat_pair_all &lt;- function(population, subtype, stat_func, r_start=1, ...){
-  final &lt;- data.frame(p1 = numeric(),
-                      p2 = numeric(),
-                      statistic = numeric())
-  for(i in c(-10:-1,r_start:9)){
-    for(j in (i+1):10){
-      if(j == 0) next
-      if(j == 1 &amp; r_start &gt; 1) next
-      stat_val &lt;- stat_func(population, subtype, i, j, ...)
-      final &lt;- bind_rows(final, data.frame(p1 = i,
-                                           p2 = j,
-                                           statistic = stat_val))
-    }
-  }
-  return(final)
-}
-
-#&#39; Heatmap plot for two-position statistics
-#&#39; 
-#&#39; @param population 1KGP super-population code
-#&#39; @param subtype Simple mutation subtype
-#&#39; @param statistic_function Function which returns data frame with statistic at pairs of positions
-#&#39; @param plot_title Text to begin plot title
-#&#39; @param fill_label Legend title
-#&#39; @return Figure with statistic values at each pair of positions
-heatmap_plot &lt;- function(population, subtype, 
-                         statistic_function, plot_title, fill_label, r_start = 1, ...){
-  df &lt;- stat_pair_all(population, subtype, statistic_function, r_start, ...)
-  
-  if(!str_starts(subtype, &quot;cpg&quot;)){
-    subtype2 &lt;- str_replace(subtype, &quot;_&quot;, &quot; -&gt; &quot;)
-  } else {
-    subtype &lt;- str_sub(subtype, 5)
-    subtype2 &lt;- paste0(&quot;(cpg) &quot;, str_replace(subtype, &quot;_&quot;, &quot; -&gt; &quot;))
-  }
-  
-  p &lt;- df %&gt;%
-    ggplot(aes(x = p2, y = p1, fill = statistic)) +
-    geom_tile() +
-    ggtitle(paste0(plot_title, subtype2),
-            paste0(&quot;Population: &quot;, population,
-                   &quot;; Min: &quot;, round(min(df$statistic), 2), 
-                   &quot;; Max: &quot;, round(max(df$statistic), 2)))+
-    xlab(&quot;Relative Position 2&quot;) +
-    ylab(&quot;Relative Position 1&quot;) +
-    labs(fill = fill_label) +
-    scale_fill_distiller(palette = &quot;Reds&quot;, direction = 1)
-  return(p)
-}</code></pre>
-</div>
 <div id="introduction" class="section level2">
 <h2>Introduction</h2>
 <p>In a <a href="1000G_single_position_ALL.html">previous document</a>
@@ -1170,7 +1138,7 @@ is probably worth mentioning in the paper. But anyways, here are those
 results.</p>
 <div id="at_cg" class="section level3">
 <h3>AT_CG</h3>
-<p><img src="figure/1000G_two_positions_ALL.Rmd/unnamed-chunk-3-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p><img src="figure/1000G_two_positions_ALL.Rmd/unnamed-chunk-2-1.png" width="672" style="display: block; margin: auto;" /></p>
 <p>We see here the expected pattern that directly adjacent
 di-nucloetides are not observed at frequencies suggested by the product
 of their marginal frequencies, even when looking only at those seen
@@ -1179,6 +1147,47 @@ this that isn’t heavily affected by the large sample size? Maybe.</p>
 </div>
 <div id="at_gc" class="section level3">
 <h3>AT_GC</h3>
+<p><img src="figure/1000G_two_positions_ALL.Rmd/unnamed-chunk-3-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-3-1">
+Past versions of unnamed-chunk-3-1.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-3-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/theandyb/LSCI/blob/c27dddb14f4ae794ba1e6422f7e19cc8c3bead99/docs/figure/1000G_two_positions_ALL.Rmd/unnamed-chunk-3-1.png" target="_blank">c27dddb</a>
+</td>
+<td>
+Andy Beck
+</td>
+<td>
+2022-05-05
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+<div id="at_ta" class="section level3">
+<h3>AT_TA</h3>
 <p><img src="figure/1000G_two_positions_ALL.Rmd/unnamed-chunk-4-1.png" width="672" style="display: block; margin: auto;" /></p>
 <p>
 <button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-4-1">
@@ -1204,6 +1213,17 @@ Date
 <tbody>
 <tr>
 <td>
+<a href="https://github.com/theandyb/LSCI/blob/c27dddb14f4ae794ba1e6422f7e19cc8c3bead99/docs/figure/1000G_two_positions_ALL.Rmd/unnamed-chunk-4-1.png" target="_blank">c27dddb</a>
+</td>
+<td>
+Andy Beck
+</td>
+<td>
+2022-05-05
+</td>
+</tr>
+<tr>
+<td>
 <a href="https://github.com/theandyb/LSCI/blob/fb68fdf5107911fddbd86e60528a5c9612f3488b/docs/figure/1000G_two_positions_ALL.Rmd/unnamed-chunk-4-1.png" target="_blank">fb68fdf</a>
 </td>
 <td>
@@ -1218,8 +1238,8 @@ Andy Beck
 </div>
 </div>
 </div>
-<div id="at_ta" class="section level3">
-<h3>AT_TA</h3>
+<div id="gc_at" class="section level3">
+<h3>GC_AT</h3>
 <p><img src="figure/1000G_two_positions_ALL.Rmd/unnamed-chunk-5-1.png" width="672" style="display: block; margin: auto;" /></p>
 <p>
 <button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-5-1">
@@ -1243,6 +1263,17 @@ Date
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+<a href="https://github.com/theandyb/LSCI/blob/c27dddb14f4ae794ba1e6422f7e19cc8c3bead99/docs/figure/1000G_two_positions_ALL.Rmd/unnamed-chunk-5-1.png" target="_blank">c27dddb</a>
+</td>
+<td>
+Andy Beck
+</td>
+<td>
+2022-05-05
+</td>
+</tr>
 <tr>
 <td>
 <a href="https://github.com/theandyb/LSCI/blob/fb68fdf5107911fddbd86e60528a5c9612f3488b/docs/figure/1000G_two_positions_ALL.Rmd/unnamed-chunk-5-1.png" target="_blank">fb68fdf</a>
@@ -1281,8 +1312,8 @@ Andy Beck
 </div>
 </div>
 </div>
-<div id="gc_at" class="section level3">
-<h3>GC_AT</h3>
+<div id="cpg_gc_at" class="section level3">
+<h3>cpg_GC_AT</h3>
 <p><img src="figure/1000G_two_positions_ALL.Rmd/unnamed-chunk-6-1.png" width="672" style="display: block; margin: auto;" /></p>
 <p>
 <button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-6-1">
@@ -1306,6 +1337,17 @@ Date
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+<a href="https://github.com/theandyb/LSCI/blob/c27dddb14f4ae794ba1e6422f7e19cc8c3bead99/docs/figure/1000G_two_positions_ALL.Rmd/unnamed-chunk-6-1.png" target="_blank">c27dddb</a>
+</td>
+<td>
+Andy Beck
+</td>
+<td>
+2022-05-05
+</td>
+</tr>
 <tr>
 <td>
 <a href="https://github.com/theandyb/LSCI/blob/fb68fdf5107911fddbd86e60528a5c9612f3488b/docs/figure/1000G_two_positions_ALL.Rmd/unnamed-chunk-6-1.png" target="_blank">fb68fdf</a>
@@ -1344,8 +1386,8 @@ Andy Beck
 </div>
 </div>
 </div>
-<div id="cpg_gc_at" class="section level3">
-<h3>cpg_GC_AT</h3>
+<div id="gc_ta" class="section level3">
+<h3>GC_TA</h3>
 <p><img src="figure/1000G_two_positions_ALL.Rmd/unnamed-chunk-7-1.png" width="672" style="display: block; margin: auto;" /></p>
 <p>
 <button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-7-1">
@@ -1369,6 +1411,17 @@ Date
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+<a href="https://github.com/theandyb/LSCI/blob/c27dddb14f4ae794ba1e6422f7e19cc8c3bead99/docs/figure/1000G_two_positions_ALL.Rmd/unnamed-chunk-7-1.png" target="_blank">c27dddb</a>
+</td>
+<td>
+Andy Beck
+</td>
+<td>
+2022-05-05
+</td>
+</tr>
 <tr>
 <td>
 <a href="https://github.com/theandyb/LSCI/blob/fb68fdf5107911fddbd86e60528a5c9612f3488b/docs/figure/1000G_two_positions_ALL.Rmd/unnamed-chunk-7-1.png" target="_blank">fb68fdf</a>
@@ -1407,8 +1460,8 @@ Andy Beck
 </div>
 </div>
 </div>
-<div id="gc_ta" class="section level3">
-<h3>GC_TA</h3>
+<div id="cpg_gc_ta" class="section level3">
+<h3>cpg_GC_TA</h3>
 <p><img src="figure/1000G_two_positions_ALL.Rmd/unnamed-chunk-8-1.png" width="672" style="display: block; margin: auto;" /></p>
 <p>
 <button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-8-1">
@@ -1432,6 +1485,17 @@ Date
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+<a href="https://github.com/theandyb/LSCI/blob/c27dddb14f4ae794ba1e6422f7e19cc8c3bead99/docs/figure/1000G_two_positions_ALL.Rmd/unnamed-chunk-8-1.png" target="_blank">c27dddb</a>
+</td>
+<td>
+Andy Beck
+</td>
+<td>
+2022-05-05
+</td>
+</tr>
 <tr>
 <td>
 <a href="https://github.com/theandyb/LSCI/blob/1da15c616e96474aef9400c6d54fd490fc401601/docs/figure/1000G_two_positions_ALL.Rmd/unnamed-chunk-8-1.png" target="_blank">1da15c6</a>
@@ -1481,8 +1545,21 @@ Andy Beck
 </div>
 </div>
 </div>
-<div id="cpg_gc_ta" class="section level3">
-<h3>cpg_GC_TA</h3>
+</div>
+<div id="goodness-of-fit-estimate-distribution-with-controls"
+class="section level2">
+<h2>Goodness of Fit: Estimate Distribution with Controls</h2>
+<p>The idea here is to estimate the frequency of flanking dimers using
+the dimers we observe flanking control positions. This ignores the fact
+that the distribution of individual flanking nucleotides has already
+been shown to differ between the singletons and the matched controls;
+what I think we want is a way to test for an interaction while
+accounting for the different individual marginals.</p>
+<div id="at_cg-1" class="section level3">
+<h3>AT_CG</h3>
+<pre class="r"><code>subtype &lt;- &quot;AT_CG&quot;
+p &lt;- chi_sq_re_plot(&quot;ALL&quot;, subtype)
+print(p)</code></pre>
 <p><img src="figure/1000G_two_positions_ALL.Rmd/unnamed-chunk-9-1.png" width="672" style="display: block; margin: auto;" /></p>
 <p>
 <button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-9-1">
@@ -1506,6 +1583,17 @@ Date
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+<a href="https://github.com/theandyb/LSCI/blob/c27dddb14f4ae794ba1e6422f7e19cc8c3bead99/docs/figure/1000G_two_positions_ALL.Rmd/unnamed-chunk-9-1.png" target="_blank">c27dddb</a>
+</td>
+<td>
+Andy Beck
+</td>
+<td>
+2022-05-05
+</td>
+</tr>
 <tr>
 <td>
 <a href="https://github.com/theandyb/LSCI/blob/fb68fdf5107911fddbd86e60528a5c9612f3488b/docs/figure/1000G_two_positions_ALL.Rmd/unnamed-chunk-9-1.png" target="_blank">fb68fdf</a>
@@ -1544,19 +1632,9 @@ Andy Beck
 </div>
 </div>
 </div>
-</div>
-<div id="goodness-of-fit-estimate-distribution-with-controls"
-class="section level2">
-<h2>Goodness of Fit: Estimate Distribution with Controls</h2>
-<p>The idea here is to estimate the frequency of flanking dimers using
-the dimers we observe flanking control positions. This ignores the fact
-that the distribution of individual flanking nucleotides has already
-been shown to differ between the singletons and the matched controls;
-what I think we want is a way to test for an interaction while
-accounting for the different individual marginals.</p>
-<div id="at_cg-1" class="section level3">
-<h3>AT_CG</h3>
-<pre class="r"><code>subtype &lt;- &quot;AT_CG&quot;
+<div id="at_gc-1" class="section level3">
+<h3>AT_GC</h3>
+<pre class="r"><code>subtype &lt;- &quot;AT_GC&quot;
 p &lt;- chi_sq_re_plot(&quot;ALL&quot;, subtype)
 print(p)</code></pre>
 <p><img src="figure/1000G_two_positions_ALL.Rmd/unnamed-chunk-10-1.png" width="672" style="display: block; margin: auto;" /></p>
@@ -1582,6 +1660,17 @@ Date
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+<a href="https://github.com/theandyb/LSCI/blob/c27dddb14f4ae794ba1e6422f7e19cc8c3bead99/docs/figure/1000G_two_positions_ALL.Rmd/unnamed-chunk-10-1.png" target="_blank">c27dddb</a>
+</td>
+<td>
+Andy Beck
+</td>
+<td>
+2022-05-05
+</td>
+</tr>
 <tr>
 <td>
 <a href="https://github.com/theandyb/LSCI/blob/1da15c616e96474aef9400c6d54fd490fc401601/docs/figure/1000G_two_positions_ALL.Rmd/unnamed-chunk-10-1.png" target="_blank">1da15c6</a>
@@ -1631,9 +1720,9 @@ Andy Beck
 </div>
 </div>
 </div>
-<div id="at_gc-1" class="section level3">
-<h3>AT_GC</h3>
-<pre class="r"><code>subtype &lt;- &quot;AT_GC&quot;
+<div id="at_ta-1" class="section level3">
+<h3>AT_TA</h3>
+<pre class="r"><code>subtype &lt;- &quot;AT_TA&quot;
 p &lt;- chi_sq_re_plot(&quot;ALL&quot;, subtype)
 print(p)</code></pre>
 <p><img src="figure/1000G_two_positions_ALL.Rmd/unnamed-chunk-11-1.png" width="672" style="display: block; margin: auto;" /></p>
@@ -1659,6 +1748,17 @@ Date
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+<a href="https://github.com/theandyb/LSCI/blob/c27dddb14f4ae794ba1e6422f7e19cc8c3bead99/docs/figure/1000G_two_positions_ALL.Rmd/unnamed-chunk-11-1.png" target="_blank">c27dddb</a>
+</td>
+<td>
+Andy Beck
+</td>
+<td>
+2022-05-05
+</td>
+</tr>
 <tr>
 <td>
 <a href="https://github.com/theandyb/LSCI/blob/fb68fdf5107911fddbd86e60528a5c9612f3488b/docs/figure/1000G_two_positions_ALL.Rmd/unnamed-chunk-11-1.png" target="_blank">fb68fdf</a>
@@ -1697,16 +1797,53 @@ Andy Beck
 </div>
 </div>
 </div>
-<div id="at_ta-1" class="section level3">
-<h3>AT_TA</h3>
-<pre class="r"><code>subtype &lt;- &quot;AT_TA&quot;
-p &lt;- chi_sq_re_plot(&quot;ALL&quot;, subtype)
-print(p)</code></pre>
-<p><img src="figure/1000G_two_positions_ALL.Rmd/unnamed-chunk-12-1.png" width="672" style="display: block; margin: auto;" /></p>
-</div>
 <div id="gc_at-1" class="section level3">
 <h3>GC_AT</h3>
 <pre class="r"><code>subtype &lt;- &quot;GC_AT&quot;
+p &lt;- chi_sq_re_plot(&quot;ALL&quot;, subtype)
+print(p)</code></pre>
+<p><img src="figure/1000G_two_positions_ALL.Rmd/unnamed-chunk-12-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-12-1">
+Past versions of unnamed-chunk-12-1.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-12-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/theandyb/LSCI/blob/c27dddb14f4ae794ba1e6422f7e19cc8c3bead99/docs/figure/1000G_two_positions_ALL.Rmd/unnamed-chunk-12-1.png" target="_blank">c27dddb</a>
+</td>
+<td>
+Andy Beck
+</td>
+<td>
+2022-05-05
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+<div id="cpg_gc_at-1" class="section level3">
+<h3>cpg_GC_AT</h3>
+<pre class="r"><code>subtype &lt;- &quot;cpg_GC_AT&quot;
 p &lt;- chi_sq_re_plot(&quot;ALL&quot;, subtype)
 print(p)</code></pre>
 <p><img src="figure/1000G_two_positions_ALL.Rmd/unnamed-chunk-13-1.png" width="672" style="display: block; margin: auto;" /></p>
@@ -1732,6 +1869,17 @@ Date
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+<a href="https://github.com/theandyb/LSCI/blob/c27dddb14f4ae794ba1e6422f7e19cc8c3bead99/docs/figure/1000G_two_positions_ALL.Rmd/unnamed-chunk-13-1.png" target="_blank">c27dddb</a>
+</td>
+<td>
+Andy Beck
+</td>
+<td>
+2022-05-05
+</td>
+</tr>
 <tr>
 <td>
 <a href="https://github.com/theandyb/LSCI/blob/fb68fdf5107911fddbd86e60528a5c9612f3488b/docs/figure/1000G_two_positions_ALL.Rmd/unnamed-chunk-13-1.png" target="_blank">fb68fdf</a>
@@ -1770,9 +1918,9 @@ Andy Beck
 </div>
 </div>
 </div>
-<div id="cpg_gc_at-1" class="section level3">
-<h3>cpg_GC_AT</h3>
-<pre class="r"><code>subtype &lt;- &quot;cpg_GC_AT&quot;
+<div id="gc_ta-1" class="section level3">
+<h3>GC_TA</h3>
+<pre class="r"><code>subtype &lt;- &quot;GC_TA&quot;
 p &lt;- chi_sq_re_plot(&quot;ALL&quot;, subtype)
 print(p)</code></pre>
 <p><img src="figure/1000G_two_positions_ALL.Rmd/unnamed-chunk-14-1.png" width="672" style="display: block; margin: auto;" /></p>
@@ -1798,6 +1946,17 @@ Date
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+<a href="https://github.com/theandyb/LSCI/blob/c27dddb14f4ae794ba1e6422f7e19cc8c3bead99/docs/figure/1000G_two_positions_ALL.Rmd/unnamed-chunk-14-1.png" target="_blank">c27dddb</a>
+</td>
+<td>
+Andy Beck
+</td>
+<td>
+2022-05-05
+</td>
+</tr>
 <tr>
 <td>
 <a href="https://github.com/theandyb/LSCI/blob/fb68fdf5107911fddbd86e60528a5c9612f3488b/docs/figure/1000G_two_positions_ALL.Rmd/unnamed-chunk-14-1.png" target="_blank">fb68fdf</a>
@@ -1836,9 +1995,9 @@ Andy Beck
 </div>
 </div>
 </div>
-<div id="gc_ta-1" class="section level3">
-<h3>GC_TA</h3>
-<pre class="r"><code>subtype &lt;- &quot;GC_TA&quot;
+<div id="cpg_gc_ta-1" class="section level3">
+<h3>cpg_GC_TA</h3>
+<pre class="r"><code>subtype &lt;- &quot;cpg_GC_TA&quot;
 p &lt;- chi_sq_re_plot(&quot;ALL&quot;, subtype)
 print(p)</code></pre>
 <p><img src="figure/1000G_two_positions_ALL.Rmd/unnamed-chunk-15-1.png" width="672" style="display: block; margin: auto;" /></p>
@@ -1864,6 +2023,17 @@ Date
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+<a href="https://github.com/theandyb/LSCI/blob/c27dddb14f4ae794ba1e6422f7e19cc8c3bead99/docs/figure/1000G_two_positions_ALL.Rmd/unnamed-chunk-15-1.png" target="_blank">c27dddb</a>
+</td>
+<td>
+Andy Beck
+</td>
+<td>
+2022-05-05
+</td>
+</tr>
 <tr>
 <td>
 <a href="https://github.com/theandyb/LSCI/blob/fb68fdf5107911fddbd86e60528a5c9612f3488b/docs/figure/1000G_two_positions_ALL.Rmd/unnamed-chunk-15-1.png" target="_blank">fb68fdf</a>
@@ -1924,9 +2094,9 @@ Andy Beck
 </div>
 </div>
 </div>
-<div id="cpg_gc_ta-1" class="section level3">
-<h3>cpg_GC_TA</h3>
-<pre class="r"><code>subtype &lt;- &quot;cpg_GC_TA&quot;
+<div id="gc_cg" class="section level3">
+<h3>GC_CG</h3>
+<pre class="r"><code>subtype &lt;- &quot;GC_CG&quot;
 p &lt;- chi_sq_re_plot(&quot;ALL&quot;, subtype)
 print(p)</code></pre>
 <p><img src="figure/1000G_two_positions_ALL.Rmd/unnamed-chunk-16-1.png" width="672" style="display: block; margin: auto;" /></p>
@@ -1952,6 +2122,17 @@ Date
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+<a href="https://github.com/theandyb/LSCI/blob/c27dddb14f4ae794ba1e6422f7e19cc8c3bead99/docs/figure/1000G_two_positions_ALL.Rmd/unnamed-chunk-16-1.png" target="_blank">c27dddb</a>
+</td>
+<td>
+Andy Beck
+</td>
+<td>
+2022-05-05
+</td>
+</tr>
 <tr>
 <td>
 <a href="https://github.com/theandyb/LSCI/blob/fb68fdf5107911fddbd86e60528a5c9612f3488b/docs/figure/1000G_two_positions_ALL.Rmd/unnamed-chunk-16-1.png" target="_blank">fb68fdf</a>
@@ -2012,9 +2193,9 @@ Andy Beck
 </div>
 </div>
 </div>
-<div id="gc_cg" class="section level3">
-<h3>GC_CG</h3>
-<pre class="r"><code>subtype &lt;- &quot;GC_CG&quot;
+<div id="cpg_gc_cg" class="section level3">
+<h3>cpg_GC_CG</h3>
+<pre class="r"><code>subtype &lt;- &quot;cpg_GC_CG&quot;
 p &lt;- chi_sq_re_plot(&quot;ALL&quot;, subtype)
 print(p)</code></pre>
 <p><img src="figure/1000G_two_positions_ALL.Rmd/unnamed-chunk-17-1.png" width="672" style="display: block; margin: auto;" /></p>
@@ -2040,6 +2221,17 @@ Date
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+<a href="https://github.com/theandyb/LSCI/blob/c27dddb14f4ae794ba1e6422f7e19cc8c3bead99/docs/figure/1000G_two_positions_ALL.Rmd/unnamed-chunk-17-1.png" target="_blank">c27dddb</a>
+</td>
+<td>
+Andy Beck
+</td>
+<td>
+2022-05-05
+</td>
+</tr>
 <tr>
 <td>
 <a href="https://github.com/theandyb/LSCI/blob/1da15c616e96474aef9400c6d54fd490fc401601/docs/figure/1000G_two_positions_ALL.Rmd/unnamed-chunk-17-1.png" target="_blank">1da15c6</a>
@@ -2100,10 +2292,29 @@ Andy Beck
 </div>
 </div>
 </div>
-<div id="cpg_gc_cg" class="section level3">
-<h3>cpg_GC_CG</h3>
-<pre class="r"><code>subtype &lt;- &quot;cpg_GC_CG&quot;
-p &lt;- chi_sq_re_plot(&quot;ALL&quot;, subtype)
+</div>
+<div id="gof-control-interaction-estimation" class="section level2">
+<h2>GOF: Control interaction estimation</h2>
+<p>An idea I want to try here is to try and estimate a shared
+interaction parameter using only the control frequencies and apply this
+to the singleton frequencies. In a nutshell, we can think of the 16
+frequencies we see in the control table as being the product of two
+marginal frequencies and an additional interaction term (question:
+should this be additive or multiplicative?). In the multiplicative
+formulation of the interaction, the frequency in each cell can be
+written as:</p>
+<p><span class="math display">\[
+f^C_{i,j} = p^C_{i.}p^C_{.j}p_{ij}
+\]</span></p>
+<p>and the idea here would be to estimate the <span
+class="math inline">\(p_{ij}\)</span> interaction terms using the
+controls and using these to adjust the cell frequencies in the
+singletons and then assess the fit using a <span
+class="math inline">\(\chi^2\)</span> goodness of fit test.</p>
+<div id="at_cg-2" class="section level3">
+<h3>AT_CG</h3>
+<pre class="r"><code>subtype &lt;- &quot;AT_GC&quot;
+p &lt;- control_mult_int_plot(&quot;ALL&quot;, subtype, type = &quot;re&quot;)
 print(p)</code></pre>
 <p><img src="figure/1000G_two_positions_ALL.Rmd/unnamed-chunk-18-1.png" width="672" style="display: block; margin: auto;" /></p>
 <p>
@@ -2128,6 +2339,17 @@ Date
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+<a href="https://github.com/theandyb/LSCI/blob/c27dddb14f4ae794ba1e6422f7e19cc8c3bead99/docs/figure/1000G_two_positions_ALL.Rmd/unnamed-chunk-18-1.png" target="_blank">c27dddb</a>
+</td>
+<td>
+Andy Beck
+</td>
+<td>
+2022-05-05
+</td>
+</tr>
 <tr>
 <td>
 <a href="https://github.com/theandyb/LSCI/blob/fb68fdf5107911fddbd86e60528a5c9612f3488b/docs/figure/1000G_two_positions_ALL.Rmd/unnamed-chunk-18-1.png" target="_blank">fb68fdf</a>
@@ -2177,27 +2399,8 @@ Andy Beck
 </div>
 </div>
 </div>
-</div>
-<div id="gof-control-interaction-estimation" class="section level2">
-<h2>GOF: Control interaction estimation</h2>
-<p>An idea I want to try here is to try and estimate a shared
-interaction parameter using only the control frequencies and apply this
-to the singleton frequencies. In a nutshell, we can think of the 16
-frequencies we see in the control table as being the product of two
-marginal frequencies and an additional interaction term (question:
-should this be additive or multiplicative?). In the multiplicative
-formulation of the interaction, the frequency in each cell can be
-written as:</p>
-<p><span class="math display">\[
-f^C_{i,j} = p^C_{i.}p^C_{.j}p_{ij}
-\]</span></p>
-<p>and the idea here would be to estimate the <span
-class="math inline">\(p_{ij}\)</span> interaction terms using the
-controls and using these to adjust the cell frequencies in the
-singletons and then assess the fit using a <span
-class="math inline">\(\chi^2\)</span> goodness of fit test.</p>
-<div id="at_cg-2" class="section level3">
-<h3>AT_CG</h3>
+<div id="at_gc-2" class="section level3">
+<h3>AT_GC</h3>
 <pre class="r"><code>subtype &lt;- &quot;AT_GC&quot;
 p &lt;- control_mult_int_plot(&quot;ALL&quot;, subtype, type = &quot;re&quot;)
 print(p)</code></pre>
@@ -2224,6 +2427,17 @@ Date
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+<a href="https://github.com/theandyb/LSCI/blob/c27dddb14f4ae794ba1e6422f7e19cc8c3bead99/docs/figure/1000G_two_positions_ALL.Rmd/unnamed-chunk-19-1.png" target="_blank">c27dddb</a>
+</td>
+<td>
+Andy Beck
+</td>
+<td>
+2022-05-05
+</td>
+</tr>
 <tr>
 <td>
 <a href="https://github.com/theandyb/LSCI/blob/1da15c616e96474aef9400c6d54fd490fc401601/docs/figure/1000G_two_positions_ALL.Rmd/unnamed-chunk-19-1.png" target="_blank">1da15c6</a>
@@ -2284,9 +2498,9 @@ Andy Beck
 </div>
 </div>
 </div>
-<div id="at_gc-2" class="section level3">
-<h3>AT_GC</h3>
-<pre class="r"><code>subtype &lt;- &quot;AT_GC&quot;
+<div id="at_ta-2" class="section level3">
+<h3>AT_TA</h3>
+<pre class="r"><code>subtype &lt;- &quot;AT_TA&quot;
 p &lt;- control_mult_int_plot(&quot;ALL&quot;, subtype, type = &quot;re&quot;)
 print(p)</code></pre>
 <p><img src="figure/1000G_two_positions_ALL.Rmd/unnamed-chunk-20-1.png" width="672" style="display: block; margin: auto;" /></p>
@@ -2312,6 +2526,17 @@ Date
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+<a href="https://github.com/theandyb/LSCI/blob/c27dddb14f4ae794ba1e6422f7e19cc8c3bead99/docs/figure/1000G_two_positions_ALL.Rmd/unnamed-chunk-20-1.png" target="_blank">c27dddb</a>
+</td>
+<td>
+Andy Beck
+</td>
+<td>
+2022-05-05
+</td>
+</tr>
 <tr>
 <td>
 <a href="https://github.com/theandyb/LSCI/blob/fb68fdf5107911fddbd86e60528a5c9612f3488b/docs/figure/1000G_two_positions_ALL.Rmd/unnamed-chunk-20-1.png" target="_blank">fb68fdf</a>
@@ -2361,9 +2586,9 @@ Andy Beck
 </div>
 </div>
 </div>
-<div id="at_ta-2" class="section level3">
-<h3>AT_TA</h3>
-<pre class="r"><code>subtype &lt;- &quot;AT_TA&quot;
+<div id="gc_at-2" class="section level3">
+<h3>GC_AT</h3>
+<pre class="r"><code>subtype &lt;- &quot;GC_AT&quot;
 p &lt;- control_mult_int_plot(&quot;ALL&quot;, subtype, type = &quot;re&quot;)
 print(p)</code></pre>
 <p><img src="figure/1000G_two_positions_ALL.Rmd/unnamed-chunk-21-1.png" width="672" style="display: block; margin: auto;" /></p>
@@ -2389,6 +2614,17 @@ Date
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+<a href="https://github.com/theandyb/LSCI/blob/c27dddb14f4ae794ba1e6422f7e19cc8c3bead99/docs/figure/1000G_two_positions_ALL.Rmd/unnamed-chunk-21-1.png" target="_blank">c27dddb</a>
+</td>
+<td>
+Andy Beck
+</td>
+<td>
+2022-05-05
+</td>
+</tr>
 <tr>
 <td>
 <a href="https://github.com/theandyb/LSCI/blob/1da15c616e96474aef9400c6d54fd490fc401601/docs/figure/1000G_two_positions_ALL.Rmd/unnamed-chunk-21-1.png" target="_blank">1da15c6</a>
@@ -2438,9 +2674,9 @@ Andy Beck
 </div>
 </div>
 </div>
-<div id="gc_at-2" class="section level3">
-<h3>GC_AT</h3>
-<pre class="r"><code>subtype &lt;- &quot;GC_AT&quot;
+<div id="cpg_gc_at-2" class="section level3">
+<h3>cpg_GC_AT</h3>
+<pre class="r"><code>subtype &lt;- &quot;cpg_GC_AT&quot;
 p &lt;- control_mult_int_plot(&quot;ALL&quot;, subtype, type = &quot;re&quot;)
 print(p)</code></pre>
 <p><img src="figure/1000G_two_positions_ALL.Rmd/unnamed-chunk-22-1.png" width="672" style="display: block; margin: auto;" /></p>
@@ -2466,6 +2702,17 @@ Date
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+<a href="https://github.com/theandyb/LSCI/blob/c27dddb14f4ae794ba1e6422f7e19cc8c3bead99/docs/figure/1000G_two_positions_ALL.Rmd/unnamed-chunk-22-1.png" target="_blank">c27dddb</a>
+</td>
+<td>
+Andy Beck
+</td>
+<td>
+2022-05-05
+</td>
+</tr>
 <tr>
 <td>
 <a href="https://github.com/theandyb/LSCI/blob/fb68fdf5107911fddbd86e60528a5c9612f3488b/docs/figure/1000G_two_positions_ALL.Rmd/unnamed-chunk-22-1.png" target="_blank">fb68fdf</a>
@@ -2515,9 +2762,9 @@ Andy Beck
 </div>
 </div>
 </div>
-<div id="cpg_gc_at-2" class="section level3">
-<h3>cpg_GC_AT</h3>
-<pre class="r"><code>subtype &lt;- &quot;cpg_GC_AT&quot;
+<div id="gc_ta-2" class="section level3">
+<h3>GC_TA</h3>
+<pre class="r"><code>subtype &lt;- &quot;GC_TA&quot;
 p &lt;- control_mult_int_plot(&quot;ALL&quot;, subtype, type = &quot;re&quot;)
 print(p)</code></pre>
 <p><img src="figure/1000G_two_positions_ALL.Rmd/unnamed-chunk-23-1.png" width="672" style="display: block; margin: auto;" /></p>
@@ -2543,6 +2790,17 @@ Date
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+<a href="https://github.com/theandyb/LSCI/blob/c27dddb14f4ae794ba1e6422f7e19cc8c3bead99/docs/figure/1000G_two_positions_ALL.Rmd/unnamed-chunk-23-1.png" target="_blank">c27dddb</a>
+</td>
+<td>
+Andy Beck
+</td>
+<td>
+2022-05-05
+</td>
+</tr>
 <tr>
 <td>
 <a href="https://github.com/theandyb/LSCI/blob/fb68fdf5107911fddbd86e60528a5c9612f3488b/docs/figure/1000G_two_positions_ALL.Rmd/unnamed-chunk-23-1.png" target="_blank">fb68fdf</a>
@@ -2592,9 +2850,9 @@ Andy Beck
 </div>
 </div>
 </div>
-<div id="gc_ta-2" class="section level3">
-<h3>GC_TA</h3>
-<pre class="r"><code>subtype &lt;- &quot;GC_TA&quot;
+<div id="cpg_gc_ta-2" class="section level3">
+<h3>cpg_GC_TA</h3>
+<pre class="r"><code>subtype &lt;- &quot;cpg_GC_TA&quot;
 p &lt;- control_mult_int_plot(&quot;ALL&quot;, subtype, type = &quot;re&quot;)
 print(p)</code></pre>
 <p><img src="figure/1000G_two_positions_ALL.Rmd/unnamed-chunk-24-1.png" width="672" style="display: block; margin: auto;" /></p>
@@ -2620,6 +2878,17 @@ Date
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+<a href="https://github.com/theandyb/LSCI/blob/c27dddb14f4ae794ba1e6422f7e19cc8c3bead99/docs/figure/1000G_two_positions_ALL.Rmd/unnamed-chunk-24-1.png" target="_blank">c27dddb</a>
+</td>
+<td>
+Andy Beck
+</td>
+<td>
+2022-05-05
+</td>
+</tr>
 <tr>
 <td>
 <a href="https://github.com/theandyb/LSCI/blob/fb68fdf5107911fddbd86e60528a5c9612f3488b/docs/figure/1000G_two_positions_ALL.Rmd/unnamed-chunk-24-1.png" target="_blank">fb68fdf</a>
@@ -2669,9 +2938,9 @@ Andy Beck
 </div>
 </div>
 </div>
-<div id="cpg_gc_ta-2" class="section level3">
-<h3>cpg_GC_TA</h3>
-<pre class="r"><code>subtype &lt;- &quot;cpg_GC_TA&quot;
+<div id="gc_cg-1" class="section level3">
+<h3>GC_CG</h3>
+<pre class="r"><code>subtype &lt;- &quot;GC_CG&quot;
 p &lt;- control_mult_int_plot(&quot;ALL&quot;, subtype, type = &quot;re&quot;)
 print(p)</code></pre>
 <p><img src="figure/1000G_two_positions_ALL.Rmd/unnamed-chunk-25-1.png" width="672" style="display: block; margin: auto;" /></p>
@@ -2697,6 +2966,17 @@ Date
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+<a href="https://github.com/theandyb/LSCI/blob/c27dddb14f4ae794ba1e6422f7e19cc8c3bead99/docs/figure/1000G_two_positions_ALL.Rmd/unnamed-chunk-25-1.png" target="_blank">c27dddb</a>
+</td>
+<td>
+Andy Beck
+</td>
+<td>
+2022-05-05
+</td>
+</tr>
 <tr>
 <td>
 <a href="https://github.com/theandyb/LSCI/blob/fb68fdf5107911fddbd86e60528a5c9612f3488b/docs/figure/1000G_two_positions_ALL.Rmd/unnamed-chunk-25-1.png" target="_blank">fb68fdf</a>
@@ -2746,9 +3026,9 @@ Andy Beck
 </div>
 </div>
 </div>
-<div id="gc_cg-1" class="section level3">
-<h3>GC_CG</h3>
-<pre class="r"><code>subtype &lt;- &quot;GC_CG&quot;
+<div id="cpg_gc_cg-1" class="section level3">
+<h3>cpg_GC_CG</h3>
+<pre class="r"><code>subtype &lt;- &quot;cpg_GC_CG&quot;
 p &lt;- control_mult_int_plot(&quot;ALL&quot;, subtype, type = &quot;re&quot;)
 print(p)</code></pre>
 <p><img src="figure/1000G_two_positions_ALL.Rmd/unnamed-chunk-26-1.png" width="672" style="display: block; margin: auto;" /></p>
@@ -2774,6 +3054,17 @@ Date
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+<a href="https://github.com/theandyb/LSCI/blob/c27dddb14f4ae794ba1e6422f7e19cc8c3bead99/docs/figure/1000G_two_positions_ALL.Rmd/unnamed-chunk-26-1.png" target="_blank">c27dddb</a>
+</td>
+<td>
+Andy Beck
+</td>
+<td>
+2022-05-05
+</td>
+</tr>
 <tr>
 <td>
 <a href="https://github.com/theandyb/LSCI/blob/fb68fdf5107911fddbd86e60528a5c9612f3488b/docs/figure/1000G_two_positions_ALL.Rmd/unnamed-chunk-26-1.png" target="_blank">fb68fdf</a>
@@ -2823,11 +3114,27 @@ Andy Beck
 </div>
 </div>
 </div>
-<div id="cpg_gc_cg-1" class="section level3">
-<h3>cpg_GC_CG</h3>
-<pre class="r"><code>subtype &lt;- &quot;cpg_GC_CG&quot;
-p &lt;- control_mult_int_plot(&quot;ALL&quot;, subtype, type = &quot;re&quot;)
-print(p)</code></pre>
+</div>
+<div id="loglinear-models" class="section level2">
+<h2>Loglinear Models</h2>
+<p>The above analyses told us that, in general, the joint distribution
+of the cell counts in the 4x4 contingency table was not the product of
+the row and column marginals. This is unsurprising since we see this
+exact same pattern in both the genome-wide counts and the control
+counts. That is, it is already well-known that genome-wide occurrence of
+dinucleotides is not predicted by the product of the frequencies of the
+individual nucleotides, so it’s no surprise we see an interaction in our
+singletons. But is the interaction we see in the singletons the same
+that we observe in the controls? That question can be addressed using
+the log-linear modeling framework employed by Zhu et al (2017). Here,
+we’ll fit a model of the counts for both the singletons and the
+controls, allowing for each to have their own marginal distributions at
+each position, but the interaction between the two positions is shared.
+We then use the deviance statistic to compare the fit of this model to
+the fully saturated model which allows for different interaction terms
+between the singletons and the controls.</p>
+<div id="at_cg-3" class="section level3">
+<h3>AT_CG</h3>
 <p><img src="figure/1000G_two_positions_ALL.Rmd/unnamed-chunk-27-1.png" width="672" style="display: block; margin: auto;" /></p>
 <p>
 <button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-27-1">
@@ -2851,6 +3158,17 @@ Date
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+<a href="https://github.com/theandyb/LSCI/blob/c27dddb14f4ae794ba1e6422f7e19cc8c3bead99/docs/figure/1000G_two_positions_ALL.Rmd/unnamed-chunk-27-1.png" target="_blank">c27dddb</a>
+</td>
+<td>
+Andy Beck
+</td>
+<td>
+2022-05-05
+</td>
+</tr>
 <tr>
 <td>
 <a href="https://github.com/theandyb/LSCI/blob/1da15c616e96474aef9400c6d54fd490fc401601/docs/figure/1000G_two_positions_ALL.Rmd/unnamed-chunk-27-1.png" target="_blank">1da15c6</a>
@@ -2910,28 +3228,69 @@ Andy Beck
 </table>
 </div>
 </div>
+<p><img src="figure/1000G_two_positions_ALL.Rmd/unnamed-chunk-27-2.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-27-2">
+Past versions of unnamed-chunk-27-2.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-27-2" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/theandyb/LSCI/blob/d206789c1741f96d849c980167670cda330a86fa/docs/figure/1000G_two_positions_ALL.Rmd/unnamed-chunk-27-2.png" target="_blank">d206789</a>
+</td>
+<td>
+Andy Beck
+</td>
+<td>
+2022-04-29
+</td>
+</tr>
+<tr>
+<td>
+<a href="https://github.com/theandyb/LSCI/blob/c33ff652181aef45b799411a45ed8917457b3dbf/docs/figure/1000G_two_positions_ALL.Rmd/unnamed-chunk-27-2.png" target="_blank">c33ff65</a>
+</td>
+<td>
+Andy Beck
+</td>
+<td>
+2022-04-28
+</td>
+</tr>
+<tr>
+<td>
+<a href="https://github.com/theandyb/LSCI/blob/8f1cb1a25f560e383d98dc8ab9180c403f2a90a5/docs/figure/1000G_two_positions_ALL.Rmd/unnamed-chunk-27-2.png" target="_blank">8f1cb1a</a>
+</td>
+<td>
+Andy Beck
+</td>
+<td>
+2022-04-21
+</td>
+</tr>
+</tbody>
+</table>
 </div>
 </div>
-<div id="loglinear-models" class="section level2">
-<h2>Loglinear Models</h2>
-<p>The above analyses told us that, in general, the joint distribution
-of the cell counts in the 4x4 contingency table was not the product of
-the row and column marginals. This is unsurprising since we see this
-exact same pattern in both the genome-wide counts and the control
-counts. That is, it is already well-known that genome-wide occurrence of
-dinucleotides is not predicted by the product of the frequencies of the
-individual nucleotides, so it’s no surprise we see an interaction in our
-singletons. But is the interaction we see in the singletons the same
-that we observe in the controls? That question can be addressed using
-the log-linear modeling framework employed by Zhu et al (2017). Here,
-we’ll fit a model of the counts for both the singletons and the
-controls, allowing for each to have their own marginal distributions at
-each position, but the interaction between the two positions is shared.
-We then use the deviance statistic to compare the fit of this model to
-the fully saturated model which allows for different interaction terms
-between the singletons and the controls.</p>
-<div id="at_cg-3" class="section level3">
-<h3>AT_CG</h3>
+</div>
+<div id="at_gc-3" class="section level3">
+<h3>AT_GC</h3>
 <p><img src="figure/1000G_two_positions_ALL.Rmd/unnamed-chunk-28-1.png" width="672" style="display: block; margin: auto;" /></p>
 <p>
 <button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-28-1">
@@ -2955,6 +3314,17 @@ Date
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+<a href="https://github.com/theandyb/LSCI/blob/c27dddb14f4ae794ba1e6422f7e19cc8c3bead99/docs/figure/1000G_two_positions_ALL.Rmd/unnamed-chunk-28-1.png" target="_blank">c27dddb</a>
+</td>
+<td>
+Andy Beck
+</td>
+<td>
+2022-05-05
+</td>
+</tr>
 <tr>
 <td>
 <a href="https://github.com/theandyb/LSCI/blob/fb68fdf5107911fddbd86e60528a5c9612f3488b/docs/figure/1000G_two_positions_ALL.Rmd/unnamed-chunk-28-1.png" target="_blank">fb68fdf</a>
@@ -3028,6 +3398,17 @@ Date
 <tbody>
 <tr>
 <td>
+<a href="https://github.com/theandyb/LSCI/blob/c27dddb14f4ae794ba1e6422f7e19cc8c3bead99/docs/figure/1000G_two_positions_ALL.Rmd/unnamed-chunk-28-2.png" target="_blank">c27dddb</a>
+</td>
+<td>
+Andy Beck
+</td>
+<td>
+2022-05-05
+</td>
+</tr>
+<tr>
+<td>
 <a href="https://github.com/theandyb/LSCI/blob/d206789c1741f96d849c980167670cda330a86fa/docs/figure/1000G_two_positions_ALL.Rmd/unnamed-chunk-28-2.png" target="_blank">d206789</a>
 </td>
 <td>
@@ -3064,8 +3445,8 @@ Andy Beck
 </div>
 </div>
 </div>
-<div id="at_gc-3" class="section level3">
-<h3>AT_GC</h3>
+<div id="at_ta-3" class="section level3">
+<h3>AT_TA</h3>
 <p><img src="figure/1000G_two_positions_ALL.Rmd/unnamed-chunk-29-1.png" width="672" style="display: block; margin: auto;" /></p>
 <p>
 <button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-29-1">
@@ -3089,6 +3470,17 @@ Date
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+<a href="https://github.com/theandyb/LSCI/blob/c27dddb14f4ae794ba1e6422f7e19cc8c3bead99/docs/figure/1000G_two_positions_ALL.Rmd/unnamed-chunk-29-1.png" target="_blank">c27dddb</a>
+</td>
+<td>
+Andy Beck
+</td>
+<td>
+2022-05-05
+</td>
+</tr>
 <tr>
 <td>
 <a href="https://github.com/theandyb/LSCI/blob/1da15c616e96474aef9400c6d54fd490fc401601/docs/figure/1000G_two_positions_ALL.Rmd/unnamed-chunk-29-1.png" target="_blank">1da15c6</a>
@@ -3173,6 +3565,17 @@ Date
 <tbody>
 <tr>
 <td>
+<a href="https://github.com/theandyb/LSCI/blob/c27dddb14f4ae794ba1e6422f7e19cc8c3bead99/docs/figure/1000G_two_positions_ALL.Rmd/unnamed-chunk-29-2.png" target="_blank">c27dddb</a>
+</td>
+<td>
+Andy Beck
+</td>
+<td>
+2022-05-05
+</td>
+</tr>
+<tr>
+<td>
 <a href="https://github.com/theandyb/LSCI/blob/d206789c1741f96d849c980167670cda330a86fa/docs/figure/1000G_two_positions_ALL.Rmd/unnamed-chunk-29-2.png" target="_blank">d206789</a>
 </td>
 <td>
@@ -3209,8 +3612,8 @@ Andy Beck
 </div>
 </div>
 </div>
-<div id="at_ta-3" class="section level3">
-<h3>AT_TA</h3>
+<div id="gc_at-3" class="section level3">
+<h3>GC_AT</h3>
 <p><img src="figure/1000G_two_positions_ALL.Rmd/unnamed-chunk-30-1.png" width="672" style="display: block; margin: auto;" /></p>
 <p>
 <button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-30-1">
@@ -3234,6 +3637,17 @@ Date
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+<a href="https://github.com/theandyb/LSCI/blob/c27dddb14f4ae794ba1e6422f7e19cc8c3bead99/docs/figure/1000G_two_positions_ALL.Rmd/unnamed-chunk-30-1.png" target="_blank">c27dddb</a>
+</td>
+<td>
+Andy Beck
+</td>
+<td>
+2022-05-05
+</td>
+</tr>
 <tr>
 <td>
 <a href="https://github.com/theandyb/LSCI/blob/fb68fdf5107911fddbd86e60528a5c9612f3488b/docs/figure/1000G_two_positions_ALL.Rmd/unnamed-chunk-30-1.png" target="_blank">fb68fdf</a>
@@ -3307,6 +3721,17 @@ Date
 <tbody>
 <tr>
 <td>
+<a href="https://github.com/theandyb/LSCI/blob/c27dddb14f4ae794ba1e6422f7e19cc8c3bead99/docs/figure/1000G_two_positions_ALL.Rmd/unnamed-chunk-30-2.png" target="_blank">c27dddb</a>
+</td>
+<td>
+Andy Beck
+</td>
+<td>
+2022-05-05
+</td>
+</tr>
+<tr>
+<td>
 <a href="https://github.com/theandyb/LSCI/blob/d206789c1741f96d849c980167670cda330a86fa/docs/figure/1000G_two_positions_ALL.Rmd/unnamed-chunk-30-2.png" target="_blank">d206789</a>
 </td>
 <td>
@@ -3343,8 +3768,8 @@ Andy Beck
 </div>
 </div>
 </div>
-<div id="gc_at-3" class="section level3">
-<h3>GC_AT</h3>
+<div id="cpg_gc_at-3" class="section level3">
+<h3>cpg_GC_AT</h3>
 <p><img src="figure/1000G_two_positions_ALL.Rmd/unnamed-chunk-31-1.png" width="672" style="display: block; margin: auto;" /></p>
 <p>
 <button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-31-1">
@@ -3368,6 +3793,17 @@ Date
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+<a href="https://github.com/theandyb/LSCI/blob/c27dddb14f4ae794ba1e6422f7e19cc8c3bead99/docs/figure/1000G_two_positions_ALL.Rmd/unnamed-chunk-31-1.png" target="_blank">c27dddb</a>
+</td>
+<td>
+Andy Beck
+</td>
+<td>
+2022-05-05
+</td>
+</tr>
 <tr>
 <td>
 <a href="https://github.com/theandyb/LSCI/blob/1da15c616e96474aef9400c6d54fd490fc401601/docs/figure/1000G_two_positions_ALL.Rmd/unnamed-chunk-31-1.png" target="_blank">1da15c6</a>
@@ -3441,6 +3877,17 @@ Date
 <tbody>
 <tr>
 <td>
+<a href="https://github.com/theandyb/LSCI/blob/c27dddb14f4ae794ba1e6422f7e19cc8c3bead99/docs/figure/1000G_two_positions_ALL.Rmd/unnamed-chunk-31-2.png" target="_blank">c27dddb</a>
+</td>
+<td>
+Andy Beck
+</td>
+<td>
+2022-05-05
+</td>
+</tr>
+<tr>
+<td>
 <a href="https://github.com/theandyb/LSCI/blob/d206789c1741f96d849c980167670cda330a86fa/docs/figure/1000G_two_positions_ALL.Rmd/unnamed-chunk-31-2.png" target="_blank">d206789</a>
 </td>
 <td>
@@ -3466,8 +3913,8 @@ Andy Beck
 </div>
 </div>
 </div>
-<div id="cpg_gc_at-3" class="section level3">
-<h3>cpg_GC_AT</h3>
+<div id="gc_ta-3" class="section level3">
+<h3>GC_TA</h3>
 <p><img src="figure/1000G_two_positions_ALL.Rmd/unnamed-chunk-32-1.png" width="672" style="display: block; margin: auto;" /></p>
 <p>
 <button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-32-1">
@@ -3491,6 +3938,17 @@ Date
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+<a href="https://github.com/theandyb/LSCI/blob/c27dddb14f4ae794ba1e6422f7e19cc8c3bead99/docs/figure/1000G_two_positions_ALL.Rmd/unnamed-chunk-32-1.png" target="_blank">c27dddb</a>
+</td>
+<td>
+Andy Beck
+</td>
+<td>
+2022-05-05
+</td>
+</tr>
 <tr>
 <td>
 <a href="https://github.com/theandyb/LSCI/blob/fb68fdf5107911fddbd86e60528a5c9612f3488b/docs/figure/1000G_two_positions_ALL.Rmd/unnamed-chunk-32-1.png" target="_blank">fb68fdf</a>
@@ -3553,6 +4011,17 @@ Date
 <tbody>
 <tr>
 <td>
+<a href="https://github.com/theandyb/LSCI/blob/c27dddb14f4ae794ba1e6422f7e19cc8c3bead99/docs/figure/1000G_two_positions_ALL.Rmd/unnamed-chunk-32-2.png" target="_blank">c27dddb</a>
+</td>
+<td>
+Andy Beck
+</td>
+<td>
+2022-05-05
+</td>
+</tr>
+<tr>
+<td>
 <a href="https://github.com/theandyb/LSCI/blob/fb68fdf5107911fddbd86e60528a5c9612f3488b/docs/figure/1000G_two_positions_ALL.Rmd/unnamed-chunk-32-2.png" target="_blank">fb68fdf</a>
 </td>
 <td>
@@ -3589,8 +4058,8 @@ Andy Beck
 </div>
 </div>
 </div>
-<div id="gc_ta-3" class="section level3">
-<h3>GC_TA</h3>
+<div id="cpg_gc_ta-3" class="section level3">
+<h3>cpg_GC_TA</h3>
 <p><img src="figure/1000G_two_positions_ALL.Rmd/unnamed-chunk-33-1.png" width="672" style="display: block; margin: auto;" /></p>
 <p>
 <button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-33-1">
@@ -3614,6 +4083,17 @@ Date
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+<a href="https://github.com/theandyb/LSCI/blob/c27dddb14f4ae794ba1e6422f7e19cc8c3bead99/docs/figure/1000G_two_positions_ALL.Rmd/unnamed-chunk-33-1.png" target="_blank">c27dddb</a>
+</td>
+<td>
+Andy Beck
+</td>
+<td>
+2022-05-05
+</td>
+</tr>
 <tr>
 <td>
 <a href="https://github.com/theandyb/LSCI/blob/fb68fdf5107911fddbd86e60528a5c9612f3488b/docs/figure/1000G_two_positions_ALL.Rmd/unnamed-chunk-33-1.png" target="_blank">fb68fdf</a>
@@ -3665,6 +4145,17 @@ Date
 <tbody>
 <tr>
 <td>
+<a href="https://github.com/theandyb/LSCI/blob/c27dddb14f4ae794ba1e6422f7e19cc8c3bead99/docs/figure/1000G_two_positions_ALL.Rmd/unnamed-chunk-33-2.png" target="_blank">c27dddb</a>
+</td>
+<td>
+Andy Beck
+</td>
+<td>
+2022-05-05
+</td>
+</tr>
+<tr>
+<td>
 <a href="https://github.com/theandyb/LSCI/blob/fb68fdf5107911fddbd86e60528a5c9612f3488b/docs/figure/1000G_two_positions_ALL.Rmd/unnamed-chunk-33-2.png" target="_blank">fb68fdf</a>
 </td>
 <td>
@@ -3690,8 +4181,8 @@ Andy Beck
 </div>
 </div>
 </div>
-<div id="cpg_gc_ta-3" class="section level3">
-<h3>cpg_GC_TA</h3>
+<div id="gc_cg-2" class="section level3">
+<h3>GC_CG</h3>
 <p><img src="figure/1000G_two_positions_ALL.Rmd/unnamed-chunk-34-1.png" width="672" style="display: block; margin: auto;" /></p>
 <p>
 <button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-34-1">
@@ -3715,6 +4206,17 @@ Date
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+<a href="https://github.com/theandyb/LSCI/blob/c27dddb14f4ae794ba1e6422f7e19cc8c3bead99/docs/figure/1000G_two_positions_ALL.Rmd/unnamed-chunk-34-1.png" target="_blank">c27dddb</a>
+</td>
+<td>
+Andy Beck
+</td>
+<td>
+2022-05-05
+</td>
+</tr>
 <tr>
 <td>
 <a href="https://github.com/theandyb/LSCI/blob/fb68fdf5107911fddbd86e60528a5c9612f3488b/docs/figure/1000G_two_positions_ALL.Rmd/unnamed-chunk-34-1.png" target="_blank">fb68fdf</a>
@@ -3766,6 +4268,17 @@ Date
 <tbody>
 <tr>
 <td>
+<a href="https://github.com/theandyb/LSCI/blob/c27dddb14f4ae794ba1e6422f7e19cc8c3bead99/docs/figure/1000G_two_positions_ALL.Rmd/unnamed-chunk-34-2.png" target="_blank">c27dddb</a>
+</td>
+<td>
+Andy Beck
+</td>
+<td>
+2022-05-05
+</td>
+</tr>
+<tr>
+<td>
 <a href="https://github.com/theandyb/LSCI/blob/fb68fdf5107911fddbd86e60528a5c9612f3488b/docs/figure/1000G_two_positions_ALL.Rmd/unnamed-chunk-34-2.png" target="_blank">fb68fdf</a>
 </td>
 <td>
@@ -3791,8 +4304,8 @@ Andy Beck
 </div>
 </div>
 </div>
-<div id="gc_cg-2" class="section level3">
-<h3>GC_CG</h3>
+<div id="cpg_gc_cg-2" class="section level3">
+<h3>cpg_GC_CG</h3>
 <p><img src="figure/1000G_two_positions_ALL.Rmd/unnamed-chunk-35-1.png" width="672" style="display: block; margin: auto;" /></p>
 <p>
 <button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-35-1">
@@ -3816,6 +4329,17 @@ Date
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+<a href="https://github.com/theandyb/LSCI/blob/c27dddb14f4ae794ba1e6422f7e19cc8c3bead99/docs/figure/1000G_two_positions_ALL.Rmd/unnamed-chunk-35-1.png" target="_blank">c27dddb</a>
+</td>
+<td>
+Andy Beck
+</td>
+<td>
+2022-05-05
+</td>
+</tr>
 <tr>
 <td>
 <a href="https://github.com/theandyb/LSCI/blob/fb68fdf5107911fddbd86e60528a5c9612f3488b/docs/figure/1000G_two_positions_ALL.Rmd/unnamed-chunk-35-1.png" target="_blank">fb68fdf</a>
@@ -3867,6 +4391,17 @@ Date
 <tbody>
 <tr>
 <td>
+<a href="https://github.com/theandyb/LSCI/blob/c27dddb14f4ae794ba1e6422f7e19cc8c3bead99/docs/figure/1000G_two_positions_ALL.Rmd/unnamed-chunk-35-2.png" target="_blank">c27dddb</a>
+</td>
+<td>
+Andy Beck
+</td>
+<td>
+2022-05-05
+</td>
+</tr>
+<tr>
+<td>
 <a href="https://github.com/theandyb/LSCI/blob/fb68fdf5107911fddbd86e60528a5c9612f3488b/docs/figure/1000G_two_positions_ALL.Rmd/unnamed-chunk-35-2.png" target="_blank">fb68fdf</a>
 </td>
 <td>
@@ -3879,129 +4414,6 @@ Andy Beck
 <tr>
 <td>
 <a href="https://github.com/theandyb/LSCI/blob/d206789c1741f96d849c980167670cda330a86fa/docs/figure/1000G_two_positions_ALL.Rmd/unnamed-chunk-35-2.png" target="_blank">d206789</a>
-</td>
-<td>
-Andy Beck
-</td>
-<td>
-2022-04-29
-</td>
-</tr>
-</tbody>
-</table>
-</div>
-</div>
-</div>
-<div id="cpg_gc_cg-2" class="section level3">
-<h3>cpg_GC_CG</h3>
-<p><img src="figure/1000G_two_positions_ALL.Rmd/unnamed-chunk-36-1.png" width="672" style="display: block; margin: auto;" /></p>
-<p>
-<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-36-1">
-Past versions of unnamed-chunk-36-1.png
-</button>
-</p>
-<div id="fig-unnamed-chunk-36-1" class="collapse">
-<div class="table-responsive">
-<table class="table table-condensed table-hover">
-<thead>
-<tr>
-<th>
-Version
-</th>
-<th>
-Author
-</th>
-<th>
-Date
-</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>
-<a href="https://github.com/theandyb/LSCI/blob/fb68fdf5107911fddbd86e60528a5c9612f3488b/docs/figure/1000G_two_positions_ALL.Rmd/unnamed-chunk-36-1.png" target="_blank">fb68fdf</a>
-</td>
-<td>
-Andy Beck
-</td>
-<td>
-2022-05-04
-</td>
-</tr>
-<tr>
-<td>
-<a href="https://github.com/theandyb/LSCI/blob/d206789c1741f96d849c980167670cda330a86fa/docs/figure/1000G_two_positions_ALL.Rmd/unnamed-chunk-36-1.png" target="_blank">d206789</a>
-</td>
-<td>
-Andy Beck
-</td>
-<td>
-2022-04-29
-</td>
-</tr>
-<tr>
-<td>
-<a href="https://github.com/theandyb/LSCI/blob/c33ff652181aef45b799411a45ed8917457b3dbf/docs/figure/1000G_two_positions_ALL.Rmd/unnamed-chunk-36-1.png" target="_blank">c33ff65</a>
-</td>
-<td>
-Andy Beck
-</td>
-<td>
-2022-04-28
-</td>
-</tr>
-<tr>
-<td>
-<a href="https://github.com/theandyb/LSCI/blob/8f1cb1a25f560e383d98dc8ab9180c403f2a90a5/docs/figure/1000G_two_positions_ALL.Rmd/unnamed-chunk-36-1.png" target="_blank">8f1cb1a</a>
-</td>
-<td>
-Andy Beck
-</td>
-<td>
-2022-04-21
-</td>
-</tr>
-</tbody>
-</table>
-</div>
-</div>
-<p><img src="figure/1000G_two_positions_ALL.Rmd/unnamed-chunk-36-2.png" width="672" style="display: block; margin: auto;" /></p>
-<p>
-<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-36-2">
-Past versions of unnamed-chunk-36-2.png
-</button>
-</p>
-<div id="fig-unnamed-chunk-36-2" class="collapse">
-<div class="table-responsive">
-<table class="table table-condensed table-hover">
-<thead>
-<tr>
-<th>
-Version
-</th>
-<th>
-Author
-</th>
-<th>
-Date
-</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>
-<a href="https://github.com/theandyb/LSCI/blob/fb68fdf5107911fddbd86e60528a5c9612f3488b/docs/figure/1000G_two_positions_ALL.Rmd/unnamed-chunk-36-2.png" target="_blank">fb68fdf</a>
-</td>
-<td>
-Andy Beck
-</td>
-<td>
-2022-05-04
-</td>
-</tr>
-<tr>
-<td>
-<a href="https://github.com/theandyb/LSCI/blob/d206789c1741f96d849c980167670cda330a86fa/docs/figure/1000G_two_positions_ALL.Rmd/unnamed-chunk-36-2.png" target="_blank">d206789</a>
 </td>
 <td>
 Andy Beck
@@ -4031,240 +4443,7 @@ straightforward in regards to assigning a sign and interpreting (i.e.,
 do we observe more XY in the singletons than expected? etc.)</p>
 <p>As an example let’s look at the residuals for the A&gt;G sub type at
 the -2, -1 positions:</p>
-<pre class="r"><code>get_residuals_re(&quot;AT_GC&quot;, &quot;ALL&quot;, -2, -1) %&gt;%
-  knitr::kable()</code></pre>
-<table>
-<colgroup>
-<col width="3%" />
-<col width="3%" />
-<col width="13%" />
-<col width="9%" />
-<col width="14%" />
-<col width="12%" />
-<col width="12%" />
-<col width="4%" />
-<col width="13%" />
-<col width="12%" />
-</colgroup>
-<thead>
-<tr class="header">
-<th align="left">p1</th>
-<th align="left">p2</th>
-<th align="left">status</th>
-<th align="right">n</th>
-<th align="right">res</th>
-<th align="right">fit</th>
-<th align="right">re.res</th>
-<th align="right">dir</th>
-<th align="right">s.res</th>
-<th align="right">prop.res</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td align="left">C</td>
-<td align="left">A</td>
-<td align="left">singletons</td>
-<td align="right">1504194</td>
-<td align="right">67046.22613</td>
-<td align="right">1208568.6</td>
-<td align="right">0.0024488</td>
-<td align="right">1</td>
-<td align="right">0.0024488</td>
-<td align="right">0.1732595</td>
-</tr>
-<tr class="even">
-<td align="left">C</td>
-<td align="left">C</td>
-<td align="left">singletons</td>
-<td align="right">1069119</td>
-<td align="right">65582.98838</td>
-<td align="right">1356210.8</td>
-<td align="right">0.0023954</td>
-<td align="right">-1</td>
-<td align="right">-0.0023954</td>
-<td align="right">0.1713584</td>
-</tr>
-<tr class="odd">
-<td align="left">A</td>
-<td align="left">C</td>
-<td align="left">singletons</td>
-<td align="right">1218930</td>
-<td align="right">26111.23668</td>
-<td align="right">1049122.1</td>
-<td align="right">0.0009537</td>
-<td align="right">1</td>
-<td align="right">0.0009537</td>
-<td align="right">0.1081244</td>
-</tr>
-<tr class="even">
-<td align="left">A</td>
-<td align="left">A</td>
-<td align="left">singletons</td>
-<td align="right">1246030</td>
-<td align="right">24974.74913</td>
-<td align="right">1430857.9</td>
-<td align="right">0.0009122</td>
-<td align="right">-1</td>
-<td align="right">-0.0009122</td>
-<td align="right">0.1057452</td>
-</tr>
-<tr class="odd">
-<td align="left">C</td>
-<td align="left">G</td>
-<td align="left">singletons</td>
-<td align="right">64649</td>
-<td align="right">21941.86679</td>
-<td align="right">109954.8</td>
-<td align="right">0.0008014</td>
-<td align="right">-1</td>
-<td align="right">-0.0008014</td>
-<td align="right">0.0991167</td>
-</tr>
-<tr class="even">
-<td align="left">T</td>
-<td align="left">C</td>
-<td align="left">singletons</td>
-<td align="right">925793</td>
-<td align="right">11624.76977</td>
-<td align="right">825890.5</td>
-<td align="right">0.0004246</td>
-<td align="right">1</td>
-<td align="right">0.0004246</td>
-<td align="right">0.0721443</td>
-</tr>
-<tr class="odd">
-<td align="left">G</td>
-<td align="left">A</td>
-<td align="left">singletons</td>
-<td align="right">633750</td>
-<td align="right">7982.57238</td>
-<td align="right">707561.7</td>
-<td align="right">0.0002916</td>
-<td align="right">-1</td>
-<td align="right">-0.0002916</td>
-<td align="right">0.0597835</td>
-</tr>
-<tr class="even">
-<td align="left">T</td>
-<td align="left">T</td>
-<td align="left">singletons</td>
-<td align="right">869379</td>
-<td align="right">4972.60515</td>
-<td align="right">936797.0</td>
-<td align="right">0.0001816</td>
-<td align="right">-1</td>
-<td align="right">-0.0001816</td>
-<td align="right">0.0471848</td>
-</tr>
-<tr class="odd">
-<td align="left">G</td>
-<td align="left">T</td>
-<td align="left">singletons</td>
-<td align="right">669774</td>
-<td align="right">4604.49110</td>
-<td align="right">615764.6</td>
-<td align="right">0.0001682</td>
-<td align="right">1</td>
-<td align="right">0.0001682</td>
-<td align="right">0.0454047</td>
-</tr>
-<tr class="even">
-<td align="left">T</td>
-<td align="left">A</td>
-<td align="left">singletons</td>
-<td align="right">611645</td>
-<td align="right">2150.24768</td>
-<td align="right">648630.8</td>
-<td align="right">0.0000785</td>
-<td align="right">-1</td>
-<td align="right">-0.0000785</td>
-<td align="right">0.0310280</td>
-</tr>
-<tr class="odd">
-<td align="left">A</td>
-<td align="left">G</td>
-<td align="left">singletons</td>
-<td align="right">819729</td>
-<td align="right">1855.45979</td>
-<td align="right">781345.3</td>
-<td align="right">0.0000678</td>
-<td align="right">1</td>
-<td align="right">0.0000678</td>
-<td align="right">0.0288228</td>
-</tr>
-<tr class="even">
-<td align="left">C</td>
-<td align="left">T</td>
-<td align="left">singletons</td>
-<td align="right">1163980</td>
-<td align="right">1186.76523</td>
-<td align="right">1127207.7</td>
-<td align="right">0.0000433</td>
-<td align="right">1</td>
-<td align="right">0.0000433</td>
-<td align="right">0.0230511</td>
-</tr>
-<tr class="odd">
-<td align="left">A</td>
-<td align="left">T</td>
-<td align="left">singletons</td>
-<td align="right">1110832</td>
-<td align="right">484.61429</td>
-<td align="right">1134195.7</td>
-<td align="right">0.0000177</td>
-<td align="right">-1</td>
-<td align="right">-0.0000177</td>
-<td align="right">0.0147302</td>
-</tr>
-<tr class="even">
-<td align="left">G</td>
-<td align="left">C</td>
-<td align="left">singletons</td>
-<td align="right">705354</td>
-<td align="right">435.48575</td>
-<td align="right">687972.5</td>
-<td align="right">0.0000159</td>
-<td align="right">1</td>
-<td align="right">0.0000159</td>
-<td align="right">0.0139636</td>
-</tr>
-<tr class="odd">
-<td align="left">T</td>
-<td align="left">G</td>
-<td align="left">singletons</td>
-<td align="right">567955</td>
-<td align="right">35.86432</td>
-<td align="right">563453.7</td>
-<td align="right">0.0000013</td>
-<td align="right">1</td>
-<td align="right">0.0000013</td>
-<td align="right">0.0040072</td>
-</tr>
-<tr class="even">
-<td align="left">G</td>
-<td align="left">G</td>
-<td align="left">singletons</td>
-<td align="right">508288</td>
-<td align="right">11.56687</td>
-<td align="right">505867.1</td>
-<td align="right">0.0000004</td>
-<td align="right">1</td>
-<td align="right">0.0000004</td>
-<td align="right">0.0022757</td>
-</tr>
-</tbody>
-</table>
-<p>Here we see that among the two position influences the biggest
-difference between the singleton and the control distributions was for
-the CA dinucleotide; this is the same as what Zhu et al (2017) observed
-at this position for this sub type. Let’s take a look at what happens if
-we summarize each pair of positions by the sum of the two re/deviance
-residuals instead of just ignoring the control residual.</p>
-<p>Here again we see that the top contribution for any dinucleotide pair
-is CT at the -2, -1 positions when we account for both the singleton and
-the control residuals:</p>
-<pre class="r"><code>get_residuals_re2(&quot;AT_GC&quot;, &quot;ALL&quot;, -2, -1) %&gt;%
+<pre class="r"><code>get_res_zhu(&quot;AT_GC&quot;, &quot;ALL&quot;, -2, -1) %&gt;%
   knitr::kable()</code></pre>
 <pre><code>`summarise()` has grouped output by &#39;p1&#39;. You can override using the `.groups`
 argument.</code></pre>
@@ -4281,103 +4460,285 @@ argument.</code></pre>
 <tr class="odd">
 <td align="left">C</td>
 <td align="left">A</td>
-<td align="right">0.0025912</td>
-<td align="right">0.2804169</td>
+<td align="right">0.0005268</td>
+<td align="right">0.2875227</td>
 </tr>
 <tr class="even">
 <td align="left">C</td>
 <td align="left">C</td>
-<td align="right">0.0025376</td>
-<td align="right">0.2746151</td>
+<td align="right">0.0005177</td>
+<td align="right">0.2825848</td>
 </tr>
 <tr class="odd">
 <td align="left">A</td>
 <td align="left">C</td>
-<td align="right">0.0009988</td>
-<td align="right">0.1080905</td>
+<td align="right">0.0001965</td>
+<td align="right">0.1072764</td>
 </tr>
 <tr class="even">
 <td align="left">A</td>
 <td align="left">A</td>
-<td align="right">0.0009431</td>
-<td align="right">0.1020622</td>
+<td align="right">0.0001778</td>
+<td align="right">0.0970437</td>
 </tr>
 <tr class="odd">
 <td align="left">C</td>
 <td align="left">G</td>
-<td align="right">0.0008316</td>
-<td align="right">0.0899985</td>
+<td align="right">0.0001588</td>
+<td align="right">0.0866483</td>
 </tr>
 <tr class="even">
 <td align="left">T</td>
 <td align="left">C</td>
-<td align="right">0.0004397</td>
-<td align="right">0.0475814</td>
+<td align="right">0.0000833</td>
+<td align="right">0.0454873</td>
 </tr>
 <tr class="odd">
 <td align="left">G</td>
 <td align="left">A</td>
-<td align="right">0.0003006</td>
-<td align="right">0.0325263</td>
+<td align="right">0.0000561</td>
+<td align="right">0.0306166</td>
 </tr>
 <tr class="even">
 <td align="left">T</td>
 <td align="left">T</td>
-<td align="right">0.0001882</td>
-<td align="right">0.0203663</td>
+<td align="right">0.0000357</td>
+<td align="right">0.0195116</td>
 </tr>
 <tr class="odd">
 <td align="left">G</td>
 <td align="left">T</td>
-<td align="right">0.0001758</td>
-<td align="right">0.0190270</td>
+<td align="right">0.0000344</td>
+<td align="right">0.0187751</td>
 </tr>
 <tr class="even">
 <td align="left">T</td>
 <td align="left">A</td>
-<td align="right">0.0000806</td>
-<td align="right">0.0087263</td>
+<td align="right">0.0000148</td>
+<td align="right">0.0080991</td>
 </tr>
 <tr class="odd">
 <td align="left">A</td>
 <td align="left">G</td>
-<td align="right">0.0000699</td>
-<td align="right">0.0075653</td>
+<td align="right">0.0000131</td>
+<td align="right">0.0071371</td>
 </tr>
 <tr class="even">
 <td align="left">C</td>
 <td align="left">T</td>
-<td align="right">0.0000465</td>
-<td align="right">0.0050332</td>
+<td align="right">0.0000099</td>
+<td align="right">0.0053819</td>
 </tr>
 <tr class="odd">
 <td align="left">A</td>
 <td align="left">T</td>
-<td align="right">0.0000186</td>
-<td align="right">0.0020080</td>
+<td align="right">0.0000037</td>
+<td align="right">0.0019991</td>
 </tr>
 <tr class="even">
 <td align="left">G</td>
 <td align="left">C</td>
-<td align="right">0.0000165</td>
-<td align="right">0.0017909</td>
+<td align="right">0.0000032</td>
+<td align="right">0.0017392</td>
 </tr>
 <tr class="odd">
 <td align="left">T</td>
 <td align="left">G</td>
-<td align="right">0.0000013</td>
-<td align="right">0.0001451</td>
+<td align="right">0.0000002</td>
+<td align="right">0.0001333</td>
 </tr>
 <tr class="even">
 <td align="left">G</td>
 <td align="left">G</td>
-<td align="right">0.0000004</td>
-<td align="right">0.0000470</td>
+<td align="right">0.0000001</td>
+<td align="right">0.0000438</td>
 </tr>
 </tbody>
 </table>
+<p>Here we see that among the two position influences the biggest
+difference between the singleton and the control distributions was for
+the CA dinucleotide; this is the same as what Zhu et al (2017) observed
+at this position for this sub type.</p>
 <p>Perhaps we’d like to visualize these results in a heatmap?</p>
-<pre class="r"><code>heatmap_signed_re_res(&quot;AT_GC&quot;, &quot;ALL&quot;, -2, -1)</code></pre>
+<pre class="r"><code>heatmap_zhu(&quot;AT_GC&quot;, &quot;ALL&quot;, -2, -1)</code></pre>
+<p><img src="figure/1000G_two_positions_ALL.Rmd/unnamed-chunk-37-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-37-1">
+Past versions of unnamed-chunk-37-1.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-37-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/theandyb/LSCI/blob/c27dddb14f4ae794ba1e6422f7e19cc8c3bead99/docs/figure/1000G_two_positions_ALL.Rmd/unnamed-chunk-37-1.png" target="_blank">c27dddb</a>
+</td>
+<td>
+Andy Beck
+</td>
+<td>
+2022-05-05
+</td>
+</tr>
+<tr>
+<td>
+<a href="https://github.com/theandyb/LSCI/blob/1da15c616e96474aef9400c6d54fd490fc401601/docs/figure/1000G_two_positions_ALL.Rmd/unnamed-chunk-37-1.png" target="_blank">1da15c6</a>
+</td>
+<td>
+Andy Beck
+</td>
+<td>
+2022-05-04
+</td>
+</tr>
+<tr>
+<td>
+<a href="https://github.com/theandyb/LSCI/blob/fb68fdf5107911fddbd86e60528a5c9612f3488b/docs/figure/1000G_two_positions_ALL.Rmd/unnamed-chunk-37-1.png" target="_blank">fb68fdf</a>
+</td>
+<td>
+Andy Beck
+</td>
+<td>
+2022-05-04
+</td>
+</tr>
+<tr>
+<td>
+<a href="https://github.com/theandyb/LSCI/blob/d206789c1741f96d849c980167670cda330a86fa/docs/figure/1000G_two_positions_ALL.Rmd/unnamed-chunk-37-1.png" target="_blank">d206789</a>
+</td>
+<td>
+Andy Beck
+</td>
+<td>
+2022-04-29
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+<div id="highest-re-for-each-subtype" class="section level2">
+<h2>Highest RE for each subtype</h2>
+<pre class="r"><code>final &lt;- data.frame(st = character(),
+                    p1 = numeric(),
+                    p2 = numeric(),
+                    statistic = numeric())
+
+for(st in c(&quot;AT_CG&quot;, &quot;AT_GC&quot;, &quot;AT_TA&quot;, &quot;GC_AT&quot;, &quot;GC_TA&quot;, &quot;GC_CG&quot;)){
+  df &lt;- stat_pair_all(&quot;ALL&quot;, st, zhu_pair_re) %&gt;%
+    arrange(desc(statistic))
+  p1 &lt;- df$p1[1]
+  p2 &lt;- df$p2[1]
+  statistic &lt;- df$statistic[1]
+  final &lt;- bind_rows(final,
+                     data.frame(st = st,
+                                p1 = p1,
+                                p2 = p2,
+                                statistic = statistic))
+}
+for(st in c(&quot;cpg_GC_AT&quot;, &quot;cpg_GC_TA&quot;, &quot;cpg_GC_CG&quot;)){
+  df &lt;- stat_pair_all(&quot;ALL&quot;, st, zhu_pair_re, r_start = 2) %&gt;%
+    arrange(desc(statistic))
+  p1 &lt;- df$p1[1]
+  p2 &lt;- df$p2[1]
+  statistic &lt;- df$statistic[1]
+  final &lt;- bind_rows(final,
+                     data.frame(st = st,
+                                p1 = p1,
+                                p2 = p2,
+                                statistic = statistic))
+}
+
+final %&gt;% knitr::kable()</code></pre>
+<table>
+<thead>
+<tr class="header">
+<th align="left">st</th>
+<th align="right">p1</th>
+<th align="right">p2</th>
+<th align="right">statistic</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">AT_CG</td>
+<td align="right">1</td>
+<td align="right">2</td>
+<td align="right">0.0008010</td>
+</tr>
+<tr class="even">
+<td align="left">AT_GC</td>
+<td align="right">-2</td>
+<td align="right">-1</td>
+<td align="right">0.0018322</td>
+</tr>
+<tr class="odd">
+<td align="left">AT_TA</td>
+<td align="right">-1</td>
+<td align="right">1</td>
+<td align="right">0.0018556</td>
+</tr>
+<tr class="even">
+<td align="left">GC_AT</td>
+<td align="right">-2</td>
+<td align="right">-1</td>
+<td align="right">0.0003280</td>
+</tr>
+<tr class="odd">
+<td align="left">GC_TA</td>
+<td align="right">-1</td>
+<td align="right">1</td>
+<td align="right">0.0019461</td>
+</tr>
+<tr class="even">
+<td align="left">GC_CG</td>
+<td align="right">1</td>
+<td align="right">2</td>
+<td align="right">0.0012256</td>
+</tr>
+<tr class="odd">
+<td align="left">cpg_GC_AT</td>
+<td align="right">3</td>
+<td align="right">4</td>
+<td align="right">0.0000511</td>
+</tr>
+<tr class="even">
+<td align="left">cpg_GC_TA</td>
+<td align="right">-2</td>
+<td align="right">-1</td>
+<td align="right">0.0018587</td>
+</tr>
+<tr class="odd">
+<td align="left">cpg_GC_CG</td>
+<td align="right">-2</td>
+<td align="right">-1</td>
+<td align="right">0.0012156</td>
+</tr>
+</tbody>
+</table>
+<div id="plot-nucleotide-residuals-at-highest-statistic"
+class="section level3">
+<h3>Plot nucleotide residuals at highest statistic</h3>
+<pre class="r"><code>for(i in 1:length(final$st)){
+  p &lt;- heatmap_zhu(final$st[i], &quot;ALL&quot;, final$p1[i], final$p2[i])
+  print(p)
+}</code></pre>
 <p><img src="figure/1000G_two_positions_ALL.Rmd/unnamed-chunk-39-1.png" width="672" style="display: block; margin: auto;" /></p>
 <p>
 <button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-39-1">
@@ -4401,6 +4762,17 @@ Date
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+<a href="https://github.com/theandyb/LSCI/blob/c27dddb14f4ae794ba1e6422f7e19cc8c3bead99/docs/figure/1000G_two_positions_ALL.Rmd/unnamed-chunk-39-1.png" target="_blank">c27dddb</a>
+</td>
+<td>
+Andy Beck
+</td>
+<td>
+2022-05-05
+</td>
+</tr>
 <tr>
 <td>
 <a href="https://github.com/theandyb/LSCI/blob/1da15c616e96474aef9400c6d54fd490fc401601/docs/figure/1000G_two_positions_ALL.Rmd/unnamed-chunk-39-1.png" target="_blank">1da15c6</a>
@@ -4438,32 +4810,13 @@ Andy Beck
 </table>
 </div>
 </div>
-</div>
-<div id="alternative-di-nucleotide-residuals" class="section level2">
-<h2>Alternative Di-nucleotide Residuals</h2>
-<div id="re-contribution-control-intercept-estimation"
-class="section level3">
-<h3>RE Contribution (Control Intercept Estimation)</h3>
-<p>In the analysis above where we used the control samples to estimate
-the interaction and then adjusted marginal products using this
-interaction, we computed the relative entropy between our observed
-singleton distribution and the expectation under marginal independence
-adjusted by control interaction as our measure of influence. This
-statistic is the sum of expected logarithmic differences for each cell
-in the 4x4 table, and we will look at these individual values to assess
-at each pair of positions which di-nucleotides were either over or
-under-represented. We can also look at values for individual nucleotides
-at one position summed over the nucleotides at the other position (not
-sure how this would be interpreted, to be honest).</p>
-<p>So, again returning to the example of -2, -1 in AT_GC:</p>
-<pre class="r"><code>plot_control_mult_res(&quot;ALL&quot;, &quot;AT_GC&quot;, -2, -1)</code></pre>
-<p><img src="figure/1000G_two_positions_ALL.Rmd/unnamed-chunk-40-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p><img src="figure/1000G_two_positions_ALL.Rmd/unnamed-chunk-39-2.png" width="672" style="display: block; margin: auto;" /></p>
 <p>
-<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-40-1">
-Past versions of unnamed-chunk-40-1.png
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-39-2">
+Past versions of unnamed-chunk-39-2.png
 </button>
 </p>
-<div id="fig-unnamed-chunk-40-1" class="collapse">
+<div id="fig-unnamed-chunk-39-2" class="collapse">
 <div class="table-responsive">
 <table class="table table-condensed table-hover">
 <thead>
@@ -4482,7 +4835,18 @@ Date
 <tbody>
 <tr>
 <td>
-<a href="https://github.com/theandyb/LSCI/blob/fb68fdf5107911fddbd86e60528a5c9612f3488b/docs/figure/1000G_two_positions_ALL.Rmd/unnamed-chunk-40-1.png" target="_blank">fb68fdf</a>
+<a href="https://github.com/theandyb/LSCI/blob/c27dddb14f4ae794ba1e6422f7e19cc8c3bead99/docs/figure/1000G_two_positions_ALL.Rmd/unnamed-chunk-39-2.png" target="_blank">c27dddb</a>
+</td>
+<td>
+Andy Beck
+</td>
+<td>
+2022-05-05
+</td>
+</tr>
+<tr>
+<td>
+<a href="https://github.com/theandyb/LSCI/blob/1da15c616e96474aef9400c6d54fd490fc401601/docs/figure/1000G_two_positions_ALL.Rmd/unnamed-chunk-39-2.png" target="_blank">1da15c6</a>
 </td>
 <td>
 Andy Beck
@@ -4493,7 +4857,18 @@ Andy Beck
 </tr>
 <tr>
 <td>
-<a href="https://github.com/theandyb/LSCI/blob/d206789c1741f96d849c980167670cda330a86fa/docs/figure/1000G_two_positions_ALL.Rmd/unnamed-chunk-40-1.png" target="_blank">d206789</a>
+<a href="https://github.com/theandyb/LSCI/blob/fb68fdf5107911fddbd86e60528a5c9612f3488b/docs/figure/1000G_two_positions_ALL.Rmd/unnamed-chunk-39-2.png" target="_blank">fb68fdf</a>
+</td>
+<td>
+Andy Beck
+</td>
+<td>
+2022-05-04
+</td>
+</tr>
+<tr>
+<td>
+<a href="https://github.com/theandyb/LSCI/blob/d206789c1741f96d849c980167670cda330a86fa/docs/figure/1000G_two_positions_ALL.Rmd/unnamed-chunk-39-2.png" target="_blank">d206789</a>
 </td>
 <td>
 Andy Beck
@@ -4506,6 +4881,7 @@ Andy Beck
 </table>
 </div>
 </div>
+<p><img src="figure/1000G_two_positions_ALL.Rmd/unnamed-chunk-39-3.png" width="672" style="display: block; margin: auto;" /><img src="figure/1000G_two_positions_ALL.Rmd/unnamed-chunk-39-4.png" width="672" style="display: block; margin: auto;" /><img src="figure/1000G_two_positions_ALL.Rmd/unnamed-chunk-39-5.png" width="672" style="display: block; margin: auto;" /><img src="figure/1000G_two_positions_ALL.Rmd/unnamed-chunk-39-6.png" width="672" style="display: block; margin: auto;" /><img src="figure/1000G_two_positions_ALL.Rmd/unnamed-chunk-39-7.png" width="672" style="display: block; margin: auto;" /><img src="figure/1000G_two_positions_ALL.Rmd/unnamed-chunk-39-8.png" width="672" style="display: block; margin: auto;" /><img src="figure/1000G_two_positions_ALL.Rmd/unnamed-chunk-39-9.png" width="672" style="display: block; margin: auto;" /></p>
 <br>
 <p>
 <button type="button" class="btn btn-default btn-workflowr btn-workflowr-sessioninfo" data-toggle="collapse" data-target="#workflowr-sessioninfo" style="display: block;">
@@ -4536,30 +4912,30 @@ attached base packages:
 
 other attached packages:
  [1] tikzDevice_0.12.3.1 forcats_0.5.1       stringr_1.4.0      
- [4] dplyr_1.0.8         purrr_0.3.4         readr_2.1.2        
- [7] tidyr_1.2.0         tibble_3.1.6        ggplot2_3.3.5      
+ [4] dplyr_1.0.9         purrr_0.3.4         readr_2.1.2        
+ [7] tidyr_1.2.0         tibble_3.1.7        ggplot2_3.3.6      
 [10] tidyverse_1.3.1     workflowr_1.7.0    
 
 loaded via a namespace (and not attached):
- [1] httr_1.4.2         sass_0.4.0         bit64_4.0.5        vroom_1.5.7       
- [5] jsonlite_1.7.3     modelr_0.1.8       bslib_0.3.1        assertthat_0.2.1  
- [9] getPass_0.2-2      highr_0.9          cellranger_1.1.0   yaml_2.2.2        
-[13] pillar_1.7.0       backports_1.4.1    glue_1.6.1         digest_0.6.29     
-[17] RColorBrewer_1.1-2 promises_1.2.0.1   rvest_1.0.2        colorspace_2.0-2  
+ [1] httr_1.4.3         sass_0.4.1         bit64_4.0.5        vroom_1.5.7       
+ [5] jsonlite_1.8.0     modelr_0.1.8       bslib_0.3.1        assertthat_0.2.1  
+ [9] getPass_0.2-2      highr_0.9          cellranger_1.1.0   yaml_2.3.5        
+[13] pillar_1.7.0       backports_1.4.1    glue_1.6.2         digest_0.6.29     
+[17] RColorBrewer_1.1-3 promises_1.2.0.1   rvest_1.0.2        colorspace_2.0-3  
 [21] htmltools_0.5.2    httpuv_1.6.5       pkgconfig_2.0.3    broom_0.8.0       
-[25] haven_2.4.3        scales_1.1.1       processx_3.5.2     whisker_0.4       
-[29] later_1.3.0        tzdb_0.2.0         git2r_0.29.0       generics_0.1.2    
-[33] farver_2.1.0       ellipsis_0.3.2     withr_2.4.3        cli_3.1.1         
-[37] magrittr_2.0.2     crayon_1.4.2       readxl_1.3.1       evaluate_0.14     
-[41] ps_1.6.0           fs_1.5.2           fansi_1.0.2        xml2_1.3.3        
+[25] haven_2.5.0        scales_1.2.0       processx_3.5.3     whisker_0.4       
+[29] later_1.3.0        tzdb_0.3.0         git2r_0.30.1       generics_0.1.2    
+[33] farver_2.1.0       ellipsis_0.3.2     withr_2.5.0        cli_3.3.0         
+[37] magrittr_2.0.3     crayon_1.5.1       readxl_1.4.0       evaluate_0.15     
+[41] ps_1.7.0           fs_1.5.2           fansi_1.0.3        xml2_1.3.3        
 [45] tools_4.2.0        hms_1.1.1          lifecycle_1.0.1    munsell_0.5.0     
 [49] reprex_2.0.1       callr_3.7.0        compiler_4.2.0     jquerylib_0.1.4   
-[53] rlang_1.0.1        grid_4.2.0         rstudioapi_0.13    filehash_2.4-2    
-[57] labeling_0.4.2     rmarkdown_2.11     gtable_0.3.0       DBI_1.1.2         
-[61] R6_2.5.1           lubridate_1.8.0    knitr_1.37         fastmap_1.1.0     
-[65] bit_4.0.4          utf8_1.2.2         rprojroot_2.0.2    stringi_1.7.6     
-[69] parallel_4.2.0     Rcpp_1.0.8         vctrs_0.3.8        dbplyr_2.1.1      
-[73] tidyselect_1.1.1   xfun_0.29         </code></pre>
+[53] rlang_1.0.2        grid_4.2.0         rstudioapi_0.13    filehash_2.4-3    
+[57] labeling_0.4.2     rmarkdown_2.14     gtable_0.3.0       DBI_1.1.2         
+[61] R6_2.5.1           lubridate_1.8.0    knitr_1.39         fastmap_1.1.0     
+[65] bit_4.0.4          utf8_1.2.2         rprojroot_2.0.3    stringi_1.7.6     
+[69] parallel_4.2.0     Rcpp_1.0.8.3       vctrs_0.4.1        dbplyr_2.1.1      
+[73] tidyselect_1.1.2   xfun_0.31         </code></pre>
 </div>
 </div>
 </div>
