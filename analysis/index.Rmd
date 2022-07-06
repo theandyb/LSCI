@@ -12,7 +12,7 @@ editor_options:
 
 ## Introduction
 
-The germline mutation rate is not uniform across the genome, and this variation is known to be associated with genomic and epigenomic features such as h3k27me3, replication timing, recombination rate, and local gc-content, among others. Here in this project we focus on evaluating the role of local sequence context on rates of substitution. In particular, we are interested in answering questions such as:
+The germ line mutation rate is not uniform across the genome, and this variation is known to be associated with genomic and epigenomic features such as h3k27me3, replication timing, recombination rate, and local gc-content, among others. Here in this project we focus on evaluating the role of local sequence context on rates of substitution. In particular, we are interested in answering questions such as:
 
 1. How far from a site of interest do nucleotides at individual positions influence the rate of substitution?
 2. To what extent do pairs of flanking positions interact in determining their influence on the rate of substitution, and how does this vary as the distance between the sites and the distance from the focal site increases?
@@ -32,7 +32,7 @@ To address these questions, we characterize the distributions of nucleotides fla
 * [Summary Statistics](1000G_summary_stats.html)
 * [Single Position Model Results for All Singletons](1000G_single_position_ALL.html)
 * [Two Position Model Results for All Singletons](1000G_two_positions_ALL.html)
-* [Cross-population Comparisons: Single Position Models](1000G_single_postion_comp.html)
+* [Cross-population Comparisons: Single Position Models](1000G_single_position_comp.html)
 * [Cross-population Comparisons: Two Position Models](1000G_two_postions_comp.html)
 
 ## Paper Related Documents
