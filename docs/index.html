@@ -13,7 +13,7 @@
 
 <title>Home</title>
 
-<script src="site_libs/header-attrs-2.11/header-attrs.js"></script>
+<script src="site_libs/header-attrs-2.14/header-attrs.js"></script>
 <script src="site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <link href="site_libs/bootstrap-3.3.5/css/flatly.min.css" rel="stylesheet" />
@@ -35,7 +35,7 @@
 <link href="site_libs/font-awesome-5.1.0/css/all.css" rel="stylesheet" />
 <link href="site_libs/font-awesome-5.1.0/css/v4-shims.css" rel="stylesheet" />
 
-<link rel="icon" href="https://github.com/workflowr/workflowr-assets/raw/master/img/reproducible.png">
+<link rel="icon" href="https://github.com/workflowr/workflowr-assets/raw/main/img/reproducible.png">
 <!-- Add a small amount of space between sections. -->
 <style type="text/css">
 div.section {
@@ -72,6 +72,7 @@ if (window.hljs) {
 
 
 
+
 <style type = "text/css">
 .main-container {
   max-width: 940px;
@@ -92,6 +93,9 @@ button.code-folding-btn:focus {
 }
 summary {
   display: list-item;
+}
+details > summary > p:only-child {
+  display: inline;
 }
 pre code {
   padding: 0;
@@ -244,7 +248,7 @@ $(document).ready(function () {
 <div class="navbar navbar-default  navbar-fixed-top" role="navigation">
   <div class="container">
     <div class="navbar-header">
-      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-bs-toggle="collapse" data-target="#navbar" data-bs-target="#navbar">
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
@@ -281,7 +285,9 @@ $(document).ready(function () {
 
 <p>
 <button type="button" class="btn btn-default btn-workflowr btn-workflowr-report" data-toggle="collapse" data-target="#workflowr-report">
-<span class="glyphicon glyphicon-list" aria-hidden="true"></span> workflowr <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span>
+<span class="glyphicon glyphicon-list" aria-hidden="true"></span>
+workflowr <span class="glyphicon glyphicon-ok text-success"
+aria-hidden="true"></span>
 </button>
 </p>
 <div id="workflowr-report" class="collapse">
@@ -290,7 +296,9 @@ $(document).ready(function () {
 <a data-toggle="tab" href="#summary">Summary</a>
 </li>
 <li>
-<a data-toggle="tab" href="#checks"> Checks <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> </a>
+<a data-toggle="tab" href="#checks"> Checks <span
+class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span>
+</a>
 </li>
 <li>
 <a data-toggle="tab" href="#versions">Past versions</a>
@@ -299,17 +307,27 @@ $(document).ready(function () {
 <div class="tab-content">
 <div id="summary" class="tab-pane fade in active">
 <p>
-<strong>Last updated:</strong> 2021-11-10
+<strong>Last updated:</strong> 2022-07-06
 </p>
 <p>
-<strong>Checks:</strong> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> 2 <span class="glyphicon glyphicon-exclamation-sign text-danger" aria-hidden="true"></span> 0
+<strong>Checks:</strong> <span
+class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> 2
+<span class="glyphicon glyphicon-exclamation-sign text-danger"
+aria-hidden="true"></span> 0
 </p>
 <p>
-<strong>Knit directory:</strong> <code>LSCI/</code> <span class="glyphicon glyphicon-question-sign" aria-hidden="true" title="This is the local directory in which the code in this file was executed."> </span>
+<strong>Knit directory:</strong> <code>LSCI/</code> <span
+class="glyphicon glyphicon-question-sign" aria-hidden="true"
+title="This is the local directory in which the code in this file was executed.">
+</span>
 </p>
 <p>
-This reproducible <a href="http://rmarkdown.rstudio.com">R Markdown</a> analysis was created with <a
-  href="https://github.com/jdblischak/workflowr">workflowr</a> (version 1.6.2). The <em>Checks</em> tab describes the reproducibility checks that were applied when the results were created. The <em>Past versions</em> tab lists the development history.
+This reproducible <a href="https://rmarkdown.rstudio.com">R Markdown</a>
+analysis was created with <a
+  href="https://github.com/workflowr/workflowr">workflowr</a> (version
+1.7.0). The <em>Checks</em> tab describes the reproducibility checks
+that were applied when the results were created. The <em>Past
+versions</em> tab lists the development history.
 </p>
 <hr>
 </div>
@@ -318,45 +336,77 @@ This reproducible <a href="http://rmarkdown.rstudio.com">R Markdown</a> analysis
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRMarkdownfilestronguptodate"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>R Markdown file:</strong> up-to-date </a>
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRMarkdownfilestronguptodate">
+<span class="glyphicon glyphicon-ok text-success"
+aria-hidden="true"></span> <strong>R Markdown file:</strong> up-to-date
+</a>
 </p>
 </div>
-<div id="strongRMarkdownfilestronguptodate" class="panel-collapse collapse">
+<div id="strongRMarkdownfilestronguptodate"
+class="panel-collapse collapse">
 <div class="panel-body">
-<p>Great! Since the R Markdown file has been committed to the Git repository, you know the exact version of the code that produced these results.</p>
+<p>Great! Since the R Markdown file has been committed to the Git
+repository, you know the exact version of the code that produced these
+results.</p>
 </div>
 </div>
 </div>
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomtheandybLSCItreebd9071be6b08ad2d2779be196946bdce5c20cb0etargetblankbd9071ba"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/theandyb/LSCI/tree/bd9071be6b08ad2d2779be196946bdce5c20cb0e" target="_blank">bd9071b</a> </a>
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomtheandybLSCItree22d9ea1ebbfef3b482a4348c886e31a8264ac374targetblank22d9ea1a">
+<span class="glyphicon glyphicon-ok text-success"
+aria-hidden="true"></span> <strong>Repository version:</strong>
+<a href="https://github.com/theandyb/LSCI/tree/22d9ea1ebbfef3b482a4348c886e31a8264ac374" target="_blank">22d9ea1</a>
+</a>
 </p>
 </div>
-<div id="strongRepositoryversionstrongahrefhttpsgithubcomtheandybLSCItreebd9071be6b08ad2d2779be196946bdce5c20cb0etargetblankbd9071ba" class="panel-collapse collapse">
+<div
+id="strongRepositoryversionstrongahrefhttpsgithubcomtheandybLSCItree22d9ea1ebbfef3b482a4348c886e31a8264ac374targetblank22d9ea1a"
+class="panel-collapse collapse">
 <div class="panel-body">
 <p>
-Great! You are using Git for version control. Tracking code development and connecting the code version to the results is critical for reproducibility.
+Great! You are using Git for version control. Tracking code development
+and connecting the code version to the results is critical for
+reproducibility.
 </p>
 <p>
-The results in this page were generated with repository version <a href="https://github.com/theandyb/LSCI/tree/bd9071be6b08ad2d2779be196946bdce5c20cb0e" target="_blank">bd9071b</a>. See the <em>Past versions</em> tab to see a history of the changes made to the R Markdown and HTML files.
+The results in this page were generated with repository version
+<a href="https://github.com/theandyb/LSCI/tree/22d9ea1ebbfef3b482a4348c886e31a8264ac374" target="_blank">22d9ea1</a>.
+See the <em>Past versions</em> tab to see a history of the changes made
+to the R Markdown and HTML files.
 </p>
 <p>
-Note that you need to be careful to ensure that all relevant files for the analysis have been committed to Git prior to generating the results (you can use <code>wflow_publish</code> or <code>wflow_git_commit</code>). workflowr only checks the R Markdown file, but you know if there are other scripts or data files that it depends on. Below is the status of the Git repository when the results were generated:
+Note that you need to be careful to ensure that all relevant files for
+the analysis have been committed to Git prior to generating the results
+(you can use <code>wflow_publish</code> or
+<code>wflow_git_commit</code>). workflowr only checks the R Markdown
+file, but you know if there are other scripts or data files that it
+depends on. Below is the status of the Git repository when the results
+were generated:
 </p>
 <pre><code>
 Ignored files:
     Ignored:    .Rhistory
     Ignored:    .Rproj.user/
-    Ignored:    analysis/1000G_single_postion_comp_cache/
     Ignored:    analysis/disqus.html
+    Ignored:    code/random/
+
+Untracked files:
+    Untracked:  1000G_single_position_ALL-tikzDictionary
+    Untracked:  code/two_pos_functions.R
+    Untracked:  output/tikz/
 
 Unstaged changes:
-    Modified:   analysis/outline.Rmd
+    Modified:   analysis/1000G_two_positions_comp.Rmd
+    Deleted:    analysis/1000G_two_postions_comp.Rmd
+    Modified:   analysis/BRIDGES_two_positions.Rmd
 
 </code></pre>
 <p>
-Note that any generated files, e.g. HTML, png, CSS, etc., are not included in this status report because it is ok for generated content to have uncommitted changes.
+Note that any generated files, e.g. HTML, png, CSS, etc., are not
+included in this status report because it is ok for generated content to
+have uncommitted changes.
 </p>
 </div>
 </div>
@@ -367,7 +417,11 @@ Note that any generated files, e.g. HTML, png, CSS, etc., are not included in t
 <div id="versions" class="tab-pane fade">
 
 <p>
-These are the previous versions of the repository in which changes were made to the R Markdown (<code>analysis/index.Rmd</code>) and HTML (<code>docs/index.html</code>) files. If you’ve configured a remote Git repository (see <code>?wflow_git_remote</code>), click on the hyperlinks in the table below to view the files as they were in that past version.
+These are the previous versions of the repository in which changes were
+made to the R Markdown (<code>analysis/index.Rmd</code>) and HTML
+(<code>docs/index.html</code>) files. If you’ve configured a remote Git
+repository (see <code>?wflow_git_remote</code>), click on the hyperlinks
+in the table below to view the files as they were in that past version.
 </p>
 <div class="table-responsive">
 <table class="table table-condensed table-hover">
@@ -391,6 +445,40 @@ Message
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+Rmd
+</td>
+<td>
+<a href="https://github.com/theandyb/LSCI/blob/22d9ea1ebbfef3b482a4348c886e31a8264ac374/analysis/index.Rmd" target="_blank">22d9ea1</a>
+</td>
+<td>
+Andy Beck
+</td>
+<td>
+2022-07-06
+</td>
+<td>
+fix link to 1000G two pos comp
+</td>
+</tr>
+<tr>
+<td>
+html
+</td>
+<td>
+<a href="https://rawcdn.githack.com/theandyb/LSCI/bf9808e6d012d8dc20725edcdf314db624817a5c/docs/index.html" target="_blank">bf9808e</a>
+</td>
+<td>
+Andy Beck
+</td>
+<td>
+2021-11-10
+</td>
+<td>
+Build site.
+</td>
+</tr>
 <tr>
 <td>
 Rmd
@@ -721,34 +809,57 @@ Start workflowr project.
 </div>
 </div>
 </div>
-<div id="local-sequence-context-influence-on-the-rate-of-substitution" class="section level1">
+<div id="local-sequence-context-influence-on-the-rate-of-substitution"
+class="section level1">
 <h1>Local Sequence Context Influence on the Rate of Substitution</h1>
 <div id="introduction" class="section level2">
 <h2>Introduction</h2>
-<p>The germline mutation rate is not uniform across the genome, and this variation is known to be associated with genomic and epigenomic features such as h3k27me3, replication timing, recombination rate, and local gc-content, among others. Here in this project we focus on evaluating the role of local sequence context on rates of substitution. In particular, we are interested in answering questions such as:</p>
+<p>The germ line mutation rate is not uniform across the genome, and
+this variation is known to be associated with genomic and epigenomic
+features such as h3k27me3, replication timing, recombination rate, and
+local gc-content, among others. Here in this project we focus on
+evaluating the role of local sequence context on rates of substitution.
+In particular, we are interested in answering questions such as:</p>
 <ol style="list-style-type: decimal">
-<li>How far from a site of interest do nucleotides at individual positions influence the rate of substitution?</li>
-<li>To what extent do pairs of flanking positions interact in determining their influence on the rate of substitution, and how does this vary as the distance between the sites and the distance from the focal site increases?</li>
-<li>Are patterns of mutation-rate variation shared between global population groups?</li>
+<li>How far from a site of interest do nucleotides at individual
+positions influence the rate of substitution?</li>
+<li>To what extent do pairs of flanking positions interact in
+determining their influence on the rate of substitution, and how does
+this vary as the distance between the sites and the distance from the
+focal site increases?</li>
+<li>Are patterns of mutation-rate variation shared between global
+population groups?</li>
 </ol>
-<p>To address these questions, we characterize the distributions of nucleotides flanking singletons observed in two data sets: the BRIDGES consortium gwas (n = ???) and the 1000G Deep Sequence data (n = 2,504). We use singletons as they are newer variants and provide a rich source of information to characterize mutation processes active in modern human populations. Our analyses are described in more detail in the documents linked to below.</p>
+<p>To address these questions, we characterize the distributions of
+nucleotides flanking singletons observed in two data sets: the BRIDGES
+consortium gwas (n = ???) and the 1000G Deep Sequence data (n = 2,504).
+We use singletons as they are newer variants and provide a rich source
+of information to characterize mutation processes active in modern human
+populations. Our analyses are described in more detail in the documents
+linked to below.</p>
 </div>
 <div id="bridges-analyses" class="section level2">
 <h2>BRIDGES Analyses</h2>
 <ul>
 <li><a href="BRIDGES_summary_stats.html">Summary Statistics</a></li>
-<li><a href="BRIDGES_single_position.html">Single Position Model Results</a></li>
-<li><a href="BRIDGES_two_positions.html">Two Position Model Results</a></li>
+<li><a href="BRIDGES_single_position.html">Single Position Model
+Results</a></li>
+<li><a href="BRIDGES_two_positions.html">Two Position Model
+Results</a></li>
 </ul>
 </div>
 <div id="g-analyses" class="section level2">
 <h2>1000G Analyses</h2>
 <ul>
 <li><a href="1000G_summary_stats.html">Summary Statistics</a></li>
-<li><a href="1000G_single_position_ALL.html">Single Position Model Results for All Singletons</a></li>
-<li><a href="1000G_two_positions_ALL.html">Two Position Model Results for All Singletons</a></li>
-<li><a href="1000G_single_postion_comp.html">Cross-population Comparisons: Single Position Models</a></li>
-<li><a href="1000G_two_postions_comp.html">Cross-population Comparisons: Two Position Models</a></li>
+<li><a href="1000G_single_position_ALL.html">Single Position Model
+Results for All Singletons</a></li>
+<li><a href="1000G_two_positions_ALL.html">Two Position Model Results
+for All Singletons</a></li>
+<li><a href="1000G_single_position_comp.html">Cross-population
+Comparisons: Single Position Models</a></li>
+<li><a href="1000G_two_postions_comp.html">Cross-population Comparisons:
+Two Position Models</a></li>
 </ul>
 </div>
 <div id="paper-related-documents" class="section level2">
@@ -761,7 +872,8 @@ Start workflowr project.
 <h2>Miscellaneous</h2>
 <ul>
 <li><a href="quality_control.html">Quality Control</a></li>
-<li><a href="gw_chisq_ind.html">Genome-wide Counts 2-way Contingency Tables - Test of Independence</a></li>
+<li><a href="gw_chisq_ind.html">Genome-wide Counts 2-way Contingency
+Tables - Test of Independence</a></li>
 </ul>
 </div>
 </div>
@@ -781,7 +893,7 @@ s.setAttribute('data-timestamp', +new Date());
 
 <!-- Adjust MathJax settings so that all math formulae are shown using
 TeX fonts only; see
-http://docs.mathjax.org/en/latest/configuration.html.  This will make
+https://docs.mathjax.org/en/latest/web/configuration.html. This will make
 the presentation more consistent at the cost of the webpage sometimes
 taking slightly longer to load. Note that this only works because the
 footer is added to webpages before the MathJax javascript. -->
