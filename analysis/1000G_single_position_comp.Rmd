@@ -141,10 +141,9 @@ corr_analysis <- function(subtype, r_start = 1, stat_col = "s_re"){
     group_by(rp) %>%
     summarize(across(AFR:SAS, ~sum(abs(.))))
   
-  df_pos %>%
+  cor_obj <- df_pos %>%
     select(-rp) %>%
-    correlate(quiet = TRUE) %>%
-    knitr::kable()
+    correlate(quiet = TRUE)
   
   df_cor <- df_wide %>%
     group_by(rp) %>%
@@ -164,7 +163,7 @@ corr_analysis <- function(subtype, r_start = 1, stat_col = "s_re"){
     xlab("Relative Position") +
     ylab("Nucleotide Contribution Correlation") +
     labs(colour = "Population")
-  print(p)
+  return(list(p = p, cor_obj = cor_obj))
 }
 ```
 
@@ -173,7 +172,10 @@ corr_analysis <- function(subtype, r_start = 1, stat_col = "s_re"){
 
 ```{r}
 subtype <- "AT_GC"
-corr_analysis(subtype)
+res <- corr_analysis(subtype)
+res$p
+res$cor_obj %>%
+  knitr::kable()
 ```
 
 
@@ -181,49 +183,70 @@ corr_analysis(subtype)
 
 ```{r}
 subtype <- "AT_TA"
-corr_analysis(subtype)
+res <- corr_analysis(subtype)
+res$p
+res$cor_obj %>%
+  knitr::kable()
 ```
 
 ### GC_AT
 
 ```{r}
 subtype <- "GC_AT"
-corr_analysis(subtype)
+res <- corr_analysis(subtype)
+res$p
+res$cor_obj %>%
+  knitr::kable()
 ```
 
 ### cpg_GC_AT
 
 ```{r}
 subtype <- "cpg_GC_AT"
-corr_analysis(subtype, r_start = 2)
+res <- corr_analysis(subtype, r_start = 2)
+res$p
+res$cor_obj %>%
+  knitr::kable()
 ```
 
 ### GC_CG
 
 ```{r}
 subtype <- "GC_CG"
-corr_analysis(subtype)
+res <- corr_analysis(subtype)
+res$p
+res$cor_obj %>%
+  knitr::kable()
 ```
 
 ### cpg_GC_CG
 
 ```{r}
 subtype <- "cpg_GC_CG"
-corr_analysis(subtype, r_start = 2)
+res <- corr_analysis(subtype, r_start = 2)
+res$p
+res$cor_obj %>%
+  knitr::kable()
 ```
 
 ### GC_TA
 
 ```{r}
 subtype <- "GC_TA"
-corr_analysis(subtype)
+res <- corr_analysis(subtype)
+res$p
+res$cor_obj %>%
+  knitr::kable()
 ```
 
 ### cpg_GC_TA
 
 ```{r}
 subtype <- "cpg_GC_TA"
-corr_analysis(subtype, r_start = 2)
+res <- corr_analysis(subtype, r_start = 2)
+res$p
+res$cor_obj %>%
+  knitr::kable()
 ```
 
 ## Chi Square Approach
