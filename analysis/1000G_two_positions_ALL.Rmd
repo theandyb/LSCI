@@ -248,7 +248,7 @@ The above analyses told us that, in general, the joint distribution of the cell 
 ### AT_CG
 
 ```{r echo=FALSE}
-deviance_plot("ALL", "AT_CG")
+#deviance_plot("ALL", "AT_CG")
 
 zhu_re_plot("ALL", "AT_CG")
 ```
@@ -256,7 +256,7 @@ zhu_re_plot("ALL", "AT_CG")
 ### AT_GC
 
 ```{r echo=FALSE}
-deviance_plot("ALL", "AT_GC")
+#deviance_plot("ALL", "AT_GC")
 
 zhu_re_plot("ALL", "AT_GC")
 ```
@@ -264,7 +264,7 @@ zhu_re_plot("ALL", "AT_GC")
 ### AT_TA
 
 ```{r echo=FALSE}
-deviance_plot("ALL", "AT_TA")
+#deviance_plot("ALL", "AT_TA")
 
 zhu_re_plot("ALL", "AT_TA")
 ```
@@ -272,7 +272,7 @@ zhu_re_plot("ALL", "AT_TA")
 ### GC_AT
 
 ```{r echo=FALSE}
-deviance_plot("ALL", "GC_AT")
+#deviance_plot("ALL", "GC_AT")
 
 zhu_re_plot("ALL", "GC_AT")
 ```
@@ -280,7 +280,7 @@ zhu_re_plot("ALL", "GC_AT")
 ### cpg_GC_AT
 
 ```{r echo=FALSE}
-deviance_plot("ALL", "cpg_GC_AT", r_start = 2)
+#deviance_plot("ALL", "cpg_GC_AT", r_start = 2)
 
 zhu_re_plot("ALL", "cpg_GC_AT", r_start = 2)
 ```
@@ -288,7 +288,7 @@ zhu_re_plot("ALL", "cpg_GC_AT", r_start = 2)
 ### GC_TA
 
 ```{r echo=FALSE}
-deviance_plot("ALL", "GC_TA")
+#deviance_plot("ALL", "GC_TA")
 
 zhu_re_plot("ALL", "GC_TA")
 ```
@@ -296,7 +296,7 @@ zhu_re_plot("ALL", "GC_TA")
 ### cpg_GC_TA
 
 ```{r echo=FALSE}
-deviance_plot("ALL", "cpg_GC_TA", r_start = 2)
+#deviance_plot("ALL", "cpg_GC_TA", r_start = 2)
 
 zhu_re_plot("ALL", "cpg_GC_TA", r_start = 2)
 ```
@@ -304,7 +304,7 @@ zhu_re_plot("ALL", "cpg_GC_TA", r_start = 2)
 ### GC_CG
 
 ```{r echo=FALSE}
-deviance_plot("ALL", "GC_CG")
+#deviance_plot("ALL", "GC_CG")
 
 zhu_re_plot("ALL", "GC_CG")
 ```
@@ -312,7 +312,7 @@ zhu_re_plot("ALL", "GC_CG")
 ### cpg_GC_CG
 
 ```{r echo=FALSE}
-deviance_plot("ALL", "cpg_GC_CG", r_start = 2)
+#deviance_plot("ALL", "cpg_GC_CG", r_start = 2)
 
 zhu_re_plot("ALL", "cpg_GC_CG", r_start = 2)
 ```
