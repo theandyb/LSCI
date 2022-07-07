@@ -518,15 +518,15 @@ project makes it easier to run your code on other machines.</p>
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomtheandybLSCItreeb7a8824bccc2a9dd4a7401c31bc1f59a5f063cc6targetblankb7a8824a">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomtheandybLSCItree2af810a627e22038b54cd2433af6795799f6eddctargetblank2af810aa">
 <span class="glyphicon glyphicon-ok text-success"
 aria-hidden="true"></span> <strong>Repository version:</strong>
-<a href="https://github.com/theandyb/LSCI/tree/b7a8824bccc2a9dd4a7401c31bc1f59a5f063cc6" target="_blank">b7a8824</a>
+<a href="https://github.com/theandyb/LSCI/tree/2af810a627e22038b54cd2433af6795799f6eddc" target="_blank">2af810a</a>
 </a>
 </p>
 </div>
 <div
-id="strongRepositoryversionstrongahrefhttpsgithubcomtheandybLSCItreeb7a8824bccc2a9dd4a7401c31bc1f59a5f063cc6targetblankb7a8824a"
+id="strongRepositoryversionstrongahrefhttpsgithubcomtheandybLSCItree2af810a627e22038b54cd2433af6795799f6eddctargetblank2af810aa"
 class="panel-collapse collapse">
 <div class="panel-body">
 <p>
@@ -536,7 +536,7 @@ reproducibility.
 </p>
 <p>
 The results in this page were generated with repository version
-<a href="https://github.com/theandyb/LSCI/tree/b7a8824bccc2a9dd4a7401c31bc1f59a5f063cc6" target="_blank">b7a8824</a>.
+<a href="https://github.com/theandyb/LSCI/tree/2af810a627e22038b54cd2433af6795799f6eddc" target="_blank">2af810a</a>.
 See the <em>Past versions</em> tab to see a history of the changes made
 to the R Markdown and HTML files.
 </p>
@@ -611,6 +611,40 @@ Message
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+Rmd
+</td>
+<td>
+<a href="https://github.com/theandyb/LSCI/blob/2af810a627e22038b54cd2433af6795799f6eddc/analysis/1000G_single_position_comp.Rmd" target="_blank">2af810a</a>
+</td>
+<td>
+Andy Beck
+</td>
+<td>
+2022-07-07
+</td>
+<td>
+wflow_publish("analysis/1000G_single_position_comp.Rmd")
+</td>
+</tr>
+<tr>
+<td>
+html
+</td>
+<td>
+<a href="https://rawcdn.githack.com/theandyb/LSCI/739724aae7ec0f2c1f7a3d9ad7890dce493e2b58/docs/1000G_single_position_comp.html" target="_blank">739724a</a>
+</td>
+<td>
+Andy Beck
+</td>
+<td>
+2022-07-07
+</td>
+<td>
+Build site.
+</td>
+</tr>
 <tr>
 <td>
 Rmd
@@ -1345,9 +1379,9 @@ other subtypes.</p>
     pivot_wider(names_from = pop, values_from = !!sym(stat_col))
   
   # position-level statistics
-  df_pos &lt;- df_wide_at_cg %&gt;%
+  df_pos &lt;- df_wide %&gt;%
     group_by(rp) %&gt;%
-    summarize(across(AFR:SAS, ~sum(abs(.))))
+    summarize(across(AFR:SAS, ~sum(abs(.), na.rm = T)))
   
   cor_obj &lt;- df_pos %&gt;%
     select(-rp) %&gt;%
@@ -1355,10 +1389,18 @@ other subtypes.</p>
   
   df_cor &lt;- df_wide %&gt;%
     group_by(rp) %&gt;%
-    summarise(across(AMR:SAS, ~cor(., AFR), .names = &quot;AFR_{.col}&quot;),
-              across(EAS:SAS, ~cor(., AMR), .names = &quot;AMR_{.col}&quot;),
-              across(EUR:SAS, ~cor(., EAS), .names = &quot;EAS_{.col}&quot;),
-              across(SAS, ~cor(., EUR), .names = &quot;EUR_{.col}&quot;))
+    summarise(across(AMR:SAS, ~cor(., AFR, use = &quot;complete.obs&quot;), .names = &quot;AFR_{.col}&quot;),
+              across(EAS:SAS, ~cor(., AMR, use = &quot;complete.obs&quot;), .names = &quot;AMR_{.col}&quot;),
+              across(EUR:SAS, ~cor(., EAS, use = &quot;complete.obs&quot;), .names = &quot;EAS_{.col}&quot;),
+              across(SAS, ~cor(., EUR, use = &quot;complete.obs&quot;), .names = &quot;EUR_{.col}&quot;))
+  
+  if(!str_starts(subtype, &quot;cpg&quot;)){
+    subtype2 &lt;- str_replace(subtype, &quot;_&quot;, &quot; → &quot;)
+  } else {
+    subtype &lt;- str_sub(subtype, 5)
+    subtype2 &lt;- paste0(&quot;(cpg) &quot;, str_replace(subtype, &quot;_&quot;, &quot; → &quot;))
+  }
+  
   p &lt;- df_cor %&gt;%
     select(rp, starts_with(&quot;AFR&quot;)) %&gt;%
     pivot_longer(-rp, names_to = &quot;pair&quot;, values_to = &quot;cor&quot;) %&gt;%
@@ -1367,7 +1409,8 @@ other subtypes.</p>
     geom_point() + 
     geom_line() +
     ylim(c(0,1)) +
-    ggtitle(&quot;Nucleotide residual correlations&quot;, paste0(&quot;Reference Population: AFR; subtype: &quot;, subtype)) +
+    ggtitle(&quot;Nucleotide residual correlations&quot;, 
+            paste0(&quot;Reference Population: AFR; subtype: &quot;, subtype2)) +
     xlab(&quot;Relative Position&quot;) +
     ylab(&quot;Nucleotide Contribution Correlation&quot;) +
     labs(colour = &quot;Population&quot;)
@@ -1435,41 +1478,41 @@ Andy Beck
 <tr class="odd">
 <td align="left">AFR</td>
 <td align="right">NA</td>
-<td align="right">0.9994079</td>
-<td align="right">0.9947186</td>
-<td align="right">0.9973397</td>
-<td align="right">0.9985470</td>
+<td align="right">0.9994391</td>
+<td align="right">0.9994152</td>
+<td align="right">0.9981548</td>
+<td align="right">0.9990215</td>
 </tr>
 <tr class="even">
 <td align="left">AMR</td>
-<td align="right">0.9994079</td>
+<td align="right">0.9994391</td>
 <td align="right">NA</td>
-<td align="right">0.9957566</td>
-<td align="right">0.9976385</td>
-<td align="right">0.9984225</td>
+<td align="right">0.9996432</td>
+<td align="right">0.9993965</td>
+<td align="right">0.9998862</td>
 </tr>
 <tr class="odd">
 <td align="left">EAS</td>
-<td align="right">0.9947186</td>
-<td align="right">0.9957566</td>
+<td align="right">0.9994152</td>
+<td align="right">0.9996432</td>
 <td align="right">NA</td>
-<td align="right">0.9886323</td>
-<td align="right">0.9972469</td>
+<td align="right">0.9993883</td>
+<td align="right">0.9996664</td>
 </tr>
 <tr class="even">
 <td align="left">EUR</td>
-<td align="right">0.9973397</td>
-<td align="right">0.9976385</td>
-<td align="right">0.9886323</td>
+<td align="right">0.9981548</td>
+<td align="right">0.9993965</td>
+<td align="right">0.9993883</td>
 <td align="right">NA</td>
-<td align="right">0.9947890</td>
+<td align="right">0.9997377</td>
 </tr>
 <tr class="odd">
 <td align="left">SAS</td>
-<td align="right">0.9985470</td>
-<td align="right">0.9984225</td>
-<td align="right">0.9972469</td>
-<td align="right">0.9947890</td>
+<td align="right">0.9990215</td>
+<td align="right">0.9998862</td>
+<td align="right">0.9996664</td>
+<td align="right">0.9997377</td>
 <td align="right">NA</td>
 </tr>
 </tbody>
@@ -1535,41 +1578,41 @@ Andy Beck
 <tr class="odd">
 <td align="left">AFR</td>
 <td align="right">NA</td>
-<td align="right">0.9994079</td>
-<td align="right">0.9947186</td>
-<td align="right">0.9973397</td>
-<td align="right">0.9985470</td>
+<td align="right">0.9984298</td>
+<td align="right">0.9990857</td>
+<td align="right">0.9984743</td>
+<td align="right">0.9997840</td>
 </tr>
 <tr class="even">
 <td align="left">AMR</td>
-<td align="right">0.9994079</td>
+<td align="right">0.9984298</td>
 <td align="right">NA</td>
-<td align="right">0.9957566</td>
-<td align="right">0.9976385</td>
-<td align="right">0.9984225</td>
+<td align="right">0.9982387</td>
+<td align="right">0.9995419</td>
+<td align="right">0.9991994</td>
 </tr>
 <tr class="odd">
 <td align="left">EAS</td>
-<td align="right">0.9947186</td>
-<td align="right">0.9957566</td>
+<td align="right">0.9990857</td>
+<td align="right">0.9982387</td>
 <td align="right">NA</td>
-<td align="right">0.9886323</td>
-<td align="right">0.9972469</td>
+<td align="right">0.9973147</td>
+<td align="right">0.9991792</td>
 </tr>
 <tr class="even">
 <td align="left">EUR</td>
-<td align="right">0.9973397</td>
-<td align="right">0.9976385</td>
-<td align="right">0.9886323</td>
+<td align="right">0.9984743</td>
+<td align="right">0.9995419</td>
+<td align="right">0.9973147</td>
 <td align="right">NA</td>
-<td align="right">0.9947890</td>
+<td align="right">0.9989587</td>
 </tr>
 <tr class="odd">
 <td align="left">SAS</td>
-<td align="right">0.9985470</td>
-<td align="right">0.9984225</td>
-<td align="right">0.9972469</td>
-<td align="right">0.9947890</td>
+<td align="right">0.9997840</td>
+<td align="right">0.9991994</td>
+<td align="right">0.9991792</td>
+<td align="right">0.9989587</td>
 <td align="right">NA</td>
 </tr>
 </tbody>
@@ -1580,7 +1623,6 @@ Andy Beck
 <pre class="r"><code>subtype &lt;- &quot;GC_AT&quot;
 res &lt;- corr_analysis(subtype)
 res$p</code></pre>
-<pre><code>Warning: Removed 4 rows containing missing values (geom_point).</code></pre>
 <p><img src="figure/1000G_single_position_comp.Rmd/unnamed-chunk-14-1.png" width="672" style="display: block; margin: auto;" /></p>
 <p>
 <button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-14-1">
@@ -1636,41 +1678,41 @@ Andy Beck
 <tr class="odd">
 <td align="left">AFR</td>
 <td align="right">NA</td>
-<td align="right">0.9994079</td>
-<td align="right">0.9947186</td>
-<td align="right">0.9973397</td>
-<td align="right">0.9985470</td>
+<td align="right">0.9877009</td>
+<td align="right">0.9944924</td>
+<td align="right">0.9810967</td>
+<td align="right">0.9739385</td>
 </tr>
 <tr class="even">
 <td align="left">AMR</td>
-<td align="right">0.9994079</td>
+<td align="right">0.9877009</td>
 <td align="right">NA</td>
-<td align="right">0.9957566</td>
-<td align="right">0.9976385</td>
-<td align="right">0.9984225</td>
+<td align="right">0.9935831</td>
+<td align="right">0.9976128</td>
+<td align="right">0.9972768</td>
 </tr>
 <tr class="odd">
 <td align="left">EAS</td>
-<td align="right">0.9947186</td>
-<td align="right">0.9957566</td>
+<td align="right">0.9944924</td>
+<td align="right">0.9935831</td>
 <td align="right">NA</td>
-<td align="right">0.9886323</td>
-<td align="right">0.9972469</td>
+<td align="right">0.9920176</td>
+<td align="right">0.9854094</td>
 </tr>
 <tr class="even">
 <td align="left">EUR</td>
-<td align="right">0.9973397</td>
-<td align="right">0.9976385</td>
-<td align="right">0.9886323</td>
+<td align="right">0.9810967</td>
+<td align="right">0.9976128</td>
+<td align="right">0.9920176</td>
 <td align="right">NA</td>
-<td align="right">0.9947890</td>
+<td align="right">0.9977753</td>
 </tr>
 <tr class="odd">
 <td align="left">SAS</td>
-<td align="right">0.9985470</td>
-<td align="right">0.9984225</td>
-<td align="right">0.9972469</td>
-<td align="right">0.9947890</td>
+<td align="right">0.9739385</td>
+<td align="right">0.9972768</td>
+<td align="right">0.9854094</td>
+<td align="right">0.9977753</td>
 <td align="right">NA</td>
 </tr>
 </tbody>
@@ -1736,41 +1778,41 @@ Andy Beck
 <tr class="odd">
 <td align="left">AFR</td>
 <td align="right">NA</td>
-<td align="right">0.9994079</td>
-<td align="right">0.9947186</td>
-<td align="right">0.9973397</td>
-<td align="right">0.9985470</td>
+<td align="right">0.9994183</td>
+<td align="right">0.9997077</td>
+<td align="right">0.9995676</td>
+<td align="right">0.9996066</td>
 </tr>
 <tr class="even">
 <td align="left">AMR</td>
-<td align="right">0.9994079</td>
+<td align="right">0.9994183</td>
 <td align="right">NA</td>
-<td align="right">0.9957566</td>
-<td align="right">0.9976385</td>
-<td align="right">0.9984225</td>
+<td align="right">0.9995024</td>
+<td align="right">0.9990294</td>
+<td align="right">0.9995883</td>
 </tr>
 <tr class="odd">
 <td align="left">EAS</td>
-<td align="right">0.9947186</td>
-<td align="right">0.9957566</td>
+<td align="right">0.9997077</td>
+<td align="right">0.9995024</td>
 <td align="right">NA</td>
-<td align="right">0.9886323</td>
-<td align="right">0.9972469</td>
+<td align="right">0.9992884</td>
+<td align="right">0.9997381</td>
 </tr>
 <tr class="even">
 <td align="left">EUR</td>
-<td align="right">0.9973397</td>
-<td align="right">0.9976385</td>
-<td align="right">0.9886323</td>
+<td align="right">0.9995676</td>
+<td align="right">0.9990294</td>
+<td align="right">0.9992884</td>
 <td align="right">NA</td>
-<td align="right">0.9947890</td>
+<td align="right">0.9987337</td>
 </tr>
 <tr class="odd">
 <td align="left">SAS</td>
-<td align="right">0.9985470</td>
-<td align="right">0.9984225</td>
-<td align="right">0.9972469</td>
-<td align="right">0.9947890</td>
+<td align="right">0.9996066</td>
+<td align="right">0.9995883</td>
+<td align="right">0.9997381</td>
+<td align="right">0.9987337</td>
 <td align="right">NA</td>
 </tr>
 </tbody>
@@ -1781,7 +1823,6 @@ Andy Beck
 <pre class="r"><code>subtype &lt;- &quot;GC_CG&quot;
 res &lt;- corr_analysis(subtype)
 res$p</code></pre>
-<pre><code>Warning: Removed 4 rows containing missing values (geom_point).</code></pre>
 <p><img src="figure/1000G_single_position_comp.Rmd/unnamed-chunk-16-1.png" width="672" style="display: block; margin: auto;" /></p>
 <p>
 <button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-16-1">
@@ -1837,41 +1878,41 @@ Andy Beck
 <tr class="odd">
 <td align="left">AFR</td>
 <td align="right">NA</td>
-<td align="right">0.9994079</td>
-<td align="right">0.9947186</td>
-<td align="right">0.9973397</td>
-<td align="right">0.9985470</td>
+<td align="right">0.9933433</td>
+<td align="right">0.9917569</td>
+<td align="right">0.9909552</td>
+<td align="right">0.9935676</td>
 </tr>
 <tr class="even">
 <td align="left">AMR</td>
-<td align="right">0.9994079</td>
+<td align="right">0.9933433</td>
 <td align="right">NA</td>
-<td align="right">0.9957566</td>
-<td align="right">0.9976385</td>
-<td align="right">0.9984225</td>
+<td align="right">0.9974962</td>
+<td align="right">0.9987798</td>
+<td align="right">0.9994032</td>
 </tr>
 <tr class="odd">
 <td align="left">EAS</td>
-<td align="right">0.9947186</td>
-<td align="right">0.9957566</td>
+<td align="right">0.9917569</td>
+<td align="right">0.9974962</td>
 <td align="right">NA</td>
-<td align="right">0.9886323</td>
-<td align="right">0.9972469</td>
+<td align="right">0.9990785</td>
+<td align="right">0.9984492</td>
 </tr>
 <tr class="even">
 <td align="left">EUR</td>
-<td align="right">0.9973397</td>
-<td align="right">0.9976385</td>
-<td align="right">0.9886323</td>
+<td align="right">0.9909552</td>
+<td align="right">0.9987798</td>
+<td align="right">0.9990785</td>
 <td align="right">NA</td>
-<td align="right">0.9947890</td>
+<td align="right">0.9990636</td>
 </tr>
 <tr class="odd">
 <td align="left">SAS</td>
-<td align="right">0.9985470</td>
-<td align="right">0.9984225</td>
-<td align="right">0.9972469</td>
-<td align="right">0.9947890</td>
+<td align="right">0.9935676</td>
+<td align="right">0.9994032</td>
+<td align="right">0.9984492</td>
+<td align="right">0.9990636</td>
 <td align="right">NA</td>
 </tr>
 </tbody>
@@ -1937,41 +1978,41 @@ Andy Beck
 <tr class="odd">
 <td align="left">AFR</td>
 <td align="right">NA</td>
-<td align="right">0.9994079</td>
-<td align="right">0.9947186</td>
-<td align="right">0.9973397</td>
-<td align="right">0.9985470</td>
+<td align="right">0.9956394</td>
+<td align="right">0.9852402</td>
+<td align="right">0.9904213</td>
+<td align="right">0.9918122</td>
 </tr>
 <tr class="even">
 <td align="left">AMR</td>
-<td align="right">0.9994079</td>
+<td align="right">0.9956394</td>
 <td align="right">NA</td>
-<td align="right">0.9957566</td>
-<td align="right">0.9976385</td>
-<td align="right">0.9984225</td>
+<td align="right">0.9918453</td>
+<td align="right">0.9950198</td>
+<td align="right">0.9963077</td>
 </tr>
 <tr class="odd">
 <td align="left">EAS</td>
-<td align="right">0.9947186</td>
-<td align="right">0.9957566</td>
+<td align="right">0.9852402</td>
+<td align="right">0.9918453</td>
 <td align="right">NA</td>
-<td align="right">0.9886323</td>
-<td align="right">0.9972469</td>
+<td align="right">0.9973139</td>
+<td align="right">0.9957836</td>
 </tr>
 <tr class="even">
 <td align="left">EUR</td>
-<td align="right">0.9973397</td>
-<td align="right">0.9976385</td>
-<td align="right">0.9886323</td>
+<td align="right">0.9904213</td>
+<td align="right">0.9950198</td>
+<td align="right">0.9973139</td>
 <td align="right">NA</td>
-<td align="right">0.9947890</td>
+<td align="right">0.9957160</td>
 </tr>
 <tr class="odd">
 <td align="left">SAS</td>
-<td align="right">0.9985470</td>
-<td align="right">0.9984225</td>
-<td align="right">0.9972469</td>
-<td align="right">0.9947890</td>
+<td align="right">0.9918122</td>
+<td align="right">0.9963077</td>
+<td align="right">0.9957836</td>
+<td align="right">0.9957160</td>
 <td align="right">NA</td>
 </tr>
 </tbody>
@@ -1982,7 +2023,6 @@ Andy Beck
 <pre class="r"><code>subtype &lt;- &quot;GC_TA&quot;
 res &lt;- corr_analysis(subtype)
 res$p</code></pre>
-<pre><code>Warning: Removed 4 rows containing missing values (geom_point).</code></pre>
 <p><img src="figure/1000G_single_position_comp.Rmd/unnamed-chunk-18-1.png" width="672" style="display: block; margin: auto;" /></p>
 <p>
 <button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-18-1">
@@ -2038,41 +2078,41 @@ Andy Beck
 <tr class="odd">
 <td align="left">AFR</td>
 <td align="right">NA</td>
-<td align="right">0.9994079</td>
-<td align="right">0.9947186</td>
-<td align="right">0.9973397</td>
-<td align="right">0.9985470</td>
+<td align="right">0.9961824</td>
+<td align="right">0.9905209</td>
+<td align="right">0.9994185</td>
+<td align="right">0.9927585</td>
 </tr>
 <tr class="even">
 <td align="left">AMR</td>
-<td align="right">0.9994079</td>
+<td align="right">0.9961824</td>
 <td align="right">NA</td>
-<td align="right">0.9957566</td>
-<td align="right">0.9976385</td>
-<td align="right">0.9984225</td>
+<td align="right">0.9984909</td>
+<td align="right">0.9945472</td>
+<td align="right">0.9992777</td>
 </tr>
 <tr class="odd">
 <td align="left">EAS</td>
-<td align="right">0.9947186</td>
-<td align="right">0.9957566</td>
+<td align="right">0.9905209</td>
+<td align="right">0.9984909</td>
 <td align="right">NA</td>
-<td align="right">0.9886323</td>
-<td align="right">0.9972469</td>
+<td align="right">0.9881049</td>
+<td align="right">0.9995557</td>
 </tr>
 <tr class="even">
 <td align="left">EUR</td>
-<td align="right">0.9973397</td>
-<td align="right">0.9976385</td>
-<td align="right">0.9886323</td>
+<td align="right">0.9994185</td>
+<td align="right">0.9945472</td>
+<td align="right">0.9881049</td>
 <td align="right">NA</td>
-<td align="right">0.9947890</td>
+<td align="right">0.9909599</td>
 </tr>
 <tr class="odd">
 <td align="left">SAS</td>
-<td align="right">0.9985470</td>
-<td align="right">0.9984225</td>
-<td align="right">0.9972469</td>
-<td align="right">0.9947890</td>
+<td align="right">0.9927585</td>
+<td align="right">0.9992777</td>
+<td align="right">0.9995557</td>
+<td align="right">0.9909599</td>
 <td align="right">NA</td>
 </tr>
 </tbody>
@@ -2139,41 +2179,41 @@ Andy Beck
 <tr class="odd">
 <td align="left">AFR</td>
 <td align="right">NA</td>
-<td align="right">0.9994079</td>
-<td align="right">0.9947186</td>
-<td align="right">0.9973397</td>
-<td align="right">0.9985470</td>
+<td align="right">0.9977068</td>
+<td align="right">0.9988379</td>
+<td align="right">0.9971763</td>
+<td align="right">0.9986401</td>
 </tr>
 <tr class="even">
 <td align="left">AMR</td>
-<td align="right">0.9994079</td>
+<td align="right">0.9977068</td>
 <td align="right">NA</td>
-<td align="right">0.9957566</td>
-<td align="right">0.9976385</td>
-<td align="right">0.9984225</td>
+<td align="right">0.9964660</td>
+<td align="right">0.9948515</td>
+<td align="right">0.9960208</td>
 </tr>
 <tr class="odd">
 <td align="left">EAS</td>
-<td align="right">0.9947186</td>
-<td align="right">0.9957566</td>
+<td align="right">0.9988379</td>
+<td align="right">0.9964660</td>
 <td align="right">NA</td>
-<td align="right">0.9886323</td>
-<td align="right">0.9972469</td>
+<td align="right">0.9980686</td>
+<td align="right">0.9993968</td>
 </tr>
 <tr class="even">
 <td align="left">EUR</td>
-<td align="right">0.9973397</td>
-<td align="right">0.9976385</td>
-<td align="right">0.9886323</td>
+<td align="right">0.9971763</td>
+<td align="right">0.9948515</td>
+<td align="right">0.9980686</td>
 <td align="right">NA</td>
-<td align="right">0.9947890</td>
+<td align="right">0.9972853</td>
 </tr>
 <tr class="odd">
 <td align="left">SAS</td>
-<td align="right">0.9985470</td>
-<td align="right">0.9984225</td>
-<td align="right">0.9972469</td>
-<td align="right">0.9947890</td>
+<td align="right">0.9986401</td>
+<td align="right">0.9960208</td>
+<td align="right">0.9993968</td>
+<td align="right">0.9972853</td>
 <td align="right">NA</td>
 </tr>
 </tbody>
