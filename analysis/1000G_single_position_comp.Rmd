@@ -144,8 +144,7 @@ corr_analysis <- function(subtype, r_start = 1, stat_col = "s_re"){
   df_pos %>%
     select(-rp) %>%
     correlate(quiet = TRUE) %>%
-    knitr::kable() %>%
-    print()
+    knitr::kable()
   
   df_cor <- df_wide %>%
     group_by(rp) %>%
