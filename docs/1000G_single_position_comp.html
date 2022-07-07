@@ -518,15 +518,15 @@ project makes it easier to run your code on other machines.</p>
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomtheandybLSCItree2af810a627e22038b54cd2433af6795799f6eddctargetblank2af810aa">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomtheandybLSCItreeb4762aa3f3c19fb30ed13ed79fc4b8392b98b444targetblankb4762aaa">
 <span class="glyphicon glyphicon-ok text-success"
 aria-hidden="true"></span> <strong>Repository version:</strong>
-<a href="https://github.com/theandyb/LSCI/tree/2af810a627e22038b54cd2433af6795799f6eddc" target="_blank">2af810a</a>
+<a href="https://github.com/theandyb/LSCI/tree/b4762aa3f3c19fb30ed13ed79fc4b8392b98b444" target="_blank">b4762aa</a>
 </a>
 </p>
 </div>
 <div
-id="strongRepositoryversionstrongahrefhttpsgithubcomtheandybLSCItree2af810a627e22038b54cd2433af6795799f6eddctargetblank2af810aa"
+id="strongRepositoryversionstrongahrefhttpsgithubcomtheandybLSCItreeb4762aa3f3c19fb30ed13ed79fc4b8392b98b444targetblankb4762aaa"
 class="panel-collapse collapse">
 <div class="panel-body">
 <p>
@@ -536,7 +536,7 @@ reproducibility.
 </p>
 <p>
 The results in this page were generated with repository version
-<a href="https://github.com/theandyb/LSCI/tree/2af810a627e22038b54cd2433af6795799f6eddc" target="_blank">2af810a</a>.
+<a href="https://github.com/theandyb/LSCI/tree/b4762aa3f3c19fb30ed13ed79fc4b8392b98b444" target="_blank">b4762aa</a>.
 See the <em>Past versions</em> tab to see a history of the changes made
 to the R Markdown and HTML files.
 </p>
@@ -554,6 +554,7 @@ Ignored files:
     Ignored:    .Rhistory
     Ignored:    .Rproj.user/
     Ignored:    analysis/disqus.html
+    Ignored:    analysis/figure/
     Ignored:    code/random/
 
 Untracked files:
@@ -611,6 +612,40 @@ Message
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+Rmd
+</td>
+<td>
+<a href="https://github.com/theandyb/LSCI/blob/b4762aa3f3c19fb30ed13ed79fc4b8392b98b444/analysis/1000G_single_position_comp.Rmd" target="_blank">b4762aa</a>
+</td>
+<td>
+Andy Beck
+</td>
+<td>
+2022-07-07
+</td>
+<td>
+wflow_publish("analysis/1000G_single_position_comp.Rmd")
+</td>
+</tr>
+<tr>
+<td>
+html
+</td>
+<td>
+<a href="https://rawcdn.githack.com/theandyb/LSCI/7cb68743aa277330e1dee031d44ecd70f6301cae/docs/1000G_single_position_comp.html" target="_blank">7cb6874</a>
+</td>
+<td>
+Andy Beck
+</td>
+<td>
+2022-07-07
+</td>
+<td>
+Build site.
+</td>
+</tr>
 <tr>
 <td>
 Rmd
@@ -1202,6 +1237,43 @@ across positions, suggesting that the results are consistent across the
 five super-populations. The only difference we really see is a shift in
 the magnitude of the statistic, which is likely driven by differences in
 the number of singletons across the super-populations.</p>
+</div>
+<div id="all-in-one" class="section level4">
+<h4>All in one</h4>
+<pre class="r"><code>plot_all_pos_all_sp &lt;- function(subtype, r_start = 1){
+  df_AFR &lt;- zhu_by_pos(&quot;AFR&quot;, subtype, r_start = r_start) %&gt;%
+    rename(AFR = statistic)
+  df_AMR &lt;- zhu_by_pos(&quot;AMR&quot;, subtype, r_start = r_start) %&gt;%
+    rename(AMR = statistic)
+  df_EAS &lt;- zhu_by_pos(&quot;EAS&quot;, subtype, r_start = r_start) %&gt;%
+    rename(EAS = statistic)
+  df_EUR &lt;- zhu_by_pos(&quot;EUR&quot;, subtype, r_start = r_start) %&gt;%
+    rename(EUR = statistic)
+  df_SAS &lt;- zhu_by_pos(&quot;SAS&quot;, subtype, r_start = r_start) %&gt;%
+    rename(SAS = statistic)
+  
+  if(!str_starts(subtype, &quot;cpg&quot;)){
+    subtype2 &lt;- str_replace(subtype, &quot;_&quot;, &quot; → &quot;)
+  } else {
+    subtype &lt;- str_sub(subtype, 5)
+    subtype2 &lt;- paste0(&quot;(cpg) &quot;, str_replace(subtype, &quot;_&quot;, &quot; → &quot;))
+  }
+  
+  df &lt;- inner_join(df_AFR, df_AMR, by = &quot;pos&quot;) %&gt;%
+    inner_join(df_EAS, by = &quot;pos&quot;) %&gt;%
+    inner_join(df_EUR, by = &quot;pos&quot;) %&gt;%
+    inner_join(df_SAS, by = &quot;pos&quot;) %&gt;%
+    pivot_longer(-pos, names_to = &quot;pop&quot;, values_to = &quot;statistic&quot;)
+
+  p &lt;- ggplot(df, aes(x = pos, y = statistic, colour = pop)) +
+    geom_point() +
+    geom_line() +
+    ggtitle(paste0(&quot;Relative Entrop by Position: &quot;, subtype2)) +
+    xlab(&quot;Relative Position&quot;) + 
+    ylab(&quot;Relative Entropy&quot;) +
+    guides(colour=guide_legend(title=&quot;Population&quot;))
+  return(p)
+}</code></pre>
 <p>To quantify our observation that the statistics are consistent across
 super-populations, let’s look at the pairwise correlations of statistics
 across positions for each pair of super-populations:</p>
@@ -1266,71 +1338,6 @@ seem to be consistent across 1KGP super-populations. However, this is
 only a surface-level result; the position-level statistics are the sum
 of nucleotide-specific contributions, and we’d like to assess whether or
 not these are also consistent across populations.</p>
-<p><img src="figure/1000G_single_position_comp.Rmd/unnamed-chunk-9-1.png" width="672" style="display: block; margin: auto;" /></p>
-<p>
-<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-9-1">
-Past versions of unnamed-chunk-9-1.png
-</button>
-</p>
-<div id="fig-unnamed-chunk-9-1" class="collapse">
-<div class="table-responsive">
-<table class="table table-condensed table-hover">
-<thead>
-<tr>
-<th>
-Version
-</th>
-<th>
-Author
-</th>
-<th>
-Date
-</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>
-<a href="https://github.com/theandyb/LSCI/blob/9f40f574146e9996a46f59c5d574633b71a014e3/docs/figure/1000G_single_position_comp.Rmd/unnamed-chunk-9-1.png" target="_blank">9f40f57</a>
-</td>
-<td>
-Andy Beck
-</td>
-<td>
-2022-07-07
-</td>
-</tr>
-<tr>
-<td>
-<a href="https://github.com/theandyb/LSCI/blob/09ecadce2cc20462510085d9a17edba2ec75f117/docs/figure/1000G_single_position_comp.Rmd/unnamed-chunk-9-1.png" target="_blank">09ecadc</a>
-</td>
-<td>
-Andy Beck
-</td>
-<td>
-2022-07-06
-</td>
-</tr>
-</tbody>
-</table>
-</div>
-</div>
-<p>In the above plot we can see that across all positions, the results
-for the AFR super-population are highly correlated with the other
-super-populations. The lowest value appears at 1 where the AFR and SAS
-populations appear to have a lower correlation. But if we look at the
-nucleotide-level relative entropy residuals at this site we see that the
-order of the statistics is shared between the two:</p>
-<pre class="r"><code>df_wide_at_cg %&gt;% 
-  filter(rp == 1) %&gt;% 
-  select(Nuc, AFR, SAS) %&gt;% 
-  pivot_longer(AFR:SAS) %&gt;% 
-  ggplot(aes(x = Nuc, y = value, color = name, group = name)) + 
-  geom_point() +
-  geom_line() +
-  ggtitle(&quot;AT→CG, +1&quot;, &quot;AFR and SAS&quot;) +
-  xlab(&quot;Nucleotide&quot;)+
-  ylab(&quot;Signed Relative Entropy Residual&quot;)</code></pre>
 <p><img src="figure/1000G_single_position_comp.Rmd/unnamed-chunk-10-1.png" width="672" style="display: block; margin: auto;" /></p>
 <p>
 <button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-10-1">
@@ -1369,6 +1376,23 @@ Andy Beck
 </table>
 </div>
 </div>
+<p>In the above plot we can see that across all positions, the results
+for the AFR super-population are highly correlated with the other
+super-populations. The lowest value appears at 1 where the AFR and SAS
+populations appear to have a lower correlation. But if we look at the
+nucleotide-level relative entropy residuals at this site we see that the
+order of the statistics is shared between the two:</p>
+<pre class="r"><code>df_wide_at_cg %&gt;% 
+  filter(rp == 1) %&gt;% 
+  select(Nuc, AFR, SAS) %&gt;% 
+  pivot_longer(AFR:SAS) %&gt;% 
+  ggplot(aes(x = Nuc, y = value, color = name, group = name)) + 
+  geom_point() +
+  geom_line() +
+  ggtitle(&quot;AT→CG, +1&quot;, &quot;AFR and SAS&quot;) +
+  xlab(&quot;Nucleotide&quot;)+
+  ylab(&quot;Signed Relative Entropy Residual&quot;)</code></pre>
+<p><img src="figure/1000G_single_position_comp.Rmd/unnamed-chunk-11-1.png" width="672" style="display: block; margin: auto;" /></p>
 <p>Let’s wrap the above analyses into a function and run them on the
 other subtypes.</p>
 <pre class="r"><code>corr_analysis &lt;- function(subtype, r_start = 1, stat_col = &quot;s_re&quot;){
@@ -1423,106 +1447,6 @@ other subtypes.</p>
 <pre class="r"><code>subtype &lt;- &quot;AT_GC&quot;
 res &lt;- corr_analysis(subtype)
 res$p</code></pre>
-<p><img src="figure/1000G_single_position_comp.Rmd/unnamed-chunk-12-1.png" width="672" style="display: block; margin: auto;" /></p>
-<p>
-<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-12-1">
-Past versions of unnamed-chunk-12-1.png
-</button>
-</p>
-<div id="fig-unnamed-chunk-12-1" class="collapse">
-<div class="table-responsive">
-<table class="table table-condensed table-hover">
-<thead>
-<tr>
-<th>
-Version
-</th>
-<th>
-Author
-</th>
-<th>
-Date
-</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>
-<a href="https://github.com/theandyb/LSCI/blob/09ecadce2cc20462510085d9a17edba2ec75f117/docs/figure/1000G_single_position_comp.Rmd/unnamed-chunk-12-1.png" target="_blank">09ecadc</a>
-</td>
-<td>
-Andy Beck
-</td>
-<td>
-2022-07-06
-</td>
-</tr>
-</tbody>
-</table>
-</div>
-</div>
-<pre class="r"><code>res$cor_obj %&gt;%
-  knitr::kable()</code></pre>
-<table>
-<thead>
-<tr class="header">
-<th align="left">term</th>
-<th align="right">AFR</th>
-<th align="right">AMR</th>
-<th align="right">EAS</th>
-<th align="right">EUR</th>
-<th align="right">SAS</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td align="left">AFR</td>
-<td align="right">NA</td>
-<td align="right">0.9994391</td>
-<td align="right">0.9994152</td>
-<td align="right">0.9981548</td>
-<td align="right">0.9990215</td>
-</tr>
-<tr class="even">
-<td align="left">AMR</td>
-<td align="right">0.9994391</td>
-<td align="right">NA</td>
-<td align="right">0.9996432</td>
-<td align="right">0.9993965</td>
-<td align="right">0.9998862</td>
-</tr>
-<tr class="odd">
-<td align="left">EAS</td>
-<td align="right">0.9994152</td>
-<td align="right">0.9996432</td>
-<td align="right">NA</td>
-<td align="right">0.9993883</td>
-<td align="right">0.9996664</td>
-</tr>
-<tr class="even">
-<td align="left">EUR</td>
-<td align="right">0.9981548</td>
-<td align="right">0.9993965</td>
-<td align="right">0.9993883</td>
-<td align="right">NA</td>
-<td align="right">0.9997377</td>
-</tr>
-<tr class="odd">
-<td align="left">SAS</td>
-<td align="right">0.9990215</td>
-<td align="right">0.9998862</td>
-<td align="right">0.9996664</td>
-<td align="right">0.9997377</td>
-<td align="right">NA</td>
-</tr>
-</tbody>
-</table>
-</div>
-<div id="at_ta" class="section level3">
-<h3>AT_TA</h3>
-<pre class="r"><code>subtype &lt;- &quot;AT_TA&quot;
-res &lt;- corr_analysis(subtype)
-res$p</code></pre>
 <p><img src="figure/1000G_single_position_comp.Rmd/unnamed-chunk-13-1.png" width="672" style="display: block; margin: auto;" /></p>
 <p>
 <button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-13-1">
@@ -1546,6 +1470,17 @@ Date
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+<a href="https://github.com/theandyb/LSCI/blob/7cb68743aa277330e1dee031d44ecd70f6301cae/docs/figure/1000G_single_position_comp.Rmd/unnamed-chunk-13-1.png" target="_blank">7cb6874</a>
+</td>
+<td>
+Andy Beck
+</td>
+<td>
+2022-07-07
+</td>
+</tr>
 <tr>
 <td>
 <a href="https://github.com/theandyb/LSCI/blob/09ecadce2cc20462510085d9a17edba2ec75f117/docs/figure/1000G_single_position_comp.Rmd/unnamed-chunk-13-1.png" target="_blank">09ecadc</a>
@@ -1578,49 +1513,51 @@ Andy Beck
 <tr class="odd">
 <td align="left">AFR</td>
 <td align="right">NA</td>
-<td align="right">0.9984298</td>
-<td align="right">0.9990857</td>
-<td align="right">0.9984743</td>
-<td align="right">0.9997840</td>
+<td align="right">0.9994391</td>
+<td align="right">0.9994152</td>
+<td align="right">0.9981548</td>
+<td align="right">0.9990215</td>
 </tr>
 <tr class="even">
 <td align="left">AMR</td>
-<td align="right">0.9984298</td>
+<td align="right">0.9994391</td>
 <td align="right">NA</td>
-<td align="right">0.9982387</td>
-<td align="right">0.9995419</td>
-<td align="right">0.9991994</td>
+<td align="right">0.9996432</td>
+<td align="right">0.9993965</td>
+<td align="right">0.9998862</td>
 </tr>
 <tr class="odd">
 <td align="left">EAS</td>
-<td align="right">0.9990857</td>
-<td align="right">0.9982387</td>
+<td align="right">0.9994152</td>
+<td align="right">0.9996432</td>
 <td align="right">NA</td>
-<td align="right">0.9973147</td>
-<td align="right">0.9991792</td>
+<td align="right">0.9993883</td>
+<td align="right">0.9996664</td>
 </tr>
 <tr class="even">
 <td align="left">EUR</td>
-<td align="right">0.9984743</td>
-<td align="right">0.9995419</td>
-<td align="right">0.9973147</td>
+<td align="right">0.9981548</td>
+<td align="right">0.9993965</td>
+<td align="right">0.9993883</td>
 <td align="right">NA</td>
-<td align="right">0.9989587</td>
+<td align="right">0.9997377</td>
 </tr>
 <tr class="odd">
 <td align="left">SAS</td>
-<td align="right">0.9997840</td>
-<td align="right">0.9991994</td>
-<td align="right">0.9991792</td>
-<td align="right">0.9989587</td>
+<td align="right">0.9990215</td>
+<td align="right">0.9998862</td>
+<td align="right">0.9996664</td>
+<td align="right">0.9997377</td>
 <td align="right">NA</td>
 </tr>
 </tbody>
 </table>
+<pre class="r"><code>plot_all_pos_all_sp(subtype)</code></pre>
+<p><img src="figure/1000G_single_position_comp.Rmd/unnamed-chunk-13-2.png" width="672" style="display: block; margin: auto;" /></p>
 </div>
-<div id="gc_at" class="section level3">
-<h3>GC_AT</h3>
-<pre class="r"><code>subtype &lt;- &quot;GC_AT&quot;
+<div id="at_ta" class="section level3">
+<h3>AT_TA</h3>
+<pre class="r"><code>subtype &lt;- &quot;AT_TA&quot;
 res &lt;- corr_analysis(subtype)
 res$p</code></pre>
 <p><img src="figure/1000G_single_position_comp.Rmd/unnamed-chunk-14-1.png" width="672" style="display: block; margin: auto;" /></p>
@@ -1646,6 +1583,17 @@ Date
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+<a href="https://github.com/theandyb/LSCI/blob/7cb68743aa277330e1dee031d44ecd70f6301cae/docs/figure/1000G_single_position_comp.Rmd/unnamed-chunk-14-1.png" target="_blank">7cb6874</a>
+</td>
+<td>
+Andy Beck
+</td>
+<td>
+2022-07-07
+</td>
+</tr>
 <tr>
 <td>
 <a href="https://github.com/theandyb/LSCI/blob/09ecadce2cc20462510085d9a17edba2ec75f117/docs/figure/1000G_single_position_comp.Rmd/unnamed-chunk-14-1.png" target="_blank">09ecadc</a>
@@ -1678,50 +1626,52 @@ Andy Beck
 <tr class="odd">
 <td align="left">AFR</td>
 <td align="right">NA</td>
-<td align="right">0.9877009</td>
-<td align="right">0.9944924</td>
-<td align="right">0.9810967</td>
-<td align="right">0.9739385</td>
+<td align="right">0.9984298</td>
+<td align="right">0.9990857</td>
+<td align="right">0.9984743</td>
+<td align="right">0.9997840</td>
 </tr>
 <tr class="even">
 <td align="left">AMR</td>
-<td align="right">0.9877009</td>
+<td align="right">0.9984298</td>
 <td align="right">NA</td>
-<td align="right">0.9935831</td>
-<td align="right">0.9976128</td>
-<td align="right">0.9972768</td>
+<td align="right">0.9982387</td>
+<td align="right">0.9995419</td>
+<td align="right">0.9991994</td>
 </tr>
 <tr class="odd">
 <td align="left">EAS</td>
-<td align="right">0.9944924</td>
-<td align="right">0.9935831</td>
+<td align="right">0.9990857</td>
+<td align="right">0.9982387</td>
 <td align="right">NA</td>
-<td align="right">0.9920176</td>
-<td align="right">0.9854094</td>
+<td align="right">0.9973147</td>
+<td align="right">0.9991792</td>
 </tr>
 <tr class="even">
 <td align="left">EUR</td>
-<td align="right">0.9810967</td>
-<td align="right">0.9976128</td>
-<td align="right">0.9920176</td>
+<td align="right">0.9984743</td>
+<td align="right">0.9995419</td>
+<td align="right">0.9973147</td>
 <td align="right">NA</td>
-<td align="right">0.9977753</td>
+<td align="right">0.9989587</td>
 </tr>
 <tr class="odd">
 <td align="left">SAS</td>
-<td align="right">0.9739385</td>
-<td align="right">0.9972768</td>
-<td align="right">0.9854094</td>
-<td align="right">0.9977753</td>
+<td align="right">0.9997840</td>
+<td align="right">0.9991994</td>
+<td align="right">0.9991792</td>
+<td align="right">0.9989587</td>
 <td align="right">NA</td>
 </tr>
 </tbody>
 </table>
+<pre class="r"><code>plot_all_pos_all_sp(subtype)</code></pre>
+<p><img src="figure/1000G_single_position_comp.Rmd/unnamed-chunk-14-2.png" width="672" style="display: block; margin: auto;" /></p>
 </div>
-<div id="cpg_gc_at" class="section level3">
-<h3>cpg_GC_AT</h3>
-<pre class="r"><code>subtype &lt;- &quot;cpg_GC_AT&quot;
-res &lt;- corr_analysis(subtype, r_start = 2)
+<div id="gc_at" class="section level3">
+<h3>GC_AT</h3>
+<pre class="r"><code>subtype &lt;- &quot;GC_AT&quot;
+res &lt;- corr_analysis(subtype)
 res$p</code></pre>
 <p><img src="figure/1000G_single_position_comp.Rmd/unnamed-chunk-15-1.png" width="672" style="display: block; margin: auto;" /></p>
 <p>
@@ -1746,6 +1696,17 @@ Date
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+<a href="https://github.com/theandyb/LSCI/blob/7cb68743aa277330e1dee031d44ecd70f6301cae/docs/figure/1000G_single_position_comp.Rmd/unnamed-chunk-15-1.png" target="_blank">7cb6874</a>
+</td>
+<td>
+Andy Beck
+</td>
+<td>
+2022-07-07
+</td>
+</tr>
 <tr>
 <td>
 <a href="https://github.com/theandyb/LSCI/blob/09ecadce2cc20462510085d9a17edba2ec75f117/docs/figure/1000G_single_position_comp.Rmd/unnamed-chunk-15-1.png" target="_blank">09ecadc</a>
@@ -1778,50 +1739,52 @@ Andy Beck
 <tr class="odd">
 <td align="left">AFR</td>
 <td align="right">NA</td>
-<td align="right">0.9994183</td>
-<td align="right">0.9997077</td>
-<td align="right">0.9995676</td>
-<td align="right">0.9996066</td>
+<td align="right">0.9877009</td>
+<td align="right">0.9944924</td>
+<td align="right">0.9810967</td>
+<td align="right">0.9739385</td>
 </tr>
 <tr class="even">
 <td align="left">AMR</td>
-<td align="right">0.9994183</td>
+<td align="right">0.9877009</td>
 <td align="right">NA</td>
-<td align="right">0.9995024</td>
-<td align="right">0.9990294</td>
-<td align="right">0.9995883</td>
+<td align="right">0.9935831</td>
+<td align="right">0.9976128</td>
+<td align="right">0.9972768</td>
 </tr>
 <tr class="odd">
 <td align="left">EAS</td>
-<td align="right">0.9997077</td>
-<td align="right">0.9995024</td>
+<td align="right">0.9944924</td>
+<td align="right">0.9935831</td>
 <td align="right">NA</td>
-<td align="right">0.9992884</td>
-<td align="right">0.9997381</td>
+<td align="right">0.9920176</td>
+<td align="right">0.9854094</td>
 </tr>
 <tr class="even">
 <td align="left">EUR</td>
-<td align="right">0.9995676</td>
-<td align="right">0.9990294</td>
-<td align="right">0.9992884</td>
+<td align="right">0.9810967</td>
+<td align="right">0.9976128</td>
+<td align="right">0.9920176</td>
 <td align="right">NA</td>
-<td align="right">0.9987337</td>
+<td align="right">0.9977753</td>
 </tr>
 <tr class="odd">
 <td align="left">SAS</td>
-<td align="right">0.9996066</td>
-<td align="right">0.9995883</td>
-<td align="right">0.9997381</td>
-<td align="right">0.9987337</td>
+<td align="right">0.9739385</td>
+<td align="right">0.9972768</td>
+<td align="right">0.9854094</td>
+<td align="right">0.9977753</td>
 <td align="right">NA</td>
 </tr>
 </tbody>
 </table>
+<pre class="r"><code>plot_all_pos_all_sp(subtype)</code></pre>
+<p><img src="figure/1000G_single_position_comp.Rmd/unnamed-chunk-15-2.png" width="672" style="display: block; margin: auto;" /></p>
 </div>
-<div id="gc_cg" class="section level3">
-<h3>GC_CG</h3>
-<pre class="r"><code>subtype &lt;- &quot;GC_CG&quot;
-res &lt;- corr_analysis(subtype)
+<div id="cpg_gc_at" class="section level3">
+<h3>cpg_GC_AT</h3>
+<pre class="r"><code>subtype &lt;- &quot;cpg_GC_AT&quot;
+res &lt;- corr_analysis(subtype, r_start = 2)
 res$p</code></pre>
 <p><img src="figure/1000G_single_position_comp.Rmd/unnamed-chunk-16-1.png" width="672" style="display: block; margin: auto;" /></p>
 <p>
@@ -1846,6 +1809,17 @@ Date
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+<a href="https://github.com/theandyb/LSCI/blob/7cb68743aa277330e1dee031d44ecd70f6301cae/docs/figure/1000G_single_position_comp.Rmd/unnamed-chunk-16-1.png" target="_blank">7cb6874</a>
+</td>
+<td>
+Andy Beck
+</td>
+<td>
+2022-07-07
+</td>
+</tr>
 <tr>
 <td>
 <a href="https://github.com/theandyb/LSCI/blob/09ecadce2cc20462510085d9a17edba2ec75f117/docs/figure/1000G_single_position_comp.Rmd/unnamed-chunk-16-1.png" target="_blank">09ecadc</a>
@@ -1878,50 +1852,52 @@ Andy Beck
 <tr class="odd">
 <td align="left">AFR</td>
 <td align="right">NA</td>
-<td align="right">0.9933433</td>
-<td align="right">0.9917569</td>
-<td align="right">0.9909552</td>
-<td align="right">0.9935676</td>
+<td align="right">0.9994183</td>
+<td align="right">0.9997077</td>
+<td align="right">0.9995676</td>
+<td align="right">0.9996066</td>
 </tr>
 <tr class="even">
 <td align="left">AMR</td>
-<td align="right">0.9933433</td>
+<td align="right">0.9994183</td>
 <td align="right">NA</td>
-<td align="right">0.9974962</td>
-<td align="right">0.9987798</td>
-<td align="right">0.9994032</td>
+<td align="right">0.9995024</td>
+<td align="right">0.9990294</td>
+<td align="right">0.9995883</td>
 </tr>
 <tr class="odd">
 <td align="left">EAS</td>
-<td align="right">0.9917569</td>
-<td align="right">0.9974962</td>
+<td align="right">0.9997077</td>
+<td align="right">0.9995024</td>
 <td align="right">NA</td>
-<td align="right">0.9990785</td>
-<td align="right">0.9984492</td>
+<td align="right">0.9992884</td>
+<td align="right">0.9997381</td>
 </tr>
 <tr class="even">
 <td align="left">EUR</td>
-<td align="right">0.9909552</td>
-<td align="right">0.9987798</td>
-<td align="right">0.9990785</td>
+<td align="right">0.9995676</td>
+<td align="right">0.9990294</td>
+<td align="right">0.9992884</td>
 <td align="right">NA</td>
-<td align="right">0.9990636</td>
+<td align="right">0.9987337</td>
 </tr>
 <tr class="odd">
 <td align="left">SAS</td>
-<td align="right">0.9935676</td>
-<td align="right">0.9994032</td>
-<td align="right">0.9984492</td>
-<td align="right">0.9990636</td>
+<td align="right">0.9996066</td>
+<td align="right">0.9995883</td>
+<td align="right">0.9997381</td>
+<td align="right">0.9987337</td>
 <td align="right">NA</td>
 </tr>
 </tbody>
 </table>
+<pre class="r"><code>plot_all_pos_all_sp(subtype, r_start = 2)</code></pre>
+<p><img src="figure/1000G_single_position_comp.Rmd/unnamed-chunk-16-2.png" width="672" style="display: block; margin: auto;" /></p>
 </div>
-<div id="cpg_gc_cg" class="section level3">
-<h3>cpg_GC_CG</h3>
-<pre class="r"><code>subtype &lt;- &quot;cpg_GC_CG&quot;
-res &lt;- corr_analysis(subtype, r_start = 2)
+<div id="gc_cg" class="section level3">
+<h3>GC_CG</h3>
+<pre class="r"><code>subtype &lt;- &quot;GC_CG&quot;
+res &lt;- corr_analysis(subtype)
 res$p</code></pre>
 <p><img src="figure/1000G_single_position_comp.Rmd/unnamed-chunk-17-1.png" width="672" style="display: block; margin: auto;" /></p>
 <p>
@@ -1946,6 +1922,17 @@ Date
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+<a href="https://github.com/theandyb/LSCI/blob/7cb68743aa277330e1dee031d44ecd70f6301cae/docs/figure/1000G_single_position_comp.Rmd/unnamed-chunk-17-1.png" target="_blank">7cb6874</a>
+</td>
+<td>
+Andy Beck
+</td>
+<td>
+2022-07-07
+</td>
+</tr>
 <tr>
 <td>
 <a href="https://github.com/theandyb/LSCI/blob/09ecadce2cc20462510085d9a17edba2ec75f117/docs/figure/1000G_single_position_comp.Rmd/unnamed-chunk-17-1.png" target="_blank">09ecadc</a>
@@ -1978,50 +1965,52 @@ Andy Beck
 <tr class="odd">
 <td align="left">AFR</td>
 <td align="right">NA</td>
-<td align="right">0.9956394</td>
-<td align="right">0.9852402</td>
-<td align="right">0.9904213</td>
-<td align="right">0.9918122</td>
+<td align="right">0.9933433</td>
+<td align="right">0.9917569</td>
+<td align="right">0.9909552</td>
+<td align="right">0.9935676</td>
 </tr>
 <tr class="even">
 <td align="left">AMR</td>
-<td align="right">0.9956394</td>
+<td align="right">0.9933433</td>
 <td align="right">NA</td>
-<td align="right">0.9918453</td>
-<td align="right">0.9950198</td>
-<td align="right">0.9963077</td>
+<td align="right">0.9974962</td>
+<td align="right">0.9987798</td>
+<td align="right">0.9994032</td>
 </tr>
 <tr class="odd">
 <td align="left">EAS</td>
-<td align="right">0.9852402</td>
-<td align="right">0.9918453</td>
+<td align="right">0.9917569</td>
+<td align="right">0.9974962</td>
 <td align="right">NA</td>
-<td align="right">0.9973139</td>
-<td align="right">0.9957836</td>
+<td align="right">0.9990785</td>
+<td align="right">0.9984492</td>
 </tr>
 <tr class="even">
 <td align="left">EUR</td>
-<td align="right">0.9904213</td>
-<td align="right">0.9950198</td>
-<td align="right">0.9973139</td>
+<td align="right">0.9909552</td>
+<td align="right">0.9987798</td>
+<td align="right">0.9990785</td>
 <td align="right">NA</td>
-<td align="right">0.9957160</td>
+<td align="right">0.9990636</td>
 </tr>
 <tr class="odd">
 <td align="left">SAS</td>
-<td align="right">0.9918122</td>
-<td align="right">0.9963077</td>
-<td align="right">0.9957836</td>
-<td align="right">0.9957160</td>
+<td align="right">0.9935676</td>
+<td align="right">0.9994032</td>
+<td align="right">0.9984492</td>
+<td align="right">0.9990636</td>
 <td align="right">NA</td>
 </tr>
 </tbody>
 </table>
+<pre class="r"><code>plot_all_pos_all_sp(subtype)</code></pre>
+<p><img src="figure/1000G_single_position_comp.Rmd/unnamed-chunk-17-2.png" width="672" style="display: block; margin: auto;" /></p>
 </div>
-<div id="gc_ta" class="section level3">
-<h3>GC_TA</h3>
-<pre class="r"><code>subtype &lt;- &quot;GC_TA&quot;
-res &lt;- corr_analysis(subtype)
+<div id="cpg_gc_cg" class="section level3">
+<h3>cpg_GC_CG</h3>
+<pre class="r"><code>subtype &lt;- &quot;cpg_GC_CG&quot;
+res &lt;- corr_analysis(subtype, r_start = 2)
 res$p</code></pre>
 <p><img src="figure/1000G_single_position_comp.Rmd/unnamed-chunk-18-1.png" width="672" style="display: block; margin: auto;" /></p>
 <p>
@@ -2046,6 +2035,17 @@ Date
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+<a href="https://github.com/theandyb/LSCI/blob/7cb68743aa277330e1dee031d44ecd70f6301cae/docs/figure/1000G_single_position_comp.Rmd/unnamed-chunk-18-1.png" target="_blank">7cb6874</a>
+</td>
+<td>
+Andy Beck
+</td>
+<td>
+2022-07-07
+</td>
+</tr>
 <tr>
 <td>
 <a href="https://github.com/theandyb/LSCI/blob/09ecadce2cc20462510085d9a17edba2ec75f117/docs/figure/1000G_single_position_comp.Rmd/unnamed-chunk-18-1.png" target="_blank">09ecadc</a>
@@ -2078,6 +2078,119 @@ Andy Beck
 <tr class="odd">
 <td align="left">AFR</td>
 <td align="right">NA</td>
+<td align="right">0.9956394</td>
+<td align="right">0.9852402</td>
+<td align="right">0.9904213</td>
+<td align="right">0.9918122</td>
+</tr>
+<tr class="even">
+<td align="left">AMR</td>
+<td align="right">0.9956394</td>
+<td align="right">NA</td>
+<td align="right">0.9918453</td>
+<td align="right">0.9950198</td>
+<td align="right">0.9963077</td>
+</tr>
+<tr class="odd">
+<td align="left">EAS</td>
+<td align="right">0.9852402</td>
+<td align="right">0.9918453</td>
+<td align="right">NA</td>
+<td align="right">0.9973139</td>
+<td align="right">0.9957836</td>
+</tr>
+<tr class="even">
+<td align="left">EUR</td>
+<td align="right">0.9904213</td>
+<td align="right">0.9950198</td>
+<td align="right">0.9973139</td>
+<td align="right">NA</td>
+<td align="right">0.9957160</td>
+</tr>
+<tr class="odd">
+<td align="left">SAS</td>
+<td align="right">0.9918122</td>
+<td align="right">0.9963077</td>
+<td align="right">0.9957836</td>
+<td align="right">0.9957160</td>
+<td align="right">NA</td>
+</tr>
+</tbody>
+</table>
+<pre class="r"><code>plot_all_pos_all_sp(subtype, r_start = 2)</code></pre>
+<p><img src="figure/1000G_single_position_comp.Rmd/unnamed-chunk-18-2.png" width="672" style="display: block; margin: auto;" /></p>
+</div>
+<div id="gc_ta" class="section level3">
+<h3>GC_TA</h3>
+<pre class="r"><code>subtype &lt;- &quot;GC_TA&quot;
+res &lt;- corr_analysis(subtype)
+res$p</code></pre>
+<p><img src="figure/1000G_single_position_comp.Rmd/unnamed-chunk-19-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-19-1">
+Past versions of unnamed-chunk-19-1.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-19-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/theandyb/LSCI/blob/7cb68743aa277330e1dee031d44ecd70f6301cae/docs/figure/1000G_single_position_comp.Rmd/unnamed-chunk-19-1.png" target="_blank">7cb6874</a>
+</td>
+<td>
+Andy Beck
+</td>
+<td>
+2022-07-07
+</td>
+</tr>
+<tr>
+<td>
+<a href="https://github.com/theandyb/LSCI/blob/09ecadce2cc20462510085d9a17edba2ec75f117/docs/figure/1000G_single_position_comp.Rmd/unnamed-chunk-19-1.png" target="_blank">09ecadc</a>
+</td>
+<td>
+Andy Beck
+</td>
+<td>
+2022-07-06
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<pre class="r"><code>res$cor_obj %&gt;%
+  knitr::kable()</code></pre>
+<table>
+<thead>
+<tr class="header">
+<th align="left">term</th>
+<th align="right">AFR</th>
+<th align="right">AMR</th>
+<th align="right">EAS</th>
+<th align="right">EUR</th>
+<th align="right">SAS</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">AFR</td>
+<td align="right">NA</td>
 <td align="right">0.9961824</td>
 <td align="right">0.9905209</td>
 <td align="right">0.9994185</td>
@@ -2117,6 +2230,8 @@ Andy Beck
 </tr>
 </tbody>
 </table>
+<pre class="r"><code>plot_all_pos_all_sp(subtype)</code></pre>
+<p><img src="figure/1000G_single_position_comp.Rmd/unnamed-chunk-19-2.png" width="672" style="display: block; margin: auto;" /></p>
 </div>
 <div id="cpg_gc_ta" class="section level3">
 <h3>cpg_GC_TA</h3>
@@ -2124,44 +2239,7 @@ Andy Beck
 res &lt;- corr_analysis(subtype, r_start = 2)
 res$p</code></pre>
 <pre><code>Warning: Removed 1 rows containing missing values (geom_point).</code></pre>
-<p><img src="figure/1000G_single_position_comp.Rmd/unnamed-chunk-19-1.png" width="672" style="display: block; margin: auto;" /></p>
-<p>
-<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-19-1">
-Past versions of unnamed-chunk-19-1.png
-</button>
-</p>
-<div id="fig-unnamed-chunk-19-1" class="collapse">
-<div class="table-responsive">
-<table class="table table-condensed table-hover">
-<thead>
-<tr>
-<th>
-Version
-</th>
-<th>
-Author
-</th>
-<th>
-Date
-</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>
-<a href="https://github.com/theandyb/LSCI/blob/09ecadce2cc20462510085d9a17edba2ec75f117/docs/figure/1000G_single_position_comp.Rmd/unnamed-chunk-19-1.png" target="_blank">09ecadc</a>
-</td>
-<td>
-Andy Beck
-</td>
-<td>
-2022-07-06
-</td>
-</tr>
-</tbody>
-</table>
-</div>
-</div>
+<p><img src="figure/1000G_single_position_comp.Rmd/unnamed-chunk-20-1.png" width="672" style="display: block; margin: auto;" /></p>
 <pre class="r"><code>res$cor_obj %&gt;%
   knitr::kable()</code></pre>
 <table>
@@ -2218,6 +2296,8 @@ Andy Beck
 </tr>
 </tbody>
 </table>
+<pre class="r"><code>plot_all_pos_all_sp(subtype, r_start = 2)</code></pre>
+<p><img src="figure/1000G_single_position_comp.Rmd/unnamed-chunk-20-2.png" width="672" style="display: block; margin: auto;" /></p>
 </div>
 </div>
 <div id="chi-square-approach" class="section level2">
