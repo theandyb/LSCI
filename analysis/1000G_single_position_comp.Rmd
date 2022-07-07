@@ -82,7 +82,8 @@ df_pos_at_cg <- df_wide_at_cg %>%
 
 df_pos_at_cg %>%
   select(-rp) %>%
-  correlate()
+  correlate(quiet = TRUE) %>%
+  print()
 ```
 
 We see in the above pairwise correlation matrix that the position level statistics are highly correlated between super populations which is what we'd like to see: the patterns of influence at single positions seem to be consistent across 1KGP super-populations. However, this is only a surface-level result; the position-level statistics are the sum of nucleotide-specific contributions, and we'd like to assess whether or not these are also consistent across populations.
