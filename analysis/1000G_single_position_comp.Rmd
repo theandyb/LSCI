@@ -66,6 +66,46 @@ plot_pos_stat("SAS", "AT_CG", zhu_by_pos, title_text = "Relative Entropy by Rela
 
 Across all five super-populations we see the same pattern as we look across positions, suggesting that the results are consistent across the five super-populations. The only difference we really see is a shift in the magnitude of the statistic, which is likely driven by differences in the number of singletons across the super-populations.
 
+#### All in one
+
+```{r}
+plot_all_pos_all_sp <- function(subtype, r_start = 1){
+  df_AFR <- zhu_by_pos("AFR", subtype, r_start = r_start) %>%
+    rename(AFR = statistic)
+  df_AMR <- zhu_by_pos("AMR", subtype, r_start = r_start) %>%
+    rename(AMR = statistic)
+  df_EAS <- zhu_by_pos("EAS", subtype, r_start = r_start) %>%
+    rename(EAS = statistic)
+  df_EUR <- zhu_by_pos("EUR", subtype, r_start = r_start) %>%
+    rename(EUR = statistic)
+  df_SAS <- zhu_by_pos("SAS", subtype, r_start = r_start) %>%
+    rename(SAS = statistic)
+  
+  if(!str_starts(subtype, "cpg")){
+    subtype2 <- str_replace(subtype, "_", " → ")
+  } else {
+    subtype <- str_sub(subtype, 5)
+    subtype2 <- paste0("(cpg) ", str_replace(subtype, "_", " → "))
+  }
+  
+  df <- inner_join(df_AFR, df_AMR, by = "pos") %>%
+    inner_join(df_EAS, by = "pos") %>%
+    inner_join(df_EUR, by = "pos") %>%
+    inner_join(df_SAS, by = "pos") %>%
+    pivot_longer(-pos, names_to = "pop", values_to = "statistic")
+
+  p <- ggplot(df, aes(x = pos, y = statistic, colour = pop)) +
+    geom_point() +
+    geom_line() +
+    ggtitle(paste0("Relative Entrop by Position: ", subtype2)) +
+    xlab("Relative Position") + 
+    ylab("Relative Entropy") +
+    guides(colour=guide_legend(title="Population"))
+  return(p)
+}
+```
+
+
 To quantify our observation that the statistics are consistent across super-populations, let's look at the pairwise correlations of statistics across positions for each pair of super-populations:
 
 ```{r results='asis', echo=FALSE}
@@ -185,6 +225,7 @@ res <- corr_analysis(subtype)
 res$p
 res$cor_obj %>%
   knitr::kable()
+plot_all_pos_all_sp(subtype)
 ```
 
 
@@ -196,6 +237,7 @@ res <- corr_analysis(subtype)
 res$p
 res$cor_obj %>%
   knitr::kable()
+plot_all_pos_all_sp(subtype)
 ```
 
 ### GC_AT
@@ -206,6 +248,7 @@ res <- corr_analysis(subtype)
 res$p
 res$cor_obj %>%
   knitr::kable()
+plot_all_pos_all_sp(subtype)
 ```
 
 ### cpg_GC_AT
@@ -216,6 +259,7 @@ res <- corr_analysis(subtype, r_start = 2)
 res$p
 res$cor_obj %>%
   knitr::kable()
+plot_all_pos_all_sp(subtype, r_start = 2)
 ```
 
 ### GC_CG
@@ -226,6 +270,7 @@ res <- corr_analysis(subtype)
 res$p
 res$cor_obj %>%
   knitr::kable()
+plot_all_pos_all_sp(subtype)
 ```
 
 ### cpg_GC_CG
@@ -236,6 +281,7 @@ res <- corr_analysis(subtype, r_start = 2)
 res$p
 res$cor_obj %>%
   knitr::kable()
+plot_all_pos_all_sp(subtype, r_start = 2)
 ```
 
 ### GC_TA
@@ -246,6 +292,7 @@ res <- corr_analysis(subtype)
 res$p
 res$cor_obj %>%
   knitr::kable()
+plot_all_pos_all_sp(subtype)
 ```
 
 ### cpg_GC_TA
@@ -256,6 +303,7 @@ res <- corr_analysis(subtype, r_start = 2)
 res$p
 res$cor_obj %>%
   knitr::kable()
+plot_all_pos_all_sp(subtype, r_start = 2)
 ```
 
 ## Chi Square Approach
