@@ -168,11 +168,17 @@ plot_pos_stat <- function(population, subtype, stat_func,
                           r_start = 1,
                           data_dir = "/net/snowwhite/home/beckandy/research/1000G_LSCI/output/single_pos_df/" ){
   df <- stat_func(population, subtype, r_start, data_dir)
+  if(!str_starts(subtype, "cpg")){
+    subtype2 <- str_replace(subtype, "_", " → ")
+  } else {
+    subtype <- str_sub(subtype, 5)
+    subtype2 <- paste0("(cpg) ", str_replace(subtype, "_", " → "))
+  }
   p <-df %>%
     ggplot(aes(x = pos, y = statistic)) +
     geom_point() +
     geom_line() +
-    ggtitle(paste0(title_text, subtype),
+    ggtitle(paste0(title_text, subtype2),
             paste0("Population: ", population)) +
     xlab("Relative Position") +
     ylab(ylab_text)
@@ -180,12 +186,19 @@ plot_pos_stat <- function(population, subtype, stat_func,
 }
 
 plot_nuc_level_bar <- function(population, subtype, stat_col,
-                               title_text, sub_text = "", r_start=1,
+                               title_text, r_start=1,
                                data_dir = "/net/snowwhite/home/beckandy/research/1000G_LSCI/output/single_pos_df/"){
   df <- load_all_sp_results(population, subtype, r_start, data_dir) %>%
     replace_na(list(stat_col = 0)) %>%
     group_by(rp) %>%
     mutate(pct = !!rlang::sym(stat_col) / sum(!!rlang::sym(stat_col)))
+
+  if(!str_starts(subtype, "cpg")){
+    subtype2 <- str_replace(subtype, "_", " → ")
+  } else {
+    subtype <- str_sub(subtype, 5)
+    subtype2 <- paste0("(cpg) ", str_replace(subtype, "_", " → "))
+  }
 
   p <- df %>%
     ggplot(aes(x = rp, y = pct, fill = Nuc)) +
@@ -193,7 +206,8 @@ plot_nuc_level_bar <- function(population, subtype, stat_col,
     xlab("Relative Position") +
     ylab("Proportion Contributed") +
     labs(fill = "Nucleotide")
- if(sub_text != ""){
+ if(population != ""){
+   sub_text = paste0("Subtype: ", subtype2, "; Population: ", population)
    p <- p + ggtitle(title_text, sub_text)
  }
   else {
@@ -225,7 +239,15 @@ plot_signed_nuc_by_pos <- function(population, subtype, r_start = 1,
 plot_signed_re_by_pos <- function(population, subtype, r_start = 1,
                                    data_dir = "/net/snowwhite/home/beckandy/research/1000G_LSCI/output/single_pos_df/"){
   df <- load_all_sp_results(population, subtype, r_start, data_dir = data_dir)
-  g_title <- paste0("Nucleotide Level Relative Entropy: ", str_replace_all(subtype, "_", "-"))
+
+  if(!str_starts(subtype, "cpg")){
+    subtype2 <- str_replace(subtype, "_", " → ")
+  } else {
+    subtype <- str_sub(subtype, 5)
+    subtype2 <- paste0("(cpg) ", str_replace(subtype, "_", " → "))
+  }
+
+  g_title <- paste0("Nucleotide Level Relative Entropy: ", subtype2)
 
   p <- df %>%
     ggplot(aes(x = rp, y = s_re, colour = Nuc)) +

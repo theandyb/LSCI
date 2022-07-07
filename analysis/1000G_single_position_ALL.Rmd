@@ -112,8 +112,7 @@ plot_signed_re_by_pos("ALL","all_GC_AT")
 ```{r echo=FALSE, message=FALSE}
 st <- "AT_CG"
 p1 <- plot_pos_stat("ALL", st, zhu_by_pos, "Relative Entropy by Position: ", ylab_text = "Relative Entropy")
-p2 <- plot_nuc_level_bar("ALL", st, "re", "Nucleotide Contribution to Overall Statistic",
-                         paste0("Subtype: ", st, "; Population: All"))
+p2 <- plot_nuc_level_bar("ALL", st, "re", "Nucleotide Contribution to Overall Statistic")
 p3 <- plot_signed_re_by_pos("ALL", st)
 
 p1
@@ -131,9 +130,8 @@ Here we see that the  strongest influence (or deviation from expectation) occurs
 
 ```{r echo=FALSE, message=FALSE}
 st <- "AT_GC"
-p1 <- plot_pos_stat("ALL", st, re_by_position, "Relative Entropy by Position: ", ylab_text = "Relative Entropy")
-p2 <- plot_nuc_level_bar("ALL", st, "chi_sq_ct", "Nucleotide Contribution to Overall Statistic",
-                         paste0("Subtype: ", st, "; Population: All"))
+p1 <- plot_pos_stat("ALL", st, zhu_by_pos, "Relative Entropy by Position: ", ylab_text = "Relative Entropy")
+p2 <- plot_nuc_level_bar("ALL", st, "re", "Nucleotide Contribution to Overall Statistic")
 p3 <- plot_signed_re_by_pos("ALL", st)
 
 p1
@@ -141,6 +139,9 @@ p2
 p3
 ```
 
+```{r results='asis', echo=FALSE}
+zhu_by_pos("ALL", st) %>% knitr::kable()
+```
 
 Here for the AT_GC transition we see a similar pattern to what we observed above, but with the most influential marginal effect occurring at the +1 position. 
 
@@ -148,14 +149,17 @@ Here for the AT_GC transition we see a similar pattern to what we observed above
 
 ```{r echo=FALSE, message=FALSE}
 st <- "AT_TA"
-p1 <- plot_pos_stat("ALL", st, re_by_position, "Relative Entropy by Position: ", ylab_text = "Relative Entropy")
-p2 <- plot_nuc_level_bar("ALL", st, "chi_sq_ct", "Nucleotide Contribution to Overall Statistic",
-                         paste0("Subtype: ", st, "; Population: All"))
+p1 <- plot_pos_stat("ALL", st, zhu_by_pos, "Relative Entropy by Position: ", ylab_text = "Relative Entropy")
+p2 <- plot_nuc_level_bar("ALL", st, "re", "Nucleotide Contribution to Overall Statistic")
 p3 <- plot_signed_re_by_pos("ALL", st)
 
 p1
 p2
 p3
+```
+
+```{r results='asis', echo=FALSE}
+zhu_by_pos("ALL", st) %>% knitr::kable()
 ```
 
 Here for the A>T(T>A) transversion we see that the signal at the +1 is far greater than what we observe at other relative positions. This is in contrast to what we observed above where marginal signals at multiple relative positions (generally the +/- 1 positions) stood out. Otherwise we again see the same trend of statistics drastically decreasing as we move further up or down stream. 
@@ -164,14 +168,17 @@ Here for the A>T(T>A) transversion we see that the signal at the +1 is far great
 
 ```{r echo=FALSE, message=FALSE}
 st <- "GC_AT"
-p1 <- plot_pos_stat("ALL", st, re_by_position, "Relative Entropy by Position: ", ylab_text = "Relative Entropy")
-p2 <- plot_nuc_level_bar("ALL", st, "chi_sq_ct", "Nucleotide Contribution to Overall Statistic",
-                         paste0("Subtype: ", st, "; Population: All"))
+p1 <- plot_pos_stat("ALL", st, zhu_by_pos, "Relative Entropy by Position: ", ylab_text = "Relative Entropy")
+p2 <- plot_nuc_level_bar("ALL", st, "re", "Nucleotide Contribution to Overall Statistic")
 p3 <- plot_signed_re_by_pos("ALL", st)
 
 p1
 p2
 p3
+```
+
+```{r results='asis', echo=FALSE}
+zhu_by_pos("ALL", st) %>% knitr::kable()
 ```
 
 Here we look at the G>A (C>T) transition, conditioning on sites not being CpGs (note: due to this the degrees of freedom for the test statistic at the +1 position is 2 instead of 3). Here we see that, with the exception of the -1 position, the control distribution-based statistic is greater than what we observe with the genome-wide-based statistic.  
@@ -180,14 +187,17 @@ Here we look at the G>A (C>T) transition, conditioning on sites not being CpGs (
 
 ```{r echo=FALSE, message=FALSE}
 st <- "cpg_GC_AT"
-p1 <- plot_pos_stat("ALL", st, re_by_position, "Relative Entropy by Position: ", ylab_text = "Relative Entropy", r_start = 2)
-p2 <- plot_nuc_level_bar("ALL", st, "chi_sq_ct", "Nucleotide Contribution to Overall Statistic",
-                         paste0("Subtype: ", st, "; Population: All"), r_start =2)
+p1 <- plot_pos_stat("ALL", st, zhu_by_pos, "Relative Entropy by Position: ", ylab_text = "Relative Entropy", r_start = 2)
+p2 <- plot_nuc_level_bar("ALL", st, "re", "Nucleotide Contribution to Overall Statistic", r_start = 2)
 p3 <- plot_signed_re_by_pos("ALL", st, r_start = 2)
 
 p1
 p2
 p3
+```
+
+```{r results='asis', echo=FALSE}
+zhu_by_pos("ALL", st, r_start = 2) %>% knitr::kable()
 ```
 
 Here we condition on the +1 being a G for the G>A(C>T) transition. It is interesting to see for this sub-type that when we condition on the +1 being a G, we see that the control-based statistic behaves like it does for the other sub-types in that it drops precipitously as we move further up/down stream, but the genome-wide rate appears to plateau at a much higher value. It should also be noted that this is the only sub-type in which this pattern is observed.
@@ -196,9 +206,8 @@ Here we condition on the +1 being a G for the G>A(C>T) transition. It is interes
 
 ```{r echo=FALSE, message=FALSE}
 st <- "GC_TA"
-p1 <- plot_pos_stat("ALL", st, re_by_position, "Relative Entropy by Position: ", ylab_text = "Relative Entropy")
-p2 <- plot_nuc_level_bar("ALL", st, "chi_sq_ct", "Nucleotide Contribution to Overall Statistic",
-                         paste0("Subtype: ", st, "; Population: All"))
+p1 <- plot_pos_stat("ALL", st, zhu_by_pos, "Relative Entropy by Position: ", ylab_text = "Relative Entropy")
+p2 <- plot_nuc_level_bar("ALL", st, "re", "Nucleotide Contribution to Overall Statistic")
 p3 <- plot_signed_re_by_pos("ALL", st)
 
 p1
@@ -206,6 +215,9 @@ p2
 p3
 ```
 
+```{r results='asis', echo=FALSE}
+zhu_by_pos("ALL", st) %>% knitr::kable()
+```
 
 For the G>T(C>A) transversion at non-CpG sites we see that the largest marginal effect for the control-rate models appears at the +1 position, with the -1 position also appearing to be influential as well.
 
@@ -213,14 +225,17 @@ For the G>T(C>A) transversion at non-CpG sites we see that the largest marginal 
 
 ```{r echo=FALSE, message=FALSE}
 st <- "cpg_GC_TA"
-p1 <- plot_pos_stat("ALL", st, re_by_position, "Relative Entropy by Position: ", ylab_text = "Relative Entropy", r_start = 2)
-p2 <- plot_nuc_level_bar("ALL", st, "chi_sq_ct", "Nucleotide Contribution to Overall Statistic",
-                         paste0("Subtype: ", st, "; Population: All"), r_start =2)
+p1 <- plot_pos_stat("ALL", st, zhu_by_pos, "Relative Entropy by Position: ", ylab_text = "Relative Entropy", r_start = 2)
+p2 <- plot_nuc_level_bar("ALL", st, "re", "Nucleotide Contribution to Overall Statistic", r_start = 2)
 p3 <- plot_signed_re_by_pos("ALL", st, r_start = 2)
 
 p1
 p2
 p3
+```
+
+```{r results='asis', echo=FALSE}
+zhu_by_pos("ALL", st, r_start = 2) %>% knitr::kable()
 ```
 
 When we condition on the site being a CpG, we see that the largest marginal influence appears at the -1 site, with a modest signal at the -4 and -5 positions as well.
@@ -229,14 +244,17 @@ When we condition on the site being a CpG, we see that the largest marginal infl
 
 ```{r echo=FALSE, message=FALSE}
 st <- "GC_CG"
-p1 <- plot_pos_stat("ALL", st, re_by_position, "Relative Entropy by Position: ", ylab_text = "Relative Entropy")
-p2 <- plot_nuc_level_bar("ALL", st, "chi_sq_ct", "Nucleotide Contribution to Overall Statistic",
-                         paste0("Subtype: ", st, "; Population: All"))
+p1 <- plot_pos_stat("ALL", st, zhu_by_pos, "Relative Entropy by Position: ", ylab_text = "Relative Entropy")
+p2 <- plot_nuc_level_bar("ALL", st, "re", "Nucleotide Contribution to Overall Statistic")
 p3 <- plot_signed_re_by_pos("ALL", st)
 
 p1
 p2
 p3
+```
+
+```{r results='asis', echo=FALSE}
+zhu_by_pos("ALL", st) %>% knitr::kable()
 ```
 
 For the G<->C transversion at non-CpG sites we observe the largest marginal signal occurring at the -1 position.
@@ -245,14 +263,16 @@ For the G<->C transversion at non-CpG sites we observe the largest marginal sign
 
 ```{r echo=FALSE, message=FALSE}
 st <- "cpg_GC_CG"
-p1 <- plot_pos_stat("ALL", st, re_by_position, "Relative Entropy by Position: ", ylab_text = "Relative Entropy", r_start = 2)
-p2 <- plot_nuc_level_bar("ALL", st, "chi_sq_ct", "Nucleotide Contribution to Overall Statistic",
-                         paste0("Subtype: ", st, "; Population: All"), r_start =2)
+p1 <- plot_pos_stat("ALL", st, zhu_by_pos, "Relative Entropy by Position: ", ylab_text = "Relative Entropy", r_start = 2)
+p2 <- plot_nuc_level_bar("ALL", st, "re", "Nucleotide Contribution to Overall Statistic", r_start = 2)
 p3 <- plot_signed_re_by_pos("ALL", st, r_start = 2)
-
 p1
 p2
 p3
+```
+
+```{r results='asis', echo=FALSE}
+zhu_by_pos("ALL", st, r_start = 2) %>% knitr::kable()
 ```
 
 When we condition on the C<->G transversion being at a CpG site, we notice that the strongest marginal effect appears at the +2 position for both models, with sharp declines as we move away from +/- 3 bp.
