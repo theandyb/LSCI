@@ -137,9 +137,9 @@ corr_analysis <- function(subtype, r_start = 1, stat_col = "s_re"){
     pivot_wider(names_from = pop, values_from = !!sym(stat_col))
   
   # position-level statistics
-  df_pos <- df_wide_at_cg %>%
+  df_pos <- df_wide %>%
     group_by(rp) %>%
-    summarize(across(AFR:SAS, ~sum(abs(.))))
+    summarize(across(AFR:SAS, ~sum(abs(.), na.rm = T)))
   
   cor_obj <- df_pos %>%
     select(-rp) %>%
@@ -147,10 +147,18 @@ corr_analysis <- function(subtype, r_start = 1, stat_col = "s_re"){
   
   df_cor <- df_wide %>%
     group_by(rp) %>%
-    summarise(across(AMR:SAS, ~cor(., AFR), .names = "AFR_{.col}"),
-              across(EAS:SAS, ~cor(., AMR), .names = "AMR_{.col}"),
-              across(EUR:SAS, ~cor(., EAS), .names = "EAS_{.col}"),
-              across(SAS, ~cor(., EUR), .names = "EUR_{.col}"))
+    summarise(across(AMR:SAS, ~cor(., AFR, use = "complete.obs"), .names = "AFR_{.col}"),
+              across(EAS:SAS, ~cor(., AMR, use = "complete.obs"), .names = "AMR_{.col}"),
+              across(EUR:SAS, ~cor(., EAS, use = "complete.obs"), .names = "EAS_{.col}"),
+              across(SAS, ~cor(., EUR, use = "complete.obs"), .names = "EUR_{.col}"))
+  
+  if(!str_starts(subtype, "cpg")){
+    subtype2 <- str_replace(subtype, "_", " → ")
+  } else {
+    subtype <- str_sub(subtype, 5)
+    subtype2 <- paste0("(cpg) ", str_replace(subtype, "_", " → "))
+  }
+  
   p <- df_cor %>%
     select(rp, starts_with("AFR")) %>%
     pivot_longer(-rp, names_to = "pair", values_to = "cor") %>%
@@ -159,7 +167,8 @@ corr_analysis <- function(subtype, r_start = 1, stat_col = "s_re"){
     geom_point() + 
     geom_line() +
     ylim(c(0,1)) +
-    ggtitle("Nucleotide residual correlations", paste0("Reference Population: AFR; subtype: ", subtype)) +
+    ggtitle("Nucleotide residual correlations", 
+            paste0("Reference Population: AFR; subtype: ", subtype2)) +
     xlab("Relative Position") +
     ylab("Nucleotide Contribution Correlation") +
     labs(colour = "Population")
