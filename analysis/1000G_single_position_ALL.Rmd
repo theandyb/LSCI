@@ -183,6 +183,23 @@ zhu_by_pos("ALL", st) %>% knitr::kable()
 
 Here we look at the G>A (C>T) transition, conditioning on sites not being CpGs (note: due to this the degrees of freedom for the test statistic at the +1 position is 2 instead of 3). Here we see that, with the exception of the -1 position, the control distribution-based statistic is greater than what we observe with the genome-wide-based statistic.  
 
+### all_GC_AT
+
+```{r echo=FALSE, message=FALSE}
+st <- "all_GC_AT"
+p1 <- plot_pos_stat("ALL", st, zhu_by_pos, "Relative Entropy by Position: ", ylab_text = "Relative Entropy")
+p2 <- plot_nuc_level_bar("ALL", st, "re", "Nucleotide Contribution to Overall Statistic")
+p3 <- plot_signed_re_by_pos("ALL", st)
+
+p1
+p2
+p3
+```
+
+```{r results='asis', echo=FALSE}
+zhu_by_pos("ALL", st) %>% knitr::kable()
+```
+
 ### cpg_GC_AT
 
 ```{r echo=FALSE, message=FALSE}
