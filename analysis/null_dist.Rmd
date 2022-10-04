@@ -1,0 +1,112 @@
+---
+title: "null_dist"
+author: "Andy Beck"
+date: "2022-08-29"
+output: workflowr::wflow_html
+editor_options:
+  chunk_output_type: console
+---
+
+## Introduction
+
+Here we will be looking at the deviance statistics computed when comparing singleton and control observations 
+
+```{r}
+library(tidyverse)
+source("code/single_pos_functions.R")
+
+#input_dir <- "/net/snowwhite/home/beckandy/research/1000G_LSCI/output/null_dist/ALL/"
+input_dir <- "/net/snowwhite/home/beckandy/research/1000G_LSCI/output/null_dist/no_mask/ALL/"
+```
+
+ Let's get the table for a single subtype. For this we will need to aggregate across the 22 autosomes:
+
+```{r}
+read_csv(paste0(input_dir, "singleton_9_AT_GC.csv"), show_col_types = FALSE) %>%
+  mutate(Nuc = toupper(Nuc)) %>%
+  group_by(Nuc) %>%
+  summarise(Singletons = sum(Singletons))
+```
+
+ 
+```{r}
+load_subtype_singleton_chromosome <- function(subtype, input_dir, chrom){
+  f_name <- paste0(input_dir, "singleton_",chrom,"_",subtype,".csv")
+  df <- read_csv(f_name, show_col_types = FALSE) %>%
+    mutate(Nuc = toupper(Nuc)) %>%
+    group_by(Nuc) %>%
+    summarise(Singletons = sum(Singletons)) %>%
+    filter(Nuc %in% c("A", "T", "C", "G"))
+  return(df)
+}
+
+load_subtype_control_chromosome <- function(subtype, input_dir, chrom){
+  f_name <- paste0(input_dir, "control_",chrom,"_",subtype,".csv")
+  df <- read_csv(f_name, show_col_types = FALSE) %>%
+    mutate(Nuc = toupper(Nuc)) %>%
+    group_by(Nuc) %>%
+    summarise(Controls = sum(Controls)) %>%
+    filter(Nuc %in% c("A", "T", "C", "G"))
+  return(df)
+}
+
+load_subtype_singletons <- function(subtype, input_dir){
+  df <- load_subtype_singleton_chromosome(subtype, input_dir, 1)
+  for(i in 2:22){
+    df2 <- load_subtype_singleton_chromosome(subtype, input_dir, i)
+    df <- full_join(df, df2, by = "Nuc") %>%
+      mutate(Singletons = Singletons.x + Singletons.y) %>%
+      select(Nuc, Singletons)
+  }
+  return(df)
+}
+
+load_subtype_controls <- function(subtype, input_dir){
+  df <- load_subtype_control_chromosome(subtype, input_dir, 1)
+  for(i in 2:22){
+    df2 <- load_subtype_control_chromosome(subtype, input_dir, i)
+    df <- full_join(df, df2, by = "Nuc") %>%
+      mutate(Controls = Controls.x + Controls.y) %>%
+      select(Nuc, Controls)
+  }
+  return(df)
+}
+
+load_table <- function(subtype, input_dir){
+  df_s <- load_subtype_singletons(subtype, input_dir)
+  df_c <- load_subtype_controls(subtype, input_dir)
+  df <- full_join(df_s, df_c, by = "Nuc") %>%
+    arrange(Nuc)
+  return(df)
+}
+
+re_stat <- function(subtype, input_dir){
+  df <- load_table(subtype, input_dir) %>%
+    pivot_longer(-Nuc, names_to = "type", values_to = "n") 
+  mod_obj <- glm(n ~ Nuc + type, data = df, family = poisson())
+  df$re <- 2 * df$n * log(df$n / mod_obj$fitted.values) / (2 * sum(df$n))
+  return(sum(df$re))
+}
+
+deviance_stat <- function(subtype, input_dir){
+  df <- load_table(subtype, input_dir) %>%
+    pivot_longer(-Nuc, names_to = "type", values_to = "n")
+  mod_obj <- glm(n ~ Nuc + type, data = df, family = poisson())
+  return(deviance(mod_obj))
+}
+```
+
+Let's look at our subtypes:
+
+```{r}
+plot_pos_stat("ALL", "AT_TA", dev_by_position, title_text = "Deviance: ", ylab_text = "Deviance")
+dev_by_position("ALL", "AT_TA")
+zhu_by_pos("ALL", "AT_TA")
+```
+
+And if we look at the value of the statistic when considering relative position +1000:
+
+```{r}
+deviance_stat("AT_TA", input_dir)
+```
+

@@ -162,6 +162,19 @@ re_by_position <- function(population, subtype, r_start = 1,
   return(final)
 }
 
+# Deviance by position
+dev_by_position <- function(population, subtype, r_start = 1,
+                            data_dir = "/net/snowwhite/home/beckandy/research/1000G_LSCI/output/single_pos_df/"){
+  final <- data.frame(pos = numeric(), statistic = numeric())
+  for(i in c(-10:-1, r_start:10)){
+    df <- load_sp_results(population, subtype, i, data_dir)
+    final <- bind_rows(final,
+                       data.frame(pos = i,
+                                  statistic = sum(df$deviance, na.rm = T)))
+  }
+  return(final)
+}
+
 #' Plot position x statistic
 plot_pos_stat <- function(population, subtype, stat_func,
                           title_text, ylab_text,
@@ -240,11 +253,15 @@ plot_signed_re_by_pos <- function(population, subtype, r_start = 1,
                                    data_dir = "/net/snowwhite/home/beckandy/research/1000G_LSCI/output/single_pos_df/"){
   df <- load_all_sp_results(population, subtype, r_start, data_dir = data_dir)
 
-  if(!str_starts(subtype, "cpg")){
+  if(!str_starts(subtype, "cpg") & !str_starts(subtype, "all")){
     subtype2 <- str_replace(subtype, "_", " → ")
   } else {
     subtype <- str_sub(subtype, 5)
-    subtype2 <- paste0("(cpg) ", str_replace(subtype, "_", " → "))
+    if(str_starts(subtype, "cpg")){
+      subtype2 <- paste0("(cpg) ", str_replace(subtype, "_", " → "))
+    } else{
+      subtype2 <- paste0(str_replace(subtype, "_", " → "))
+    }
   }
 
   g_title <- paste0("Nucleotide Level Relative Entropy: ", subtype2)

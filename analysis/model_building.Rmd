@@ -1,0 +1,276 @@
+---
+title: "model_building"
+author: "Andy Beck"
+date: "2022-07-13"
+output: workflowr::wflow_html
+editor_options:
+  chunk_output_type: console
+---
+
+```{r, message=FALSE, warning=FALSE}
+library(tidyverse)
+source("code/two_pos_new.R")
+source("code/single_pos_functions.R")
+```
+
+
+## Introduction
+
+Previous work for this project has been very much descriptive: what patterns do we see as we scan across flanking positions and flanking positions? How strong are interactions relative to independent positions? What we haven't looked into yet are the implications of our results in terms of the original goal of the project: simplify how we account for the influence of local sequence context on rates of substitutions. 
+
+Here we'll look at using the relative entropy results to construct models using either independent or two-way interactions. Questions we might as include:
+
+* What improves a model more: the addition of an additional position, or a higher order interaction between already included positions?
+
+## AT_GC
+
+Let's first take a look at the AT_GC subtype. To guide our model building process, let us first grab the relative entropy values for both single and two position models:
+
+```{r}
+re_vals <- zhu_by_pos("ALL", "AT_GC") %>% 
+  mutate(pos = as.character(pos)) 
+re_vals$type = "single"
+
+re_vals2 <- zhu_all_pair_re("ALL", "AT_GC") %>%
+    mutate(pos = str_c("(", p1, ", ", p2, ")")) %>% 
+    select(pos, re) %>%
+    rename(statistic = re)
+re_vals2$type <- "twoway"
+
+re_vals <- bind_rows(re_vals, re_vals2) %>%
+  arrange(desc(statistic))
+
+re_vals %>% 
+  filter(type == "single") %>%
+  head()
+```
+
+Now let's write some code to wrangle up our data in 7-mer form (to start):
+
+```{r}
+get_singleton_7mer <- function(population, subtype, data_dir = "/net/snowwhite/home/beckandy/research/1000G_LSCI/output/singletons/"){
+  input_dir <- paste0(data_dir, population, "/")
+  input_file <- paste0(input_dir, subtype, ".txt")
+  awk_cmd <- paste0("grep -E '^[ACGT]+$' ", input_file, "| awk '{count[substr($1, 8, 7)]++}END{for(key in count)print(key\"\\t\"count[key])}'")
+  df <- vroom::vroom(pipe(awk_cmd), col_names = c("motif", "singletons"), delim = "\t") %>%
+    separate(motif, c("p0","p1","p2", NA, "p3", "p4", "p5"), sep = 1:7)
+  return(df)
+}
+
+get_control_7mer <- function(population, subtype, data_dir = "/net/snowwhite/home/beckandy/research/1000G_LSCI/output/controls/"){
+  input_dir <- paste0(data_dir, population, "/")
+  input_file <- paste0(input_dir, subtype, ".txt")
+  awk_cmd <- paste0("grep -E '^[ACGT]+$' ", input_file, "| awk '{count[substr($1, 8, 7)]++}END{for(key in count)print(key\"\\t\"count[key])}'")
+  df <- vroom::vroom(pipe(awk_cmd), col_names = c("motif", "controls"), delim = "\t") %>%
+    separate(motif, c("p0","p1","p2", NA, "p3", "p4", "p5"), sep = 1:7)
+  return(df)
+}
+
+get_singleton_nmer <- function(population, subtype, n=3, data_dir = "/net/snowwhite/home/beckandy/research/1000G_LSCI/output/singletons/"){
+  input_dir <- paste0(data_dir, population, "/")
+  input_file <- paste0(input_dir, subtype, ".txt")
+  lb <- 11 - n
+  num_base <- (n*2)+1
+  awk_cmd <- paste0("grep -E '^[ACGT]+$' ", input_file, "| awk '{count[substr($1, ", lb,", ", num_base,")]++}END{for(key in count)print(key\"\\t\"count[key])}'")
+  df <- vroom::vroom(pipe(awk_cmd), col_names = c("motif", "singletons"), delim = "\t") %>%
+    separate(motif, paste0("p", 1:num_base), sep = 1:num_base)
+  return(df)
+}
+
+get_control_nmer <- function(population, subtype, n=3, data_dir = "/net/snowwhite/home/beckandy/research/1000G_LSCI/output/controls/"){
+  input_dir <- paste0(data_dir, population, "/")
+  input_file <- paste0(input_dir, subtype, ".txt")
+  lb <- 11 - n
+  num_base <- (n*2)+1
+  awk_cmd <- paste0("grep -E '^[ACGT]+$' ", input_file, "| awk '{count[substr($1, ", lb,", ", num_base,")]++}END{for(key in count)print(key\"\\t\"count[key])}'")
+  df <- vroom::vroom(pipe(awk_cmd), col_names = c("motif", "controls"), delim = "\t") %>%
+    separate(motif, paste0("p", 1:num_base), sep = 1:num_base)
+  return(df)
+}
+```
+
+And now we get our data:
+
+```{r}
+df_singletons <- get_singleton_nmer("ALL", "AT_GC", n = 5)
+df_controls <- get_control_nmer("ALL", "AT_GC", n = 5)
+
+df <- full_join(df_singletons, df_controls) %>%
+  replace_na(list("singletons" = 0, "controls" = 0))
+
+df_singletons <- get_singleton_nmer("ALL", "AT_GC", n = 3)
+df_controls <- get_control_nmer("ALL", "AT_GC", n = 3)
+
+df_7mer <- full_join(df_singletons, df_controls) %>%
+  replace_na(list("singletons" = 0, "controls" = 0))
+
+rm(df_singletons, df_controls)
+```
+
+First, let's test our intuition by comparing the highest and lowest re single position models:
+
+```{r}
+#1, -4
+
+mod_1 <- glm(cbind(singletons, controls) ~ p2, data = df, family = binomial())
+mod_2_7 <- glm(cbind(singletons, controls) ~ p5, data = df_7mer, family = binomial())
+mod_2 <- glm(cbind(singletons, controls) ~ p7, data = df, family = binomial())
+
+AIC(mod_1)
+AIC(mod_2)
+AIC(mod_2_7)
+
+rm(mod_1, mod_2_7)
+```
+
+Ok, cool, now let's build up following the procedure of adding single positions until we hit an RE where there is a higher second-order term
+
+```{r}
+# 1, -2
+mod_3 <- glm(cbind(singletons, controls) ~ p7 + p4, data = df, family = binomial())
+AIC(mod_3) < AIC(mod_2)
+# 1, -2, -1
+mod_test <- glm(cbind(singletons, controls) ~ p7 + p4 + p5 , data = df, family = binomial())
+AIC(mod_test) < AIC(mod_3)
+# better fit, so maintain
+mod_3 <- mod_test
+rm(mod_test)
+rm(mod_2)
+```
+
+Ok, so now we ask the question: which will reduce the AIC more: adding the +3 term, or the (-2, -1) interaction?
+
+```{r}
+mod_4_1 <- glm(cbind(singletons, controls) ~ p7 + p4 + p5 + p9, data = df, family = binomial())
+mod_4_2 <- glm(cbind(singletons, controls) ~  p7 + p4 + p5 + (p4*p5), data = df, family = binomial())
+
+AIC(mod_4_1)
+AIC(mod_4_2)
+
+anova(mod_3, mod_4_2)
+rm(mod_4_1, mod_4_2, mod_3)
+```
+
+From this we can conclude that the next best step here would be to add the (-2, -1) interaction before considering the +3 independent term. Now my question becomes how many terms will we add before the AIC ceases to increase?
+
+```{r}
+# add +3 to mod_4_2
+mod_5 <- glm(cbind(singletons, controls) ~  p7 + p4 + p5 + (p4*p5) + p9, data = df, family = binomial())
+AIC(mod_5)
+
+# add (-2, +1)
+mod_5 <- glm(cbind(singletons, controls) ~  p7 + p4 + p5 + (p4*p5) + p9 + (p4 * p7), data = df, family = binomial())
+AIC(mod_5)
+
+# add (-1, +1)
+mod_5 <- glm(cbind(singletons, controls) ~  p7 + p4 + p5 + (p4*p5) + p9 + (p4 * p7) + (p5 * p7), data = df, family = binomial())
+AIC(mod_5)
+
+# decision: add 2 before (1, 2) [interaction has higher RE, but next to each other in order]
+mod_5 <- glm(cbind(singletons, controls) ~  p7 + p4 + p5 + (p4*p5) + p9 + (p4 * p7) + (p5 * p7) + p8, data = df, family = binomial())
+AIC(mod_5)
+
+mod_5 <- glm(cbind(singletons, controls) ~  p7 + p4 + p5 + (p4*p5) + p9 + (p4 * p7) + (p5 * p7) + p8 + (p7*p8), data = df, family = binomial())
+AIC(mod_5)
+
+# (-1, 2)
+mod_5 <- glm(cbind(singletons, controls) ~  p7 + p4 + p5 + (p4*p5) + p9 + (p4 * p7) + (p5 * p7) + p8 + (p7*p8) + (p5 * p8), data = df, family = binomial())
+AIC(mod_5)
+
+# (1, 3)
+mod_5 <- glm(cbind(singletons, controls) ~  p7 + p4 + p5 + (p4*p5) + p9 + (p4 * p7) + (p5 * p7) + p8 + (p7*p8) + (p5 * p8) + (p7 * p9), 
+             data = df, family = binomial())
+AIC(mod_5)
+
+# skip 7 for now since not in data
+# 4, (3, 4)
+mod_5 <- glm(cbind(singletons, controls) ~  p7 + p4 + p5 + (p4*p5) + p9 + (p4 * p7) + (p5 * p7) + p8 + (p7*p8) + (p5 * p8) + (p7 * p9) + p10 + (p9 * p10), 
+             data = df, family = binomial())
+AIC(mod_5)
+
+# -3
+mod_5 <- glm(cbind(singletons, controls) ~  p7 + p4 + p5 + (p4*p5) + p9 + (p4 * p7) + (p5 * p7) + p8 + (p7*p8) + (p5 * p8) + (p7 * p9) + p10 + (p9 * p10) + p3, 
+             data = df, family = binomial())
+AIC(mod_5)
+
+# (-3, 1)
+mod_5 <- glm(cbind(singletons, controls) ~  p7 + p4 + p5 + (p4*p5) + p9 + (p4 * p7) + (p5 * p7) + p8 + (p7*p8) + (p5 * p8) + (p7 * p9) + p10 + (p9 * p10) + p3 +
+               (p3 * p7), 
+             data = df, family = binomial())
+AIC(mod_5)
+
+# -4, (-4, -2)
+mod_5 <- glm(cbind(singletons, controls) ~  p7 + p4 + p5 + (p4*p5) + p9 + (p4 * p7) + (p5 * p7) + p8 + (p7*p8) + (p5 * p8) + (p7 * p9) + p10 + (p9 * p10) + p3 +
+               (p3 * p7) + p2 + (p2 * p4), 
+             data = df, family = binomial())
+AIC(mod_5)
+
+# 4, (1, 4)
+mod_5 <- glm(cbind(singletons, controls) ~  p7 + p4 + p5 + (p4*p5) + p9 + (p4 * p7) + (p5 * p7) + p8 + (p7*p8) + (p5 * p8) + (p7 * p9) + p10 + (p9 * p10) + p3 +
+               (p3 * p7) + p2 + (p2 * p4) + p10 + (p7 * p10), 
+             data = df, family = binomial())
+AIC(mod_5)
+
+# (-3, -1)
+mod_5 <- glm(cbind(singletons, controls) ~  p7 + p4 + p5 + (p4*p5) + p9 + (p4 * p7) + (p5 * p7) + p8 + (p7*p8) + (p5 * p8) + (p7 * p9) + p10 + (p9 * p10) + p3 +
+               (p3 * p7) + p2 + (p2 * p4) + p10 + (p7 * p10) + (p3 * p5), 
+             data = df, family = binomial())
+AIC(mod_5)
+
+# (-2, 2)
+mod_5 <- glm(cbind(singletons, controls) ~  p7 + p4 + p5 + (p4*p5) + p9 + (p4 * p7) + (p5 * p7) + p8 + (p7*p8) + (p5 * p8) + (p7 * p9) + p10 + (p9 * p10) + p3 +
+               (p3 * p7) + p2 + (p2 * p4) + p10 + (p7 * p10) + (p3 * p5) + (p4 * p8), 
+             data = df, family = binomial())
+AIC(mod_5)
+
+# (-3, -2)
+mod_5 <- glm(cbind(singletons, controls) ~  p7 + p4 + p5 + (p4*p5) + p9 + (p4 * p7) + (p5 * p7) + p8 + (p7*p8) + (p5 * p8) + (p7 * p9) + p10 + (p9 * p10) + p3 +
+               (p3 * p7) + p2 + (p2 * p4) + p10 + (p7 * p10) + (p3 * p5) + (p4 * p8) + (p3 * p4), 
+             data = df, family = binomial())
+AIC(mod_5)
+
+# (2,3)
+mod_5 <- glm(cbind(singletons, controls) ~  p7 + p4 + p5 + (p4*p5) + p9 + (p4 * p7) + (p5 * p7) + p8 + (p7*p8) + (p5 * p8) + (p7 * p9) + p10 + (p9 * p10) + p3 +
+               (p3 * p7) + p2 + (p2 * p4) + p10 + (p7 * p10) + (p3 * p5) + (p4 * p8) + (p3 * p4) + (p8 * p9), 
+             data = df, family = binomial())
+AIC(mod_5)
+
+# -5
+mod_5 <- glm(cbind(singletons, controls) ~  p7 + p4 + p5 + (p4*p5) + p9 + (p4 * p7) + (p5 * p7) + p8 + (p7*p8) + (p5 * p8) + (p7 * p9) + p10 + (p9 * p10) + p3 +
+               (p3 * p7) + p2 + (p2 * p4) + p10 + (p7 * p10) + (p3 * p5) + (p4 * p8) + (p3 * p4) + (p8 * p9) + p1, 
+             data = df, family = binomial())
+AIC(mod_5)
+
+# (-4, -1)
+mod_5 <- glm(cbind(singletons, controls) ~  p7 + p4 + p5 + (p4*p5) + p9 + (p4 * p7) + (p5 * p7) + p8 + (p7*p8) + (p5 * p8) + (p7 * p9) + p10 + (p9 * p10) + p3 +
+               (p3 * p7) + p2 + (p2 * p4) + p10 + (p7 * p10) + (p3 * p5) + (p4 * p8) + (p3 * p4) + (p8 * p9) + p1 + (p2 * p5), 
+             data = df, family = binomial())
+AIC(mod_5)
+
+# (-4, -3)
+mod_5 <- glm(cbind(singletons, controls) ~  p7 + p4 + p5 + (p4*p5) + p9 + (p4 * p7) + (p5 * p7) + p8 + (p7*p8) + (p5 * p8) + (p7 * p9) + p10 + (p9 * p10) + p3 +
+               (p3 * p7) + p2 + (p2 * p4) + p10 + (p7 * p10) + (p3 * p5) + (p4 * p8) + (p3 * p4) + (p8 * p9) + p1 + (p2 * p5) + (p2 * p3), 
+             data = df, family = binomial())
+AIC(mod_5)
+
+# 5
+mod_5 <- glm(cbind(singletons, controls) ~  p7 + p4 + p5 + (p4*p5) + p9 + (p4 * p7) + (p5 * p7) + p8 + (p7*p8) + (p5 * p8) + (p7 * p9) + p10 + (p9 * p10) + p3 +
+               (p3 * p7) + p2 + (p2 * p4) + p10 + (p7 * p10) + (p3 * p5) + (p4 * p8) + (p3 * p4) + (p8 * p9) + p1 + (p2 * p5) + (p2 * p3) + p11, 
+             data = df, family = binomial())
+AIC(mod_5)
+
+# (-4, 1)
+mod_5 <- glm(cbind(singletons, controls) ~  p7 + p4 + p5 + (p4*p5) + p9 + (p4 * p7) + (p5 * p7) + p8 + (p7*p8) + (p5 * p8) + (p7 * p9) + p10 + (p9 * p10) + p3 +
+               (p3 * p7) + p2 + (p2 * p4) + p10 + (p7 * p10) + (p3 * p5) + (p4 * p8) + (p3 * p4) + (p8 * p9) + p1 + (p2 * p5) + (p2 * p3) + p11 +
+               (p2 * p7), 
+             data = df, family = binomial())
+AIC(mod_5)
+
+# (1, 5)
+mod_5 <- glm(cbind(singletons, controls) ~  p7 + p4 + p5 + (p4*p5) + p9 + (p4 * p7) + (p5 * p7) + p8 + (p7*p8) + (p5 * p8) + (p7 * p9) + p10 + (p9 * p10) + p3 +
+               (p3 * p7) + p2 + (p2 * p4) + p10 + (p7 * p10) + (p3 * p5) + (p4 * p8) + (p3 * p4) + (p8 * p9) + p1 + (p2 * p5) + (p2 * p3) + p11 +
+               (p2 * p7) + (p7 * p11) , 
+             data = df, family = binomial())
+AIC(mod_5)
+```
+

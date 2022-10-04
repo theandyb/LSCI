@@ -1,0 +1,72 @@
+---
+title: "1000G_three_position"
+author: "Andy Beck"
+date: "2022-08-31"
+output: workflowr::wflow_html
+editor_options:
+  chunk_output_type: console
+---
+
+## Introduction
+
+```{r}
+library(tidyverse)
+source("code/two_pos_new.R")
+```
+
+The purpose of this document is to explore the relative entropies we observe when considering three position interaction models.
+
+### Stage 1: Load the data
+
+```{r}
+load_count_singletons <- function(pop, st, rp1, rp2, rp3, input_dir = "/net/snowwhite/home/beckandy/research/1000G_LSCI/output/singletons/"){
+  f_name <- paste0(input_dir, pop, "/", st, ".txt")
+  nucs <- c("A", "C", "G", "T")
+  p1 <- 11 + rp1
+  p2 <- 11 + rp2
+  p3 <- 11 + rp3
+  awk_cmd <- paste0("awk '{count[substr($1,", p1, ",1)substr($1, ", p2, ", 1)substr($1,", p3, ",1)]++}END{for(key in count)print(substr(key,1,1)\"\\t\"substr(key,2,1)\"\\t\"substr(key,3,1)\"\\t\"count[key])}' ", f_name)
+  df <- vroom::vroom(pipe(awk_cmd), delim = "\t", col_names = c("p1", "p2", "p3", "singletons"), show_col_types = FALSE) %>%
+    filter(p1 %in% nucs, p2 %in% nucs, p3 %in% nucs)
+  return(df)
+}
+
+load_count_controls <- function(pop, st, rp1, rp2, rp3, input_dir = "/net/snowwhite/home/beckandy/research/1000G_LSCI/output/controls/"){
+  f_name <- paste0(input_dir, pop, "/", st, ".txt")
+  nucs <- c("A", "C", "G", "T")
+  p1 <- 11 + rp1
+  p2 <- 11 + rp2
+  p3 <- 11 + rp3
+  awk_cmd <- paste0("awk '{count[substr($1,", p1, ",1)substr($1, ", p2, ", 1)substr($1,", p3, ",1)]++}END{for(key in count)print(substr(key,1,1)\"\\t\"substr(key,2,1)\"\\t\"substr(key,3,1)\"\\t\"count[key])}' ", f_name)
+  df <- vroom::vroom(pipe(awk_cmd), delim = "\t", col_names = c("p1", "p2", "p3", "controls"), show_col_types = FALSE) %>%
+    filter(p1 %in% nucs, p2 %in% nucs, p3 %in% nucs)
+  return(df)
+}
+
+load_counts <- function(pop, st, rp1, rp2, rp3){
+  df_s <- load_count_singletons(pop, st, rp1, rp2, rp3)
+  df_c <- load_count_controls(pop, st, rp1, rp2, rp3)
+  
+  df <- full_join(df_s, df_c, by = c("p1", "p2", "p3")) %>%
+    replace_na(list("singletons" = 0, "controls" = 0)) %>%
+    pivot_longer(singletons:controls, names_to = "status", values_to = "n")
+  return(df)
+}
+
+single_deviance <- function(pop, st, rp1, rp2, rp3){
+  df <- load_counts(pop, st, rp1, rp2, rp3)
+  mod_obj <- glm(n ~ (p1 + p2 + p3 + status)^3, family = poisson, data = df)
+  return(deviance(mod_obj))
+}
+
+single_re <- function(pop, st, rp1, rp2, rp3){
+  df <- load_counts(pop, st, rp1, rp2, rp3)
+  mod_obj <- glm(n ~ (p1 + p2 + p3 + status)^3, family = poisson, data = df)
+  df$res <- residuals(mod_obj) ^ 2
+  n_obs <- sum(df$n)
+  re <- sum(df$res)
+  re <- re / (2*n_obs)
+  return(re)
+}
+```
+

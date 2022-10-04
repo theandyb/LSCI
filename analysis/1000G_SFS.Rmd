@@ -1,0 +1,33 @@
+---
+title: "1000G_SFS"
+author: "Andy Beck"
+date: "2022-08-23"
+output: workflowr::wflow_html
+editor_options:
+  chunk_output_type: console
+---
+
+## Introduction
+
+
+```{r, message=FALSE, warning=FALSE}
+library(tidyverse)
+source("code/two_pos_new.R")
+source("code/single_pos_functions.R")
+```
+
+Code for generic 2-mer generation:
+
+```{r}
+get_singleton_nmer <- function(population, subtype, n=3, data_dir = "/net/snowwhite/home/beckandy/research/1000G_LSCI/output/singletons/"){
+  input_dir <- paste0(data_dir, population, "/")
+  input_file <- paste0(input_dir, subtype, ".txt")
+  lb <- 11 - n
+  num_base <- (n*2)+1
+  awk_cmd <- paste0("grep -E '^[ACGT]+$' ", input_file, "| awk '{count[substr($1, ", lb,", ", num_base,")]++}END{for(key in count)print(key\"\\t\"count[key])}'")
+  df <- vroom::vroom(pipe(awk_cmd), col_names = c("motif", "singletons"), delim = "\t") %>%
+    separate(motif, paste0("p", 1:num_base), sep = 1:num_base)
+  return(df)
+}
+```
+

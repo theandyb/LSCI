@@ -46,7 +46,7 @@ st <- "AT_CG"
 simple_cor <- function(st, r_start = 1){
   df <- get_pos(st, r_start = r_start)
   
-  cor({df %>% select(-p1, -p2)}) %>% knitr::kable() %>% print()
+  cor_mat <- cor({df %>% select(-p1, -p2)})
   
   if(!str_starts(st, "cpg")){
     subtype2 <- str_replace(st, "_", " → ")
@@ -62,65 +62,92 @@ simple_cor <- function(st, r_start = 1){
     xlab("Population") + ylab("Population") + 
     ggtitle("Correlation of Position-Level Results", paste0("Subtype: ", subtype2)) +
     scale_fill_distiller(palette = "Reds", direction = 1, limits = c(0,1))
-  print(p)
+  return(list(p = p, cor_mat = cor_mat))
 }
-simple_cor(st)
+obj <- simple_cor(st)
+
+obj$cor_mat %>% knitr::kable()
+obj$p
 ```
 
 ### AT_GC
 
 ```{r}
 st <- "AT_GC"
-simple_cor(st)
+obj <- simple_cor(st)
+
+obj$cor_mat %>% knitr::kable()
+obj$p
 ```
 
 ### AT_TA
 
 ```{r}
 st <- "AT_TA"
-simple_cor(st)
+obj <- simple_cor(st)
+
+obj$cor_mat %>% knitr::kable()
+obj$p
 ```
 
 ### GC_AT
 
 ```{r}
 st <- "GC_AT"
-simple_cor(st)
+obj <- simple_cor(st)
+
+obj$cor_mat %>% knitr::kable()
+obj$p
 ```
 
 ### cpg_GC_AT
 
 ```{r}
 st <- "cpg_GC_AT"
-simple_cor(st, r_start = 2)
+obj <- simple_cor(st, r_start = 2)
+
+obj$cor_mat %>% knitr::kable()
+obj$p
 ```
 
 ### GC_TA
 
 ```{r}
 st <- "GC_TA"
-simple_cor(st)
+obj <- simple_cor(st)
+
+obj$cor_mat %>% knitr::kable()
+obj$p
 ```
 
 ### cpg_GC_TA
 
 ```{r}
 st <- "cpg_GC_TA"
-simple_cor(st, r_start = 2)
+obj <- simple_cor(st, r_start = 2)
+
+obj$cor_mat %>% knitr::kable()
+obj$p
 ```
 
 ### GC_CG
 
 ```{r}
 st <- "GC_CG"
-simple_cor(st)
+obj <-  simple_cor(st)
+
+obj$cor_mat %>% knitr::kable()
+obj$p
 ```
 
 ### cpg_GC_CG
 
 ```{r}
 st <- "cpg_GC_CG"
-simple_cor(st, r_start = 2)
+obj <- simple_cor(st, r_start = 2)
+
+obj$cor_mat %>% knitr::kable()
+obj$p
 ```
 
 
@@ -211,4 +238,76 @@ get_table_re(pop) %>%
   knitr::kable()
 ```
 
+## GC_AT Differences
 
+```{r}
+stat_pair_all("ALL", "GC_AT", zhu_pair_re) %>%
+  arrange(desc(statistic)) %>%
+  head(4) %>%
+  knitr::kable()
+
+stat_pair_all("AFR", "GC_AT", zhu_pair_re) %>%
+  arrange(desc(statistic)) %>%
+  head(4) %>%
+  knitr::kable()
+
+stat_pair_all("AMR", "GC_AT", zhu_pair_re) %>%
+  arrange(desc(statistic)) %>%
+  head(4) %>%
+  knitr::kable()
+
+stat_pair_all("EAS", "GC_AT", zhu_pair_re) %>%
+  arrange(desc(statistic)) %>%
+  head(4) %>%
+  knitr::kable()
+
+stat_pair_all("EUR", "GC_AT", zhu_pair_re) %>%
+  arrange(desc(statistic)) %>%
+  head(4) %>%
+  knitr::kable()
+
+stat_pair_all("SAS", "GC_AT", zhu_pair_re) %>%
+  arrange(desc(statistic)) %>%
+  head(4) %>%
+  knitr::kable()
+```
+
+In this example, while not all populations share the positions coordinates of the highest RE value, we see that (-2, -1) and (-1, 1) are in the top two for all populations.
+
+## AT_CG example (EAS)
+
+For this subtype the only super population to not have the highest observed RE value at (1,2) was EAS (-2, -1)
+
+```{r}
+stat_pair_all("ALL", "AT_CG", zhu_pair_re) %>%
+  arrange(desc(statistic)) %>%
+  head(4) %>%
+  knitr::kable()
+
+stat_pair_all("EAS", "AT_CG", zhu_pair_re) %>%
+  arrange(desc(statistic)) %>%
+  head(4) %>%
+  knitr::kable()
+
+stat_pair_all("AFR", "AT_CG", zhu_pair_re) %>%
+  arrange(desc(statistic)) %>%
+  head(4) %>%
+  knitr::kable()
+
+stat_pair_all("AMR", "AT_CG", zhu_pair_re) %>%
+  arrange(desc(statistic)) %>%
+  head(4) %>%
+  knitr::kable()
+
+stat_pair_all("EUR", "AT_CG", zhu_pair_re) %>%
+  arrange(desc(statistic)) %>%
+  head(4) %>%
+  knitr::kable()
+
+stat_pair_all("SAS", "AT_CG", zhu_pair_re) %>%
+  arrange(desc(statistic)) %>%
+  head(4) %>%
+  knitr::kable()
+```
+
+Again, we see that across all populations the top four statistics are at the same pairs of positions, with only the order slightly adjusted.

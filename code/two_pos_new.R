@@ -442,3 +442,16 @@ plot_control_mult_res <- function(population, subtype, p1, p2,
     labs(fill="RE")
   return(p)
 }
+
+zhu_all_pair_re <- function(population, subtype, r_start = 1){
+  final <- data.frame(p1 = numeric(), p2 = numeric(), re = numeric())
+  for(i in c(-10:-1, r_start:9)){
+    for(j in (i+1):10){
+      if(j == 0) next
+      if(r_start > 1 & j == 1) next
+      re <- zhu_pair_re(population, subtype, i, j)
+      final <- bind_rows(final, data.frame(p1 = i, p2 = j, re = re))
+    }
+  }
+  return(final)
+}
