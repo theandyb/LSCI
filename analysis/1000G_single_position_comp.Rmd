@@ -13,7 +13,10 @@ editor_options:
 library(tidyverse)
 library(corrr)
 library(tikzDevice)
+library(rlang)
 source("code/single_pos_functions.R")
+
+pic_dir <- "/net/snowwhite/home/beckandy/research/1000G_LSCI/output/figs/single_pos/"
 ```
 
 ## Introduction
@@ -28,6 +31,9 @@ In [another document](1000G_single_position_ALL.Rmd), we evaluated the single po
 
 ```{r echo=FALSE}
 plot_pos_stat("ALL", "AT_CG", zhu_by_pos, title_text = "Relative Entropy by Relative Position: ", ylab_text = "Relative Entropy")
+
+f_out <- paste0(pic_dir, "ALL_AT_CG.png")
+ggsave(f_out, width = 800, height = 500, units = "px", dpi = 120)
 ```
 
 As a reminder, here we plot the single position statistics for the A(T)>C(G) sub-type using singletons aggregated across all 5 super-populations.
@@ -36,6 +42,9 @@ As a reminder, here we plot the single position statistics for the A(T)>C(G) sub
 
 ```{r echo=FALSE}
 plot_pos_stat("AFR", "AT_CG", zhu_by_pos, title_text = "Relative Entropy by Relative Position: ", ylab_text = "Relative Entropy")
+
+f_out <- paste0(pic_dir, "AFR_AT_CG.png")
+ggsave(f_out, width = 800, height = 500, units = "px", dpi = 120)
 ```
 
 When we look at the AFR super-population, our results across all the positions looks strikingly similar to what we saw above in the ALL analysis. This might be driven by AFR contributing a larger fraction of the singletons than the other 4 super-populations, so let us now take a look at those.
@@ -44,24 +53,36 @@ When we look at the AFR super-population, our results across all the positions l
 
 ```{r echo=FALSE}
 plot_pos_stat("AMR", "AT_CG", zhu_by_pos, title_text = "Relative Entropy by Relative Position: ", ylab_text = "Relative Entropy")
+
+f_out <- paste0(pic_dir, "AMR_AT_CG.png")
+ggsave(f_out, width = 800, height = 500, units = "px", dpi = 120)
 ```
 
 #### EAS
 
 ```{r echo=FALSE}
 plot_pos_stat("EAS", "AT_CG", zhu_by_pos, title_text = "Relative Entropy by Relative Position: ", ylab_text = "Relative Entropy")
+
+f_out <- paste0(pic_dir, "EAS_AT_CG.png")
+ggsave(f_out, width = 800, height = 500, units = "px", dpi = 120)
 ```
 
 #### EUR
 
 ```{r echo=FALSE}
 plot_pos_stat("EUR", "AT_CG", zhu_by_pos, title_text = "Relative Entropy by Relative Position: ", ylab_text = "Relative Entropy")
+
+f_out <- paste0(pic_dir, "EUR_AT_CG.png")
+ggsave(f_out, width = 800, height = 500, units = "px", dpi = 120)
 ```
 
 #### SAS
 
 ```{r echo=FALSE}
 plot_pos_stat("SAS", "AT_CG", zhu_by_pos, title_text = "Relative Entropy by Relative Position: ", ylab_text = "Relative Entropy")
+
+f_out <- paste0(pic_dir, "SAS_AT_CG.png")
+ggsave(f_out, width = 800, height = 500, units = "px", dpi = 120)
 ```
 
 Across all five super-populations we see the same pattern as we look across positions, suggesting that the results are consistent across the five super-populations. The only difference we really see is a shift in the magnitude of the statistic, which is likely driven by differences in the number of singletons across the super-populations.
@@ -97,7 +118,7 @@ plot_all_pos_all_sp <- function(subtype, r_start = 1){
   p <- ggplot(df, aes(x = pos, y = statistic, colour = pop)) +
     geom_point() +
     geom_line() +
-    ggtitle(paste0("Relative Entrop by Position: ", subtype2)) +
+    ggtitle(paste0("Relative Entropy by Position: ", subtype2)) +
     xlab("Relative Position") + 
     ylab("Relative Entropy") +
     guides(colour=guide_legend(title="Population"))
@@ -223,9 +244,15 @@ corr_analysis <- function(subtype, r_start = 1, stat_col = "s_re"){
 subtype <- "AT_GC"
 res <- corr_analysis(subtype)
 res$p
+f_out <- paste0(pic_dir, "nuc_cor_" , subtype ,".png")
+ggsave(f_out, width = 800, height = 500, units = "px", dpi = 120)
+
 res$cor_obj %>%
   knitr::kable()
 plot_all_pos_all_sp(subtype)
+
+f_out <- paste0(pic_dir, subtype ,".png")
+ggsave(f_out, width = 800, height = 500, units = "px", dpi = 120)
 ```
 
 
@@ -235,9 +262,15 @@ plot_all_pos_all_sp(subtype)
 subtype <- "AT_TA"
 res <- corr_analysis(subtype)
 res$p
+f_out <- paste0(pic_dir, "nuc_cor_" , subtype ,".png")
+ggsave(f_out, width = 800, height = 500, units = "px", dpi = 120)
+
 res$cor_obj %>%
   knitr::kable()
 plot_all_pos_all_sp(subtype)
+
+f_out <- paste0(pic_dir, subtype ,".png")
+ggsave(f_out, width = 800, height = 500, units = "px", dpi = 120)
 ```
 
 ### GC_AT
@@ -246,9 +279,15 @@ plot_all_pos_all_sp(subtype)
 subtype <- "GC_AT"
 res <- corr_analysis(subtype)
 res$p
+f_out <- paste0(pic_dir, "nuc_cor_" , subtype ,".png")
+ggsave(f_out, width = 800, height = 500, units = "px", dpi = 120)
+
 res$cor_obj %>%
   knitr::kable()
 plot_all_pos_all_sp(subtype)
+
+f_out <- paste0(pic_dir, subtype ,".png")
+ggsave(f_out, width = 800, height = 500, units = "px", dpi = 120)
 ```
 
 ### cpg_GC_AT
@@ -257,9 +296,15 @@ plot_all_pos_all_sp(subtype)
 subtype <- "cpg_GC_AT"
 res <- corr_analysis(subtype, r_start = 2)
 res$p
+f_out <- paste0(pic_dir, "nuc_cor_" , subtype ,".png")
+ggsave(f_out, width = 800, height = 500, units = "px", dpi = 120)
+
 res$cor_obj %>%
   knitr::kable()
 plot_all_pos_all_sp(subtype, r_start = 2)
+
+f_out <- paste0(pic_dir, subtype ,".png")
+ggsave(f_out, width = 800, height = 500, units = "px", dpi = 120)
 ```
 
 ### GC_CG
@@ -268,9 +313,15 @@ plot_all_pos_all_sp(subtype, r_start = 2)
 subtype <- "GC_CG"
 res <- corr_analysis(subtype)
 res$p
+f_out <- paste0(pic_dir, "nuc_cor_" , subtype ,".png")
+ggsave(f_out, width = 800, height = 500, units = "px", dpi = 120)
+
 res$cor_obj %>%
   knitr::kable()
 plot_all_pos_all_sp(subtype)
+
+f_out <- paste0(pic_dir, subtype ,".png")
+ggsave(f_out, width = 800, height = 500, units = "px", dpi = 120)
 ```
 
 ### cpg_GC_CG
@@ -279,9 +330,15 @@ plot_all_pos_all_sp(subtype)
 subtype <- "cpg_GC_CG"
 res <- corr_analysis(subtype, r_start = 2)
 res$p
+f_out <- paste0(pic_dir, "nuc_cor_" , subtype ,".png")
+ggsave(f_out, width = 800, height = 500, units = "px", dpi = 120)
+
 res$cor_obj %>%
   knitr::kable()
 plot_all_pos_all_sp(subtype, r_start = 2)
+
+f_out <- paste0(pic_dir, subtype ,".png")
+ggsave(f_out, width = 800, height = 500, units = "px", dpi = 120)
 ```
 
 ### GC_TA
@@ -290,9 +347,15 @@ plot_all_pos_all_sp(subtype, r_start = 2)
 subtype <- "GC_TA"
 res <- corr_analysis(subtype)
 res$p
+f_out <- paste0(pic_dir, "nuc_cor_" , subtype ,".png")
+ggsave(f_out, width = 800, height = 500, units = "px", dpi = 120)
+
 res$cor_obj %>%
   knitr::kable()
 plot_all_pos_all_sp(subtype)
+
+f_out <- paste0(pic_dir, subtype ,".png")
+ggsave(f_out, width = 800, height = 500, units = "px", dpi = 120)
 ```
 
 ### cpg_GC_TA
@@ -301,14 +364,24 @@ plot_all_pos_all_sp(subtype)
 subtype <- "cpg_GC_TA"
 res <- corr_analysis(subtype, r_start = 2)
 res$p
+f_out <- paste0(pic_dir, "nuc_cor_" , subtype ,".png")
+ggsave(f_out, width = 800, height = 500, units = "px", dpi = 120)
+
 res$cor_obj %>%
   knitr::kable()
 plot_all_pos_all_sp(subtype, r_start = 2)
+
+f_out <- paste0(pic_dir, subtype ,".png")
+ggsave(f_out, width = 800, height = 500, units = "px", dpi = 120)
 ```
 
 ## Chi Square Approach
 
-Similar to what we did with the single position models, we can also use the chi square goodness of fit test to evaluate, for each sub-type and at each relative position, how similar are the counts between each super-population, and how does this statistic compare to what we observe comparing each super-population to its control sample? We can also do this to compare the BRIDGES data to the 1000G data as well.
+The idea here is that if single-position effects are consistent across populations, then the frequency tables from each population should be more similar to each other than they are to their matched control distribution. To evaluate this we could do one of three things (or more that I haven't thought of yet):
+
+1. Measure the "distance" between each table of frequencies using KL-divergence
+2. Use one population as "expectation" and compute chi-square goodness of fit statistics
+3. Fit a joint loglinear model
 
 Let's first work this out for a sub type at one position, and then move on from there:
 
@@ -318,13 +391,378 @@ df_AFR <- load_sp_results("AFR", "AT_CG", -1) %>%
   mutate(rate = singletons/sum(singletons))
 
 df_AMR <- load_sp_results("AMR", "AT_CG", -1) %>%
-  select(Nuc, singletons) %>%
+  select(Nuc, singletons, controls) %>%
   full_join({df_AFR %>% select(Nuc, rate)}, by = "Nuc") %>%
   mutate(expected = rate * sum(singletons)) %>%
-  mutate(chi_sq = (singletons - expected)^2 / expected)
+  mutate(chi_sq = (singletons - expected)^2 / expected) %>%
+  mutate(pct_c = controls / sum(controls)) %>%
+  mutate(exp_c = pct_c * sum(singletons)) %>%
+  mutate(chi_sq_c = (singletons - exp_c)^2 / exp_c)
+
+joint_mod_sp <- function(st, rp){
+  df_AFR <- load_sp_results("AFR", st, rp) %>%
+    select(Nuc, singletons, controls) %>% 
+    filter(Nuc %in% c("A", "C", "G", "T")) %>%
+    arrange(Nuc) %>%
+    mutate(pct = singletons / sum(singletons)) 
+  
+  df_AMR <- load_sp_results("AMR", st, rp) %>%
+    select(Nuc, singletons, controls) %>% 
+    filter(Nuc %in% c("A", "C", "G", "T")) %>%
+    arrange(Nuc) %>%
+    mutate(pct = singletons / sum(singletons))
+  
+  df_EAS <- load_sp_results("EAS", st, rp) %>%
+    select(Nuc, singletons, controls) %>% 
+    filter(Nuc %in% c("A", "C", "G", "T")) %>%
+    arrange(Nuc) %>%
+    mutate(pct = singletons / sum(singletons))
+  
+  df_EUR <- load_sp_results("EUR", st, rp) %>%
+    select(Nuc, singletons, controls) %>% 
+    filter(Nuc %in% c("A", "C", "G", "T")) %>%
+    arrange(Nuc) %>%
+    mutate(pct = singletons / sum(singletons))
+  
+  df_SAS <- load_sp_results("SAS", st, rp) %>%
+    select(Nuc, singletons, controls)  %>% 
+    filter(Nuc %in% c("A", "C", "G", "T")) %>%
+    arrange(Nuc) %>%
+    mutate(pct = singletons / sum(singletons)) 
+  
+  df <- list(AFR = df_AFR,
+             AMR = df_AMR,
+             EAS = df_EAS,
+             EUR = df_EUR,
+             SAS = df_SAS)
+  for(p1 in c("AFR", "AMR", "EAS", "EUR", "SAS")){
+    for(p2 in c("AMR", "EAS", "EUR", "SAS")){
+      if(p1 == p2) next
+        exp12_name <- paste0("exp_", p2)
+        exp21_name <- paste0("exp_", p1)
+        chi12_name <- paste0("chi_", p2)
+        chi21_name <- paste0("chi_", p1)
+        kl12_name <- paste0("kl_", p2)
+        kl21_name <- paste0("kl_", p1)
+        
+        df[[p1]] <- full_join(df[[p1]], 
+                              {df[[p2]] %>% 
+                                  select(Nuc, pct) %>% 
+                                  rename(tmp = pct)}, 
+                              by = "Nuc")
+        df[[p2]] <- full_join(df[[p2]], 
+                              {df[[p1]] %>% 
+                                  select(Nuc, pct) %>% 
+                                  rename(tmp = pct)}, 
+                              by = "Nuc")
+        df[[p1]][, exp12_name] <- df[[p1]]$tmp * sum(df[[p1]]$singletons)
+        df[[p2]][, exp21_name] <- df[[p2]]$tmp * sum(df[[p2]]$singletons)
+        
+        df[[p1]][, chi12_name] <- (df[[p1]][, exp12_name] - df[[p1]]$singletons)^2 / df[[p1]][, exp12_name]
+        df[[p2]][, chi21_name] <- (df[[p2]][, exp21_name] - df[[p2]]$singletons)^2 / df[[p2]][, exp21_name]
+        
+        df[[p1]][, kl12_name] <- (df[[p1]]$singletons / sum(df[[p1]]$singletons)) * log((df[[p1]]$singletons / sum(df[[p1]]$singletons)) / df[[p1]]$tmp)
+        df[[p2]][, kl21_name] <- (df[[p2]]$singletons / sum(df[[p2]]$singletons)) * log((df[[p2]]$singletons / sum(df[[p2]]$singletons)) / df[[p2]]$tmp)
+        
+        df[[p1]]$tmp <- NULL
+        df[[p2]]$tmp <- NULL
+    }
+  }
+  
+  # Control-based statistics
+  for(p1 in c("AFR", "AMR", "EAS", "EUR", "SAS")){
+    df[[p1]][,"tmp"] <- df[[p1]]$controls / sum(df[[p1]]$controls)
+    df[[p1]][, "exp"] <- df[[p1]]$tmp * sum(df[[p1]]$singletons)
+    df[[p1]][, "chi_c"] <- (df[[p1]][, "exp"] - df[[p1]]$singletons)^2 / df[[p1]][, "exp"]
+    df[[p1]][, "kl_c"] <- (df[[p1]]$singletons / sum(df[[p1]]$singletons)) * log((df[[p1]]$singletons / sum(df[[p1]]$singletons)) / df[[p1]]$tmp)
+    df[[p1]][,"tmp"] <- NULL
+    df[[p1]][, "exp"] <- NULL
+  }
+  
+  return(df)
+}
+
+
+joint_mod_all <- function(st, r_start = 1){
+  final <- data.frame(rp = numeric(), 
+                      pop1 = character(), 
+                      pop2 = character(), 
+                      chi_sq = numeric(),
+                      kl = numeric())
+  
+  for(rp in c(-10:-1, r_start:10)){
+    df <- joint_mod_sp(st, rp)
+    for(p1 in c("AFR", "AMR", "EAS", "EUR", "SAS")){
+      for(p2 in c("AMR", "EAS", "EUR", "SAS")){
+        if(p1 == p2) next
+        chi12_name <- paste0("chi_", p2)
+        chi21_name <- paste0("chi_", p1)
+        kl12_name <- paste0("kl_", p2)
+        kl21_name <- paste0("kl_", p1)
+        
+        kl1 <- sum(df[[p1]][,kl12_name])
+        kl2 <- sum(df[[p2]][, kl21_name])
+        chi1 <- sum(df[[p1]][,chi12_name])
+        chi2 <- sum(df[[p2]][,chi21_name])
+        
+        final <- bind_rows(final, 
+                           data.frame(rp = rp,
+                                      pop1 = p1,
+                                      pop2 = p2,
+                                      chi_sq = chi1,
+                                      kl = kl1))
+        final <- bind_rows(final, 
+                           data.frame(rp = rp,
+                                      pop1 = p2,
+                                      pop2 = p1,
+                                      chi_sq = chi2,
+                                      kl = kl2))
+      }
+    }
+    #control stats
+    for(p1 in c("AFR", "AMR", "EAS", "EUR", "SAS")){
+      chi_stat <- sum(df[[p1]]$chi_c)
+      kl_stat <- sum(df[[p1]]$kl_c)
+      final <- bind_rows(final, 
+                           data.frame(rp = rp,
+                                      pop1 = p1,
+                                      pop2 = "control",
+                                      chi_sq = chi_stat,
+                                      kl = kl_stat))
+    }
+  }
+  return(final)
+}
 
 ```
 
+### AT_CG
+
+```{r}
+subtype <- "AT_CG"
+df <- joint_mod_all(subtype)
+
+df %>%
+  filter(pop1 == "AFR") %>%
+  ggplot(aes(x = rp, y = kl, colour = pop2)) +
+  geom_point() +
+  geom_line() +
+  ggtitle("Single Position KL", paste0("AFR: ", subtype)) +
+  labs(color='Source Population') +
+  xlab("Relative Position") +
+  ylab("KL Divergence")
+
+df %>%
+  filter(pop1 == "AMR") %>%
+  ggplot(aes(x = rp, y = kl, colour = pop2)) +
+  geom_point() +
+  geom_line() +
+  ggtitle("Single Position KL", paste0("AMR: ", subtype)) +
+  labs(color='Source Population') +
+  xlab("Relative Position") +
+  ylab("KL Divergence")
+
+df %>%
+  filter(pop1 == "EAS") %>%
+  ggplot(aes(x = rp, y = kl, colour = pop2)) +
+  geom_point() +
+  geom_line() +
+  ggtitle("Single Position KL", paste0("EAS: ", subtype)) +
+  labs(color='Source Population') +
+  xlab("Relative Position") +
+  ylab("KL Divergence")
+
+df %>%
+  filter(pop1 == "EUR") %>%
+  ggplot(aes(x = rp, y = kl, colour = pop2)) +
+  geom_point() +
+  geom_line() +
+  ggtitle("Single Position KL", paste0("EUR: ", subtype)) +
+  labs(color='Source Population') +
+  xlab("Relative Position") +
+  ylab("KL Divergence")
+
+df %>%
+  filter(pop1 == "SAS") %>%
+  ggplot(aes(x = rp, y = kl, colour = pop2)) +
+  geom_point() +
+  geom_line() +
+  ggtitle("Single Position KL", paste0("SAS: ", subtype)) +
+  labs(color='Source Population') +
+  xlab("Relative Position") +
+  ylab("KL Divergence")
+```
+
+### AT_GC
+
+```{r}
+subtype <- "AT_GC"
+df <- joint_mod_all(subtype)
+
+df %>%
+  filter(pop1 == "AFR") %>%
+  ggplot(aes(x = rp, y = kl, colour = pop2)) +
+  geom_point() +
+  geom_line() +
+  ggtitle("Single Position KL", paste0("AFR: ", subtype)) +
+  labs(color='Source Population') +
+  xlab("Relative Position") +
+  ylab("KL Divergence")
+
+df %>%
+  filter(pop1 == "AMR") %>%
+  ggplot(aes(x = rp, y = kl, colour = pop2)) +
+  geom_point() +
+  geom_line() +
+  ggtitle("Single Position KL", paste0("AMR: ", subtype)) +
+  labs(color='Source Population') +
+  xlab("Relative Position") +
+  ylab("KL Divergence")
+
+df %>%
+  filter(pop1 == "EAS") %>%
+  ggplot(aes(x = rp, y = kl, colour = pop2)) +
+  geom_point() +
+  geom_line() +
+  ggtitle("Single Position KL", paste0("EAS: ", subtype)) +
+  labs(color='Source Population') +
+  xlab("Relative Position") +
+  ylab("KL Divergence")
+
+df %>%
+  filter(pop1 == "EUR") %>%
+  ggplot(aes(x = rp, y = kl, colour = pop2)) +
+  geom_point() +
+  geom_line() +
+  ggtitle("Single Position KL", paste0("EUR: ", subtype)) +
+  labs(color='Source Population') +
+  xlab("Relative Position") +
+  ylab("KL Divergence")
+
+df %>%
+  filter(pop1 == "SAS") %>%
+  ggplot(aes(x = rp, y = kl, colour = pop2)) +
+  geom_point() +
+  geom_line() +
+  ggtitle("Single Position KL", paste0("SAS: ", subtype)) +
+  labs(color='Source Population') +
+  xlab("Relative Position") +
+  ylab("KL Divergence")
+```
+
+### AT_TA
+
+```{r}
+subtype <- "AT_TA"
+df <- joint_mod_all(subtype)
+
+df %>%
+  filter(pop1 == "AFR") %>%
+  ggplot(aes(x = rp, y = kl, colour = pop2)) +
+  geom_point() +
+  geom_line() +
+  ggtitle("Single Position KL", paste0("AFR: ", subtype)) +
+  labs(color='Source Population') +
+  xlab("Relative Position") +
+  ylab("KL Divergence")
+
+df %>%
+  filter(pop1 == "AMR") %>%
+  ggplot(aes(x = rp, y = kl, colour = pop2)) +
+  geom_point() +
+  geom_line() +
+  ggtitle("Single Position KL", paste0("AMR: ", subtype)) +
+  labs(color='Source Population') +
+  xlab("Relative Position") +
+  ylab("KL Divergence")
+
+df %>%
+  filter(pop1 == "EAS") %>%
+  ggplot(aes(x = rp, y = kl, colour = pop2)) +
+  geom_point() +
+  geom_line() +
+  ggtitle("Single Position KL", paste0("EAS: ", subtype)) +
+  labs(color='Source Population') +
+  xlab("Relative Position") +
+  ylab("KL Divergence")
+
+df %>%
+  filter(pop1 == "EUR") %>%
+  ggplot(aes(x = rp, y = kl, colour = pop2)) +
+  geom_point() +
+  geom_line() +
+  ggtitle("Single Position KL", paste0("EUR: ", subtype)) +
+  labs(color='Source Population') +
+  xlab("Relative Position") +
+  ylab("KL Divergence")
+
+df %>%
+  filter(pop1 == "SAS") %>%
+  ggplot(aes(x = rp, y = kl, colour = pop2)) +
+  geom_point() +
+  geom_line() +
+  ggtitle("Single Position KL", paste0("SAS: ", subtype)) +
+  labs(color='Source Population') +
+  xlab("Relative Position") +
+  ylab("KL Divergence")
+```
+
+### GC_AT
+
+```{r}
+subtype <- "GC_AT"
+df <- joint_mod_all(subtype)
+
+df %>%
+  filter(pop1 == "AFR") %>%
+  ggplot(aes(x = rp, y = kl, colour = pop2)) +
+  geom_point() +
+  geom_line() +
+  ggtitle("Single Position KL", paste0("AFR: ", subtype)) +
+  labs(color='Source Population') +
+  xlab("Relative Position") +
+  ylab("KL Divergence")
+
+df %>%
+  filter(pop1 == "AMR") %>%
+  ggplot(aes(x = rp, y = kl, colour = pop2)) +
+  geom_point() +
+  geom_line() +
+  ggtitle("Single Position KL", paste0("AMR: ", subtype)) +
+  labs(color='Source Population') +
+  xlab("Relative Position") +
+  ylab("KL Divergence")
+
+df %>%
+  filter(pop1 == "EAS") %>%
+  ggplot(aes(x = rp, y = kl, colour = pop2)) +
+  geom_point() +
+  geom_line() +
+  ggtitle("Single Position KL", paste0("EAS: ", subtype)) +
+  labs(color='Source Population') +
+  xlab("Relative Position") +
+  ylab("KL Divergence")
+
+df %>%
+  filter(pop1 == "EUR") %>%
+  ggplot(aes(x = rp, y = kl, colour = pop2)) +
+  geom_point() +
+  geom_line() +
+  ggtitle("Single Position KL", paste0("EUR: ", subtype)) +
+  labs(color='Source Population') +
+  xlab("Relative Position") +
+  ylab("KL Divergence")
+
+df %>%
+  filter(pop1 == "SAS") %>%
+  ggplot(aes(x = rp, y = kl, colour = pop2)) +
+  geom_point() +
+  geom_line() +
+  ggtitle("Single Position KL", paste0("SAS: ", subtype)) +
+  labs(color='Source Population') +
+  xlab("Relative Position") +
+  ylab("KL Divergence")
+```
 
 
 ## Compare to BRIDGES

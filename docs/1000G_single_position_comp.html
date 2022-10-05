@@ -366,7 +366,7 @@ div.tocify {
 <p>
 <button type="button" class="btn btn-default btn-workflowr btn-workflowr-report" data-toggle="collapse" data-target="#workflowr-report">
 <span class="glyphicon glyphicon-list" aria-hidden="true"></span>
-workflowr <span class="glyphicon glyphicon-ok text-success"
+workflowr <span class="glyphicon glyphicon-exclamation-sign text-danger"
 aria-hidden="true"></span>
 </button>
 </p>
@@ -377,8 +377,8 @@ aria-hidden="true"></span>
 </li>
 <li>
 <a data-toggle="tab" href="#checks"> Checks <span
-class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span>
-</a>
+class="glyphicon glyphicon-exclamation-sign text-danger"
+aria-hidden="true"></span> </a>
 </li>
 <li>
 <a data-toggle="tab" href="#versions">Past versions</a>
@@ -387,13 +387,13 @@ class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span>
 <div class="tab-content">
 <div id="summary" class="tab-pane fade in active">
 <p>
-<strong>Last updated:</strong> 2022-07-07
+<strong>Last updated:</strong> 2022-10-05
 </p>
 <p>
 <strong>Checks:</strong> <span
-class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> 7
+class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> 6
 <span class="glyphicon glyphicon-exclamation-sign text-danger"
-aria-hidden="true"></span> 0
+aria-hidden="true"></span> 1
 </p>
 <p>
 <strong>Knit directory:</strong> <code>LSCI/</code> <span
@@ -416,18 +416,21 @@ versions</em> tab lists the development history.
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRMarkdownfilestronguptodate">
-<span class="glyphicon glyphicon-ok text-success"
-aria-hidden="true"></span> <strong>R Markdown file:</strong> up-to-date
-</a>
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRMarkdownfilestronguncommittedchanges">
+<span class="glyphicon glyphicon-exclamation-sign text-danger"
+aria-hidden="true"></span> <strong>R Markdown file:</strong> uncommitted
+changes </a>
 </p>
 </div>
-<div id="strongRMarkdownfilestronguptodate"
+<div id="strongRMarkdownfilestronguncommittedchanges"
 class="panel-collapse collapse">
 <div class="panel-body">
-<p>Great! Since the R Markdown file has been committed to the Git
-repository, you know the exact version of the code that produced these
-results.</p>
+<p>The R Markdown file has unstaged changes. To know which version of
+the R Markdown file created these results, you’ll want to first commit
+it to the Git repo. If you’re still working on the analysis, you can
+ignore this warning. When you’re finished, you can run
+<code>wflow_publish</code> to commit the R Markdown file and build the
+HTML.</p>
 </div>
 </div>
 </div>
@@ -518,15 +521,15 @@ project makes it easier to run your code on other machines.</p>
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomtheandybLSCItreeb4762aa3f3c19fb30ed13ed79fc4b8392b98b444targetblankb4762aaa">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomtheandybLSCItreef2caf10c40ca59da49b76ef834e400b45b2a335etargetblankf2caf10a">
 <span class="glyphicon glyphicon-ok text-success"
 aria-hidden="true"></span> <strong>Repository version:</strong>
-<a href="https://github.com/theandyb/LSCI/tree/b4762aa3f3c19fb30ed13ed79fc4b8392b98b444" target="_blank">b4762aa</a>
+<a href="https://github.com/theandyb/LSCI/tree/f2caf10c40ca59da49b76ef834e400b45b2a335e" target="_blank">f2caf10</a>
 </a>
 </p>
 </div>
 <div
-id="strongRepositoryversionstrongahrefhttpsgithubcomtheandybLSCItreeb4762aa3f3c19fb30ed13ed79fc4b8392b98b444targetblankb4762aaa"
+id="strongRepositoryversionstrongahrefhttpsgithubcomtheandybLSCItreef2caf10c40ca59da49b76ef834e400b45b2a335etargetblankf2caf10a"
 class="panel-collapse collapse">
 <div class="panel-body">
 <p>
@@ -536,7 +539,7 @@ reproducibility.
 </p>
 <p>
 The results in this page were generated with repository version
-<a href="https://github.com/theandyb/LSCI/tree/b4762aa3f3c19fb30ed13ed79fc4b8392b98b444" target="_blank">b4762aa</a>.
+<a href="https://github.com/theandyb/LSCI/tree/f2caf10c40ca59da49b76ef834e400b45b2a335e" target="_blank">f2caf10</a>.
 See the <em>Past versions</em> tab to see a history of the changes made
 to the R Markdown and HTML files.
 </p>
@@ -554,18 +557,10 @@ Ignored files:
     Ignored:    .Rhistory
     Ignored:    .Rproj.user/
     Ignored:    analysis/disqus.html
-    Ignored:    analysis/figure/
     Ignored:    code/random/
 
-Untracked files:
-    Untracked:  1000G_single_position_ALL-tikzDictionary
-    Untracked:  code/two_pos_functions.R
-    Untracked:  output/tikz/
-
 Unstaged changes:
-    Modified:   analysis/1000G_two_positions_comp.Rmd
-    Deleted:    analysis/1000G_two_postions_comp.Rmd
-    Modified:   analysis/BRIDGES_two_positions.Rmd
+    Modified:   analysis/1000G_single_position_comp.Rmd
 
 </code></pre>
 <p>
@@ -612,6 +607,23 @@ Message
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+html
+</td>
+<td>
+<a href="https://rawcdn.githack.com/theandyb/LSCI/98f4aef159d537e4e944550276af4caf5e2dab1a/docs/1000G_single_position_comp.html" target="_blank">98f4aef</a>
+</td>
+<td>
+Andy Beck
+</td>
+<td>
+2022-07-07
+</td>
+<td>
+Build site.
+</td>
+</tr>
 <tr>
 <td>
 Rmd
@@ -1268,7 +1280,7 @@ the number of singletons across the super-populations.</p>
   p &lt;- ggplot(df, aes(x = pos, y = statistic, colour = pop)) +
     geom_point() +
     geom_line() +
-    ggtitle(paste0(&quot;Relative Entrop by Position: &quot;, subtype2)) +
+    ggtitle(paste0(&quot;Relative Entropy by Position: &quot;, subtype2)) +
     xlab(&quot;Relative Position&quot;) + 
     ylab(&quot;Relative Entropy&quot;) +
     guides(colour=guide_legend(title=&quot;Population&quot;))
@@ -1292,41 +1304,41 @@ across positions for each pair of super-populations:</p>
 <tr class="odd">
 <td align="left">AFR</td>
 <td align="right">NA</td>
-<td align="right">0.9994079</td>
-<td align="right">0.9947186</td>
-<td align="right">0.9973397</td>
-<td align="right">0.9985470</td>
+<td align="right">0.9992056</td>
+<td align="right">0.9925887</td>
+<td align="right">0.9978018</td>
+<td align="right">0.9989747</td>
 </tr>
 <tr class="even">
 <td align="left">AMR</td>
-<td align="right">0.9994079</td>
+<td align="right">0.9992056</td>
 <td align="right">NA</td>
-<td align="right">0.9957566</td>
-<td align="right">0.9976385</td>
-<td align="right">0.9984225</td>
+<td align="right">0.9951561</td>
+<td align="right">0.9980328</td>
+<td align="right">0.9990502</td>
 </tr>
 <tr class="odd">
 <td align="left">EAS</td>
-<td align="right">0.9947186</td>
-<td align="right">0.9957566</td>
+<td align="right">0.9925887</td>
+<td align="right">0.9951561</td>
 <td align="right">NA</td>
-<td align="right">0.9886323</td>
-<td align="right">0.9972469</td>
+<td align="right">0.9885172</td>
+<td align="right">0.9963217</td>
 </tr>
 <tr class="even">
 <td align="left">EUR</td>
-<td align="right">0.9973397</td>
-<td align="right">0.9976385</td>
-<td align="right">0.9886323</td>
+<td align="right">0.9978018</td>
+<td align="right">0.9980328</td>
+<td align="right">0.9885172</td>
 <td align="right">NA</td>
-<td align="right">0.9947890</td>
+<td align="right">0.9961516</td>
 </tr>
 <tr class="odd">
 <td align="left">SAS</td>
-<td align="right">0.9985470</td>
-<td align="right">0.9984225</td>
-<td align="right">0.9972469</td>
-<td align="right">0.9947890</td>
+<td align="right">0.9989747</td>
+<td align="right">0.9990502</td>
+<td align="right">0.9963217</td>
+<td align="right">0.9961516</td>
 <td align="right">NA</td>
 </tr>
 </tbody>
@@ -1363,6 +1375,17 @@ Date
 <tbody>
 <tr>
 <td>
+<a href="https://github.com/theandyb/LSCI/blob/98f4aef159d537e4e944550276af4caf5e2dab1a/docs/figure/1000G_single_position_comp.Rmd/unnamed-chunk-10-1.png" target="_blank">98f4aef</a>
+</td>
+<td>
+Andy Beck
+</td>
+<td>
+2022-07-07
+</td>
+</tr>
+<tr>
+<td>
 <a href="https://github.com/theandyb/LSCI/blob/09ecadce2cc20462510085d9a17edba2ec75f117/docs/figure/1000G_single_position_comp.Rmd/unnamed-chunk-10-1.png" target="_blank">09ecadc</a>
 </td>
 <td>
@@ -1393,6 +1416,43 @@ order of the statistics is shared between the two:</p>
   xlab(&quot;Nucleotide&quot;)+
   ylab(&quot;Signed Relative Entropy Residual&quot;)</code></pre>
 <p><img src="figure/1000G_single_position_comp.Rmd/unnamed-chunk-11-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-11-1">
+Past versions of unnamed-chunk-11-1.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-11-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/theandyb/LSCI/blob/98f4aef159d537e4e944550276af4caf5e2dab1a/docs/figure/1000G_single_position_comp.Rmd/unnamed-chunk-11-1.png" target="_blank">98f4aef</a>
+</td>
+<td>
+Andy Beck
+</td>
+<td>
+2022-07-07
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 <p>Let’s wrap the above analyses into a function and run them on the
 other subtypes.</p>
 <pre class="r"><code>corr_analysis &lt;- function(subtype, r_start = 1, stat_col = &quot;s_re&quot;){
@@ -1472,6 +1532,17 @@ Date
 <tbody>
 <tr>
 <td>
+<a href="https://github.com/theandyb/LSCI/blob/98f4aef159d537e4e944550276af4caf5e2dab1a/docs/figure/1000G_single_position_comp.Rmd/unnamed-chunk-13-1.png" target="_blank">98f4aef</a>
+</td>
+<td>
+Andy Beck
+</td>
+<td>
+2022-07-07
+</td>
+</tr>
+<tr>
+<td>
 <a href="https://github.com/theandyb/LSCI/blob/7cb68743aa277330e1dee031d44ecd70f6301cae/docs/figure/1000G_single_position_comp.Rmd/unnamed-chunk-13-1.png" target="_blank">7cb6874</a>
 </td>
 <td>
@@ -1496,7 +1567,10 @@ Andy Beck
 </table>
 </div>
 </div>
-<pre class="r"><code>res$cor_obj %&gt;%
+<pre class="r"><code>f_out &lt;- paste0(pic_dir, &quot;nuc_cor_&quot; , subtype ,&quot;.png&quot;)
+ggsave(f_out, width = 800, height = 500, units = &quot;px&quot;, dpi = 120)
+
+res$cor_obj %&gt;%
   knitr::kable()</code></pre>
 <table>
 <thead>
@@ -1513,47 +1587,86 @@ Andy Beck
 <tr class="odd">
 <td align="left">AFR</td>
 <td align="right">NA</td>
-<td align="right">0.9994391</td>
-<td align="right">0.9994152</td>
-<td align="right">0.9981548</td>
-<td align="right">0.9990215</td>
+<td align="right">0.9995511</td>
+<td align="right">0.9993746</td>
+<td align="right">0.9981066</td>
+<td align="right">0.9991101</td>
 </tr>
 <tr class="even">
 <td align="left">AMR</td>
-<td align="right">0.9994391</td>
+<td align="right">0.9995511</td>
 <td align="right">NA</td>
-<td align="right">0.9996432</td>
-<td align="right">0.9993965</td>
-<td align="right">0.9998862</td>
+<td align="right">0.9997829</td>
+<td align="right">0.9993766</td>
+<td align="right">0.9998984</td>
 </tr>
 <tr class="odd">
 <td align="left">EAS</td>
-<td align="right">0.9994152</td>
-<td align="right">0.9996432</td>
+<td align="right">0.9993746</td>
+<td align="right">0.9997829</td>
 <td align="right">NA</td>
-<td align="right">0.9993883</td>
-<td align="right">0.9996664</td>
+<td align="right">0.9994637</td>
+<td align="right">0.9997698</td>
 </tr>
 <tr class="even">
 <td align="left">EUR</td>
-<td align="right">0.9981548</td>
-<td align="right">0.9993965</td>
-<td align="right">0.9993883</td>
+<td align="right">0.9981066</td>
+<td align="right">0.9993766</td>
+<td align="right">0.9994637</td>
 <td align="right">NA</td>
-<td align="right">0.9997377</td>
+<td align="right">0.9997337</td>
 </tr>
 <tr class="odd">
 <td align="left">SAS</td>
-<td align="right">0.9990215</td>
-<td align="right">0.9998862</td>
-<td align="right">0.9996664</td>
-<td align="right">0.9997377</td>
+<td align="right">0.9991101</td>
+<td align="right">0.9998984</td>
+<td align="right">0.9997698</td>
+<td align="right">0.9997337</td>
 <td align="right">NA</td>
 </tr>
 </tbody>
 </table>
 <pre class="r"><code>plot_all_pos_all_sp(subtype)</code></pre>
 <p><img src="figure/1000G_single_position_comp.Rmd/unnamed-chunk-13-2.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-13-2">
+Past versions of unnamed-chunk-13-2.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-13-2" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/theandyb/LSCI/blob/98f4aef159d537e4e944550276af4caf5e2dab1a/docs/figure/1000G_single_position_comp.Rmd/unnamed-chunk-13-2.png" target="_blank">98f4aef</a>
+</td>
+<td>
+Andy Beck
+</td>
+<td>
+2022-07-07
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<pre class="r"><code>f_out &lt;- paste0(pic_dir, subtype ,&quot;.png&quot;)
+ggsave(f_out, width = 800, height = 500, units = &quot;px&quot;, dpi = 120)</code></pre>
 </div>
 <div id="at_ta" class="section level3">
 <h3>AT_TA</h3>
@@ -1585,6 +1698,17 @@ Date
 <tbody>
 <tr>
 <td>
+<a href="https://github.com/theandyb/LSCI/blob/98f4aef159d537e4e944550276af4caf5e2dab1a/docs/figure/1000G_single_position_comp.Rmd/unnamed-chunk-14-1.png" target="_blank">98f4aef</a>
+</td>
+<td>
+Andy Beck
+</td>
+<td>
+2022-07-07
+</td>
+</tr>
+<tr>
+<td>
 <a href="https://github.com/theandyb/LSCI/blob/7cb68743aa277330e1dee031d44ecd70f6301cae/docs/figure/1000G_single_position_comp.Rmd/unnamed-chunk-14-1.png" target="_blank">7cb6874</a>
 </td>
 <td>
@@ -1609,7 +1733,10 @@ Andy Beck
 </table>
 </div>
 </div>
-<pre class="r"><code>res$cor_obj %&gt;%
+<pre class="r"><code>f_out &lt;- paste0(pic_dir, &quot;nuc_cor_&quot; , subtype ,&quot;.png&quot;)
+ggsave(f_out, width = 800, height = 500, units = &quot;px&quot;, dpi = 120)
+
+res$cor_obj %&gt;%
   knitr::kable()</code></pre>
 <table>
 <thead>
@@ -1626,47 +1753,86 @@ Andy Beck
 <tr class="odd">
 <td align="left">AFR</td>
 <td align="right">NA</td>
-<td align="right">0.9984298</td>
-<td align="right">0.9990857</td>
-<td align="right">0.9984743</td>
-<td align="right">0.9997840</td>
+<td align="right">0.9988198</td>
+<td align="right">0.9991777</td>
+<td align="right">0.9987112</td>
+<td align="right">0.9998544</td>
 </tr>
 <tr class="even">
 <td align="left">AMR</td>
-<td align="right">0.9984298</td>
+<td align="right">0.9988198</td>
 <td align="right">NA</td>
-<td align="right">0.9982387</td>
-<td align="right">0.9995419</td>
-<td align="right">0.9991994</td>
+<td align="right">0.9987864</td>
+<td align="right">0.9997050</td>
+<td align="right">0.9993280</td>
 </tr>
 <tr class="odd">
 <td align="left">EAS</td>
-<td align="right">0.9990857</td>
-<td align="right">0.9982387</td>
+<td align="right">0.9991777</td>
+<td align="right">0.9987864</td>
 <td align="right">NA</td>
-<td align="right">0.9973147</td>
-<td align="right">0.9991792</td>
+<td align="right">0.9982517</td>
+<td align="right">0.9994232</td>
 </tr>
 <tr class="even">
 <td align="left">EUR</td>
-<td align="right">0.9984743</td>
-<td align="right">0.9995419</td>
-<td align="right">0.9973147</td>
+<td align="right">0.9987112</td>
+<td align="right">0.9997050</td>
+<td align="right">0.9982517</td>
 <td align="right">NA</td>
-<td align="right">0.9989587</td>
+<td align="right">0.9989974</td>
 </tr>
 <tr class="odd">
 <td align="left">SAS</td>
-<td align="right">0.9997840</td>
-<td align="right">0.9991994</td>
-<td align="right">0.9991792</td>
-<td align="right">0.9989587</td>
+<td align="right">0.9998544</td>
+<td align="right">0.9993280</td>
+<td align="right">0.9994232</td>
+<td align="right">0.9989974</td>
 <td align="right">NA</td>
 </tr>
 </tbody>
 </table>
 <pre class="r"><code>plot_all_pos_all_sp(subtype)</code></pre>
 <p><img src="figure/1000G_single_position_comp.Rmd/unnamed-chunk-14-2.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-14-2">
+Past versions of unnamed-chunk-14-2.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-14-2" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/theandyb/LSCI/blob/98f4aef159d537e4e944550276af4caf5e2dab1a/docs/figure/1000G_single_position_comp.Rmd/unnamed-chunk-14-2.png" target="_blank">98f4aef</a>
+</td>
+<td>
+Andy Beck
+</td>
+<td>
+2022-07-07
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<pre class="r"><code>f_out &lt;- paste0(pic_dir, subtype ,&quot;.png&quot;)
+ggsave(f_out, width = 800, height = 500, units = &quot;px&quot;, dpi = 120)</code></pre>
 </div>
 <div id="gc_at" class="section level3">
 <h3>GC_AT</h3>
@@ -1698,6 +1864,17 @@ Date
 <tbody>
 <tr>
 <td>
+<a href="https://github.com/theandyb/LSCI/blob/98f4aef159d537e4e944550276af4caf5e2dab1a/docs/figure/1000G_single_position_comp.Rmd/unnamed-chunk-15-1.png" target="_blank">98f4aef</a>
+</td>
+<td>
+Andy Beck
+</td>
+<td>
+2022-07-07
+</td>
+</tr>
+<tr>
+<td>
 <a href="https://github.com/theandyb/LSCI/blob/7cb68743aa277330e1dee031d44ecd70f6301cae/docs/figure/1000G_single_position_comp.Rmd/unnamed-chunk-15-1.png" target="_blank">7cb6874</a>
 </td>
 <td>
@@ -1722,7 +1899,10 @@ Andy Beck
 </table>
 </div>
 </div>
-<pre class="r"><code>res$cor_obj %&gt;%
+<pre class="r"><code>f_out &lt;- paste0(pic_dir, &quot;nuc_cor_&quot; , subtype ,&quot;.png&quot;)
+ggsave(f_out, width = 800, height = 500, units = &quot;px&quot;, dpi = 120)
+
+res$cor_obj %&gt;%
   knitr::kable()</code></pre>
 <table>
 <thead>
@@ -1739,47 +1919,86 @@ Andy Beck
 <tr class="odd">
 <td align="left">AFR</td>
 <td align="right">NA</td>
-<td align="right">0.9877009</td>
-<td align="right">0.9944924</td>
-<td align="right">0.9810967</td>
-<td align="right">0.9739385</td>
+<td align="right">0.9898171</td>
+<td align="right">0.9952114</td>
+<td align="right">0.9844381</td>
+<td align="right">0.9792816</td>
 </tr>
 <tr class="even">
 <td align="left">AMR</td>
-<td align="right">0.9877009</td>
+<td align="right">0.9898171</td>
 <td align="right">NA</td>
-<td align="right">0.9935831</td>
-<td align="right">0.9976128</td>
-<td align="right">0.9972768</td>
+<td align="right">0.9940653</td>
+<td align="right">0.9977044</td>
+<td align="right">0.9979149</td>
 </tr>
 <tr class="odd">
 <td align="left">EAS</td>
-<td align="right">0.9944924</td>
-<td align="right">0.9935831</td>
+<td align="right">0.9952114</td>
+<td align="right">0.9940653</td>
 <td align="right">NA</td>
-<td align="right">0.9920176</td>
-<td align="right">0.9854094</td>
+<td align="right">0.9932279</td>
+<td align="right">0.9883737</td>
 </tr>
 <tr class="even">
 <td align="left">EUR</td>
-<td align="right">0.9810967</td>
-<td align="right">0.9976128</td>
-<td align="right">0.9920176</td>
+<td align="right">0.9844381</td>
+<td align="right">0.9977044</td>
+<td align="right">0.9932279</td>
 <td align="right">NA</td>
-<td align="right">0.9977753</td>
+<td align="right">0.9983817</td>
 </tr>
 <tr class="odd">
 <td align="left">SAS</td>
-<td align="right">0.9739385</td>
-<td align="right">0.9972768</td>
-<td align="right">0.9854094</td>
-<td align="right">0.9977753</td>
+<td align="right">0.9792816</td>
+<td align="right">0.9979149</td>
+<td align="right">0.9883737</td>
+<td align="right">0.9983817</td>
 <td align="right">NA</td>
 </tr>
 </tbody>
 </table>
 <pre class="r"><code>plot_all_pos_all_sp(subtype)</code></pre>
 <p><img src="figure/1000G_single_position_comp.Rmd/unnamed-chunk-15-2.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-15-2">
+Past versions of unnamed-chunk-15-2.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-15-2" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/theandyb/LSCI/blob/98f4aef159d537e4e944550276af4caf5e2dab1a/docs/figure/1000G_single_position_comp.Rmd/unnamed-chunk-15-2.png" target="_blank">98f4aef</a>
+</td>
+<td>
+Andy Beck
+</td>
+<td>
+2022-07-07
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<pre class="r"><code>f_out &lt;- paste0(pic_dir, subtype ,&quot;.png&quot;)
+ggsave(f_out, width = 800, height = 500, units = &quot;px&quot;, dpi = 120)</code></pre>
 </div>
 <div id="cpg_gc_at" class="section level3">
 <h3>cpg_GC_AT</h3>
@@ -1811,6 +2030,17 @@ Date
 <tbody>
 <tr>
 <td>
+<a href="https://github.com/theandyb/LSCI/blob/98f4aef159d537e4e944550276af4caf5e2dab1a/docs/figure/1000G_single_position_comp.Rmd/unnamed-chunk-16-1.png" target="_blank">98f4aef</a>
+</td>
+<td>
+Andy Beck
+</td>
+<td>
+2022-07-07
+</td>
+</tr>
+<tr>
+<td>
 <a href="https://github.com/theandyb/LSCI/blob/7cb68743aa277330e1dee031d44ecd70f6301cae/docs/figure/1000G_single_position_comp.Rmd/unnamed-chunk-16-1.png" target="_blank">7cb6874</a>
 </td>
 <td>
@@ -1835,7 +2065,10 @@ Andy Beck
 </table>
 </div>
 </div>
-<pre class="r"><code>res$cor_obj %&gt;%
+<pre class="r"><code>f_out &lt;- paste0(pic_dir, &quot;nuc_cor_&quot; , subtype ,&quot;.png&quot;)
+ggsave(f_out, width = 800, height = 500, units = &quot;px&quot;, dpi = 120)
+
+res$cor_obj %&gt;%
   knitr::kable()</code></pre>
 <table>
 <thead>
@@ -1852,47 +2085,86 @@ Andy Beck
 <tr class="odd">
 <td align="left">AFR</td>
 <td align="right">NA</td>
-<td align="right">0.9994183</td>
-<td align="right">0.9997077</td>
-<td align="right">0.9995676</td>
-<td align="right">0.9996066</td>
+<td align="right">0.9984247</td>
+<td align="right">0.9987180</td>
+<td align="right">0.9993635</td>
+<td align="right">0.9995381</td>
 </tr>
 <tr class="even">
 <td align="left">AMR</td>
-<td align="right">0.9994183</td>
+<td align="right">0.9984247</td>
 <td align="right">NA</td>
-<td align="right">0.9995024</td>
-<td align="right">0.9990294</td>
-<td align="right">0.9995883</td>
+<td align="right">0.9981849</td>
+<td align="right">0.9988802</td>
+<td align="right">0.9991106</td>
 </tr>
 <tr class="odd">
 <td align="left">EAS</td>
-<td align="right">0.9997077</td>
-<td align="right">0.9995024</td>
+<td align="right">0.9987180</td>
+<td align="right">0.9981849</td>
 <td align="right">NA</td>
-<td align="right">0.9992884</td>
-<td align="right">0.9997381</td>
+<td align="right">0.9979242</td>
+<td align="right">0.9988808</td>
 </tr>
 <tr class="even">
 <td align="left">EUR</td>
-<td align="right">0.9995676</td>
-<td align="right">0.9990294</td>
-<td align="right">0.9992884</td>
+<td align="right">0.9993635</td>
+<td align="right">0.9988802</td>
+<td align="right">0.9979242</td>
 <td align="right">NA</td>
-<td align="right">0.9987337</td>
+<td align="right">0.9994763</td>
 </tr>
 <tr class="odd">
 <td align="left">SAS</td>
-<td align="right">0.9996066</td>
-<td align="right">0.9995883</td>
-<td align="right">0.9997381</td>
-<td align="right">0.9987337</td>
+<td align="right">0.9995381</td>
+<td align="right">0.9991106</td>
+<td align="right">0.9988808</td>
+<td align="right">0.9994763</td>
 <td align="right">NA</td>
 </tr>
 </tbody>
 </table>
 <pre class="r"><code>plot_all_pos_all_sp(subtype, r_start = 2)</code></pre>
 <p><img src="figure/1000G_single_position_comp.Rmd/unnamed-chunk-16-2.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-16-2">
+Past versions of unnamed-chunk-16-2.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-16-2" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/theandyb/LSCI/blob/98f4aef159d537e4e944550276af4caf5e2dab1a/docs/figure/1000G_single_position_comp.Rmd/unnamed-chunk-16-2.png" target="_blank">98f4aef</a>
+</td>
+<td>
+Andy Beck
+</td>
+<td>
+2022-07-07
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<pre class="r"><code>f_out &lt;- paste0(pic_dir, subtype ,&quot;.png&quot;)
+ggsave(f_out, width = 800, height = 500, units = &quot;px&quot;, dpi = 120)</code></pre>
 </div>
 <div id="gc_cg" class="section level3">
 <h3>GC_CG</h3>
@@ -1924,6 +2196,17 @@ Date
 <tbody>
 <tr>
 <td>
+<a href="https://github.com/theandyb/LSCI/blob/98f4aef159d537e4e944550276af4caf5e2dab1a/docs/figure/1000G_single_position_comp.Rmd/unnamed-chunk-17-1.png" target="_blank">98f4aef</a>
+</td>
+<td>
+Andy Beck
+</td>
+<td>
+2022-07-07
+</td>
+</tr>
+<tr>
+<td>
 <a href="https://github.com/theandyb/LSCI/blob/7cb68743aa277330e1dee031d44ecd70f6301cae/docs/figure/1000G_single_position_comp.Rmd/unnamed-chunk-17-1.png" target="_blank">7cb6874</a>
 </td>
 <td>
@@ -1948,7 +2231,10 @@ Andy Beck
 </table>
 </div>
 </div>
-<pre class="r"><code>res$cor_obj %&gt;%
+<pre class="r"><code>f_out &lt;- paste0(pic_dir, &quot;nuc_cor_&quot; , subtype ,&quot;.png&quot;)
+ggsave(f_out, width = 800, height = 500, units = &quot;px&quot;, dpi = 120)
+
+res$cor_obj %&gt;%
   knitr::kable()</code></pre>
 <table>
 <thead>
@@ -1965,53 +2251,94 @@ Andy Beck
 <tr class="odd">
 <td align="left">AFR</td>
 <td align="right">NA</td>
-<td align="right">0.9933433</td>
-<td align="right">0.9917569</td>
-<td align="right">0.9909552</td>
-<td align="right">0.9935676</td>
+<td align="right">0.9930276</td>
+<td align="right">0.9909264</td>
+<td align="right">0.9909467</td>
+<td align="right">0.9933303</td>
 </tr>
 <tr class="even">
 <td align="left">AMR</td>
-<td align="right">0.9933433</td>
+<td align="right">0.9930276</td>
 <td align="right">NA</td>
-<td align="right">0.9974962</td>
-<td align="right">0.9987798</td>
-<td align="right">0.9994032</td>
+<td align="right">0.9973495</td>
+<td align="right">0.9985865</td>
+<td align="right">0.9995987</td>
 </tr>
 <tr class="odd">
 <td align="left">EAS</td>
-<td align="right">0.9917569</td>
-<td align="right">0.9974962</td>
+<td align="right">0.9909264</td>
+<td align="right">0.9973495</td>
 <td align="right">NA</td>
-<td align="right">0.9990785</td>
-<td align="right">0.9984492</td>
+<td align="right">0.9988745</td>
+<td align="right">0.9982950</td>
 </tr>
 <tr class="even">
 <td align="left">EUR</td>
-<td align="right">0.9909552</td>
-<td align="right">0.9987798</td>
-<td align="right">0.9990785</td>
+<td align="right">0.9909467</td>
+<td align="right">0.9985865</td>
+<td align="right">0.9988745</td>
 <td align="right">NA</td>
-<td align="right">0.9990636</td>
+<td align="right">0.9988566</td>
 </tr>
 <tr class="odd">
 <td align="left">SAS</td>
-<td align="right">0.9935676</td>
-<td align="right">0.9994032</td>
-<td align="right">0.9984492</td>
-<td align="right">0.9990636</td>
+<td align="right">0.9933303</td>
+<td align="right">0.9995987</td>
+<td align="right">0.9982950</td>
+<td align="right">0.9988566</td>
 <td align="right">NA</td>
 </tr>
 </tbody>
 </table>
 <pre class="r"><code>plot_all_pos_all_sp(subtype)</code></pre>
 <p><img src="figure/1000G_single_position_comp.Rmd/unnamed-chunk-17-2.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-17-2">
+Past versions of unnamed-chunk-17-2.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-17-2" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/theandyb/LSCI/blob/98f4aef159d537e4e944550276af4caf5e2dab1a/docs/figure/1000G_single_position_comp.Rmd/unnamed-chunk-17-2.png" target="_blank">98f4aef</a>
+</td>
+<td>
+Andy Beck
+</td>
+<td>
+2022-07-07
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<pre class="r"><code>f_out &lt;- paste0(pic_dir, subtype ,&quot;.png&quot;)
+ggsave(f_out, width = 800, height = 500, units = &quot;px&quot;, dpi = 120)</code></pre>
 </div>
 <div id="cpg_gc_cg" class="section level3">
 <h3>cpg_GC_CG</h3>
 <pre class="r"><code>subtype &lt;- &quot;cpg_GC_CG&quot;
 res &lt;- corr_analysis(subtype, r_start = 2)
 res$p</code></pre>
+<pre><code>Warning: Removed 2 rows containing missing values (geom_point).</code></pre>
+<pre><code>Warning: Removed 2 row(s) containing missing values (geom_path).</code></pre>
 <p><img src="figure/1000G_single_position_comp.Rmd/unnamed-chunk-18-1.png" width="672" style="display: block; margin: auto;" /></p>
 <p>
 <button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-18-1">
@@ -2035,6 +2362,17 @@ Date
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+<a href="https://github.com/theandyb/LSCI/blob/98f4aef159d537e4e944550276af4caf5e2dab1a/docs/figure/1000G_single_position_comp.Rmd/unnamed-chunk-18-1.png" target="_blank">98f4aef</a>
+</td>
+<td>
+Andy Beck
+</td>
+<td>
+2022-07-07
+</td>
+</tr>
 <tr>
 <td>
 <a href="https://github.com/theandyb/LSCI/blob/7cb68743aa277330e1dee031d44ecd70f6301cae/docs/figure/1000G_single_position_comp.Rmd/unnamed-chunk-18-1.png" target="_blank">7cb6874</a>
@@ -2061,6 +2399,10 @@ Andy Beck
 </table>
 </div>
 </div>
+<pre class="r"><code>f_out &lt;- paste0(pic_dir, &quot;nuc_cor_&quot; , subtype ,&quot;.png&quot;)
+ggsave(f_out, width = 800, height = 500, units = &quot;px&quot;, dpi = 120)</code></pre>
+<pre><code>Warning: Removed 2 rows containing missing values (geom_point).
+Removed 2 row(s) containing missing values (geom_path).</code></pre>
 <pre class="r"><code>res$cor_obj %&gt;%
   knitr::kable()</code></pre>
 <table>
@@ -2078,47 +2420,86 @@ Andy Beck
 <tr class="odd">
 <td align="left">AFR</td>
 <td align="right">NA</td>
-<td align="right">0.9956394</td>
-<td align="right">0.9852402</td>
-<td align="right">0.9904213</td>
-<td align="right">0.9918122</td>
+<td align="right">0.9897431</td>
+<td align="right">0.9844360</td>
+<td align="right">0.9900164</td>
+<td align="right">0.9925072</td>
 </tr>
 <tr class="even">
 <td align="left">AMR</td>
-<td align="right">0.9956394</td>
+<td align="right">0.9897431</td>
 <td align="right">NA</td>
-<td align="right">0.9918453</td>
-<td align="right">0.9950198</td>
-<td align="right">0.9963077</td>
+<td align="right">0.9950314</td>
+<td align="right">0.9955213</td>
+<td align="right">0.9970760</td>
 </tr>
 <tr class="odd">
 <td align="left">EAS</td>
-<td align="right">0.9852402</td>
-<td align="right">0.9918453</td>
+<td align="right">0.9844360</td>
+<td align="right">0.9950314</td>
 <td align="right">NA</td>
-<td align="right">0.9973139</td>
-<td align="right">0.9957836</td>
+<td align="right">0.9971792</td>
+<td align="right">0.9964884</td>
 </tr>
 <tr class="even">
 <td align="left">EUR</td>
-<td align="right">0.9904213</td>
-<td align="right">0.9950198</td>
-<td align="right">0.9973139</td>
+<td align="right">0.9900164</td>
+<td align="right">0.9955213</td>
+<td align="right">0.9971792</td>
 <td align="right">NA</td>
-<td align="right">0.9957160</td>
+<td align="right">0.9960819</td>
 </tr>
 <tr class="odd">
 <td align="left">SAS</td>
-<td align="right">0.9918122</td>
-<td align="right">0.9963077</td>
-<td align="right">0.9957836</td>
-<td align="right">0.9957160</td>
+<td align="right">0.9925072</td>
+<td align="right">0.9970760</td>
+<td align="right">0.9964884</td>
+<td align="right">0.9960819</td>
 <td align="right">NA</td>
 </tr>
 </tbody>
 </table>
 <pre class="r"><code>plot_all_pos_all_sp(subtype, r_start = 2)</code></pre>
 <p><img src="figure/1000G_single_position_comp.Rmd/unnamed-chunk-18-2.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-18-2">
+Past versions of unnamed-chunk-18-2.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-18-2" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/theandyb/LSCI/blob/98f4aef159d537e4e944550276af4caf5e2dab1a/docs/figure/1000G_single_position_comp.Rmd/unnamed-chunk-18-2.png" target="_blank">98f4aef</a>
+</td>
+<td>
+Andy Beck
+</td>
+<td>
+2022-07-07
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<pre class="r"><code>f_out &lt;- paste0(pic_dir, subtype ,&quot;.png&quot;)
+ggsave(f_out, width = 800, height = 500, units = &quot;px&quot;, dpi = 120)</code></pre>
 </div>
 <div id="gc_ta" class="section level3">
 <h3>GC_TA</h3>
@@ -2150,6 +2531,17 @@ Date
 <tbody>
 <tr>
 <td>
+<a href="https://github.com/theandyb/LSCI/blob/98f4aef159d537e4e944550276af4caf5e2dab1a/docs/figure/1000G_single_position_comp.Rmd/unnamed-chunk-19-1.png" target="_blank">98f4aef</a>
+</td>
+<td>
+Andy Beck
+</td>
+<td>
+2022-07-07
+</td>
+</tr>
+<tr>
+<td>
 <a href="https://github.com/theandyb/LSCI/blob/7cb68743aa277330e1dee031d44ecd70f6301cae/docs/figure/1000G_single_position_comp.Rmd/unnamed-chunk-19-1.png" target="_blank">7cb6874</a>
 </td>
 <td>
@@ -2174,7 +2566,10 @@ Andy Beck
 </table>
 </div>
 </div>
-<pre class="r"><code>res$cor_obj %&gt;%
+<pre class="r"><code>f_out &lt;- paste0(pic_dir, &quot;nuc_cor_&quot; , subtype ,&quot;.png&quot;)
+ggsave(f_out, width = 800, height = 500, units = &quot;px&quot;, dpi = 120)
+
+res$cor_obj %&gt;%
   knitr::kable()</code></pre>
 <table>
 <thead>
@@ -2191,56 +2586,134 @@ Andy Beck
 <tr class="odd">
 <td align="left">AFR</td>
 <td align="right">NA</td>
-<td align="right">0.9961824</td>
-<td align="right">0.9905209</td>
-<td align="right">0.9994185</td>
-<td align="right">0.9927585</td>
+<td align="right">0.9945969</td>
+<td align="right">0.9869273</td>
+<td align="right">0.9992613</td>
+<td align="right">0.9908686</td>
 </tr>
 <tr class="even">
 <td align="left">AMR</td>
-<td align="right">0.9961824</td>
+<td align="right">0.9945969</td>
 <td align="right">NA</td>
-<td align="right">0.9984909</td>
-<td align="right">0.9945472</td>
-<td align="right">0.9992777</td>
+<td align="right">0.9981030</td>
+<td align="right">0.9929985</td>
+<td align="right">0.9994083</td>
 </tr>
 <tr class="odd">
 <td align="left">EAS</td>
-<td align="right">0.9905209</td>
-<td align="right">0.9984909</td>
+<td align="right">0.9869273</td>
+<td align="right">0.9981030</td>
 <td align="right">NA</td>
-<td align="right">0.9881049</td>
-<td align="right">0.9995557</td>
+<td align="right">0.9846197</td>
+<td align="right">0.9993002</td>
 </tr>
 <tr class="even">
 <td align="left">EUR</td>
-<td align="right">0.9994185</td>
-<td align="right">0.9945472</td>
-<td align="right">0.9881049</td>
+<td align="right">0.9992613</td>
+<td align="right">0.9929985</td>
+<td align="right">0.9846197</td>
 <td align="right">NA</td>
-<td align="right">0.9909599</td>
+<td align="right">0.9892751</td>
 </tr>
 <tr class="odd">
 <td align="left">SAS</td>
-<td align="right">0.9927585</td>
-<td align="right">0.9992777</td>
-<td align="right">0.9995557</td>
-<td align="right">0.9909599</td>
+<td align="right">0.9908686</td>
+<td align="right">0.9994083</td>
+<td align="right">0.9993002</td>
+<td align="right">0.9892751</td>
 <td align="right">NA</td>
 </tr>
 </tbody>
 </table>
 <pre class="r"><code>plot_all_pos_all_sp(subtype)</code></pre>
 <p><img src="figure/1000G_single_position_comp.Rmd/unnamed-chunk-19-2.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-19-2">
+Past versions of unnamed-chunk-19-2.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-19-2" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/theandyb/LSCI/blob/98f4aef159d537e4e944550276af4caf5e2dab1a/docs/figure/1000G_single_position_comp.Rmd/unnamed-chunk-19-2.png" target="_blank">98f4aef</a>
+</td>
+<td>
+Andy Beck
+</td>
+<td>
+2022-07-07
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<pre class="r"><code>f_out &lt;- paste0(pic_dir, subtype ,&quot;.png&quot;)
+ggsave(f_out, width = 800, height = 500, units = &quot;px&quot;, dpi = 120)</code></pre>
 </div>
 <div id="cpg_gc_ta" class="section level3">
 <h3>cpg_GC_TA</h3>
 <pre class="r"><code>subtype &lt;- &quot;cpg_GC_TA&quot;
 res &lt;- corr_analysis(subtype, r_start = 2)
 res$p</code></pre>
-<pre><code>Warning: Removed 1 rows containing missing values (geom_point).</code></pre>
 <p><img src="figure/1000G_single_position_comp.Rmd/unnamed-chunk-20-1.png" width="672" style="display: block; margin: auto;" /></p>
-<pre class="r"><code>res$cor_obj %&gt;%
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-20-1">
+Past versions of unnamed-chunk-20-1.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-20-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/theandyb/LSCI/blob/98f4aef159d537e4e944550276af4caf5e2dab1a/docs/figure/1000G_single_position_comp.Rmd/unnamed-chunk-20-1.png" target="_blank">98f4aef</a>
+</td>
+<td>
+Andy Beck
+</td>
+<td>
+2022-07-07
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<pre class="r"><code>f_out &lt;- paste0(pic_dir, &quot;nuc_cor_&quot; , subtype ,&quot;.png&quot;)
+ggsave(f_out, width = 800, height = 500, units = &quot;px&quot;, dpi = 120)
+
+res$cor_obj %&gt;%
   knitr::kable()</code></pre>
 <table>
 <thead>
@@ -2257,57 +2730,102 @@ res$p</code></pre>
 <tr class="odd">
 <td align="left">AFR</td>
 <td align="right">NA</td>
-<td align="right">0.9977068</td>
-<td align="right">0.9988379</td>
-<td align="right">0.9971763</td>
-<td align="right">0.9986401</td>
+<td align="right">0.9971569</td>
+<td align="right">0.9970390</td>
+<td align="right">0.9974686</td>
+<td align="right">0.9965273</td>
 </tr>
 <tr class="even">
 <td align="left">AMR</td>
-<td align="right">0.9977068</td>
+<td align="right">0.9971569</td>
 <td align="right">NA</td>
-<td align="right">0.9964660</td>
-<td align="right">0.9948515</td>
-<td align="right">0.9960208</td>
+<td align="right">0.9966492</td>
+<td align="right">0.9952388</td>
+<td align="right">0.9957160</td>
 </tr>
 <tr class="odd">
 <td align="left">EAS</td>
-<td align="right">0.9988379</td>
-<td align="right">0.9964660</td>
+<td align="right">0.9970390</td>
+<td align="right">0.9966492</td>
 <td align="right">NA</td>
-<td align="right">0.9980686</td>
-<td align="right">0.9993968</td>
+<td align="right">0.9968072</td>
+<td align="right">0.9986720</td>
 </tr>
 <tr class="even">
 <td align="left">EUR</td>
-<td align="right">0.9971763</td>
-<td align="right">0.9948515</td>
-<td align="right">0.9980686</td>
+<td align="right">0.9974686</td>
+<td align="right">0.9952388</td>
+<td align="right">0.9968072</td>
 <td align="right">NA</td>
-<td align="right">0.9972853</td>
+<td align="right">0.9960303</td>
 </tr>
 <tr class="odd">
 <td align="left">SAS</td>
-<td align="right">0.9986401</td>
-<td align="right">0.9960208</td>
-<td align="right">0.9993968</td>
-<td align="right">0.9972853</td>
+<td align="right">0.9965273</td>
+<td align="right">0.9957160</td>
+<td align="right">0.9986720</td>
+<td align="right">0.9960303</td>
 <td align="right">NA</td>
 </tr>
 </tbody>
 </table>
 <pre class="r"><code>plot_all_pos_all_sp(subtype, r_start = 2)</code></pre>
 <p><img src="figure/1000G_single_position_comp.Rmd/unnamed-chunk-20-2.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-20-2">
+Past versions of unnamed-chunk-20-2.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-20-2" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/theandyb/LSCI/blob/98f4aef159d537e4e944550276af4caf5e2dab1a/docs/figure/1000G_single_position_comp.Rmd/unnamed-chunk-20-2.png" target="_blank">98f4aef</a>
+</td>
+<td>
+Andy Beck
+</td>
+<td>
+2022-07-07
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<pre class="r"><code>f_out &lt;- paste0(pic_dir, subtype ,&quot;.png&quot;)
+ggsave(f_out, width = 800, height = 500, units = &quot;px&quot;, dpi = 120)</code></pre>
 </div>
 </div>
 <div id="chi-square-approach" class="section level2">
 <h2>Chi Square Approach</h2>
-<p>Similar to what we did with the single position models, we can also
-use the chi square goodness of fit test to evaluate, for each sub-type
-and at each relative position, how similar are the counts between each
-super-population, and how does this statistic compare to what we observe
-comparing each super-population to its control sample? We can also do
-this to compare the BRIDGES data to the 1000G data as well.</p>
+<p>The idea here is that if single-position effects are consistent
+across populations, then the frequency tables from each population
+should be more similar to each other than they are to their matched
+control distribution. To evaluate this we could do one of three things
+(or more that I haven’t thought of yet):</p>
+<ol style="list-style-type: decimal">
+<li>Measure the “distance” between each table of frequencies using
+KL-divergence</li>
+<li>Use one population as “expectation” and compute chi-square goodness
+of fit statistics</li>
+<li>Fit a joint loglinear model</li>
+</ol>
 <p>Let’s first work this out for a sub type at one position, and then
 move on from there:</p>
 <pre class="r"><code>df_AFR &lt;- load_sp_results(&quot;AFR&quot;, &quot;AT_CG&quot;, -1) %&gt;%
@@ -2315,10 +2833,377 @@ move on from there:</p>
   mutate(rate = singletons/sum(singletons))
 
 df_AMR &lt;- load_sp_results(&quot;AMR&quot;, &quot;AT_CG&quot;, -1) %&gt;%
-  select(Nuc, singletons) %&gt;%
+  select(Nuc, singletons, controls) %&gt;%
   full_join({df_AFR %&gt;% select(Nuc, rate)}, by = &quot;Nuc&quot;) %&gt;%
   mutate(expected = rate * sum(singletons)) %&gt;%
-  mutate(chi_sq = (singletons - expected)^2 / expected)</code></pre>
+  mutate(chi_sq = (singletons - expected)^2 / expected) %&gt;%
+  mutate(pct_c = controls / sum(controls)) %&gt;%
+  mutate(exp_c = pct_c * sum(singletons)) %&gt;%
+  mutate(chi_sq_c = (singletons - exp_c)^2 / exp_c)
+
+joint_mod_sp &lt;- function(st, rp){
+  df_AFR &lt;- load_sp_results(&quot;AFR&quot;, st, rp) %&gt;%
+    select(Nuc, singletons, controls) %&gt;% 
+    filter(Nuc %in% c(&quot;A&quot;, &quot;C&quot;, &quot;G&quot;, &quot;T&quot;)) %&gt;%
+    arrange(Nuc) %&gt;%
+    mutate(pct = singletons / sum(singletons)) 
+  
+  df_AMR &lt;- load_sp_results(&quot;AMR&quot;, st, rp) %&gt;%
+    select(Nuc, singletons, controls) %&gt;% 
+    filter(Nuc %in% c(&quot;A&quot;, &quot;C&quot;, &quot;G&quot;, &quot;T&quot;)) %&gt;%
+    arrange(Nuc) %&gt;%
+    mutate(pct = singletons / sum(singletons))
+  
+  df_EAS &lt;- load_sp_results(&quot;EAS&quot;, st, rp) %&gt;%
+    select(Nuc, singletons, controls) %&gt;% 
+    filter(Nuc %in% c(&quot;A&quot;, &quot;C&quot;, &quot;G&quot;, &quot;T&quot;)) %&gt;%
+    arrange(Nuc) %&gt;%
+    mutate(pct = singletons / sum(singletons))
+  
+  df_EUR &lt;- load_sp_results(&quot;EUR&quot;, st, rp) %&gt;%
+    select(Nuc, singletons, controls) %&gt;% 
+    filter(Nuc %in% c(&quot;A&quot;, &quot;C&quot;, &quot;G&quot;, &quot;T&quot;)) %&gt;%
+    arrange(Nuc) %&gt;%
+    mutate(pct = singletons / sum(singletons))
+  
+  df_SAS &lt;- load_sp_results(&quot;SAS&quot;, st, rp) %&gt;%
+    select(Nuc, singletons, controls)  %&gt;% 
+    filter(Nuc %in% c(&quot;A&quot;, &quot;C&quot;, &quot;G&quot;, &quot;T&quot;)) %&gt;%
+    arrange(Nuc) %&gt;%
+    mutate(pct = singletons / sum(singletons)) 
+  
+  df &lt;- list(AFR = df_AFR,
+             AMR = df_AMR,
+             EAS = df_EAS,
+             EUR = df_EUR,
+             SAS = df_SAS)
+  for(p1 in c(&quot;AFR&quot;, &quot;AMR&quot;, &quot;EAS&quot;, &quot;EUR&quot;, &quot;SAS&quot;)){
+    for(p2 in c(&quot;AMR&quot;, &quot;EAS&quot;, &quot;EUR&quot;, &quot;SAS&quot;)){
+      if(p1 == p2) next
+        exp12_name &lt;- paste0(&quot;exp_&quot;, p2)
+        exp21_name &lt;- paste0(&quot;exp_&quot;, p1)
+        chi12_name &lt;- paste0(&quot;chi_&quot;, p2)
+        chi21_name &lt;- paste0(&quot;chi_&quot;, p1)
+        kl12_name &lt;- paste0(&quot;kl_&quot;, p2)
+        kl21_name &lt;- paste0(&quot;kl_&quot;, p1)
+        
+        df[[p1]] &lt;- full_join(df[[p1]], 
+                              {df[[p2]] %&gt;% 
+                                  select(Nuc, pct) %&gt;% 
+                                  rename(tmp = pct)}, 
+                              by = &quot;Nuc&quot;)
+        df[[p2]] &lt;- full_join(df[[p2]], 
+                              {df[[p1]] %&gt;% 
+                                  select(Nuc, pct) %&gt;% 
+                                  rename(tmp = pct)}, 
+                              by = &quot;Nuc&quot;)
+        df[[p1]][, exp12_name] &lt;- df[[p1]]$tmp * sum(df[[p1]]$singletons)
+        df[[p2]][, exp21_name] &lt;- df[[p2]]$tmp * sum(df[[p2]]$singletons)
+        
+        df[[p1]][, chi12_name] &lt;- (df[[p1]][, exp12_name] - df[[p1]]$singletons)^2 / df[[p1]][, exp12_name]
+        df[[p2]][, chi21_name] &lt;- (df[[p2]][, exp21_name] - df[[p2]]$singletons)^2 / df[[p2]][, exp21_name]
+        
+        df[[p1]][, kl12_name] &lt;- (df[[p1]]$singletons / sum(df[[p1]]$singletons)) * log((df[[p1]]$singletons / sum(df[[p1]]$singletons)) / df[[p1]]$tmp)
+        df[[p2]][, kl21_name] &lt;- (df[[p2]]$singletons / sum(df[[p2]]$singletons)) * log((df[[p2]]$singletons / sum(df[[p2]]$singletons)) / df[[p2]]$tmp)
+        
+        df[[p1]]$tmp &lt;- NULL
+        df[[p2]]$tmp &lt;- NULL
+    }
+  }
+  
+  # Control-based statistics
+  for(p1 in c(&quot;AFR&quot;, &quot;AMR&quot;, &quot;EAS&quot;, &quot;EUR&quot;, &quot;SAS&quot;)){
+    df[[p1]][,&quot;tmp&quot;] &lt;- df[[p1]]$controls / sum(df[[p1]]$controls)
+    df[[p1]][, &quot;exp&quot;] &lt;- df[[p1]]$tmp * sum(df[[p1]]$singletons)
+    df[[p1]][, &quot;chi_c&quot;] &lt;- (df[[p1]][, &quot;exp&quot;] - df[[p1]]$singletons)^2 / df[[p1]][, &quot;exp&quot;]
+    df[[p1]][, &quot;kl_c&quot;] &lt;- (df[[p1]]$singletons / sum(df[[p1]]$singletons)) * log((df[[p1]]$singletons / sum(df[[p1]]$singletons)) / df[[p1]]$tmp)
+    df[[p1]][,&quot;tmp&quot;] &lt;- NULL
+    df[[p1]][, &quot;exp&quot;] &lt;- NULL
+  }
+  
+  return(df)
+}
+
+
+joint_mod_all &lt;- function(st, r_start = 1){
+  final &lt;- data.frame(rp = numeric(), 
+                      pop1 = character(), 
+                      pop2 = character(), 
+                      chi_sq = numeric(),
+                      kl = numeric())
+  
+  for(rp in c(-10:-1, r_start:10)){
+    df &lt;- joint_mod_sp(st, rp)
+    for(p1 in c(&quot;AFR&quot;, &quot;AMR&quot;, &quot;EAS&quot;, &quot;EUR&quot;, &quot;SAS&quot;)){
+      for(p2 in c(&quot;AMR&quot;, &quot;EAS&quot;, &quot;EUR&quot;, &quot;SAS&quot;)){
+        if(p1 == p2) next
+        chi12_name &lt;- paste0(&quot;chi_&quot;, p2)
+        chi21_name &lt;- paste0(&quot;chi_&quot;, p1)
+        kl12_name &lt;- paste0(&quot;kl_&quot;, p2)
+        kl21_name &lt;- paste0(&quot;kl_&quot;, p1)
+        
+        kl1 &lt;- sum(df[[p1]][,kl12_name])
+        kl2 &lt;- sum(df[[p2]][, kl21_name])
+        chi1 &lt;- sum(df[[p1]][,chi12_name])
+        chi2 &lt;- sum(df[[p2]][,chi21_name])
+        
+        final &lt;- bind_rows(final, 
+                           data.frame(rp = rp,
+                                      pop1 = p1,
+                                      pop2 = p2,
+                                      chi_sq = chi1,
+                                      kl = kl1))
+        final &lt;- bind_rows(final, 
+                           data.frame(rp = rp,
+                                      pop1 = p2,
+                                      pop2 = p1,
+                                      chi_sq = chi2,
+                                      kl = kl2))
+      }
+    }
+    #control stats
+    for(p1 in c(&quot;AFR&quot;, &quot;AMR&quot;, &quot;EAS&quot;, &quot;EUR&quot;, &quot;SAS&quot;)){
+      chi_stat &lt;- sum(df[[p1]]$chi_c)
+      kl_stat &lt;- sum(df[[p1]]$kl_c)
+      final &lt;- bind_rows(final, 
+                           data.frame(rp = rp,
+                                      pop1 = p1,
+                                      pop2 = &quot;control&quot;,
+                                      chi_sq = chi_stat,
+                                      kl = kl_stat))
+    }
+  }
+  return(final)
+}</code></pre>
+<div id="at_cg-1" class="section level3">
+<h3>AT_CG</h3>
+<pre class="r"><code>subtype &lt;- &quot;AT_CG&quot;
+df &lt;- joint_mod_all(subtype)
+
+df %&gt;%
+  filter(pop1 == &quot;AFR&quot;) %&gt;%
+  ggplot(aes(x = rp, y = kl, colour = pop2)) +
+  geom_point() +
+  geom_line() +
+  ggtitle(&quot;Single Position KL&quot;, paste0(&quot;AFR: &quot;, subtype)) +
+  labs(color=&#39;Source Population&#39;) +
+  xlab(&quot;Relative Position&quot;) +
+  ylab(&quot;KL Divergence&quot;)</code></pre>
+<p><img src="figure/1000G_single_position_comp.Rmd/unnamed-chunk-22-1.png" width="672" style="display: block; margin: auto;" /></p>
+<pre class="r"><code>df %&gt;%
+  filter(pop1 == &quot;AMR&quot;) %&gt;%
+  ggplot(aes(x = rp, y = kl, colour = pop2)) +
+  geom_point() +
+  geom_line() +
+  ggtitle(&quot;Single Position KL&quot;, paste0(&quot;AMR: &quot;, subtype)) +
+  labs(color=&#39;Source Population&#39;) +
+  xlab(&quot;Relative Position&quot;) +
+  ylab(&quot;KL Divergence&quot;)</code></pre>
+<p><img src="figure/1000G_single_position_comp.Rmd/unnamed-chunk-22-2.png" width="672" style="display: block; margin: auto;" /></p>
+<pre class="r"><code>df %&gt;%
+  filter(pop1 == &quot;EAS&quot;) %&gt;%
+  ggplot(aes(x = rp, y = kl, colour = pop2)) +
+  geom_point() +
+  geom_line() +
+  ggtitle(&quot;Single Position KL&quot;, paste0(&quot;EAS: &quot;, subtype)) +
+  labs(color=&#39;Source Population&#39;) +
+  xlab(&quot;Relative Position&quot;) +
+  ylab(&quot;KL Divergence&quot;)</code></pre>
+<p><img src="figure/1000G_single_position_comp.Rmd/unnamed-chunk-22-3.png" width="672" style="display: block; margin: auto;" /></p>
+<pre class="r"><code>df %&gt;%
+  filter(pop1 == &quot;EUR&quot;) %&gt;%
+  ggplot(aes(x = rp, y = kl, colour = pop2)) +
+  geom_point() +
+  geom_line() +
+  ggtitle(&quot;Single Position KL&quot;, paste0(&quot;EUR: &quot;, subtype)) +
+  labs(color=&#39;Source Population&#39;) +
+  xlab(&quot;Relative Position&quot;) +
+  ylab(&quot;KL Divergence&quot;)</code></pre>
+<p><img src="figure/1000G_single_position_comp.Rmd/unnamed-chunk-22-4.png" width="672" style="display: block; margin: auto;" /></p>
+<pre class="r"><code>df %&gt;%
+  filter(pop1 == &quot;SAS&quot;) %&gt;%
+  ggplot(aes(x = rp, y = kl, colour = pop2)) +
+  geom_point() +
+  geom_line() +
+  ggtitle(&quot;Single Position KL&quot;, paste0(&quot;SAS: &quot;, subtype)) +
+  labs(color=&#39;Source Population&#39;) +
+  xlab(&quot;Relative Position&quot;) +
+  ylab(&quot;KL Divergence&quot;)</code></pre>
+<p><img src="figure/1000G_single_position_comp.Rmd/unnamed-chunk-22-5.png" width="672" style="display: block; margin: auto;" /></p>
+</div>
+<div id="at_gc-1" class="section level3">
+<h3>AT_GC</h3>
+<pre class="r"><code>subtype &lt;- &quot;AT_GC&quot;
+df &lt;- joint_mod_all(subtype)
+
+df %&gt;%
+  filter(pop1 == &quot;AFR&quot;) %&gt;%
+  ggplot(aes(x = rp, y = kl, colour = pop2)) +
+  geom_point() +
+  geom_line() +
+  ggtitle(&quot;Single Position KL&quot;, paste0(&quot;AFR: &quot;, subtype)) +
+  labs(color=&#39;Source Population&#39;) +
+  xlab(&quot;Relative Position&quot;) +
+  ylab(&quot;KL Divergence&quot;)</code></pre>
+<p><img src="figure/1000G_single_position_comp.Rmd/unnamed-chunk-23-1.png" width="672" style="display: block; margin: auto;" /></p>
+<pre class="r"><code>df %&gt;%
+  filter(pop1 == &quot;AMR&quot;) %&gt;%
+  ggplot(aes(x = rp, y = kl, colour = pop2)) +
+  geom_point() +
+  geom_line() +
+  ggtitle(&quot;Single Position KL&quot;, paste0(&quot;AMR: &quot;, subtype)) +
+  labs(color=&#39;Source Population&#39;) +
+  xlab(&quot;Relative Position&quot;) +
+  ylab(&quot;KL Divergence&quot;)</code></pre>
+<p><img src="figure/1000G_single_position_comp.Rmd/unnamed-chunk-23-2.png" width="672" style="display: block; margin: auto;" /></p>
+<pre class="r"><code>df %&gt;%
+  filter(pop1 == &quot;EAS&quot;) %&gt;%
+  ggplot(aes(x = rp, y = kl, colour = pop2)) +
+  geom_point() +
+  geom_line() +
+  ggtitle(&quot;Single Position KL&quot;, paste0(&quot;EAS: &quot;, subtype)) +
+  labs(color=&#39;Source Population&#39;) +
+  xlab(&quot;Relative Position&quot;) +
+  ylab(&quot;KL Divergence&quot;)</code></pre>
+<p><img src="figure/1000G_single_position_comp.Rmd/unnamed-chunk-23-3.png" width="672" style="display: block; margin: auto;" /></p>
+<pre class="r"><code>df %&gt;%
+  filter(pop1 == &quot;EUR&quot;) %&gt;%
+  ggplot(aes(x = rp, y = kl, colour = pop2)) +
+  geom_point() +
+  geom_line() +
+  ggtitle(&quot;Single Position KL&quot;, paste0(&quot;EUR: &quot;, subtype)) +
+  labs(color=&#39;Source Population&#39;) +
+  xlab(&quot;Relative Position&quot;) +
+  ylab(&quot;KL Divergence&quot;)</code></pre>
+<p><img src="figure/1000G_single_position_comp.Rmd/unnamed-chunk-23-4.png" width="672" style="display: block; margin: auto;" /></p>
+<pre class="r"><code>df %&gt;%
+  filter(pop1 == &quot;SAS&quot;) %&gt;%
+  ggplot(aes(x = rp, y = kl, colour = pop2)) +
+  geom_point() +
+  geom_line() +
+  ggtitle(&quot;Single Position KL&quot;, paste0(&quot;SAS: &quot;, subtype)) +
+  labs(color=&#39;Source Population&#39;) +
+  xlab(&quot;Relative Position&quot;) +
+  ylab(&quot;KL Divergence&quot;)</code></pre>
+<p><img src="figure/1000G_single_position_comp.Rmd/unnamed-chunk-23-5.png" width="672" style="display: block; margin: auto;" /></p>
+</div>
+<div id="at_ta-1" class="section level3">
+<h3>AT_TA</h3>
+<pre class="r"><code>subtype &lt;- &quot;AT_TA&quot;
+df &lt;- joint_mod_all(subtype)
+
+df %&gt;%
+  filter(pop1 == &quot;AFR&quot;) %&gt;%
+  ggplot(aes(x = rp, y = kl, colour = pop2)) +
+  geom_point() +
+  geom_line() +
+  ggtitle(&quot;Single Position KL&quot;, paste0(&quot;AFR: &quot;, subtype)) +
+  labs(color=&#39;Source Population&#39;) +
+  xlab(&quot;Relative Position&quot;) +
+  ylab(&quot;KL Divergence&quot;)</code></pre>
+<p><img src="figure/1000G_single_position_comp.Rmd/unnamed-chunk-24-1.png" width="672" style="display: block; margin: auto;" /></p>
+<pre class="r"><code>df %&gt;%
+  filter(pop1 == &quot;AMR&quot;) %&gt;%
+  ggplot(aes(x = rp, y = kl, colour = pop2)) +
+  geom_point() +
+  geom_line() +
+  ggtitle(&quot;Single Position KL&quot;, paste0(&quot;AMR: &quot;, subtype)) +
+  labs(color=&#39;Source Population&#39;) +
+  xlab(&quot;Relative Position&quot;) +
+  ylab(&quot;KL Divergence&quot;)</code></pre>
+<p><img src="figure/1000G_single_position_comp.Rmd/unnamed-chunk-24-2.png" width="672" style="display: block; margin: auto;" /></p>
+<pre class="r"><code>df %&gt;%
+  filter(pop1 == &quot;EAS&quot;) %&gt;%
+  ggplot(aes(x = rp, y = kl, colour = pop2)) +
+  geom_point() +
+  geom_line() +
+  ggtitle(&quot;Single Position KL&quot;, paste0(&quot;EAS: &quot;, subtype)) +
+  labs(color=&#39;Source Population&#39;) +
+  xlab(&quot;Relative Position&quot;) +
+  ylab(&quot;KL Divergence&quot;)</code></pre>
+<p><img src="figure/1000G_single_position_comp.Rmd/unnamed-chunk-24-3.png" width="672" style="display: block; margin: auto;" /></p>
+<pre class="r"><code>df %&gt;%
+  filter(pop1 == &quot;EUR&quot;) %&gt;%
+  ggplot(aes(x = rp, y = kl, colour = pop2)) +
+  geom_point() +
+  geom_line() +
+  ggtitle(&quot;Single Position KL&quot;, paste0(&quot;EUR: &quot;, subtype)) +
+  labs(color=&#39;Source Population&#39;) +
+  xlab(&quot;Relative Position&quot;) +
+  ylab(&quot;KL Divergence&quot;)</code></pre>
+<p><img src="figure/1000G_single_position_comp.Rmd/unnamed-chunk-24-4.png" width="672" style="display: block; margin: auto;" /></p>
+<pre class="r"><code>df %&gt;%
+  filter(pop1 == &quot;SAS&quot;) %&gt;%
+  ggplot(aes(x = rp, y = kl, colour = pop2)) +
+  geom_point() +
+  geom_line() +
+  ggtitle(&quot;Single Position KL&quot;, paste0(&quot;SAS: &quot;, subtype)) +
+  labs(color=&#39;Source Population&#39;) +
+  xlab(&quot;Relative Position&quot;) +
+  ylab(&quot;KL Divergence&quot;)</code></pre>
+<p><img src="figure/1000G_single_position_comp.Rmd/unnamed-chunk-24-5.png" width="672" style="display: block; margin: auto;" /></p>
+</div>
+<div id="gc_at-1" class="section level3">
+<h3>GC_AT</h3>
+<pre class="r"><code>subtype &lt;- &quot;GC_AT&quot;
+df &lt;- joint_mod_all(subtype)
+
+df %&gt;%
+  filter(pop1 == &quot;AFR&quot;) %&gt;%
+  ggplot(aes(x = rp, y = kl, colour = pop2)) +
+  geom_point() +
+  geom_line() +
+  ggtitle(&quot;Single Position KL&quot;, paste0(&quot;AFR: &quot;, subtype)) +
+  labs(color=&#39;Source Population&#39;) +
+  xlab(&quot;Relative Position&quot;) +
+  ylab(&quot;KL Divergence&quot;)</code></pre>
+<pre><code>Warning: Removed 5 rows containing missing values (geom_point).</code></pre>
+<p><img src="figure/1000G_single_position_comp.Rmd/unnamed-chunk-25-1.png" width="672" style="display: block; margin: auto;" /></p>
+<pre class="r"><code>df %&gt;%
+  filter(pop1 == &quot;AMR&quot;) %&gt;%
+  ggplot(aes(x = rp, y = kl, colour = pop2)) +
+  geom_point() +
+  geom_line() +
+  ggtitle(&quot;Single Position KL&quot;, paste0(&quot;AMR: &quot;, subtype)) +
+  labs(color=&#39;Source Population&#39;) +
+  xlab(&quot;Relative Position&quot;) +
+  ylab(&quot;KL Divergence&quot;)</code></pre>
+<pre><code>Warning: Removed 8 rows containing missing values (geom_point).</code></pre>
+<p><img src="figure/1000G_single_position_comp.Rmd/unnamed-chunk-25-2.png" width="672" style="display: block; margin: auto;" /></p>
+<pre class="r"><code>df %&gt;%
+  filter(pop1 == &quot;EAS&quot;) %&gt;%
+  ggplot(aes(x = rp, y = kl, colour = pop2)) +
+  geom_point() +
+  geom_line() +
+  ggtitle(&quot;Single Position KL&quot;, paste0(&quot;EAS: &quot;, subtype)) +
+  labs(color=&#39;Source Population&#39;) +
+  xlab(&quot;Relative Position&quot;) +
+  ylab(&quot;KL Divergence&quot;)</code></pre>
+<pre><code>Warning: Removed 8 rows containing missing values (geom_point).</code></pre>
+<p><img src="figure/1000G_single_position_comp.Rmd/unnamed-chunk-25-3.png" width="672" style="display: block; margin: auto;" /></p>
+<pre class="r"><code>df %&gt;%
+  filter(pop1 == &quot;EUR&quot;) %&gt;%
+  ggplot(aes(x = rp, y = kl, colour = pop2)) +
+  geom_point() +
+  geom_line() +
+  ggtitle(&quot;Single Position KL&quot;, paste0(&quot;EUR: &quot;, subtype)) +
+  labs(color=&#39;Source Population&#39;) +
+  xlab(&quot;Relative Position&quot;) +
+  ylab(&quot;KL Divergence&quot;)</code></pre>
+<pre><code>Warning: Removed 8 rows containing missing values (geom_point).</code></pre>
+<p><img src="figure/1000G_single_position_comp.Rmd/unnamed-chunk-25-4.png" width="672" style="display: block; margin: auto;" /></p>
+<pre class="r"><code>df %&gt;%
+  filter(pop1 == &quot;SAS&quot;) %&gt;%
+  ggplot(aes(x = rp, y = kl, colour = pop2)) +
+  geom_point() +
+  geom_line() +
+  ggtitle(&quot;Single Position KL&quot;, paste0(&quot;SAS: &quot;, subtype)) +
+  labs(color=&#39;Source Population&#39;) +
+  xlab(&quot;Relative Position&quot;) +
+  ylab(&quot;KL Divergence&quot;)</code></pre>
+<pre><code>Warning: Removed 8 rows containing missing values (geom_point).</code></pre>
+<p><img src="figure/1000G_single_position_comp.Rmd/unnamed-chunk-25-5.png" width="672" style="display: block; margin: auto;" /></p>
+</div>
 </div>
 <div id="compare-to-bridges" class="section level2">
 <h2>Compare to BRIDGES</h2>
@@ -2335,7 +3220,7 @@ Session information
 </p>
 <div id="workflowr-sessioninfo" class="collapse">
 <pre class="r"><code>sessionInfo()</code></pre>
-<pre><code>R version 4.2.0 (2022-04-22)
+<pre><code>R version 4.2.1 (2022-06-23)
 Platform: x86_64-pc-linux-gnu (64-bit)
 Running under: Ubuntu 18.04.6 LTS
 
@@ -2355,31 +3240,39 @@ attached base packages:
 [1] stats     graphics  grDevices utils     datasets  methods   base     
 
 other attached packages:
- [1] tikzDevice_0.12.3.1 corrr_0.4.3         forcats_0.5.1      
- [4] stringr_1.4.0       dplyr_1.0.9         purrr_0.3.4        
- [7] readr_2.1.2         tidyr_1.2.0         tibble_3.1.7       
-[10] ggplot2_3.3.6       tidyverse_1.3.1     workflowr_1.7.0    
+ [1] rlang_1.0.4         tikzDevice_0.12.3.1 corrr_0.4.4        
+ [4] forcats_0.5.1       stringr_1.4.0       dplyr_1.0.9        
+ [7] purrr_0.3.4         readr_2.1.2         tidyr_1.2.0        
+[10] tibble_3.1.8        ggplot2_3.3.6       tidyverse_1.3.2    
+[13] workflowr_1.7.0    
 
 loaded via a namespace (and not attached):
- [1] httr_1.4.3       sass_0.4.1       bit64_4.0.5      vroom_1.5.7     
- [5] jsonlite_1.8.0   modelr_0.1.8     bslib_0.3.1      assertthat_0.2.1
- [9] getPass_0.2-2    highr_0.9        cellranger_1.1.0 yaml_2.3.5      
-[13] pillar_1.7.0     backports_1.4.1  glue_1.6.2       digest_0.6.29   
-[17] promises_1.2.0.1 rvest_1.0.2      colorspace_2.0-3 htmltools_0.5.2 
-[21] httpuv_1.6.5     pkgconfig_2.0.3  broom_0.8.0      haven_2.5.0     
-[25] scales_1.2.0     processx_3.5.3   whisker_0.4      later_1.3.0     
-[29] tzdb_0.3.0       git2r_0.30.1     generics_0.1.2   farver_2.1.0    
-[33] ellipsis_0.3.2   withr_2.5.0      cli_3.3.0        magrittr_2.0.3  
-[37] crayon_1.5.1     readxl_1.4.0     evaluate_0.15    ps_1.7.0        
-[41] fs_1.5.2         fansi_1.0.3      xml2_1.3.3       tools_4.2.0     
-[45] hms_1.1.1        lifecycle_1.0.1  munsell_0.5.0    reprex_2.0.1    
-[49] callr_3.7.0      compiler_4.2.0   jquerylib_0.1.4  rlang_1.0.2     
-[53] grid_4.2.0       rstudioapi_0.13  filehash_2.4-3   labeling_0.4.2  
-[57] rmarkdown_2.14   gtable_0.3.0     DBI_1.1.2        R6_2.5.1        
-[61] lubridate_1.8.0  knitr_1.39       fastmap_1.1.0    bit_4.0.4       
-[65] utf8_1.2.2       rprojroot_2.0.3  stringi_1.7.6    parallel_4.2.0  
-[69] Rcpp_1.0.8.3     vctrs_0.4.1      dbplyr_2.1.1     tidyselect_1.1.2
-[73] xfun_0.31       </code></pre>
+ [1] httr_1.4.3          sass_0.4.1          bit64_4.0.5        
+ [4] vroom_1.5.7         jsonlite_1.8.0      modelr_0.1.8       
+ [7] bslib_0.3.1         assertthat_0.2.1    getPass_0.2-2      
+[10] highr_0.9           googlesheets4_1.0.0 cellranger_1.1.0   
+[13] yaml_2.3.5          pillar_1.7.0        backports_1.4.1    
+[16] glue_1.6.2          digest_0.6.29       promises_1.2.0.1   
+[19] rvest_1.0.2         colorspace_2.0-3    htmltools_0.5.2    
+[22] httpuv_1.6.5        pkgconfig_2.0.3     broom_1.0.0        
+[25] haven_2.5.0         scales_1.2.0        processx_3.5.3     
+[28] whisker_0.4         later_1.3.0         tzdb_0.3.0         
+[31] git2r_0.30.1        googledrive_2.0.0   farver_2.1.0       
+[34] generics_0.1.3      ellipsis_0.3.2      withr_2.5.0        
+[37] cli_3.3.0           magrittr_2.0.3      crayon_1.5.1       
+[40] readxl_1.4.0        evaluate_0.15       ps_1.7.0           
+[43] fs_1.5.2            fansi_1.0.3         xml2_1.3.3         
+[46] textshaping_0.3.6   tools_4.2.1         hms_1.1.1          
+[49] gargle_1.2.0        lifecycle_1.0.1     munsell_0.5.0      
+[52] reprex_2.0.1        callr_3.7.0         compiler_4.2.1     
+[55] jquerylib_0.1.4     systemfonts_1.0.4   grid_4.2.1         
+[58] rstudioapi_0.13     filehash_2.4-3      labeling_0.4.2     
+[61] rmarkdown_2.14      gtable_0.3.0        DBI_1.1.2          
+[64] R6_2.5.1            lubridate_1.8.0     knitr_1.40         
+[67] fastmap_1.1.0       bit_4.0.4           utf8_1.2.2         
+[70] rprojroot_2.0.3     ragg_1.2.2          stringi_1.7.6      
+[73] parallel_4.2.1      Rcpp_1.0.8.3        vctrs_0.4.1        
+[76] dbplyr_2.1.1        tidyselect_1.1.2    xfun_0.31          </code></pre>
 </div>
 </div>
 </div>
