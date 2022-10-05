@@ -500,10 +500,10 @@ joint_mod_all <- function(st, r_start = 1){
         kl12_name <- paste0("kl_", p2)
         kl21_name <- paste0("kl_", p1)
         
-        kl1 <- sum(df[[p1]][,kl12_name])
-        kl2 <- sum(df[[p2]][, kl21_name])
-        chi1 <- sum(df[[p1]][,chi12_name])
-        chi2 <- sum(df[[p2]][,chi21_name])
+        kl1 <- sum(df[[p1]][,kl12_name], na.rm = T)
+        kl2 <- sum(df[[p2]][, kl21_name], na.rm = T)
+        chi1 <- sum(df[[p1]][,chi12_name], na.rm = T)
+        chi2 <- sum(df[[p2]][,chi21_name], na.rm = T)
         
         final <- bind_rows(final, 
                            data.frame(rp = rp,
@@ -521,8 +521,8 @@ joint_mod_all <- function(st, r_start = 1){
     }
     #control stats
     for(p1 in c("AFR", "AMR", "EAS", "EUR", "SAS")){
-      chi_stat <- sum(df[[p1]]$chi_c)
-      kl_stat <- sum(df[[p1]]$kl_c)
+      chi_stat <- sum(df[[p1]]$chi_c, na.rm = T)
+      kl_stat <- sum(df[[p1]]$kl_c, na.rm = T)
       final <- bind_rows(final, 
                            data.frame(rp = rp,
                                       pop1 = p1,
@@ -764,6 +764,290 @@ df %>%
   ylab("KL Divergence")
 ```
 
+### cpg_GC_AT
+
+```{r}
+subtype <- "cpg_GC_AT"
+df <- joint_mod_all(subtype)
+
+df %>%
+  filter(pop1 == "AFR") %>%
+  ggplot(aes(x = rp, y = kl, colour = pop2)) +
+  geom_point() +
+  geom_line() +
+  ggtitle("Single Position KL", paste0("AFR: ", subtype)) +
+  labs(color='Source Population') +
+  xlab("Relative Position") +
+  ylab("KL Divergence")
+
+df %>%
+  filter(pop1 == "AMR") %>%
+  ggplot(aes(x = rp, y = kl, colour = pop2)) +
+  geom_point() +
+  geom_line() +
+  ggtitle("Single Position KL", paste0("AMR: ", subtype)) +
+  labs(color='Source Population') +
+  xlab("Relative Position") +
+  ylab("KL Divergence")
+
+df %>%
+  filter(pop1 == "EAS") %>%
+  ggplot(aes(x = rp, y = kl, colour = pop2)) +
+  geom_point() +
+  geom_line() +
+  ggtitle("Single Position KL", paste0("EAS: ", subtype)) +
+  labs(color='Source Population') +
+  xlab("Relative Position") +
+  ylab("KL Divergence")
+
+df %>%
+  filter(pop1 == "EUR") %>%
+  ggplot(aes(x = rp, y = kl, colour = pop2)) +
+  geom_point() +
+  geom_line() +
+  ggtitle("Single Position KL", paste0("EUR: ", subtype)) +
+  labs(color='Source Population') +
+  xlab("Relative Position") +
+  ylab("KL Divergence")
+
+df %>%
+  filter(pop1 == "SAS") %>%
+  ggplot(aes(x = rp, y = kl, colour = pop2)) +
+  geom_point() +
+  geom_line() +
+  ggtitle("Single Position KL", paste0("SAS: ", subtype)) +
+  labs(color='Source Population') +
+  xlab("Relative Position") +
+  ylab("KL Divergence")
+```
+
+### GC_TA
+
+```{r}
+subtype <- "GC_TA"
+df <- joint_mod_all(subtype)
+
+df %>%
+  filter(pop1 == "AFR") %>%
+  ggplot(aes(x = rp, y = kl, colour = pop2)) +
+  geom_point() +
+  geom_line() +
+  ggtitle("Single Position KL", paste0("AFR: ", subtype)) +
+  labs(color='Source Population') +
+  xlab("Relative Position") +
+  ylab("KL Divergence")
+
+df %>%
+  filter(pop1 == "AMR") %>%
+  ggplot(aes(x = rp, y = kl, colour = pop2)) +
+  geom_point() +
+  geom_line() +
+  ggtitle("Single Position KL", paste0("AMR: ", subtype)) +
+  labs(color='Source Population') +
+  xlab("Relative Position") +
+  ylab("KL Divergence")
+
+df %>%
+  filter(pop1 == "EAS") %>%
+  ggplot(aes(x = rp, y = kl, colour = pop2)) +
+  geom_point() +
+  geom_line() +
+  ggtitle("Single Position KL", paste0("EAS: ", subtype)) +
+  labs(color='Source Population') +
+  xlab("Relative Position") +
+  ylab("KL Divergence")
+
+df %>%
+  filter(pop1 == "EUR") %>%
+  ggplot(aes(x = rp, y = kl, colour = pop2)) +
+  geom_point() +
+  geom_line() +
+  ggtitle("Single Position KL", paste0("EUR: ", subtype)) +
+  labs(color='Source Population') +
+  xlab("Relative Position") +
+  ylab("KL Divergence")
+
+df %>%
+  filter(pop1 == "SAS") %>%
+  ggplot(aes(x = rp, y = kl, colour = pop2)) +
+  geom_point() +
+  geom_line() +
+  ggtitle("Single Position KL", paste0("SAS: ", subtype)) +
+  labs(color='Source Population') +
+  xlab("Relative Position") +
+  ylab("KL Divergence")
+```
+
+### cpg_GC_TA
+
+```{r}
+subtype <- "cpg_GC_TA"
+df <- joint_mod_all(subtype)
+
+df %>%
+  filter(pop1 == "AFR") %>%
+  ggplot(aes(x = rp, y = kl, colour = pop2)) +
+  geom_point() +
+  geom_line() +
+  ggtitle("Single Position KL", paste0("AFR: ", subtype)) +
+  labs(color='Source Population') +
+  xlab("Relative Position") +
+  ylab("KL Divergence")
+
+df %>%
+  filter(pop1 == "AMR") %>%
+  ggplot(aes(x = rp, y = kl, colour = pop2)) +
+  geom_point() +
+  geom_line() +
+  ggtitle("Single Position KL", paste0("AMR: ", subtype)) +
+  labs(color='Source Population') +
+  xlab("Relative Position") +
+  ylab("KL Divergence")
+
+df %>%
+  filter(pop1 == "EAS") %>%
+  ggplot(aes(x = rp, y = kl, colour = pop2)) +
+  geom_point() +
+  geom_line() +
+  ggtitle("Single Position KL", paste0("EAS: ", subtype)) +
+  labs(color='Source Population') +
+  xlab("Relative Position") +
+  ylab("KL Divergence")
+
+df %>%
+  filter(pop1 == "EUR") %>%
+  ggplot(aes(x = rp, y = kl, colour = pop2)) +
+  geom_point() +
+  geom_line() +
+  ggtitle("Single Position KL", paste0("EUR: ", subtype)) +
+  labs(color='Source Population') +
+  xlab("Relative Position") +
+  ylab("KL Divergence")
+
+df %>%
+  filter(pop1 == "SAS") %>%
+  ggplot(aes(x = rp, y = kl, colour = pop2)) +
+  geom_point() +
+  geom_line() +
+  ggtitle("Single Position KL", paste0("SAS: ", subtype)) +
+  labs(color='Source Population') +
+  xlab("Relative Position") +
+  ylab("KL Divergence")
+```
+
+### GC_CG
+
+```{r}
+subtype <- "GC_CG"
+df <- joint_mod_all(subtype)
+
+df %>%
+  filter(pop1 == "AFR") %>%
+  ggplot(aes(x = rp, y = kl, colour = pop2)) +
+  geom_point() +
+  geom_line() +
+  ggtitle("Single Position KL", paste0("AFR: ", subtype)) +
+  labs(color='Source Population') +
+  xlab("Relative Position") +
+  ylab("KL Divergence")
+
+df %>%
+  filter(pop1 == "AMR") %>%
+  ggplot(aes(x = rp, y = kl, colour = pop2)) +
+  geom_point() +
+  geom_line() +
+  ggtitle("Single Position KL", paste0("AMR: ", subtype)) +
+  labs(color='Source Population') +
+  xlab("Relative Position") +
+  ylab("KL Divergence")
+
+df %>%
+  filter(pop1 == "EAS") %>%
+  ggplot(aes(x = rp, y = kl, colour = pop2)) +
+  geom_point() +
+  geom_line() +
+  ggtitle("Single Position KL", paste0("EAS: ", subtype)) +
+  labs(color='Source Population') +
+  xlab("Relative Position") +
+  ylab("KL Divergence")
+
+df %>%
+  filter(pop1 == "EUR") %>%
+  ggplot(aes(x = rp, y = kl, colour = pop2)) +
+  geom_point() +
+  geom_line() +
+  ggtitle("Single Position KL", paste0("EUR: ", subtype)) +
+  labs(color='Source Population') +
+  xlab("Relative Position") +
+  ylab("KL Divergence")
+
+df %>%
+  filter(pop1 == "SAS") %>%
+  ggplot(aes(x = rp, y = kl, colour = pop2)) +
+  geom_point() +
+  geom_line() +
+  ggtitle("Single Position KL", paste0("SAS: ", subtype)) +
+  labs(color='Source Population') +
+  xlab("Relative Position") +
+  ylab("KL Divergence")
+```
+
+### cpg_GC_CG
+
+```{r}
+subtype <- "cpg_GC_CG"
+df <- joint_mod_all(subtype)
+
+df %>%
+  filter(pop1 == "AFR") %>%
+  ggplot(aes(x = rp, y = kl, colour = pop2)) +
+  geom_point() +
+  geom_line() +
+  ggtitle("Single Position KL", paste0("AFR: ", subtype)) +
+  labs(color='Source Population') +
+  xlab("Relative Position") +
+  ylab("KL Divergence")
+
+df %>%
+  filter(pop1 == "AMR") %>%
+  ggplot(aes(x = rp, y = kl, colour = pop2)) +
+  geom_point() +
+  geom_line() +
+  ggtitle("Single Position KL", paste0("AMR: ", subtype)) +
+  labs(color='Source Population') +
+  xlab("Relative Position") +
+  ylab("KL Divergence")
+
+df %>%
+  filter(pop1 == "EAS") %>%
+  ggplot(aes(x = rp, y = kl, colour = pop2)) +
+  geom_point() +
+  geom_line() +
+  ggtitle("Single Position KL", paste0("EAS: ", subtype)) +
+  labs(color='Source Population') +
+  xlab("Relative Position") +
+  ylab("KL Divergence")
+
+df %>%
+  filter(pop1 == "EUR") %>%
+  ggplot(aes(x = rp, y = kl, colour = pop2)) +
+  geom_point() +
+  geom_line() +
+  ggtitle("Single Position KL", paste0("EUR: ", subtype)) +
+  labs(color='Source Population') +
+  xlab("Relative Position") +
+  ylab("KL Divergence")
+
+df %>%
+  filter(pop1 == "SAS") %>%
+  ggplot(aes(x = rp, y = kl, colour = pop2)) +
+  geom_point() +
+  geom_line() +
+  ggtitle("Single Position KL", paste0("SAS: ", subtype)) +
+  labs(color='Source Population') +
+  xlab("Relative Position") +
+  ylab("KL Divergence")
+```
 
 ## Compare to BRIDGES
 
