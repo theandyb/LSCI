@@ -24,6 +24,8 @@ plot_h <- 500
 plot_dpi <- 150
 
 pic_dir <- "/net/snowwhite/home/beckandy/research/1000G_LSCI/output/figs/single_pos/"
+
+bridges_dir <- "/net/snowwhite/home/beckandy/research/BRIDGES_redo/output/single_pos_df/"
 ```
 
 ## Introduction
@@ -623,3 +625,272 @@ plot_all_pop_kl(subtype, out_dir)
 
 Considering the above results suggested that the super-populations are comparable in terms of the single model results, for comparisons with the BRIDGES data set we'll use the ALL "population" for comparisons.
 
+### Look at a single subtype
+
+```{r}
+plot_pos_stat("BRIDGES", "AT_CG", zhu_by_pos, title_text = "Relative Entropy by Position: ", ylab_text = "Relative Entropy", data_dir = bridges_dir)
+
+zhu_by_pos("BRIDGES", "AT_CG", data_dir = bridges_dir)
+```
+
+#### Get all populations
+
+```{r}
+plot_all_pos_all_sp <- function(subtype, r_start = 1, 
+                                bridges_dir = "/net/snowwhite/home/beckandy/research/BRIDGES_redo/output/single_pos_df/"){
+  df_AFR <- zhu_by_pos("AFR", subtype, r_start = r_start) %>%
+    rename(AFR = statistic)
+  df_AMR <- zhu_by_pos("AMR", subtype, r_start = r_start) %>%
+    rename(AMR = statistic)
+  df_EAS <- zhu_by_pos("EAS", subtype, r_start = r_start) %>%
+    rename(EAS = statistic)
+  df_EUR <- zhu_by_pos("EUR", subtype, r_start = r_start) %>%
+    rename(EUR = statistic)
+  df_SAS <- zhu_by_pos("SAS", subtype, r_start = r_start) %>%
+    rename(SAS = statistic)
+  df_BRIDGES <- zhu_by_pos("BRIDGES", subtype, r_start = r_start, data_dir = bridges_dir) %>%
+    rename(BRIDGES = statistic)
+  
+  if(!str_starts(subtype, "cpg")){
+    subtype2 <- str_replace(subtype, "_", " → ")
+  } else {
+    subtype <- str_sub(subtype, 5)
+    subtype2 <- paste0("(cpg) ", str_replace(subtype, "_", " → "))
+  }
+  
+  df <- inner_join(df_AFR, df_AMR, by = "pos") %>%
+    inner_join(df_EAS, by = "pos") %>%
+    inner_join(df_EUR, by = "pos") %>%
+    inner_join(df_SAS, by = "pos") %>%
+    inner_join(df_BRIDGES, by = "pos") %>%
+    pivot_longer(-pos, names_to = "pop", values_to = "statistic")
+
+  p <- ggplot(df, aes(x = pos, y = statistic, colour = pop)) +
+    geom_point() +
+    geom_line() +
+    ggtitle(paste0("Relative Entropy by Position: ", subtype2)) +
+    xlab("Relative Position") + 
+    ylab("Relative Entropy") +
+    guides(colour=guide_legend(title="Population"))
+  return(p)
+}
+```
+
+```{r}
+plot_all_pos_all_sp("AT_GC")
+plot_all_pos_all_sp("AT_CG")
+plot_all_pos_all_sp("AT_TA")
+plot_all_pos_all_sp("GC_AT")
+plot_all_pos_all_sp("GC_TA")
+plot_all_pos_all_sp("GC_CG")
+plot_all_pos_all_sp("cpg_GC_AT", r_start = 2)
+plot_all_pos_all_sp("cpg_GC_TA", r_start = 2)
+plot_all_pos_all_sp("cpg_GC_CG", r_start = 2)
+```
+
+```{r}
+corr_analysis <- function(subtype, r_start = 1, stat_col = "s_re"){
+  df <- load_all_results_all_sp2(subtype, r_start = r_start)
+  
+  df_wide <- df %>%
+    select(Nuc, rp, pop, !!sym(stat_col)) %>%
+    pivot_wider(names_from = pop, values_from = !!sym(stat_col))
+  
+  # position-level statistics
+  df_pos <- df_wide %>%
+    group_by(rp) %>%
+    summarize(across(AFR:BRIDGES, ~sum(abs(.), na.rm = T)))
+  
+  cor_obj <- df_pos %>%
+    select(-rp) %>%
+    correlate(quiet = TRUE)
+  
+  df_cor <- df_wide %>%
+    group_by(rp) %>%
+    summarise(across(AMR:BRIDGES, ~cor(., AFR, use = "complete.obs"), .names = "AFR_{.col}"),
+              across(EAS:BRIDGES, ~cor(., AMR, use = "complete.obs"), .names = "AMR_{.col}"),
+              across(EUR:BRIDGES, ~cor(., EAS, use = "complete.obs"), .names = "EAS_{.col}"),
+              across(SAS:BRIDGES, ~cor(., EUR, use = "complete.obs"), .names = "EUR_{.col}"),
+              across(BRIDGES, ~cor(., SAS, use = "complete.obs"), .names = "SAS_{.col}"))
+  
+  if(!str_starts(subtype, "cpg")){
+    subtype2 <- str_replace(subtype, "_", " → ")
+  } else {
+    subtype <- str_sub(subtype, 5)
+    subtype2 <- paste0("(cpg) ", str_replace(subtype, "_", " → "))
+  }
+  
+  p <- df_cor %>%
+    select(rp, starts_with("AFR")) %>%
+    pivot_longer(-rp, names_to = "pair", values_to = "cor") %>%
+    mutate(pair = str_remove(pair, "AFR_")) %>%
+    ggplot(aes(x = rp, y = cor, group_by = pair, colour = pair)) +
+    geom_point() + 
+    geom_line() +
+    ylim(c(0,1)) +
+    ggtitle("Nucleotide residual correlations", 
+            paste0("Reference Population: AFR; subtype: ", subtype2)) +
+    xlab("Relative Position") +
+    ylab("Nucleotide Contribution Correlation") +
+    labs(colour = "Population")
+  return(list(p = p, cor_obj = cor_obj))
+}
+```
+
+```{r}
+pic_dir <- "/net/snowwhite/home/beckandy/research/1000G_LSCI/output/figs/single_pos_pop_comp/BRIDGES/"
+```
+
+### AT_CG
+
+```{r}
+subtype <- "AT_CG"
+res <- corr_analysis(subtype)
+res$p
+f_out <- paste0(pic_dir, "nuc_cor_" , subtype ,".png")
+save_plot(f_out)
+
+res$cor_obj %>%
+  knitr::kable()
+plot_all_pos_all_sp(subtype)
+
+f_out <- paste0(pic_dir, subtype ,".png")
+save_plot(f_out)
+```
+
+### AT_GC
+
+```{r}
+subtype <- "AT_GC"
+res <- corr_analysis(subtype)
+res$p
+f_out <- paste0(pic_dir, "nuc_cor_" , subtype ,".png")
+save_plot(f_out)
+
+res$cor_obj %>%
+  knitr::kable()
+plot_all_pos_all_sp(subtype)
+
+f_out <- paste0(pic_dir, subtype ,".png")
+save_plot(f_out)
+```
+
+
+### AT_TA
+
+```{r}
+subtype <- "AT_TA"
+res <- corr_analysis(subtype)
+res$p
+f_out <- paste0(pic_dir, "nuc_cor_" , subtype ,".png")
+save_plot(f_out)
+
+res$cor_obj %>%
+  knitr::kable()
+plot_all_pos_all_sp(subtype)
+
+f_out <- paste0(pic_dir, subtype ,".png")
+save_plot(f_out)
+```
+
+### GC_AT
+
+```{r}
+subtype <- "GC_AT"
+res <- corr_analysis(subtype)
+res$p
+f_out <- paste0(pic_dir, "nuc_cor_" , subtype ,".png")
+save_plot(f_out)
+
+res$cor_obj %>%
+  knitr::kable()
+plot_all_pos_all_sp(subtype)
+
+f_out <- paste0(pic_dir, subtype ,".png")
+save_plot(f_out)
+```
+
+### cpg_GC_AT
+
+```{r}
+subtype <- "cpg_GC_AT"
+res <- corr_analysis(subtype, r_start = 2)
+res$p
+f_out <- paste0(pic_dir, "nuc_cor_" , subtype ,".png")
+save_plot(f_out)
+
+res$cor_obj %>%
+  knitr::kable()
+plot_all_pos_all_sp(subtype, r_start = 2)
+
+f_out <- paste0(pic_dir, subtype ,".png")
+save_plot(f_out)
+```
+
+### GC_CG
+
+```{r}
+subtype <- "GC_CG"
+res <- corr_analysis(subtype)
+res$p
+f_out <- paste0(pic_dir, "nuc_cor_" , subtype ,".png")
+save_plot(f_out)
+
+res$cor_obj %>%
+  knitr::kable()
+plot_all_pos_all_sp(subtype)
+
+f_out <- paste0(pic_dir, subtype ,".png")
+save_plot(f_out)
+```
+
+### cpg_GC_CG
+
+```{r}
+subtype <- "cpg_GC_CG"
+res <- corr_analysis(subtype, r_start = 2)
+res$p
+f_out <- paste0(pic_dir, "nuc_cor_" , subtype ,".png")
+save_plot(f_out)
+
+res$cor_obj %>%
+  knitr::kable()
+plot_all_pos_all_sp(subtype, r_start = 2)
+
+f_out <- paste0(pic_dir, subtype ,".png")
+save_plot(f_out)
+```
+
+### GC_TA
+
+```{r}
+subtype <- "GC_TA"
+res <- corr_analysis(subtype)
+res$p
+f_out <- paste0(pic_dir, "nuc_cor_" , subtype ,".png")
+save_plot(f_out)
+
+res$cor_obj %>%
+  knitr::kable()
+plot_all_pos_all_sp(subtype)
+
+f_out <- paste0(pic_dir, subtype ,".png")
+save_plot(f_out)
+```
+
+### cpg_GC_TA
+
+```{r}
+subtype <- "cpg_GC_TA"
+res <- corr_analysis(subtype, r_start = 2)
+res$p
+f_out <- paste0(pic_dir, "nuc_cor_" , subtype ,".png")
+save_plot(f_out)
+
+res$cor_obj %>%
+  knitr::kable()
+plot_all_pos_all_sp(subtype, r_start = 2)
+
+f_out <- paste0(pic_dir, subtype ,".png")
+save_plot(f_out)
+```

@@ -12,6 +12,7 @@ library(tidyverse)
 library(tikzDevice)
 library(corrr)
 library(reshape2)
+library(sjPlot)
 source("code/two_pos_new.R")
 
 # latex plot options

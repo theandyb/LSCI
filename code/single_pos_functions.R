@@ -76,6 +76,24 @@ load_all_results_all_sp <- function(subtype, r_start = 1,
   return(final)
 }
 
+load_all_results_all_sp2 <- function(subtype, r_start = 1,
+                                    data_dir = "/net/snowwhite/home/beckandy/research/1000G_LSCI/output/single_pos_df/",
+                                    bridges_dir = "/net/snowwhite/home/beckandy/research/BRIDGES_redo/output/single_pos_df/"){
+  final <- load_all_sp_results("AFR", subtype, r_start = r_start, data_dir = data_dir)
+  final$pop <- "AFR"
+
+  for(pop in c("AMR", "EAS" ,"EUR", "SAS")){
+    df <- load_all_sp_results(pop, subtype, r_start = r_start, data_dir = data_dir)
+    df$pop <- pop
+    final <- bind_rows(final, df)
+  }
+  df <- load_all_sp_results("BRIDGES", subtype, r_start = r_start, data_dir = bridges_dir)
+  df$pop <- "BRIDGES"
+  final <- bind_rows(final, df)
+
+  return(final)
+}
+
 #' Relative entropy by position
 #' This is the version not based on the loglinear model
 #'
