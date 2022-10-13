@@ -92,14 +92,17 @@ deviance_stat <- function(subtype, input_dir){
   df <- load_table(subtype, input_dir) %>%
     pivot_longer(-Nuc, names_to = "type", values_to = "n")
   mod_obj <- glm(n ~ Nuc + type, data = df, family = poisson())
-  return(deviance(mod_obj))
+  final <- list(deviance = deviance(mod_obj), re = deviance(mod_obj) / (2*sum(df$n)))
+  return(final)
 }
 ```
 
 Let's look at our subtypes:
 
 ```{r}
-plot_pos_stat("ALL", "AT_TA", dev_by_position, title_text = "Deviance: ", ylab_text = "Deviance")
+plot_pos_stat("ALL", "AT_TA", dev_by_position, title_text = "Deviance: ", ylab_text = "Deviance") +
+  geom_hline(yintercept = 4.12, colour = "red")
+
 dev_by_position("ALL", "AT_TA")
 zhu_by_pos("ALL", "AT_TA")
 ```
@@ -109,4 +112,25 @@ And if we look at the value of the statistic when considering relative position 
 ```{r}
 deviance_stat("AT_TA", input_dir)
 ```
+
+Let's go ahead and grab the +1000 statistic for each subtype:
+
+```{r}
+get_all_long_stat <- function(input_dir){
+  subtypes <- c("AT_CG", "AT_GC", "AT_TA",
+                "GC_AT", "GC_TA", "GC_CG",
+                "cpg_GC_AT", "cpg_GC_TA", "cpg_GC_CG")
+  dev <- c()
+  re <- c()
+  for(st in subtypes){
+    val <- deviance_stat(st, input_dir)
+    dev <- c(dev, val$deviance)
+    re <- c(re, val$re)
+  }
+  return(data.frame(st = subtypes, dev = dev, re = re))
+}
+
+get_all_long_stat(input_dir) %>% knitr::kable()
+```
+
 
