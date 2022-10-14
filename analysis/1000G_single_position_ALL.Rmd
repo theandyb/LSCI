@@ -10,10 +10,19 @@ editor_options:
 ```{r echo=FALSE, message=FALSE, warning=FALSE}
 library(tidyverse)
 library(tikzDevice)
+library(sjPlot)
 width = 4
 height = 4
 
 source("code/single_pos_functions.R")
+## Plot options
+theme_set(theme_bw())
+plot_w <- 800
+plot_h <- 500
+plot_dpi <- 150
+
+cbPalette <- c("#999999", "#E69F00", "#56B4E9", "#009E73", "#F0E442", "#0072B2", "#D55E00", "#CC79A7")
+pic_dir <- "/net/snowwhite/home/beckandy/research/1000G_LSCI/output/figs/single_pos/ALL/"
 ```
 
 
@@ -101,9 +110,14 @@ cpg_stat_by_pos("ALL") %>%
   geom_line() +
   ggtitle("C → T: CpG Effect") +
   xlab("Relative Position") +
-  ylab("Relative Entropy")
+  ylab("Relative Entropy") + scale_color_manual(values = cbPalette)
 
-plot_signed_re_by_pos("ALL","all_GC_AT")
+f_out <- paste0(pic_dir, "ALL_CpG_effect.png")
+ggsave(f_out, width = 800, height = 500, units = "px", dpi = 120)
+
+plot_signed_re_by_pos("ALL","all_GC_AT") + scale_color_manual(values = cbPalette)
+f_out <- paste0(pic_dir, "ALL_CpG_res.png")
+ggsave(f_out, width = 800, height = 500, units = "px", dpi = 120)
 ```
 
 
@@ -111,13 +125,23 @@ plot_signed_re_by_pos("ALL","all_GC_AT")
 
 ```{r echo=FALSE, message=FALSE}
 st <- "AT_CG"
-p1 <- plot_pos_stat("ALL", st, zhu_by_pos, "Relative Entropy by Position: ", ylab_text = "Relative Entropy")
+p1 <- plot_pos_stat("ALL", st, zhu_by_pos, 
+                    "Relative Entropy by Position: ", ylab_text = "Relative Entropy") +
+  scale_color_manual(values = cbPalette)
 p2 <- plot_nuc_level_bar("ALL", st, "re", "Nucleotide Contribution to Overall Statistic")
-p3 <- plot_signed_re_by_pos("ALL", st)
+p3 <- plot_signed_re_by_pos("ALL", st) 
 
 p1
-p2
-p3
+f_out <- paste0(pic_dir, st, "_pos_stat.png")
+ggsave(f_out, width = 800, height = 500, units = "px", dpi = 120)
+
+p2 + scale_fill_manual(values = cbPalette)
+f_out <- paste0(pic_dir, st, "_nuc_bar.png")
+ggsave(f_out, width = 800, height = 500, units = "px", dpi = 120)
+
+p3 + scale_color_manual(values = cbPalette)
+f_out <- paste0(pic_dir, st, "_sign_re.png")
+ggsave(f_out, width = 800, height = 500, units = "px", dpi = 120)
 ```
 
 ```{r results='asis', echo=FALSE}
@@ -135,8 +159,16 @@ p2 <- plot_nuc_level_bar("ALL", st, "re", "Nucleotide Contribution to Overall St
 p3 <- plot_signed_re_by_pos("ALL", st)
 
 p1
-p2
-p3
+f_out <- paste0(pic_dir, st, "_pos_stat.png")
+ggsave(f_out, width = 800, height = 500, units = "px", dpi = 120)
+
+p2 + scale_fill_manual(values = cbPalette)
+f_out <- paste0(pic_dir, st, "_nuc_bar.png")
+ggsave(f_out, width = 800, height = 500, units = "px", dpi = 120)
+
+p3 + scale_color_manual(values = cbPalette)
+f_out <- paste0(pic_dir, st, "_sign_re.png")
+ggsave(f_out, width = 800, height = 500, units = "px", dpi = 120)
 ```
 
 ```{r results='asis', echo=FALSE}
@@ -154,8 +186,16 @@ p2 <- plot_nuc_level_bar("ALL", st, "re", "Nucleotide Contribution to Overall St
 p3 <- plot_signed_re_by_pos("ALL", st)
 
 p1
-p2
-p3
+f_out <- paste0(pic_dir, st, "_pos_stat.png")
+ggsave(f_out, width = 800, height = 500, units = "px", dpi = 120)
+
+p2 + scale_fill_manual(values = cbPalette)
+f_out <- paste0(pic_dir, st, "_nuc_bar.png")
+ggsave(f_out, width = 800, height = 500, units = "px", dpi = 120)
+
+p3 + scale_color_manual(values = cbPalette)
+f_out <- paste0(pic_dir, st, "_sign_re.png")
+ggsave(f_out, width = 800, height = 500, units = "px", dpi = 120)
 ```
 
 ```{r results='asis', echo=FALSE}
@@ -173,8 +213,16 @@ p2 <- plot_nuc_level_bar("ALL", st, "re", "Nucleotide Contribution to Overall St
 p3 <- plot_signed_re_by_pos("ALL", st)
 
 p1
-p2
-p3
+f_out <- paste0(pic_dir, st, "_pos_stat.png")
+ggsave(f_out, width = 800, height = 500, units = "px", dpi = 120)
+
+p2 + scale_fill_manual(values = cbPalette)
+f_out <- paste0(pic_dir, st, "_nuc_bar.png")
+ggsave(f_out, width = 800, height = 500, units = "px", dpi = 120)
+
+p3 + scale_color_manual(values = cbPalette)
+f_out <- paste0(pic_dir, st, "_sign_re.png")
+ggsave(f_out, width = 800, height = 500, units = "px", dpi = 120)
 ```
 
 ```{r results='asis', echo=FALSE}
@@ -192,8 +240,16 @@ p2 <- plot_nuc_level_bar("ALL", st, "re", "Nucleotide Contribution to Overall St
 p3 <- plot_signed_re_by_pos("ALL", st)
 
 p1
-p2
-p3
+f_out <- paste0(pic_dir, st, "_pos_stat.png")
+ggsave(f_out, width = 800, height = 500, units = "px", dpi = 120)
+
+p2 + scale_fill_manual(values = cbPalette)
+f_out <- paste0(pic_dir, st, "_nuc_bar.png")
+ggsave(f_out, width = 800, height = 500, units = "px", dpi = 120)
+
+p3 + scale_color_manual(values = cbPalette)
+f_out <- paste0(pic_dir, st, "_sign_re.png")
+ggsave(f_out, width = 800, height = 500, units = "px", dpi = 120)
 ```
 
 ```{r results='asis', echo=FALSE}
@@ -209,8 +265,16 @@ p2 <- plot_nuc_level_bar("ALL", st, "re", "Nucleotide Contribution to Overall St
 p3 <- plot_signed_re_by_pos("ALL", st, r_start = 2)
 
 p1
-p2
-p3
+f_out <- paste0(pic_dir, st, "_pos_stat.png")
+ggsave(f_out, width = 800, height = 500, units = "px", dpi = 120)
+
+p2 + scale_fill_manual(values = cbPalette)
+f_out <- paste0(pic_dir, st, "_nuc_bar.png")
+ggsave(f_out, width = 800, height = 500, units = "px", dpi = 120)
+
+p3 + scale_color_manual(values = cbPalette)
+f_out <- paste0(pic_dir, st, "_sign_re.png")
+ggsave(f_out, width = 800, height = 500, units = "px", dpi = 120)
 ```
 
 ```{r results='asis', echo=FALSE}
@@ -228,8 +292,16 @@ p2 <- plot_nuc_level_bar("ALL", st, "re", "Nucleotide Contribution to Overall St
 p3 <- plot_signed_re_by_pos("ALL", st)
 
 p1
-p2
-p3
+f_out <- paste0(pic_dir, st, "_pos_stat.png")
+ggsave(f_out, width = 800, height = 500, units = "px", dpi = 120)
+
+p2 + scale_fill_manual(values = cbPalette)
+f_out <- paste0(pic_dir, st, "_nuc_bar.png")
+ggsave(f_out, width = 800, height = 500, units = "px", dpi = 120)
+
+p3 + scale_color_manual(values = cbPalette)
+f_out <- paste0(pic_dir, st, "_sign_re.png")
+ggsave(f_out, width = 800, height = 500, units = "px", dpi = 120)
 ```
 
 ```{r results='asis', echo=FALSE}
@@ -247,8 +319,16 @@ p2 <- plot_nuc_level_bar("ALL", st, "re", "Nucleotide Contribution to Overall St
 p3 <- plot_signed_re_by_pos("ALL", st, r_start = 2)
 
 p1
-p2
-p3
+f_out <- paste0(pic_dir, st, "_pos_stat.png")
+ggsave(f_out, width = 800, height = 500, units = "px", dpi = 120)
+
+p2 + scale_fill_manual(values = cbPalette)
+f_out <- paste0(pic_dir, st, "_nuc_bar.png")
+ggsave(f_out, width = 800, height = 500, units = "px", dpi = 120)
+
+p3 + scale_color_manual(values = cbPalette)
+f_out <- paste0(pic_dir, st, "_sign_re.png")
+ggsave(f_out, width = 800, height = 500, units = "px", dpi = 120)
 ```
 
 ```{r results='asis', echo=FALSE}
@@ -266,8 +346,16 @@ p2 <- plot_nuc_level_bar("ALL", st, "re", "Nucleotide Contribution to Overall St
 p3 <- plot_signed_re_by_pos("ALL", st)
 
 p1
-p2
-p3
+f_out <- paste0(pic_dir, st, "_pos_stat.png")
+ggsave(f_out, width = 800, height = 500, units = "px", dpi = 120)
+
+p2 + scale_fill_manual(values = cbPalette)
+f_out <- paste0(pic_dir, st, "_nuc_bar.png")
+ggsave(f_out, width = 800, height = 500, units = "px", dpi = 120)
+
+p3 + scale_color_manual(values = cbPalette)
+f_out <- paste0(pic_dir, st, "_sign_re.png")
+ggsave(f_out, width = 800, height = 500, units = "px", dpi = 120)
 ```
 
 ```{r results='asis', echo=FALSE}
@@ -283,9 +371,18 @@ st <- "cpg_GC_CG"
 p1 <- plot_pos_stat("ALL", st, zhu_by_pos, "Relative Entropy by Position: ", ylab_text = "Relative Entropy", r_start = 2)
 p2 <- plot_nuc_level_bar("ALL", st, "re", "Nucleotide Contribution to Overall Statistic", r_start = 2)
 p3 <- plot_signed_re_by_pos("ALL", st, r_start = 2)
+
 p1
-p2
-p3
+f_out <- paste0(pic_dir, st, "_pos_stat.png")
+ggsave(f_out, width = 800, height = 500, units = "px", dpi = 120)
+
+p2 + scale_fill_manual(values = cbPalette)
+f_out <- paste0(pic_dir, st, "_nuc_bar.png")
+ggsave(f_out, width = 800, height = 500, units = "px", dpi = 120)
+
+p3 + scale_color_manual(values = cbPalette)
+f_out <- paste0(pic_dir, st, "_sign_re.png")
+ggsave(f_out, width = 800, height = 500, units = "px", dpi = 120)
 ```
 
 ```{r results='asis', echo=FALSE}
@@ -490,6 +587,36 @@ final %>%
   geom_line() +
   ggtitle("Single Position Model Results", "All 1KGP Super Populations") +
   xlab("Relative Position") +
-  ylab("Relative Entropy")
+  ylab("Relative Entropy") +
+  scale_color_manual(values = c(cbPalette, "#000000"))
+
+final %>% 
+  ggplot(aes(x = pos, y = log10(statistic), colour = subtype)) +
+  geom_point() +
+  geom_line() +
+  ggtitle("Single Position Model Results", "All 1KGP Super Populations") +
+  xlab("Relative Position") +
+  ylab("Log10 Relative Entropy") +
+  scale_color_manual(values = c(cbPalette, "#000000"))
+
+final %>% 
+  filter(str_starts(subtype, "AT")) %>%
+  ggplot(aes(x = pos, y = statistic, colour = subtype)) +
+  geom_point() +
+  geom_line() +
+  ggtitle("Single Position Model Results", "All 1KGP Super Populations") +
+  xlab("Relative Position") +
+  ylab("Relative Entropy") +
+  scale_color_manual(values = cbPalette)
+
+final %>% 
+  filter(!str_starts(subtype, "AT")) %>%
+  ggplot(aes(x = pos, y = statistic, colour = subtype)) +
+  geom_point() +
+  geom_line() +
+  ggtitle("Single Position Model Results", "All 1KGP Super Populations") +
+  xlab("Relative Position") +
+  ylab("Relative Entropy") +
+  scale_color_manual(values = cbPalette)
 ```
 

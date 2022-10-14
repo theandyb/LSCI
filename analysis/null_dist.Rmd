@@ -133,4 +133,22 @@ get_all_long_stat <- function(input_dir){
 get_all_long_stat(input_dir) %>% knitr::kable()
 ```
 
+```{r}
+log_zhu <- function(population, subtype, r_start = 1,
+                       data_dir = "/net/snowwhite/home/beckandy/research/1000G_LSCI/output/single_pos_df/"){
+  final <- zhu_by_pos(population, subtype, r_start, data_dir)
+  final$statistic <- log10(final$statistic)
+  return(final)
+}
+
+log_dev <- function(population, subtype, r_start = 1,
+                       data_dir = "/net/snowwhite/home/beckandy/research/1000G_LSCI/output/single_pos_df/"){
+  final <- dev_by_position(population, subtype, r_start, data_dir)
+  final$statistic <- log10(final$statistic)
+  return(final)
+}
+
+plot_pos_stat("ALL", "AT_TA", log_zhu, title_text = "RE: ", ylab_text = "Log10 RE") +
+  geom_hline(yintercept = log10(1e-7), colour = "red")
+```
 

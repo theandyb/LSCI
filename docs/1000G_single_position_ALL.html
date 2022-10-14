@@ -366,7 +366,7 @@ div.tocify {
 <p>
 <button type="button" class="btn btn-default btn-workflowr btn-workflowr-report" data-toggle="collapse" data-target="#workflowr-report">
 <span class="glyphicon glyphicon-list" aria-hidden="true"></span>
-workflowr <span class="glyphicon glyphicon-ok text-success"
+workflowr <span class="glyphicon glyphicon-exclamation-sign text-danger"
 aria-hidden="true"></span>
 </button>
 </p>
@@ -377,8 +377,8 @@ aria-hidden="true"></span>
 </li>
 <li>
 <a data-toggle="tab" href="#checks"> Checks <span
-class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span>
-</a>
+class="glyphicon glyphicon-exclamation-sign text-danger"
+aria-hidden="true"></span> </a>
 </li>
 <li>
 <a data-toggle="tab" href="#versions">Past versions</a>
@@ -387,13 +387,13 @@ class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span>
 <div class="tab-content">
 <div id="summary" class="tab-pane fade in active">
 <p>
-<strong>Last updated:</strong> 2022-10-04
+<strong>Last updated:</strong> 2022-10-13
 </p>
 <p>
 <strong>Checks:</strong> <span
-class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> 7
+class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> 6
 <span class="glyphicon glyphicon-exclamation-sign text-danger"
-aria-hidden="true"></span> 0
+aria-hidden="true"></span> 1
 </p>
 <p>
 <strong>Knit directory:</strong> <code>LSCI/</code> <span
@@ -416,18 +416,21 @@ versions</em> tab lists the development history.
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRMarkdownfilestronguptodate">
-<span class="glyphicon glyphicon-ok text-success"
-aria-hidden="true"></span> <strong>R Markdown file:</strong> up-to-date
-</a>
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRMarkdownfilestronguncommittedchanges">
+<span class="glyphicon glyphicon-exclamation-sign text-danger"
+aria-hidden="true"></span> <strong>R Markdown file:</strong> uncommitted
+changes </a>
 </p>
 </div>
-<div id="strongRMarkdownfilestronguptodate"
+<div id="strongRMarkdownfilestronguncommittedchanges"
 class="panel-collapse collapse">
 <div class="panel-body">
-<p>Great! Since the R Markdown file has been committed to the Git
-repository, you know the exact version of the code that produced these
-results.</p>
+<p>The R Markdown file has unstaged changes. To know which version of
+the R Markdown file created these results, you’ll want to first commit
+it to the Git repo. If you’re still working on the analysis, you can
+ignore this warning. When you’re finished, you can run
+<code>wflow_publish</code> to commit the R Markdown file and build the
+HTML.</p>
 </div>
 </div>
 </div>
@@ -518,15 +521,15 @@ project makes it easier to run your code on other machines.</p>
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomtheandybLSCItreec9f55218f715eca49e2648315926829a32e67393targetblankc9f5521a">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomtheandybLSCItree86974f6ae12c438fee38ccb58166ca207173d0d8targetblank86974f6a">
 <span class="glyphicon glyphicon-ok text-success"
 aria-hidden="true"></span> <strong>Repository version:</strong>
-<a href="https://github.com/theandyb/LSCI/tree/c9f55218f715eca49e2648315926829a32e67393" target="_blank">c9f5521</a>
+<a href="https://github.com/theandyb/LSCI/tree/86974f6ae12c438fee38ccb58166ca207173d0d8" target="_blank">86974f6</a>
 </a>
 </p>
 </div>
 <div
-id="strongRepositoryversionstrongahrefhttpsgithubcomtheandybLSCItreec9f55218f715eca49e2648315926829a32e67393targetblankc9f5521a"
+id="strongRepositoryversionstrongahrefhttpsgithubcomtheandybLSCItree86974f6ae12c438fee38ccb58166ca207173d0d8targetblank86974f6a"
 class="panel-collapse collapse">
 <div class="panel-body">
 <p>
@@ -536,7 +539,7 @@ reproducibility.
 </p>
 <p>
 The results in this page were generated with repository version
-<a href="https://github.com/theandyb/LSCI/tree/c9f55218f715eca49e2648315926829a32e67393" target="_blank">c9f5521</a>.
+<a href="https://github.com/theandyb/LSCI/tree/86974f6ae12c438fee38ccb58166ca207173d0d8" target="_blank">86974f6</a>.
 See the <em>Past versions</em> tab to see a history of the changes made
 to the R Markdown and HTML files.
 </p>
@@ -556,22 +559,9 @@ Ignored files:
     Ignored:    analysis/disqus.html
     Ignored:    code/random/
 
-Untracked files:
-    Untracked:  1000G_single_position_ALL-tikzDictionary
-    Untracked:  analysis/1000G_SFS.Rmd
-    Untracked:  analysis/1000G_three_position.Rmd
-    Untracked:  analysis/model_building.Rmd
-    Untracked:  analysis/null_dist.Rmd
-    Untracked:  code/output_generation/
-    Untracked:  code/two_pos_functions.R
-    Untracked:  output/tikz/
-
 Unstaged changes:
-    Modified:   analysis/1000G_two_positions_comp.Rmd
-    Deleted:    analysis/1000G_two_postions_comp.Rmd
-    Modified:   analysis/BRIDGES_two_positions.Rmd
-    Modified:   code/single_pos_functions.R
-    Modified:   code/two_pos_new.R
+    Modified:   analysis/1000G_single_position_ALL.Rmd
+    Modified:   analysis/null_dist.Rmd
 
 </code></pre>
 <p>
@@ -618,6 +608,23 @@ Message
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+html
+</td>
+<td>
+<a href="https://rawcdn.githack.com/theandyb/LSCI/f2caf10c40ca59da49b76ef834e400b45b2a335e/docs/1000G_single_position_ALL.html" target="_blank">f2caf10</a>
+</td>
+<td>
+Andy Beck
+</td>
+<td>
+2022-10-04
+</td>
+<td>
+allGC
+</td>
+</tr>
 <tr>
 <td>
 html
@@ -1356,7 +1363,7 @@ we observe at each relative position for each sub-type.</p>
   geom_line() +
   ggtitle(&quot;C → T: CpG Effect&quot;) +
   xlab(&quot;Relative Position&quot;) +
-  ylab(&quot;Relative Entropy&quot;)</code></pre>
+  ylab(&quot;Relative Entropy&quot;) + scale_color_manual(values = cbPalette)</code></pre>
 <p><img src="figure/1000G_single_position_ALL.Rmd/unnamed-chunk-3-1.png" width="672" style="display: block; margin: auto;" /></p>
 <p>
 <button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-3-1">
@@ -1439,7 +1446,10 @@ Andy Beck
 </table>
 </div>
 </div>
-<pre class="r"><code>plot_signed_re_by_pos(&quot;ALL&quot;,&quot;all_GC_AT&quot;)</code></pre>
+<pre class="r"><code>f_out &lt;- paste0(pic_dir, &quot;ALL_CpG_effect.png&quot;)
+ggsave(f_out, width = 800, height = 500, units = &quot;px&quot;, dpi = 120)
+
+plot_signed_re_by_pos(&quot;ALL&quot;,&quot;all_GC_AT&quot;) + scale_color_manual(values = cbPalette)</code></pre>
 <p><img src="figure/1000G_single_position_ALL.Rmd/unnamed-chunk-3-2.png" width="672" style="display: block; margin: auto;" /></p>
 <p>
 <button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-3-2">
@@ -1463,6 +1473,17 @@ Date
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+<a href="https://github.com/theandyb/LSCI/blob/f2caf10c40ca59da49b76ef834e400b45b2a335e/docs/figure/1000G_single_position_ALL.Rmd/unnamed-chunk-3-2.png" target="_blank">f2caf10</a>
+</td>
+<td>
+Andy Beck
+</td>
+<td>
+2022-10-04
+</td>
+</tr>
 <tr>
 <td>
 <a href="https://github.com/theandyb/LSCI/blob/8efd19442c9de034abbbb0dd98c9ccc230aaf7ed/docs/figure/1000G_single_position_ALL.Rmd/unnamed-chunk-3-2.png" target="_blank">8efd194</a>
@@ -1522,6 +1543,8 @@ Andy Beck
 </table>
 </div>
 </div>
+<pre class="r"><code>f_out &lt;- paste0(pic_dir, &quot;ALL_CpG_res.png&quot;)
+ggsave(f_out, width = 800, height = 500, units = &quot;px&quot;, dpi = 120)</code></pre>
 </div>
 <div id="at_cg" class="section level3">
 <h3>AT_CG</h3>
@@ -2711,6 +2734,7 @@ Andy Beck
 </table>
 </div>
 </div>
+<pre><code>Warning: Removed 4 rows containing missing values (position_stack).</code></pre>
 <pre><code>Warning: Removed 1 rows containing missing values (geom_point).</code></pre>
 <p><img src="figure/1000G_single_position_ALL.Rmd/unnamed-chunk-10-3.png" width="672" style="display: block; margin: auto;" /></p>
 <p>
@@ -2783,6 +2807,7 @@ Andy Beck
 </table>
 </div>
 </div>
+<pre><code>Warning: Removed 1 rows containing missing values (geom_point).</code></pre>
 <table>
 <thead>
 <tr class="header">
@@ -3047,6 +3072,17 @@ Date
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+<a href="https://github.com/theandyb/LSCI/blob/f2caf10c40ca59da49b76ef834e400b45b2a335e/docs/figure/1000G_single_position_ALL.Rmd/unnamed-chunk-12-3.png" target="_blank">f2caf10</a>
+</td>
+<td>
+Andy Beck
+</td>
+<td>
+2022-10-04
+</td>
+</tr>
 <tr>
 <td>
 <a href="https://github.com/theandyb/LSCI/blob/8efd19442c9de034abbbb0dd98c9ccc230aaf7ed/docs/figure/1000G_single_position_ALL.Rmd/unnamed-chunk-12-3.png" target="_blank">8efd194</a>
@@ -3355,6 +3391,17 @@ Date
 <tbody>
 <tr>
 <td>
+<a href="https://github.com/theandyb/LSCI/blob/f2caf10c40ca59da49b76ef834e400b45b2a335e/docs/figure/1000G_single_position_ALL.Rmd/unnamed-chunk-14-3.png" target="_blank">f2caf10</a>
+</td>
+<td>
+Andy Beck
+</td>
+<td>
+2022-10-04
+</td>
+</tr>
+<tr>
+<td>
 <a href="https://github.com/theandyb/LSCI/blob/8efd19442c9de034abbbb0dd98c9ccc230aaf7ed/docs/figure/1000G_single_position_ALL.Rmd/unnamed-chunk-14-3.png" target="_blank">8efd194</a>
 </td>
 <td>
@@ -3618,6 +3665,7 @@ Andy Beck
 </table>
 </div>
 </div>
+<pre><code>Warning: Removed 4 rows containing missing values (position_stack).</code></pre>
 <pre><code>Warning: Removed 1 rows containing missing values (geom_point).</code></pre>
 <p><img src="figure/1000G_single_position_ALL.Rmd/unnamed-chunk-16-3.png" width="672" style="display: block; margin: auto;" /></p>
 <p>
@@ -3668,6 +3716,7 @@ Andy Beck
 </table>
 </div>
 </div>
+<pre><code>Warning: Removed 1 rows containing missing values (geom_point).</code></pre>
 <table>
 <thead>
 <tr class="header">
@@ -3932,6 +3981,17 @@ Date
 <tbody>
 <tr>
 <td>
+<a href="https://github.com/theandyb/LSCI/blob/f2caf10c40ca59da49b76ef834e400b45b2a335e/docs/figure/1000G_single_position_ALL.Rmd/unnamed-chunk-18-3.png" target="_blank">f2caf10</a>
+</td>
+<td>
+Andy Beck
+</td>
+<td>
+2022-10-04
+</td>
+</tr>
+<tr>
+<td>
 <a href="https://github.com/theandyb/LSCI/blob/8efd19442c9de034abbbb0dd98c9ccc230aaf7ed/docs/figure/1000G_single_position_ALL.Rmd/unnamed-chunk-18-3.png" target="_blank">8efd194</a>
 </td>
 <td>
@@ -4191,6 +4251,7 @@ Andy Beck
 </table>
 </div>
 </div>
+<pre><code>Warning: Removed 4 rows containing missing values (position_stack).</code></pre>
 <pre><code>Warning: Removed 1 rows containing missing values (geom_point).</code></pre>
 <p><img src="figure/1000G_single_position_ALL.Rmd/unnamed-chunk-20-3.png" width="672" style="display: block; margin: auto;" /></p>
 <p>
@@ -4241,6 +4302,7 @@ Andy Beck
 </table>
 </div>
 </div>
+<pre><code>Warning: Removed 1 rows containing missing values (geom_point).</code></pre>
 <table>
 <thead>
 <tr class="header">
@@ -4534,6 +4596,17 @@ Date
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+<a href="https://github.com/theandyb/LSCI/blob/f2caf10c40ca59da49b76ef834e400b45b2a335e/docs/figure/1000G_single_position_ALL.Rmd/unnamed-chunk-22-3.png" target="_blank">f2caf10</a>
+</td>
+<td>
+Andy Beck
+</td>
+<td>
+2022-10-04
+</td>
+</tr>
 <tr>
 <td>
 <a href="https://github.com/theandyb/LSCI/blob/8efd19442c9de034abbbb0dd98c9ccc230aaf7ed/docs/figure/1000G_single_position_ALL.Rmd/unnamed-chunk-22-3.png" target="_blank">8efd194</a>
@@ -6484,7 +6557,8 @@ final %&gt;%
   geom_line() +
   ggtitle(&quot;Single Position Model Results&quot;, &quot;All 1KGP Super Populations&quot;) +
   xlab(&quot;Relative Position&quot;) +
-  ylab(&quot;Relative Entropy&quot;)</code></pre>
+  ylab(&quot;Relative Entropy&quot;) +
+  scale_color_manual(values = c(cbPalette, &quot;#000000&quot;))</code></pre>
 <p><img src="figure/1000G_single_position_ALL.Rmd/unnamed-chunk-35-1.png" width="672" style="display: block; margin: auto;" /></p>
 <p>
 <button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-35-1">
@@ -6578,6 +6652,234 @@ Andy Beck
 </table>
 </div>
 </div>
+<pre class="r"><code>final %&gt;% 
+  ggplot(aes(x = pos, y = log10(statistic), colour = subtype)) +
+  geom_point() +
+  geom_line() +
+  ggtitle(&quot;Single Position Model Results&quot;, &quot;All 1KGP Super Populations&quot;) +
+  xlab(&quot;Relative Position&quot;) +
+  ylab(&quot;Log10 Relative Entropy&quot;) +
+  scale_color_manual(values = c(cbPalette, &quot;#000000&quot;))</code></pre>
+<p><img src="figure/1000G_single_position_ALL.Rmd/unnamed-chunk-35-2.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-35-2">
+Past versions of unnamed-chunk-35-2.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-35-2" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/theandyb/LSCI/blob/f09d3f581fbdd6b63c6a979ab8292335488a38b9/docs/figure/1000G_single_position_ALL.Rmd/unnamed-chunk-35-2.png" target="_blank">f09d3f5</a>
+</td>
+<td>
+Andy Beck
+</td>
+<td>
+2022-05-09
+</td>
+</tr>
+<tr>
+<td>
+<a href="https://github.com/theandyb/LSCI/blob/ff1a8c18b01e59a477bc209b7fcddcc4bacf3b9b/docs/figure/1000G_single_position_ALL.Rmd/unnamed-chunk-35-2.png" target="_blank">ff1a8c1</a>
+</td>
+<td>
+Andy Beck
+</td>
+<td>
+2022-04-28
+</td>
+</tr>
+<tr>
+<td>
+<a href="https://github.com/theandyb/LSCI/blob/f8c482b346f13cf610e79019a6b74d88ca33c973/docs/figure/1000G_single_position_ALL.Rmd/unnamed-chunk-35-2.png" target="_blank">f8c482b</a>
+</td>
+<td>
+Andy Beck
+</td>
+<td>
+2021-12-15
+</td>
+</tr>
+<tr>
+<td>
+<a href="https://github.com/theandyb/LSCI/blob/d54d5aaf2e79814abeecfb0b9d91de44968ad4ba/docs/figure/1000G_single_position_ALL.Rmd/unnamed-chunk-35-2.png" target="_blank">d54d5aa</a>
+</td>
+<td>
+Andy Beck
+</td>
+<td>
+2021-12-15
+</td>
+</tr>
+<tr>
+<td>
+<a href="https://github.com/theandyb/LSCI/blob/ddbf84923ab14a1bdb4e654158be84c6aa088e7c/docs/figure/1000G_single_position_ALL.Rmd/unnamed-chunk-35-2.png" target="_blank">ddbf849</a>
+</td>
+<td>
+Andy Beck
+</td>
+<td>
+2021-11-03
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<pre class="r"><code>final %&gt;% 
+  filter(str_starts(subtype, &quot;AT&quot;)) %&gt;%
+  ggplot(aes(x = pos, y = statistic, colour = subtype)) +
+  geom_point() +
+  geom_line() +
+  ggtitle(&quot;Single Position Model Results&quot;, &quot;All 1KGP Super Populations&quot;) +
+  xlab(&quot;Relative Position&quot;) +
+  ylab(&quot;Relative Entropy&quot;) +
+  scale_color_manual(values = cbPalette)</code></pre>
+<p><img src="figure/1000G_single_position_ALL.Rmd/unnamed-chunk-35-3.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-35-3">
+Past versions of unnamed-chunk-35-3.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-35-3" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/theandyb/LSCI/blob/f8c482b346f13cf610e79019a6b74d88ca33c973/docs/figure/1000G_single_position_ALL.Rmd/unnamed-chunk-35-3.png" target="_blank">f8c482b</a>
+</td>
+<td>
+Andy Beck
+</td>
+<td>
+2021-12-15
+</td>
+</tr>
+<tr>
+<td>
+<a href="https://github.com/theandyb/LSCI/blob/d54d5aaf2e79814abeecfb0b9d91de44968ad4ba/docs/figure/1000G_single_position_ALL.Rmd/unnamed-chunk-35-3.png" target="_blank">d54d5aa</a>
+</td>
+<td>
+Andy Beck
+</td>
+<td>
+2021-12-15
+</td>
+</tr>
+<tr>
+<td>
+<a href="https://github.com/theandyb/LSCI/blob/ddbf84923ab14a1bdb4e654158be84c6aa088e7c/docs/figure/1000G_single_position_ALL.Rmd/unnamed-chunk-35-3.png" target="_blank">ddbf849</a>
+</td>
+<td>
+Andy Beck
+</td>
+<td>
+2021-11-03
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<pre class="r"><code>final %&gt;% 
+  filter(!str_starts(subtype, &quot;AT&quot;)) %&gt;%
+  ggplot(aes(x = pos, y = statistic, colour = subtype)) +
+  geom_point() +
+  geom_line() +
+  ggtitle(&quot;Single Position Model Results&quot;, &quot;All 1KGP Super Populations&quot;) +
+  xlab(&quot;Relative Position&quot;) +
+  ylab(&quot;Relative Entropy&quot;) +
+  scale_color_manual(values = cbPalette)</code></pre>
+<p><img src="figure/1000G_single_position_ALL.Rmd/unnamed-chunk-35-4.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-35-4">
+Past versions of unnamed-chunk-35-4.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-35-4" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/theandyb/LSCI/blob/f8c482b346f13cf610e79019a6b74d88ca33c973/docs/figure/1000G_single_position_ALL.Rmd/unnamed-chunk-35-4.png" target="_blank">f8c482b</a>
+</td>
+<td>
+Andy Beck
+</td>
+<td>
+2021-12-15
+</td>
+</tr>
+<tr>
+<td>
+<a href="https://github.com/theandyb/LSCI/blob/d54d5aaf2e79814abeecfb0b9d91de44968ad4ba/docs/figure/1000G_single_position_ALL.Rmd/unnamed-chunk-35-4.png" target="_blank">d54d5aa</a>
+</td>
+<td>
+Andy Beck
+</td>
+<td>
+2021-12-15
+</td>
+</tr>
+<tr>
+<td>
+<a href="https://github.com/theandyb/LSCI/blob/ddbf84923ab14a1bdb4e654158be84c6aa088e7c/docs/figure/1000G_single_position_ALL.Rmd/unnamed-chunk-35-4.png" target="_blank">ddbf849</a>
+</td>
+<td>
+Andy Beck
+</td>
+<td>
+2021-11-03
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 <br>
 <p>
 <button type="button" class="btn btn-default btn-workflowr btn-workflowr-sessioninfo" data-toggle="collapse" data-target="#workflowr-sessioninfo" style="display: block;">
@@ -6607,38 +6909,49 @@ attached base packages:
 [1] stats     graphics  grDevices utils     datasets  methods   base     
 
 other attached packages:
- [1] tikzDevice_0.12.3.1 forcats_0.5.1       stringr_1.4.0      
- [4] dplyr_1.0.9         purrr_0.3.4         readr_2.1.2        
- [7] tidyr_1.2.0         tibble_3.1.8        ggplot2_3.3.6      
-[10] tidyverse_1.3.2     workflowr_1.7.0    
+ [1] sjPlot_2.8.11       tikzDevice_0.12.3.1 forcats_0.5.1      
+ [4] stringr_1.4.0       dplyr_1.0.9         purrr_0.3.4        
+ [7] readr_2.1.2         tidyr_1.2.0         tibble_3.1.8       
+[10] ggplot2_3.3.6       tidyverse_1.3.2     workflowr_1.7.0    
 
 loaded via a namespace (and not attached):
- [1] httr_1.4.3          sass_0.4.1          bit64_4.0.5        
- [4] vroom_1.5.7         jsonlite_1.8.0      modelr_0.1.8       
- [7] bslib_0.3.1         assertthat_0.2.1    getPass_0.2-2      
-[10] highr_0.9           googlesheets4_1.0.0 cellranger_1.1.0   
-[13] yaml_2.3.5          pillar_1.7.0        backports_1.4.1    
-[16] glue_1.6.2          digest_0.6.29       promises_1.2.0.1   
-[19] rvest_1.0.2         colorspace_2.0-3    htmltools_0.5.2    
-[22] httpuv_1.6.5        pkgconfig_2.0.3     broom_1.0.0        
-[25] haven_2.5.0         scales_1.2.0        processx_3.5.3     
-[28] whisker_0.4         later_1.3.0         tzdb_0.3.0         
-[31] git2r_0.30.1        googledrive_2.0.0   farver_2.1.0       
-[34] generics_0.1.3      ellipsis_0.3.2      withr_2.5.0        
-[37] cli_3.3.0           magrittr_2.0.3      crayon_1.5.1       
-[40] readxl_1.4.0        evaluate_0.15       ps_1.7.0           
-[43] fs_1.5.2            fansi_1.0.3         xml2_1.3.3         
-[46] tools_4.2.1         hms_1.1.1           gargle_1.2.0       
-[49] lifecycle_1.0.1     munsell_0.5.0       reprex_2.0.1       
-[52] callr_3.7.0         compiler_4.2.1      jquerylib_0.1.4    
-[55] rlang_1.0.4         grid_4.2.1          rstudioapi_0.13    
-[58] filehash_2.4-3      labeling_0.4.2      rmarkdown_2.14     
-[61] gtable_0.3.0        DBI_1.1.2           R6_2.5.1           
-[64] lubridate_1.8.0     knitr_1.40          fastmap_1.1.0      
-[67] bit_4.0.4           utf8_1.2.2          rprojroot_2.0.3    
-[70] stringi_1.7.6       parallel_4.2.1      Rcpp_1.0.8.3       
-[73] vctrs_0.4.1         dbplyr_2.1.1        tidyselect_1.1.2   
-[76] xfun_0.31          </code></pre>
+  [1] TH.data_1.1-1       googledrive_2.0.0   minqa_1.2.4        
+  [4] colorspace_2.0-3    ellipsis_0.3.2      sjlabelled_1.2.0   
+  [7] rprojroot_2.0.3     estimability_1.4.1  parameters_0.18.1  
+ [10] fs_1.5.2            rstudioapi_0.13     farver_2.1.0       
+ [13] bit64_4.0.5         fansi_1.0.3         mvtnorm_1.1-3      
+ [16] lubridate_1.8.0     xml2_1.3.3          codetools_0.2-18   
+ [19] splines_4.2.1       knitr_1.40          sjmisc_2.8.9       
+ [22] jsonlite_1.8.0      nloptr_2.0.3        ggeffects_1.1.3    
+ [25] broom_1.0.0         dbplyr_2.1.1        effectsize_0.7.0.5 
+ [28] compiler_4.2.1      httr_1.4.3          sjstats_0.18.1     
+ [31] emmeans_1.8.1-1     backports_1.4.1     assertthat_0.2.1   
+ [34] Matrix_1.4-1        fastmap_1.1.0       gargle_1.2.0       
+ [37] cli_3.3.0           later_1.3.0         htmltools_0.5.2    
+ [40] tools_4.2.1         coda_0.19-4         gtable_0.3.0       
+ [43] glue_1.6.2          Rcpp_1.0.8.3        cellranger_1.1.0   
+ [46] jquerylib_0.1.4     vctrs_0.4.1         filehash_2.4-3     
+ [49] nlme_3.1-157        insight_0.18.4      xfun_0.31          
+ [52] ps_1.7.0            lme4_1.1-30         rvest_1.0.2        
+ [55] lifecycle_1.0.1     googlesheets4_1.0.0 getPass_0.2-2      
+ [58] MASS_7.3-58.1       zoo_1.8-10          scales_1.2.0       
+ [61] vroom_1.5.7         ragg_1.2.2          hms_1.1.1          
+ [64] promises_1.2.0.1    parallel_4.2.1      sandwich_3.0-1     
+ [67] yaml_2.3.5          sass_0.4.1          stringi_1.7.6      
+ [70] highr_0.9           bayestestR_0.12.1   boot_1.3-28        
+ [73] systemfonts_1.0.4   rlang_1.0.4         pkgconfig_2.0.3    
+ [76] evaluate_0.15       lattice_0.20-45     labeling_0.4.2     
+ [79] bit_4.0.4           processx_3.5.3      tidyselect_1.1.2   
+ [82] magrittr_2.0.3      R6_2.5.1            generics_0.1.3     
+ [85] multcomp_1.4-19     DBI_1.1.2           pillar_1.7.0       
+ [88] haven_2.5.0         whisker_0.4         withr_2.5.0        
+ [91] survival_3.3-1      datawizard_0.6.2    performance_0.10.0 
+ [94] modelr_0.1.8        crayon_1.5.1        utf8_1.2.2         
+ [97] tzdb_0.3.0          rmarkdown_2.14      grid_4.2.1         
+[100] readxl_1.4.0        callr_3.7.0         git2r_0.30.1       
+[103] reprex_2.0.1        digest_0.6.29       xtable_1.8-4       
+[106] httpuv_1.6.5        textshaping_0.3.6   munsell_0.5.0      
+[109] bslib_0.3.1        </code></pre>
 </div>
 </div>
 </div>
