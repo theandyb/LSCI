@@ -366,7 +366,7 @@ div.tocify {
 <p>
 <button type="button" class="btn btn-default btn-workflowr btn-workflowr-report" data-toggle="collapse" data-target="#workflowr-report">
 <span class="glyphicon glyphicon-list" aria-hidden="true"></span>
-workflowr <span class="glyphicon glyphicon-exclamation-sign text-danger"
+workflowr <span class="glyphicon glyphicon-ok text-success"
 aria-hidden="true"></span>
 </button>
 </p>
@@ -377,8 +377,8 @@ aria-hidden="true"></span>
 </li>
 <li>
 <a data-toggle="tab" href="#checks"> Checks <span
-class="glyphicon glyphicon-exclamation-sign text-danger"
-aria-hidden="true"></span> </a>
+class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span>
+</a>
 </li>
 <li>
 <a data-toggle="tab" href="#versions">Past versions</a>
@@ -387,13 +387,13 @@ aria-hidden="true"></span> </a>
 <div class="tab-content">
 <div id="summary" class="tab-pane fade in active">
 <p>
-<strong>Last updated:</strong> 2022-10-13
+<strong>Last updated:</strong> 2022-12-07
 </p>
 <p>
 <strong>Checks:</strong> <span
-class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> 6
+class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> 7
 <span class="glyphicon glyphicon-exclamation-sign text-danger"
-aria-hidden="true"></span> 1
+aria-hidden="true"></span> 0
 </p>
 <p>
 <strong>Knit directory:</strong> <code>LSCI/</code> <span
@@ -416,21 +416,18 @@ versions</em> tab lists the development history.
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRMarkdownfilestronguncommittedchanges">
-<span class="glyphicon glyphicon-exclamation-sign text-danger"
-aria-hidden="true"></span> <strong>R Markdown file:</strong> uncommitted
-changes </a>
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRMarkdownfilestronguptodate">
+<span class="glyphicon glyphicon-ok text-success"
+aria-hidden="true"></span> <strong>R Markdown file:</strong> up-to-date
+</a>
 </p>
 </div>
-<div id="strongRMarkdownfilestronguncommittedchanges"
+<div id="strongRMarkdownfilestronguptodate"
 class="panel-collapse collapse">
 <div class="panel-body">
-<p>The R Markdown file has unstaged changes. To know which version of
-the R Markdown file created these results, you’ll want to first commit
-it to the Git repo. If you’re still working on the analysis, you can
-ignore this warning. When you’re finished, you can run
-<code>wflow_publish</code> to commit the R Markdown file and build the
-HTML.</p>
+<p>Great! Since the R Markdown file has been committed to the Git
+repository, you know the exact version of the code that produced these
+results.</p>
 </div>
 </div>
 </div>
@@ -521,15 +518,15 @@ project makes it easier to run your code on other machines.</p>
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomtheandybLSCItree86974f6ae12c438fee38ccb58166ca207173d0d8targetblank86974f6a">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomtheandybLSCItree92c010b9962a3cf28af46b68d99ec8d6dd5144a8targetblank92c010ba">
 <span class="glyphicon glyphicon-ok text-success"
 aria-hidden="true"></span> <strong>Repository version:</strong>
-<a href="https://github.com/theandyb/LSCI/tree/86974f6ae12c438fee38ccb58166ca207173d0d8" target="_blank">86974f6</a>
+<a href="https://github.com/theandyb/LSCI/tree/92c010b9962a3cf28af46b68d99ec8d6dd5144a8" target="_blank">92c010b</a>
 </a>
 </p>
 </div>
 <div
-id="strongRepositoryversionstrongahrefhttpsgithubcomtheandybLSCItree86974f6ae12c438fee38ccb58166ca207173d0d8targetblank86974f6a"
+id="strongRepositoryversionstrongahrefhttpsgithubcomtheandybLSCItree92c010b9962a3cf28af46b68d99ec8d6dd5144a8targetblank92c010ba"
 class="panel-collapse collapse">
 <div class="panel-body">
 <p>
@@ -539,7 +536,7 @@ reproducibility.
 </p>
 <p>
 The results in this page were generated with repository version
-<a href="https://github.com/theandyb/LSCI/tree/86974f6ae12c438fee38ccb58166ca207173d0d8" target="_blank">86974f6</a>.
+<a href="https://github.com/theandyb/LSCI/tree/92c010b9962a3cf28af46b68d99ec8d6dd5144a8" target="_blank">92c010b</a>.
 See the <em>Past versions</em> tab to see a history of the changes made
 to the R Markdown and HTML files.
 </p>
@@ -559,8 +556,12 @@ Ignored files:
     Ignored:    analysis/disqus.html
     Ignored:    code/random/
 
+Untracked files:
+    Untracked:  analysis/1000G_near_far_control.Rmd
+    Untracked:  analysis/1kgp_100bp_sp.Rmd
+
 Unstaged changes:
-    Modified:   analysis/1000G_single_position_ALL.Rmd
+    Modified:   analysis/1000G_summary_stats.Rmd
     Modified:   analysis/null_dist.Rmd
 
 </code></pre>
@@ -608,6 +609,57 @@ Message
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+Rmd
+</td>
+<td>
+<a href="https://github.com/theandyb/LSCI/blob/92c010b9962a3cf28af46b68d99ec8d6dd5144a8/analysis/1000G_single_position_ALL.Rmd" target="_blank">92c010b</a>
+</td>
+<td>
+Andy Beck
+</td>
+<td>
+2022-12-07
+</td>
+<td>
+wflow_publish(c("analysis/1000G_single_position_ALL.Rmd"))
+</td>
+</tr>
+<tr>
+<td>
+Rmd
+</td>
+<td>
+<a href="https://github.com/theandyb/LSCI/blob/89ef48084455f0aa89b81735a010c40896181c76/analysis/1000G_single_position_ALL.Rmd" target="_blank">89ef480</a>
+</td>
+<td>
+Andy Beck
+</td>
+<td>
+2022-10-13
+</td>
+<td>
+Additional figures
+</td>
+</tr>
+<tr>
+<td>
+html
+</td>
+<td>
+<a href="https://rawcdn.githack.com/theandyb/LSCI/89ef48084455f0aa89b81735a010c40896181c76/docs/1000G_single_position_ALL.html" target="_blank">89ef480</a>
+</td>
+<td>
+Andy Beck
+</td>
+<td>
+2022-10-13
+</td>
+<td>
+Additional figures
+</td>
+</tr>
 <tr>
 <td>
 html
@@ -1389,6 +1441,17 @@ Date
 <tbody>
 <tr>
 <td>
+<a href="https://github.com/theandyb/LSCI/blob/89ef48084455f0aa89b81735a010c40896181c76/docs/figure/1000G_single_position_ALL.Rmd/unnamed-chunk-3-1.png" target="_blank">89ef480</a>
+</td>
+<td>
+Andy Beck
+</td>
+<td>
+2022-10-13
+</td>
+</tr>
+<tr>
+<td>
 <a href="https://github.com/theandyb/LSCI/blob/8efd19442c9de034abbbb0dd98c9ccc230aaf7ed/docs/figure/1000G_single_position_ALL.Rmd/unnamed-chunk-3-1.png" target="_blank">8efd194</a>
 </td>
 <td>
@@ -1473,6 +1536,17 @@ Date
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+<a href="https://github.com/theandyb/LSCI/blob/89ef48084455f0aa89b81735a010c40896181c76/docs/figure/1000G_single_position_ALL.Rmd/unnamed-chunk-3-2.png" target="_blank">89ef480</a>
+</td>
+<td>
+Andy Beck
+</td>
+<td>
+2022-10-13
+</td>
+</tr>
 <tr>
 <td>
 <a href="https://github.com/theandyb/LSCI/blob/f2caf10c40ca59da49b76ef834e400b45b2a335e/docs/figure/1000G_single_position_ALL.Rmd/unnamed-chunk-3-2.png" target="_blank">f2caf10</a>
@@ -1571,6 +1645,17 @@ Date
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+<a href="https://github.com/theandyb/LSCI/blob/89ef48084455f0aa89b81735a010c40896181c76/docs/figure/1000G_single_position_ALL.Rmd/unnamed-chunk-4-1.png" target="_blank">89ef480</a>
+</td>
+<td>
+Andy Beck
+</td>
+<td>
+2022-10-13
+</td>
+</tr>
 <tr>
 <td>
 <a href="https://github.com/theandyb/LSCI/blob/8efd19442c9de034abbbb0dd98c9ccc230aaf7ed/docs/figure/1000G_single_position_ALL.Rmd/unnamed-chunk-4-1.png" target="_blank">8efd194</a>
@@ -1677,6 +1762,17 @@ Date
 <tbody>
 <tr>
 <td>
+<a href="https://github.com/theandyb/LSCI/blob/89ef48084455f0aa89b81735a010c40896181c76/docs/figure/1000G_single_position_ALL.Rmd/unnamed-chunk-4-2.png" target="_blank">89ef480</a>
+</td>
+<td>
+Andy Beck
+</td>
+<td>
+2022-10-13
+</td>
+</tr>
+<tr>
+<td>
 <a href="https://github.com/theandyb/LSCI/blob/8efd19442c9de034abbbb0dd98c9ccc230aaf7ed/docs/figure/1000G_single_position_ALL.Rmd/unnamed-chunk-4-2.png" target="_blank">8efd194</a>
 </td>
 <td>
@@ -1759,6 +1855,17 @@ Date
 <tbody>
 <tr>
 <td>
+<a href="https://github.com/theandyb/LSCI/blob/89ef48084455f0aa89b81735a010c40896181c76/docs/figure/1000G_single_position_ALL.Rmd/unnamed-chunk-4-3.png" target="_blank">89ef480</a>
+</td>
+<td>
+Andy Beck
+</td>
+<td>
+2022-10-13
+</td>
+</tr>
+<tr>
+<td>
 <a href="https://github.com/theandyb/LSCI/blob/8efd19442c9de034abbbb0dd98c9ccc230aaf7ed/docs/figure/1000G_single_position_ALL.Rmd/unnamed-chunk-4-3.png" target="_blank">8efd194</a>
 </td>
 <td>
@@ -1815,83 +1922,83 @@ Andy Beck
 <tbody>
 <tr class="odd">
 <td align="right">-10</td>
-<td align="right">0.0000198</td>
+<td align="right">0.0000105</td>
 </tr>
 <tr class="even">
 <td align="right">-9</td>
-<td align="right">0.0000364</td>
+<td align="right">0.0000345</td>
 </tr>
 <tr class="odd">
 <td align="right">-8</td>
-<td align="right">0.0001547</td>
+<td align="right">0.0001061</td>
 </tr>
 <tr class="even">
 <td align="right">-7</td>
-<td align="right">0.0000468</td>
+<td align="right">0.0000214</td>
 </tr>
 <tr class="odd">
 <td align="right">-6</td>
-<td align="right">0.0000040</td>
+<td align="right">0.0000208</td>
 </tr>
 <tr class="even">
 <td align="right">-5</td>
-<td align="right">0.0000285</td>
+<td align="right">0.0000326</td>
 </tr>
 <tr class="odd">
 <td align="right">-4</td>
-<td align="right">0.0002110</td>
+<td align="right">0.0002231</td>
 </tr>
 <tr class="even">
 <td align="right">-3</td>
-<td align="right">0.0006826</td>
+<td align="right">0.0006327</td>
 </tr>
 <tr class="odd">
 <td align="right">-2</td>
-<td align="right">0.0000846</td>
+<td align="right">0.0000784</td>
 </tr>
 <tr class="even">
 <td align="right">-1</td>
-<td align="right">0.0018943</td>
+<td align="right">0.0018830</td>
 </tr>
 <tr class="odd">
 <td align="right">1</td>
-<td align="right">0.0003293</td>
+<td align="right">0.0002042</td>
 </tr>
 <tr class="even">
 <td align="right">2</td>
-<td align="right">0.0005842</td>
+<td align="right">0.0005238</td>
 </tr>
 <tr class="odd">
 <td align="right">3</td>
-<td align="right">0.0002770</td>
+<td align="right">0.0002358</td>
 </tr>
 <tr class="even">
 <td align="right">4</td>
-<td align="right">0.0002200</td>
+<td align="right">0.0002006</td>
 </tr>
 <tr class="odd">
 <td align="right">5</td>
-<td align="right">0.0000698</td>
+<td align="right">0.0000364</td>
 </tr>
 <tr class="even">
 <td align="right">6</td>
-<td align="right">0.0000135</td>
+<td align="right">0.0000216</td>
 </tr>
 <tr class="odd">
 <td align="right">7</td>
-<td align="right">0.0000152</td>
+<td align="right">0.0000013</td>
 </tr>
 <tr class="even">
 <td align="right">8</td>
-<td align="right">0.0000274</td>
+<td align="right">0.0000164</td>
 </tr>
 <tr class="odd">
 <td align="right">9</td>
-<td align="right">0.0000357</td>
+<td align="right">0.0000116</td>
 </tr>
 <tr class="even">
 <td align="right">10</td>
-<td align="right">0.0000047</td>
+<td align="right">0.0000085</td>
 </tr>
 </tbody>
 </table>
@@ -1927,6 +2034,17 @@ Date
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+<a href="https://github.com/theandyb/LSCI/blob/89ef48084455f0aa89b81735a010c40896181c76/docs/figure/1000G_single_position_ALL.Rmd/unnamed-chunk-6-1.png" target="_blank">89ef480</a>
+</td>
+<td>
+Andy Beck
+</td>
+<td>
+2022-10-13
+</td>
+</tr>
 <tr>
 <td>
 <a href="https://github.com/theandyb/LSCI/blob/8efd19442c9de034abbbb0dd98c9ccc230aaf7ed/docs/figure/1000G_single_position_ALL.Rmd/unnamed-chunk-6-1.png" target="_blank">8efd194</a>
@@ -2022,6 +2140,17 @@ Date
 <tbody>
 <tr>
 <td>
+<a href="https://github.com/theandyb/LSCI/blob/89ef48084455f0aa89b81735a010c40896181c76/docs/figure/1000G_single_position_ALL.Rmd/unnamed-chunk-6-2.png" target="_blank">89ef480</a>
+</td>
+<td>
+Andy Beck
+</td>
+<td>
+2022-10-13
+</td>
+</tr>
+<tr>
+<td>
 <a href="https://github.com/theandyb/LSCI/blob/8efd19442c9de034abbbb0dd98c9ccc230aaf7ed/docs/figure/1000G_single_position_ALL.Rmd/unnamed-chunk-6-2.png" target="_blank">8efd194</a>
 </td>
 <td>
@@ -2093,6 +2222,17 @@ Date
 <tbody>
 <tr>
 <td>
+<a href="https://github.com/theandyb/LSCI/blob/89ef48084455f0aa89b81735a010c40896181c76/docs/figure/1000G_single_position_ALL.Rmd/unnamed-chunk-6-3.png" target="_blank">89ef480</a>
+</td>
+<td>
+Andy Beck
+</td>
+<td>
+2022-10-13
+</td>
+</tr>
+<tr>
+<td>
 <a href="https://github.com/theandyb/LSCI/blob/8efd19442c9de034abbbb0dd98c9ccc230aaf7ed/docs/figure/1000G_single_position_ALL.Rmd/unnamed-chunk-6-3.png" target="_blank">8efd194</a>
 </td>
 <td>
@@ -2149,83 +2289,83 @@ Andy Beck
 <tbody>
 <tr class="odd">
 <td align="right">-10</td>
-<td align="right">0.0000072</td>
+<td align="right">0.0000093</td>
 </tr>
 <tr class="even">
 <td align="right">-9</td>
-<td align="right">0.0000070</td>
+<td align="right">0.0000243</td>
 </tr>
 <tr class="odd">
 <td align="right">-8</td>
-<td align="right">0.0000072</td>
+<td align="right">0.0000146</td>
 </tr>
 <tr class="even">
 <td align="right">-7</td>
-<td align="right">0.0000170</td>
+<td align="right">0.0000052</td>
 </tr>
 <tr class="odd">
 <td align="right">-6</td>
-<td align="right">0.0000144</td>
+<td align="right">0.0000078</td>
 </tr>
 <tr class="even">
 <td align="right">-5</td>
-<td align="right">0.0000805</td>
+<td align="right">0.0000768</td>
 </tr>
 <tr class="odd">
 <td align="right">-4</td>
-<td align="right">0.0000180</td>
+<td align="right">0.0000301</td>
 </tr>
 <tr class="even">
 <td align="right">-3</td>
-<td align="right">0.0001659</td>
+<td align="right">0.0001518</td>
 </tr>
 <tr class="odd">
 <td align="right">-2</td>
-<td align="right">0.0045739</td>
+<td align="right">0.0051807</td>
 </tr>
 <tr class="even">
 <td align="right">-1</td>
-<td align="right">0.0026818</td>
+<td align="right">0.0028253</td>
 </tr>
 <tr class="odd">
 <td align="right">1</td>
-<td align="right">0.0093950</td>
+<td align="right">0.0103117</td>
 </tr>
 <tr class="even">
 <td align="right">2</td>
-<td align="right">0.0003830</td>
+<td align="right">0.0003714</td>
 </tr>
 <tr class="odd">
 <td align="right">3</td>
-<td align="right">0.0006926</td>
+<td align="right">0.0006710</td>
 </tr>
 <tr class="even">
 <td align="right">4</td>
-<td align="right">0.0000762</td>
+<td align="right">0.0000962</td>
 </tr>
 <tr class="odd">
 <td align="right">5</td>
-<td align="right">0.0000576</td>
+<td align="right">0.0000537</td>
 </tr>
 <tr class="even">
 <td align="right">6</td>
-<td align="right">0.0000906</td>
+<td align="right">0.0001142</td>
 </tr>
 <tr class="odd">
 <td align="right">7</td>
-<td align="right">0.0001661</td>
+<td align="right">0.0001352</td>
 </tr>
 <tr class="even">
 <td align="right">8</td>
-<td align="right">0.0000449</td>
+<td align="right">0.0000229</td>
 </tr>
 <tr class="odd">
 <td align="right">9</td>
-<td align="right">0.0000178</td>
+<td align="right">0.0000208</td>
 </tr>
 <tr class="even">
 <td align="right">10</td>
-<td align="right">0.0000102</td>
+<td align="right">0.0000100</td>
 </tr>
 </tbody>
 </table>
@@ -2258,6 +2398,17 @@ Date
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+<a href="https://github.com/theandyb/LSCI/blob/89ef48084455f0aa89b81735a010c40896181c76/docs/figure/1000G_single_position_ALL.Rmd/unnamed-chunk-8-1.png" target="_blank">89ef480</a>
+</td>
+<td>
+Andy Beck
+</td>
+<td>
+2022-10-13
+</td>
+</tr>
 <tr>
 <td>
 <a href="https://github.com/theandyb/LSCI/blob/8efd19442c9de034abbbb0dd98c9ccc230aaf7ed/docs/figure/1000G_single_position_ALL.Rmd/unnamed-chunk-8-1.png" target="_blank">8efd194</a>
@@ -2353,6 +2504,17 @@ Date
 <tbody>
 <tr>
 <td>
+<a href="https://github.com/theandyb/LSCI/blob/89ef48084455f0aa89b81735a010c40896181c76/docs/figure/1000G_single_position_ALL.Rmd/unnamed-chunk-8-2.png" target="_blank">89ef480</a>
+</td>
+<td>
+Andy Beck
+</td>
+<td>
+2022-10-13
+</td>
+</tr>
+<tr>
+<td>
 <a href="https://github.com/theandyb/LSCI/blob/8efd19442c9de034abbbb0dd98c9ccc230aaf7ed/docs/figure/1000G_single_position_ALL.Rmd/unnamed-chunk-8-2.png" target="_blank">8efd194</a>
 </td>
 <td>
@@ -2424,6 +2586,17 @@ Date
 <tbody>
 <tr>
 <td>
+<a href="https://github.com/theandyb/LSCI/blob/89ef48084455f0aa89b81735a010c40896181c76/docs/figure/1000G_single_position_ALL.Rmd/unnamed-chunk-8-3.png" target="_blank">89ef480</a>
+</td>
+<td>
+Andy Beck
+</td>
+<td>
+2022-10-13
+</td>
+</tr>
+<tr>
+<td>
 <a href="https://github.com/theandyb/LSCI/blob/8efd19442c9de034abbbb0dd98c9ccc230aaf7ed/docs/figure/1000G_single_position_ALL.Rmd/unnamed-chunk-8-3.png" target="_blank">8efd194</a>
 </td>
 <td>
@@ -2480,83 +2653,83 @@ Andy Beck
 <tbody>
 <tr class="odd">
 <td align="right">-10</td>
-<td align="right">0.0000224</td>
+<td align="right">0.0000027</td>
 </tr>
 <tr class="even">
 <td align="right">-9</td>
-<td align="right">0.0000218</td>
+<td align="right">0.0000047</td>
 </tr>
 <tr class="odd">
 <td align="right">-8</td>
-<td align="right">0.0000388</td>
+<td align="right">0.0000212</td>
 </tr>
 <tr class="even">
 <td align="right">-7</td>
-<td align="right">0.0000533</td>
+<td align="right">0.0000363</td>
 </tr>
 <tr class="odd">
 <td align="right">-6</td>
-<td align="right">0.0000702</td>
+<td align="right">0.0000392</td>
 </tr>
 <tr class="even">
 <td align="right">-5</td>
-<td align="right">0.0001549</td>
+<td align="right">0.0001039</td>
 </tr>
 <tr class="odd">
 <td align="right">-4</td>
-<td align="right">0.0002689</td>
+<td align="right">0.0001942</td>
 </tr>
 <tr class="even">
 <td align="right">-3</td>
-<td align="right">0.0001993</td>
+<td align="right">0.0001586</td>
 </tr>
 <tr class="odd">
 <td align="right">-2</td>
-<td align="right">0.0004701</td>
+<td align="right">0.0003169</td>
 </tr>
 <tr class="even">
 <td align="right">-1</td>
-<td align="right">0.0009565</td>
+<td align="right">0.0011288</td>
 </tr>
 <tr class="odd">
 <td align="right">1</td>
-<td align="right">0.0043604</td>
+<td align="right">0.0049210</td>
 </tr>
 <tr class="even">
 <td align="right">2</td>
-<td align="right">0.0006177</td>
+<td align="right">0.0005914</td>
 </tr>
 <tr class="odd">
 <td align="right">3</td>
-<td align="right">0.0004483</td>
+<td align="right">0.0003879</td>
 </tr>
 <tr class="even">
 <td align="right">4</td>
-<td align="right">0.0000986</td>
+<td align="right">0.0000753</td>
 </tr>
 <tr class="odd">
 <td align="right">5</td>
-<td align="right">0.0001482</td>
+<td align="right">0.0001248</td>
 </tr>
 <tr class="even">
 <td align="right">6</td>
-<td align="right">0.0000652</td>
+<td align="right">0.0000262</td>
 </tr>
 <tr class="odd">
 <td align="right">7</td>
-<td align="right">0.0000803</td>
+<td align="right">0.0000766</td>
 </tr>
 <tr class="even">
 <td align="right">8</td>
-<td align="right">0.0000603</td>
+<td align="right">0.0000442</td>
 </tr>
 <tr class="odd">
 <td align="right">9</td>
-<td align="right">0.0000308</td>
+<td align="right">0.0000094</td>
 </tr>
 <tr class="even">
 <td align="right">10</td>
-<td align="right">0.0000319</td>
+<td align="right">0.0000102</td>
 </tr>
 </tbody>
 </table>
@@ -2592,6 +2765,17 @@ Date
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+<a href="https://github.com/theandyb/LSCI/blob/89ef48084455f0aa89b81735a010c40896181c76/docs/figure/1000G_single_position_ALL.Rmd/unnamed-chunk-10-1.png" target="_blank">89ef480</a>
+</td>
+<td>
+Andy Beck
+</td>
+<td>
+2022-10-13
+</td>
+</tr>
 <tr>
 <td>
 <a href="https://github.com/theandyb/LSCI/blob/8efd19442c9de034abbbb0dd98c9ccc230aaf7ed/docs/figure/1000G_single_position_ALL.Rmd/unnamed-chunk-10-1.png" target="_blank">8efd194</a>
@@ -2688,6 +2872,17 @@ Date
 <tbody>
 <tr>
 <td>
+<a href="https://github.com/theandyb/LSCI/blob/89ef48084455f0aa89b81735a010c40896181c76/docs/figure/1000G_single_position_ALL.Rmd/unnamed-chunk-10-2.png" target="_blank">89ef480</a>
+</td>
+<td>
+Andy Beck
+</td>
+<td>
+2022-10-13
+</td>
+</tr>
+<tr>
+<td>
 <a href="https://github.com/theandyb/LSCI/blob/8efd19442c9de034abbbb0dd98c9ccc230aaf7ed/docs/figure/1000G_single_position_ALL.Rmd/unnamed-chunk-10-2.png" target="_blank">8efd194</a>
 </td>
 <td>
@@ -2761,6 +2956,17 @@ Date
 <tbody>
 <tr>
 <td>
+<a href="https://github.com/theandyb/LSCI/blob/89ef48084455f0aa89b81735a010c40896181c76/docs/figure/1000G_single_position_ALL.Rmd/unnamed-chunk-10-3.png" target="_blank">89ef480</a>
+</td>
+<td>
+Andy Beck
+</td>
+<td>
+2022-10-13
+</td>
+</tr>
+<tr>
+<td>
 <a href="https://github.com/theandyb/LSCI/blob/8efd19442c9de034abbbb0dd98c9ccc230aaf7ed/docs/figure/1000G_single_position_ALL.Rmd/unnamed-chunk-10-3.png" target="_blank">8efd194</a>
 </td>
 <td>
@@ -2818,83 +3024,83 @@ Andy Beck
 <tbody>
 <tr class="odd">
 <td align="right">-10</td>
-<td align="right">0.0000053</td>
+<td align="right">0.0000024</td>
 </tr>
 <tr class="even">
 <td align="right">-9</td>
-<td align="right">0.0000159</td>
+<td align="right">0.0000140</td>
 </tr>
 <tr class="odd">
 <td align="right">-8</td>
-<td align="right">0.0000082</td>
+<td align="right">0.0000064</td>
 </tr>
 <tr class="even">
 <td align="right">-7</td>
-<td align="right">0.0000033</td>
+<td align="right">0.0000188</td>
 </tr>
 <tr class="odd">
 <td align="right">-6</td>
-<td align="right">0.0000114</td>
+<td align="right">0.0000187</td>
 </tr>
 <tr class="even">
 <td align="right">-5</td>
-<td align="right">0.0000643</td>
+<td align="right">0.0000775</td>
 </tr>
 <tr class="odd">
 <td align="right">-4</td>
-<td align="right">0.0000304</td>
-</tr>
-<tr class="even">
-<td align="right">-3</td>
-<td align="right">0.0000215</td>
-</tr>
-<tr class="odd">
-<td align="right">-2</td>
-<td align="right">0.0002502</td>
-</tr>
-<tr class="even">
-<td align="right">-1</td>
-<td align="right">0.0013837</td>
-</tr>
-<tr class="odd">
-<td align="right">1</td>
-<td align="right">0.0004542</td>
-</tr>
-<tr class="even">
-<td align="right">2</td>
-<td align="right">0.0011253</td>
-</tr>
-<tr class="odd">
-<td align="right">3</td>
-<td align="right">0.0002869</td>
-</tr>
-<tr class="even">
-<td align="right">4</td>
-<td align="right">0.0000883</td>
-</tr>
-<tr class="odd">
-<td align="right">5</td>
-<td align="right">0.0000348</td>
-</tr>
-<tr class="even">
-<td align="right">6</td>
-<td align="right">0.0000186</td>
-</tr>
-<tr class="odd">
-<td align="right">7</td>
 <td align="right">0.0000319</td>
 </tr>
 <tr class="even">
+<td align="right">-3</td>
+<td align="right">0.0000721</td>
+</tr>
+<tr class="odd">
+<td align="right">-2</td>
+<td align="right">0.0003369</td>
+</tr>
+<tr class="even">
+<td align="right">-1</td>
+<td align="right">0.0016534</td>
+</tr>
+<tr class="odd">
+<td align="right">1</td>
+<td align="right">0.0006413</td>
+</tr>
+<tr class="even">
+<td align="right">2</td>
+<td align="right">0.0012207</td>
+</tr>
+<tr class="odd">
+<td align="right">3</td>
+<td align="right">0.0003494</td>
+</tr>
+<tr class="even">
+<td align="right">4</td>
+<td align="right">0.0001227</td>
+</tr>
+<tr class="odd">
+<td align="right">5</td>
+<td align="right">0.0000897</td>
+</tr>
+<tr class="even">
+<td align="right">6</td>
+<td align="right">0.0000489</td>
+</tr>
+<tr class="odd">
+<td align="right">7</td>
+<td align="right">0.0000617</td>
+</tr>
+<tr class="even">
 <td align="right">8</td>
-<td align="right">0.0000251</td>
+<td align="right">0.0000593</td>
 </tr>
 <tr class="odd">
 <td align="right">9</td>
-<td align="right">0.0000311</td>
+<td align="right">0.0000635</td>
 </tr>
 <tr class="even">
 <td align="right">10</td>
-<td align="right">0.0000417</td>
+<td align="right">0.0000712</td>
 </tr>
 </tbody>
 </table>
@@ -2930,6 +3136,17 @@ Date
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+<a href="https://github.com/theandyb/LSCI/blob/89ef48084455f0aa89b81735a010c40896181c76/docs/figure/1000G_single_position_ALL.Rmd/unnamed-chunk-12-1.png" target="_blank">89ef480</a>
+</td>
+<td>
+Andy Beck
+</td>
+<td>
+2022-10-13
+</td>
+</tr>
 <tr>
 <td>
 <a href="https://github.com/theandyb/LSCI/blob/8efd19442c9de034abbbb0dd98c9ccc230aaf7ed/docs/figure/1000G_single_position_ALL.Rmd/unnamed-chunk-12-1.png" target="_blank">8efd194</a>
@@ -3003,6 +3220,17 @@ Date
 <tbody>
 <tr>
 <td>
+<a href="https://github.com/theandyb/LSCI/blob/89ef48084455f0aa89b81735a010c40896181c76/docs/figure/1000G_single_position_ALL.Rmd/unnamed-chunk-12-2.png" target="_blank">89ef480</a>
+</td>
+<td>
+Andy Beck
+</td>
+<td>
+2022-10-13
+</td>
+</tr>
+<tr>
+<td>
 <a href="https://github.com/theandyb/LSCI/blob/8efd19442c9de034abbbb0dd98c9ccc230aaf7ed/docs/figure/1000G_single_position_ALL.Rmd/unnamed-chunk-12-2.png" target="_blank">8efd194</a>
 </td>
 <td>
@@ -3074,6 +3302,17 @@ Date
 <tbody>
 <tr>
 <td>
+<a href="https://github.com/theandyb/LSCI/blob/89ef48084455f0aa89b81735a010c40896181c76/docs/figure/1000G_single_position_ALL.Rmd/unnamed-chunk-12-3.png" target="_blank">89ef480</a>
+</td>
+<td>
+Andy Beck
+</td>
+<td>
+2022-10-13
+</td>
+</tr>
+<tr>
+<td>
 <a href="https://github.com/theandyb/LSCI/blob/f2caf10c40ca59da49b76ef834e400b45b2a335e/docs/figure/1000G_single_position_ALL.Rmd/unnamed-chunk-12-3.png" target="_blank">f2caf10</a>
 </td>
 <td>
@@ -3141,83 +3380,83 @@ Andy Beck
 <tbody>
 <tr class="odd">
 <td align="right">-10</td>
-<td align="right">0.0114635</td>
+<td align="right">0.0118937</td>
 </tr>
 <tr class="even">
 <td align="right">-9</td>
-<td align="right">0.0116939</td>
+<td align="right">0.0121508</td>
 </tr>
 <tr class="odd">
 <td align="right">-8</td>
-<td align="right">0.0115064</td>
+<td align="right">0.0119407</td>
 </tr>
 <tr class="even">
 <td align="right">-7</td>
-<td align="right">0.0117366</td>
+<td align="right">0.0122085</td>
 </tr>
 <tr class="odd">
 <td align="right">-6</td>
-<td align="right">0.0116880</td>
+<td align="right">0.0121553</td>
 </tr>
 <tr class="even">
 <td align="right">-5</td>
-<td align="right">0.0120406</td>
+<td align="right">0.0125378</td>
 </tr>
 <tr class="odd">
 <td align="right">-4</td>
-<td align="right">0.0116846</td>
+<td align="right">0.0121394</td>
 </tr>
 <tr class="even">
 <td align="right">-3</td>
-<td align="right">0.0115130</td>
+<td align="right">0.0119916</td>
 </tr>
 <tr class="odd">
 <td align="right">-2</td>
-<td align="right">0.0124274</td>
+<td align="right">0.0130644</td>
 </tr>
 <tr class="even">
 <td align="right">-1</td>
-<td align="right">0.0132593</td>
+<td align="right">0.0139673</td>
 </tr>
 <tr class="odd">
 <td align="right">1</td>
-<td align="right">0.0441873</td>
+<td align="right">0.0618495</td>
 </tr>
 <tr class="even">
 <td align="right">2</td>
-<td align="right">0.0128275</td>
+<td align="right">0.0134323</td>
 </tr>
 <tr class="odd">
 <td align="right">3</td>
-<td align="right">0.0123545</td>
+<td align="right">0.0129401</td>
 </tr>
 <tr class="even">
 <td align="right">4</td>
-<td align="right">0.0113882</td>
+<td align="right">0.0118118</td>
 </tr>
 <tr class="odd">
 <td align="right">5</td>
-<td align="right">0.0115573</td>
+<td align="right">0.0120633</td>
 </tr>
 <tr class="even">
 <td align="right">6</td>
-<td align="right">0.0116016</td>
+<td align="right">0.0120934</td>
 </tr>
 <tr class="odd">
 <td align="right">7</td>
-<td align="right">0.0115607</td>
+<td align="right">0.0120296</td>
 </tr>
 <tr class="even">
 <td align="right">8</td>
-<td align="right">0.0114666</td>
+<td align="right">0.0119241</td>
 </tr>
 <tr class="odd">
 <td align="right">9</td>
-<td align="right">0.0114920</td>
+<td align="right">0.0119524</td>
 </tr>
 <tr class="even">
 <td align="right">10</td>
-<td align="right">0.0115442</td>
+<td align="right">0.0120195</td>
 </tr>
 </tbody>
 </table>
@@ -3247,6 +3486,17 @@ Date
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+<a href="https://github.com/theandyb/LSCI/blob/89ef48084455f0aa89b81735a010c40896181c76/docs/figure/1000G_single_position_ALL.Rmd/unnamed-chunk-14-1.png" target="_blank">89ef480</a>
+</td>
+<td>
+Andy Beck
+</td>
+<td>
+2022-10-13
+</td>
+</tr>
 <tr>
 <td>
 <a href="https://github.com/theandyb/LSCI/blob/8efd19442c9de034abbbb0dd98c9ccc230aaf7ed/docs/figure/1000G_single_position_ALL.Rmd/unnamed-chunk-14-1.png" target="_blank">8efd194</a>
@@ -3320,6 +3570,17 @@ Date
 <tbody>
 <tr>
 <td>
+<a href="https://github.com/theandyb/LSCI/blob/89ef48084455f0aa89b81735a010c40896181c76/docs/figure/1000G_single_position_ALL.Rmd/unnamed-chunk-14-2.png" target="_blank">89ef480</a>
+</td>
+<td>
+Andy Beck
+</td>
+<td>
+2022-10-13
+</td>
+</tr>
+<tr>
+<td>
 <a href="https://github.com/theandyb/LSCI/blob/8efd19442c9de034abbbb0dd98c9ccc230aaf7ed/docs/figure/1000G_single_position_ALL.Rmd/unnamed-chunk-14-2.png" target="_blank">8efd194</a>
 </td>
 <td>
@@ -3391,6 +3652,17 @@ Date
 <tbody>
 <tr>
 <td>
+<a href="https://github.com/theandyb/LSCI/blob/89ef48084455f0aa89b81735a010c40896181c76/docs/figure/1000G_single_position_ALL.Rmd/unnamed-chunk-14-3.png" target="_blank">89ef480</a>
+</td>
+<td>
+Andy Beck
+</td>
+<td>
+2022-10-13
+</td>
+</tr>
+<tr>
+<td>
 <a href="https://github.com/theandyb/LSCI/blob/f2caf10c40ca59da49b76ef834e400b45b2a335e/docs/figure/1000G_single_position_ALL.Rmd/unnamed-chunk-14-3.png" target="_blank">f2caf10</a>
 </td>
 <td>
@@ -3436,79 +3708,79 @@ Andy Beck
 <tbody>
 <tr class="odd">
 <td align="right">-10</td>
-<td align="right">0.0000417</td>
+<td align="right">0.0000266</td>
 </tr>
 <tr class="even">
 <td align="right">-9</td>
-<td align="right">0.0000350</td>
+<td align="right">0.0000330</td>
 </tr>
 <tr class="odd">
 <td align="right">-8</td>
-<td align="right">0.0000563</td>
+<td align="right">0.0000663</td>
 </tr>
 <tr class="even">
 <td align="right">-7</td>
-<td align="right">0.0000385</td>
+<td align="right">0.0000427</td>
 </tr>
 <tr class="odd">
 <td align="right">-6</td>
-<td align="right">0.0000344</td>
+<td align="right">0.0000544</td>
 </tr>
 <tr class="even">
 <td align="right">-5</td>
-<td align="right">0.0000172</td>
+<td align="right">0.0000482</td>
 </tr>
 <tr class="odd">
 <td align="right">-4</td>
-<td align="right">0.0000303</td>
+<td align="right">0.0001067</td>
 </tr>
 <tr class="even">
 <td align="right">-3</td>
-<td align="right">0.0000010</td>
+<td align="right">0.0000229</td>
 </tr>
 <tr class="odd">
 <td align="right">-2</td>
-<td align="right">0.0000990</td>
+<td align="right">0.0002233</td>
 </tr>
 <tr class="even">
 <td align="right">-1</td>
-<td align="right">0.0004776</td>
+<td align="right">0.0011243</td>
 </tr>
 <tr class="odd">
 <td align="right">2</td>
-<td align="right">0.0001366</td>
+<td align="right">0.0006472</td>
 </tr>
 <tr class="even">
 <td align="right">3</td>
-<td align="right">0.0000897</td>
+<td align="right">0.0002060</td>
 </tr>
 <tr class="odd">
 <td align="right">4</td>
-<td align="right">0.0000079</td>
+<td align="right">0.0000353</td>
 </tr>
 <tr class="even">
 <td align="right">5</td>
-<td align="right">0.0000373</td>
+<td align="right">0.0001040</td>
 </tr>
 <tr class="odd">
 <td align="right">6</td>
-<td align="right">0.0000293</td>
+<td align="right">0.0000566</td>
 </tr>
 <tr class="even">
 <td align="right">7</td>
-<td align="right">0.0000464</td>
+<td align="right">0.0000611</td>
 </tr>
 <tr class="odd">
 <td align="right">8</td>
-<td align="right">0.0000271</td>
+<td align="right">0.0000317</td>
 </tr>
 <tr class="even">
 <td align="right">9</td>
-<td align="right">0.0000567</td>
+<td align="right">0.0000644</td>
 </tr>
 <tr class="odd">
 <td align="right">10</td>
-<td align="right">0.0000296</td>
+<td align="right">0.0000265</td>
 </tr>
 </tbody>
 </table>
@@ -3545,6 +3817,17 @@ Date
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+<a href="https://github.com/theandyb/LSCI/blob/89ef48084455f0aa89b81735a010c40896181c76/docs/figure/1000G_single_position_ALL.Rmd/unnamed-chunk-16-1.png" target="_blank">89ef480</a>
+</td>
+<td>
+Andy Beck
+</td>
+<td>
+2022-10-13
+</td>
+</tr>
 <tr>
 <td>
 <a href="https://github.com/theandyb/LSCI/blob/8efd19442c9de034abbbb0dd98c9ccc230aaf7ed/docs/figure/1000G_single_position_ALL.Rmd/unnamed-chunk-16-1.png" target="_blank">8efd194</a>
@@ -3617,6 +3900,17 @@ Date
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+<a href="https://github.com/theandyb/LSCI/blob/89ef48084455f0aa89b81735a010c40896181c76/docs/figure/1000G_single_position_ALL.Rmd/unnamed-chunk-16-2.png" target="_blank">89ef480</a>
+</td>
+<td>
+Andy Beck
+</td>
+<td>
+2022-10-13
+</td>
+</tr>
 <tr>
 <td>
 <a href="https://github.com/theandyb/LSCI/blob/8efd19442c9de034abbbb0dd98c9ccc230aaf7ed/docs/figure/1000G_single_position_ALL.Rmd/unnamed-chunk-16-2.png" target="_blank">8efd194</a>
@@ -3692,6 +3986,17 @@ Date
 <tbody>
 <tr>
 <td>
+<a href="https://github.com/theandyb/LSCI/blob/89ef48084455f0aa89b81735a010c40896181c76/docs/figure/1000G_single_position_ALL.Rmd/unnamed-chunk-16-3.png" target="_blank">89ef480</a>
+</td>
+<td>
+Andy Beck
+</td>
+<td>
+2022-10-13
+</td>
+</tr>
+<tr>
+<td>
 <a href="https://github.com/theandyb/LSCI/blob/8efd19442c9de034abbbb0dd98c9ccc230aaf7ed/docs/figure/1000G_single_position_ALL.Rmd/unnamed-chunk-16-3.png" target="_blank">8efd194</a>
 </td>
 <td>
@@ -3727,83 +4032,83 @@ Andy Beck
 <tbody>
 <tr class="odd">
 <td align="right">-10</td>
-<td align="right">0.0000248</td>
+<td align="right">0.0000294</td>
 </tr>
 <tr class="even">
 <td align="right">-9</td>
-<td align="right">0.0000368</td>
+<td align="right">0.0000357</td>
 </tr>
 <tr class="odd">
 <td align="right">-8</td>
-<td align="right">0.0000750</td>
+<td align="right">0.0000731</td>
 </tr>
 <tr class="even">
 <td align="right">-7</td>
-<td align="right">0.0000277</td>
+<td align="right">0.0000299</td>
 </tr>
 <tr class="odd">
 <td align="right">-6</td>
-<td align="right">0.0000395</td>
+<td align="right">0.0000124</td>
 </tr>
 <tr class="even">
 <td align="right">-5</td>
-<td align="right">0.0003381</td>
+<td align="right">0.0004199</td>
 </tr>
 <tr class="odd">
 <td align="right">-4</td>
-<td align="right">0.0005467</td>
+<td align="right">0.0006688</td>
 </tr>
 <tr class="even">
 <td align="right">-3</td>
-<td align="right">0.0010733</td>
+<td align="right">0.0011572</td>
 </tr>
 <tr class="odd">
 <td align="right">-2</td>
-<td align="right">0.0019530</td>
+<td align="right">0.0018479</td>
 </tr>
 <tr class="even">
 <td align="right">-1</td>
-<td align="right">0.0014105</td>
+<td align="right">0.0015664</td>
 </tr>
 <tr class="odd">
 <td align="right">1</td>
-<td align="right">0.0033239</td>
+<td align="right">0.0038029</td>
 </tr>
 <tr class="even">
 <td align="right">2</td>
-<td align="right">0.0013676</td>
+<td align="right">0.0012800</td>
 </tr>
 <tr class="odd">
 <td align="right">3</td>
-<td align="right">0.0005650</td>
+<td align="right">0.0005863</td>
 </tr>
 <tr class="even">
 <td align="right">4</td>
-<td align="right">0.0002910</td>
+<td align="right">0.0002601</td>
 </tr>
 <tr class="odd">
 <td align="right">5</td>
-<td align="right">0.0000683</td>
+<td align="right">0.0000902</td>
 </tr>
 <tr class="even">
 <td align="right">6</td>
-<td align="right">0.0000158</td>
+<td align="right">0.0000274</td>
 </tr>
 <tr class="odd">
 <td align="right">7</td>
-<td align="right">0.0000133</td>
+<td align="right">0.0000383</td>
 </tr>
 <tr class="even">
 <td align="right">8</td>
-<td align="right">0.0000056</td>
+<td align="right">0.0000272</td>
 </tr>
 <tr class="odd">
 <td align="right">9</td>
-<td align="right">0.0000177</td>
+<td align="right">0.0000206</td>
 </tr>
 <tr class="even">
 <td align="right">10</td>
-<td align="right">0.0000321</td>
+<td align="right">0.0000411</td>
 </tr>
 </tbody>
 </table>
@@ -3837,6 +4142,17 @@ Date
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+<a href="https://github.com/theandyb/LSCI/blob/89ef48084455f0aa89b81735a010c40896181c76/docs/figure/1000G_single_position_ALL.Rmd/unnamed-chunk-18-1.png" target="_blank">89ef480</a>
+</td>
+<td>
+Andy Beck
+</td>
+<td>
+2022-10-13
+</td>
+</tr>
 <tr>
 <td>
 <a href="https://github.com/theandyb/LSCI/blob/8efd19442c9de034abbbb0dd98c9ccc230aaf7ed/docs/figure/1000G_single_position_ALL.Rmd/unnamed-chunk-18-1.png" target="_blank">8efd194</a>
@@ -3910,6 +4226,17 @@ Date
 <tbody>
 <tr>
 <td>
+<a href="https://github.com/theandyb/LSCI/blob/89ef48084455f0aa89b81735a010c40896181c76/docs/figure/1000G_single_position_ALL.Rmd/unnamed-chunk-18-2.png" target="_blank">89ef480</a>
+</td>
+<td>
+Andy Beck
+</td>
+<td>
+2022-10-13
+</td>
+</tr>
+<tr>
+<td>
 <a href="https://github.com/theandyb/LSCI/blob/8efd19442c9de034abbbb0dd98c9ccc230aaf7ed/docs/figure/1000G_single_position_ALL.Rmd/unnamed-chunk-18-2.png" target="_blank">8efd194</a>
 </td>
 <td>
@@ -3981,6 +4308,17 @@ Date
 <tbody>
 <tr>
 <td>
+<a href="https://github.com/theandyb/LSCI/blob/89ef48084455f0aa89b81735a010c40896181c76/docs/figure/1000G_single_position_ALL.Rmd/unnamed-chunk-18-3.png" target="_blank">89ef480</a>
+</td>
+<td>
+Andy Beck
+</td>
+<td>
+2022-10-13
+</td>
+</tr>
+<tr>
+<td>
 <a href="https://github.com/theandyb/LSCI/blob/f2caf10c40ca59da49b76ef834e400b45b2a335e/docs/figure/1000G_single_position_ALL.Rmd/unnamed-chunk-18-3.png" target="_blank">f2caf10</a>
 </td>
 <td>
@@ -4026,79 +4364,79 @@ Andy Beck
 <tbody>
 <tr class="odd">
 <td align="right">-10</td>
-<td align="right">0.0000047</td>
+<td align="right">0.0000113</td>
 </tr>
 <tr class="even">
 <td align="right">-9</td>
-<td align="right">0.0001477</td>
+<td align="right">0.0001681</td>
 </tr>
 <tr class="odd">
 <td align="right">-8</td>
-<td align="right">0.0001960</td>
+<td align="right">0.0002334</td>
 </tr>
 <tr class="even">
 <td align="right">-7</td>
-<td align="right">0.0001015</td>
+<td align="right">0.0000733</td>
 </tr>
 <tr class="odd">
 <td align="right">-6</td>
-<td align="right">0.0000600</td>
+<td align="right">0.0000710</td>
 </tr>
 <tr class="even">
 <td align="right">-5</td>
-<td align="right">0.0011306</td>
+<td align="right">0.0014556</td>
 </tr>
 <tr class="odd">
 <td align="right">-4</td>
-<td align="right">0.0010154</td>
+<td align="right">0.0012971</td>
 </tr>
 <tr class="even">
 <td align="right">-3</td>
-<td align="right">0.0004272</td>
+<td align="right">0.0004744</td>
 </tr>
 <tr class="odd">
 <td align="right">-2</td>
-<td align="right">0.0012377</td>
+<td align="right">0.0012161</td>
 </tr>
 <tr class="even">
 <td align="right">-1</td>
-<td align="right">0.0031616</td>
+<td align="right">0.0043450</td>
 </tr>
 <tr class="odd">
 <td align="right">2</td>
-<td align="right">0.0000338</td>
+<td align="right">0.0001054</td>
 </tr>
 <tr class="even">
 <td align="right">3</td>
-<td align="right">0.0000362</td>
+<td align="right">0.0000623</td>
 </tr>
 <tr class="odd">
 <td align="right">4</td>
-<td align="right">0.0002136</td>
+<td align="right">0.0001383</td>
 </tr>
 <tr class="even">
 <td align="right">5</td>
-<td align="right">0.0000701</td>
+<td align="right">0.0001594</td>
 </tr>
 <tr class="odd">
 <td align="right">6</td>
-<td align="right">0.0004253</td>
+<td align="right">0.0004635</td>
 </tr>
 <tr class="even">
 <td align="right">7</td>
-<td align="right">0.0002553</td>
+<td align="right">0.0003341</td>
 </tr>
 <tr class="odd">
 <td align="right">8</td>
-<td align="right">0.0001585</td>
+<td align="right">0.0001507</td>
 </tr>
 <tr class="even">
 <td align="right">9</td>
-<td align="right">0.0001237</td>
+<td align="right">0.0001402</td>
 </tr>
 <tr class="odd">
 <td align="right">10</td>
-<td align="right">0.0000395</td>
+<td align="right">0.0000193</td>
 </tr>
 </tbody>
 </table>
@@ -4131,6 +4469,17 @@ Date
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+<a href="https://github.com/theandyb/LSCI/blob/89ef48084455f0aa89b81735a010c40896181c76/docs/figure/1000G_single_position_ALL.Rmd/unnamed-chunk-20-1.png" target="_blank">89ef480</a>
+</td>
+<td>
+Andy Beck
+</td>
+<td>
+2022-10-13
+</td>
+</tr>
 <tr>
 <td>
 <a href="https://github.com/theandyb/LSCI/blob/8efd19442c9de034abbbb0dd98c9ccc230aaf7ed/docs/figure/1000G_single_position_ALL.Rmd/unnamed-chunk-20-1.png" target="_blank">8efd194</a>
@@ -4203,6 +4552,17 @@ Date
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+<a href="https://github.com/theandyb/LSCI/blob/89ef48084455f0aa89b81735a010c40896181c76/docs/figure/1000G_single_position_ALL.Rmd/unnamed-chunk-20-2.png" target="_blank">89ef480</a>
+</td>
+<td>
+Andy Beck
+</td>
+<td>
+2022-10-13
+</td>
+</tr>
 <tr>
 <td>
 <a href="https://github.com/theandyb/LSCI/blob/8efd19442c9de034abbbb0dd98c9ccc230aaf7ed/docs/figure/1000G_single_position_ALL.Rmd/unnamed-chunk-20-2.png" target="_blank">8efd194</a>
@@ -4278,6 +4638,17 @@ Date
 <tbody>
 <tr>
 <td>
+<a href="https://github.com/theandyb/LSCI/blob/89ef48084455f0aa89b81735a010c40896181c76/docs/figure/1000G_single_position_ALL.Rmd/unnamed-chunk-20-3.png" target="_blank">89ef480</a>
+</td>
+<td>
+Andy Beck
+</td>
+<td>
+2022-10-13
+</td>
+</tr>
+<tr>
+<td>
 <a href="https://github.com/theandyb/LSCI/blob/8efd19442c9de034abbbb0dd98c9ccc230aaf7ed/docs/figure/1000G_single_position_ALL.Rmd/unnamed-chunk-20-3.png" target="_blank">8efd194</a>
 </td>
 <td>
@@ -4313,83 +4684,83 @@ Andy Beck
 <tbody>
 <tr class="odd">
 <td align="right">-10</td>
-<td align="right">0.0000053</td>
+<td align="right">0.0000090</td>
 </tr>
 <tr class="even">
 <td align="right">-9</td>
-<td align="right">0.0000247</td>
+<td align="right">0.0000111</td>
 </tr>
 <tr class="odd">
 <td align="right">-8</td>
-<td align="right">0.0000182</td>
+<td align="right">0.0000405</td>
 </tr>
 <tr class="even">
 <td align="right">-7</td>
-<td align="right">0.0000168</td>
+<td align="right">0.0000592</td>
 </tr>
 <tr class="odd">
 <td align="right">-6</td>
-<td align="right">0.0000644</td>
+<td align="right">0.0001182</td>
 </tr>
 <tr class="even">
 <td align="right">-5</td>
-<td align="right">0.0001625</td>
+<td align="right">0.0001887</td>
 </tr>
 <tr class="odd">
 <td align="right">-4</td>
-<td align="right">0.0002442</td>
+<td align="right">0.0003540</td>
 </tr>
 <tr class="even">
 <td align="right">-3</td>
-<td align="right">0.0004206</td>
+<td align="right">0.0004440</td>
 </tr>
 <tr class="odd">
 <td align="right">-2</td>
-<td align="right">0.0026430</td>
+<td align="right">0.0029644</td>
 </tr>
 <tr class="even">
 <td align="right">-1</td>
-<td align="right">0.0007271</td>
+<td align="right">0.0005922</td>
 </tr>
 <tr class="odd">
 <td align="right">1</td>
-<td align="right">0.0018203</td>
+<td align="right">0.0018301</td>
 </tr>
 <tr class="even">
 <td align="right">2</td>
-<td align="right">0.0006639</td>
+<td align="right">0.0006471</td>
 </tr>
 <tr class="odd">
 <td align="right">3</td>
-<td align="right">0.0006457</td>
+<td align="right">0.0006550</td>
 </tr>
 <tr class="even">
 <td align="right">4</td>
-<td align="right">0.0000783</td>
+<td align="right">0.0001154</td>
 </tr>
 <tr class="odd">
 <td align="right">5</td>
-<td align="right">0.0002419</td>
+<td align="right">0.0003318</td>
 </tr>
 <tr class="even">
 <td align="right">6</td>
-<td align="right">0.0000994</td>
+<td align="right">0.0001249</td>
 </tr>
 <tr class="odd">
 <td align="right">7</td>
-<td align="right">0.0000529</td>
+<td align="right">0.0000390</td>
 </tr>
 <tr class="even">
 <td align="right">8</td>
-<td align="right">0.0000134</td>
+<td align="right">0.0000173</td>
 </tr>
 <tr class="odd">
 <td align="right">9</td>
-<td align="right">0.0000269</td>
+<td align="right">0.0000572</td>
 </tr>
 <tr class="even">
 <td align="right">10</td>
-<td align="right">0.0000026</td>
+<td align="right">0.0000158</td>
 </tr>
 </tbody>
 </table>
@@ -4421,6 +4792,17 @@ Date
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+<a href="https://github.com/theandyb/LSCI/blob/89ef48084455f0aa89b81735a010c40896181c76/docs/figure/1000G_single_position_ALL.Rmd/unnamed-chunk-22-1.png" target="_blank">89ef480</a>
+</td>
+<td>
+Andy Beck
+</td>
+<td>
+2022-10-13
+</td>
+</tr>
 <tr>
 <td>
 <a href="https://github.com/theandyb/LSCI/blob/8efd19442c9de034abbbb0dd98c9ccc230aaf7ed/docs/figure/1000G_single_position_ALL.Rmd/unnamed-chunk-22-1.png" target="_blank">8efd194</a>
@@ -4516,6 +4898,17 @@ Date
 <tbody>
 <tr>
 <td>
+<a href="https://github.com/theandyb/LSCI/blob/89ef48084455f0aa89b81735a010c40896181c76/docs/figure/1000G_single_position_ALL.Rmd/unnamed-chunk-22-2.png" target="_blank">89ef480</a>
+</td>
+<td>
+Andy Beck
+</td>
+<td>
+2022-10-13
+</td>
+</tr>
+<tr>
+<td>
 <a href="https://github.com/theandyb/LSCI/blob/8efd19442c9de034abbbb0dd98c9ccc230aaf7ed/docs/figure/1000G_single_position_ALL.Rmd/unnamed-chunk-22-2.png" target="_blank">8efd194</a>
 </td>
 <td>
@@ -4598,6 +4991,17 @@ Date
 <tbody>
 <tr>
 <td>
+<a href="https://github.com/theandyb/LSCI/blob/89ef48084455f0aa89b81735a010c40896181c76/docs/figure/1000G_single_position_ALL.Rmd/unnamed-chunk-22-3.png" target="_blank">89ef480</a>
+</td>
+<td>
+Andy Beck
+</td>
+<td>
+2022-10-13
+</td>
+</tr>
+<tr>
+<td>
 <a href="https://github.com/theandyb/LSCI/blob/f2caf10c40ca59da49b76ef834e400b45b2a335e/docs/figure/1000G_single_position_ALL.Rmd/unnamed-chunk-22-3.png" target="_blank">f2caf10</a>
 </td>
 <td>
@@ -4632,79 +5036,79 @@ Andy Beck
 <tbody>
 <tr class="odd">
 <td align="right">-10</td>
-<td align="right">0.0000012</td>
+<td align="right">0.0000118</td>
 </tr>
 <tr class="even">
 <td align="right">-9</td>
-<td align="right">0.0000736</td>
+<td align="right">0.0000669</td>
 </tr>
 <tr class="odd">
 <td align="right">-8</td>
-<td align="right">0.0000565</td>
+<td align="right">0.0000549</td>
 </tr>
 <tr class="even">
 <td align="right">-7</td>
-<td align="right">0.0000774</td>
+<td align="right">0.0000685</td>
 </tr>
 <tr class="odd">
 <td align="right">-6</td>
-<td align="right">0.0000628</td>
+<td align="right">0.0001085</td>
 </tr>
 <tr class="even">
 <td align="right">-5</td>
-<td align="right">0.0002818</td>
+<td align="right">0.0004394</td>
 </tr>
 <tr class="odd">
 <td align="right">-4</td>
-<td align="right">0.0001311</td>
+<td align="right">0.0002363</td>
 </tr>
 <tr class="even">
 <td align="right">-3</td>
-<td align="right">0.0003317</td>
+<td align="right">0.0005004</td>
 </tr>
 <tr class="odd">
 <td align="right">-2</td>
-<td align="right">0.0015689</td>
+<td align="right">0.0012841</td>
 </tr>
 <tr class="even">
 <td align="right">-1</td>
-<td align="right">0.0018258</td>
+<td align="right">0.0013624</td>
 </tr>
 <tr class="odd">
 <td align="right">2</td>
-<td align="right">0.0019833</td>
+<td align="right">0.0009069</td>
 </tr>
 <tr class="even">
 <td align="right">3</td>
-<td align="right">0.0012087</td>
+<td align="right">0.0012555</td>
 </tr>
 <tr class="odd">
 <td align="right">4</td>
-<td align="right">0.0002256</td>
+<td align="right">0.0003149</td>
 </tr>
 <tr class="even">
 <td align="right">5</td>
-<td align="right">0.0003791</td>
+<td align="right">0.0004261</td>
 </tr>
 <tr class="odd">
 <td align="right">6</td>
-<td align="right">0.0000706</td>
+<td align="right">0.0001526</td>
 </tr>
 <tr class="even">
 <td align="right">7</td>
-<td align="right">0.0001300</td>
+<td align="right">0.0001067</td>
 </tr>
 <tr class="odd">
 <td align="right">8</td>
-<td align="right">0.0001487</td>
+<td align="right">0.0001179</td>
 </tr>
 <tr class="even">
 <td align="right">9</td>
-<td align="right">0.0000509</td>
+<td align="right">0.0000505</td>
 </tr>
 <tr class="odd">
 <td align="right">10</td>
-<td align="right">0.0000152</td>
+<td align="right">0.0000054</td>
 </tr>
 </tbody>
 </table>
@@ -4755,6 +5159,17 @@ Date
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+<a href="https://github.com/theandyb/LSCI/blob/89ef48084455f0aa89b81735a010c40896181c76/docs/figure/1000G_single_position_ALL.Rmd/unnamed-chunk-25-1.png" target="_blank">89ef480</a>
+</td>
+<td>
+Andy Beck
+</td>
+<td>
+2022-10-13
+</td>
+</tr>
 <tr>
 <td>
 <a href="https://github.com/theandyb/LSCI/blob/8efd19442c9de034abbbb0dd98c9ccc230aaf7ed/docs/figure/1000G_single_position_ALL.Rmd/unnamed-chunk-25-1.png" target="_blank">8efd194</a>
@@ -4861,6 +5276,17 @@ Date
 <tbody>
 <tr>
 <td>
+<a href="https://github.com/theandyb/LSCI/blob/89ef48084455f0aa89b81735a010c40896181c76/docs/figure/1000G_single_position_ALL.Rmd/unnamed-chunk-25-2.png" target="_blank">89ef480</a>
+</td>
+<td>
+Andy Beck
+</td>
+<td>
+2022-10-13
+</td>
+</tr>
+<tr>
+<td>
 <a href="https://github.com/theandyb/LSCI/blob/8efd19442c9de034abbbb0dd98c9ccc230aaf7ed/docs/figure/1000G_single_position_ALL.Rmd/unnamed-chunk-25-2.png" target="_blank">8efd194</a>
 </td>
 <td>
@@ -4960,6 +5386,17 @@ Date
 <tbody>
 <tr>
 <td>
+<a href="https://github.com/theandyb/LSCI/blob/89ef48084455f0aa89b81735a010c40896181c76/docs/figure/1000G_single_position_ALL.Rmd/unnamed-chunk-26-1.png" target="_blank">89ef480</a>
+</td>
+<td>
+Andy Beck
+</td>
+<td>
+2022-10-13
+</td>
+</tr>
+<tr>
+<td>
 <a href="https://github.com/theandyb/LSCI/blob/8efd19442c9de034abbbb0dd98c9ccc230aaf7ed/docs/figure/1000G_single_position_ALL.Rmd/unnamed-chunk-26-1.png" target="_blank">8efd194</a>
 </td>
 <td>
@@ -5051,6 +5488,17 @@ Date
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+<a href="https://github.com/theandyb/LSCI/blob/89ef48084455f0aa89b81735a010c40896181c76/docs/figure/1000G_single_position_ALL.Rmd/unnamed-chunk-26-2.png" target="_blank">89ef480</a>
+</td>
+<td>
+Andy Beck
+</td>
+<td>
+2022-10-13
+</td>
+</tr>
 <tr>
 <td>
 <a href="https://github.com/theandyb/LSCI/blob/8efd19442c9de034abbbb0dd98c9ccc230aaf7ed/docs/figure/1000G_single_position_ALL.Rmd/unnamed-chunk-26-2.png" target="_blank">8efd194</a>
@@ -5149,6 +5597,17 @@ Date
 <tbody>
 <tr>
 <td>
+<a href="https://github.com/theandyb/LSCI/blob/89ef48084455f0aa89b81735a010c40896181c76/docs/figure/1000G_single_position_ALL.Rmd/unnamed-chunk-27-1.png" target="_blank">89ef480</a>
+</td>
+<td>
+Andy Beck
+</td>
+<td>
+2022-10-13
+</td>
+</tr>
+<tr>
+<td>
 <a href="https://github.com/theandyb/LSCI/blob/8efd19442c9de034abbbb0dd98c9ccc230aaf7ed/docs/figure/1000G_single_position_ALL.Rmd/unnamed-chunk-27-1.png" target="_blank">8efd194</a>
 </td>
 <td>
@@ -5240,6 +5699,17 @@ Date
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+<a href="https://github.com/theandyb/LSCI/blob/89ef48084455f0aa89b81735a010c40896181c76/docs/figure/1000G_single_position_ALL.Rmd/unnamed-chunk-27-2.png" target="_blank">89ef480</a>
+</td>
+<td>
+Andy Beck
+</td>
+<td>
+2022-10-13
+</td>
+</tr>
 <tr>
 <td>
 <a href="https://github.com/theandyb/LSCI/blob/8efd19442c9de034abbbb0dd98c9ccc230aaf7ed/docs/figure/1000G_single_position_ALL.Rmd/unnamed-chunk-27-2.png" target="_blank">8efd194</a>
@@ -5338,6 +5808,17 @@ Date
 <tbody>
 <tr>
 <td>
+<a href="https://github.com/theandyb/LSCI/blob/89ef48084455f0aa89b81735a010c40896181c76/docs/figure/1000G_single_position_ALL.Rmd/unnamed-chunk-28-1.png" target="_blank">89ef480</a>
+</td>
+<td>
+Andy Beck
+</td>
+<td>
+2022-10-13
+</td>
+</tr>
+<tr>
+<td>
 <a href="https://github.com/theandyb/LSCI/blob/8efd19442c9de034abbbb0dd98c9ccc230aaf7ed/docs/figure/1000G_single_position_ALL.Rmd/unnamed-chunk-28-1.png" target="_blank">8efd194</a>
 </td>
 <td>
@@ -5429,6 +5910,17 @@ Date
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+<a href="https://github.com/theandyb/LSCI/blob/89ef48084455f0aa89b81735a010c40896181c76/docs/figure/1000G_single_position_ALL.Rmd/unnamed-chunk-28-2.png" target="_blank">89ef480</a>
+</td>
+<td>
+Andy Beck
+</td>
+<td>
+2022-10-13
+</td>
+</tr>
 <tr>
 <td>
 <a href="https://github.com/theandyb/LSCI/blob/8efd19442c9de034abbbb0dd98c9ccc230aaf7ed/docs/figure/1000G_single_position_ALL.Rmd/unnamed-chunk-28-2.png" target="_blank">8efd194</a>
@@ -5527,6 +6019,17 @@ Date
 <tbody>
 <tr>
 <td>
+<a href="https://github.com/theandyb/LSCI/blob/89ef48084455f0aa89b81735a010c40896181c76/docs/figure/1000G_single_position_ALL.Rmd/unnamed-chunk-29-1.png" target="_blank">89ef480</a>
+</td>
+<td>
+Andy Beck
+</td>
+<td>
+2022-10-13
+</td>
+</tr>
+<tr>
+<td>
 <a href="https://github.com/theandyb/LSCI/blob/8efd19442c9de034abbbb0dd98c9ccc230aaf7ed/docs/figure/1000G_single_position_ALL.Rmd/unnamed-chunk-29-1.png" target="_blank">8efd194</a>
 </td>
 <td>
@@ -5618,6 +6121,17 @@ Date
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+<a href="https://github.com/theandyb/LSCI/blob/89ef48084455f0aa89b81735a010c40896181c76/docs/figure/1000G_single_position_ALL.Rmd/unnamed-chunk-29-2.png" target="_blank">89ef480</a>
+</td>
+<td>
+Andy Beck
+</td>
+<td>
+2022-10-13
+</td>
+</tr>
 <tr>
 <td>
 <a href="https://github.com/theandyb/LSCI/blob/8efd19442c9de034abbbb0dd98c9ccc230aaf7ed/docs/figure/1000G_single_position_ALL.Rmd/unnamed-chunk-29-2.png" target="_blank">8efd194</a>
@@ -5716,6 +6230,17 @@ Date
 <tbody>
 <tr>
 <td>
+<a href="https://github.com/theandyb/LSCI/blob/89ef48084455f0aa89b81735a010c40896181c76/docs/figure/1000G_single_position_ALL.Rmd/unnamed-chunk-30-1.png" target="_blank">89ef480</a>
+</td>
+<td>
+Andy Beck
+</td>
+<td>
+2022-10-13
+</td>
+</tr>
+<tr>
+<td>
 <a href="https://github.com/theandyb/LSCI/blob/8efd19442c9de034abbbb0dd98c9ccc230aaf7ed/docs/figure/1000G_single_position_ALL.Rmd/unnamed-chunk-30-1.png" target="_blank">8efd194</a>
 </td>
 <td>
@@ -5807,6 +6332,17 @@ Date
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+<a href="https://github.com/theandyb/LSCI/blob/89ef48084455f0aa89b81735a010c40896181c76/docs/figure/1000G_single_position_ALL.Rmd/unnamed-chunk-30-2.png" target="_blank">89ef480</a>
+</td>
+<td>
+Andy Beck
+</td>
+<td>
+2022-10-13
+</td>
+</tr>
 <tr>
 <td>
 <a href="https://github.com/theandyb/LSCI/blob/8efd19442c9de034abbbb0dd98c9ccc230aaf7ed/docs/figure/1000G_single_position_ALL.Rmd/unnamed-chunk-30-2.png" target="_blank">8efd194</a>
@@ -5905,6 +6441,17 @@ Date
 <tbody>
 <tr>
 <td>
+<a href="https://github.com/theandyb/LSCI/blob/89ef48084455f0aa89b81735a010c40896181c76/docs/figure/1000G_single_position_ALL.Rmd/unnamed-chunk-31-1.png" target="_blank">89ef480</a>
+</td>
+<td>
+Andy Beck
+</td>
+<td>
+2022-10-13
+</td>
+</tr>
+<tr>
+<td>
 <a href="https://github.com/theandyb/LSCI/blob/8efd19442c9de034abbbb0dd98c9ccc230aaf7ed/docs/figure/1000G_single_position_ALL.Rmd/unnamed-chunk-31-1.png" target="_blank">8efd194</a>
 </td>
 <td>
@@ -5996,6 +6543,17 @@ Date
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+<a href="https://github.com/theandyb/LSCI/blob/89ef48084455f0aa89b81735a010c40896181c76/docs/figure/1000G_single_position_ALL.Rmd/unnamed-chunk-31-2.png" target="_blank">89ef480</a>
+</td>
+<td>
+Andy Beck
+</td>
+<td>
+2022-10-13
+</td>
+</tr>
 <tr>
 <td>
 <a href="https://github.com/theandyb/LSCI/blob/8efd19442c9de034abbbb0dd98c9ccc230aaf7ed/docs/figure/1000G_single_position_ALL.Rmd/unnamed-chunk-31-2.png" target="_blank">8efd194</a>
@@ -6094,6 +6652,17 @@ Date
 <tbody>
 <tr>
 <td>
+<a href="https://github.com/theandyb/LSCI/blob/89ef48084455f0aa89b81735a010c40896181c76/docs/figure/1000G_single_position_ALL.Rmd/unnamed-chunk-32-1.png" target="_blank">89ef480</a>
+</td>
+<td>
+Andy Beck
+</td>
+<td>
+2022-10-13
+</td>
+</tr>
+<tr>
+<td>
 <a href="https://github.com/theandyb/LSCI/blob/8efd19442c9de034abbbb0dd98c9ccc230aaf7ed/docs/figure/1000G_single_position_ALL.Rmd/unnamed-chunk-32-1.png" target="_blank">8efd194</a>
 </td>
 <td>
@@ -6185,6 +6754,17 @@ Date
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+<a href="https://github.com/theandyb/LSCI/blob/89ef48084455f0aa89b81735a010c40896181c76/docs/figure/1000G_single_position_ALL.Rmd/unnamed-chunk-32-2.png" target="_blank">89ef480</a>
+</td>
+<td>
+Andy Beck
+</td>
+<td>
+2022-10-13
+</td>
+</tr>
 <tr>
 <td>
 <a href="https://github.com/theandyb/LSCI/blob/8efd19442c9de034abbbb0dd98c9ccc230aaf7ed/docs/figure/1000G_single_position_ALL.Rmd/unnamed-chunk-32-2.png" target="_blank">8efd194</a>
@@ -6281,6 +6861,17 @@ Date
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+<a href="https://github.com/theandyb/LSCI/blob/89ef48084455f0aa89b81735a010c40896181c76/docs/figure/1000G_single_position_ALL.Rmd/unnamed-chunk-33-1.png" target="_blank">89ef480</a>
+</td>
+<td>
+Andy Beck
+</td>
+<td>
+2022-10-13
+</td>
+</tr>
 <tr>
 <td>
 <a href="https://github.com/theandyb/LSCI/blob/8efd19442c9de034abbbb0dd98c9ccc230aaf7ed/docs/figure/1000G_single_position_ALL.Rmd/unnamed-chunk-33-1.png" target="_blank">8efd194</a>
@@ -6387,6 +6978,17 @@ Date
 <tbody>
 <tr>
 <td>
+<a href="https://github.com/theandyb/LSCI/blob/89ef48084455f0aa89b81735a010c40896181c76/docs/figure/1000G_single_position_ALL.Rmd/unnamed-chunk-33-2.png" target="_blank">89ef480</a>
+</td>
+<td>
+Andy Beck
+</td>
+<td>
+2022-10-13
+</td>
+</tr>
+<tr>
+<td>
 <a href="https://github.com/theandyb/LSCI/blob/8efd19442c9de034abbbb0dd98c9ccc230aaf7ed/docs/figure/1000G_single_position_ALL.Rmd/unnamed-chunk-33-2.png" target="_blank">8efd194</a>
 </td>
 <td>
@@ -6488,47 +7090,47 @@ knitr::kable(final)</code></pre>
 <tr class="odd">
 <td align="left">AT_CG</td>
 <td align="right">-1</td>
-<td align="right">0.0018943</td>
+<td align="right">0.0018830</td>
 </tr>
 <tr class="even">
 <td align="left">AT_GC</td>
 <td align="right">1</td>
-<td align="right">0.0093950</td>
+<td align="right">0.0103117</td>
 </tr>
 <tr class="odd">
 <td align="left">AT_TA</td>
 <td align="right">1</td>
-<td align="right">0.0043604</td>
+<td align="right">0.0049210</td>
 </tr>
 <tr class="even">
 <td align="left">GC_AT</td>
 <td align="right">-1</td>
-<td align="right">0.0013837</td>
+<td align="right">0.0016534</td>
 </tr>
 <tr class="odd">
 <td align="left">GC_TA</td>
 <td align="right">1</td>
-<td align="right">0.0033239</td>
+<td align="right">0.0038029</td>
 </tr>
 <tr class="even">
 <td align="left">GC_CG</td>
 <td align="right">-2</td>
-<td align="right">0.0026430</td>
+<td align="right">0.0029644</td>
 </tr>
 <tr class="odd">
 <td align="left">cpg_GC_AT</td>
 <td align="right">-1</td>
-<td align="right">0.0004776</td>
+<td align="right">0.0011243</td>
 </tr>
 <tr class="even">
 <td align="left">cpg_GC_TA</td>
 <td align="right">-1</td>
-<td align="right">0.0031616</td>
+<td align="right">0.0043450</td>
 </tr>
 <tr class="odd">
 <td align="left">cpg_GC_CG</td>
-<td align="right">2</td>
-<td align="right">0.0019833</td>
+<td align="right">-1</td>
+<td align="right">0.0013624</td>
 </tr>
 </tbody>
 </table>
@@ -6582,6 +7184,17 @@ Date
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+<a href="https://github.com/theandyb/LSCI/blob/89ef48084455f0aa89b81735a010c40896181c76/docs/figure/1000G_single_position_ALL.Rmd/unnamed-chunk-35-1.png" target="_blank">89ef480</a>
+</td>
+<td>
+Andy Beck
+</td>
+<td>
+2022-10-13
+</td>
+</tr>
 <tr>
 <td>
 <a href="https://github.com/theandyb/LSCI/blob/8efd19442c9de034abbbb0dd98c9ccc230aaf7ed/docs/figure/1000G_single_position_ALL.Rmd/unnamed-chunk-35-1.png" target="_blank">8efd194</a>
@@ -6685,6 +7298,17 @@ Date
 <tbody>
 <tr>
 <td>
+<a href="https://github.com/theandyb/LSCI/blob/89ef48084455f0aa89b81735a010c40896181c76/docs/figure/1000G_single_position_ALL.Rmd/unnamed-chunk-35-2.png" target="_blank">89ef480</a>
+</td>
+<td>
+Andy Beck
+</td>
+<td>
+2022-10-13
+</td>
+</tr>
+<tr>
+<td>
 <a href="https://github.com/theandyb/LSCI/blob/f09d3f581fbdd6b63c6a979ab8292335488a38b9/docs/figure/1000G_single_position_ALL.Rmd/unnamed-chunk-35-2.png" target="_blank">f09d3f5</a>
 </td>
 <td>
@@ -6776,6 +7400,17 @@ Date
 <tbody>
 <tr>
 <td>
+<a href="https://github.com/theandyb/LSCI/blob/89ef48084455f0aa89b81735a010c40896181c76/docs/figure/1000G_single_position_ALL.Rmd/unnamed-chunk-35-3.png" target="_blank">89ef480</a>
+</td>
+<td>
+Andy Beck
+</td>
+<td>
+2022-10-13
+</td>
+</tr>
+<tr>
+<td>
 <a href="https://github.com/theandyb/LSCI/blob/f8c482b346f13cf610e79019a6b74d88ca33c973/docs/figure/1000G_single_position_ALL.Rmd/unnamed-chunk-35-3.png" target="_blank">f8c482b</a>
 </td>
 <td>
@@ -6845,6 +7480,17 @@ Date
 <tbody>
 <tr>
 <td>
+<a href="https://github.com/theandyb/LSCI/blob/89ef48084455f0aa89b81735a010c40896181c76/docs/figure/1000G_single_position_ALL.Rmd/unnamed-chunk-35-4.png" target="_blank">89ef480</a>
+</td>
+<td>
+Andy Beck
+</td>
+<td>
+2022-10-13
+</td>
+</tr>
+<tr>
+<td>
 <a href="https://github.com/theandyb/LSCI/blob/f8c482b346f13cf610e79019a6b74d88ca33c973/docs/figure/1000G_single_position_ALL.Rmd/unnamed-chunk-35-4.png" target="_blank">f8c482b</a>
 </td>
 <td>
@@ -6889,7 +7535,7 @@ Session information
 </p>
 <div id="workflowr-sessioninfo" class="collapse">
 <pre class="r"><code>sessionInfo()</code></pre>
-<pre><code>R version 4.2.1 (2022-06-23)
+<pre><code>R version 4.2.2 Patched (2022-11-10 r83330)
 Platform: x86_64-pc-linux-gnu (64-bit)
 Running under: Ubuntu 18.04.6 LTS
 
@@ -6921,14 +7567,14 @@ loaded via a namespace (and not attached):
  [10] fs_1.5.2            rstudioapi_0.13     farver_2.1.0       
  [13] bit64_4.0.5         fansi_1.0.3         mvtnorm_1.1-3      
  [16] lubridate_1.8.0     xml2_1.3.3          codetools_0.2-18   
- [19] splines_4.2.1       knitr_1.40          sjmisc_2.8.9       
+ [19] splines_4.2.2       knitr_1.40          sjmisc_2.8.9       
  [22] jsonlite_1.8.0      nloptr_2.0.3        ggeffects_1.1.3    
  [25] broom_1.0.0         dbplyr_2.1.1        effectsize_0.7.0.5 
- [28] compiler_4.2.1      httr_1.4.3          sjstats_0.18.1     
+ [28] compiler_4.2.2      httr_1.4.3          sjstats_0.18.1     
  [31] emmeans_1.8.1-1     backports_1.4.1     assertthat_0.2.1   
  [34] Matrix_1.4-1        fastmap_1.1.0       gargle_1.2.0       
  [37] cli_3.3.0           later_1.3.0         htmltools_0.5.2    
- [40] tools_4.2.1         coda_0.19-4         gtable_0.3.0       
+ [40] tools_4.2.2         coda_0.19-4         gtable_0.3.0       
  [43] glue_1.6.2          Rcpp_1.0.8.3        cellranger_1.1.0   
  [46] jquerylib_0.1.4     vctrs_0.4.1         filehash_2.4-3     
  [49] nlme_3.1-157        insight_0.18.4      xfun_0.31          
@@ -6936,7 +7582,7 @@ loaded via a namespace (and not attached):
  [55] lifecycle_1.0.1     googlesheets4_1.0.0 getPass_0.2-2      
  [58] MASS_7.3-58.1       zoo_1.8-10          scales_1.2.0       
  [61] vroom_1.5.7         ragg_1.2.2          hms_1.1.1          
- [64] promises_1.2.0.1    parallel_4.2.1      sandwich_3.0-1     
+ [64] promises_1.2.0.1    parallel_4.2.2      sandwich_3.0-1     
  [67] yaml_2.3.5          sass_0.4.1          stringi_1.7.6      
  [70] highr_0.9           bayestestR_0.12.1   boot_1.3-28        
  [73] systemfonts_1.0.4   rlang_1.0.4         pkgconfig_2.0.3    
@@ -6947,7 +7593,7 @@ loaded via a namespace (and not attached):
  [88] haven_2.5.0         whisker_0.4         withr_2.5.0        
  [91] survival_3.3-1      datawizard_0.6.2    performance_0.10.0 
  [94] modelr_0.1.8        crayon_1.5.1        utf8_1.2.2         
- [97] tzdb_0.3.0          rmarkdown_2.14      grid_4.2.1         
+ [97] tzdb_0.3.0          rmarkdown_2.14      grid_4.2.2         
 [100] readxl_1.4.0        callr_3.7.0         git2r_0.30.1       
 [103] reprex_2.0.1        digest_0.6.29       xtable_1.8-4       
 [106] httpuv_1.6.5        textshaping_0.3.6   munsell_0.5.0      
