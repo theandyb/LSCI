@@ -1,0 +1,66 @@
+---
+title: "1000G_near_far_control"
+author: "Andy Beck"
+date: "2022-12-01"
+output: workflowr::wflow_html
+editor_options:
+  chunk_output_type: console
+---
+
+## Introduction
+
+```{r}
+library(tidyverse)
+input_dir <- "/net/snowwhite/home/beckandy/research/1000G_LSCI/output/controls/ALL/"
+```
+
+Function for getting the nucleotide distribution at a given flanking position:
+
+```{r}
+get_count <- function(subtype, rp){
+  input_dir <- "/net/snowwhite/home/beckandy/research/1000G_LSCI/output/controls/ALL/"
+  ix <- rp + 11
+  f_name <- paste0(input_dir, subtype, ".txt")
+  awk_cmd <- paste0("awk '{count[substr($1,", ix, ",1)]++}END{for(key in count)print(key,\"\\t\",count[key])}' ", f_name)
+  df <- vroom::vroom(pipe(awk_cmd), delim = "\t", col_names = c("Nuc", "n"), show_col_types = FALSE)
+  return(df)
+}
+```
+
+Function for computing chi square between min and max for a position:
+
+```{r}
+get_stat <- function(subtype, rp){
+  min_tab <- get_count(paste0(subtype, "_min"), rp) %>%
+    rename(min = n)
+  max_tab <- get_count(paste0(subtype, "_max"), rp) %>%
+    rename(max = n)
+  df <- inner_join(min_tab, max_tab, by = "Nuc") %>%
+    mutate(p_min = min / sum(min),
+           p_max = max / sum(max)) %>%
+    mutate(e_max = sum(max) * p_min,
+           e_min = sum(min) * p_max) %>%
+    mutate(chi_min = (min - e_min)^2 / e_min,
+           chi_max = (max - e_max)^2 / e_max)
+  chi_obj <- chisq.test(df$max, p=df$min/sum(df$min))
+  return(chi_obj$statistic %>% as.numeric())
+}
+```
+
+```{r}
+results <- c()
+
+for(i in c(-10:-1, 1:10)){
+  print(i)
+  results <- c(results, get_stat("AT_TA", i))
+}
+df <- data.frame(rp = c(-10:-1,1:10), dev=results)
+
+df %>% 
+  ggplot(aes(x = rp, y = dev)) + 
+  geom_point() +
+  ggtitle("Comparing nearest to furthest control: AT_TA") +
+  xlab("Relative Position") +
+  ylab("Chi Sq GoF")
+```
+

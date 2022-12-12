@@ -1,0 +1,318 @@
+---
+title: "1KGP 100bp Window Single-Position Results"
+author: "Andy Beck"
+date: "2022-12-01"
+output: workflowr::wflow_html
+editor_options:
+  chunk_output_type: console
+---
+
+## Introduction
+
+```{r}
+library(tidyverse)
+data_dir <- "/net/snowwhite/home/beckandy/research/1000G_LSCI/scratch/100bp_sp/"
+```
+
+
+Here in this document we'll explore the deviance statistics observed in the +/- 100 bp
+window for the single position models.
+
+Let's first look at the AT_GC subtype:
+
+### AT_GC
+
+```{r}
+subtype <- "AT_GC"
+df <- read_csv(paste0(data_dir, subtype, ".csv"))
+
+df %>%
+  mutate(is_sig = dev > 11.345) %>%
+  mutate(n = singletons + controls) %>%
+  ggplot(aes(x = offset, y = log10(dev), colour = is_sig)) + geom_point() +
+  ggtitle(subtype,
+         "\u03b1 = 0.01") +
+  ylab("Deviance (Log10)") +
+  xlab("Relative Position")
+
+df %>%
+  mutate(is_sig = dev > 11.345) %>%
+  mutate(n = singletons + controls) %>%
+  ggplot(aes(x = singletons, y = log10(dev), colour = is_sig)) + geom_point() +
+  ggtitle(subtype,
+          "Deviance by Sample Size") +
+  ylab("Deviance (Log10)") +
+  xlab("Singletons")
+
+df %>%
+  mutate(is_sig = dev > 11.345,
+         p_val = pchisq(dev, df = 3, lower.tail = FALSE)) %>%
+  ggplot(aes(x = offset, y = p_val, colour = is_sig)) + geom_point() +
+  ggtitle(subtype) +
+  ylab("Pvalue") +
+  xlab("Relative Position")
+```
+
+### AT_CG
+
+```{r}
+subtype <- "AT_CG"
+df <- read_csv(paste0(data_dir, subtype, ".csv"))
+
+df %>%
+  mutate(is_sig = dev > 11.345) %>%
+  mutate(n = singletons + controls) %>%
+  ggplot(aes(x = offset, y = log10(dev), colour = is_sig)) + geom_point() +
+  ggtitle(subtype,
+         "\u03b1 = 0.01") +
+  ylab("Deviance (Log10)") +
+  xlab("Relative Position")
+
+df %>%
+  mutate(is_sig = dev > 11.345) %>%
+  mutate(n = singletons + controls) %>%
+  ggplot(aes(x = singletons, y = log10(dev), colour = is_sig)) + geom_point() +
+  ggtitle(subtype,
+          "Deviance by Sample Size") +
+  ylab("Deviance (Log10)") +
+  xlab("Singletons")
+
+df %>%
+  mutate(is_sig = dev > 11.345,
+         p_val = pchisq(dev, df = 3, lower.tail = FALSE)) %>%
+  ggplot(aes(x = offset, y = p_val, colour = is_sig)) + geom_point() +
+  ggtitle(subtype) +
+  ylab("Pvalue") +
+  xlab("Relative Position")
+```
+
+### AT_TA
+
+```{r}
+subtype <- "AT_TA"
+df <- read_csv(paste0(data_dir, subtype, ".csv"))
+
+df %>%
+  mutate(is_sig = dev > 11.345) %>%
+  mutate(n = singletons + controls) %>%
+  ggplot(aes(x = offset, y = log10(dev), colour = is_sig)) + geom_point() +
+  ggtitle(subtype,
+         "\u03b1 = 0.01") +
+  ylab("Deviance (Log10)") +
+  xlab("Relative Position")
+
+df %>%
+  mutate(is_sig = dev > 11.345) %>%
+  mutate(n = singletons + controls) %>%
+  ggplot(aes(x = singletons, y = log10(dev), colour = is_sig)) + geom_point() +
+  ggtitle(subtype,
+          "Deviance by Sample Size") +
+  ylab("Deviance (Log10)") +
+  xlab("Singletons")
+
+df %>%
+  mutate(is_sig = dev > 11.345,
+         p_val = pchisq(dev, df = 3, lower.tail = FALSE)) %>%
+  ggplot(aes(x = offset, y = p_val, colour = is_sig)) + geom_point() +
+  ggtitle(subtype) +
+  ylab("Pvalue") +
+  xlab("Relative Position")
+```
+
+### GC_AT
+
+```{r}
+subtype <- "GC_AT"
+df <- read_csv(paste0(data_dir, subtype, ".csv"))
+
+df %>%
+  mutate(is_sig = dev > 11.345) %>%
+  mutate(n = singletons + controls) %>%
+  ggplot(aes(x = offset, y = log10(dev), colour = is_sig)) + geom_point() +
+  ggtitle(subtype,
+         "\u03b1 = 0.01") +
+  ylab("Deviance (Log10)") +
+  xlab("Relative Position")
+
+df %>%
+  mutate(is_sig = dev > 11.345) %>%
+  mutate(n = singletons + controls) %>%
+  ggplot(aes(x = singletons, y = log10(dev), colour = is_sig)) + geom_point() +
+  ggtitle(subtype,
+          "Deviance by Sample Size") +
+  ylab("Deviance (Log10)") +
+  xlab("Singletons")
+
+df %>%
+  mutate(is_sig = dev > 11.345,
+         p_val = pchisq(dev, df = 3, lower.tail = FALSE)) %>%
+  ggplot(aes(x = offset, y = p_val, colour = is_sig)) + geom_point() +
+  ggtitle(subtype) +
+  ylab("Pvalue") +
+  xlab("Relative Position")
+```
+
+### cpg_GC_AT
+
+```{r}
+subtype <- "cpg_GC_AT"
+df <- read_csv(paste0(data_dir, subtype, ".csv"))
+
+df %>%
+  mutate(is_sig = dev > 11.345) %>%
+  mutate(n = singletons + controls) %>%
+  ggplot(aes(x = offset, y = log10(dev), colour = is_sig)) + geom_point() +
+  ggtitle(subtype,
+         "\u03b1 = 0.01") +
+  ylab("Deviance (Log10)") +
+  xlab("Relative Position")
+
+df %>%
+  mutate(is_sig = dev > 11.345) %>%
+  mutate(n = singletons + controls) %>%
+  ggplot(aes(x = singletons, y = log10(dev), colour = is_sig)) + geom_point() +
+  ggtitle(subtype,
+          "Deviance by Sample Size") +
+  ylab("Deviance (Log10)") +
+  xlab("Singletons")
+
+df %>%
+  mutate(is_sig = dev > 11.345,
+         p_val = pchisq(dev, df = 3, lower.tail = FALSE)) %>%
+  ggplot(aes(x = offset, y = p_val, colour = is_sig)) + geom_point() +
+  ggtitle(subtype) +
+  ylab("Pvalue") +
+  xlab("Relative Position")
+```
+
+### GC_TA
+
+```{r}
+subtype <- "GC_TA"
+df <- read_csv(paste0(data_dir, subtype, ".csv"))
+
+df %>%
+  mutate(is_sig = dev > 11.345) %>%
+  mutate(n = singletons + controls) %>%
+  ggplot(aes(x = offset, y = log10(dev), colour = is_sig)) + geom_point() +
+  ggtitle(subtype,
+         "\u03b1 = 0.01") +
+  ylab("Deviance (Log10)") +
+  xlab("Relative Position")
+
+df %>%
+  mutate(is_sig = dev > 11.345) %>%
+  mutate(n = singletons + controls) %>%
+  ggplot(aes(x = singletons, y = log10(dev), colour = is_sig)) + geom_point() +
+  ggtitle(subtype,
+          "Deviance by Sample Size") +
+  ylab("Deviance (Log10)") +
+  xlab("Singletons")
+
+df %>%
+  mutate(is_sig = dev > 11.345,
+         p_val = pchisq(dev, df = 3, lower.tail = FALSE)) %>%
+  ggplot(aes(x = offset, y = p_val, colour = is_sig)) + geom_point() +
+  ggtitle(subtype) +
+  ylab("Pvalue") +
+  xlab("Relative Position")
+```
+
+### cpg_GC_TA
+
+```{r}
+subtype <- "cpg_GC_TA"
+df <- read_csv(paste0(data_dir, subtype, ".csv"))
+
+df %>%
+  mutate(is_sig = dev > 11.345) %>%
+  mutate(n = singletons + controls) %>%
+  ggplot(aes(x = offset, y = log10(dev), colour = is_sig)) + geom_point() +
+  ggtitle(subtype,
+         "\u03b1 = 0.01") +
+  ylab("Deviance (Log10)") +
+  xlab("Relative Position")
+
+df %>%
+  mutate(is_sig = dev > 11.345) %>%
+  mutate(n = singletons + controls) %>%
+  ggplot(aes(x = singletons, y = log10(dev), colour = is_sig)) + geom_point() +
+  ggtitle(subtype,
+          "Deviance by Sample Size") +
+  ylab("Deviance (Log10)") +
+  xlab("Singletons")
+
+df %>%
+  mutate(is_sig = dev > 11.345,
+         p_val = pchisq(dev, df = 3, lower.tail = FALSE)) %>%
+  ggplot(aes(x = offset, y = p_val, colour = is_sig)) + geom_point() +
+  ggtitle(subtype) +
+  ylab("Pvalue") +
+  xlab("Relative Position")
+```
+
+### GC_CG
+
+```{r}
+subtype <- "GC_CG"
+df <- read_csv(paste0(data_dir, subtype, ".csv"))
+
+df %>%
+  mutate(is_sig = dev > 11.345) %>%
+  mutate(n = singletons + controls) %>%
+  ggplot(aes(x = offset, y = log10(dev), colour = is_sig)) + geom_point() +
+  ggtitle(subtype,
+         "\u03b1 = 0.01") +
+  ylab("Deviance (Log10)") +
+  xlab("Relative Position")
+
+df %>%
+  mutate(is_sig = dev > 11.345) %>%
+  mutate(n = singletons + controls) %>%
+  ggplot(aes(x = singletons, y = log10(dev), colour = is_sig)) + geom_point() +
+  ggtitle(subtype,
+          "Deviance by Sample Size") +
+  ylab("Deviance (Log10)") +
+  xlab("Singletons")
+
+df %>%
+  mutate(is_sig = dev > 11.345,
+         p_val = pchisq(dev, df = 3, lower.tail = FALSE)) %>%
+  ggplot(aes(x = offset, y = p_val, colour = is_sig)) + geom_point() +
+  ggtitle(subtype) +
+  ylab("Pvalue") +
+  xlab("Relative Position")
+```
+
+### cpg_GC_CG
+
+```{r}
+subtype <- "cpg_GC_CG"
+df <- read_csv(paste0(data_dir, subtype, ".csv"))
+
+df %>%
+  mutate(is_sig = dev > 11.345) %>%
+  mutate(n = singletons + controls) %>%
+  ggplot(aes(x = offset, y = log10(dev), colour = is_sig)) + geom_point() +
+  ggtitle(subtype,
+         "\u03b1 = 0.01") +
+  ylab("Deviance (Log10)") +
+  xlab("Relative Position")
+
+df %>%
+  mutate(is_sig = dev > 11.345) %>%
+  mutate(n = singletons + controls) %>%
+  ggplot(aes(x = n, y = log10(dev), colour = is_sig)) + geom_point() +
+  ggtitle(subtype,
+          "Deviance by Sample Size") +
+  ylab("Deviance (Log10)") +
+  xlab("Singletons + Contols")
+
+df %>%
+  mutate(is_sig = dev > 11.345,
+         p_val = pchisq(dev, df = 3, lower.tail = FALSE)) %>%
+  ggplot(aes(x = offset, y = p_val, colour = is_sig)) + geom_point() +
+  ggtitle(subtype) +
+  ylab("Pvalue") +
+  xlab("Relative Position")
+```
