@@ -34,6 +34,7 @@ To address these questions, we characterize the distributions of nucleotides fla
 * [Two Position Model Results for All Singletons](1000G_two_positions_ALL.html)
 * [Cross-population Comparisons: Single Position Models](1000G_single_position_comp.html)
 * [Cross-population Comparisons: Two Position Models](1000G_two_positions_comp.html)
+* [2001 mer analysis](1kgp_100bp_sp.html)
 
 ## Paper Related Documents
 

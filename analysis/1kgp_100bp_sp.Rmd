@@ -11,6 +11,7 @@ editor_options:
 
 ```{r}
 library(tidyverse)
+library(qvalue)
 data_dir <- "/net/snowwhite/home/beckandy/research/1000G_LSCI/scratch/100bp_sp/"
 
 get_count <- function(subtype, offset){
@@ -35,7 +36,17 @@ Let's first look at the AT_GC subtype:
 subtype <- "AT_GC"
 df <- read_csv(paste0(data_dir, subtype, ".csv"))
 
-df %>%
+df <- df %>%
+  mutate(p_val = pchisq(dev, df = 3, lower.tail = F))
+
+pvalues <- df$p_val
+qobj <- qvalue(p = pvalues)
+
+hist(qobj)
+
+plot(qobj)
+
+ df %>%
   mutate(is_sig = dev > 11.345) %>%
   mutate(n = singletons + controls) %>%
   ggplot(aes(x = offset, y = log10(dev), colour = is_sig)) + geom_point() +
