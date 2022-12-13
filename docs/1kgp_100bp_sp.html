@@ -388,7 +388,7 @@ class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span>
 <div class="tab-content">
 <div id="summary" class="tab-pane fade in active">
 <p>
-<strong>Last updated:</strong> 2022-12-12
+<strong>Last updated:</strong> 2022-12-13
 </p>
 <p>
 <strong>Checks:</strong> <span
@@ -519,15 +519,15 @@ project makes it easier to run your code on other machines.</p>
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomtheandybLSCItreedd9b0117f67d58c9f98b1329df09507551803265targetblankdd9b011a">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomtheandybLSCItreef9ab93f60c5f85f3c96e458aed6bd9a16372f749targetblankf9ab93fa">
 <span class="glyphicon glyphicon-ok text-success"
 aria-hidden="true"></span> <strong>Repository version:</strong>
-<a href="https://github.com/theandyb/LSCI/tree/dd9b0117f67d58c9f98b1329df09507551803265" target="_blank">dd9b011</a>
+<a href="https://github.com/theandyb/LSCI/tree/f9ab93f60c5f85f3c96e458aed6bd9a16372f749" target="_blank">f9ab93f</a>
 </a>
 </p>
 </div>
 <div
-id="strongRepositoryversionstrongahrefhttpsgithubcomtheandybLSCItreedd9b0117f67d58c9f98b1329df09507551803265targetblankdd9b011a"
+id="strongRepositoryversionstrongahrefhttpsgithubcomtheandybLSCItreef9ab93f60c5f85f3c96e458aed6bd9a16372f749targetblankf9ab93fa"
 class="panel-collapse collapse">
 <div class="panel-body">
 <p>
@@ -537,7 +537,7 @@ reproducibility.
 </p>
 <p>
 The results in this page were generated with repository version
-<a href="https://github.com/theandyb/LSCI/tree/dd9b0117f67d58c9f98b1329df09507551803265" target="_blank">dd9b011</a>.
+<a href="https://github.com/theandyb/LSCI/tree/f9ab93f60c5f85f3c96e458aed6bd9a16372f749" target="_blank">f9ab93f</a>.
 See the <em>Past versions</em> tab to see a history of the changes made
 to the R Markdown and HTML files.
 </p>
@@ -556,6 +556,9 @@ Ignored files:
     Ignored:    .Rproj.user/
     Ignored:    analysis/disqus.html
     Ignored:    code/random/
+
+Untracked files:
+    Untracked:  code/count_table/
 
 Unstaged changes:
     Modified:   analysis/1000G_summary_stats.Rmd
@@ -610,6 +613,40 @@ Message
 Rmd
 </td>
 <td>
+<a href="https://github.com/theandyb/LSCI/blob/f9ab93f60c5f85f3c96e458aed6bd9a16372f749/analysis/1kgp_100bp_sp.Rmd" target="_blank">f9ab93f</a>
+</td>
+<td>
+Andy Beck
+</td>
+<td>
+2022-12-13
+</td>
+<td>
+wflow_publish("analysis/1kgp_100bp_sp.Rmd")
+</td>
+</tr>
+<tr>
+<td>
+html
+</td>
+<td>
+<a href="https://rawcdn.githack.com/theandyb/LSCI/085505f9c67c896adfcf9d22080f236cffeab928/docs/1kgp_100bp_sp.html" target="_blank">085505f</a>
+</td>
+<td>
+Andy Beck
+</td>
+<td>
+2022-12-12
+</td>
+<td>
+Build site.
+</td>
+</tr>
+<tr>
+<td>
+Rmd
+</td>
+<td>
 <a href="https://github.com/theandyb/LSCI/blob/dd9b0117f67d58c9f98b1329df09507551803265/analysis/1kgp_100bp_sp.Rmd" target="_blank">dd9b011</a>
 </td>
 <td>
@@ -641,7 +678,16 @@ wflow_publish(c("analysis/1000G_near_far_control.Rmd",
 ── Conflicts ────────────────────────────────────────── tidyverse_conflicts() ──
 ✖ dplyr::filter() masks stats::filter()
 ✖ dplyr::lag()    masks stats::lag()</code></pre>
-<pre class="r"><code>data_dir &lt;- &quot;/net/snowwhite/home/beckandy/research/1000G_LSCI/scratch/100bp_sp/&quot;</code></pre>
+<pre class="r"><code>data_dir &lt;- &quot;/net/snowwhite/home/beckandy/research/1000G_LSCI/scratch/100bp_sp/&quot;
+
+get_count &lt;- function(subtype, offset){
+  py_path &lt;- &quot;/net/snowwhite/home/beckandy/mambaforge/bin/python&quot;
+  py_cmd &lt;- paste0(py_path,
+                   &quot; /net/snowwhite/home/beckandy/research/documentation/LSCI/code/count_table/get_table.py &quot;,
+  subtype, &quot; &quot;, offset)
+  df &lt;- vroom::vroom(pipe(py_cmd), delim = &quot;,&quot;)
+  return(df)
+}</code></pre>
 <p>Here in this document we’ll explore the deviance statistics observed
 in the +/- 100 bp window for the single position models.</p>
 <p>Let’s first look at the AT_GC subtype:</p>
@@ -665,6 +711,43 @@ dbl (4): dev, singletons, controls, offset
   ylab(&quot;Deviance (Log10)&quot;) +
   xlab(&quot;Relative Position&quot;)</code></pre>
 <p><img src="figure/1kgp_100bp_sp.Rmd/unnamed-chunk-2-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-2-1">
+Past versions of unnamed-chunk-2-1.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-2-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/theandyb/LSCI/blob/085505f9c67c896adfcf9d22080f236cffeab928/docs/figure/1kgp_100bp_sp.Rmd/unnamed-chunk-2-1.png" target="_blank">085505f</a>
+</td>
+<td>
+Andy Beck
+</td>
+<td>
+2022-12-12
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 <pre class="r"><code>df %&gt;%
   mutate(is_sig = dev &gt; 11.345) %&gt;%
   mutate(n = singletons + controls) %&gt;%
@@ -674,6 +757,43 @@ dbl (4): dev, singletons, controls, offset
   ylab(&quot;Deviance (Log10)&quot;) +
   xlab(&quot;Singletons&quot;)</code></pre>
 <p><img src="figure/1kgp_100bp_sp.Rmd/unnamed-chunk-2-2.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-2-2">
+Past versions of unnamed-chunk-2-2.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-2-2" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/theandyb/LSCI/blob/085505f9c67c896adfcf9d22080f236cffeab928/docs/figure/1kgp_100bp_sp.Rmd/unnamed-chunk-2-2.png" target="_blank">085505f</a>
+</td>
+<td>
+Andy Beck
+</td>
+<td>
+2022-12-12
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 <pre class="r"><code>df %&gt;%
   mutate(is_sig = dev &gt; 11.345,
          p_val = pchisq(dev, df = 3, lower.tail = FALSE)) %&gt;%
@@ -682,6 +802,43 @@ dbl (4): dev, singletons, controls, offset
   ylab(&quot;Pvalue&quot;) +
   xlab(&quot;Relative Position&quot;)</code></pre>
 <p><img src="figure/1kgp_100bp_sp.Rmd/unnamed-chunk-2-3.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-2-3">
+Past versions of unnamed-chunk-2-3.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-2-3" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/theandyb/LSCI/blob/085505f9c67c896adfcf9d22080f236cffeab928/docs/figure/1kgp_100bp_sp.Rmd/unnamed-chunk-2-3.png" target="_blank">085505f</a>
+</td>
+<td>
+Andy Beck
+</td>
+<td>
+2022-12-12
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 </div>
 <div id="at_cg" class="section level3">
 <h3>AT_CG</h3>
@@ -703,6 +860,43 @@ dbl (4): dev, singletons, controls, offset
   ylab(&quot;Deviance (Log10)&quot;) +
   xlab(&quot;Relative Position&quot;)</code></pre>
 <p><img src="figure/1kgp_100bp_sp.Rmd/unnamed-chunk-3-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-3-1">
+Past versions of unnamed-chunk-3-1.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-3-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/theandyb/LSCI/blob/085505f9c67c896adfcf9d22080f236cffeab928/docs/figure/1kgp_100bp_sp.Rmd/unnamed-chunk-3-1.png" target="_blank">085505f</a>
+</td>
+<td>
+Andy Beck
+</td>
+<td>
+2022-12-12
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 <pre class="r"><code>df %&gt;%
   mutate(is_sig = dev &gt; 11.345) %&gt;%
   mutate(n = singletons + controls) %&gt;%
@@ -712,6 +906,43 @@ dbl (4): dev, singletons, controls, offset
   ylab(&quot;Deviance (Log10)&quot;) +
   xlab(&quot;Singletons&quot;)</code></pre>
 <p><img src="figure/1kgp_100bp_sp.Rmd/unnamed-chunk-3-2.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-3-2">
+Past versions of unnamed-chunk-3-2.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-3-2" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/theandyb/LSCI/blob/085505f9c67c896adfcf9d22080f236cffeab928/docs/figure/1kgp_100bp_sp.Rmd/unnamed-chunk-3-2.png" target="_blank">085505f</a>
+</td>
+<td>
+Andy Beck
+</td>
+<td>
+2022-12-12
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 <pre class="r"><code>df %&gt;%
   mutate(is_sig = dev &gt; 11.345,
          p_val = pchisq(dev, df = 3, lower.tail = FALSE)) %&gt;%
@@ -720,6 +951,43 @@ dbl (4): dev, singletons, controls, offset
   ylab(&quot;Pvalue&quot;) +
   xlab(&quot;Relative Position&quot;)</code></pre>
 <p><img src="figure/1kgp_100bp_sp.Rmd/unnamed-chunk-3-3.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-3-3">
+Past versions of unnamed-chunk-3-3.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-3-3" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/theandyb/LSCI/blob/085505f9c67c896adfcf9d22080f236cffeab928/docs/figure/1kgp_100bp_sp.Rmd/unnamed-chunk-3-3.png" target="_blank">085505f</a>
+</td>
+<td>
+Andy Beck
+</td>
+<td>
+2022-12-12
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 </div>
 <div id="at_ta" class="section level3">
 <h3>AT_TA</h3>
@@ -741,6 +1009,43 @@ dbl (4): dev, singletons, controls, offset
   ylab(&quot;Deviance (Log10)&quot;) +
   xlab(&quot;Relative Position&quot;)</code></pre>
 <p><img src="figure/1kgp_100bp_sp.Rmd/unnamed-chunk-4-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-4-1">
+Past versions of unnamed-chunk-4-1.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-4-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/theandyb/LSCI/blob/085505f9c67c896adfcf9d22080f236cffeab928/docs/figure/1kgp_100bp_sp.Rmd/unnamed-chunk-4-1.png" target="_blank">085505f</a>
+</td>
+<td>
+Andy Beck
+</td>
+<td>
+2022-12-12
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 <pre class="r"><code>df %&gt;%
   mutate(is_sig = dev &gt; 11.345) %&gt;%
   mutate(n = singletons + controls) %&gt;%
@@ -750,6 +1055,43 @@ dbl (4): dev, singletons, controls, offset
   ylab(&quot;Deviance (Log10)&quot;) +
   xlab(&quot;Singletons&quot;)</code></pre>
 <p><img src="figure/1kgp_100bp_sp.Rmd/unnamed-chunk-4-2.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-4-2">
+Past versions of unnamed-chunk-4-2.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-4-2" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/theandyb/LSCI/blob/085505f9c67c896adfcf9d22080f236cffeab928/docs/figure/1kgp_100bp_sp.Rmd/unnamed-chunk-4-2.png" target="_blank">085505f</a>
+</td>
+<td>
+Andy Beck
+</td>
+<td>
+2022-12-12
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 <pre class="r"><code>df %&gt;%
   mutate(is_sig = dev &gt; 11.345,
          p_val = pchisq(dev, df = 3, lower.tail = FALSE)) %&gt;%
@@ -758,6 +1100,43 @@ dbl (4): dev, singletons, controls, offset
   ylab(&quot;Pvalue&quot;) +
   xlab(&quot;Relative Position&quot;)</code></pre>
 <p><img src="figure/1kgp_100bp_sp.Rmd/unnamed-chunk-4-3.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-4-3">
+Past versions of unnamed-chunk-4-3.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-4-3" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/theandyb/LSCI/blob/085505f9c67c896adfcf9d22080f236cffeab928/docs/figure/1kgp_100bp_sp.Rmd/unnamed-chunk-4-3.png" target="_blank">085505f</a>
+</td>
+<td>
+Andy Beck
+</td>
+<td>
+2022-12-12
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 </div>
 <div id="gc_at" class="section level3">
 <h3>GC_AT</h3>
@@ -779,6 +1158,43 @@ dbl (4): dev, singletons, controls, offset
   ylab(&quot;Deviance (Log10)&quot;) +
   xlab(&quot;Relative Position&quot;)</code></pre>
 <p><img src="figure/1kgp_100bp_sp.Rmd/unnamed-chunk-5-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-5-1">
+Past versions of unnamed-chunk-5-1.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-5-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/theandyb/LSCI/blob/085505f9c67c896adfcf9d22080f236cffeab928/docs/figure/1kgp_100bp_sp.Rmd/unnamed-chunk-5-1.png" target="_blank">085505f</a>
+</td>
+<td>
+Andy Beck
+</td>
+<td>
+2022-12-12
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 <pre class="r"><code>df %&gt;%
   mutate(is_sig = dev &gt; 11.345) %&gt;%
   mutate(n = singletons + controls) %&gt;%
@@ -788,6 +1204,43 @@ dbl (4): dev, singletons, controls, offset
   ylab(&quot;Deviance (Log10)&quot;) +
   xlab(&quot;Singletons&quot;)</code></pre>
 <p><img src="figure/1kgp_100bp_sp.Rmd/unnamed-chunk-5-2.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-5-2">
+Past versions of unnamed-chunk-5-2.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-5-2" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/theandyb/LSCI/blob/085505f9c67c896adfcf9d22080f236cffeab928/docs/figure/1kgp_100bp_sp.Rmd/unnamed-chunk-5-2.png" target="_blank">085505f</a>
+</td>
+<td>
+Andy Beck
+</td>
+<td>
+2022-12-12
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 <pre class="r"><code>df %&gt;%
   mutate(is_sig = dev &gt; 11.345,
          p_val = pchisq(dev, df = 3, lower.tail = FALSE)) %&gt;%
@@ -796,6 +1249,43 @@ dbl (4): dev, singletons, controls, offset
   ylab(&quot;Pvalue&quot;) +
   xlab(&quot;Relative Position&quot;)</code></pre>
 <p><img src="figure/1kgp_100bp_sp.Rmd/unnamed-chunk-5-3.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-5-3">
+Past versions of unnamed-chunk-5-3.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-5-3" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/theandyb/LSCI/blob/085505f9c67c896adfcf9d22080f236cffeab928/docs/figure/1kgp_100bp_sp.Rmd/unnamed-chunk-5-3.png" target="_blank">085505f</a>
+</td>
+<td>
+Andy Beck
+</td>
+<td>
+2022-12-12
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 </div>
 <div id="cpg_gc_at" class="section level3">
 <h3>cpg_GC_AT</h3>
@@ -817,6 +1307,43 @@ dbl (4): dev, singletons, controls, offset
   ylab(&quot;Deviance (Log10)&quot;) +
   xlab(&quot;Relative Position&quot;)</code></pre>
 <p><img src="figure/1kgp_100bp_sp.Rmd/unnamed-chunk-6-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-6-1">
+Past versions of unnamed-chunk-6-1.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-6-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/theandyb/LSCI/blob/085505f9c67c896adfcf9d22080f236cffeab928/docs/figure/1kgp_100bp_sp.Rmd/unnamed-chunk-6-1.png" target="_blank">085505f</a>
+</td>
+<td>
+Andy Beck
+</td>
+<td>
+2022-12-12
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 <pre class="r"><code>df %&gt;%
   mutate(is_sig = dev &gt; 11.345) %&gt;%
   mutate(n = singletons + controls) %&gt;%
@@ -826,6 +1353,43 @@ dbl (4): dev, singletons, controls, offset
   ylab(&quot;Deviance (Log10)&quot;) +
   xlab(&quot;Singletons&quot;)</code></pre>
 <p><img src="figure/1kgp_100bp_sp.Rmd/unnamed-chunk-6-2.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-6-2">
+Past versions of unnamed-chunk-6-2.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-6-2" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/theandyb/LSCI/blob/085505f9c67c896adfcf9d22080f236cffeab928/docs/figure/1kgp_100bp_sp.Rmd/unnamed-chunk-6-2.png" target="_blank">085505f</a>
+</td>
+<td>
+Andy Beck
+</td>
+<td>
+2022-12-12
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 <pre class="r"><code>df %&gt;%
   mutate(is_sig = dev &gt; 11.345,
          p_val = pchisq(dev, df = 3, lower.tail = FALSE)) %&gt;%
@@ -834,6 +1398,43 @@ dbl (4): dev, singletons, controls, offset
   ylab(&quot;Pvalue&quot;) +
   xlab(&quot;Relative Position&quot;)</code></pre>
 <p><img src="figure/1kgp_100bp_sp.Rmd/unnamed-chunk-6-3.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-6-3">
+Past versions of unnamed-chunk-6-3.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-6-3" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/theandyb/LSCI/blob/085505f9c67c896adfcf9d22080f236cffeab928/docs/figure/1kgp_100bp_sp.Rmd/unnamed-chunk-6-3.png" target="_blank">085505f</a>
+</td>
+<td>
+Andy Beck
+</td>
+<td>
+2022-12-12
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 </div>
 <div id="gc_ta" class="section level3">
 <h3>GC_TA</h3>
@@ -855,6 +1456,43 @@ dbl (4): dev, singletons, controls, offset
   ylab(&quot;Deviance (Log10)&quot;) +
   xlab(&quot;Relative Position&quot;)</code></pre>
 <p><img src="figure/1kgp_100bp_sp.Rmd/unnamed-chunk-7-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-7-1">
+Past versions of unnamed-chunk-7-1.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-7-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/theandyb/LSCI/blob/085505f9c67c896adfcf9d22080f236cffeab928/docs/figure/1kgp_100bp_sp.Rmd/unnamed-chunk-7-1.png" target="_blank">085505f</a>
+</td>
+<td>
+Andy Beck
+</td>
+<td>
+2022-12-12
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 <pre class="r"><code>df %&gt;%
   mutate(is_sig = dev &gt; 11.345) %&gt;%
   mutate(n = singletons + controls) %&gt;%
@@ -864,6 +1502,43 @@ dbl (4): dev, singletons, controls, offset
   ylab(&quot;Deviance (Log10)&quot;) +
   xlab(&quot;Singletons&quot;)</code></pre>
 <p><img src="figure/1kgp_100bp_sp.Rmd/unnamed-chunk-7-2.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-7-2">
+Past versions of unnamed-chunk-7-2.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-7-2" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/theandyb/LSCI/blob/085505f9c67c896adfcf9d22080f236cffeab928/docs/figure/1kgp_100bp_sp.Rmd/unnamed-chunk-7-2.png" target="_blank">085505f</a>
+</td>
+<td>
+Andy Beck
+</td>
+<td>
+2022-12-12
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 <pre class="r"><code>df %&gt;%
   mutate(is_sig = dev &gt; 11.345,
          p_val = pchisq(dev, df = 3, lower.tail = FALSE)) %&gt;%
@@ -872,6 +1547,43 @@ dbl (4): dev, singletons, controls, offset
   ylab(&quot;Pvalue&quot;) +
   xlab(&quot;Relative Position&quot;)</code></pre>
 <p><img src="figure/1kgp_100bp_sp.Rmd/unnamed-chunk-7-3.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-7-3">
+Past versions of unnamed-chunk-7-3.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-7-3" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/theandyb/LSCI/blob/085505f9c67c896adfcf9d22080f236cffeab928/docs/figure/1kgp_100bp_sp.Rmd/unnamed-chunk-7-3.png" target="_blank">085505f</a>
+</td>
+<td>
+Andy Beck
+</td>
+<td>
+2022-12-12
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 </div>
 <div id="cpg_gc_ta" class="section level3">
 <h3>cpg_GC_TA</h3>
@@ -893,6 +1605,43 @@ dbl (4): dev, singletons, controls, offset
   ylab(&quot;Deviance (Log10)&quot;) +
   xlab(&quot;Relative Position&quot;)</code></pre>
 <p><img src="figure/1kgp_100bp_sp.Rmd/unnamed-chunk-8-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-8-1">
+Past versions of unnamed-chunk-8-1.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-8-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/theandyb/LSCI/blob/085505f9c67c896adfcf9d22080f236cffeab928/docs/figure/1kgp_100bp_sp.Rmd/unnamed-chunk-8-1.png" target="_blank">085505f</a>
+</td>
+<td>
+Andy Beck
+</td>
+<td>
+2022-12-12
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 <pre class="r"><code>df %&gt;%
   mutate(is_sig = dev &gt; 11.345) %&gt;%
   mutate(n = singletons + controls) %&gt;%
@@ -902,6 +1651,43 @@ dbl (4): dev, singletons, controls, offset
   ylab(&quot;Deviance (Log10)&quot;) +
   xlab(&quot;Singletons&quot;)</code></pre>
 <p><img src="figure/1kgp_100bp_sp.Rmd/unnamed-chunk-8-2.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-8-2">
+Past versions of unnamed-chunk-8-2.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-8-2" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/theandyb/LSCI/blob/085505f9c67c896adfcf9d22080f236cffeab928/docs/figure/1kgp_100bp_sp.Rmd/unnamed-chunk-8-2.png" target="_blank">085505f</a>
+</td>
+<td>
+Andy Beck
+</td>
+<td>
+2022-12-12
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 <pre class="r"><code>df %&gt;%
   mutate(is_sig = dev &gt; 11.345,
          p_val = pchisq(dev, df = 3, lower.tail = FALSE)) %&gt;%
@@ -910,6 +1696,43 @@ dbl (4): dev, singletons, controls, offset
   ylab(&quot;Pvalue&quot;) +
   xlab(&quot;Relative Position&quot;)</code></pre>
 <p><img src="figure/1kgp_100bp_sp.Rmd/unnamed-chunk-8-3.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-8-3">
+Past versions of unnamed-chunk-8-3.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-8-3" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/theandyb/LSCI/blob/085505f9c67c896adfcf9d22080f236cffeab928/docs/figure/1kgp_100bp_sp.Rmd/unnamed-chunk-8-3.png" target="_blank">085505f</a>
+</td>
+<td>
+Andy Beck
+</td>
+<td>
+2022-12-12
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 </div>
 <div id="gc_cg" class="section level3">
 <h3>GC_CG</h3>
@@ -931,6 +1754,43 @@ dbl (4): dev, singletons, controls, offset
   ylab(&quot;Deviance (Log10)&quot;) +
   xlab(&quot;Relative Position&quot;)</code></pre>
 <p><img src="figure/1kgp_100bp_sp.Rmd/unnamed-chunk-9-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-9-1">
+Past versions of unnamed-chunk-9-1.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-9-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/theandyb/LSCI/blob/085505f9c67c896adfcf9d22080f236cffeab928/docs/figure/1kgp_100bp_sp.Rmd/unnamed-chunk-9-1.png" target="_blank">085505f</a>
+</td>
+<td>
+Andy Beck
+</td>
+<td>
+2022-12-12
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 <pre class="r"><code>df %&gt;%
   mutate(is_sig = dev &gt; 11.345) %&gt;%
   mutate(n = singletons + controls) %&gt;%
@@ -940,6 +1800,43 @@ dbl (4): dev, singletons, controls, offset
   ylab(&quot;Deviance (Log10)&quot;) +
   xlab(&quot;Singletons&quot;)</code></pre>
 <p><img src="figure/1kgp_100bp_sp.Rmd/unnamed-chunk-9-2.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-9-2">
+Past versions of unnamed-chunk-9-2.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-9-2" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/theandyb/LSCI/blob/085505f9c67c896adfcf9d22080f236cffeab928/docs/figure/1kgp_100bp_sp.Rmd/unnamed-chunk-9-2.png" target="_blank">085505f</a>
+</td>
+<td>
+Andy Beck
+</td>
+<td>
+2022-12-12
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 <pre class="r"><code>df %&gt;%
   mutate(is_sig = dev &gt; 11.345,
          p_val = pchisq(dev, df = 3, lower.tail = FALSE)) %&gt;%
@@ -948,6 +1845,43 @@ dbl (4): dev, singletons, controls, offset
   ylab(&quot;Pvalue&quot;) +
   xlab(&quot;Relative Position&quot;)</code></pre>
 <p><img src="figure/1kgp_100bp_sp.Rmd/unnamed-chunk-9-3.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-9-3">
+Past versions of unnamed-chunk-9-3.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-9-3" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/theandyb/LSCI/blob/085505f9c67c896adfcf9d22080f236cffeab928/docs/figure/1kgp_100bp_sp.Rmd/unnamed-chunk-9-3.png" target="_blank">085505f</a>
+</td>
+<td>
+Andy Beck
+</td>
+<td>
+2022-12-12
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 </div>
 <div id="cpg_gc_cg" class="section level3">
 <h3>cpg_GC_CG</h3>
@@ -969,6 +1903,43 @@ dbl (4): dev, singletons, controls, offset
   ylab(&quot;Deviance (Log10)&quot;) +
   xlab(&quot;Relative Position&quot;)</code></pre>
 <p><img src="figure/1kgp_100bp_sp.Rmd/unnamed-chunk-10-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-10-1">
+Past versions of unnamed-chunk-10-1.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-10-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/theandyb/LSCI/blob/085505f9c67c896adfcf9d22080f236cffeab928/docs/figure/1kgp_100bp_sp.Rmd/unnamed-chunk-10-1.png" target="_blank">085505f</a>
+</td>
+<td>
+Andy Beck
+</td>
+<td>
+2022-12-12
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 <pre class="r"><code>df %&gt;%
   mutate(is_sig = dev &gt; 11.345) %&gt;%
   mutate(n = singletons + controls) %&gt;%
@@ -978,6 +1949,43 @@ dbl (4): dev, singletons, controls, offset
   ylab(&quot;Deviance (Log10)&quot;) +
   xlab(&quot;Singletons + Contols&quot;)</code></pre>
 <p><img src="figure/1kgp_100bp_sp.Rmd/unnamed-chunk-10-2.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-10-2">
+Past versions of unnamed-chunk-10-2.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-10-2" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/theandyb/LSCI/blob/085505f9c67c896adfcf9d22080f236cffeab928/docs/figure/1kgp_100bp_sp.Rmd/unnamed-chunk-10-2.png" target="_blank">085505f</a>
+</td>
+<td>
+Andy Beck
+</td>
+<td>
+2022-12-12
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 <pre class="r"><code>df %&gt;%
   mutate(is_sig = dev &gt; 11.345,
          p_val = pchisq(dev, df = 3, lower.tail = FALSE)) %&gt;%
@@ -986,6 +1994,43 @@ dbl (4): dev, singletons, controls, offset
   ylab(&quot;Pvalue&quot;) +
   xlab(&quot;Relative Position&quot;)</code></pre>
 <p><img src="figure/1kgp_100bp_sp.Rmd/unnamed-chunk-10-3.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-10-3">
+Past versions of unnamed-chunk-10-3.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-10-3" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/theandyb/LSCI/blob/085505f9c67c896adfcf9d22080f236cffeab928/docs/figure/1kgp_100bp_sp.Rmd/unnamed-chunk-10-3.png" target="_blank">085505f</a>
+</td>
+<td>
+Andy Beck
+</td>
+<td>
+2022-12-12
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 <br>
 <p>
 <button type="button" class="btn btn-default btn-workflowr btn-workflowr-sessioninfo" data-toggle="collapse" data-target="#workflowr-sessioninfo" style="display: block;">
