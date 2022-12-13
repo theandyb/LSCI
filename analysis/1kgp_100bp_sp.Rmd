@@ -12,6 +12,15 @@ editor_options:
 ```{r}
 library(tidyverse)
 data_dir <- "/net/snowwhite/home/beckandy/research/1000G_LSCI/scratch/100bp_sp/"
+
+get_count <- function(subtype, offset){
+  py_path <- "/net/snowwhite/home/beckandy/mambaforge/bin/python"
+  py_cmd <- paste0(py_path,
+                   " /net/snowwhite/home/beckandy/research/documentation/LSCI/code/count_table/get_table.py ",
+  subtype, " ", offset)
+  df <- vroom::vroom(pipe(py_cmd), delim = ",")
+  return(df)
+}
 ```
 
 
