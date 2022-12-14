@@ -30,7 +30,7 @@ bridges_dir <- "/net/snowwhite/home/beckandy/research/BRIDGES_redo/output/single
 
 ## Introduction
 
-In [another document](1000G_single_position_ALL.Rmd), we evaluated the single position models using singletons aggregated across all five of the 1000 Genomes super-populations. A natural question we can ask is if there is any heterogeneity across the populations. To address this, we perform our analyses again with the singletons, but this time we analyze each super-population separately. Having done this, we assess consistency of the results by checking the correlations of not only the position-level results, but also the contribution to each statistic from the nucleotides at the flanking position under consideration.
+In [another document](1000G_single_position_ALL.Rmd), we evaluate the single position models using singletons aggregated across all five of the 1000 Genomes super-populations. A natural question we can ask is if there is any heterogeneity across the populations. To address this, we perform our analyses again with the singletons, but this time we analyze each super-population separately. Having done this, we assess consistency of the results by checking the correlations of not only the position-level results, but also the contribution to each statistic from the nucleotides at the flanking position under consideration.
 
 ## Simple Correlation Analysis
 
