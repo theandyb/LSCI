@@ -11,6 +11,7 @@ editor_options:
 library(tidyverse)
 library(pals)
 library(tikzDevice)
+library(fpeek)
 cbPalette <- c("#999999", "#E69F00", "#56B4E9", "#009E73", "#F0E442", "#0072B2", "#D55E00", "#CC79A7")
 ```
 
@@ -33,8 +34,8 @@ get_singletons_per_subject <- function(singleton_dir){
   return(df)
 }
 
- # df_ALL <- get_singletons_per_subject("/net/snowwhite/home/beckandy/research/1000G_LSCI/output/singletons/ALL/")
- # write_csv(df_ALL, "/net/snowwhite/home/beckandy/research/1000G_LSCI/output/singletons_per_subject_ALL.csv")
+df_ALL <- get_singletons_per_subject("/net/snowwhite/home/beckandy/research/1000G_LSCI/output/singletons/ALL/")
+write_csv(df_ALL, "/net/snowwhite/home/beckandy/research/1000G_LSCI/output/singletons_per_subject_ALL.csv")
 
 df_ALL <- read_csv("/net/snowwhite/home/beckandy/research/1000G_LSCI/output/singletons_per_subject_ALL.csv",
                       col_types = cols())
@@ -74,8 +75,23 @@ samples_SAS <- samples_ALL %>% filter(`Superpopulation code` == "SAS")
 samples_ALL %>% 
   ggplot(aes(x = n_singletons, fill = `Superpopulation code`)) + 
   geom_density(alpha=0.3) +
-  ggtitle("Samples per Subject: 1000G Super-populations")
+  ggtitle("Singletons per Subject: 1000G Super-populations") +
+  xlab("Number of Singletons")
 ```
+
+```{r}
+samples_ALL %>%
+  select(`Superpopulation code`, n_singletons) %>%
+  group_by(`Superpopulation code`) %>%
+  summarize(n = n(),
+            avg_singletons = mean(n_singletons))
+
+samples_ALL %>%
+  select(n_singletons) %>%
+  summarize(n = n(),
+            avg_singletons = mean(n_singletons))
+```
+
 
 ### Singletons per sample within sub-populations
 
@@ -129,6 +145,36 @@ knitr::kable(table(samples_EUR$`Population code`))
 ```{r results='asis'}
 knitr::kable(table(samples_SAS$`Population code`))
 ```
+
+## Number of singletons per population
+
+```{r}
+singleton_count <- function(pop, subtype){
+  data_dir <- paste0("/net/snowwhite/home/beckandy/research/1000G_LSCI/output/singletons/", pop ,"/")
+  f_name <- paste0(data_dir, subtype, ".txt")
+  n_singletons <- peek_count_lines(f_name)
+  return(n_singletons)
+}
+
+all_singleton_counts <- function(){
+  pops <- c("ALL", "AFR", "AMR", "EAS", "EUR", "SAS")
+  subtypes <- c("AT_CG", "AT_GC", "AT_TA",
+                "GC_AT", "GC_TA", "GC_CG",
+                "cpg_GC_AT", "cpg_GC_TA", "cpg_GC_CG")
+  final <- data.frame(pop = character(), subtype = character(), singletons = numeric())
+  for(pop in pops){
+    for(st in subtypes){
+      final <- bind_rows(final, data.frame(pop = pop, 
+                                           subtype = st,
+                                           singletons = singleton_count(pop, st)))
+    }
+  }
+  return(final)
+}
+
+all_singleton_counts()
+```
+
 
 ## 3mer Spectrum
 

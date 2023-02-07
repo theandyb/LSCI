@@ -591,13 +591,91 @@ final %>%
   scale_color_manual(values = c(cbPalette, "#000000"))
 
 final %>% 
+  filter(!str_starts(subtype, "cpg")) %>%
+  ggplot(aes(x = pos, y = log10(statistic), colour = subtype)) +
+  geom_point() +
+  geom_line() +
+  ggtitle("Single Position Model Results", "All 1KGP Super Populations") +
+  xlab("Relative Position") +
+  ylab("Relative Entropy") +
+  scale_color_manual(values = c(cbPalette, "#000000"))
+
+final %>% 
+  filter(str_starts(subtype, "cpg")) %>%
+  ggplot(aes(x = pos, y = log10(statistic), colour = subtype)) +
+  geom_point() +
+  geom_line() +
+  ggtitle("Single Position Model Results", "All 1KGP Super Populations") +
+  xlab("Relative Position") +
+  ylab("Relative Entropy") +
+  scale_color_manual(values = c(cbPalette, "#000000"))
+
+final %>% 
   ggplot(aes(x = pos, y = log10(statistic), colour = subtype)) +
   geom_point() +
   geom_line() +
   ggtitle("Single Position Model Results", "All 1KGP Super Populations") +
   xlab("Relative Position") +
   ylab("Log10 Relative Entropy") +
+  scale_color_manual(values = c(cbPalette, "#000000")) +
+  labs(colour = "Subtype")
+
+final %>% 
+  filter(str_starts(subtype, "AT")) %>%
+  ggplot(aes(x = pos, y = statistic, colour = subtype)) +
+  geom_point() +
+  geom_line() +
+  ggtitle("Single Position Model Results", "All 1KGP Super Populations") +
+  xlab("Relative Position") +
+  ylab("Relative Entropy") +
+  scale_color_manual(values = cbPalette)
+
+final %>% 
+  filter(!str_starts(subtype, "AT")) %>%
+  ggplot(aes(x = pos, y = statistic, colour = subtype)) +
+  geom_point() +
+  geom_line() +
+  ggtitle("Single Position Model Results", "All 1KGP Super Populations") +
+  xlab("Relative Position") +
+  ylab("Relative Entropy") +
+  scale_color_manual(values = cbPalette)
+```
+
+```{r}
+final <- dev_by_position("ALL", subtypes[1])
+final$subtype <- subtypes[1]
+
+for(st in c("AT_GC", "AT_TA",
+              "GC_AT", "GC_TA", "GC_CG")){
+  df <- dev_by_position("ALL", st)
+  df$subtype <- st
+  final <- bind_rows(final, df)
+}
+
+for(st in c("cpg_GC_AT", "cpg_GC_TA", "cpg_GC_CG")){
+  df <- dev_by_position("ALL", st, r_start = 2)
+  df$subtype <- st
+  final <- bind_rows(final, df)
+}
+
+final %>% 
+  ggplot(aes(x = pos, y = statistic, colour = subtype)) +
+  geom_point() +
+  geom_line() +
+  ggtitle("Single Position Model Results", "All 1KGP Super Populations") +
+  xlab("Relative Position") +
+  ylab("Deviance") +
   scale_color_manual(values = c(cbPalette, "#000000"))
+
+final %>% 
+  ggplot(aes(x = pos, y = log10(statistic), colour = subtype)) +
+  geom_point() +
+  geom_line() +
+  ggtitle("Single Position Model Results", "All 1KGP Super Populations") +
+  xlab("Relative Position") +
+  ylab("Log10 Deviance") +
+  scale_color_manual(values = c(cbPalette, "#000000")) +
+  labs(colour = "Subtype")
 
 final %>% 
   filter(str_starts(subtype, "AT")) %>%

@@ -9,6 +9,29 @@ editor_options:
 
 ## Introduction
 
+**To Do**
+
+* Legends for all figures
+* Chi square closest versus furthest control
+* Median of distance between 
+* Nucleotide correlation -> more than one subtype 
+* How far to go until statistic is not significant
+  * +1kb
+* How big are replication timing regions / GC islands?
+* Average distance between controls and singletons
+* One million bases from singleton?
+* Artifacts that are driving the results?
+* Add pvalues to deviance statistics
+* CpG -> distance from genes different from other subtypes? Distance from controls?
+* Rerun control matching -> save off control position
+* Closest control versus furthest control
+* Methylation status locally correlated -> ask Yichen for references.
+    * Example of why this approach makes sense
+    
+* Do we care if singletons and control "boundaries" overlap in an extended window analysis
+* 1000bp analysis
+* HGDP as reference panel for phasing project
+
 Here we will be looking at the deviance statistics computed when comparing singleton and control observations 
 
 ```{r}
@@ -104,7 +127,9 @@ plot_pos_stat("ALL", "AT_TA", dev_by_position, title_text = "Deviance: ", ylab_t
   geom_hline(yintercept = 4.12, colour = "red")
 
 dev_by_position("ALL", "AT_TA")
-zhu_by_pos("ALL", "AT_TA")
+
+zhu_by_pos("ALL", "AT_TA") %>%
+  mutate(zhu_sig = statistic > 0.1 * max(statistic))
 ```
 
 And if we look at the value of the statistic when considering relative position +1000:
@@ -152,3 +177,48 @@ plot_pos_stat("ALL", "AT_TA", log_zhu, title_text = "RE: ", ylab_text = "Log10 R
   geom_hline(yintercept = log10(1e-7), colour = "red")
 ```
 
+
+```{r}
+zhu_by_pos("ALL", "AT_CG") %>%
+  mutate(zhu_sig = statistic > 0.1 * max(statistic))
+```
+
+```{r}
+zhu_by_pos("ALL", "AT_GC") %>%
+  mutate(zhu_sig = statistic > 0.1 * max(statistic))
+```
+
+```{r}
+zhu_by_pos("ALL", "AT_TA") %>%
+  mutate(zhu_sig = statistic > 0.1 * max(statistic))
+```
+
+```{r}
+zhu_by_pos("ALL", "GC_AT") %>%
+  mutate(zhu_sig = statistic > 0.1 * max(statistic))
+```
+
+```{r}
+zhu_by_pos("ALL", "cpg_GC_AT") %>%
+  mutate(zhu_sig = statistic > 0.1 * max(statistic))
+```
+
+```{r}
+zhu_by_pos("ALL", "GC_TA") %>%
+  mutate(zhu_sig = statistic > 0.1 * max(statistic))
+```
+
+```{r}
+zhu_by_pos("ALL", "cpg_GC_TA") %>%
+  mutate(zhu_sig = statistic > 0.1 * max(statistic))
+```
+
+```{r}
+zhu_by_pos("ALL", "GC_CG") %>%
+  mutate(zhu_sig = statistic > 0.1 * max(statistic))
+```
+
+```{r}
+zhu_by_pos("ALL", "cpg_GC_CG") %>%
+  mutate(zhu_sig = statistic > 0.1 * max(statistic))
+```
