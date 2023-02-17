@@ -12,7 +12,7 @@ editor_options:
 ```{r}
 library(tidyverse)
 library(qvalue)
-data_dir <- "/net/snowwhite/home/beckandy/research/1000G_LSCI/scratch/100bp_sp/"
+data_dir <- "/net/snowwhite/home/beckandy/research/1000G_LSCI/scratch/1000bp_sp/"
 
 get_count <- function(subtype, offset){
   py_path <- "/net/snowwhite/home/beckandy/mambaforge/bin/python"
