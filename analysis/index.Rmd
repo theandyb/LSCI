@@ -21,7 +21,7 @@ The germ line mutation rate is not uniform across the genome, and this variation
 To address these questions, we characterize the distributions of nucleotides flanking singletons observed in two data sets: the BRIDGES consortium gwas (n = ???) and the 1000G Deep Sequence data (n = 2,504). We use singletons as they are newer variants and provide a rich source of information to characterize mutation processes active in modern human populations. Our analyses are described in more detail in the documents linked to below.
 
 ## NEW: Analysis Using NYGC 1KGP
-* [Single Position Models for ALL](NYGC_single_position_ALL.Rmd)
+* [Single Position Models for ALL](NYGC_single_position_ALL.html)
 
 ## BRIDGES Analyses
 
