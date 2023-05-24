@@ -387,7 +387,7 @@ class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span>
 <div class="tab-content">
 <div id="summary" class="tab-pane fade in active">
 <p>
-<strong>Last updated:</strong> 2023-05-23
+<strong>Last updated:</strong> 2023-05-24
 </p>
 <p>
 <strong>Checks:</strong> <span
@@ -518,15 +518,15 @@ project makes it easier to run your code on other machines.</p>
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomtheandybLSCItreee32b997bf2754046c4a4512bec17660afe08759ftargetblanke32b997a">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomtheandybLSCItree372210004bb0d535238ac0201e823be6f8e5801ftargetblank3722100a">
 <span class="glyphicon glyphicon-ok text-success"
 aria-hidden="true"></span> <strong>Repository version:</strong>
-<a href="https://github.com/theandyb/LSCI/tree/e32b997bf2754046c4a4512bec17660afe08759f" target="_blank">e32b997</a>
+<a href="https://github.com/theandyb/LSCI/tree/372210004bb0d535238ac0201e823be6f8e5801f" target="_blank">3722100</a>
 </a>
 </p>
 </div>
 <div
-id="strongRepositoryversionstrongahrefhttpsgithubcomtheandybLSCItreee32b997bf2754046c4a4512bec17660afe08759ftargetblanke32b997a"
+id="strongRepositoryversionstrongahrefhttpsgithubcomtheandybLSCItree372210004bb0d535238ac0201e823be6f8e5801ftargetblank3722100a"
 class="panel-collapse collapse">
 <div class="panel-body">
 <p>
@@ -536,7 +536,7 @@ reproducibility.
 </p>
 <p>
 The results in this page were generated with repository version
-<a href="https://github.com/theandyb/LSCI/tree/e32b997bf2754046c4a4512bec17660afe08759f" target="_blank">e32b997</a>.
+<a href="https://github.com/theandyb/LSCI/tree/372210004bb0d535238ac0201e823be6f8e5801f" target="_blank">3722100</a>.
 See the <em>Past versions</em> tab to see a history of the changes made
 to the R Markdown and HTML files.
 </p>
@@ -555,6 +555,9 @@ Ignored files:
     Ignored:    .Rproj.user/
     Ignored:    analysis/disqus.html
     Ignored:    code/random/
+
+Untracked files:
+    Untracked:  output/figs/
 
 </code></pre>
 <p>
@@ -601,6 +604,40 @@ Message
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+Rmd
+</td>
+<td>
+<a href="https://github.com/theandyb/LSCI/blob/372210004bb0d535238ac0201e823be6f8e5801f/analysis/NYGC_single_position_ALL.Rmd" target="_blank">3722100</a>
+</td>
+<td>
+Andy Beck
+</td>
+<td>
+2023-05-24
+</td>
+<td>
+wflow_publish("analysis/NYGC_single_position_ALL.Rmd")
+</td>
+</tr>
+<tr>
+<td>
+html
+</td>
+<td>
+<a href="https://rawcdn.githack.com/theandyb/LSCI/f77e94cfaf9173a4c9361439ca41b972e9b44c8e/docs/NYGC_single_position_ALL.html" target="_blank">f77e94c</a>
+</td>
+<td>
+Andy Beck
+</td>
+<td>
+2023-05-23
+</td>
+<td>
+Build site.
+</td>
+</tr>
 <tr>
 <td>
 Rmd
@@ -698,77 +735,430 @@ read_pop_res &lt;- function(pop, data_dir = &quot;/net/snowwhite/home/beckandy/r
     df &lt;- bind_rows(df, df2)
   }
   return(df)
+}
+
+read_subtype_pop_resid &lt;- function(pop, subtype, rp, data_dir = &quot;/net/snowwhite/home/beckandy/research/1000G_NYGC_LSCI/output/single_pos/resid/&quot;){
+  f_name &lt;- paste0(data_dir, pop, &quot;/&quot;, subtype, &quot;_rp_&quot;, rp, &quot;.csv&quot;)
+  df &lt;- read_csv(f_name,show_col_types = FALSE)
+  return(df)
+}
+
+read_subtype_pop_range_resid &lt;- function(pop, subtype, size = 10, data_dir = &quot;/net/snowwhite/home/beckandy/research/1000G_NYGC_LSCI/output/single_pos/resid/&quot;){
+  pos.names &lt;- c(-size:-1, 1:size)
+  results &lt;- lapply(pos.names, function(x) NULL) %&gt;% setNames(pos.names)
+  for(i in names(results)){
+    results[[i]] &lt;- read_subtype_pop_resid(pop, subtype, i, data_dir)
+    results[[i]]$pos &lt;- i
+  }
+  df &lt;- bind_rows(results)
+  return(df)
+}
+
+subtype_print_names &lt;- function(st){
+  if(str_starts(st, &quot;AT&quot;)){
+    return(paste0(&quot;A → &quot;, str_sub(st, 4, 4)))
+  } else if(str_starts(st, &quot;GC&quot;)){
+    return(paste0(&quot;C → &quot;, str_sub(st, 5, 5)))
+  } else{
+    return(paste0(&quot;CpG → &quot;, str_sub(st, 9, 9), &quot;pG&quot;))
+  }
 }</code></pre>
 </div>
 <div id="all-subtypes-plot-options" class="section level3">
 <h3>All subtypes plot options</h3>
-<pre class="r"><code>df &lt;- read_pop_res(&quot;ALL&quot;)
+<pre class="r"><code>df &lt;- read_pop_res(&quot;ALL&quot;) %&gt;%
+  rowwise() %&gt;%
+  mutate(print_name = subtype_print_names(subtype))
 
 df %&gt;%
   filter(abs(offset) &lt; 10) %&gt;%
-  ggplot(aes(x = offset, y = re, color = subtype)) +
+  ggplot(aes(x = offset, y = re, color = print_name)) +
   geom_point() + 
-  geom_line() +
+  geom_line(show.legend = FALSE) +
   scale_color_manual(values = cbPalette) +
   xlab(&quot;Relative Position&quot;) +
   ylab(&quot;Relative Entropy&quot;) +
-  labs(color = &quot;Subtype&quot;)</code></pre>
+  labs(color = &quot;Subtype&quot;) +
+  theme_bw(base_size = 18/.pt) +
+  theme(text = element_text(family = &quot;Times New Roman&quot;)) +
+  theme(
+    legend.position = c(.98, .98),
+    legend.justification = c(&quot;right&quot;, &quot;top&quot;),
+    legend.box.just = &quot;right&quot;
+    ) </code></pre>
 <p><img src="figure/NYGC_single_position_ALL.Rmd/unnamed-chunk-3-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-3-1">
+Past versions of unnamed-chunk-3-1.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-3-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/theandyb/LSCI/blob/f77e94cfaf9173a4c9361439ca41b972e9b44c8e/docs/figure/NYGC_single_position_ALL.Rmd/unnamed-chunk-3-1.png" target="_blank">f77e94c</a>
+</td>
+<td>
+Andy Beck
+</td>
+<td>
+2023-05-23
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<pre class="r"><code>ggsave(paste0(plot_dir, &quot;fig1_opt1.tiff&quot;), dpi = 300, height = 4, width = 5)</code></pre>
 <p>Separate plots for A&gt;N and C&gt;N</p>
 <pre class="r"><code>df %&gt;%
   filter(abs(offset) &lt; 10,
          str_starts(subtype, &quot;AT&quot;)) %&gt;%
-  ggplot(aes(x = offset, y = re, color = subtype)) +
+  ggplot(aes(x = offset, y = re, color = print_name)) +
   geom_point() + 
-  geom_line() +
+  geom_line(show.legend = FALSE) +
   scale_color_manual(values = cbPalette) +
   xlab(&quot;Relative Position&quot;) +
   ylab(&quot;Relative Entropy&quot;) +
   labs(color = &quot;Subtype&quot;) +
-  theme_bw()</code></pre>
+  theme_classic(base_size = 18/.pt) +
+  theme(text = element_text(family = &quot;Times New Roman&quot;),
+        legend.position = c(.90, .85))</code></pre>
 <p><img src="figure/NYGC_single_position_ALL.Rmd/unnamed-chunk-4-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-4-1">
+Past versions of unnamed-chunk-4-1.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-4-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/theandyb/LSCI/blob/f77e94cfaf9173a4c9361439ca41b972e9b44c8e/docs/figure/NYGC_single_position_ALL.Rmd/unnamed-chunk-4-1.png" target="_blank">f77e94c</a>
+</td>
+<td>
+Andy Beck
+</td>
+<td>
+2023-05-23
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<pre class="r"><code>ggsave(paste0(plot_dir, &quot;fig1_opt2a.tiff&quot;), dpi = plot_dpi, height = 4, width = 5)</code></pre>
 <pre class="r"><code>df %&gt;%
   filter(abs(offset) &lt; 10,
          !str_starts(subtype, &quot;AT&quot;)) %&gt;%
-  ggplot(aes(x = offset, y = re, color = subtype)) +
+  ggplot(aes(x = offset, y = re, color = print_name)) +
   geom_point() + 
   geom_line() +
   scale_color_manual(values = cbPalette) +
   xlab(&quot;Relative Position&quot;) +
   ylab(&quot;Relative Entropy&quot;) +
   labs(color = &quot;Subtype&quot;) +
-  theme_bw()</code></pre>
+  theme_classic(base_size = 18/.pt) +
+  theme(text = element_text(family = &quot;Times New Roman&quot;),
+        legend.position = c(.90, .75))</code></pre>
 <p><img src="figure/NYGC_single_position_ALL.Rmd/unnamed-chunk-5-1.png" width="672" style="display: block; margin: auto;" /></p>
-<p>Patwork the plots together:</p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-5-1">
+Past versions of unnamed-chunk-5-1.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-5-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/theandyb/LSCI/blob/f77e94cfaf9173a4c9361439ca41b972e9b44c8e/docs/figure/NYGC_single_position_ALL.Rmd/unnamed-chunk-5-1.png" target="_blank">f77e94c</a>
+</td>
+<td>
+Andy Beck
+</td>
+<td>
+2023-05-23
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<pre class="r"><code>ggsave(paste0(plot_dir, &quot;fig1_opt2b.tiff&quot;), dpi = plot_dpi, height = 4, width = 5)</code></pre>
+<p>Patchwork the plots together:</p>
 <pre class="r"><code>p1 &lt;- df %&gt;%
   filter(abs(offset) &lt; 10,
          str_starts(subtype, &quot;AT&quot;)) %&gt;%
-  ggplot(aes(x = offset, y = re, color = subtype)) +
+  ggplot(aes(x = offset, y = re, color = print_name)) +
   geom_point() + 
-  geom_line() +
+  geom_line(show.legend = FALSE) +
   scale_color_manual(values = cbPalette) +
   xlab(&quot;Relative Position&quot;) +
   ylab(&quot;Relative Entropy&quot;) +
-  labs(color = &quot;Subtype&quot;)
+  labs(color = &quot;Subtype&quot;) +
+  theme_classic(base_size = 18/.pt) +
+  theme(text = element_text(family = &quot;Times New Roman&quot;),
+        legend.position = c(.90, .75))
   
 p2 &lt;- df %&gt;%
   filter(abs(offset) &lt; 10,
          !str_starts(subtype, &quot;AT&quot;)) %&gt;%
-  ggplot(aes(x = offset, y = re, color = subtype)) +
+  ggplot(aes(x = offset, y = re, color = print_name)) +
   geom_point() + 
-  geom_line() +
+  geom_line(show.legend = FALSE) +
   scale_color_manual(values = cbPalette) +
   xlab(&quot;Relative Position&quot;) +
   ylab(&quot;Relative Entropy&quot;) +
-  labs(color = &quot;Subtype&quot;)
+  labs(color = &quot;Subtype&quot;) +
+  theme_classic(base_size = 18/.pt) +
+  theme(text = element_text(family = &quot;Times New Roman&quot;),
+        legend.position = c(.90, .6))
 
-p_combined &lt;- p1 + p2
+p_combined &lt;- p1 / p2
 
 p_ranges_y &lt;- c(ggplot_build(p_combined[[1]])$layout$panel_scales_y[[1]]$range$range,
                 ggplot_build(p_combined[[2]])$layout$panel_scales_y[[1]]$range$range)
 p_combined &amp; 
-  ylim(min(p_ranges_y), max(p_ranges_y)) &amp; theme_bw()</code></pre>
+  ylim(min(p_ranges_y), max(p_ranges_y))</code></pre>
 <p><img src="figure/NYGC_single_position_ALL.Rmd/unnamed-chunk-6-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-6-1">
+Past versions of unnamed-chunk-6-1.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-6-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/theandyb/LSCI/blob/f77e94cfaf9173a4c9361439ca41b972e9b44c8e/docs/figure/NYGC_single_position_ALL.Rmd/unnamed-chunk-6-1.png" target="_blank">f77e94c</a>
+</td>
+<td>
+Andy Beck
+</td>
+<td>
+2023-05-23
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<pre class="r"><code>ggsave(paste0(plot_dir, &quot;fig1_opt2c.tiff&quot;), dpi = plot_dpi, height = 7, width = 5)</code></pre>
+<p>“To-From” approach:</p>
+<pre class="r"><code>df &lt;- df %&gt;%
+  mutate(to_n = ifelse(str_starts(subtype, &quot;A&quot;), &quot;A&quot;, ifelse(str_starts(subtype, &quot;cpg&quot;), &quot;CpG&quot;, &quot;C&quot;)),
+         from_n = ifelse(str_starts(subtype, &quot;A&quot;), str_sub(subtype, 4, 4), str_sub(subtype, -1)))
+df %&gt;%
+  filter(abs(offset) &lt; 11) %&gt;%
+  ggplot(aes(x = offset, y = re)) +
+  geom_point() +
+  geom_line() +
+  theme_bw() +
+  facet_grid(vars(from_n), vars(to_n)) +
+  xlab(&quot;Relative Position&quot;) +
+  ylab(&quot;Relative Entropy&quot;)</code></pre>
+<p><img src="figure/NYGC_single_position_ALL.Rmd/unnamed-chunk-7-1.png" width="672" style="display: block; margin: auto;" /></p>
+<pre class="r"><code>ggsave(paste0(plot_dir, &quot;fig1_opt3.tiff&quot;), dpi = plot_dpi, height = 5, width = 5)</code></pre>
+</div>
+<div id="a-c" class="section level3">
+<h3>A &gt; C</h3>
+<p>First let’s take a look at the overall statistic at each position for
+the A &gt; C sub type. We’ll limit our initial examination to the +/- 10
+bp window centered at the focal position:</p>
+<pre class="r"><code>df &lt;- read_subtype_pop_res(&quot;ALL&quot;, &quot;AT_CG&quot;)
+
+df %&gt;%
+  filter(abs(offset) &lt;= 10) %&gt;%
+  ggplot(aes(x = offset, y = re)) + 
+  geom_point() + 
+  geom_line() +
+  theme_classic(base_size = 24/.pt) +
+  theme(text = element_text(family = &quot;Times New Roman&quot;)) +
+  xlab(&quot;Relative Position&quot;) +
+  ylab(&quot;Relative Entropy&quot;)</code></pre>
+<p><img src="figure/NYGC_single_position_ALL.Rmd/unnamed-chunk-8-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>For this subtype, we observe that the most influential position
+appears to be at the -1. We also note that, while in general the
+statistic decreases as we move further from the focal position, this
+decrease is not monotonic. For example, we see a higher statistic at the
+-3 position than we do at the -2, and similarly a higher value is seen
+at +2 than is observed at +1.</p>
+<p>The statistic at each position can be decomposed into the
+contributions from each of the four nucleotides. Here, a positive
+residual indicates an enrichment in the singletons relative to the
+expectation under the null, while a negative value indicates a
+depletion.</p>
+<pre class="r"><code>df_resid &lt;- read_subtype_pop_range_resid(&quot;ALL&quot;, &quot;AT_CG&quot;, size = 10)  %&gt;%
+  type_convert()</code></pre>
+<pre><code>
+── Column specification ────────────────────────────────────────────────────────
+cols(
+  nuc = col_character(),
+  status = col_character(),
+  pos = col_double()
+)</code></pre>
+<pre class="r"><code>df_resid &lt;- df_resid %&gt;%
+  inner_join({df %&gt;% select(offset, re)}, by = c(&quot;pos&quot; = &quot;offset&quot;))
+
+df_resid %&gt;% 
+  filter(status == &quot;singletons&quot;) %&gt;%
+  select(nuc, res, re, pos) %&gt;%
+  group_by(pos) %&gt;%
+  mutate(pct = abs(res) / sum(abs(res))) %&gt;%
+  mutate(re_cont = re * pct * sign(res)) %&gt;%
+  ggplot(aes(x = pos, y = re_cont, color = nuc)) +
+  geom_point() +
+  geom_line() +
+  xlab(&quot;Relative Position&quot;) +
+  ylab(&quot;Relative Entropy&quot;) +
+  guides(color = guide_legend(title = &quot;Nucleotide&quot;)) +
+  theme_classic() +
+  theme(text = element_text(family = &quot;Times New Roman&quot;),
+        legend.position = c(.85, .8))</code></pre>
+<p><img src="figure/NYGC_single_position_ALL.Rmd/unnamed-chunk-9-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>For this subtype, we observe that the primary contributors to the
+signal at the -1 position is a depletion of G in the singletons, while
+there is an enrichment of Cs.</p>
+<p>Finally, let’s look at the individual position statistics at all
+positions in the +/- 1000bp window:</p>
+<pre class="r"><code>df %&gt;%
+  mutate(is_sig = dev &gt; qchisq(p=.05, df=3, lower.tail=FALSE)) %&gt;%
+  ggplot(aes(x = offset, y = re, color = is_sig)) +
+  geom_point() +
+  scale_y_log10() +
+  xlab(&quot;Relative Position&quot;) +
+  ylab(&quot;Log10 Relative Entropy&quot;) +
+  guides(color = guide_legend(title = &quot;Significant&quot;)) +
+  theme_classic() +
+  theme(text = element_text(family = &quot;Times New Roman&quot;),
+        legend.position = c(.85, .8))</code></pre>
+<p><img src="figure/NYGC_single_position_ALL.Rmd/unnamed-chunk-10-1.png" width="672" style="display: block; margin: auto;" /></p>
+</div>
+<div id="a-g" class="section level3">
+<h3>A &gt; G</h3>
+<p>Let’s take a look at the A &gt; G subtype:</p>
+<pre class="r"><code>df &lt;- read_subtype_pop_res(&quot;ALL&quot;, &quot;AT_GC&quot;)
+
+df %&gt;%
+  filter(abs(offset) &lt;= 10) %&gt;%
+  ggplot(aes(x = offset, y = re)) + 
+  geom_point() + 
+  geom_line() +
+  theme_classic(base_size = 24/.pt) +
+  theme(text = element_text(family = &quot;Times New Roman&quot;)) +
+  xlab(&quot;Relative Position&quot;) +
+  ylab(&quot;Relative Entropy&quot;)</code></pre>
+<p><img src="figure/NYGC_single_position_ALL.Rmd/unnamed-chunk-11-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>Here, we observe that the most influential position is the +1
+position. Let’s look and see what the nucleotide-level contributions to
+each individual statistic looks like:</p>
+<pre class="r"><code>df_resid &lt;- read_subtype_pop_range_resid(&quot;ALL&quot;, &quot;AT_GC&quot;, size = 10)  %&gt;%
+  type_convert()</code></pre>
+<pre><code>
+── Column specification ────────────────────────────────────────────────────────
+cols(
+  nuc = col_character(),
+  status = col_character(),
+  pos = col_double()
+)</code></pre>
+<pre class="r"><code>df_resid &lt;- df_resid %&gt;%
+  inner_join({df %&gt;% select(offset, re)}, by = c(&quot;pos&quot; = &quot;offset&quot;))
+
+df_resid %&gt;% 
+  filter(status == &quot;singletons&quot;) %&gt;%
+  select(nuc, res, re, pos) %&gt;%
+  group_by(pos) %&gt;%
+  mutate(pct = abs(res) / sum(abs(res))) %&gt;%
+  mutate(re_cont = re * pct * sign(res)) %&gt;%
+  ggplot(aes(x = pos, y = re_cont, color = nuc)) +
+  geom_point() +
+  geom_line() +
+  xlab(&quot;Relative Position&quot;) +
+  ylab(&quot;Relative Entropy&quot;) +
+  guides(color = guide_legend(title = &quot;Nucleotide&quot;)) +
+  theme_classic() +
+  theme(text = element_text(family = &quot;Times New Roman&quot;),
+        legend.position = c(.85, .8))</code></pre>
+<p><img src="figure/NYGC_single_position_ALL.Rmd/unnamed-chunk-12-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>For this subtype, we see that the signal at the +1 position is driven
+by an enrichment of T and a depletion of A. Also notice that at -1, the
+primary driver is an enrichment of C; we also observed an enrichment of
+C in the A&gt;C subtype.</p>
+<p>Let’s also plot the individual position statistics up to +/- 1000bp
+from the focal position. Here we’ll color significance based on the null
+distribution being a chi-square with df = 3</p>
+<pre class="r"><code>df %&gt;%
+  mutate(is_sig = dev &gt; qchisq(p=.05, df=3, lower.tail=FALSE)) %&gt;%
+  ggplot(aes(x = offset, y = re, color = is_sig)) +
+  geom_point() +
+  scale_y_log10() +
+  xlab(&quot;Relative Position&quot;) +
+  ylab(&quot;Log10 Relative Entropy&quot;) +
+  guides(color = guide_legend(title = &quot;Significant&quot;)) +
+  theme_classic() +
+  theme(text = element_text(family = &quot;Times New Roman&quot;),
+        legend.position = c(.85, .8))</code></pre>
+<p><img src="figure/NYGC_single_position_ALL.Rmd/unnamed-chunk-13-1.png" width="672" style="display: block; margin: auto;" /></p>
 <br>
 <p>
 <button type="button" class="btn btn-default btn-workflowr btn-workflowr-sessioninfo" data-toggle="collapse" data-target="#workflowr-sessioninfo" style="display: block;">
@@ -801,26 +1191,28 @@ attached base packages:
 [1] stats     graphics  grDevices utils     datasets  methods   base     
 
 other attached packages:
- [1] patchwork_1.1.1 lubridate_1.9.2 forcats_1.0.0   stringr_1.5.0  
- [5] dplyr_1.1.1     purrr_1.0.1     readr_2.1.4     tidyr_1.3.0    
- [9] tibble_3.2.1    ggplot2_3.4.2   tidyverse_2.0.0 workflowr_1.7.0
+ [1] egg_0.4.5       gridExtra_2.3   patchwork_1.1.1 lubridate_1.9.2
+ [5] forcats_1.0.0   stringr_1.5.0   dplyr_1.1.2     purrr_1.0.1    
+ [9] readr_2.1.4     tidyr_1.3.0     tibble_3.2.1    ggplot2_3.4.2  
+[13] tidyverse_2.0.0 workflowr_1.7.0
 
 loaded via a namespace (and not attached):
- [1] sass_0.4.1       utf8_1.2.2       generics_0.1.3   stringi_1.7.12  
- [5] hms_1.1.3        digest_0.6.31    magrittr_2.0.3   timechange_0.2.0
- [9] evaluate_0.15    grid_4.3.0       fastmap_1.1.0    rprojroot_2.0.3 
-[13] jsonlite_1.8.4   processx_3.8.0   whisker_0.4      ps_1.7.0        
-[17] promises_1.2.0.1 httr_1.4.5       fansi_1.0.4      scales_1.2.0    
-[21] jquerylib_0.1.4  cli_3.6.1        crayon_1.5.2     rlang_1.1.0     
-[25] bit64_4.0.5      munsell_0.5.0    withr_2.5.0      yaml_2.3.7      
-[29] parallel_4.3.0   tools_4.3.0      tzdb_0.3.0       colorspace_2.0-3
-[33] httpuv_1.6.9     vctrs_0.6.1      R6_2.5.1         lifecycle_1.0.3 
-[37] git2r_0.31.0     bit_4.0.4        fs_1.6.1         vroom_1.6.1     
-[41] pkgconfig_2.0.3  callr_3.7.3      pillar_1.9.0     bslib_0.3.1     
-[45] later_1.3.0      gtable_0.3.0     glue_1.6.2       Rcpp_1.0.10     
-[49] highr_0.9        xfun_0.38        tidyselect_1.2.0 rstudioapi_0.14 
-[53] knitr_1.42       farver_2.1.0     htmltools_0.5.5  labeling_0.4.2  
-[57] rmarkdown_2.14   compiler_4.3.0   getPass_0.2-2   </code></pre>
+ [1] gtable_0.3.0      xfun_0.39         bslib_0.3.1       processx_3.8.1   
+ [5] callr_3.7.3       tzdb_0.4.0        vctrs_0.6.2       tools_4.3.0      
+ [9] ps_1.7.0          generics_0.1.3    parallel_4.3.0    fansi_1.0.4      
+[13] highr_0.9         pkgconfig_2.0.3   lifecycle_1.0.3   compiler_4.3.0   
+[17] farver_2.1.0      git2r_0.32.0      textshaping_0.3.6 munsell_0.5.0    
+[21] getPass_0.2-2     httpuv_1.6.11     htmltools_0.5.5   sass_0.4.1       
+[25] yaml_2.3.7        later_1.3.0       pillar_1.9.0      crayon_1.5.2     
+[29] jquerylib_0.1.4   whisker_0.4       tidyselect_1.2.0  digest_0.6.31    
+[33] stringi_1.7.12    labeling_0.4.2    rprojroot_2.0.3   fastmap_1.1.0    
+[37] grid_4.3.0        colorspace_2.0-3  cli_3.6.1         magrittr_2.0.3   
+[41] utf8_1.2.2        withr_2.5.0       scales_1.2.0      promises_1.2.0.1 
+[45] bit64_4.0.5       timechange_0.2.0  rmarkdown_2.14    httr_1.4.6       
+[49] bit_4.0.4         ragg_1.2.5        hms_1.1.3         evaluate_0.15    
+[53] knitr_1.42        rlang_1.1.1       Rcpp_1.0.10       glue_1.6.2       
+[57] rstudioapi_0.14   vroom_1.6.3       jsonlite_1.8.4    R6_2.5.1         
+[61] systemfonts_1.0.4 fs_1.6.2         </code></pre>
 </div>
 </div>
 </div>
