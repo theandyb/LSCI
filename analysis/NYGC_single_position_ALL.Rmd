@@ -10,6 +10,7 @@ editor_options:
 ```{r echo=FALSE, message=FALSE, warning=FALSE}
 library(tidyverse)
 library(patchwork)
+library(egg)
 #library(tikzDevice)
 #library(sjPlot)
 width = 4
@@ -20,6 +21,7 @@ theme_set(theme_bw())
 plot_w <- 800
 plot_h <- 500
 plot_dpi <- 300
+plot_dir <- "output/figs/"
 
 cbPalette <- c("#999999", "#E69F00", "#56B4E9", "#009E73", "#F0E442", "#0072B2", "#D55E00", "#CC79A7", "#000000")
 ```
@@ -69,22 +71,59 @@ read_pop_res <- function(pop, data_dir = "/net/snowwhite/home/beckandy/research/
   }
   return(df)
 }
+
+read_subtype_pop_resid <- function(pop, subtype, rp, data_dir = "/net/snowwhite/home/beckandy/research/1000G_NYGC_LSCI/output/single_pos/resid/"){
+  f_name <- paste0(data_dir, pop, "/", subtype, "_rp_", rp, ".csv")
+  df <- read_csv(f_name,show_col_types = FALSE)
+  return(df)
+}
+
+read_subtype_pop_range_resid <- function(pop, subtype, size = 10, data_dir = "/net/snowwhite/home/beckandy/research/1000G_NYGC_LSCI/output/single_pos/resid/"){
+  pos.names <- c(-size:-1, 1:size)
+  results <- lapply(pos.names, function(x) NULL) %>% setNames(pos.names)
+  for(i in names(results)){
+    results[[i]] <- read_subtype_pop_resid(pop, subtype, i, data_dir)
+    results[[i]]$pos <- i
+  }
+  df <- bind_rows(results)
+  return(df)
+}
+
+subtype_print_names <- function(st){
+  if(str_starts(st, "AT")){
+    return(paste0("A → ", str_sub(st, 4, 4)))
+  } else if(str_starts(st, "GC")){
+    return(paste0("C → ", str_sub(st, 5, 5)))
+  } else{
+    return(paste0("CpG → ", str_sub(st, 9, 9), "pG"))
+  }
+}
 ```
 
 ### All subtypes plot options
 
 ```{r}
-df <- read_pop_res("ALL")
+df <- read_pop_res("ALL") %>%
+  rowwise() %>%
+  mutate(print_name = subtype_print_names(subtype))
 
 df %>%
   filter(abs(offset) < 10) %>%
-  ggplot(aes(x = offset, y = re, color = subtype)) +
+  ggplot(aes(x = offset, y = re, color = print_name)) +
   geom_point() + 
-  geom_line() +
+  geom_line(show.legend = FALSE) +
   scale_color_manual(values = cbPalette) +
   xlab("Relative Position") +
   ylab("Relative Entropy") +
-  labs(color = "Subtype")
+  labs(color = "Subtype") +
+  theme_bw(base_size = 18/.pt) +
+  theme(text = element_text(family = "Times New Roman")) +
+  theme(
+    legend.position = c(.98, .98),
+    legend.justification = c("right", "top"),
+    legend.box.just = "right"
+    ) 
+ggsave(paste0(plot_dir, "fig1_opt1.tiff"), dpi = 300, height = 4, width = 5)
 ```
 
 Separate plots for A>N and C>N
@@ -93,60 +132,218 @@ Separate plots for A>N and C>N
 df %>%
   filter(abs(offset) < 10,
          str_starts(subtype, "AT")) %>%
-  ggplot(aes(x = offset, y = re, color = subtype)) +
+  ggplot(aes(x = offset, y = re, color = print_name)) +
   geom_point() + 
-  geom_line() +
+  geom_line(show.legend = FALSE) +
   scale_color_manual(values = cbPalette) +
   xlab("Relative Position") +
   ylab("Relative Entropy") +
   labs(color = "Subtype") +
-  theme_bw()
+  theme_classic(base_size = 18/.pt) +
+  theme(text = element_text(family = "Times New Roman"),
+        legend.position = c(.90, .85))
+ggsave(paste0(plot_dir, "fig1_opt2a.tiff"), dpi = plot_dpi, height = 4, width = 5)
 ```
 
 ```{r}
 df %>%
   filter(abs(offset) < 10,
          !str_starts(subtype, "AT")) %>%
-  ggplot(aes(x = offset, y = re, color = subtype)) +
+  ggplot(aes(x = offset, y = re, color = print_name)) +
   geom_point() + 
   geom_line() +
   scale_color_manual(values = cbPalette) +
   xlab("Relative Position") +
   ylab("Relative Entropy") +
   labs(color = "Subtype") +
-  theme_bw()
+  theme_classic(base_size = 18/.pt) +
+  theme(text = element_text(family = "Times New Roman"),
+        legend.position = c(.90, .75))
+ggsave(paste0(plot_dir, "fig1_opt2b.tiff"), dpi = plot_dpi, height = 4, width = 5)
 ```
 
-Patwork the plots together:
+Patchwork the plots together:
 
 ```{r}
 p1 <- df %>%
   filter(abs(offset) < 10,
          str_starts(subtype, "AT")) %>%
-  ggplot(aes(x = offset, y = re, color = subtype)) +
+  ggplot(aes(x = offset, y = re, color = print_name)) +
   geom_point() + 
-  geom_line() +
+  geom_line(show.legend = FALSE) +
   scale_color_manual(values = cbPalette) +
   xlab("Relative Position") +
   ylab("Relative Entropy") +
-  labs(color = "Subtype")
+  labs(color = "Subtype") +
+  theme_classic(base_size = 18/.pt) +
+  theme(text = element_text(family = "Times New Roman"),
+        legend.position = c(.90, .75))
   
 p2 <- df %>%
   filter(abs(offset) < 10,
          !str_starts(subtype, "AT")) %>%
-  ggplot(aes(x = offset, y = re, color = subtype)) +
+  ggplot(aes(x = offset, y = re, color = print_name)) +
   geom_point() + 
-  geom_line() +
+  geom_line(show.legend = FALSE) +
   scale_color_manual(values = cbPalette) +
   xlab("Relative Position") +
   ylab("Relative Entropy") +
-  labs(color = "Subtype")
+  labs(color = "Subtype") +
+  theme_classic(base_size = 18/.pt) +
+  theme(text = element_text(family = "Times New Roman"),
+        legend.position = c(.90, .6))
 
-p_combined <- p1 + p2
+p_combined <- p1 / p2
 
 p_ranges_y <- c(ggplot_build(p_combined[[1]])$layout$panel_scales_y[[1]]$range$range,
                 ggplot_build(p_combined[[2]])$layout$panel_scales_y[[1]]$range$range)
 p_combined & 
-  ylim(min(p_ranges_y), max(p_ranges_y)) & theme_bw()
+  ylim(min(p_ranges_y), max(p_ranges_y))
+ggsave(paste0(plot_dir, "fig1_opt2c.tiff"), dpi = plot_dpi, height = 7, width = 5)
+```
+
+"To-From" approach:
+
+```{r}
+df <- df %>%
+  mutate(to_n = ifelse(str_starts(subtype, "A"), "A", ifelse(str_starts(subtype, "cpg"), "CpG", "C")),
+         from_n = ifelse(str_starts(subtype, "A"), str_sub(subtype, 4, 4), str_sub(subtype, -1)))
+df %>%
+  filter(abs(offset) < 11) %>%
+  ggplot(aes(x = offset, y = re)) +
+  geom_point() +
+  geom_line() +
+  theme_bw() +
+  facet_grid(vars(from_n), vars(to_n)) +
+  xlab("Relative Position") +
+  ylab("Relative Entropy")
+ggsave(paste0(plot_dir, "fig1_opt3.tiff"), dpi = plot_dpi, height = 5, width = 5)
+```
+
+### A > C
+
+First let's take a look at the overall statistic at each position for the A > C sub type. We'll limit our initial examination to the +/- 10 bp window centered at the focal position:
+
+```{r}
+df <- read_subtype_pop_res("ALL", "AT_CG")
+
+df %>%
+  filter(abs(offset) <= 10) %>%
+  ggplot(aes(x = offset, y = re)) + 
+  geom_point() + 
+  geom_line() +
+  theme_classic(base_size = 24/.pt) +
+  theme(text = element_text(family = "Times New Roman")) +
+  xlab("Relative Position") +
+  ylab("Relative Entropy")
+
+```
+
+For this subtype, we observe that the most influential position appears to be at the -1. We also note that, while in general the statistic decreases as we move further from the focal position, this decrease is not monotonic. For example, we see a higher statistic at the -3 position than we do at the -2, and similarly a higher value is seen at +2 than is observed at +1.
+
+The statistic at each position can be decomposed into the contributions from each of the four nucleotides. Here, a positive residual indicates an enrichment in the singletons relative to the expectation under the null, while a negative value indicates a depletion.
+
+```{r}
+df_resid <- read_subtype_pop_range_resid("ALL", "AT_CG", size = 10)  %>%
+  type_convert()
+
+df_resid <- df_resid %>%
+  inner_join({df %>% select(offset, re)}, by = c("pos" = "offset"))
+
+df_resid %>% 
+  filter(status == "singletons") %>%
+  select(nuc, res, re, pos) %>%
+  group_by(pos) %>%
+  mutate(pct = abs(res) / sum(abs(res))) %>%
+  mutate(re_cont = re * pct * sign(res)) %>%
+  ggplot(aes(x = pos, y = re_cont, color = nuc)) +
+  geom_point() +
+  geom_line() +
+  xlab("Relative Position") +
+  ylab("Relative Entropy") +
+  guides(color = guide_legend(title = "Nucleotide")) +
+  theme_classic() +
+  theme(text = element_text(family = "Times New Roman"),
+        legend.position = c(.85, .8))
+```
+
+For this subtype, we observe that the primary contributors to the signal at the -1 position is a depletion of G in the singletons, while there is an enrichment of Cs. 
+
+Finally, let's look at the individual position statistics at all positions in the +/- 1000bp window:
+
+```{r}
+df %>%
+  mutate(is_sig = dev > qchisq(p=.05, df=3, lower.tail=FALSE)) %>%
+  ggplot(aes(x = offset, y = re, color = is_sig)) +
+  geom_point() +
+  scale_y_log10() +
+  xlab("Relative Position") +
+  ylab("Log10 Relative Entropy") +
+  guides(color = guide_legend(title = "Significant")) +
+  theme_classic() +
+  theme(text = element_text(family = "Times New Roman"),
+        legend.position = c(.85, .8))
+```
+
+### A > G
+
+Let's take a look at the A > G subtype:
+
+```{r}
+df <- read_subtype_pop_res("ALL", "AT_GC")
+
+df %>%
+  filter(abs(offset) <= 10) %>%
+  ggplot(aes(x = offset, y = re)) + 
+  geom_point() + 
+  geom_line() +
+  theme_classic(base_size = 24/.pt) +
+  theme(text = element_text(family = "Times New Roman")) +
+  xlab("Relative Position") +
+  ylab("Relative Entropy")
+```
+
+Here, we observe that the most influential position is the +1 position. Let's look and see what the nucleotide-level contributions to each individual statistic looks like:
+
+```{r}
+df_resid <- read_subtype_pop_range_resid("ALL", "AT_GC", size = 10)  %>%
+  type_convert()
+
+df_resid <- df_resid %>%
+  inner_join({df %>% select(offset, re)}, by = c("pos" = "offset"))
+
+df_resid %>% 
+  filter(status == "singletons") %>%
+  select(nuc, res, re, pos) %>%
+  group_by(pos) %>%
+  mutate(pct = abs(res) / sum(abs(res))) %>%
+  mutate(re_cont = re * pct * sign(res)) %>%
+  ggplot(aes(x = pos, y = re_cont, color = nuc)) +
+  geom_point() +
+  geom_line() +
+  xlab("Relative Position") +
+  ylab("Relative Entropy") +
+  guides(color = guide_legend(title = "Nucleotide")) +
+  theme_classic() +
+  theme(text = element_text(family = "Times New Roman"),
+        legend.position = c(.85, .8))
+```
+
+For this subtype, we see that the signal at the +1 position is driven by an enrichment of T and a depletion of A. Also notice that at -1, the primary driver is an enrichment of C; we also observed an enrichment of C in the A>C subtype.
+
+Let's also plot the individual position statistics up to +/- 1000bp from the focal position. Here we'll color significance based on the null distribution being a chi-square with df = 3
+
+```{r}
+df %>%
+  mutate(is_sig = dev > qchisq(p=.05, df=3, lower.tail=FALSE)) %>%
+  ggplot(aes(x = offset, y = re, color = is_sig)) +
+  geom_point() +
+  scale_y_log10() +
+  xlab("Relative Position") +
+  ylab("Log10 Relative Entropy") +
+  guides(color = guide_legend(title = "Significant")) +
+  theme_classic() +
+  theme(text = element_text(family = "Times New Roman"),
+        legend.position = c(.85, .8))
 ```
 
