@@ -320,7 +320,7 @@ df_resid %>%
   mutate(re_cont = re * pct * sign(res)) %>%
   ggplot(aes(x = pos, y = re_cont, color = nuc)) +
   geom_point() +
-  geom_line() +
+  geom_line(show.legend = FALSE) +
   xlab("Relative Position") +
   ylab("Relative Entropy") +
   guides(color = guide_legend(title = "Nucleotide")) +
@@ -347,3 +347,116 @@ df %>%
         legend.position = c(.85, .8))
 ```
 
+### A > T
+
+```{r}
+df <- read_subtype_pop_res("ALL", "AT_TA")
+
+df %>%
+  filter(abs(offset) <= 10) %>%
+  ggplot(aes(x = offset, y = re)) + 
+  geom_point() + 
+  geom_line() +
+  theme_classic(base_size = 24/.pt) +
+  theme(text = element_text(family = "Times New Roman")) +
+  xlab("Relative Position") +
+  ylab("Relative Entropy")
+```
+
+For this subtype we observe the strongest signal at the +1 relative position. Below we observe that this signal is driven by an enrichment of T and depletion of A and G. Also note that we also have an enrichment of C at the +1, although this is far more mild than observed in the previous two subtypes.
+
+```{r}
+df_resid <- read_subtype_pop_range_resid("ALL", "AT_TA", size = 10)  %>%
+  type_convert()
+
+df_resid <- df_resid %>%
+  inner_join({df %>% select(offset, re)}, by = c("pos" = "offset"))
+
+df_resid %>% 
+  filter(status == "singletons") %>%
+  select(nuc, res, re, pos) %>%
+  group_by(pos) %>%
+  mutate(pct = abs(res) / sum(abs(res))) %>%
+  mutate(re_cont = re * pct * sign(res)) %>%
+  ggplot(aes(x = pos, y = re_cont, color = nuc)) +
+  geom_point() +
+  geom_line(show.legend = FALSE) +
+  xlab("Relative Position") +
+  ylab("Relative Entropy") +
+  guides(color = guide_legend(title = "Nucleotide")) +
+  theme_classic() +
+  theme(text = element_text(family = "Times New Roman"),
+        legend.position = c(.85, .8))
+
+```
+
+```{r}
+df %>%
+  mutate(is_sig = dev > qchisq(p=.05, df=3, lower.tail=FALSE)) %>%
+  ggplot(aes(x = offset, y = re, color = is_sig)) +
+  geom_point() +
+  scale_y_log10() +
+  xlab("Relative Position") +
+  ylab("Log10 Relative Entropy") +
+  guides(color = guide_legend(title = "Significant")) +
+  theme_classic() +
+  theme(text = element_text(family = "Times New Roman"),
+        legend.position = c(.85, .8))
+```
+
+### C > A
+
+```{r}
+df <- read_subtype_pop_res("ALL", "GC_TA")
+
+df %>%
+  filter(abs(offset) <= 10) %>%
+  ggplot(aes(x = offset, y = re)) + 
+  geom_point() + 
+  geom_line() +
+  theme_classic(base_size = 24/.pt) +
+  theme(text = element_text(family = "Times New Roman")) +
+  xlab("Relative Position") +
+  ylab("Relative Entropy")
+```
+
+For this subtype, we observe the strongest signal at the +1 position. Note here that we have conditioned on the nucleotide at +1 not being a G. 
+
+```{r}
+df_resid <- read_subtype_pop_range_resid("ALL", "GC_TA", size = 10)  %>%
+  type_convert()
+
+df_resid <- df_resid %>%
+  inner_join({df %>% select(offset, re)}, by = c("pos" = "offset"))
+
+df_resid %>% 
+  filter(status == "singletons") %>%
+  select(nuc, res, re, pos) %>%
+  group_by(pos) %>%
+  mutate(pct = abs(res) / sum(abs(res))) %>%
+  mutate(re_cont = re * pct * sign(res)) %>%
+  ggplot(aes(x = pos, y = re_cont, color = nuc)) +
+  geom_point() +
+  geom_line(show.legend = FALSE) +
+  xlab("Relative Position") +
+  ylab("Relative Entropy") +
+  guides(color = guide_legend(title = "Nucleotide")) +
+  theme_classic() +
+  theme(text = element_text(family = "Times New Roman"),
+        legend.position = c(.85, .8))
+
+```
+
+```{r}
+df %>%
+  mutate(is_sig = dev > qchisq(p=.05, df=3, lower.tail=FALSE)) %>%
+  ggplot(aes(x = offset, y = re, color = is_sig)) +
+  geom_point() +
+  scale_y_log10() +
+  xlab("Relative Position") +
+  ylab("Log10 Relative Entropy") +
+  guides(color = guide_legend(title = "Significant")) +
+  theme_classic() +
+  theme(text = element_text(family = "Times New Roman"),
+        legend.position = c(.85, .8))
+```
