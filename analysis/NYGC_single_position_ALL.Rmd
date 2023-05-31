@@ -363,7 +363,7 @@ df %>%
   ylab("Relative Entropy")
 ```
 
-For this subtype we observe the strongest signal at the +1 relative position. Below we observe that this signal is driven by an enrichment of T and depletion of A and G. Also note that we also have an enrichment of C at the +1, although this is far more mild than observed in the previous two subtypes.
+For this sub type we observe the strongest signal at the +1 relative position. Below we observe that this signal is driven by an enrichment of T and depletion of A and G. Also note that we also have an enrichment of C at the +1, although this is far more mild than observed in the previous two subtypes.
 
 ```{r}
 df_resid <- read_subtype_pop_range_resid("ALL", "AT_TA", size = 10)  %>%
@@ -446,6 +446,14 @@ df_resid %>%
         legend.position = c(.85, .8))
 
 ```
+
+And just to be absolutely sure that none of our singletons or controls have a G at the +1 flanking position:
+
+```{r}
+df_resid %>% filter(pos == 1) %>%
+  knitr::kable()
+```
+
 
 ```{r}
 df %>%
