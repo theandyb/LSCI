@@ -79,7 +79,11 @@ read_subtype_pop_resid <- function(pop, subtype, rp, data_dir = "/net/snowwhite/
 }
 
 read_subtype_pop_range_resid <- function(pop, subtype, size = 10, data_dir = "/net/snowwhite/home/beckandy/research/1000G_NYGC_LSCI/output/single_pos/resid/"){
-  pos.names <- c(-size:-1, 1:size)
+  if(str_starts(subtype, "cpg")){
+    pos.names <- c(-size:-1, 2:size)
+  } else{
+    pos.names <- c(-size:-1, 1:size)
+  }
   results <- lapply(pos.names, function(x) NULL) %>% setNames(pos.names)
   for(i in names(results)){
     results[[i]] <- read_subtype_pop_resid(pop, subtype, i, data_dir)
@@ -467,4 +471,216 @@ df %>%
   theme_classic() +
   theme(text = element_text(family = "Times New Roman"),
         legend.position = c(.85, .8))
+```
+
+### C > T
+
+```{r}
+df <- read_subtype_pop_res("ALL", "GC_AT")
+
+df %>%
+  filter(abs(offset) <= 10) %>%
+  ggplot(aes(x = offset, y = re)) + 
+  geom_point() + 
+  geom_line() +
+  theme_classic(base_size = 24/.pt) +
+  theme(text = element_text(family = "Times New Roman")) +
+  xlab("Relative Position") +
+  ylab("Relative Entropy")
+```
+
+Here, for this subtype we observe the strongest signals at -1 and +2. Note again that we have conditioned on this not being at CpG sites. Below we see that the primary driver of the signal is a depletion of T and an enrichment of A at the -1.
+
+```{r}
+df_resid <- read_subtype_pop_range_resid("ALL", "GC_AT", size = 10)  %>%
+  type_convert()
+
+df_resid <- df_resid %>%
+  inner_join({df %>% select(offset, re)}, by = c("pos" = "offset"))
+
+df_resid %>% 
+  filter(status == "singletons") %>%
+  select(nuc, res, re, pos) %>%
+  group_by(pos) %>%
+  mutate(pct = abs(res) / sum(abs(res))) %>%
+  mutate(re_cont = re * pct * sign(res)) %>%
+  ggplot(aes(x = pos, y = re_cont, color = nuc)) +
+  geom_point() +
+  geom_line(show.legend = FALSE) +
+  xlab("Relative Position") +
+  ylab("Relative Entropy") +
+  guides(color = guide_legend(title = "Nucleotide")) +
+  theme_classic() +
+  theme(text = element_text(family = "Times New Roman"),
+        legend.position = c(.85, .8))
+
+```
+
+### C > G
+
+```{r}
+df <- read_subtype_pop_res("ALL", "GC_CG")
+
+df %>%
+  filter(abs(offset) <= 10) %>%
+  ggplot(aes(x = offset, y = re)) + 
+  geom_point() + 
+  geom_line() +
+  theme_classic(base_size = 24/.pt) +
+  theme(text = element_text(family = "Times New Roman")) +
+  xlab("Relative Position") +
+  ylab("Relative Entropy")
+```
+
+```{r}
+df_resid <- read_subtype_pop_range_resid("ALL", "GC_CG", size = 10)  %>%
+  type_convert()
+
+df_resid <- df_resid %>%
+  inner_join({df %>% select(offset, re)}, by = c("pos" = "offset"))
+
+df_resid %>% 
+  filter(status == "singletons") %>%
+  select(nuc, res, re, pos) %>%
+  group_by(pos) %>%
+  mutate(pct = abs(res) / sum(abs(res))) %>%
+  mutate(re_cont = re * pct * sign(res)) %>%
+  ggplot(aes(x = pos, y = re_cont, color = nuc)) +
+  geom_point() +
+  geom_line(show.legend = FALSE) +
+  xlab("Relative Position") +
+  ylab("Relative Entropy") +
+  guides(color = guide_legend(title = "Nucleotide")) +
+  theme_classic() +
+  theme(text = element_text(family = "Times New Roman"),
+        legend.position = c(.85, .8))
+
+```
+
+```{r}
+df_resid %>% filter(pos == 1) %>%
+  knitr::kable()
+```
+
+### CpG to ApG
+
+```{r}
+df <- read_subtype_pop_res("ALL", "cpg_GC_TA")
+
+df %>%
+  filter(abs(offset) <= 10) %>%
+  ggplot(aes(x = offset, y = re)) + 
+  geom_point() + 
+  geom_line() +
+  theme_classic(base_size = 24/.pt) +
+  theme(text = element_text(family = "Times New Roman")) +
+  xlab("Relative Position") +
+  ylab("Relative Entropy")
+```
+
+```{r}
+df_resid <- read_subtype_pop_range_resid("ALL", "cpg_GC_TA", size = 10)  %>%
+  type_convert()
+
+df_resid <- df_resid %>%
+  inner_join({df %>% select(offset, re)}, by = c("pos" = "offset"))
+
+df_resid %>% 
+  filter(status == "singletons") %>%
+  select(nuc, res, re, pos) %>%
+  group_by(pos) %>%
+  mutate(pct = abs(res) / sum(abs(res))) %>%
+  mutate(re_cont = re * pct * sign(res)) %>%
+  ggplot(aes(x = pos, y = re_cont, color = nuc)) +
+  geom_point() +
+  geom_line(show.legend = FALSE) +
+  xlab("Relative Position") +
+  ylab("Relative Entropy") +
+  guides(color = guide_legend(title = "Nucleotide")) +
+  theme_classic() +
+  theme(text = element_text(family = "Times New Roman"),
+        legend.position = c(.85, .8))
+
+```
+
+### CpG to TpG
+
+```{r}
+df <- read_subtype_pop_res("ALL", "cpg_GC_AT")
+
+df %>%
+  filter(abs(offset) <= 10) %>%
+  ggplot(aes(x = offset, y = re)) + 
+  geom_point() + 
+  geom_line() +
+  theme_classic(base_size = 24/.pt) +
+  theme(text = element_text(family = "Times New Roman")) +
+  xlab("Relative Position") +
+  ylab("Relative Entropy")
+```
+
+```{r}
+df_resid <- read_subtype_pop_range_resid("ALL", "cpg_GC_AT", size = 10)  %>%
+  type_convert()
+
+df_resid <- df_resid %>%
+  inner_join({df %>% select(offset, re)}, by = c("pos" = "offset"))
+
+df_resid %>% 
+  filter(status == "singletons") %>%
+  select(nuc, res, re, pos) %>%
+  group_by(pos) %>%
+  mutate(pct = abs(res) / sum(abs(res))) %>%
+  mutate(re_cont = re * pct * sign(res)) %>%
+  ggplot(aes(x = pos, y = re_cont, color = nuc)) +
+  geom_point() +
+  geom_line(show.legend = FALSE) +
+  xlab("Relative Position") +
+  ylab("Relative Entropy") +
+  guides(color = guide_legend(title = "Nucleotide")) +
+  theme_classic() +
+  theme(text = element_text(family = "Times New Roman"),
+        legend.position = c(.85, .8))
+
+```
+
+### CpG to GpG
+
+```{r}
+df <- read_subtype_pop_res("ALL", "cpg_GC_CG")
+
+df %>%
+  filter(abs(offset) <= 10) %>%
+  ggplot(aes(x = offset, y = re)) + 
+  geom_point() + 
+  geom_line() +
+  theme_classic(base_size = 24/.pt) +
+  theme(text = element_text(family = "Times New Roman")) +
+  xlab("Relative Position") +
+  ylab("Relative Entropy")
+```
+
+```{r}
+df_resid <- read_subtype_pop_range_resid("ALL", "cpg_GC_CG", size = 10)  %>%
+  type_convert()
+
+df_resid <- df_resid %>%
+  inner_join({df %>% select(offset, re)}, by = c("pos" = "offset"))
+
+df_resid %>% 
+  filter(status == "singletons") %>%
+  select(nuc, res, re, pos) %>%
+  group_by(pos) %>%
+  mutate(pct = abs(res) / sum(abs(res))) %>%
+  mutate(re_cont = re * pct * sign(res)) %>%
+  ggplot(aes(x = pos, y = re_cont, color = nuc)) +
+  geom_point() +
+  geom_line(show.legend = FALSE) +
+  xlab("Relative Position") +
+  ylab("Relative Entropy") +
+  guides(color = guide_legend(title = "Nucleotide")) +
+  theme_classic() +
+  theme(text = element_text(family = "Times New Roman"),
+        legend.position = c(.85, 0.26))
+
 ```
