@@ -518,15 +518,15 @@ project makes it easier to run your code on other machines.</p>
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomtheandybLSCItreed0036044fc067db96addd17aa6700118978b955ftargetblankd003604a">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomtheandybLSCItree9f03e7ef854ab058e22c9ddd65fd6a54d311d337targetblank9f03e7ea">
 <span class="glyphicon glyphicon-ok text-success"
 aria-hidden="true"></span> <strong>Repository version:</strong>
-<a href="https://github.com/theandyb/LSCI/tree/d0036044fc067db96addd17aa6700118978b955f" target="_blank">d003604</a>
+<a href="https://github.com/theandyb/LSCI/tree/9f03e7ef854ab058e22c9ddd65fd6a54d311d337" target="_blank">9f03e7e</a>
 </a>
 </p>
 </div>
 <div
-id="strongRepositoryversionstrongahrefhttpsgithubcomtheandybLSCItreed0036044fc067db96addd17aa6700118978b955ftargetblankd003604a"
+id="strongRepositoryversionstrongahrefhttpsgithubcomtheandybLSCItree9f03e7ef854ab058e22c9ddd65fd6a54d311d337targetblank9f03e7ea"
 class="panel-collapse collapse">
 <div class="panel-body">
 <p>
@@ -536,7 +536,7 @@ reproducibility.
 </p>
 <p>
 The results in this page were generated with repository version
-<a href="https://github.com/theandyb/LSCI/tree/d0036044fc067db96addd17aa6700118978b955f" target="_blank">d003604</a>.
+<a href="https://github.com/theandyb/LSCI/tree/9f03e7ef854ab058e22c9ddd65fd6a54d311d337" target="_blank">9f03e7e</a>.
 See the <em>Past versions</em> tab to see a history of the changes made
 to the R Markdown and HTML files.
 </p>
@@ -602,6 +602,40 @@ Message
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+Rmd
+</td>
+<td>
+<a href="https://github.com/theandyb/LSCI/blob/9f03e7ef854ab058e22c9ddd65fd6a54d311d337/analysis/NYGC_single_position_ALL.Rmd" target="_blank">9f03e7e</a>
+</td>
+<td>
+Andy Beck
+</td>
+<td>
+2023-05-31
+</td>
+<td>
+wflow_publish("analysis/NYGC_single_position_ALL.Rmd")
+</td>
+</tr>
+<tr>
+<td>
+html
+</td>
+<td>
+<a href="https://rawcdn.githack.com/theandyb/LSCI/457d3ee938b4ef56dd57aad06102d34f129b2311/docs/NYGC_single_position_ALL.html" target="_blank">457d3ee</a>
+</td>
+<td>
+Andy Beck
+</td>
+<td>
+2023-05-31
+</td>
+<td>
+Build site.
+</td>
+</tr>
 <tr>
 <td>
 Rmd
@@ -793,7 +827,11 @@ read_subtype_pop_resid &lt;- function(pop, subtype, rp, data_dir = &quot;/net/sn
 }
 
 read_subtype_pop_range_resid &lt;- function(pop, subtype, size = 10, data_dir = &quot;/net/snowwhite/home/beckandy/research/1000G_NYGC_LSCI/output/single_pos/resid/&quot;){
-  pos.names &lt;- c(-size:-1, 1:size)
+  if(str_starts(subtype, &quot;cpg&quot;)){
+    pos.names &lt;- c(-size:-1, 2:size)
+  } else{
+    pos.names &lt;- c(-size:-1, 1:size)
+  }
   results &lt;- lapply(pos.names, function(x) NULL) %&gt;% setNames(pos.names)
   for(i in names(results)){
     results[[i]] &lt;- read_subtype_pop_resid(pop, subtype, i, data_dir)
@@ -858,6 +896,17 @@ Date
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+<a href="https://github.com/theandyb/LSCI/blob/457d3ee938b4ef56dd57aad06102d34f129b2311/docs/figure/NYGC_single_position_ALL.Rmd/unnamed-chunk-3-1.png" target="_blank">457d3ee</a>
+</td>
+<td>
+Andy Beck
+</td>
+<td>
+2023-05-31
+</td>
+</tr>
 <tr>
 <td>
 <a href="https://github.com/theandyb/LSCI/blob/b3ea038581eafb29e23eb842e7b702b724257791/docs/figure/NYGC_single_position_ALL.Rmd/unnamed-chunk-3-1.png" target="_blank">b3ea038</a>
@@ -987,6 +1036,17 @@ Date
 <tbody>
 <tr>
 <td>
+<a href="https://github.com/theandyb/LSCI/blob/457d3ee938b4ef56dd57aad06102d34f129b2311/docs/figure/NYGC_single_position_ALL.Rmd/unnamed-chunk-5-1.png" target="_blank">457d3ee</a>
+</td>
+<td>
+Andy Beck
+</td>
+<td>
+2023-05-31
+</td>
+</tr>
+<tr>
+<td>
 <a href="https://github.com/theandyb/LSCI/blob/b3ea038581eafb29e23eb842e7b702b724257791/docs/figure/NYGC_single_position_ALL.Rmd/unnamed-chunk-5-1.png" target="_blank">b3ea038</a>
 </td>
 <td>
@@ -1072,6 +1132,17 @@ Date
 <tbody>
 <tr>
 <td>
+<a href="https://github.com/theandyb/LSCI/blob/457d3ee938b4ef56dd57aad06102d34f129b2311/docs/figure/NYGC_single_position_ALL.Rmd/unnamed-chunk-6-1.png" target="_blank">457d3ee</a>
+</td>
+<td>
+Andy Beck
+</td>
+<td>
+2023-05-31
+</td>
+</tr>
+<tr>
+<td>
 <a href="https://github.com/theandyb/LSCI/blob/b3ea038581eafb29e23eb842e7b702b724257791/docs/figure/NYGC_single_position_ALL.Rmd/unnamed-chunk-6-1.png" target="_blank">b3ea038</a>
 </td>
 <td>
@@ -1133,6 +1204,17 @@ Date
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+<a href="https://github.com/theandyb/LSCI/blob/457d3ee938b4ef56dd57aad06102d34f129b2311/docs/figure/NYGC_single_position_ALL.Rmd/unnamed-chunk-7-1.png" target="_blank">457d3ee</a>
+</td>
+<td>
+Andy Beck
+</td>
+<td>
+2023-05-31
+</td>
+</tr>
 <tr>
 <td>
 <a href="https://github.com/theandyb/LSCI/blob/b3ea038581eafb29e23eb842e7b702b724257791/docs/figure/NYGC_single_position_ALL.Rmd/unnamed-chunk-7-1.png" target="_blank">b3ea038</a>
@@ -1442,6 +1524,17 @@ Date
 <tbody>
 <tr>
 <td>
+<a href="https://github.com/theandyb/LSCI/blob/457d3ee938b4ef56dd57aad06102d34f129b2311/docs/figure/NYGC_single_position_ALL.Rmd/unnamed-chunk-12-1.png" target="_blank">457d3ee</a>
+</td>
+<td>
+Andy Beck
+</td>
+<td>
+2023-05-31
+</td>
+</tr>
+<tr>
+<td>
 <a href="https://github.com/theandyb/LSCI/blob/b3ea038581eafb29e23eb842e7b702b724257791/docs/figure/NYGC_single_position_ALL.Rmd/unnamed-chunk-12-1.png" target="_blank">b3ea038</a>
 </td>
 <td>
@@ -1526,6 +1619,43 @@ df %&gt;%
   xlab(&quot;Relative Position&quot;) +
   ylab(&quot;Relative Entropy&quot;)</code></pre>
 <p><img src="figure/NYGC_single_position_ALL.Rmd/unnamed-chunk-14-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-14-1">
+Past versions of unnamed-chunk-14-1.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-14-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/theandyb/LSCI/blob/457d3ee938b4ef56dd57aad06102d34f129b2311/docs/figure/NYGC_single_position_ALL.Rmd/unnamed-chunk-14-1.png" target="_blank">457d3ee</a>
+</td>
+<td>
+Andy Beck
+</td>
+<td>
+2023-05-31
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 <p>For this sub type we observe the strongest signal at the +1 relative
 position. Below we observe that this signal is driven by an enrichment
 of T and depletion of A and G. Also note that we also have an enrichment
@@ -1559,6 +1689,43 @@ df_resid %&gt;%
   theme(text = element_text(family = &quot;Times New Roman&quot;),
         legend.position = c(.85, .8))</code></pre>
 <p><img src="figure/NYGC_single_position_ALL.Rmd/unnamed-chunk-15-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-15-1">
+Past versions of unnamed-chunk-15-1.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-15-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/theandyb/LSCI/blob/457d3ee938b4ef56dd57aad06102d34f129b2311/docs/figure/NYGC_single_position_ALL.Rmd/unnamed-chunk-15-1.png" target="_blank">457d3ee</a>
+</td>
+<td>
+Andy Beck
+</td>
+<td>
+2023-05-31
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 <pre class="r"><code>df %&gt;%
   mutate(is_sig = dev &gt; qchisq(p=.05, df=3, lower.tail=FALSE)) %&gt;%
   ggplot(aes(x = offset, y = re, color = is_sig)) +
@@ -1571,6 +1738,43 @@ df_resid %&gt;%
   theme(text = element_text(family = &quot;Times New Roman&quot;),
         legend.position = c(.85, .8))</code></pre>
 <p><img src="figure/NYGC_single_position_ALL.Rmd/unnamed-chunk-16-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-16-1">
+Past versions of unnamed-chunk-16-1.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-16-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/theandyb/LSCI/blob/457d3ee938b4ef56dd57aad06102d34f129b2311/docs/figure/NYGC_single_position_ALL.Rmd/unnamed-chunk-16-1.png" target="_blank">457d3ee</a>
+</td>
+<td>
+Andy Beck
+</td>
+<td>
+2023-05-31
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 </div>
 <div id="c-a" class="section level3">
 <h3>C &gt; A</h3>
@@ -1586,6 +1790,43 @@ df %&gt;%
   xlab(&quot;Relative Position&quot;) +
   ylab(&quot;Relative Entropy&quot;)</code></pre>
 <p><img src="figure/NYGC_single_position_ALL.Rmd/unnamed-chunk-17-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-17-1">
+Past versions of unnamed-chunk-17-1.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-17-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/theandyb/LSCI/blob/457d3ee938b4ef56dd57aad06102d34f129b2311/docs/figure/NYGC_single_position_ALL.Rmd/unnamed-chunk-17-1.png" target="_blank">457d3ee</a>
+</td>
+<td>
+Andy Beck
+</td>
+<td>
+2023-05-31
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 <p>For this subtype, we observe the strongest signal at the +1 position.
 Note here that we have conditioned on the nucleotide at +1 not being a
 G.</p>
@@ -1617,6 +1858,43 @@ df_resid %&gt;%
   theme(text = element_text(family = &quot;Times New Roman&quot;),
         legend.position = c(.85, .8))</code></pre>
 <p><img src="figure/NYGC_single_position_ALL.Rmd/unnamed-chunk-18-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-18-1">
+Past versions of unnamed-chunk-18-1.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-18-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/theandyb/LSCI/blob/457d3ee938b4ef56dd57aad06102d34f129b2311/docs/figure/NYGC_single_position_ALL.Rmd/unnamed-chunk-18-1.png" target="_blank">457d3ee</a>
+</td>
+<td>
+Andy Beck
+</td>
+<td>
+2023-05-31
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 <p>And just to be absolutely sure that none of our singletons or
 controls have a G at the +1 flanking position:</p>
 <pre class="r"><code>df_resid %&gt;% filter(pos == 1) %&gt;%
@@ -1720,6 +1998,351 @@ controls have a G at the +1 flanking position:</p>
   theme(text = element_text(family = &quot;Times New Roman&quot;),
         legend.position = c(.85, .8))</code></pre>
 <p><img src="figure/NYGC_single_position_ALL.Rmd/unnamed-chunk-20-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-20-1">
+Past versions of unnamed-chunk-20-1.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-20-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/theandyb/LSCI/blob/457d3ee938b4ef56dd57aad06102d34f129b2311/docs/figure/NYGC_single_position_ALL.Rmd/unnamed-chunk-20-1.png" target="_blank">457d3ee</a>
+</td>
+<td>
+Andy Beck
+</td>
+<td>
+2023-05-31
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+<div id="c-t" class="section level3">
+<h3>C &gt; T</h3>
+<pre class="r"><code>df &lt;- read_subtype_pop_res(&quot;ALL&quot;, &quot;GC_AT&quot;)
+
+df %&gt;%
+  filter(abs(offset) &lt;= 10) %&gt;%
+  ggplot(aes(x = offset, y = re)) + 
+  geom_point() + 
+  geom_line() +
+  theme_classic(base_size = 24/.pt) +
+  theme(text = element_text(family = &quot;Times New Roman&quot;)) +
+  xlab(&quot;Relative Position&quot;) +
+  ylab(&quot;Relative Entropy&quot;)</code></pre>
+<p><img src="figure/NYGC_single_position_ALL.Rmd/unnamed-chunk-21-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>Here, for this subtype we observe the strongest signals at -1 and +2.
+Note again that we have conditioned on this not being at CpG sites.
+Below we see that the primary driver of the signal is a depletion of T
+and an enrichment of A at the -1.</p>
+<pre class="r"><code>df_resid &lt;- read_subtype_pop_range_resid(&quot;ALL&quot;, &quot;GC_AT&quot;, size = 10)  %&gt;%
+  type_convert()</code></pre>
+<pre><code>
+── Column specification ────────────────────────────────────────────────────────
+cols(
+  nuc = col_character(),
+  status = col_character(),
+  pos = col_double()
+)</code></pre>
+<pre class="r"><code>df_resid &lt;- df_resid %&gt;%
+  inner_join({df %&gt;% select(offset, re)}, by = c(&quot;pos&quot; = &quot;offset&quot;))
+
+df_resid %&gt;% 
+  filter(status == &quot;singletons&quot;) %&gt;%
+  select(nuc, res, re, pos) %&gt;%
+  group_by(pos) %&gt;%
+  mutate(pct = abs(res) / sum(abs(res))) %&gt;%
+  mutate(re_cont = re * pct * sign(res)) %&gt;%
+  ggplot(aes(x = pos, y = re_cont, color = nuc)) +
+  geom_point() +
+  geom_line(show.legend = FALSE) +
+  xlab(&quot;Relative Position&quot;) +
+  ylab(&quot;Relative Entropy&quot;) +
+  guides(color = guide_legend(title = &quot;Nucleotide&quot;)) +
+  theme_classic() +
+  theme(text = element_text(family = &quot;Times New Roman&quot;),
+        legend.position = c(.85, .8))</code></pre>
+<p><img src="figure/NYGC_single_position_ALL.Rmd/unnamed-chunk-22-1.png" width="672" style="display: block; margin: auto;" /></p>
+</div>
+<div id="c-g" class="section level3">
+<h3>C &gt; G</h3>
+<pre class="r"><code>df &lt;- read_subtype_pop_res(&quot;ALL&quot;, &quot;GC_CG&quot;)
+
+df %&gt;%
+  filter(abs(offset) &lt;= 10) %&gt;%
+  ggplot(aes(x = offset, y = re)) + 
+  geom_point() + 
+  geom_line() +
+  theme_classic(base_size = 24/.pt) +
+  theme(text = element_text(family = &quot;Times New Roman&quot;)) +
+  xlab(&quot;Relative Position&quot;) +
+  ylab(&quot;Relative Entropy&quot;)</code></pre>
+<p><img src="figure/NYGC_single_position_ALL.Rmd/unnamed-chunk-23-1.png" width="672" style="display: block; margin: auto;" /></p>
+<pre class="r"><code>df_resid &lt;- read_subtype_pop_range_resid(&quot;ALL&quot;, &quot;GC_CG&quot;, size = 10)  %&gt;%
+  type_convert()</code></pre>
+<pre><code>
+── Column specification ────────────────────────────────────────────────────────
+cols(
+  nuc = col_character(),
+  status = col_character(),
+  pos = col_double()
+)</code></pre>
+<pre class="r"><code>df_resid &lt;- df_resid %&gt;%
+  inner_join({df %&gt;% select(offset, re)}, by = c(&quot;pos&quot; = &quot;offset&quot;))
+
+df_resid %&gt;% 
+  filter(status == &quot;singletons&quot;) %&gt;%
+  select(nuc, res, re, pos) %&gt;%
+  group_by(pos) %&gt;%
+  mutate(pct = abs(res) / sum(abs(res))) %&gt;%
+  mutate(re_cont = re * pct * sign(res)) %&gt;%
+  ggplot(aes(x = pos, y = re_cont, color = nuc)) +
+  geom_point() +
+  geom_line(show.legend = FALSE) +
+  xlab(&quot;Relative Position&quot;) +
+  ylab(&quot;Relative Entropy&quot;) +
+  guides(color = guide_legend(title = &quot;Nucleotide&quot;)) +
+  theme_classic() +
+  theme(text = element_text(family = &quot;Times New Roman&quot;),
+        legend.position = c(.85, .8))</code></pre>
+<p><img src="figure/NYGC_single_position_ALL.Rmd/unnamed-chunk-24-1.png" width="672" style="display: block; margin: auto;" /></p>
+<pre class="r"><code>df_resid %&gt;% filter(pos == 1) %&gt;%
+  knitr::kable()</code></pre>
+<table>
+<thead>
+<tr class="header">
+<th align="left">nuc</th>
+<th align="left">status</th>
+<th align="right">n</th>
+<th align="right">fitted</th>
+<th align="right">res</th>
+<th align="right">pos</th>
+<th align="right">re</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">A</td>
+<td align="left">singletons</td>
+<td align="right">1359622</td>
+<td align="right">1637030</td>
+<td align="right">-223.4169533</td>
+<td align="right">1</td>
+<td align="right">0.0017335</td>
+</tr>
+<tr class="even">
+<td align="left">C</td>
+<td align="left">singletons</td>
+<td align="right">1236987</td>
+<td align="right">1167028</td>
+<td align="right">64.1277391</td>
+<td align="right">1</td>
+<td align="right">0.0017335</td>
+</tr>
+<tr class="odd">
+<td align="left">G</td>
+<td align="left">singletons</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">-0.0000296</td>
+<td align="right">1</td>
+<td align="right">0.0017335</td>
+</tr>
+<tr class="even">
+<td align="left">T</td>
+<td align="left">singletons</td>
+<td align="right">1905337</td>
+<td align="right">1697888</td>
+<td align="right">156.1179015</td>
+<td align="right">1</td>
+<td align="right">0.0017335</td>
+</tr>
+<tr class="odd">
+<td align="left">A</td>
+<td align="left">controls</td>
+<td align="right">8462557</td>
+<td align="right">8185149</td>
+<td align="right">96.4227489</td>
+<td align="right">1</td>
+<td align="right">0.0017335</td>
+</tr>
+<tr class="even">
+<td align="left">C</td>
+<td align="left">controls</td>
+<td align="right">5765183</td>
+<td align="right">5835142</td>
+<td align="right">-29.0193124</td>
+<td align="right">1</td>
+<td align="right">0.0017335</td>
+</tr>
+<tr class="odd">
+<td align="left">G</td>
+<td align="left">controls</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">-0.0000662</td>
+<td align="right">1</td>
+<td align="right">0.0017335</td>
+</tr>
+<tr class="even">
+<td align="left">T</td>
+<td align="left">controls</td>
+<td align="right">8281990</td>
+<td align="right">8489439</td>
+<td align="right">-71.4916847</td>
+<td align="right">1</td>
+<td align="right">0.0017335</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div id="cpg-to-apg" class="section level3">
+<h3>CpG to ApG</h3>
+<pre class="r"><code>df &lt;- read_subtype_pop_res(&quot;ALL&quot;, &quot;cpg_GC_TA&quot;)
+
+df %&gt;%
+  filter(abs(offset) &lt;= 10) %&gt;%
+  ggplot(aes(x = offset, y = re)) + 
+  geom_point() + 
+  geom_line() +
+  theme_classic(base_size = 24/.pt) +
+  theme(text = element_text(family = &quot;Times New Roman&quot;)) +
+  xlab(&quot;Relative Position&quot;) +
+  ylab(&quot;Relative Entropy&quot;)</code></pre>
+<p><img src="figure/NYGC_single_position_ALL.Rmd/unnamed-chunk-26-1.png" width="672" style="display: block; margin: auto;" /></p>
+<pre class="r"><code>df_resid &lt;- read_subtype_pop_range_resid(&quot;ALL&quot;, &quot;cpg_GC_TA&quot;, size = 10)  %&gt;%
+  type_convert()</code></pre>
+<pre><code>
+── Column specification ────────────────────────────────────────────────────────
+cols(
+  nuc = col_character(),
+  status = col_character(),
+  pos = col_double()
+)</code></pre>
+<pre class="r"><code>df_resid &lt;- df_resid %&gt;%
+  inner_join({df %&gt;% select(offset, re)}, by = c(&quot;pos&quot; = &quot;offset&quot;))
+
+df_resid %&gt;% 
+  filter(status == &quot;singletons&quot;) %&gt;%
+  select(nuc, res, re, pos) %&gt;%
+  group_by(pos) %&gt;%
+  mutate(pct = abs(res) / sum(abs(res))) %&gt;%
+  mutate(re_cont = re * pct * sign(res)) %&gt;%
+  ggplot(aes(x = pos, y = re_cont, color = nuc)) +
+  geom_point() +
+  geom_line(show.legend = FALSE) +
+  xlab(&quot;Relative Position&quot;) +
+  ylab(&quot;Relative Entropy&quot;) +
+  guides(color = guide_legend(title = &quot;Nucleotide&quot;)) +
+  theme_classic() +
+  theme(text = element_text(family = &quot;Times New Roman&quot;),
+        legend.position = c(.85, .8))</code></pre>
+<p><img src="figure/NYGC_single_position_ALL.Rmd/unnamed-chunk-27-1.png" width="672" style="display: block; margin: auto;" /></p>
+</div>
+<div id="cpg-to-tpg" class="section level3">
+<h3>CpG to TpG</h3>
+<pre class="r"><code>df &lt;- read_subtype_pop_res(&quot;ALL&quot;, &quot;cpg_GC_AT&quot;)
+
+df %&gt;%
+  filter(abs(offset) &lt;= 10) %&gt;%
+  ggplot(aes(x = offset, y = re)) + 
+  geom_point() + 
+  geom_line() +
+  theme_classic(base_size = 24/.pt) +
+  theme(text = element_text(family = &quot;Times New Roman&quot;)) +
+  xlab(&quot;Relative Position&quot;) +
+  ylab(&quot;Relative Entropy&quot;)</code></pre>
+<p><img src="figure/NYGC_single_position_ALL.Rmd/unnamed-chunk-28-1.png" width="672" style="display: block; margin: auto;" /></p>
+<pre class="r"><code>df_resid &lt;- read_subtype_pop_range_resid(&quot;ALL&quot;, &quot;cpg_GC_AT&quot;, size = 10)  %&gt;%
+  type_convert()</code></pre>
+<pre><code>
+── Column specification ────────────────────────────────────────────────────────
+cols(
+  nuc = col_character(),
+  status = col_character(),
+  pos = col_double()
+)</code></pre>
+<pre class="r"><code>df_resid &lt;- df_resid %&gt;%
+  inner_join({df %&gt;% select(offset, re)}, by = c(&quot;pos&quot; = &quot;offset&quot;))
+
+df_resid %&gt;% 
+  filter(status == &quot;singletons&quot;) %&gt;%
+  select(nuc, res, re, pos) %&gt;%
+  group_by(pos) %&gt;%
+  mutate(pct = abs(res) / sum(abs(res))) %&gt;%
+  mutate(re_cont = re * pct * sign(res)) %&gt;%
+  ggplot(aes(x = pos, y = re_cont, color = nuc)) +
+  geom_point() +
+  geom_line(show.legend = FALSE) +
+  xlab(&quot;Relative Position&quot;) +
+  ylab(&quot;Relative Entropy&quot;) +
+  guides(color = guide_legend(title = &quot;Nucleotide&quot;)) +
+  theme_classic() +
+  theme(text = element_text(family = &quot;Times New Roman&quot;),
+        legend.position = c(.85, .8))</code></pre>
+<p><img src="figure/NYGC_single_position_ALL.Rmd/unnamed-chunk-29-1.png" width="672" style="display: block; margin: auto;" /></p>
+</div>
+<div id="cpg-to-gpg" class="section level3">
+<h3>CpG to GpG</h3>
+<pre class="r"><code>df &lt;- read_subtype_pop_res(&quot;ALL&quot;, &quot;cpg_GC_CG&quot;)
+
+df %&gt;%
+  filter(abs(offset) &lt;= 10) %&gt;%
+  ggplot(aes(x = offset, y = re)) + 
+  geom_point() + 
+  geom_line() +
+  theme_classic(base_size = 24/.pt) +
+  theme(text = element_text(family = &quot;Times New Roman&quot;)) +
+  xlab(&quot;Relative Position&quot;) +
+  ylab(&quot;Relative Entropy&quot;)</code></pre>
+<p><img src="figure/NYGC_single_position_ALL.Rmd/unnamed-chunk-30-1.png" width="672" style="display: block; margin: auto;" /></p>
+<pre class="r"><code>df_resid &lt;- read_subtype_pop_range_resid(&quot;ALL&quot;, &quot;cpg_GC_CG&quot;, size = 10)  %&gt;%
+  type_convert()</code></pre>
+<pre><code>
+── Column specification ────────────────────────────────────────────────────────
+cols(
+  nuc = col_character(),
+  status = col_character(),
+  pos = col_double()
+)</code></pre>
+<pre class="r"><code>df_resid &lt;- df_resid %&gt;%
+  inner_join({df %&gt;% select(offset, re)}, by = c(&quot;pos&quot; = &quot;offset&quot;))
+
+df_resid %&gt;% 
+  filter(status == &quot;singletons&quot;) %&gt;%
+  select(nuc, res, re, pos) %&gt;%
+  group_by(pos) %&gt;%
+  mutate(pct = abs(res) / sum(abs(res))) %&gt;%
+  mutate(re_cont = re * pct * sign(res)) %&gt;%
+  ggplot(aes(x = pos, y = re_cont, color = nuc)) +
+  geom_point() +
+  geom_line(show.legend = FALSE) +
+  xlab(&quot;Relative Position&quot;) +
+  ylab(&quot;Relative Entropy&quot;) +
+  guides(color = guide_legend(title = &quot;Nucleotide&quot;)) +
+  theme_classic() +
+  theme(text = element_text(family = &quot;Times New Roman&quot;),
+        legend.position = c(.85, 0.26))</code></pre>
+<p><img src="figure/NYGC_single_position_ALL.Rmd/unnamed-chunk-31-1.png" width="672" style="display: block; margin: auto;" /></p>
 <br>
 <p>
 <button type="button" class="btn btn-default btn-workflowr btn-workflowr-sessioninfo" data-toggle="collapse" data-target="#workflowr-sessioninfo" style="display: block;">
