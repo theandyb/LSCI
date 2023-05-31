@@ -9,9 +9,11 @@
 <meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
 
 
+<meta name="author" content="Andy Beck" />
 
+<meta name="date" content="2023-05-31" />
 
-<title>Home</title>
+<title>Single Position Comparisons</title>
 
 <script src="site_libs/header-attrs-2.14/header-attrs.js"></script>
 <script src="site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
@@ -29,6 +31,9 @@
        h6 {font-size: 12px;}
        code {color: inherit; background-color: rgba(0, 0, 0, 0.04);}
        pre:not([class]) { background-color: white }</style>
+<script src="site_libs/jqueryui-1.11.4/jquery-ui.min.js"></script>
+<link href="site_libs/tocify-1.9.1/jquery.tocify.css" rel="stylesheet" />
+<script src="site_libs/tocify-1.9.1/jquery.tocify.js"></script>
 <script src="site_libs/navigation-1.1/tabsets.js"></script>
 <link href="site_libs/highlightjs-9.12.0/textmate.css" rel="stylesheet" />
 <script src="site_libs/highlightjs-9.12.0/highlight.js"></script>
@@ -234,6 +239,69 @@ $(document).ready(function () {
 
 
 
+<style type="text/css">
+
+#TOC {
+  margin: 25px 0px 20px 0px;
+}
+@media (max-width: 768px) {
+#TOC {
+  position: relative;
+  width: 100%;
+}
+}
+
+@media print {
+.toc-content {
+  /* see https://github.com/w3c/csswg-drafts/issues/4434 */
+  float: right;
+}
+}
+
+.toc-content {
+  padding-left: 30px;
+  padding-right: 40px;
+}
+
+div.main-container {
+  max-width: 1200px;
+}
+
+div.tocify {
+  width: 20%;
+  max-width: 260px;
+  max-height: 85%;
+}
+
+@media (min-width: 768px) and (max-width: 991px) {
+  div.tocify {
+    width: 25%;
+  }
+}
+
+@media (max-width: 767px) {
+  div.tocify {
+    width: 100%;
+    max-width: none;
+  }
+}
+
+.tocify ul, .tocify li {
+  line-height: 20px;
+}
+
+.tocify-subheader .tocify-item {
+  font-size: 0.90em;
+}
+
+.tocify .list-group-item {
+  border-radius: 0px;
+}
+
+
+</style>
+
+
 
 </head>
 
@@ -241,6 +309,16 @@ $(document).ready(function () {
 
 
 <div class="container-fluid main-container">
+
+
+<!-- setup 3col/9col grid for toc_float and main content  -->
+<div class="row">
+<div class="col-xs-12 col-sm-4 col-md-3">
+<div id="TOC" class="tocify">
+</div>
+</div>
+
+<div class="toc-content col-xs-12 col-sm-8 col-md-9">
 
 
 
@@ -278,7 +356,9 @@ $(document).ready(function () {
 
 
 
-<h1 class="title toc-ignore">Home</h1>
+<h1 class="title toc-ignore">Single Position Comparisons</h1>
+<h4 class="author">Andy Beck</h4>
+<h4 class="date">2023-05-31</h4>
 
 </div>
 
@@ -311,7 +391,7 @@ class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span>
 </p>
 <p>
 <strong>Checks:</strong> <span
-class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> 2
+class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> 7
 <span class="glyphicon glyphicon-exclamation-sign text-danger"
 aria-hidden="true"></span> 0
 </p>
@@ -348,6 +428,90 @@ class="panel-collapse collapse">
 <p>Great! Since the R Markdown file has been committed to the Git
 repository, you know the exact version of the code that produced these
 results.</p>
+</div>
+</div>
+</div>
+<div class="panel panel-default">
+<div class="panel-heading">
+<p class="panel-title">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongEnvironmentstrongempty">
+<span class="glyphicon glyphicon-ok text-success"
+aria-hidden="true"></span> <strong>Environment:</strong> empty </a>
+</p>
+</div>
+<div id="strongEnvironmentstrongempty" class="panel-collapse collapse">
+<div class="panel-body">
+<p>Great job! The global environment was empty. Objects defined in the
+global environment can affect the analysis in your R Markdown file in
+unknown ways. For reproduciblity it’s best to always run the code in an
+empty environment.</p>
+</div>
+</div>
+</div>
+<div class="panel panel-default">
+<div class="panel-heading">
+<p class="panel-title">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongSeedstrongcodesetseed20211101code">
+<span class="glyphicon glyphicon-ok text-success"
+aria-hidden="true"></span> <strong>Seed:</strong>
+<code>set.seed(20211101)</code> </a>
+</p>
+</div>
+<div id="strongSeedstrongcodesetseed20211101code"
+class="panel-collapse collapse">
+<div class="panel-body">
+<p>The command <code>set.seed(20211101)</code> was run prior to running
+the code in the R Markdown file. Setting a seed ensures that any results
+that rely on randomness, e.g. subsampling or permutations, are
+reproducible.</p>
+</div>
+</div>
+</div>
+<div class="panel panel-default">
+<div class="panel-heading">
+<p class="panel-title">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongSessioninformationstrongrecorded">
+<span class="glyphicon glyphicon-ok text-success"
+aria-hidden="true"></span> <strong>Session information:</strong>
+recorded </a>
+</p>
+</div>
+<div id="strongSessioninformationstrongrecorded"
+class="panel-collapse collapse">
+<div class="panel-body">
+<p>Great job! Recording the operating system, R version, and package
+versions is critical for reproducibility.</p>
+</div>
+</div>
+</div>
+<div class="panel panel-default">
+<div class="panel-heading">
+<p class="panel-title">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongCachestrongnone">
+<span class="glyphicon glyphicon-ok text-success"
+aria-hidden="true"></span> <strong>Cache:</strong> none </a>
+</p>
+</div>
+<div id="strongCachestrongnone" class="panel-collapse collapse">
+<div class="panel-body">
+<p>Nice! There were no cached chunks for this analysis, so you can be
+confident that you successfully produced the results during this
+run.</p>
+</div>
+</div>
+</div>
+<div class="panel panel-default">
+<div class="panel-heading">
+<p class="panel-title">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongFilepathsstrongrelative">
+<span class="glyphicon glyphicon-ok text-success"
+aria-hidden="true"></span> <strong>File paths:</strong> relative </a>
+</p>
+</div>
+<div id="strongFilepathsstrongrelative" class="panel-collapse collapse">
+<div class="panel-body">
+<p>Great job! Using relative paths to the files within your workflowr
+project makes it easier to run your code on other machines.</p>
 </div>
 </div>
 </div>
@@ -409,10 +573,12 @@ have uncommitted changes.
 
 <p>
 These are the previous versions of the repository in which changes were
-made to the R Markdown (<code>analysis/index.Rmd</code>) and HTML
-(<code>docs/index.html</code>) files. If you’ve configured a remote Git
-repository (see <code>?wflow_git_remote</code>), click on the hyperlinks
-in the table below to view the files as they were in that past version.
+made to the R Markdown
+(<code>analysis/NYGC_single_position_comp.Rmd</code>) and HTML
+(<code>docs/NYGC_single_position_comp.html</code>) files. If you’ve
+configured a remote Git repository (see <code>?wflow_git_remote</code>),
+click on the hyperlinks in the table below to view the files as they
+were in that past version.
 </p>
 <div class="table-responsive">
 <table class="table table-condensed table-hover">
@@ -441,7 +607,7 @@ Message
 Rmd
 </td>
 <td>
-<a href="https://github.com/theandyb/LSCI/blob/d9cd9d436f4eb54401c546476f82e1ed374c6d9b/analysis/index.Rmd" target="_blank">d9cd9d4</a>
+<a href="https://github.com/theandyb/LSCI/blob/d9cd9d436f4eb54401c546476f82e1ed374c6d9b/analysis/NYGC_single_position_comp.Rmd" target="_blank">d9cd9d4</a>
 </td>
 <td>
 Andy Beck
@@ -454,517 +620,6 @@ wflow_publish(c("analysis/index.Rmd",
 "analysis/NYGC_single_position_comp.Rmd"))
 </td>
 </tr>
-<tr>
-<td>
-html
-</td>
-<td>
-<a href="https://rawcdn.githack.com/theandyb/LSCI/b1e8ad85ab2524fc3f270e93bcdd223dad953203/docs/index.html" target="_blank">b1e8ad8</a>
-</td>
-<td>
-Andy Beck
-</td>
-<td>
-2023-05-23
-</td>
-<td>
-Build site.
-</td>
-</tr>
-<tr>
-<td>
-Rmd
-</td>
-<td>
-<a href="https://github.com/theandyb/LSCI/blob/c368f55e5d3348fa79deeb671dcf47b026f3f260/analysis/index.Rmd" target="_blank">c368f55</a>
-</td>
-<td>
-Andy Beck
-</td>
-<td>
-2023-05-23
-</td>
-<td>
-wflow_publish(c("analysis/index.Rmd"))
-</td>
-</tr>
-<tr>
-<td>
-html
-</td>
-<td>
-<a href="https://rawcdn.githack.com/theandyb/LSCI/f77e94cfaf9173a4c9361439ca41b972e9b44c8e/docs/index.html" target="_blank">f77e94c</a>
-</td>
-<td>
-Andy Beck
-</td>
-<td>
-2023-05-23
-</td>
-<td>
-Build site.
-</td>
-</tr>
-<tr>
-<td>
-Rmd
-</td>
-<td>
-<a href="https://github.com/theandyb/LSCI/blob/e32b997bf2754046c4a4512bec17660afe08759f/analysis/index.Rmd" target="_blank">e32b997</a>
-</td>
-<td>
-Andy Beck
-</td>
-<td>
-2023-05-23
-</td>
-<td>
-wflow_publish(c("analysis/index.Rmd",
-"analysis/NYGC_single_position_ALL.Rmd"))
-</td>
-</tr>
-<tr>
-<td>
-html
-</td>
-<td>
-<a href="https://rawcdn.githack.com/theandyb/LSCI/e92ebc6f19821f656c7c9f8588a4ee795e211206/docs/index.html" target="_blank">e92ebc6</a>
-</td>
-<td>
-Andy Beck
-</td>
-<td>
-2022-12-13
-</td>
-<td>
-Build site.
-</td>
-</tr>
-<tr>
-<td>
-Rmd
-</td>
-<td>
-<a href="https://github.com/theandyb/LSCI/blob/2183790dfb0ab02328c5898841785b21fc74c317/analysis/index.Rmd" target="_blank">2183790</a>
-</td>
-<td>
-Andy Beck
-</td>
-<td>
-2022-12-13
-</td>
-<td>
-wflow_publish(c("analysis/index.Rmd", "analysis/1kgp_100bp_sp.Rmd"))
-</td>
-</tr>
-<tr>
-<td>
-html
-</td>
-<td>
-<a href="https://rawcdn.githack.com/theandyb/LSCI/79ac448156ca917398c2be6ac4448c78c2a5568a/docs/index.html" target="_blank">79ac448</a>
-</td>
-<td>
-Andy Beck
-</td>
-<td>
-2022-07-06
-</td>
-<td>
-Build site.
-</td>
-</tr>
-<tr>
-<td>
-Rmd
-</td>
-<td>
-<a href="https://github.com/theandyb/LSCI/blob/4c56c9675044aa2db8fa50509d0860b4173a2204/analysis/index.Rmd" target="_blank">4c56c96</a>
-</td>
-<td>
-Andy Beck
-</td>
-<td>
-2022-07-06
-</td>
-<td>
-fix link to 1000G two pos comp
-</td>
-</tr>
-<tr>
-<td>
-html
-</td>
-<td>
-<a href="https://rawcdn.githack.com/theandyb/LSCI/6e14f7638e12066d926fa681c190a56c69936529/docs/index.html" target="_blank">6e14f76</a>
-</td>
-<td>
-Andy Beck
-</td>
-<td>
-2022-07-06
-</td>
-<td>
-Build site.
-</td>
-</tr>
-<tr>
-<td>
-Rmd
-</td>
-<td>
-<a href="https://github.com/theandyb/LSCI/blob/22d9ea1ebbfef3b482a4348c886e31a8264ac374/analysis/index.Rmd" target="_blank">22d9ea1</a>
-</td>
-<td>
-Andy Beck
-</td>
-<td>
-2022-07-06
-</td>
-<td>
-fix link to 1000G two pos comp
-</td>
-</tr>
-<tr>
-<td>
-html
-</td>
-<td>
-<a href="https://rawcdn.githack.com/theandyb/LSCI/bf9808e6d012d8dc20725edcdf314db624817a5c/docs/index.html" target="_blank">bf9808e</a>
-</td>
-<td>
-Andy Beck
-</td>
-<td>
-2021-11-10
-</td>
-<td>
-Build site.
-</td>
-</tr>
-<tr>
-<td>
-Rmd
-</td>
-<td>
-<a href="https://github.com/theandyb/LSCI/blob/bd9071be6b08ad2d2779be196946bdce5c20cb0e/analysis/index.Rmd" target="_blank">bd9071b</a>
-</td>
-<td>
-Andy Beck
-</td>
-<td>
-2021-11-10
-</td>
-<td>
-Change link for gw contingency tables
-</td>
-</tr>
-<tr>
-<td>
-html
-</td>
-<td>
-<a href="https://rawcdn.githack.com/theandyb/LSCI/bcee6104baeb7c80b102faea4a04ffd5d3896da3/docs/index.html" target="_blank">bcee610</a>
-</td>
-<td>
-Andy Beck
-</td>
-<td>
-2021-11-09
-</td>
-<td>
-update site to include disqus
-</td>
-</tr>
-<tr>
-<td>
-html
-</td>
-<td>
-<a href="https://rawcdn.githack.com/theandyb/LSCI/078a58b5523560644e95848c50a639573300f3f2/docs/index.html" target="_blank">078a58b</a>
-</td>
-<td>
-Andy Beck
-</td>
-<td>
-2021-11-08
-</td>
-<td>
-Build site.
-</td>
-</tr>
-<tr>
-<td>
-Rmd
-</td>
-<td>
-<a href="https://github.com/theandyb/LSCI/blob/aa8c22028e201dc1a370bc5b988158855505be9e/analysis/index.Rmd" target="_blank">aa8c220</a>
-</td>
-<td>
-Andy Beck
-</td>
-<td>
-2021-11-08
-</td>
-<td>
-Add genome-wide test of independence
-</td>
-</tr>
-<tr>
-<td>
-html
-</td>
-<td>
-<a href="https://rawcdn.githack.com/theandyb/LSCI/eeb92e157b59ab5817dd7f7b6b075f38f3d48346/docs/index.html" target="_blank">eeb92e1</a>
-</td>
-<td>
-Andy Beck
-</td>
-<td>
-2021-11-04
-</td>
-<td>
-Build site.
-</td>
-</tr>
-<tr>
-<td>
-Rmd
-</td>
-<td>
-<a href="https://github.com/theandyb/LSCI/blob/98ee097aeaf10b656d878734a7b5047be9e57b95/analysis/index.Rmd" target="_blank">98ee097</a>
-</td>
-<td>
-Andy Beck
-</td>
-<td>
-2021-11-04
-</td>
-<td>
-cleanup
-</td>
-</tr>
-<tr>
-<td>
-html
-</td>
-<td>
-<a href="https://rawcdn.githack.com/theandyb/LSCI/98ee097aeaf10b656d878734a7b5047be9e57b95/docs/index.html" target="_blank">98ee097</a>
-</td>
-<td>
-Andy Beck
-</td>
-<td>
-2021-11-04
-</td>
-<td>
-cleanup
-</td>
-</tr>
-<tr>
-<td>
-html
-</td>
-<td>
-<a href="https://rawcdn.githack.com/theandyb/LSCI/8019729bedcc70afe641e50389210f265591d512/docs/index.html" target="_blank">8019729</a>
-</td>
-<td>
-Andy Beck
-</td>
-<td>
-2021-11-03
-</td>
-<td>
-Build site.
-</td>
-</tr>
-<tr>
-<td>
-Rmd
-</td>
-<td>
-<a href="https://github.com/theandyb/LSCI/blob/fdff3776e48c50f7fabbd211c2c1bcb0b034d3f8/analysis/index.Rmd" target="_blank">fdff377</a>
-</td>
-<td>
-Andy Beck
-</td>
-<td>
-2021-11-03
-</td>
-<td>
-update index
-</td>
-</tr>
-<tr>
-<td>
-html
-</td>
-<td>
-<a href="https://rawcdn.githack.com/theandyb/LSCI/68d393f5d9023d30ed0a3d996acd7ca35179ae72/docs/index.html" target="_blank">68d393f</a>
-</td>
-<td>
-Andy Beck
-</td>
-<td>
-2021-11-02
-</td>
-<td>
-Build site.
-</td>
-</tr>
-<tr>
-<td>
-Rmd
-</td>
-<td>
-<a href="https://github.com/theandyb/LSCI/blob/41279d509fc396df9ea90496b21115f71e0d4368/analysis/index.Rmd" target="_blank">41279d5</a>
-</td>
-<td>
-Andy Beck
-</td>
-<td>
-2021-11-02
-</td>
-<td>
-restructure
-</td>
-</tr>
-<tr>
-<td>
-html
-</td>
-<td>
-<a href="https://rawcdn.githack.com/theandyb/LSCI/41279d509fc396df9ea90496b21115f71e0d4368/docs/index.html" target="_blank">41279d5</a>
-</td>
-<td>
-Andy Beck
-</td>
-<td>
-2021-11-02
-</td>
-<td>
-restructure
-</td>
-</tr>
-<tr>
-<td>
-html
-</td>
-<td>
-<a href="https://rawcdn.githack.com/theandyb/LSCI/4b59dca4cfa9741ec926605a18ec1fd4af8e2757/docs/index.html" target="_blank">4b59dca</a>
-</td>
-<td>
-Andy Beck
-</td>
-<td>
-2021-11-01
-</td>
-<td>
-Add outlines
-</td>
-</tr>
-<tr>
-<td>
-Rmd
-</td>
-<td>
-<a href="https://github.com/theandyb/LSCI/blob/6842cad988a7466fab1ee8ce3ccc32c7a5985830/analysis/index.Rmd" target="_blank">6842cad</a>
-</td>
-<td>
-Andy Beck
-</td>
-<td>
-2021-11-01
-</td>
-<td>
-flesh out some pages
-</td>
-</tr>
-<tr>
-<td>
-html
-</td>
-<td>
-<a href="https://rawcdn.githack.com/theandyb/LSCI/6842cad988a7466fab1ee8ce3ccc32c7a5985830/docs/index.html" target="_blank">6842cad</a>
-</td>
-<td>
-Andy Beck
-</td>
-<td>
-2021-11-01
-</td>
-<td>
-flesh out some pages
-</td>
-</tr>
-<tr>
-<td>
-html
-</td>
-<td>
-<a href="https://rawcdn.githack.com/theandyb/LSCI/bc0ed833a9bfb410174156c050d7333f4308a2ef/docs/index.html" target="_blank">bc0ed83</a>
-</td>
-<td>
-Andy Beck
-</td>
-<td>
-2021-11-01
-</td>
-<td>
-Build site.
-</td>
-</tr>
-<tr>
-<td>
-Rmd
-</td>
-<td>
-<a href="https://github.com/theandyb/LSCI/blob/4ec43fe049812ed007c2d3e72d5ca087445be4a0/analysis/index.Rmd" target="_blank">4ec43fe</a>
-</td>
-<td>
-Andy Beck
-</td>
-<td>
-2021-11-01
-</td>
-<td>
-Add single position document for BRIDGES
-</td>
-</tr>
-<tr>
-<td>
-html
-</td>
-<td>
-<a href="https://rawcdn.githack.com/theandyb/LSCI/d5b236c1d3f8dabe9276912c6cd9107b05c93efb/docs/index.html" target="_blank">d5b236c</a>
-</td>
-<td>
-Andy Beck
-</td>
-<td>
-2021-11-01
-</td>
-<td>
-Build site.
-</td>
-</tr>
-<tr>
-<td>
-Rmd
-</td>
-<td>
-<a href="https://github.com/theandyb/LSCI/blob/a41d35513b62b313f0347f69747c26d650c1c22f/analysis/index.Rmd" target="_blank">a41d355</a>
-</td>
-<td>
-Andy Beck
-</td>
-<td>
-2021-11-01
-</td>
-<td>
-Start workflowr project.
-</td>
-</tr>
 </tbody>
 </table>
 </div>
@@ -972,82 +627,59 @@ Start workflowr project.
 </div>
 </div>
 </div>
-<div id="local-sequence-context-influence-on-the-rate-of-substitution"
-class="section level1">
-<h1>Local Sequence Context Influence on the Rate of Substitution</h1>
 <div id="introduction" class="section level2">
 <h2>Introduction</h2>
-<p>The germ line mutation rate is not uniform across the genome, and
-this variation is known to be associated with genomic and epigenomic
-features such as h3k27me3, replication timing, recombination rate, and
-local gc-content, among others. Here in this project we focus on
-evaluating the role of local sequence context on rates of substitution.
-In particular, we are interested in answering questions such as:</p>
-<ol style="list-style-type: decimal">
-<li>How far from a site of interest do nucleotides at individual
-positions influence the rate of substitution?</li>
-<li>To what extent do pairs of flanking positions interact in
-determining their influence on the rate of substitution, and how does
-this vary as the distance between the sites and the distance from the
-focal site increases?</li>
-<li>Are patterns of mutation-rate variation shared between global
-population groups?</li>
-</ol>
-<p>To address these questions, we characterize the distributions of
-nucleotides flanking singletons observed in two data sets: the BRIDGES
-consortium gwas (n = ???) and the 1000G Deep Sequence data (n = 2,504).
-We use singletons as they are newer variants and provide a rich source
-of information to characterize mutation processes active in modern human
-populations. Our analyses are described in more detail in the documents
-linked to below.</p>
-</div>
-<div id="new-analysis-using-nygc-1kgp" class="section level2">
-<h2>NEW: Analysis Using NYGC 1KGP</h2>
-<ul>
-<li><a href="NYGC_single_position_ALL.html">Single Position Models for
-ALL</a></li>
-<li><a href="NYGC_single_position_comp.html">Single Position Models:
-Population Comparisons</a></li>
-</ul>
-</div>
-<div id="bridges-analyses" class="section level2">
-<h2>BRIDGES Analyses</h2>
-<ul>
-<li><a href="BRIDGES_summary_stats.html">Summary Statistics</a></li>
-<li><a href="BRIDGES_single_position.html">Single Position Model
-Results</a></li>
-<li><a href="BRIDGES_two_positions.html">Two Position Model
-Results</a></li>
-</ul>
-</div>
-<div id="g-analyses" class="section level2">
-<h2>1000G Analyses</h2>
-<ul>
-<li><a href="1000G_summary_stats.html">Summary Statistics</a></li>
-<li><a href="1000G_single_position_ALL.html">Single Position Model
-Results for All Singletons</a></li>
-<li><a href="1000G_two_positions_ALL.html">Two Position Model Results
-for All Singletons</a></li>
-<li><a href="1000G_single_position_comp.html">Cross-population
-Comparisons: Single Position Models</a></li>
-<li><a href="1000G_two_positions_comp.html">Cross-population
-Comparisons: Two Position Models</a></li>
-<li><a href="1kgp_100bp_sp.html">2001 mer analysis</a></li>
-</ul>
-</div>
-<div id="paper-related-documents" class="section level2">
-<h2>Paper Related Documents</h2>
-<ul>
-<li><a href="outline.html">Outline</a></li>
-</ul>
-</div>
-<div id="miscellaneous" class="section level2">
-<h2>Miscellaneous</h2>
-<ul>
-<li><a href="quality_control.html">Quality Control</a></li>
-<li><a href="gw_chisq_ind.html">Genome-wide Counts 2-way Contingency
-Tables - Test of Independence</a></li>
-</ul>
+<br>
+<p>
+<button type="button" class="btn btn-default btn-workflowr btn-workflowr-sessioninfo" data-toggle="collapse" data-target="#workflowr-sessioninfo" style="display: block;">
+<span class="glyphicon glyphicon-wrench" aria-hidden="true"></span>
+Session information
+</button>
+</p>
+<div id="workflowr-sessioninfo" class="collapse">
+<pre class="r"><code>sessionInfo()</code></pre>
+<pre><code>R version 4.3.0 (2023-04-21)
+Platform: x86_64-pc-linux-gnu (64-bit)
+Running under: Ubuntu 18.04.6 LTS
+
+Matrix products: default
+BLAS:   /usr/lib/x86_64-linux-gnu/openblas/libblas.so.3 
+LAPACK: /usr/lib/x86_64-linux-gnu/libopenblasp-r0.2.20.so;  LAPACK version 3.7.1
+
+locale:
+ [1] LC_CTYPE=en_US.UTF-8       LC_NUMERIC=C              
+ [3] LC_TIME=en_US.UTF-8        LC_COLLATE=en_US.UTF-8    
+ [5] LC_MONETARY=en_US.UTF-8    LC_MESSAGES=en_US.UTF-8   
+ [7] LC_PAPER=en_US.UTF-8       LC_NAME=C                 
+ [9] LC_ADDRESS=C               LC_TELEPHONE=C            
+[11] LC_MEASUREMENT=en_US.UTF-8 LC_IDENTIFICATION=C       
+
+time zone: America/Detroit
+tzcode source: system (glibc)
+
+attached base packages:
+[1] stats     graphics  grDevices utils     datasets  methods   base     
+
+other attached packages:
+ [1] egg_0.4.5       gridExtra_2.3   patchwork_1.1.1 lubridate_1.9.2
+ [5] forcats_1.0.0   stringr_1.5.0   dplyr_1.1.2     purrr_1.0.1    
+ [9] readr_2.1.4     tidyr_1.3.0     tibble_3.2.1    ggplot2_3.4.2  
+[13] tidyverse_2.0.0 workflowr_1.7.0
+
+loaded via a namespace (and not attached):
+ [1] sass_0.4.1       utf8_1.2.2       generics_0.1.3   stringi_1.7.12  
+ [5] hms_1.1.3        digest_0.6.31    magrittr_2.0.3   timechange_0.2.0
+ [9] evaluate_0.15    grid_4.3.0       fastmap_1.1.0    rprojroot_2.0.3 
+[13] jsonlite_1.8.4   processx_3.8.1   whisker_0.4      ps_1.7.0        
+[17] promises_1.2.0.1 httr_1.4.6       fansi_1.0.4      scales_1.2.0    
+[21] jquerylib_0.1.4  cli_3.6.1        rlang_1.1.1      munsell_0.5.0   
+[25] withr_2.5.0      yaml_2.3.7       tools_4.3.0      tzdb_0.4.0      
+[29] colorspace_2.0-3 httpuv_1.6.11    vctrs_0.6.2      R6_2.5.1        
+[33] lifecycle_1.0.3  git2r_0.32.0     fs_1.6.2         pkgconfig_2.0.3 
+[37] callr_3.7.3      pillar_1.9.0     bslib_0.3.1      later_1.3.0     
+[41] gtable_0.3.0     glue_1.6.2       Rcpp_1.0.10      xfun_0.39       
+[45] tidyselect_1.2.0 rstudioapi_0.14  knitr_1.42       htmltools_0.5.5 
+[49] rmarkdown_2.14   compiler_4.3.0   getPass_0.2-2   </code></pre>
 </div>
 </div>
 
@@ -1079,6 +711,8 @@ footer is added to webpages before the MathJax javascript. -->
 
 
 
+</div>
+</div>
 
 </div>
 
@@ -1111,6 +745,35 @@ $(document).ready(function () {
 
 <!-- code folding -->
 
+<script>
+$(document).ready(function ()  {
+
+    // temporarily add toc-ignore selector to headers for the consistency with Pandoc
+    $('.unlisted.unnumbered').addClass('toc-ignore')
+
+    // move toc-ignore selectors from section div to header
+    $('div.section.toc-ignore')
+        .removeClass('toc-ignore')
+        .children('h1,h2,h3,h4,h5').addClass('toc-ignore');
+
+    // establish options
+    var options = {
+      selectors: "h1,h2,h3",
+      theme: "bootstrap3",
+      context: '.toc-content',
+      hashGenerator: function (text) {
+        return text.replace(/[.\\/?&!#<>]/g, '').replace(/\s/g, '_');
+      },
+      ignoreSelector: ".toc-ignore",
+      scrollTo: 0
+    };
+    options.showAndHide = true;
+    options.smoothScroll = true;
+
+    // tocify
+    var toc = $("#TOC").tocify(options).data("toc-tocify");
+});
+</script>
 
 <!-- dynamically load mathjax for compatibility with self-contained -->
 <script>
