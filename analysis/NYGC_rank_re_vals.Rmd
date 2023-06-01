@@ -51,7 +51,7 @@ read_both_subtype_pop_res <- function(pop, subtype,
                                       two_dir = "/net/snowwhite/home/beckandy/research/1000G_NYGC_LSCI/output/two_pos/"){
   df_s <- read_single_subtype_pop_res(pop, subtype, single_dir) %>%
     select(offset, dev, re) %>%
-    filter(abs(offset) < 11) %>%
+    filter(abs(offset) < 21) %>%
     mutate(offset = as.character(offset))
   
   df_t <- read_two_subtype_pop_res(pop, subtype, two_dir) %>%
