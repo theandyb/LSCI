@@ -23,6 +23,7 @@ To address these questions, we characterize the distributions of nucleotides fla
 ## NEW: Analysis Using NYGC 1KGP
 * [Single Position Models for ALL](NYGC_single_position_ALL.html)
 * [Single Position Models: Population Comparisons](NYGC_single_position_comp.html)
+* [Single and Two Position RE Vals Ranked](NYGC_rank_re_vals.html)
 
 ## BRIDGES Analyses
 
