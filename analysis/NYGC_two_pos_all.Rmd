@@ -1,0 +1,470 @@
+---
+title: "NYGC_two_pos_all"
+author: "Andy Beck"
+date: "2023-06-01"
+output: workflowr::wflow_html
+editor_options:
+  chunk_output_type: console
+---
+
+```{r echo=FALSE, message=FALSE, warning=FALSE}
+library(tidyverse)
+library(patchwork)
+library(egg)
+#library(tikzDevice)
+#library(sjPlot)
+width = 4
+height = 4
+
+## Plot options
+theme_set(theme_bw())
+plot_w <- 800
+plot_h <- 500
+plot_dpi <- 300
+plot_dir <- "output/figs/"
+
+cbPalette <- c("#999999", "#E69F00", "#56B4E9", "#009E73", "#F0E442", "#0072B2", "#D55E00", "#CC79A7", "#000000")
+```
+
+## Introduction
+
+Here in this document we will collect and display the results for the two position models. Here we will be looking at the results generated when considering the singletons collected across all 5 of the 1kGP super-populations.
+
+### Code for loading results
+
+```{r}
+read_subtype_pop_res <- function(pop, subtype, data_dir = "/net/snowwhite/home/beckandy/research/1000G_NYGC_LSCI/output/two_pos/"){
+  fname <- paste0(data_dir, pop, "/", subtype, ".csv")
+  df <- read_csv(fname, show_col_types = FALSE) %>%
+    rowwise() %>%
+    mutate(re = dev / (2 * (singletons + controls)))
+  return(df)
+}
+
+read_pop_res <- function(pop, data_dir = "/net/snowwhite/home/beckandy/research/1000G_NYGC_LSCI/output/two_pos/"){
+  df <- read_subtype_pop_res(pop, "AT_CG", data_dir = data_dir)
+  df$subtype <- "AT_CG"
+  for(st in c("AT_GC", "AT_TA", 
+              "GC_AT", "GC_TA", "GC_CG",
+              "cpg_GC_AT", "cpg_GC_TA", "cpg_GC_CG") ) {
+    df2 <- read_subtype_pop_res(pop, st, data_dir = data_dir)
+    df2$subtype <- st
+    df <- bind_rows(df, df2)
+  }
+  return(df)
+}
+
+read_subtype_pop_resid <- function(pop, subtype, rp1, rp2, data_dir = "/net/snowwhite/home/beckandy/research/1000G_NYGC_LSCI/output/two_pos/resid/"){
+  f_name <- paste0(data_dir, pop, "/", subtype, "_p", rp1, "_q", rp2, ".csv")
+  df <- read_csv(f_name,show_col_types = FALSE)
+  return(df)
+}
+
+read_subtype_pop_range_resid <- function(pop, subtype, size = 10, data_dir = "/net/snowwhite/home/beckandy/research/1000G_NYGC_LSCI/output/two_pos/resid/"){
+  if(str_starts(subtype, "cpg")){
+    pos.list <- c(-size:-1, 2:size)
+  } else{
+    pos.list <- c(-size:-1, 1:size)
+  }
+  pos.names <- c()
+  for(i in 1:(length(pos.list) - 1)){
+    for(j in (i+1):length(pos.list)){
+      pos.names <- c(pos.names, paste0(pos.list[[i]], "_", pos.list[[j]]))
+    }
+  }
+  results <- lapply(pos.names, function(x) NULL) %>% setNames(pos.names)
+  for(i in names(results)){
+    rp1 <- str_split(i, "_")[[1]][1] %>% as.numeric()
+    rp2 <- str_split(i, "_")[[1]][2] %>% as.numeric()
+    results[[i]] <- read_subtype_pop_resid(pop, subtype, rp1, rp2, data_dir)
+    results[[i]]$rp1 <- rp1
+    results[[i]]$rp2 <- rp2
+  }
+  df <- bind_rows(results)
+  return(df)
+}
+
+subtype_print_names <- function(st){
+  if(str_starts(st, "AT")){
+    return(paste0("A → ", str_sub(st, 4, 4)))
+  } else if(str_starts(st, "GC")){
+    return(paste0("C → ", str_sub(st, 5, 5)))
+  } else{
+    return(paste0("CpG → ", str_sub(st, 9, 9), "pG"))
+  }
+}
+```
+
+## Results
+
+### A > C
+
+```{r}
+subtype <- "AT_CG"
+df <- read_subtype_pop_res("ALL", subtype)
+df %>%
+  filter(abs(rp1) <= 10, abs(rp2) <= 10) %>%
+  ggplot(aes(x = rp2, y = rp1, fill = re)) + 
+  geom_tile() +
+  theme_classic() +
+  xlab("Relative Position 2") +
+  ylab("Relative Position 1") +
+  scale_fill_distiller(palette = "Reds", direction = 1, name = "Relative\nEntropy") +
+  theme(legend.justification=c(0,0), legend.position=c(0.1,0.5))
+```
+
+And let's get the location of the highest relative entropy statistic:
+
+```{r}
+df %>%
+  arrange(desc(re)) %>%
+  head(1)
+```
+
+Ok, it's at 1, 2 for this sub-type. Let's see what the residuals look like:
+
+```{r}
+df_res <- read_subtype_pop_resid("ALL", subtype, 1, 2)
+df_res
+
+df_res %>%
+  ggplot(aes(x = p2, y = p1, fill = res)) +
+  geom_tile() +
+  xlab("2") + ylab("1") +
+  scale_fill_distiller(palette = "RdBu") +
+  facet_wrap(vars(status))
+```
+
+Here it looks as if the primary driver of the signal is an enrichment for AGT to CGT motifs in the singletons. Interestingly, we also se enrichments for 3 of the TAN to TCN motifs, with TAT to TCT beinging the only exception.
+
+### A > G
+
+```{r}
+subtype <- "AT_GC"
+df <- read_subtype_pop_res("ALL", subtype)
+df %>%
+  filter(abs(rp1) <= 10, abs(rp2) <= 10) %>%
+  ggplot(aes(x = rp2, y = rp1, fill = re)) + 
+  geom_tile() +
+  theme_classic() +
+  xlab("Relative Position 2") +
+  ylab("Relative Position 1") +
+  scale_fill_distiller(palette = "Reds", direction = 1, name = "Relative\nEntropy") +
+  theme(legend.justification=c(0,0), legend.position=c(0.1,0.5))
+```
+
+And let's get the location of the highest relative entropy statistic:
+
+```{r}
+df %>%
+  arrange(desc(re)) %>%
+  head(1)
+```
+
+Ok, it's at -2, -1 for this sub-type. Let's see what the residuals look like:
+
+```{r}
+df_res <- read_subtype_pop_resid("ALL", subtype, -2, -1)
+
+df_res %>%
+  ggplot(aes(x = p2, y = p1, fill = res)) +
+  geom_tile() +
+  xlab("-1") + ylab("-2") +
+  scale_fill_distiller(palette = "RdBu") +
+  facet_wrap(vars(status))
+```
+
+It looks as though here the signal is primarily driven by an enrichment of CAA to CAG motifs and a depletion of CCA to CCG motifs in the singletons. 
+
+### A to T
+
+```{r}
+subtype <- "AT_TA"
+df <- read_subtype_pop_res("ALL", subtype)
+df %>%
+  filter(abs(rp1) <= 10, abs(rp2) <= 10) %>%
+  ggplot(aes(x = rp2, y = rp1, fill = re)) + 
+  geom_tile() +
+  theme_classic() +
+  xlab("Relative Position 2") +
+  ylab("Relative Position 1") +
+  scale_fill_distiller(palette = "Reds", direction = 1, name = "Relative\nEntropy") +
+  theme(legend.justification=c(0,0), legend.position=c(0.1,0.5))
+```
+
+And let's get the location of the highest relative entropy statistic:
+
+```{r}
+df %>%
+  arrange(desc(re)) %>%
+  head(1)
+```
+
+Ok, it's at -1, 1 for this sub-type. Let's see what the residuals look like:
+
+```{r}
+df_res <- read_subtype_pop_resid("ALL", subtype, -1, 1)
+
+df_res %>%
+  ggplot(aes(x = p2, y = p1, fill = res)) +
+  geom_tile() +
+  xlab("1") + ylab("-1") +
+  scale_fill_distiller(palette = "RdBu") +
+  facet_wrap(vars(status))
+```
+
+Here we see the strongest residuals are enrichments of the TAA to TTA and the GAT to GTT motifs in the singletons. The largest depletions appear at GAA, TAT, and AAT.
+
+### C > A
+
+```{r}
+subtype <- "GC_TA"
+df <- read_subtype_pop_res("ALL", subtype)
+df %>%
+  filter(abs(rp1) <= 10, abs(rp2) <= 10) %>%
+  ggplot(aes(x = rp2, y = rp1, fill = re)) + 
+  geom_tile() +
+  theme_classic() +
+  xlab("Relative Position 2") +
+  ylab("Relative Position 1") +
+  scale_fill_distiller(palette = "Reds", direction = 1, name = "Relative\nEntropy") +
+  theme(legend.justification=c(0,0), legend.position=c(0.1,0.5))
+```
+
+For this subtype we have a couple of locations which have relatively high re values. Let's get the top 5:
+
+```{r}
+df %>%
+  arrange(desc(re)) %>%
+  head(5)
+```
+
+The largest appear within the +/-2 bp window centered at the site; once at the -1, +1, and then two pairs of positions which are immediately neighbored by each other (-2,-1 and 1,2). Let's take a look at their residual values
+
+```{r}
+df_res <- read_subtype_pop_resid("ALL", subtype, -1, 1)
+
+df_res %>%
+  filter(p2 != "G") %>%
+  ggplot(aes(x = p2, y = p1, fill = res)) +
+  geom_tile() +
+  xlab("1") + ylab("-1") +
+  scale_fill_distiller(palette = "RdBu") +
+  facet_wrap(vars(status))
+```
+
+At -1, +1 the signal appears to be driven by an enrichment of TCT to TAT motifs in the singletons. We also see depletions of the TCC and TCT motifs as well.
+
+```{r}
+df_res <- read_subtype_pop_resid("ALL", subtype, -2, -1)
+
+df_res %>%
+  ggplot(aes(x = p2, y = p1, fill = res)) +
+  geom_tile() +
+  xlab("-1") + ylab("-2") +
+  scale_fill_distiller(palette = "RdBu") +
+  facet_wrap(vars(status))
+```
+
+At the -2, -1 pair, we see enrichment of the CCC and CCA motifs. Might this suggest that single position signal at -1 for C is moderated by nucleotide at -2?
+
+```{r}
+df_res <- read_subtype_pop_resid("ALL", subtype, 1, 2)
+
+df_res %>%
+  filter(p1 != "G") %>%
+  ggplot(aes(x = p2, y = p1, fill = res)) +
+  geom_tile() +
+  xlab("2") + ylab("1") +
+  scale_fill_distiller(palette = "RdBu") +
+  facet_wrap(vars(status))
+```
+
+At the 1,2 pair we see enrichments at CCC to ACC and CCA to ACA, while there is a depletion at CTC to ATC.
+
+### CpG to A
+
+```{r}
+subtype <- "cpg_GC_TA"
+df <- read_subtype_pop_res("ALL", subtype)
+df %>%
+  filter(abs(rp1) <= 10, abs(rp2) <= 10) %>%
+  ggplot(aes(x = rp2, y = rp1, fill = re)) + 
+  geom_tile() +
+  theme_classic() +
+  xlab("Relative Position 2") +
+  ylab("Relative Position 1") +
+  scale_fill_distiller(palette = "Reds", direction = 1, name = "Relative\nEntropy") +
+  theme(legend.justification=c(0,0), legend.position=c(0.1,0.5))
+```
+
+Here the largest re is seen at -2, -1:
+
+```{r}
+df_res <- read_subtype_pop_resid("ALL", subtype, -2, -1)
+
+df_res %>%
+  ggplot(aes(x = p2, y = p1, fill = res)) +
+  geom_tile() +
+  xlab("-1") + ylab("-2") +
+  scale_fill_distiller(palette = "RdBu") +
+  facet_wrap(vars(status))
+```
+
+Here we seen an enrichment of TGC to TGA motifs, along with a depletion of TCC to TCA.
+
+### C > T
+
+```{r}
+subtype <- "GC_AT"
+df <- read_subtype_pop_res("ALL", subtype)
+df %>%
+  filter(abs(rp1) <= 10, abs(rp2) <= 10) %>%
+  ggplot(aes(x = rp2, y = rp1, fill = re)) + 
+  geom_tile() +
+  theme_classic() +
+  xlab("Relative Position 2") +
+  ylab("Relative Position 1") +
+  scale_fill_distiller(palette = "Reds", direction = 1, name = "Relative\nEntropy") +
+  theme(legend.justification=c(0,0), legend.position=c(0.1,0.5))
+```
+
+Here we see signals at -1,1 and -2,-1 and 1,2:
+
+```{r}
+df_res <- read_subtype_pop_resid("ALL", subtype, -1, 1)
+
+df_res %>%
+  filter(p2 != "G") %>%
+  ggplot(aes(x = p2, y = p1, fill = res)) +
+  geom_tile() +
+  xlab("1") + ylab("-1") +
+  scale_fill_distiller(palette = "RdBu") +
+  facet_wrap(vars(status))
+```
+
+Here we see enrichment of CCT to CTT and ACA to ATA motifs in the singletons.
+
+```{r}
+df_res <- read_subtype_pop_resid("ALL", subtype, -2, -1)
+
+df_res %>%
+  ggplot(aes(x = p2, y = p1, fill = res)) +
+  geom_tile() +
+  xlab("-1") + ylab("-2") +
+  scale_fill_distiller(palette = "RdBu") +
+  facet_wrap(vars(status))
+```
+
+Enrichments: CAC -> CAT, ACC -> ACT, CTC -> CTT
+Depletions: TTC -> TTT
+
+```{r}
+df_res <- read_subtype_pop_resid("ALL", subtype, 1, 2)
+
+df_res %>%
+  filter(p1 != "G") %>%
+  ggplot(aes(x = p2, y = p1, fill = res)) +
+  geom_tile() +
+  xlab("2") + ylab("1") +
+  scale_fill_distiller(palette = "RdBu") +
+  facet_wrap(vars(status))
+```
+
+Enrichments: CTA -> TTA, CCG -> TCG
+Depletions: CTG -> TTG
+
+### CpG to TpG
+
+```{r}
+subtype <- "cpg_GC_AT"
+df <- read_subtype_pop_res("ALL", subtype)
+df %>%
+  filter(abs(rp1) <= 10, abs(rp2) <= 10) %>%
+  ggplot(aes(x = rp2, y = rp1, fill = re)) + 
+  geom_tile() +
+  theme_classic() +
+  xlab("Relative Position 2") +
+  ylab("Relative Position 1") +
+  scale_fill_distiller(palette = "Reds", direction = 1, name = "Relative\nEntropy") +
+  theme(legend.justification=c(0,0), legend.position=c(0.1,0.5))
+```
+
+This one's a bit noiser than the others, but we can see the strongest signal at +3,+4
+
+```{r}
+df_res <- read_subtype_pop_resid("ALL", subtype, 3, 4)
+
+df_res %>%
+  ggplot(aes(x = p2, y = p1, fill = res)) +
+  geom_tile() +
+  xlab("4") + ylab("3") +
+  scale_fill_distiller(palette = "RdBu") +
+  facet_wrap(vars(status))
+```
+
+### C > G
+
+```{r}
+subtype <- "GC_CG"
+df <- read_subtype_pop_res("ALL", subtype)
+df %>%
+  filter(abs(rp1) <= 10, abs(rp2) <= 10) %>%
+  ggplot(aes(x = rp2, y = rp1, fill = re)) + 
+  geom_tile() +
+  theme_classic() +
+  xlab("Relative Position 2") +
+  ylab("Relative Position 1") +
+  scale_fill_distiller(palette = "Reds", direction = 1, name = "Relative\nEntropy") +
+  theme(legend.justification=c(0,0), legend.position=c(0.1,0.5))
+```
+
+```{r}
+df_res <- read_subtype_pop_resid("ALL", subtype, 1, 2)
+
+df_res %>%
+  filter(p1 != "G") %>%
+  ggplot(aes(x = p2, y = p1, fill = res)) +
+  geom_tile() +
+  xlab("2") + ylab("1") +
+  scale_fill_distiller(palette = "RdBu") +
+  facet_wrap(vars(status))
+```
+
+```{r}
+df_res <- read_subtype_pop_resid("ALL", subtype, -2, -1)
+
+df_res %>%
+  ggplot(aes(x = p2, y = p1, fill = res)) +
+  geom_tile() +
+  xlab("-1") + ylab("-2") +
+  scale_fill_distiller(palette = "RdBu") +
+  facet_wrap(vars(status))
+```
+
+### CpG to GpG
+
+```{r}
+subtype <- "cpg_GC_CG"
+df <- read_subtype_pop_res("ALL", subtype)
+df %>%
+  filter(abs(rp1) <= 10, abs(rp2) <= 10) %>%
+  ggplot(aes(x = rp2, y = rp1, fill = re)) + 
+  geom_tile() +
+  theme_classic() +
+  xlab("Relative Position 2") +
+  ylab("Relative Position 1") +
+  scale_fill_distiller(palette = "Reds", direction = 1, name = "Relative\nEntropy") +
+  theme(legend.justification=c(0,0), legend.position=c(0.1,0.5))
+```
+
+```{r}
+df_res <- read_subtype_pop_resid("ALL", subtype, -2, -1)
+
+df_res %>%
+  ggplot(aes(x = p2, y = p1, fill = res)) +
+  geom_tile() +
+  xlab("-1") + ylab("-2") +
+  scale_fill_distiller(palette = "RdBu") +
+  facet_wrap(vars(status))
+```
