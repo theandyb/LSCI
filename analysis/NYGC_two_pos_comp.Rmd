@@ -1,0 +1,350 @@
+---
+title: "NYGC_two_pos_comp"
+author: "Andy Beck"
+date: "2023-06-07"
+output: workflowr::wflow_html
+editor_options:
+  chunk_output_type: console
+---
+
+```{r echo=FALSE, message=FALSE, warning=FALSE}
+library(tidyverse)
+library(corrr)
+library(reshape2)
+library(sjPlot)
+#source("code/two_pos_new.R")
+```
+
+## Position-level results
+
+Here in this section of the document we will assess the correlation of position-level results across pairs of populations for all of the mutation subtypes.
+
+### Get position-level statistic for each superpopulation
+
+```{r}
+get_pos <- function(subtype, 
+                    data_dir = "/net/snowwhite/home/beckandy/research/1000G_NYGC_LSCI/output/two_pos/"){
+  f_name <- paste0(data_dir, "AFR/", subtype, ".csv")
+  final <- read_csv(f_name, show_col_types = FALSE) %>%
+    rowwise() %>%
+    mutate(re = dev / (2*(singletons + controls))) %>%
+    select(rp1, rp2, re) %>%
+    rename(AFR = re)
+  for(pop in c("AMR", "EAS", "EUR", "SAS")){
+    f_name <- paste0(data_dir, pop, "/", subtype, ".csv")
+    df <- read_csv(f_name, show_col_types = FALSE) %>%
+      rowwise() %>%
+      mutate(re = dev / (2*(singletons + controls))) %>%
+      select(rp1, rp2, re)
+    colnames(df)[3] <- pop
+    final <- full_join(final, df, by = c("rp1", "rp2"))
+  }
+  return(final)
+}
+```
+
+### AT_CG
+
+```{r}
+st <- "AT_CG"
+
+simple_cor <- function(st){
+  df <- get_pos(st)
+  
+  cor_mat <- cor({df %>% select(-rp1, -rp2)})
+  
+  if(!str_starts(st, "cpg")){
+    subtype2 <- str_replace(st, "_", " → ")
+  } else {
+    subtype <- str_sub(st, 5)
+    subtype2 <- paste0("(cpg) ", str_replace(subtype, "_", " → "))
+  }
+  
+  p <- cor({df %>% select(-rp1, -rp2)}) %>% 
+    melt %>%
+    ggplot(aes(x=Var1, y=Var2, fill=value)) +
+    geom_tile() +
+    xlab("Population") + ylab("Population") + 
+    ggtitle("Correlation of Position-Level Results", paste0("Subtype: ", subtype2)) +
+    scale_fill_distiller(palette = "Reds", direction = 1, limits = c(0,1))
+  return(list(p = p, cor_mat = cor_mat))
+}
+obj <- simple_cor(st)
+
+obj$cor_mat %>% knitr::kable()
+obj$p
+```
+
+### AT_GC
+
+```{r}
+st <- "AT_GC"
+obj <- simple_cor(st)
+
+obj$cor_mat %>% knitr::kable()
+obj$p
+```
+
+### AT_TA
+
+```{r}
+st <- "AT_TA"
+obj <- simple_cor(st)
+
+obj$cor_mat %>% knitr::kable()
+obj$p
+```
+
+### GC_AT
+
+```{r}
+st <- "GC_AT"
+obj <- simple_cor(st)
+
+obj$cor_mat %>% knitr::kable()
+obj$p
+```
+
+### cpg_GC_AT
+
+```{r}
+st <- "cpg_GC_AT"
+obj <- simple_cor(st)
+
+obj$cor_mat %>% knitr::kable()
+obj$p
+```
+
+### GC_TA
+
+```{r}
+st <- "GC_TA"
+obj <- simple_cor(st)
+
+obj$cor_mat %>% knitr::kable()
+obj$p
+```
+
+### cpg_GC_TA
+
+```{r}
+st <- "cpg_GC_TA"
+obj <- simple_cor(st)
+
+obj$cor_mat %>% knitr::kable()
+obj$p
+```
+
+### GC_CG
+
+```{r}
+st <- "GC_CG"
+obj <-  simple_cor(st)
+
+obj$cor_mat %>% knitr::kable()
+obj$p
+```
+
+### cpg_GC_CG
+
+```{r}
+st <- "cpg_GC_CG"
+obj <- simple_cor(st)
+
+obj$cor_mat %>% knitr::kable()
+obj$p
+```
+
+
+## Do populations share location of highest RE?
+
+```{r}
+get_table_re <- function(pop,
+                         data_dir = "/net/snowwhite/home/beckandy/research/1000G_NYGC_LSCI/output/two_pos/"){
+  
+  final <- data.frame(st = character(),
+                      p1 = numeric(),
+                      p2 = numeric(),
+                      statistic = numeric())
+  
+  for(st in c("AT_CG", "AT_GC", "AT_TA", 
+              "GC_AT", "GC_TA", "GC_CG",
+              "cpg_GC_AT", "cpg_GC_TA", "cpg_GC_CG")){
+    f_name <- paste0(data_dir, pop, "/", st, ".csv")
+    df <- read_csv(f_name, show_col_types = FALSE) %>%
+      rowwise() %>%
+      mutate(re = dev / (2* (singletons + controls))) %>%
+      arrange(desc(re))
+    p1 <- df$rp1[1]
+    p2 <- df$rp2[1]
+    statistic <- df$re[1]
+    final <- bind_rows(final,
+                       data.frame(st = st,
+                                  p1 = p1,
+                                  p2 = p2,
+                                  statistic = statistic))
+  }
+  final$pop <- pop
+  return(final)
+}
+```
+### ALL
+
+```{r}
+pop <- "ALL"
+get_table_re(pop) %>%
+  knitr::kable()
+```
+
+### AFR
+
+```{r}
+pop <- "AFR"
+get_table_re(pop) %>%
+  knitr::kable()
+```
+
+### AMR
+
+```{r}
+pop <- "AMR"
+get_table_re(pop) %>%
+  knitr::kable()
+```
+
+### EAS
+
+```{r}
+pop <- "EAS"
+get_table_re(pop) %>%
+  knitr::kable()
+```
+
+### EUR
+
+```{r}
+pop <- "EUR"
+get_table_re(pop) %>%
+  knitr::kable()
+```
+
+### SAS
+
+```{r}
+pop <- "SAS"
+get_table_re(pop) %>%
+  knitr::kable()
+```
+
+## GC_AT Differences
+
+```{r}
+data_dir <- "/net/snowwhite/home/beckandy/research/1000G_NYGC_LSCI/output/two_pos/"
+pop <- "ALL"
+read_csv(paste0(data_dir, pop, "/GC_AT.csv"), show_col_types = FALSE) %>%
+  rowwise() %>%
+  mutate(re = dev / (2*(singletons + controls))) %>%
+  arrange(desc(re)) %>%
+  head(4) %>%
+  knitr::kable()
+
+pop <- "AFR"
+read_csv(paste0(data_dir, pop, "/GC_AT.csv"), show_col_types = FALSE) %>%
+  rowwise() %>%
+  mutate(re = dev / (2*(singletons + controls))) %>%
+  arrange(desc(re)) %>%
+  head(4) %>%
+  knitr::kable()
+
+pop <- "AMR"
+read_csv(paste0(data_dir, pop, "/GC_AT.csv"), show_col_types = FALSE) %>%
+  rowwise() %>%
+  mutate(re = dev / (2*(singletons + controls))) %>%
+  arrange(desc(re)) %>%
+  head(4) %>%
+  knitr::kable()
+
+pop <- "EAS"
+read_csv(paste0(data_dir, pop, "/GC_AT.csv"), show_col_types = FALSE) %>%
+  rowwise() %>%
+  mutate(re = dev / (2*(singletons + controls))) %>%
+  arrange(desc(re)) %>%
+  head(4) %>%
+  knitr::kable()
+
+pop <- "EUR"
+read_csv(paste0(data_dir, pop, "/GC_AT.csv"), show_col_types = FALSE) %>%
+  rowwise() %>%
+  mutate(re = dev / (2*(singletons + controls))) %>%
+  arrange(desc(re)) %>%
+  head(4) %>%
+  knitr::kable()
+
+pop <- "SAS"
+read_csv(paste0(data_dir, pop, "/GC_AT.csv"), show_col_types = FALSE) %>%
+  rowwise() %>%
+  mutate(re = dev / (2*(singletons + controls))) %>%
+  arrange(desc(re)) %>%
+  head(4) %>%
+  knitr::kable()
+```
+
+In this example, while not all populations share the positions coordinates of the highest RE value, we see that (-2, -1) and (-1, 1) are in the top two for all populations.
+
+## AT_CG example (EAS)
+
+For this subtype the only super population to not have the highest observed RE value at (1,2) was EAS (-2, -1)
+
+```{r}
+pop <- "ALL"
+read_csv(paste0(data_dir, pop, "/AT_CG.csv"), show_col_types = FALSE) %>%
+  rowwise() %>%
+  mutate(re = dev / (2*(singletons + controls))) %>%
+  arrange(desc(re)) %>%
+  head(4) %>%
+  knitr::kable()
+
+pop <- "EAS"
+read_csv(paste0(data_dir, pop, "/AT_CG.csv"), show_col_types = FALSE) %>%
+  rowwise() %>%
+  mutate(re = dev / (2*(singletons + controls))) %>%
+  arrange(desc(re)) %>%
+  head(4) %>%
+  knitr::kable()
+
+pop <- "AFR"
+read_csv(paste0(data_dir, pop, "/AT_CG.csv"), show_col_types = FALSE) %>%
+  rowwise() %>%
+  mutate(re = dev / (2*(singletons + controls))) %>%
+  arrange(desc(re)) %>%
+  head(4) %>%
+  knitr::kable()
+
+pop <- "AMR"
+read_csv(paste0(data_dir, pop, "/AT_CG.csv"), show_col_types = FALSE) %>%
+  rowwise() %>%
+  mutate(re = dev / (2*(singletons + controls))) %>%
+  arrange(desc(re)) %>%
+  head(4) %>%
+  knitr::kable()
+
+pop <- "EUR"
+read_csv(paste0(data_dir, pop, "/AT_CG.csv"), show_col_types = FALSE) %>%
+  rowwise() %>%
+  mutate(re = dev / (2*(singletons + controls))) %>%
+  arrange(desc(re)) %>%
+  head(4) %>%
+  knitr::kable()
+
+pop <- "SAS"
+read_csv(paste0(data_dir, pop, "/AT_CG.csv"), show_col_types = FALSE) %>%
+  rowwise() %>%
+  mutate(re = dev / (2*(singletons + controls))) %>%
+  arrange(desc(re)) %>%
+  head(4) %>%
+  knitr::kable()
+```
+
+Again, we see that across all populations the top four statistics are at the same pairs of positions, with only the order slightly adjusted.
+
+
