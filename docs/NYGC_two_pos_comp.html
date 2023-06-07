@@ -1,0 +1,2590 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+
+<meta charset="utf-8" />
+<meta name="generator" content="pandoc" />
+<meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
+
+
+<meta name="author" content="Andy Beck" />
+
+<meta name="date" content="2023-06-07" />
+
+<title>NYGC_two_pos_comp</title>
+
+<script src="site_libs/header-attrs-2.14/header-attrs.js"></script>
+<script src="site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link href="site_libs/bootstrap-3.3.5/css/flatly.min.css" rel="stylesheet" />
+<script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
+<style>h1 {font-size: 34px;}
+       h1.title {font-size: 38px;}
+       h2 {font-size: 30px;}
+       h3 {font-size: 24px;}
+       h4 {font-size: 18px;}
+       h5 {font-size: 16px;}
+       h6 {font-size: 12px;}
+       code {color: inherit; background-color: rgba(0, 0, 0, 0.04);}
+       pre:not([class]) { background-color: white }</style>
+<script src="site_libs/jqueryui-1.11.4/jquery-ui.min.js"></script>
+<link href="site_libs/tocify-1.9.1/jquery.tocify.css" rel="stylesheet" />
+<script src="site_libs/tocify-1.9.1/jquery.tocify.js"></script>
+<script src="site_libs/navigation-1.1/tabsets.js"></script>
+<link href="site_libs/highlightjs-9.12.0/textmate.css" rel="stylesheet" />
+<script src="site_libs/highlightjs-9.12.0/highlight.js"></script>
+<link href="site_libs/font-awesome-5.1.0/css/all.css" rel="stylesheet" />
+<link href="site_libs/font-awesome-5.1.0/css/v4-shims.css" rel="stylesheet" />
+
+<link rel="icon" href="https://github.com/workflowr/workflowr-assets/raw/main/img/reproducible.png">
+<!-- Add a small amount of space between sections. -->
+<style type="text/css">
+div.section {
+  padding-top: 12px;
+}
+</style>
+
+
+
+<style type="text/css">
+  code{white-space: pre-wrap;}
+  span.smallcaps{font-variant: small-caps;}
+  span.underline{text-decoration: underline;}
+  div.column{display: inline-block; vertical-align: top; width: 50%;}
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+  ul.task-list{list-style: none;}
+    </style>
+
+<style type="text/css">code{white-space: pre;}</style>
+<script type="text/javascript">
+if (window.hljs) {
+  hljs.configure({languages: []});
+  hljs.initHighlightingOnLoad();
+  if (document.readyState && document.readyState === "complete") {
+    window.setTimeout(function() { hljs.initHighlighting(); }, 0);
+  }
+}
+</script>
+
+
+
+
+
+
+
+
+
+<style type = "text/css">
+.main-container {
+  max-width: 940px;
+  margin-left: auto;
+  margin-right: auto;
+}
+img {
+  max-width:100%;
+}
+.tabbed-pane {
+  padding-top: 12px;
+}
+.html-widget {
+  margin-bottom: 20px;
+}
+button.code-folding-btn:focus {
+  outline: none;
+}
+summary {
+  display: list-item;
+}
+details > summary > p:only-child {
+  display: inline;
+}
+pre code {
+  padding: 0;
+}
+</style>
+
+
+<style type="text/css">
+.dropdown-submenu {
+  position: relative;
+}
+.dropdown-submenu>.dropdown-menu {
+  top: 0;
+  left: 100%;
+  margin-top: -6px;
+  margin-left: -1px;
+  border-radius: 0 6px 6px 6px;
+}
+.dropdown-submenu:hover>.dropdown-menu {
+  display: block;
+}
+.dropdown-submenu>a:after {
+  display: block;
+  content: " ";
+  float: right;
+  width: 0;
+  height: 0;
+  border-color: transparent;
+  border-style: solid;
+  border-width: 5px 0 5px 5px;
+  border-left-color: #cccccc;
+  margin-top: 5px;
+  margin-right: -10px;
+}
+.dropdown-submenu:hover>a:after {
+  border-left-color: #adb5bd;
+}
+.dropdown-submenu.pull-left {
+  float: none;
+}
+.dropdown-submenu.pull-left>.dropdown-menu {
+  left: -100%;
+  margin-left: 10px;
+  border-radius: 6px 0 6px 6px;
+}
+</style>
+
+<script type="text/javascript">
+// manage active state of menu based on current page
+$(document).ready(function () {
+  // active menu anchor
+  href = window.location.pathname
+  href = href.substr(href.lastIndexOf('/') + 1)
+  if (href === "")
+    href = "index.html";
+  var menuAnchor = $('a[href="' + href + '"]');
+
+  // mark it active
+  menuAnchor.tab('show');
+
+  // if it's got a parent navbar menu mark it active as well
+  menuAnchor.closest('li.dropdown').addClass('active');
+
+  // Navbar adjustments
+  var navHeight = $(".navbar").first().height() + 15;
+  var style = document.createElement('style');
+  var pt = "padding-top: " + navHeight + "px; ";
+  var mt = "margin-top: -" + navHeight + "px; ";
+  var css = "";
+  // offset scroll position for anchor links (for fixed navbar)
+  for (var i = 1; i <= 6; i++) {
+    css += ".section h" + i + "{ " + pt + mt + "}\n";
+  }
+  style.innerHTML = "body {" + pt + "padding-bottom: 40px; }\n" + css;
+  document.head.appendChild(style);
+});
+</script>
+
+<!-- tabsets -->
+
+<style type="text/css">
+.tabset-dropdown > .nav-tabs {
+  display: inline-table;
+  max-height: 500px;
+  min-height: 44px;
+  overflow-y: auto;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+}
+
+.tabset-dropdown > .nav-tabs > li.active:before {
+  content: "";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li.active:before {
+  content: "&#xe258;";
+  border: none;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open:before {
+  content: "";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs > li.active {
+  display: block;
+}
+
+.tabset-dropdown > .nav-tabs > li > a,
+.tabset-dropdown > .nav-tabs > li > a:focus,
+.tabset-dropdown > .nav-tabs > li > a:hover {
+  border: none;
+  display: inline-block;
+  border-radius: 4px;
+  background-color: transparent;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li {
+  display: block;
+  float: none;
+}
+
+.tabset-dropdown > .nav-tabs > li {
+  display: none;
+}
+</style>
+
+<!-- code folding -->
+
+
+
+<style type="text/css">
+
+#TOC {
+  margin: 25px 0px 20px 0px;
+}
+@media (max-width: 768px) {
+#TOC {
+  position: relative;
+  width: 100%;
+}
+}
+
+@media print {
+.toc-content {
+  /* see https://github.com/w3c/csswg-drafts/issues/4434 */
+  float: right;
+}
+}
+
+.toc-content {
+  padding-left: 30px;
+  padding-right: 40px;
+}
+
+div.main-container {
+  max-width: 1200px;
+}
+
+div.tocify {
+  width: 20%;
+  max-width: 260px;
+  max-height: 85%;
+}
+
+@media (min-width: 768px) and (max-width: 991px) {
+  div.tocify {
+    width: 25%;
+  }
+}
+
+@media (max-width: 767px) {
+  div.tocify {
+    width: 100%;
+    max-width: none;
+  }
+}
+
+.tocify ul, .tocify li {
+  line-height: 20px;
+}
+
+.tocify-subheader .tocify-item {
+  font-size: 0.90em;
+}
+
+.tocify .list-group-item {
+  border-radius: 0px;
+}
+
+
+</style>
+
+
+
+</head>
+
+<body>
+
+
+<div class="container-fluid main-container">
+
+
+<!-- setup 3col/9col grid for toc_float and main content  -->
+<div class="row">
+<div class="col-xs-12 col-sm-4 col-md-3">
+<div id="TOC" class="tocify">
+</div>
+</div>
+
+<div class="toc-content col-xs-12 col-sm-8 col-md-9">
+
+
+
+
+<div class="navbar navbar-default  navbar-fixed-top" role="navigation">
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-bs-toggle="collapse" data-target="#navbar" data-bs-target="#navbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="index.html">Local Sequence Context Influence</a>
+    </div>
+    <div id="navbar" class="navbar-collapse collapse">
+      <ul class="nav navbar-nav">
+        <li>
+  <a href="index.html">Home</a>
+</li>
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        <li>
+  <a href="https://github.com/theandyb/LSCI">
+    <span class="fa fa-github"></span>
+     
+    Source code
+  </a>
+</li>
+      </ul>
+    </div><!--/.nav-collapse -->
+  </div><!--/.container -->
+</div><!--/.navbar -->
+
+<div id="header">
+
+
+
+<h1 class="title toc-ignore">NYGC_two_pos_comp</h1>
+<h4 class="author">Andy Beck</h4>
+<h4 class="date">2023-06-07</h4>
+
+</div>
+
+
+<p>
+<button type="button" class="btn btn-default btn-workflowr btn-workflowr-report" data-toggle="collapse" data-target="#workflowr-report">
+<span class="glyphicon glyphicon-list" aria-hidden="true"></span>
+workflowr <span class="glyphicon glyphicon-ok text-success"
+aria-hidden="true"></span>
+</button>
+</p>
+<div id="workflowr-report" class="collapse">
+<ul class="nav nav-tabs">
+<li class="active">
+<a data-toggle="tab" href="#summary">Summary</a>
+</li>
+<li>
+<a data-toggle="tab" href="#checks"> Checks <span
+class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span>
+</a>
+</li>
+<li>
+<a data-toggle="tab" href="#versions">Past versions</a>
+</li>
+</ul>
+<div class="tab-content">
+<div id="summary" class="tab-pane fade in active">
+<p>
+<strong>Last updated:</strong> 2023-06-07
+</p>
+<p>
+<strong>Checks:</strong> <span
+class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> 7
+<span class="glyphicon glyphicon-exclamation-sign text-danger"
+aria-hidden="true"></span> 0
+</p>
+<p>
+<strong>Knit directory:</strong> <code>LSCI/</code> <span
+class="glyphicon glyphicon-question-sign" aria-hidden="true"
+title="This is the local directory in which the code in this file was executed.">
+</span>
+</p>
+<p>
+This reproducible <a href="https://rmarkdown.rstudio.com">R Markdown</a>
+analysis was created with <a
+  href="https://github.com/workflowr/workflowr">workflowr</a> (version
+1.7.0). The <em>Checks</em> tab describes the reproducibility checks
+that were applied when the results were created. The <em>Past
+versions</em> tab lists the development history.
+</p>
+<hr>
+</div>
+<div id="checks" class="tab-pane fade">
+<div id="workflowr-checks" class="panel-group">
+<div class="panel panel-default">
+<div class="panel-heading">
+<p class="panel-title">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRMarkdownfilestronguptodate">
+<span class="glyphicon glyphicon-ok text-success"
+aria-hidden="true"></span> <strong>R Markdown file:</strong> up-to-date
+</a>
+</p>
+</div>
+<div id="strongRMarkdownfilestronguptodate"
+class="panel-collapse collapse">
+<div class="panel-body">
+<p>Great! Since the R Markdown file has been committed to the Git
+repository, you know the exact version of the code that produced these
+results.</p>
+</div>
+</div>
+</div>
+<div class="panel panel-default">
+<div class="panel-heading">
+<p class="panel-title">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongEnvironmentstrongempty">
+<span class="glyphicon glyphicon-ok text-success"
+aria-hidden="true"></span> <strong>Environment:</strong> empty </a>
+</p>
+</div>
+<div id="strongEnvironmentstrongempty" class="panel-collapse collapse">
+<div class="panel-body">
+<p>Great job! The global environment was empty. Objects defined in the
+global environment can affect the analysis in your R Markdown file in
+unknown ways. For reproduciblity it’s best to always run the code in an
+empty environment.</p>
+</div>
+</div>
+</div>
+<div class="panel panel-default">
+<div class="panel-heading">
+<p class="panel-title">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongSeedstrongcodesetseed20211101code">
+<span class="glyphicon glyphicon-ok text-success"
+aria-hidden="true"></span> <strong>Seed:</strong>
+<code>set.seed(20211101)</code> </a>
+</p>
+</div>
+<div id="strongSeedstrongcodesetseed20211101code"
+class="panel-collapse collapse">
+<div class="panel-body">
+<p>The command <code>set.seed(20211101)</code> was run prior to running
+the code in the R Markdown file. Setting a seed ensures that any results
+that rely on randomness, e.g. subsampling or permutations, are
+reproducible.</p>
+</div>
+</div>
+</div>
+<div class="panel panel-default">
+<div class="panel-heading">
+<p class="panel-title">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongSessioninformationstrongrecorded">
+<span class="glyphicon glyphicon-ok text-success"
+aria-hidden="true"></span> <strong>Session information:</strong>
+recorded </a>
+</p>
+</div>
+<div id="strongSessioninformationstrongrecorded"
+class="panel-collapse collapse">
+<div class="panel-body">
+<p>Great job! Recording the operating system, R version, and package
+versions is critical for reproducibility.</p>
+</div>
+</div>
+</div>
+<div class="panel panel-default">
+<div class="panel-heading">
+<p class="panel-title">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongCachestrongnone">
+<span class="glyphicon glyphicon-ok text-success"
+aria-hidden="true"></span> <strong>Cache:</strong> none </a>
+</p>
+</div>
+<div id="strongCachestrongnone" class="panel-collapse collapse">
+<div class="panel-body">
+<p>Nice! There were no cached chunks for this analysis, so you can be
+confident that you successfully produced the results during this
+run.</p>
+</div>
+</div>
+</div>
+<div class="panel panel-default">
+<div class="panel-heading">
+<p class="panel-title">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongFilepathsstrongrelative">
+<span class="glyphicon glyphicon-ok text-success"
+aria-hidden="true"></span> <strong>File paths:</strong> relative </a>
+</p>
+</div>
+<div id="strongFilepathsstrongrelative" class="panel-collapse collapse">
+<div class="panel-body">
+<p>Great job! Using relative paths to the files within your workflowr
+project makes it easier to run your code on other machines.</p>
+</div>
+</div>
+</div>
+<div class="panel panel-default">
+<div class="panel-heading">
+<p class="panel-title">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomtheandybLSCItree831904cf3b1076fcfdb914d8ca61929ad17eb296targetblank831904ca">
+<span class="glyphicon glyphicon-ok text-success"
+aria-hidden="true"></span> <strong>Repository version:</strong>
+<a href="https://github.com/theandyb/LSCI/tree/831904cf3b1076fcfdb914d8ca61929ad17eb296" target="_blank">831904c</a>
+</a>
+</p>
+</div>
+<div
+id="strongRepositoryversionstrongahrefhttpsgithubcomtheandybLSCItree831904cf3b1076fcfdb914d8ca61929ad17eb296targetblank831904ca"
+class="panel-collapse collapse">
+<div class="panel-body">
+<p>
+Great! You are using Git for version control. Tracking code development
+and connecting the code version to the results is critical for
+reproducibility.
+</p>
+<p>
+The results in this page were generated with repository version
+<a href="https://github.com/theandyb/LSCI/tree/831904cf3b1076fcfdb914d8ca61929ad17eb296" target="_blank">831904c</a>.
+See the <em>Past versions</em> tab to see a history of the changes made
+to the R Markdown and HTML files.
+</p>
+<p>
+Note that you need to be careful to ensure that all relevant files for
+the analysis have been committed to Git prior to generating the results
+(you can use <code>wflow_publish</code> or
+<code>wflow_git_commit</code>). workflowr only checks the R Markdown
+file, but you know if there are other scripts or data files that it
+depends on. Below is the status of the Git repository when the results
+were generated:
+</p>
+<pre><code>
+Ignored files:
+    Ignored:    .Rhistory
+    Ignored:    .Rproj.user/
+    Ignored:    analysis/disqus.html
+    Ignored:    code/random/
+    Ignored:    output/figs/
+
+Unstaged changes:
+    Modified:   analysis/NYGC_single_position_comp.Rmd
+
+</code></pre>
+<p>
+Note that any generated files, e.g. HTML, png, CSS, etc., are not
+included in this status report because it is ok for generated content to
+have uncommitted changes.
+</p>
+</div>
+</div>
+</div>
+</div>
+<hr>
+</div>
+<div id="versions" class="tab-pane fade">
+
+<p>
+These are the previous versions of the repository in which changes were
+made to the R Markdown (<code>analysis/NYGC_two_pos_comp.Rmd</code>) and
+HTML (<code>docs/NYGC_two_pos_comp.html</code>) files. If you’ve
+configured a remote Git repository (see <code>?wflow_git_remote</code>),
+click on the hyperlinks in the table below to view the files as they
+were in that past version.
+</p>
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+File
+</th>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+<th>
+Message
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+Rmd
+</td>
+<td>
+<a href="https://github.com/theandyb/LSCI/blob/831904cf3b1076fcfdb914d8ca61929ad17eb296/analysis/NYGC_two_pos_comp.Rmd" target="_blank">831904c</a>
+</td>
+<td>
+Andy Beck
+</td>
+<td>
+2023-06-07
+</td>
+<td>
+wflow_publish("analysis/NYGC_two_pos_comp.Rmd")
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+<hr>
+</div>
+</div>
+</div>
+<div id="position-level-results" class="section level2">
+<h2>Position-level results</h2>
+<p>Here in this section of the document we will assess the correlation
+of position-level results across pairs of populations for all of the
+mutation subtypes.</p>
+<div id="get-position-level-statistic-for-each-superpopulation"
+class="section level3">
+<h3>Get position-level statistic for each superpopulation</h3>
+<pre class="r"><code>get_pos &lt;- function(subtype, 
+                    data_dir = &quot;/net/snowwhite/home/beckandy/research/1000G_NYGC_LSCI/output/two_pos/&quot;){
+  f_name &lt;- paste0(data_dir, &quot;AFR/&quot;, subtype, &quot;.csv&quot;)
+  final &lt;- read_csv(f_name, show_col_types = FALSE) %&gt;%
+    rowwise() %&gt;%
+    mutate(re = dev / (2*(singletons + controls))) %&gt;%
+    select(rp1, rp2, re) %&gt;%
+    rename(AFR = re)
+  for(pop in c(&quot;AMR&quot;, &quot;EAS&quot;, &quot;EUR&quot;, &quot;SAS&quot;)){
+    f_name &lt;- paste0(data_dir, pop, &quot;/&quot;, subtype, &quot;.csv&quot;)
+    df &lt;- read_csv(f_name, show_col_types = FALSE) %&gt;%
+      rowwise() %&gt;%
+      mutate(re = dev / (2*(singletons + controls))) %&gt;%
+      select(rp1, rp2, re)
+    colnames(df)[3] &lt;- pop
+    final &lt;- full_join(final, df, by = c(&quot;rp1&quot;, &quot;rp2&quot;))
+  }
+  return(final)
+}</code></pre>
+</div>
+<div id="at_cg" class="section level3">
+<h3>AT_CG</h3>
+<pre class="r"><code>st &lt;- &quot;AT_CG&quot;
+
+simple_cor &lt;- function(st){
+  df &lt;- get_pos(st)
+  
+  cor_mat &lt;- cor({df %&gt;% select(-rp1, -rp2)})
+  
+  if(!str_starts(st, &quot;cpg&quot;)){
+    subtype2 &lt;- str_replace(st, &quot;_&quot;, &quot; → &quot;)
+  } else {
+    subtype &lt;- str_sub(st, 5)
+    subtype2 &lt;- paste0(&quot;(cpg) &quot;, str_replace(subtype, &quot;_&quot;, &quot; → &quot;))
+  }
+  
+  p &lt;- cor({df %&gt;% select(-rp1, -rp2)}) %&gt;% 
+    melt %&gt;%
+    ggplot(aes(x=Var1, y=Var2, fill=value)) +
+    geom_tile() +
+    xlab(&quot;Population&quot;) + ylab(&quot;Population&quot;) + 
+    ggtitle(&quot;Correlation of Position-Level Results&quot;, paste0(&quot;Subtype: &quot;, subtype2)) +
+    scale_fill_distiller(palette = &quot;Reds&quot;, direction = 1, limits = c(0,1))
+  return(list(p = p, cor_mat = cor_mat))
+}
+obj &lt;- simple_cor(st)
+
+obj$cor_mat %&gt;% knitr::kable()</code></pre>
+<table>
+<thead>
+<tr class="header">
+<th align="left"></th>
+<th align="right">AFR</th>
+<th align="right">AMR</th>
+<th align="right">EAS</th>
+<th align="right">EUR</th>
+<th align="right">SAS</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">AFR</td>
+<td align="right">1.0000000</td>
+<td align="right">0.9949020</td>
+<td align="right">0.9720793</td>
+<td align="right">0.9935729</td>
+<td align="right">0.9901420</td>
+</tr>
+<tr class="even">
+<td align="left">AMR</td>
+<td align="right">0.9949020</td>
+<td align="right">1.0000000</td>
+<td align="right">0.9814257</td>
+<td align="right">0.9948410</td>
+<td align="right">0.9848336</td>
+</tr>
+<tr class="odd">
+<td align="left">EAS</td>
+<td align="right">0.9720793</td>
+<td align="right">0.9814257</td>
+<td align="right">1.0000000</td>
+<td align="right">0.9877248</td>
+<td align="right">0.9460134</td>
+</tr>
+<tr class="even">
+<td align="left">EUR</td>
+<td align="right">0.9935729</td>
+<td align="right">0.9948410</td>
+<td align="right">0.9877248</td>
+<td align="right">1.0000000</td>
+<td align="right">0.9776831</td>
+</tr>
+<tr class="odd">
+<td align="left">SAS</td>
+<td align="right">0.9901420</td>
+<td align="right">0.9848336</td>
+<td align="right">0.9460134</td>
+<td align="right">0.9776831</td>
+<td align="right">1.0000000</td>
+</tr>
+</tbody>
+</table>
+<pre class="r"><code>obj$p</code></pre>
+<p><img src="figure/NYGC_two_pos_comp.Rmd/unnamed-chunk-3-1.png" width="672" style="display: block; margin: auto;" /></p>
+</div>
+<div id="at_gc" class="section level3">
+<h3>AT_GC</h3>
+<pre class="r"><code>st &lt;- &quot;AT_GC&quot;
+obj &lt;- simple_cor(st)
+
+obj$cor_mat %&gt;% knitr::kable()</code></pre>
+<table>
+<thead>
+<tr class="header">
+<th align="left"></th>
+<th align="right">AFR</th>
+<th align="right">AMR</th>
+<th align="right">EAS</th>
+<th align="right">EUR</th>
+<th align="right">SAS</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">AFR</td>
+<td align="right">1.0000000</td>
+<td align="right">0.9975084</td>
+<td align="right">0.9979029</td>
+<td align="right">0.9971471</td>
+<td align="right">0.9952150</td>
+</tr>
+<tr class="even">
+<td align="left">AMR</td>
+<td align="right">0.9975084</td>
+<td align="right">1.0000000</td>
+<td align="right">0.9995714</td>
+<td align="right">0.9996689</td>
+<td align="right">0.9991894</td>
+</tr>
+<tr class="odd">
+<td align="left">EAS</td>
+<td align="right">0.9979029</td>
+<td align="right">0.9995714</td>
+<td align="right">1.0000000</td>
+<td align="right">0.9996489</td>
+<td align="right">0.9988933</td>
+</tr>
+<tr class="even">
+<td align="left">EUR</td>
+<td align="right">0.9971471</td>
+<td align="right">0.9996689</td>
+<td align="right">0.9996489</td>
+<td align="right">1.0000000</td>
+<td align="right">0.9992046</td>
+</tr>
+<tr class="odd">
+<td align="left">SAS</td>
+<td align="right">0.9952150</td>
+<td align="right">0.9991894</td>
+<td align="right">0.9988933</td>
+<td align="right">0.9992046</td>
+<td align="right">1.0000000</td>
+</tr>
+</tbody>
+</table>
+<pre class="r"><code>obj$p</code></pre>
+<p><img src="figure/NYGC_two_pos_comp.Rmd/unnamed-chunk-4-1.png" width="672" style="display: block; margin: auto;" /></p>
+</div>
+<div id="at_ta" class="section level3">
+<h3>AT_TA</h3>
+<pre class="r"><code>st &lt;- &quot;AT_TA&quot;
+obj &lt;- simple_cor(st)
+
+obj$cor_mat %&gt;% knitr::kable()</code></pre>
+<table>
+<thead>
+<tr class="header">
+<th align="left"></th>
+<th align="right">AFR</th>
+<th align="right">AMR</th>
+<th align="right">EAS</th>
+<th align="right">EUR</th>
+<th align="right">SAS</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">AFR</td>
+<td align="right">1.0000000</td>
+<td align="right">0.9980887</td>
+<td align="right">0.9963366</td>
+<td align="right">0.9984583</td>
+<td align="right">0.9974364</td>
+</tr>
+<tr class="even">
+<td align="left">AMR</td>
+<td align="right">0.9980887</td>
+<td align="right">1.0000000</td>
+<td align="right">0.9977101</td>
+<td align="right">0.9986724</td>
+<td align="right">0.9982438</td>
+</tr>
+<tr class="odd">
+<td align="left">EAS</td>
+<td align="right">0.9963366</td>
+<td align="right">0.9977101</td>
+<td align="right">1.0000000</td>
+<td align="right">0.9970844</td>
+<td align="right">0.9986466</td>
+</tr>
+<tr class="even">
+<td align="left">EUR</td>
+<td align="right">0.9984583</td>
+<td align="right">0.9986724</td>
+<td align="right">0.9970844</td>
+<td align="right">1.0000000</td>
+<td align="right">0.9974305</td>
+</tr>
+<tr class="odd">
+<td align="left">SAS</td>
+<td align="right">0.9974364</td>
+<td align="right">0.9982438</td>
+<td align="right">0.9986466</td>
+<td align="right">0.9974305</td>
+<td align="right">1.0000000</td>
+</tr>
+</tbody>
+</table>
+<pre class="r"><code>obj$p</code></pre>
+<p><img src="figure/NYGC_two_pos_comp.Rmd/unnamed-chunk-5-1.png" width="672" style="display: block; margin: auto;" /></p>
+</div>
+<div id="gc_at" class="section level3">
+<h3>GC_AT</h3>
+<pre class="r"><code>st &lt;- &quot;GC_AT&quot;
+obj &lt;- simple_cor(st)
+
+obj$cor_mat %&gt;% knitr::kable()</code></pre>
+<table>
+<thead>
+<tr class="header">
+<th align="left"></th>
+<th align="right">AFR</th>
+<th align="right">AMR</th>
+<th align="right">EAS</th>
+<th align="right">EUR</th>
+<th align="right">SAS</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">AFR</td>
+<td align="right">1.0000000</td>
+<td align="right">0.9973814</td>
+<td align="right">0.9950190</td>
+<td align="right">0.9979490</td>
+<td align="right">0.9974592</td>
+</tr>
+<tr class="even">
+<td align="left">AMR</td>
+<td align="right">0.9973814</td>
+<td align="right">1.0000000</td>
+<td align="right">0.9921175</td>
+<td align="right">0.9969103</td>
+<td align="right">0.9960877</td>
+</tr>
+<tr class="odd">
+<td align="left">EAS</td>
+<td align="right">0.9950190</td>
+<td align="right">0.9921175</td>
+<td align="right">1.0000000</td>
+<td align="right">0.9919271</td>
+<td align="right">0.9956636</td>
+</tr>
+<tr class="even">
+<td align="left">EUR</td>
+<td align="right">0.9979490</td>
+<td align="right">0.9969103</td>
+<td align="right">0.9919271</td>
+<td align="right">1.0000000</td>
+<td align="right">0.9957207</td>
+</tr>
+<tr class="odd">
+<td align="left">SAS</td>
+<td align="right">0.9974592</td>
+<td align="right">0.9960877</td>
+<td align="right">0.9956636</td>
+<td align="right">0.9957207</td>
+<td align="right">1.0000000</td>
+</tr>
+</tbody>
+</table>
+<pre class="r"><code>obj$p</code></pre>
+<p><img src="figure/NYGC_two_pos_comp.Rmd/unnamed-chunk-6-1.png" width="672" style="display: block; margin: auto;" /></p>
+</div>
+<div id="cpg_gc_at" class="section level3">
+<h3>cpg_GC_AT</h3>
+<pre class="r"><code>st &lt;- &quot;cpg_GC_AT&quot;
+obj &lt;- simple_cor(st)
+
+obj$cor_mat %&gt;% knitr::kable()</code></pre>
+<table>
+<thead>
+<tr class="header">
+<th align="left"></th>
+<th align="right">AFR</th>
+<th align="right">AMR</th>
+<th align="right">EAS</th>
+<th align="right">EUR</th>
+<th align="right">SAS</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">AFR</td>
+<td align="right">1.0000000</td>
+<td align="right">0.9559019</td>
+<td align="right">0.9672584</td>
+<td align="right">0.9658033</td>
+<td align="right">0.9716141</td>
+</tr>
+<tr class="even">
+<td align="left">AMR</td>
+<td align="right">0.9559019</td>
+<td align="right">1.0000000</td>
+<td align="right">0.9498412</td>
+<td align="right">0.9485241</td>
+<td align="right">0.9488531</td>
+</tr>
+<tr class="odd">
+<td align="left">EAS</td>
+<td align="right">0.9672584</td>
+<td align="right">0.9498412</td>
+<td align="right">1.0000000</td>
+<td align="right">0.9615066</td>
+<td align="right">0.9629312</td>
+</tr>
+<tr class="even">
+<td align="left">EUR</td>
+<td align="right">0.9658033</td>
+<td align="right">0.9485241</td>
+<td align="right">0.9615066</td>
+<td align="right">1.0000000</td>
+<td align="right">0.9598766</td>
+</tr>
+<tr class="odd">
+<td align="left">SAS</td>
+<td align="right">0.9716141</td>
+<td align="right">0.9488531</td>
+<td align="right">0.9629312</td>
+<td align="right">0.9598766</td>
+<td align="right">1.0000000</td>
+</tr>
+</tbody>
+</table>
+<pre class="r"><code>obj$p</code></pre>
+<p><img src="figure/NYGC_two_pos_comp.Rmd/unnamed-chunk-7-1.png" width="672" style="display: block; margin: auto;" /></p>
+</div>
+<div id="gc_ta" class="section level3">
+<h3>GC_TA</h3>
+<pre class="r"><code>st &lt;- &quot;GC_TA&quot;
+obj &lt;- simple_cor(st)
+
+obj$cor_mat %&gt;% knitr::kable()</code></pre>
+<table>
+<thead>
+<tr class="header">
+<th align="left"></th>
+<th align="right">AFR</th>
+<th align="right">AMR</th>
+<th align="right">EAS</th>
+<th align="right">EUR</th>
+<th align="right">SAS</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">AFR</td>
+<td align="right">1.0000000</td>
+<td align="right">0.9981181</td>
+<td align="right">0.9965235</td>
+<td align="right">0.9977679</td>
+<td align="right">0.9982548</td>
+</tr>
+<tr class="even">
+<td align="left">AMR</td>
+<td align="right">0.9981181</td>
+<td align="right">1.0000000</td>
+<td align="right">0.9986342</td>
+<td align="right">0.9985738</td>
+<td align="right">0.9991400</td>
+</tr>
+<tr class="odd">
+<td align="left">EAS</td>
+<td align="right">0.9965235</td>
+<td align="right">0.9986342</td>
+<td align="right">1.0000000</td>
+<td align="right">0.9971456</td>
+<td align="right">0.9991181</td>
+</tr>
+<tr class="even">
+<td align="left">EUR</td>
+<td align="right">0.9977679</td>
+<td align="right">0.9985738</td>
+<td align="right">0.9971456</td>
+<td align="right">1.0000000</td>
+<td align="right">0.9980863</td>
+</tr>
+<tr class="odd">
+<td align="left">SAS</td>
+<td align="right">0.9982548</td>
+<td align="right">0.9991400</td>
+<td align="right">0.9991181</td>
+<td align="right">0.9980863</td>
+<td align="right">1.0000000</td>
+</tr>
+</tbody>
+</table>
+<pre class="r"><code>obj$p</code></pre>
+<p><img src="figure/NYGC_two_pos_comp.Rmd/unnamed-chunk-8-1.png" width="672" style="display: block; margin: auto;" /></p>
+</div>
+<div id="cpg_gc_ta" class="section level3">
+<h3>cpg_GC_TA</h3>
+<pre class="r"><code>st &lt;- &quot;cpg_GC_TA&quot;
+obj &lt;- simple_cor(st)
+
+obj$cor_mat %&gt;% knitr::kable()</code></pre>
+<table>
+<thead>
+<tr class="header">
+<th align="left"></th>
+<th align="right">AFR</th>
+<th align="right">AMR</th>
+<th align="right">EAS</th>
+<th align="right">EUR</th>
+<th align="right">SAS</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">AFR</td>
+<td align="right">1.0000000</td>
+<td align="right">0.9548179</td>
+<td align="right">0.9720760</td>
+<td align="right">0.9605261</td>
+<td align="right">0.9688011</td>
+</tr>
+<tr class="even">
+<td align="left">AMR</td>
+<td align="right">0.9548179</td>
+<td align="right">1.0000000</td>
+<td align="right">0.9641497</td>
+<td align="right">0.9580977</td>
+<td align="right">0.9568937</td>
+</tr>
+<tr class="odd">
+<td align="left">EAS</td>
+<td align="right">0.9720760</td>
+<td align="right">0.9641497</td>
+<td align="right">1.0000000</td>
+<td align="right">0.9665790</td>
+<td align="right">0.9704950</td>
+</tr>
+<tr class="even">
+<td align="left">EUR</td>
+<td align="right">0.9605261</td>
+<td align="right">0.9580977</td>
+<td align="right">0.9665790</td>
+<td align="right">1.0000000</td>
+<td align="right">0.9608153</td>
+</tr>
+<tr class="odd">
+<td align="left">SAS</td>
+<td align="right">0.9688011</td>
+<td align="right">0.9568937</td>
+<td align="right">0.9704950</td>
+<td align="right">0.9608153</td>
+<td align="right">1.0000000</td>
+</tr>
+</tbody>
+</table>
+<pre class="r"><code>obj$p</code></pre>
+<p><img src="figure/NYGC_two_pos_comp.Rmd/unnamed-chunk-9-1.png" width="672" style="display: block; margin: auto;" /></p>
+</div>
+<div id="gc_cg" class="section level3">
+<h3>GC_CG</h3>
+<pre class="r"><code>st &lt;- &quot;GC_CG&quot;
+obj &lt;-  simple_cor(st)
+
+obj$cor_mat %&gt;% knitr::kable()</code></pre>
+<table>
+<thead>
+<tr class="header">
+<th align="left"></th>
+<th align="right">AFR</th>
+<th align="right">AMR</th>
+<th align="right">EAS</th>
+<th align="right">EUR</th>
+<th align="right">SAS</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">AFR</td>
+<td align="right">1.0000000</td>
+<td align="right">0.9966628</td>
+<td align="right">0.9973149</td>
+<td align="right">0.9983645</td>
+<td align="right">0.9974358</td>
+</tr>
+<tr class="even">
+<td align="left">AMR</td>
+<td align="right">0.9966628</td>
+<td align="right">1.0000000</td>
+<td align="right">0.9971475</td>
+<td align="right">0.9967460</td>
+<td align="right">0.9981439</td>
+</tr>
+<tr class="odd">
+<td align="left">EAS</td>
+<td align="right">0.9973149</td>
+<td align="right">0.9971475</td>
+<td align="right">1.0000000</td>
+<td align="right">0.9980308</td>
+<td align="right">0.9984954</td>
+</tr>
+<tr class="even">
+<td align="left">EUR</td>
+<td align="right">0.9983645</td>
+<td align="right">0.9967460</td>
+<td align="right">0.9980308</td>
+<td align="right">1.0000000</td>
+<td align="right">0.9981049</td>
+</tr>
+<tr class="odd">
+<td align="left">SAS</td>
+<td align="right">0.9974358</td>
+<td align="right">0.9981439</td>
+<td align="right">0.9984954</td>
+<td align="right">0.9981049</td>
+<td align="right">1.0000000</td>
+</tr>
+</tbody>
+</table>
+<pre class="r"><code>obj$p</code></pre>
+<p><img src="figure/NYGC_two_pos_comp.Rmd/unnamed-chunk-10-1.png" width="672" style="display: block; margin: auto;" /></p>
+</div>
+<div id="cpg_gc_cg" class="section level3">
+<h3>cpg_GC_CG</h3>
+<pre class="r"><code>st &lt;- &quot;cpg_GC_CG&quot;
+obj &lt;- simple_cor(st)
+
+obj$cor_mat %&gt;% knitr::kable()</code></pre>
+<table>
+<thead>
+<tr class="header">
+<th align="left"></th>
+<th align="right">AFR</th>
+<th align="right">AMR</th>
+<th align="right">EAS</th>
+<th align="right">EUR</th>
+<th align="right">SAS</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">AFR</td>
+<td align="right">1.0000000</td>
+<td align="right">0.9340333</td>
+<td align="right">0.9517283</td>
+<td align="right">0.9473065</td>
+<td align="right">0.9549072</td>
+</tr>
+<tr class="even">
+<td align="left">AMR</td>
+<td align="right">0.9340333</td>
+<td align="right">1.0000000</td>
+<td align="right">0.9272337</td>
+<td align="right">0.9337841</td>
+<td align="right">0.9425213</td>
+</tr>
+<tr class="odd">
+<td align="left">EAS</td>
+<td align="right">0.9517283</td>
+<td align="right">0.9272337</td>
+<td align="right">1.0000000</td>
+<td align="right">0.9446317</td>
+<td align="right">0.9473638</td>
+</tr>
+<tr class="even">
+<td align="left">EUR</td>
+<td align="right">0.9473065</td>
+<td align="right">0.9337841</td>
+<td align="right">0.9446317</td>
+<td align="right">1.0000000</td>
+<td align="right">0.9431585</td>
+</tr>
+<tr class="odd">
+<td align="left">SAS</td>
+<td align="right">0.9549072</td>
+<td align="right">0.9425213</td>
+<td align="right">0.9473638</td>
+<td align="right">0.9431585</td>
+<td align="right">1.0000000</td>
+</tr>
+</tbody>
+</table>
+<pre class="r"><code>obj$p</code></pre>
+<p><img src="figure/NYGC_two_pos_comp.Rmd/unnamed-chunk-11-1.png" width="672" style="display: block; margin: auto;" /></p>
+</div>
+</div>
+<div id="do-populations-share-location-of-highest-re"
+class="section level2">
+<h2>Do populations share location of highest RE?</h2>
+<pre class="r"><code>get_table_re &lt;- function(pop,
+                         data_dir = &quot;/net/snowwhite/home/beckandy/research/1000G_NYGC_LSCI/output/two_pos/&quot;){
+  
+  final &lt;- data.frame(st = character(),
+                      p1 = numeric(),
+                      p2 = numeric(),
+                      statistic = numeric())
+  
+  for(st in c(&quot;AT_CG&quot;, &quot;AT_GC&quot;, &quot;AT_TA&quot;, 
+              &quot;GC_AT&quot;, &quot;GC_TA&quot;, &quot;GC_CG&quot;,
+              &quot;cpg_GC_AT&quot;, &quot;cpg_GC_TA&quot;, &quot;cpg_GC_CG&quot;)){
+    f_name &lt;- paste0(data_dir, pop, &quot;/&quot;, st, &quot;.csv&quot;)
+    df &lt;- read_csv(f_name, show_col_types = FALSE) %&gt;%
+      rowwise() %&gt;%
+      mutate(re = dev / (2* (singletons + controls))) %&gt;%
+      arrange(desc(re))
+    p1 &lt;- df$rp1[1]
+    p2 &lt;- df$rp2[1]
+    statistic &lt;- df$re[1]
+    final &lt;- bind_rows(final,
+                       data.frame(st = st,
+                                  p1 = p1,
+                                  p2 = p2,
+                                  statistic = statistic))
+  }
+  final$pop &lt;- pop
+  return(final)
+}</code></pre>
+<div id="all" class="section level3">
+<h3>ALL</h3>
+<pre class="r"><code>pop &lt;- &quot;ALL&quot;
+get_table_re(pop) %&gt;%
+  knitr::kable()</code></pre>
+<table>
+<thead>
+<tr class="header">
+<th align="left">st</th>
+<th align="right">p1</th>
+<th align="right">p2</th>
+<th align="right">statistic</th>
+<th align="left">pop</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">AT_CG</td>
+<td align="right">1</td>
+<td align="right">2</td>
+<td align="right">0.0008823</td>
+<td align="left">ALL</td>
+</tr>
+<tr class="even">
+<td align="left">AT_GC</td>
+<td align="right">-2</td>
+<td align="right">-1</td>
+<td align="right">0.0017965</td>
+<td align="left">ALL</td>
+</tr>
+<tr class="odd">
+<td align="left">AT_TA</td>
+<td align="right">-1</td>
+<td align="right">1</td>
+<td align="right">0.0017942</td>
+<td align="left">ALL</td>
+</tr>
+<tr class="even">
+<td align="left">GC_AT</td>
+<td align="right">-2</td>
+<td align="right">-1</td>
+<td align="right">0.0003473</td>
+<td align="left">ALL</td>
+</tr>
+<tr class="odd">
+<td align="left">GC_TA</td>
+<td align="right">-1</td>
+<td align="right">1</td>
+<td align="right">0.0019313</td>
+<td align="left">ALL</td>
+</tr>
+<tr class="even">
+<td align="left">GC_CG</td>
+<td align="right">1</td>
+<td align="right">2</td>
+<td align="right">0.0011465</td>
+<td align="left">ALL</td>
+</tr>
+<tr class="odd">
+<td align="left">cpg_GC_AT</td>
+<td align="right">3</td>
+<td align="right">4</td>
+<td align="right">0.0001392</td>
+<td align="left">ALL</td>
+</tr>
+<tr class="even">
+<td align="left">cpg_GC_TA</td>
+<td align="right">-2</td>
+<td align="right">-1</td>
+<td align="right">0.0018601</td>
+<td align="left">ALL</td>
+</tr>
+<tr class="odd">
+<td align="left">cpg_GC_CG</td>
+<td align="right">-2</td>
+<td align="right">-1</td>
+<td align="right">0.0013689</td>
+<td align="left">ALL</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div id="afr" class="section level3">
+<h3>AFR</h3>
+<pre class="r"><code>pop &lt;- &quot;AFR&quot;
+get_table_re(pop) %&gt;%
+  knitr::kable()</code></pre>
+<table>
+<thead>
+<tr class="header">
+<th align="left">st</th>
+<th align="right">p1</th>
+<th align="right">p2</th>
+<th align="right">statistic</th>
+<th align="left">pop</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">AT_CG</td>
+<td align="right">1</td>
+<td align="right">2</td>
+<td align="right">0.0009334</td>
+<td align="left">AFR</td>
+</tr>
+<tr class="even">
+<td align="left">AT_GC</td>
+<td align="right">-2</td>
+<td align="right">-1</td>
+<td align="right">0.0020043</td>
+<td align="left">AFR</td>
+</tr>
+<tr class="odd">
+<td align="left">AT_TA</td>
+<td align="right">-1</td>
+<td align="right">1</td>
+<td align="right">0.0018506</td>
+<td align="left">AFR</td>
+</tr>
+<tr class="even">
+<td align="left">GC_AT</td>
+<td align="right">-2</td>
+<td align="right">-1</td>
+<td align="right">0.0003447</td>
+<td align="left">AFR</td>
+</tr>
+<tr class="odd">
+<td align="left">GC_TA</td>
+<td align="right">-1</td>
+<td align="right">1</td>
+<td align="right">0.0018900</td>
+<td align="left">AFR</td>
+</tr>
+<tr class="even">
+<td align="left">GC_CG</td>
+<td align="right">1</td>
+<td align="right">2</td>
+<td align="right">0.0010945</td>
+<td align="left">AFR</td>
+</tr>
+<tr class="odd">
+<td align="left">cpg_GC_AT</td>
+<td align="right">3</td>
+<td align="right">4</td>
+<td align="right">0.0001378</td>
+<td align="left">AFR</td>
+</tr>
+<tr class="even">
+<td align="left">cpg_GC_TA</td>
+<td align="right">-2</td>
+<td align="right">-1</td>
+<td align="right">0.0016461</td>
+<td align="left">AFR</td>
+</tr>
+<tr class="odd">
+<td align="left">cpg_GC_CG</td>
+<td align="right">-2</td>
+<td align="right">-1</td>
+<td align="right">0.0012914</td>
+<td align="left">AFR</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div id="amr" class="section level3">
+<h3>AMR</h3>
+<pre class="r"><code>pop &lt;- &quot;AMR&quot;
+get_table_re(pop) %&gt;%
+  knitr::kable()</code></pre>
+<table>
+<thead>
+<tr class="header">
+<th align="left">st</th>
+<th align="right">p1</th>
+<th align="right">p2</th>
+<th align="right">statistic</th>
+<th align="left">pop</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">AT_CG</td>
+<td align="right">1</td>
+<td align="right">2</td>
+<td align="right">0.0008292</td>
+<td align="left">AMR</td>
+</tr>
+<tr class="even">
+<td align="left">AT_GC</td>
+<td align="right">-2</td>
+<td align="right">-1</td>
+<td align="right">0.0017318</td>
+<td align="left">AMR</td>
+</tr>
+<tr class="odd">
+<td align="left">AT_TA</td>
+<td align="right">-1</td>
+<td align="right">1</td>
+<td align="right">0.0017380</td>
+<td align="left">AMR</td>
+</tr>
+<tr class="even">
+<td align="left">GC_AT</td>
+<td align="right">-1</td>
+<td align="right">1</td>
+<td align="right">0.0003159</td>
+<td align="left">AMR</td>
+</tr>
+<tr class="odd">
+<td align="left">GC_TA</td>
+<td align="right">-1</td>
+<td align="right">1</td>
+<td align="right">0.0019264</td>
+<td align="left">AMR</td>
+</tr>
+<tr class="even">
+<td align="left">GC_CG</td>
+<td align="right">1</td>
+<td align="right">2</td>
+<td align="right">0.0011010</td>
+<td align="left">AMR</td>
+</tr>
+<tr class="odd">
+<td align="left">cpg_GC_AT</td>
+<td align="right">3</td>
+<td align="right">4</td>
+<td align="right">0.0001330</td>
+<td align="left">AMR</td>
+</tr>
+<tr class="even">
+<td align="left">cpg_GC_TA</td>
+<td align="right">-2</td>
+<td align="right">-1</td>
+<td align="right">0.0021686</td>
+<td align="left">AMR</td>
+</tr>
+<tr class="odd">
+<td align="left">cpg_GC_CG</td>
+<td align="right">-2</td>
+<td align="right">-1</td>
+<td align="right">0.0014316</td>
+<td align="left">AMR</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div id="eas" class="section level3">
+<h3>EAS</h3>
+<pre class="r"><code>pop &lt;- &quot;EAS&quot;
+get_table_re(pop) %&gt;%
+  knitr::kable()</code></pre>
+<table>
+<thead>
+<tr class="header">
+<th align="left">st</th>
+<th align="right">p1</th>
+<th align="right">p2</th>
+<th align="right">statistic</th>
+<th align="left">pop</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">AT_CG</td>
+<td align="right">1</td>
+<td align="right">2</td>
+<td align="right">0.0007784</td>
+<td align="left">EAS</td>
+</tr>
+<tr class="even">
+<td align="left">AT_GC</td>
+<td align="right">-2</td>
+<td align="right">-1</td>
+<td align="right">0.0017751</td>
+<td align="left">EAS</td>
+</tr>
+<tr class="odd">
+<td align="left">AT_TA</td>
+<td align="right">-1</td>
+<td align="right">1</td>
+<td align="right">0.0018324</td>
+<td align="left">EAS</td>
+</tr>
+<tr class="even">
+<td align="left">GC_AT</td>
+<td align="right">-2</td>
+<td align="right">-1</td>
+<td align="right">0.0003891</td>
+<td align="left">EAS</td>
+</tr>
+<tr class="odd">
+<td align="left">GC_TA</td>
+<td align="right">-1</td>
+<td align="right">1</td>
+<td align="right">0.0019749</td>
+<td align="left">EAS</td>
+</tr>
+<tr class="even">
+<td align="left">GC_CG</td>
+<td align="right">1</td>
+<td align="right">2</td>
+<td align="right">0.0011128</td>
+<td align="left">EAS</td>
+</tr>
+<tr class="odd">
+<td align="left">cpg_GC_AT</td>
+<td align="right">3</td>
+<td align="right">4</td>
+<td align="right">0.0001381</td>
+<td align="left">EAS</td>
+</tr>
+<tr class="even">
+<td align="left">cpg_GC_TA</td>
+<td align="right">-2</td>
+<td align="right">-1</td>
+<td align="right">0.0019960</td>
+<td align="left">EAS</td>
+</tr>
+<tr class="odd">
+<td align="left">cpg_GC_CG</td>
+<td align="right">-2</td>
+<td align="right">-1</td>
+<td align="right">0.0013205</td>
+<td align="left">EAS</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div id="eur" class="section level3">
+<h3>EUR</h3>
+<pre class="r"><code>pop &lt;- &quot;EUR&quot;
+get_table_re(pop) %&gt;%
+  knitr::kable()</code></pre>
+<table>
+<thead>
+<tr class="header">
+<th align="left">st</th>
+<th align="right">p1</th>
+<th align="right">p2</th>
+<th align="right">statistic</th>
+<th align="left">pop</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">AT_CG</td>
+<td align="right">1</td>
+<td align="right">2</td>
+<td align="right">0.0008180</td>
+<td align="left">EUR</td>
+</tr>
+<tr class="even">
+<td align="left">AT_GC</td>
+<td align="right">-2</td>
+<td align="right">-1</td>
+<td align="right">0.0016877</td>
+<td align="left">EUR</td>
+</tr>
+<tr class="odd">
+<td align="left">AT_TA</td>
+<td align="right">-1</td>
+<td align="right">1</td>
+<td align="right">0.0016567</td>
+<td align="left">EUR</td>
+</tr>
+<tr class="even">
+<td align="left">GC_AT</td>
+<td align="right">-1</td>
+<td align="right">1</td>
+<td align="right">0.0003651</td>
+<td align="left">EUR</td>
+</tr>
+<tr class="odd">
+<td align="left">GC_TA</td>
+<td align="right">1</td>
+<td align="right">2</td>
+<td align="right">0.0018420</td>
+<td align="left">EUR</td>
+</tr>
+<tr class="even">
+<td align="left">GC_CG</td>
+<td align="right">1</td>
+<td align="right">2</td>
+<td align="right">0.0011958</td>
+<td align="left">EUR</td>
+</tr>
+<tr class="odd">
+<td align="left">cpg_GC_AT</td>
+<td align="right">3</td>
+<td align="right">4</td>
+<td align="right">0.0001395</td>
+<td align="left">EUR</td>
+</tr>
+<tr class="even">
+<td align="left">cpg_GC_TA</td>
+<td align="right">-2</td>
+<td align="right">-1</td>
+<td align="right">0.0019470</td>
+<td align="left">EUR</td>
+</tr>
+<tr class="odd">
+<td align="left">cpg_GC_CG</td>
+<td align="right">-2</td>
+<td align="right">-1</td>
+<td align="right">0.0015464</td>
+<td align="left">EUR</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div id="sas" class="section level3">
+<h3>SAS</h3>
+<pre class="r"><code>pop &lt;- &quot;SAS&quot;
+get_table_re(pop) %&gt;%
+  knitr::kable()</code></pre>
+<table>
+<thead>
+<tr class="header">
+<th align="left">st</th>
+<th align="right">p1</th>
+<th align="right">p2</th>
+<th align="right">statistic</th>
+<th align="left">pop</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">AT_CG</td>
+<td align="right">1</td>
+<td align="right">2</td>
+<td align="right">0.0010577</td>
+<td align="left">SAS</td>
+</tr>
+<tr class="even">
+<td align="left">AT_GC</td>
+<td align="right">-2</td>
+<td align="right">-1</td>
+<td align="right">0.0016614</td>
+<td align="left">SAS</td>
+</tr>
+<tr class="odd">
+<td align="left">AT_TA</td>
+<td align="right">-1</td>
+<td align="right">1</td>
+<td align="right">0.0018296</td>
+<td align="left">SAS</td>
+</tr>
+<tr class="even">
+<td align="left">GC_AT</td>
+<td align="right">-2</td>
+<td align="right">-1</td>
+<td align="right">0.0003398</td>
+<td align="left">SAS</td>
+</tr>
+<tr class="odd">
+<td align="left">GC_TA</td>
+<td align="right">-1</td>
+<td align="right">1</td>
+<td align="right">0.0018975</td>
+<td align="left">SAS</td>
+</tr>
+<tr class="even">
+<td align="left">GC_CG</td>
+<td align="right">1</td>
+<td align="right">2</td>
+<td align="right">0.0011164</td>
+<td align="left">SAS</td>
+</tr>
+<tr class="odd">
+<td align="left">cpg_GC_AT</td>
+<td align="right">3</td>
+<td align="right">4</td>
+<td align="right">0.0001484</td>
+<td align="left">SAS</td>
+</tr>
+<tr class="even">
+<td align="left">cpg_GC_TA</td>
+<td align="right">-2</td>
+<td align="right">-1</td>
+<td align="right">0.0018320</td>
+<td align="left">SAS</td>
+</tr>
+<tr class="odd">
+<td align="left">cpg_GC_CG</td>
+<td align="right">-2</td>
+<td align="right">-1</td>
+<td align="right">0.0013976</td>
+<td align="left">SAS</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<div id="gc_at-differences" class="section level2">
+<h2>GC_AT Differences</h2>
+<pre class="r"><code>data_dir &lt;- &quot;/net/snowwhite/home/beckandy/research/1000G_NYGC_LSCI/output/two_pos/&quot;
+pop &lt;- &quot;ALL&quot;
+read_csv(paste0(data_dir, pop, &quot;/GC_AT.csv&quot;), show_col_types = FALSE) %&gt;%
+  rowwise() %&gt;%
+  mutate(re = dev / (2*(singletons + controls))) %&gt;%
+  arrange(desc(re)) %&gt;%
+  head(4) %&gt;%
+  knitr::kable()</code></pre>
+<table>
+<thead>
+<tr class="header">
+<th align="right">dev</th>
+<th align="right">singletons</th>
+<th align="right">controls</th>
+<th align="right">rp1</th>
+<th align="right">rp2</th>
+<th align="right">re</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="right">54898.73</td>
+<td align="right">13172219</td>
+<td align="right">65861034</td>
+<td align="right">-2</td>
+<td align="right">-1</td>
+<td align="right">0.0003473</td>
+</tr>
+<tr class="even">
+<td align="right">48581.69</td>
+<td align="right">13172219</td>
+<td align="right">65861048</td>
+<td align="right">-1</td>
+<td align="right">1</td>
+<td align="right">0.0003073</td>
+</tr>
+<tr class="odd">
+<td align="right">26758.44</td>
+<td align="right">13172217</td>
+<td align="right">65861048</td>
+<td align="right">1</td>
+<td align="right">2</td>
+<td align="right">0.0001693</td>
+</tr>
+<tr class="even">
+<td align="right">14455.27</td>
+<td align="right">13172218</td>
+<td align="right">65861023</td>
+<td align="right">-3</td>
+<td align="right">-1</td>
+<td align="right">0.0000915</td>
+</tr>
+</tbody>
+</table>
+<pre class="r"><code>pop &lt;- &quot;AFR&quot;
+read_csv(paste0(data_dir, pop, &quot;/GC_AT.csv&quot;), show_col_types = FALSE) %&gt;%
+  rowwise() %&gt;%
+  mutate(re = dev / (2*(singletons + controls))) %&gt;%
+  arrange(desc(re)) %&gt;%
+  head(4) %&gt;%
+  knitr::kable()</code></pre>
+<table>
+<thead>
+<tr class="header">
+<th align="right">dev</th>
+<th align="right">singletons</th>
+<th align="right">controls</th>
+<th align="right">rp1</th>
+<th align="right">rp2</th>
+<th align="right">re</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="right">15804.129</td>
+<td align="right">3821142</td>
+<td align="right">19105689</td>
+<td align="right">-2</td>
+<td align="right">-1</td>
+<td align="right">0.0003447</td>
+</tr>
+<tr class="even">
+<td align="right">15357.063</td>
+<td align="right">3821143</td>
+<td align="right">19105690</td>
+<td align="right">-1</td>
+<td align="right">1</td>
+<td align="right">0.0003349</td>
+</tr>
+<tr class="odd">
+<td align="right">7463.410</td>
+<td align="right">3821143</td>
+<td align="right">19105693</td>
+<td align="right">1</td>
+<td align="right">2</td>
+<td align="right">0.0001628</td>
+</tr>
+<tr class="even">
+<td align="right">4653.031</td>
+<td align="right">3821142</td>
+<td align="right">19105687</td>
+<td align="right">-3</td>
+<td align="right">-1</td>
+<td align="right">0.0001015</td>
+</tr>
+</tbody>
+</table>
+<pre class="r"><code>pop &lt;- &quot;AMR&quot;
+read_csv(paste0(data_dir, pop, &quot;/GC_AT.csv&quot;), show_col_types = FALSE) %&gt;%
+  rowwise() %&gt;%
+  mutate(re = dev / (2*(singletons + controls))) %&gt;%
+  arrange(desc(re)) %&gt;%
+  head(4) %&gt;%
+  knitr::kable()</code></pre>
+<table>
+<thead>
+<tr class="header">
+<th align="right">dev</th>
+<th align="right">singletons</th>
+<th align="right">controls</th>
+<th align="right">rp1</th>
+<th align="right">rp2</th>
+<th align="right">re</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="right">6407.916</td>
+<td align="right">1690370</td>
+<td align="right">8451827</td>
+<td align="right">-1</td>
+<td align="right">1</td>
+<td align="right">0.0003159</td>
+</tr>
+<tr class="even">
+<td align="right">6396.529</td>
+<td align="right">1690370</td>
+<td align="right">8451826</td>
+<td align="right">-2</td>
+<td align="right">-1</td>
+<td align="right">0.0003153</td>
+</tr>
+<tr class="odd">
+<td align="right">3324.049</td>
+<td align="right">1690369</td>
+<td align="right">8451826</td>
+<td align="right">1</td>
+<td align="right">2</td>
+<td align="right">0.0001639</td>
+</tr>
+<tr class="even">
+<td align="right">1830.735</td>
+<td align="right">1690370</td>
+<td align="right">8451826</td>
+<td align="right">-3</td>
+<td align="right">-1</td>
+<td align="right">0.0000903</td>
+</tr>
+</tbody>
+</table>
+<pre class="r"><code>pop &lt;- &quot;EAS&quot;
+read_csv(paste0(data_dir, pop, &quot;/GC_AT.csv&quot;), show_col_types = FALSE) %&gt;%
+  rowwise() %&gt;%
+  mutate(re = dev / (2*(singletons + controls))) %&gt;%
+  arrange(desc(re)) %&gt;%
+  head(4) %&gt;%
+  knitr::kable()</code></pre>
+<table>
+<thead>
+<tr class="header">
+<th align="right">dev</th>
+<th align="right">singletons</th>
+<th align="right">controls</th>
+<th align="right">rp1</th>
+<th align="right">rp2</th>
+<th align="right">re</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="right">13307.998</td>
+<td align="right">2849828</td>
+<td align="right">14249112</td>
+<td align="right">-2</td>
+<td align="right">-1</td>
+<td align="right">0.0003891</td>
+</tr>
+<tr class="even">
+<td align="right">11147.870</td>
+<td align="right">2849828</td>
+<td align="right">14249116</td>
+<td align="right">-1</td>
+<td align="right">1</td>
+<td align="right">0.0003260</td>
+</tr>
+<tr class="odd">
+<td align="right">5022.756</td>
+<td align="right">2849828</td>
+<td align="right">14249116</td>
+<td align="right">1</td>
+<td align="right">2</td>
+<td align="right">0.0001469</td>
+</tr>
+<tr class="even">
+<td align="right">3887.260</td>
+<td align="right">2849827</td>
+<td align="right">14249108</td>
+<td align="right">-3</td>
+<td align="right">-1</td>
+<td align="right">0.0001137</td>
+</tr>
+</tbody>
+</table>
+<pre class="r"><code>pop &lt;- &quot;EUR&quot;
+read_csv(paste0(data_dir, pop, &quot;/GC_AT.csv&quot;), show_col_types = FALSE) %&gt;%
+  rowwise() %&gt;%
+  mutate(re = dev / (2*(singletons + controls))) %&gt;%
+  arrange(desc(re)) %&gt;%
+  head(4) %&gt;%
+  knitr::kable()</code></pre>
+<table>
+<thead>
+<tr class="header">
+<th align="right">dev</th>
+<th align="right">singletons</th>
+<th align="right">controls</th>
+<th align="right">rp1</th>
+<th align="right">rp2</th>
+<th align="right">re</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="right">9306.985</td>
+<td align="right">2124485</td>
+<td align="right">10622401</td>
+<td align="right">-1</td>
+<td align="right">1</td>
+<td align="right">0.0003651</td>
+</tr>
+<tr class="even">
+<td align="right">9056.452</td>
+<td align="right">2124485</td>
+<td align="right">10622398</td>
+<td align="right">-2</td>
+<td align="right">-1</td>
+<td align="right">0.0003552</td>
+</tr>
+<tr class="odd">
+<td align="right">4475.307</td>
+<td align="right">2124484</td>
+<td align="right">10622403</td>
+<td align="right">1</td>
+<td align="right">2</td>
+<td align="right">0.0001755</td>
+</tr>
+<tr class="even">
+<td align="right">2527.165</td>
+<td align="right">2124485</td>
+<td align="right">10622395</td>
+<td align="right">-3</td>
+<td align="right">-1</td>
+<td align="right">0.0000991</td>
+</tr>
+</tbody>
+</table>
+<pre class="r"><code>pop &lt;- &quot;SAS&quot;
+read_csv(paste0(data_dir, pop, &quot;/GC_AT.csv&quot;), show_col_types = FALSE) %&gt;%
+  rowwise() %&gt;%
+  mutate(re = dev / (2*(singletons + controls))) %&gt;%
+  arrange(desc(re)) %&gt;%
+  head(4) %&gt;%
+  knitr::kable()</code></pre>
+<table>
+<thead>
+<tr class="header">
+<th align="right">dev</th>
+<th align="right">singletons</th>
+<th align="right">controls</th>
+<th align="right">rp1</th>
+<th align="right">rp2</th>
+<th align="right">re</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="right">10954.539</td>
+<td align="right">2686394</td>
+<td align="right">13431943</td>
+<td align="right">-2</td>
+<td align="right">-1</td>
+<td align="right">0.0003398</td>
+</tr>
+<tr class="even">
+<td align="right">9883.090</td>
+<td align="right">2686393</td>
+<td align="right">13431945</td>
+<td align="right">-1</td>
+<td align="right">1</td>
+<td align="right">0.0003066</td>
+</tr>
+<tr class="odd">
+<td align="right">5057.622</td>
+<td align="right">2686393</td>
+<td align="right">13431945</td>
+<td align="right">1</td>
+<td align="right">2</td>
+<td align="right">0.0001569</td>
+</tr>
+<tr class="even">
+<td align="right">3184.377</td>
+<td align="right">2686394</td>
+<td align="right">13431942</td>
+<td align="right">-3</td>
+<td align="right">-1</td>
+<td align="right">0.0000988</td>
+</tr>
+</tbody>
+</table>
+<p>In this example, while not all populations share the positions
+coordinates of the highest RE value, we see that (-2, -1) and (-1, 1)
+are in the top two for all populations.</p>
+</div>
+<div id="at_cg-example-eas" class="section level2">
+<h2>AT_CG example (EAS)</h2>
+<p>For this subtype the only super population to not have the highest
+observed RE value at (1,2) was EAS (-2, -1)</p>
+<pre class="r"><code>pop &lt;- &quot;ALL&quot;
+read_csv(paste0(data_dir, pop, &quot;/AT_CG.csv&quot;), show_col_types = FALSE) %&gt;%
+  rowwise() %&gt;%
+  mutate(re = dev / (2*(singletons + controls))) %&gt;%
+  arrange(desc(re)) %&gt;%
+  head(4) %&gt;%
+  knitr::kable()</code></pre>
+<table>
+<thead>
+<tr class="header">
+<th align="right">dev</th>
+<th align="right">singletons</th>
+<th align="right">controls</th>
+<th align="right">rp1</th>
+<th align="right">rp2</th>
+<th align="right">re</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="right">45898.62</td>
+<td align="right">4335357</td>
+<td align="right">21676740</td>
+<td align="right">1</td>
+<td align="right">2</td>
+<td align="right">0.0008823</td>
+</tr>
+<tr class="even">
+<td align="right">32309.64</td>
+<td align="right">4335357</td>
+<td align="right">21676738</td>
+<td align="right">-1</td>
+<td align="right">1</td>
+<td align="right">0.0006211</td>
+</tr>
+<tr class="odd">
+<td align="right">30046.88</td>
+<td align="right">4335358</td>
+<td align="right">21676737</td>
+<td align="right">-3</td>
+<td align="right">-1</td>
+<td align="right">0.0005776</td>
+</tr>
+<tr class="even">
+<td align="right">29636.84</td>
+<td align="right">4335357</td>
+<td align="right">21676737</td>
+<td align="right">-2</td>
+<td align="right">-1</td>
+<td align="right">0.0005697</td>
+</tr>
+</tbody>
+</table>
+<pre class="r"><code>pop &lt;- &quot;EAS&quot;
+read_csv(paste0(data_dir, pop, &quot;/AT_CG.csv&quot;), show_col_types = FALSE) %&gt;%
+  rowwise() %&gt;%
+  mutate(re = dev / (2*(singletons + controls))) %&gt;%
+  arrange(desc(re)) %&gt;%
+  head(4) %&gt;%
+  knitr::kable()</code></pre>
+<table>
+<thead>
+<tr class="header">
+<th align="right">dev</th>
+<th align="right">singletons</th>
+<th align="right">controls</th>
+<th align="right">rp1</th>
+<th align="right">rp2</th>
+<th align="right">re</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="right">8634.964</td>
+<td align="right">924484</td>
+<td align="right">4622374</td>
+<td align="right">1</td>
+<td align="right">2</td>
+<td align="right">0.0007784</td>
+</tr>
+<tr class="even">
+<td align="right">8326.643</td>
+<td align="right">924484</td>
+<td align="right">4622374</td>
+<td align="right">-2</td>
+<td align="right">-1</td>
+<td align="right">0.0007506</td>
+</tr>
+<tr class="odd">
+<td align="right">7914.598</td>
+<td align="right">924484</td>
+<td align="right">4622373</td>
+<td align="right">-3</td>
+<td align="right">-1</td>
+<td align="right">0.0007134</td>
+</tr>
+<tr class="even">
+<td align="right">5714.618</td>
+<td align="right">924484</td>
+<td align="right">4622374</td>
+<td align="right">-1</td>
+<td align="right">1</td>
+<td align="right">0.0005151</td>
+</tr>
+</tbody>
+</table>
+<pre class="r"><code>pop &lt;- &quot;AFR&quot;
+read_csv(paste0(data_dir, pop, &quot;/AT_CG.csv&quot;), show_col_types = FALSE) %&gt;%
+  rowwise() %&gt;%
+  mutate(re = dev / (2*(singletons + controls))) %&gt;%
+  arrange(desc(re)) %&gt;%
+  head(4) %&gt;%
+  knitr::kable()</code></pre>
+<table>
+<thead>
+<tr class="header">
+<th align="right">dev</th>
+<th align="right">singletons</th>
+<th align="right">controls</th>
+<th align="right">rp1</th>
+<th align="right">rp2</th>
+<th align="right">re</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="right">14145.375</td>
+<td align="right">1262888</td>
+<td align="right">6314394</td>
+<td align="right">1</td>
+<td align="right">2</td>
+<td align="right">0.0009334</td>
+</tr>
+<tr class="even">
+<td align="right">9588.622</td>
+<td align="right">1262888</td>
+<td align="right">6314393</td>
+<td align="right">-1</td>
+<td align="right">1</td>
+<td align="right">0.0006327</td>
+</tr>
+<tr class="odd">
+<td align="right">8344.242</td>
+<td align="right">1262888</td>
+<td align="right">6314394</td>
+<td align="right">-3</td>
+<td align="right">-1</td>
+<td align="right">0.0005506</td>
+</tr>
+<tr class="even">
+<td align="right">7751.082</td>
+<td align="right">1262888</td>
+<td align="right">6314394</td>
+<td align="right">-2</td>
+<td align="right">-1</td>
+<td align="right">0.0005115</td>
+</tr>
+</tbody>
+</table>
+<pre class="r"><code>pop &lt;- &quot;AMR&quot;
+read_csv(paste0(data_dir, pop, &quot;/AT_CG.csv&quot;), show_col_types = FALSE) %&gt;%
+  rowwise() %&gt;%
+  mutate(re = dev / (2*(singletons + controls))) %&gt;%
+  arrange(desc(re)) %&gt;%
+  head(4) %&gt;%
+  knitr::kable()</code></pre>
+<table>
+<thead>
+<tr class="header">
+<th align="right">dev</th>
+<th align="right">singletons</th>
+<th align="right">controls</th>
+<th align="right">rp1</th>
+<th align="right">rp2</th>
+<th align="right">re</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="right">5373.845</td>
+<td align="right">540054</td>
+<td align="right">2700226</td>
+<td align="right">1</td>
+<td align="right">2</td>
+<td align="right">0.0008292</td>
+</tr>
+<tr class="even">
+<td align="right">4200.966</td>
+<td align="right">540054</td>
+<td align="right">2700225</td>
+<td align="right">-1</td>
+<td align="right">1</td>
+<td align="right">0.0006482</td>
+</tr>
+<tr class="odd">
+<td align="right">3689.867</td>
+<td align="right">540054</td>
+<td align="right">2700225</td>
+<td align="right">-2</td>
+<td align="right">-1</td>
+<td align="right">0.0005694</td>
+</tr>
+<tr class="even">
+<td align="right">3596.475</td>
+<td align="right">540054</td>
+<td align="right">2700225</td>
+<td align="right">-3</td>
+<td align="right">-1</td>
+<td align="right">0.0005550</td>
+</tr>
+</tbody>
+</table>
+<pre class="r"><code>pop &lt;- &quot;EUR&quot;
+read_csv(paste0(data_dir, pop, &quot;/AT_CG.csv&quot;), show_col_types = FALSE) %&gt;%
+  rowwise() %&gt;%
+  mutate(re = dev / (2*(singletons + controls))) %&gt;%
+  arrange(desc(re)) %&gt;%
+  head(4) %&gt;%
+  knitr::kable()</code></pre>
+<table>
+<thead>
+<tr class="header">
+<th align="right">dev</th>
+<th align="right">singletons</th>
+<th align="right">controls</th>
+<th align="right">rp1</th>
+<th align="right">rp2</th>
+<th align="right">re</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="right">6970.766</td>
+<td align="right">710178</td>
+<td align="right">3550844</td>
+<td align="right">1</td>
+<td align="right">2</td>
+<td align="right">0.0008180</td>
+</tr>
+<tr class="even">
+<td align="right">4771.700</td>
+<td align="right">710178</td>
+<td align="right">3550844</td>
+<td align="right">-2</td>
+<td align="right">-1</td>
+<td align="right">0.0005599</td>
+</tr>
+<tr class="odd">
+<td align="right">4715.079</td>
+<td align="right">710178</td>
+<td align="right">3550843</td>
+<td align="right">-3</td>
+<td align="right">-1</td>
+<td align="right">0.0005533</td>
+</tr>
+<tr class="even">
+<td align="right">4576.309</td>
+<td align="right">710178</td>
+<td align="right">3550844</td>
+<td align="right">-1</td>
+<td align="right">1</td>
+<td align="right">0.0005370</td>
+</tr>
+</tbody>
+</table>
+<pre class="r"><code>pop &lt;- &quot;SAS&quot;
+read_csv(paste0(data_dir, pop, &quot;/AT_CG.csv&quot;), show_col_types = FALSE) %&gt;%
+  rowwise() %&gt;%
+  mutate(re = dev / (2*(singletons + controls))) %&gt;%
+  arrange(desc(re)) %&gt;%
+  head(4) %&gt;%
+  knitr::kable()</code></pre>
+<table>
+<thead>
+<tr class="header">
+<th align="right">dev</th>
+<th align="right">singletons</th>
+<th align="right">controls</th>
+<th align="right">rp1</th>
+<th align="right">rp2</th>
+<th align="right">re</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="right">11394.168</td>
+<td align="right">897753</td>
+<td align="right">4488726</td>
+<td align="right">1</td>
+<td align="right">2</td>
+<td align="right">0.0010577</td>
+</tr>
+<tr class="even">
+<td align="right">9205.283</td>
+<td align="right">897753</td>
+<td align="right">4488726</td>
+<td align="right">-1</td>
+<td align="right">1</td>
+<td align="right">0.0008545</td>
+</tr>
+<tr class="odd">
+<td align="right">5669.288</td>
+<td align="right">897754</td>
+<td align="right">4488726</td>
+<td align="right">-3</td>
+<td align="right">-1</td>
+<td align="right">0.0005263</td>
+</tr>
+<tr class="even">
+<td align="right">5446.812</td>
+<td align="right">897753</td>
+<td align="right">4488724</td>
+<td align="right">-2</td>
+<td align="right">-1</td>
+<td align="right">0.0005056</td>
+</tr>
+</tbody>
+</table>
+<p>Again, we see that across all populations the top four statistics are
+at the same pairs of positions, with only the order slightly
+adjusted.</p>
+<br>
+<p>
+<button type="button" class="btn btn-default btn-workflowr btn-workflowr-sessioninfo" data-toggle="collapse" data-target="#workflowr-sessioninfo" style="display: block;">
+<span class="glyphicon glyphicon-wrench" aria-hidden="true"></span>
+Session information
+</button>
+</p>
+<div id="workflowr-sessioninfo" class="collapse">
+<pre class="r"><code>sessionInfo()</code></pre>
+<pre><code>R version 4.3.0 (2023-04-21)
+Platform: x86_64-pc-linux-gnu (64-bit)
+Running under: Ubuntu 18.04.6 LTS
+
+Matrix products: default
+BLAS:   /usr/lib/x86_64-linux-gnu/openblas/libblas.so.3 
+LAPACK: /usr/lib/x86_64-linux-gnu/libopenblasp-r0.2.20.so;  LAPACK version 3.7.1
+
+locale:
+ [1] LC_CTYPE=en_US.UTF-8       LC_NUMERIC=C              
+ [3] LC_TIME=en_US.UTF-8        LC_COLLATE=en_US.UTF-8    
+ [5] LC_MONETARY=en_US.UTF-8    LC_MESSAGES=en_US.UTF-8   
+ [7] LC_PAPER=en_US.UTF-8       LC_NAME=C                 
+ [9] LC_ADDRESS=C               LC_TELEPHONE=C            
+[11] LC_MEASUREMENT=en_US.UTF-8 LC_IDENTIFICATION=C       
+
+time zone: America/Detroit
+tzcode source: system (glibc)
+
+attached base packages:
+[1] stats     graphics  grDevices utils     datasets  methods   base     
+
+other attached packages:
+ [1] sjPlot_2.8.14   reshape2_1.4.4  corrr_0.4.4     lubridate_1.9.2
+ [5] forcats_1.0.0   stringr_1.5.0   dplyr_1.1.2     purrr_1.0.1    
+ [9] readr_2.1.4     tidyr_1.3.0     tibble_3.2.1    ggplot2_3.4.2  
+[13] tidyverse_2.0.0 workflowr_1.7.0
+
+loaded via a namespace (and not attached):
+ [1] sjlabelled_1.2.0   tidyselect_1.2.0   farver_2.1.0       fastmap_1.1.0     
+ [5] TH.data_1.1-1      bayestestR_0.13.1  promises_1.2.0.1   sjstats_0.18.2    
+ [9] digest_0.6.31      timechange_0.2.0   estimability_1.4.1 lifecycle_1.0.3   
+[13] survival_3.5-5     processx_3.8.1     magrittr_2.0.3     compiler_4.3.0    
+[17] rlang_1.1.1        sass_0.4.1         tools_4.3.0        utf8_1.2.2        
+[21] yaml_2.3.7         knitr_1.42         labeling_0.4.2     bit_4.0.4         
+[25] RColorBrewer_1.1-3 plyr_1.8.7         multcomp_1.4-23    withr_2.5.0       
+[29] grid_4.3.0         fansi_1.0.4        git2r_0.32.0       xtable_1.8-4      
+[33] colorspace_2.0-3   emmeans_1.8.6      scales_1.2.0       MASS_7.3-60       
+[37] insight_0.19.2     cli_3.6.1          mvtnorm_1.1-3      crayon_1.5.2      
+[41] rmarkdown_2.14     generics_0.1.3     rstudioapi_0.14    performance_0.10.3
+[45] modelr_0.1.11      httr_1.4.6         tzdb_0.4.0         minqa_1.2.4       
+[49] splines_4.3.0      parallel_4.3.0     vctrs_0.6.2        boot_1.3-28       
+[53] Matrix_1.5-4.1     sandwich_3.0-1     jsonlite_1.8.4     callr_3.7.3       
+[57] hms_1.1.3          bit64_4.0.5        jquerylib_0.1.4    glue_1.6.2        
+[61] nloptr_2.0.3       codetools_0.2-18   ps_1.7.0           stringi_1.7.12    
+[65] gtable_0.3.0       later_1.3.0        ggeffects_1.2.2    lme4_1.1-33       
+[69] munsell_0.5.0      pillar_1.9.0       htmltools_0.5.5    R6_2.5.1          
+[73] rprojroot_2.0.3    vroom_1.6.3        evaluate_0.15      lattice_0.20-45   
+[77] highr_0.9          backports_1.4.1    broom_1.0.4        httpuv_1.6.11     
+[81] bslib_0.3.1        Rcpp_1.0.10        coda_0.19-4        nlme_3.1-162      
+[85] whisker_0.4        xfun_0.39          fs_1.6.2           zoo_1.8-12        
+[89] getPass_0.2-2      sjmisc_2.8.9       pkgconfig_2.0.3   </code></pre>
+</div>
+</div>
+
+<div id="disqus_thread"></div>
+<script>
+(function() { // DON'T EDIT BELOW THIS LINE
+var d = document, s = d.createElement('script');
+s.src = 'https://lsci-doc.disqus.com/embed.js';
+s.setAttribute('data-timestamp', +new Date());
+(d.head || d.body).appendChild(s);
+})();
+</script>
+<noscript>Please enable JavaScript to view the
+<a href="https://disqus.com/?ref_noscript">
+  comments powered by Disqus.</a></noscript>
+
+<!-- Adjust MathJax settings so that all math formulae are shown using
+TeX fonts only; see
+https://docs.mathjax.org/en/latest/web/configuration.html. This will make
+the presentation more consistent at the cost of the webpage sometimes
+taking slightly longer to load. Note that this only works because the
+footer is added to webpages before the MathJax javascript. -->
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    "HTML-CSS": { availableFonts: ["TeX"] }
+  });
+</script>
+
+
+
+
+</div>
+</div>
+
+</div>
+
+<script>
+
+// add bootstrap table styles to pandoc tables
+function bootstrapStylePandocTables() {
+  $('tr.odd').parent('tbody').parent('table').addClass('table table-condensed');
+}
+$(document).ready(function () {
+  bootstrapStylePandocTables();
+});
+
+
+</script>
+
+<!-- tabsets -->
+
+<script>
+$(document).ready(function () {
+  window.buildTabsets("TOC");
+});
+
+$(document).ready(function () {
+  $('.tabset-dropdown > .nav-tabs > li').click(function () {
+    $(this).parent().toggleClass('nav-tabs-open');
+  });
+});
+</script>
+
+<!-- code folding -->
+
+<script>
+$(document).ready(function ()  {
+
+    // temporarily add toc-ignore selector to headers for the consistency with Pandoc
+    $('.unlisted.unnumbered').addClass('toc-ignore')
+
+    // move toc-ignore selectors from section div to header
+    $('div.section.toc-ignore')
+        .removeClass('toc-ignore')
+        .children('h1,h2,h3,h4,h5').addClass('toc-ignore');
+
+    // establish options
+    var options = {
+      selectors: "h1,h2,h3",
+      theme: "bootstrap3",
+      context: '.toc-content',
+      hashGenerator: function (text) {
+        return text.replace(/[.\\/?&!#<>]/g, '').replace(/\s/g, '_');
+      },
+      ignoreSelector: ".toc-ignore",
+      scrollTo: 0
+    };
+    options.showAndHide = true;
+    options.smoothScroll = true;
+
+    // tocify
+    var toc = $("#TOC").tocify(options).data("toc-tocify");
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>
