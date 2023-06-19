@@ -577,6 +577,45 @@ for(i in 1:4){
 }
 ```
 
+### C > T
+
+```{r, message=FALSE, warning=FALSE}
+subtype <- "GC_AT"
+df <- read_subtype_range_resid(subtype)
+
+df_cor <- df %>%
+  select(pop, status, rp1, rp2, p1, p2, res) %>%
+  pivot_wider(names_from = pop, values_from = res) %>%
+  select_if(is.numeric) %>%
+  group_by(rp1, rp2) %>%
+  nest() %>%
+   mutate(
+    correlations = map(data, \(x) correlate(x, quiet = T))
+  ) %>%
+  unnest(correlations) %>%
+  select(-data)
+
+pops <- c("AFR", "AMR", "EAS", "EUR", "SAS")
+
+for(i in 1:4){
+  for(j in (i+1):5){
+    p <- df_cor %>%
+      filter(term == pops[i]) %>%
+      select(rp1, rp2, !!sym(pops[j])) %>%
+      ggplot(aes(x = rp2, y = rp1, fill = !!sym(pops[j]))) +
+      geom_tile() +
+      scale_fill_distiller(palette = "RdBu", limits = c(-1,1)) +
+      theme_bw() +
+      xlab("Relative Position") +
+      ylab("Relative Position") +
+      labs(fill = "Residual \nCorrelation") +
+      theme(legend.position = c(.1, .8)) +
+      annotate("text", x = 0, y = 9, label= paste0(pops[i], " - ", pops[j]))
+    print(p)
+  }
+}
+```
+
 ### C > G
 
 ```{r, message=FALSE, warning=FALSE}
