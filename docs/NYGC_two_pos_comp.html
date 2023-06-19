@@ -518,15 +518,15 @@ project makes it easier to run your code on other machines.</p>
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomtheandybLSCItree8ba7b97a2a4240c85b8df388a716ac113f955b4ftargetblank8ba7b97a">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomtheandybLSCItreece9cf6d061af06e0cf9b3049e5f5d9a89a2c501dtargetblankce9cf6da">
 <span class="glyphicon glyphicon-ok text-success"
 aria-hidden="true"></span> <strong>Repository version:</strong>
-<a href="https://github.com/theandyb/LSCI/tree/8ba7b97a2a4240c85b8df388a716ac113f955b4f" target="_blank">8ba7b97</a>
+<a href="https://github.com/theandyb/LSCI/tree/ce9cf6d061af06e0cf9b3049e5f5d9a89a2c501d" target="_blank">ce9cf6d</a>
 </a>
 </p>
 </div>
 <div
-id="strongRepositoryversionstrongahrefhttpsgithubcomtheandybLSCItree8ba7b97a2a4240c85b8df388a716ac113f955b4ftargetblank8ba7b97a"
+id="strongRepositoryversionstrongahrefhttpsgithubcomtheandybLSCItreece9cf6d061af06e0cf9b3049e5f5d9a89a2c501dtargetblankce9cf6da"
 class="panel-collapse collapse">
 <div class="panel-body">
 <p>
@@ -536,7 +536,7 @@ reproducibility.
 </p>
 <p>
 The results in this page were generated with repository version
-<a href="https://github.com/theandyb/LSCI/tree/8ba7b97a2a4240c85b8df388a716ac113f955b4f" target="_blank">8ba7b97</a>.
+<a href="https://github.com/theandyb/LSCI/tree/ce9cf6d061af06e0cf9b3049e5f5d9a89a2c501d" target="_blank">ce9cf6d</a>.
 See the <em>Past versions</em> tab to see a history of the changes made
 to the R Markdown and HTML files.
 </p>
@@ -604,6 +604,40 @@ Message
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+Rmd
+</td>
+<td>
+<a href="https://github.com/theandyb/LSCI/blob/ce9cf6d061af06e0cf9b3049e5f5d9a89a2c501d/analysis/NYGC_two_pos_comp.Rmd" target="_blank">ce9cf6d</a>
+</td>
+<td>
+Andy Beck
+</td>
+<td>
+2023-06-19
+</td>
+<td>
+wflow_publish("analysis/NYGC_two_pos_comp.Rmd")
+</td>
+</tr>
+<tr>
+<td>
+html
+</td>
+<td>
+<a href="https://rawcdn.githack.com/theandyb/LSCI/50f7f841814715c8403f7980c1b70d86045c35c4/docs/NYGC_two_pos_comp.html" target="_blank">50f7f84</a>
+</td>
+<td>
+Andy Beck
+</td>
+<td>
+2023-06-19
+</td>
+<td>
+Build site.
+</td>
+</tr>
 <tr>
 <td>
 Rmd
@@ -2790,6 +2824,931 @@ adjusted.</p>
 </div>
 <div id="residual-level-comparisons" class="section level2">
 <h2>Residual-level Comparisons</h2>
+<pre class="r"><code>read_subtype_pop_resid &lt;- function(pop, subtype, rp1, rp2, data_dir = &quot;/net/snowwhite/home/beckandy/research/1000G_NYGC_LSCI/output/two_pos/resid/&quot;){
+  f_name &lt;- paste0(data_dir, pop, &quot;/&quot;, subtype, &quot;_p&quot;, rp1, &quot;_q&quot;, rp2, &quot;.csv&quot;)
+  df &lt;- read_csv(f_name,show_col_types = FALSE)
+  return(df)
+}
+
+read_subtype_pop_range_resid &lt;- function(pop, subtype, size = 10, data_dir = &quot;/net/snowwhite/home/beckandy/research/1000G_NYGC_LSCI/output/two_pos/resid/&quot;){
+  if(str_starts(subtype, &quot;cpg&quot;)){
+    pos.list &lt;- c(-size:-1, 2:size)
+  } else{
+    pos.list &lt;- c(-size:-1, 1:size)
+  }
+  pos.names &lt;- c()
+  for(i in 1:(length(pos.list) - 1)){
+    for(j in (i+1):length(pos.list)){
+      pos.names &lt;- c(pos.names, paste0(pos.list[[i]], &quot;_&quot;, pos.list[[j]]))
+    }
+  }
+  results &lt;- lapply(pos.names, function(x) NULL) %&gt;% setNames(pos.names)
+  for(i in names(results)){
+    rp1 &lt;- str_split(i, &quot;_&quot;)[[1]][1] %&gt;% as.numeric()
+    rp2 &lt;- str_split(i, &quot;_&quot;)[[1]][2] %&gt;% as.numeric()
+    results[[i]] &lt;- read_subtype_pop_resid(pop, subtype, rp1, rp2, data_dir)
+    results[[i]]$rp1 &lt;- rp1
+    results[[i]]$rp2 &lt;- rp2
+  }
+  df &lt;- bind_rows(results)
+  return(df)
+}
+
+read_subtype_range_resid &lt;- function(subtype, size = 10, data_dir = &quot;/net/snowwhite/home/beckandy/research/1000G_NYGC_LSCI/output/two_pos/resid/&quot;){
+  df &lt;- read_subtype_pop_range_resid(&quot;ALL&quot;, subtype, size = size, data_dir = data_dir)
+  df$pop &lt;- &quot;ALL&quot;
+  
+  for(pop in c(&quot;AFR&quot;, &quot;AMR&quot;, &quot;EAS&quot;, &quot;EUR&quot;, &quot;SAS&quot;)){
+    df2 &lt;- read_subtype_pop_range_resid(pop, subtype, size = size, data_dir = data_dir)
+    df2$pop &lt;- pop
+    df &lt;- bind_rows(df, df2)
+  }
+  
+  return(df)
+}</code></pre>
+<div id="a-c" class="section level3">
+<h3>A &gt; C</h3>
+<pre class="r"><code>df &lt;- read_subtype_range_resid(&quot;AT_CG&quot;)
+
+df_cor &lt;- df %&gt;%
+  select(pop, status, rp1, rp2, p1, p2, res) %&gt;%
+  pivot_wider(names_from = pop, values_from = res) %&gt;%
+  select_if(is.numeric) %&gt;%
+  group_by(rp1, rp2) %&gt;%
+  nest() %&gt;%
+   mutate(
+    correlations = map(data, correlate)
+  ) %&gt;%
+  unnest(correlations) %&gt;%
+  select(-data)</code></pre>
+<pre><code>Correlation computed with
+• Method: &#39;pearson&#39;
+• Missing treated using: &#39;pairwise.complete.obs&#39;
+Correlation computed with
+• Method: &#39;pearson&#39;
+• Missing treated using: &#39;pairwise.complete.obs&#39;
+Correlation computed with
+• Method: &#39;pearson&#39;
+• Missing treated using: &#39;pairwise.complete.obs&#39;
+Correlation computed with
+• Method: &#39;pearson&#39;
+• Missing treated using: &#39;pairwise.complete.obs&#39;
+Correlation computed with
+• Method: &#39;pearson&#39;
+• Missing treated using: &#39;pairwise.complete.obs&#39;
+Correlation computed with
+• Method: &#39;pearson&#39;
+• Missing treated using: &#39;pairwise.complete.obs&#39;
+Correlation computed with
+• Method: &#39;pearson&#39;
+• Missing treated using: &#39;pairwise.complete.obs&#39;
+Correlation computed with
+• Method: &#39;pearson&#39;
+• Missing treated using: &#39;pairwise.complete.obs&#39;
+Correlation computed with
+• Method: &#39;pearson&#39;
+• Missing treated using: &#39;pairwise.complete.obs&#39;
+Correlation computed with
+• Method: &#39;pearson&#39;
+• Missing treated using: &#39;pairwise.complete.obs&#39;
+Correlation computed with
+• Method: &#39;pearson&#39;
+• Missing treated using: &#39;pairwise.complete.obs&#39;
+Correlation computed with
+• Method: &#39;pearson&#39;
+• Missing treated using: &#39;pairwise.complete.obs&#39;
+Correlation computed with
+• Method: &#39;pearson&#39;
+• Missing treated using: &#39;pairwise.complete.obs&#39;
+Correlation computed with
+• Method: &#39;pearson&#39;
+• Missing treated using: &#39;pairwise.complete.obs&#39;
+Correlation computed with
+• Method: &#39;pearson&#39;
+• Missing treated using: &#39;pairwise.complete.obs&#39;
+Correlation computed with
+• Method: &#39;pearson&#39;
+• Missing treated using: &#39;pairwise.complete.obs&#39;
+Correlation computed with
+• Method: &#39;pearson&#39;
+• Missing treated using: &#39;pairwise.complete.obs&#39;
+Correlation computed with
+• Method: &#39;pearson&#39;
+• Missing treated using: &#39;pairwise.complete.obs&#39;
+Correlation computed with
+• Method: &#39;pearson&#39;
+• Missing treated using: &#39;pairwise.complete.obs&#39;
+Correlation computed with
+• Method: &#39;pearson&#39;
+• Missing treated using: &#39;pairwise.complete.obs&#39;
+Correlation computed with
+• Method: &#39;pearson&#39;
+• Missing treated using: &#39;pairwise.complete.obs&#39;
+Correlation computed with
+• Method: &#39;pearson&#39;
+• Missing treated using: &#39;pairwise.complete.obs&#39;
+Correlation computed with
+• Method: &#39;pearson&#39;
+• Missing treated using: &#39;pairwise.complete.obs&#39;
+Correlation computed with
+• Method: &#39;pearson&#39;
+• Missing treated using: &#39;pairwise.complete.obs&#39;
+Correlation computed with
+• Method: &#39;pearson&#39;
+• Missing treated using: &#39;pairwise.complete.obs&#39;
+Correlation computed with
+• Method: &#39;pearson&#39;
+• Missing treated using: &#39;pairwise.complete.obs&#39;
+Correlation computed with
+• Method: &#39;pearson&#39;
+• Missing treated using: &#39;pairwise.complete.obs&#39;
+Correlation computed with
+• Method: &#39;pearson&#39;
+• Missing treated using: &#39;pairwise.complete.obs&#39;
+Correlation computed with
+• Method: &#39;pearson&#39;
+• Missing treated using: &#39;pairwise.complete.obs&#39;
+Correlation computed with
+• Method: &#39;pearson&#39;
+• Missing treated using: &#39;pairwise.complete.obs&#39;
+Correlation computed with
+• Method: &#39;pearson&#39;
+• Missing treated using: &#39;pairwise.complete.obs&#39;
+Correlation computed with
+• Method: &#39;pearson&#39;
+• Missing treated using: &#39;pairwise.complete.obs&#39;
+Correlation computed with
+• Method: &#39;pearson&#39;
+• Missing treated using: &#39;pairwise.complete.obs&#39;
+Correlation computed with
+• Method: &#39;pearson&#39;
+• Missing treated using: &#39;pairwise.complete.obs&#39;
+Correlation computed with
+• Method: &#39;pearson&#39;
+• Missing treated using: &#39;pairwise.complete.obs&#39;
+Correlation computed with
+• Method: &#39;pearson&#39;
+• Missing treated using: &#39;pairwise.complete.obs&#39;
+Correlation computed with
+• Method: &#39;pearson&#39;
+• Missing treated using: &#39;pairwise.complete.obs&#39;
+Correlation computed with
+• Method: &#39;pearson&#39;
+• Missing treated using: &#39;pairwise.complete.obs&#39;
+Correlation computed with
+• Method: &#39;pearson&#39;
+• Missing treated using: &#39;pairwise.complete.obs&#39;
+Correlation computed with
+• Method: &#39;pearson&#39;
+• Missing treated using: &#39;pairwise.complete.obs&#39;
+Correlation computed with
+• Method: &#39;pearson&#39;
+• Missing treated using: &#39;pairwise.complete.obs&#39;
+Correlation computed with
+• Method: &#39;pearson&#39;
+• Missing treated using: &#39;pairwise.complete.obs&#39;
+Correlation computed with
+• Method: &#39;pearson&#39;
+• Missing treated using: &#39;pairwise.complete.obs&#39;
+Correlation computed with
+• Method: &#39;pearson&#39;
+• Missing treated using: &#39;pairwise.complete.obs&#39;
+Correlation computed with
+• Method: &#39;pearson&#39;
+• Missing treated using: &#39;pairwise.complete.obs&#39;
+Correlation computed with
+• Method: &#39;pearson&#39;
+• Missing treated using: &#39;pairwise.complete.obs&#39;
+Correlation computed with
+• Method: &#39;pearson&#39;
+• Missing treated using: &#39;pairwise.complete.obs&#39;
+Correlation computed with
+• Method: &#39;pearson&#39;
+• Missing treated using: &#39;pairwise.complete.obs&#39;
+Correlation computed with
+• Method: &#39;pearson&#39;
+• Missing treated using: &#39;pairwise.complete.obs&#39;
+Correlation computed with
+• Method: &#39;pearson&#39;
+• Missing treated using: &#39;pairwise.complete.obs&#39;
+Correlation computed with
+• Method: &#39;pearson&#39;
+• Missing treated using: &#39;pairwise.complete.obs&#39;
+Correlation computed with
+• Method: &#39;pearson&#39;
+• Missing treated using: &#39;pairwise.complete.obs&#39;
+Correlation computed with
+• Method: &#39;pearson&#39;
+• Missing treated using: &#39;pairwise.complete.obs&#39;
+Correlation computed with
+• Method: &#39;pearson&#39;
+• Missing treated using: &#39;pairwise.complete.obs&#39;
+Correlation computed with
+• Method: &#39;pearson&#39;
+• Missing treated using: &#39;pairwise.complete.obs&#39;
+Correlation computed with
+• Method: &#39;pearson&#39;
+• Missing treated using: &#39;pairwise.complete.obs&#39;
+Correlation computed with
+• Method: &#39;pearson&#39;
+• Missing treated using: &#39;pairwise.complete.obs&#39;
+Correlation computed with
+• Method: &#39;pearson&#39;
+• Missing treated using: &#39;pairwise.complete.obs&#39;
+Correlation computed with
+• Method: &#39;pearson&#39;
+• Missing treated using: &#39;pairwise.complete.obs&#39;
+Correlation computed with
+• Method: &#39;pearson&#39;
+• Missing treated using: &#39;pairwise.complete.obs&#39;
+Correlation computed with
+• Method: &#39;pearson&#39;
+• Missing treated using: &#39;pairwise.complete.obs&#39;
+Correlation computed with
+• Method: &#39;pearson&#39;
+• Missing treated using: &#39;pairwise.complete.obs&#39;
+Correlation computed with
+• Method: &#39;pearson&#39;
+• Missing treated using: &#39;pairwise.complete.obs&#39;
+Correlation computed with
+• Method: &#39;pearson&#39;
+• Missing treated using: &#39;pairwise.complete.obs&#39;
+Correlation computed with
+• Method: &#39;pearson&#39;
+• Missing treated using: &#39;pairwise.complete.obs&#39;
+Correlation computed with
+• Method: &#39;pearson&#39;
+• Missing treated using: &#39;pairwise.complete.obs&#39;
+Correlation computed with
+• Method: &#39;pearson&#39;
+• Missing treated using: &#39;pairwise.complete.obs&#39;
+Correlation computed with
+• Method: &#39;pearson&#39;
+• Missing treated using: &#39;pairwise.complete.obs&#39;
+Correlation computed with
+• Method: &#39;pearson&#39;
+• Missing treated using: &#39;pairwise.complete.obs&#39;
+Correlation computed with
+• Method: &#39;pearson&#39;
+• Missing treated using: &#39;pairwise.complete.obs&#39;
+Correlation computed with
+• Method: &#39;pearson&#39;
+• Missing treated using: &#39;pairwise.complete.obs&#39;
+Correlation computed with
+• Method: &#39;pearson&#39;
+• Missing treated using: &#39;pairwise.complete.obs&#39;
+Correlation computed with
+• Method: &#39;pearson&#39;
+• Missing treated using: &#39;pairwise.complete.obs&#39;
+Correlation computed with
+• Method: &#39;pearson&#39;
+• Missing treated using: &#39;pairwise.complete.obs&#39;
+Correlation computed with
+• Method: &#39;pearson&#39;
+• Missing treated using: &#39;pairwise.complete.obs&#39;
+Correlation computed with
+• Method: &#39;pearson&#39;
+• Missing treated using: &#39;pairwise.complete.obs&#39;
+Correlation computed with
+• Method: &#39;pearson&#39;
+• Missing treated using: &#39;pairwise.complete.obs&#39;
+Correlation computed with
+• Method: &#39;pearson&#39;
+• Missing treated using: &#39;pairwise.complete.obs&#39;
+Correlation computed with
+• Method: &#39;pearson&#39;
+• Missing treated using: &#39;pairwise.complete.obs&#39;
+Correlation computed with
+• Method: &#39;pearson&#39;
+• Missing treated using: &#39;pairwise.complete.obs&#39;
+Correlation computed with
+• Method: &#39;pearson&#39;
+• Missing treated using: &#39;pairwise.complete.obs&#39;
+Correlation computed with
+• Method: &#39;pearson&#39;
+• Missing treated using: &#39;pairwise.complete.obs&#39;
+Correlation computed with
+• Method: &#39;pearson&#39;
+• Missing treated using: &#39;pairwise.complete.obs&#39;
+Correlation computed with
+• Method: &#39;pearson&#39;
+• Missing treated using: &#39;pairwise.complete.obs&#39;
+Correlation computed with
+• Method: &#39;pearson&#39;
+• Missing treated using: &#39;pairwise.complete.obs&#39;
+Correlation computed with
+• Method: &#39;pearson&#39;
+• Missing treated using: &#39;pairwise.complete.obs&#39;
+Correlation computed with
+• Method: &#39;pearson&#39;
+• Missing treated using: &#39;pairwise.complete.obs&#39;
+Correlation computed with
+• Method: &#39;pearson&#39;
+• Missing treated using: &#39;pairwise.complete.obs&#39;
+Correlation computed with
+• Method: &#39;pearson&#39;
+• Missing treated using: &#39;pairwise.complete.obs&#39;
+Correlation computed with
+• Method: &#39;pearson&#39;
+• Missing treated using: &#39;pairwise.complete.obs&#39;
+Correlation computed with
+• Method: &#39;pearson&#39;
+• Missing treated using: &#39;pairwise.complete.obs&#39;
+Correlation computed with
+• Method: &#39;pearson&#39;
+• Missing treated using: &#39;pairwise.complete.obs&#39;
+Correlation computed with
+• Method: &#39;pearson&#39;
+• Missing treated using: &#39;pairwise.complete.obs&#39;
+Correlation computed with
+• Method: &#39;pearson&#39;
+• Missing treated using: &#39;pairwise.complete.obs&#39;
+Correlation computed with
+• Method: &#39;pearson&#39;
+• Missing treated using: &#39;pairwise.complete.obs&#39;
+Correlation computed with
+• Method: &#39;pearson&#39;
+• Missing treated using: &#39;pairwise.complete.obs&#39;
+Correlation computed with
+• Method: &#39;pearson&#39;
+• Missing treated using: &#39;pairwise.complete.obs&#39;
+Correlation computed with
+• Method: &#39;pearson&#39;
+• Missing treated using: &#39;pairwise.complete.obs&#39;
+Correlation computed with
+• Method: &#39;pearson&#39;
+• Missing treated using: &#39;pairwise.complete.obs&#39;
+Correlation computed with
+• Method: &#39;pearson&#39;
+• Missing treated using: &#39;pairwise.complete.obs&#39;
+Correlation computed with
+• Method: &#39;pearson&#39;
+• Missing treated using: &#39;pairwise.complete.obs&#39;
+Correlation computed with
+• Method: &#39;pearson&#39;
+• Missing treated using: &#39;pairwise.complete.obs&#39;
+Correlation computed with
+• Method: &#39;pearson&#39;
+• Missing treated using: &#39;pairwise.complete.obs&#39;
+Correlation computed with
+• Method: &#39;pearson&#39;
+• Missing treated using: &#39;pairwise.complete.obs&#39;
+Correlation computed with
+• Method: &#39;pearson&#39;
+• Missing treated using: &#39;pairwise.complete.obs&#39;
+Correlation computed with
+• Method: &#39;pearson&#39;
+• Missing treated using: &#39;pairwise.complete.obs&#39;
+Correlation computed with
+• Method: &#39;pearson&#39;
+• Missing treated using: &#39;pairwise.complete.obs&#39;
+Correlation computed with
+• Method: &#39;pearson&#39;
+• Missing treated using: &#39;pairwise.complete.obs&#39;
+Correlation computed with
+• Method: &#39;pearson&#39;
+• Missing treated using: &#39;pairwise.complete.obs&#39;
+Correlation computed with
+• Method: &#39;pearson&#39;
+• Missing treated using: &#39;pairwise.complete.obs&#39;
+Correlation computed with
+• Method: &#39;pearson&#39;
+• Missing treated using: &#39;pairwise.complete.obs&#39;
+Correlation computed with
+• Method: &#39;pearson&#39;
+• Missing treated using: &#39;pairwise.complete.obs&#39;
+Correlation computed with
+• Method: &#39;pearson&#39;
+• Missing treated using: &#39;pairwise.complete.obs&#39;
+Correlation computed with
+• Method: &#39;pearson&#39;
+• Missing treated using: &#39;pairwise.complete.obs&#39;
+Correlation computed with
+• Method: &#39;pearson&#39;
+• Missing treated using: &#39;pairwise.complete.obs&#39;
+Correlation computed with
+• Method: &#39;pearson&#39;
+• Missing treated using: &#39;pairwise.complete.obs&#39;
+Correlation computed with
+• Method: &#39;pearson&#39;
+• Missing treated using: &#39;pairwise.complete.obs&#39;
+Correlation computed with
+• Method: &#39;pearson&#39;
+• Missing treated using: &#39;pairwise.complete.obs&#39;
+Correlation computed with
+• Method: &#39;pearson&#39;
+• Missing treated using: &#39;pairwise.complete.obs&#39;
+Correlation computed with
+• Method: &#39;pearson&#39;
+• Missing treated using: &#39;pairwise.complete.obs&#39;
+Correlation computed with
+• Method: &#39;pearson&#39;
+• Missing treated using: &#39;pairwise.complete.obs&#39;
+Correlation computed with
+• Method: &#39;pearson&#39;
+• Missing treated using: &#39;pairwise.complete.obs&#39;
+Correlation computed with
+• Method: &#39;pearson&#39;
+• Missing treated using: &#39;pairwise.complete.obs&#39;
+Correlation computed with
+• Method: &#39;pearson&#39;
+• Missing treated using: &#39;pairwise.complete.obs&#39;
+Correlation computed with
+• Method: &#39;pearson&#39;
+• Missing treated using: &#39;pairwise.complete.obs&#39;
+Correlation computed with
+• Method: &#39;pearson&#39;
+• Missing treated using: &#39;pairwise.complete.obs&#39;
+Correlation computed with
+• Method: &#39;pearson&#39;
+• Missing treated using: &#39;pairwise.complete.obs&#39;
+Correlation computed with
+• Method: &#39;pearson&#39;
+• Missing treated using: &#39;pairwise.complete.obs&#39;
+Correlation computed with
+• Method: &#39;pearson&#39;
+• Missing treated using: &#39;pairwise.complete.obs&#39;
+Correlation computed with
+• Method: &#39;pearson&#39;
+• Missing treated using: &#39;pairwise.complete.obs&#39;
+Correlation computed with
+• Method: &#39;pearson&#39;
+• Missing treated using: &#39;pairwise.complete.obs&#39;
+Correlation computed with
+• Method: &#39;pearson&#39;
+• Missing treated using: &#39;pairwise.complete.obs&#39;
+Correlation computed with
+• Method: &#39;pearson&#39;
+• Missing treated using: &#39;pairwise.complete.obs&#39;
+Correlation computed with
+• Method: &#39;pearson&#39;
+• Missing treated using: &#39;pairwise.complete.obs&#39;
+Correlation computed with
+• Method: &#39;pearson&#39;
+• Missing treated using: &#39;pairwise.complete.obs&#39;
+Correlation computed with
+• Method: &#39;pearson&#39;
+• Missing treated using: &#39;pairwise.complete.obs&#39;
+Correlation computed with
+• Method: &#39;pearson&#39;
+• Missing treated using: &#39;pairwise.complete.obs&#39;
+Correlation computed with
+• Method: &#39;pearson&#39;
+• Missing treated using: &#39;pairwise.complete.obs&#39;
+Correlation computed with
+• Method: &#39;pearson&#39;
+• Missing treated using: &#39;pairwise.complete.obs&#39;
+Correlation computed with
+• Method: &#39;pearson&#39;
+• Missing treated using: &#39;pairwise.complete.obs&#39;
+Correlation computed with
+• Method: &#39;pearson&#39;
+• Missing treated using: &#39;pairwise.complete.obs&#39;
+Correlation computed with
+• Method: &#39;pearson&#39;
+• Missing treated using: &#39;pairwise.complete.obs&#39;
+Correlation computed with
+• Method: &#39;pearson&#39;
+• Missing treated using: &#39;pairwise.complete.obs&#39;
+Correlation computed with
+• Method: &#39;pearson&#39;
+• Missing treated using: &#39;pairwise.complete.obs&#39;
+Correlation computed with
+• Method: &#39;pearson&#39;
+• Missing treated using: &#39;pairwise.complete.obs&#39;
+Correlation computed with
+• Method: &#39;pearson&#39;
+• Missing treated using: &#39;pairwise.complete.obs&#39;
+Correlation computed with
+• Method: &#39;pearson&#39;
+• Missing treated using: &#39;pairwise.complete.obs&#39;
+Correlation computed with
+• Method: &#39;pearson&#39;
+• Missing treated using: &#39;pairwise.complete.obs&#39;
+Correlation computed with
+• Method: &#39;pearson&#39;
+• Missing treated using: &#39;pairwise.complete.obs&#39;
+Correlation computed with
+• Method: &#39;pearson&#39;
+• Missing treated using: &#39;pairwise.complete.obs&#39;
+Correlation computed with
+• Method: &#39;pearson&#39;
+• Missing treated using: &#39;pairwise.complete.obs&#39;
+Correlation computed with
+• Method: &#39;pearson&#39;
+• Missing treated using: &#39;pairwise.complete.obs&#39;
+Correlation computed with
+• Method: &#39;pearson&#39;
+• Missing treated using: &#39;pairwise.complete.obs&#39;
+Correlation computed with
+• Method: &#39;pearson&#39;
+• Missing treated using: &#39;pairwise.complete.obs&#39;
+Correlation computed with
+• Method: &#39;pearson&#39;
+• Missing treated using: &#39;pairwise.complete.obs&#39;
+Correlation computed with
+• Method: &#39;pearson&#39;
+• Missing treated using: &#39;pairwise.complete.obs&#39;
+Correlation computed with
+• Method: &#39;pearson&#39;
+• Missing treated using: &#39;pairwise.complete.obs&#39;
+Correlation computed with
+• Method: &#39;pearson&#39;
+• Missing treated using: &#39;pairwise.complete.obs&#39;
+Correlation computed with
+• Method: &#39;pearson&#39;
+• Missing treated using: &#39;pairwise.complete.obs&#39;
+Correlation computed with
+• Method: &#39;pearson&#39;
+• Missing treated using: &#39;pairwise.complete.obs&#39;
+Correlation computed with
+• Method: &#39;pearson&#39;
+• Missing treated using: &#39;pairwise.complete.obs&#39;
+Correlation computed with
+• Method: &#39;pearson&#39;
+• Missing treated using: &#39;pairwise.complete.obs&#39;
+Correlation computed with
+• Method: &#39;pearson&#39;
+• Missing treated using: &#39;pairwise.complete.obs&#39;
+Correlation computed with
+• Method: &#39;pearson&#39;
+• Missing treated using: &#39;pairwise.complete.obs&#39;
+Correlation computed with
+• Method: &#39;pearson&#39;
+• Missing treated using: &#39;pairwise.complete.obs&#39;
+Correlation computed with
+• Method: &#39;pearson&#39;
+• Missing treated using: &#39;pairwise.complete.obs&#39;
+Correlation computed with
+• Method: &#39;pearson&#39;
+• Missing treated using: &#39;pairwise.complete.obs&#39;
+Correlation computed with
+• Method: &#39;pearson&#39;
+• Missing treated using: &#39;pairwise.complete.obs&#39;
+Correlation computed with
+• Method: &#39;pearson&#39;
+• Missing treated using: &#39;pairwise.complete.obs&#39;
+Correlation computed with
+• Method: &#39;pearson&#39;
+• Missing treated using: &#39;pairwise.complete.obs&#39;
+Correlation computed with
+• Method: &#39;pearson&#39;
+• Missing treated using: &#39;pairwise.complete.obs&#39;
+Correlation computed with
+• Method: &#39;pearson&#39;
+• Missing treated using: &#39;pairwise.complete.obs&#39;
+Correlation computed with
+• Method: &#39;pearson&#39;
+• Missing treated using: &#39;pairwise.complete.obs&#39;
+Correlation computed with
+• Method: &#39;pearson&#39;
+• Missing treated using: &#39;pairwise.complete.obs&#39;
+Correlation computed with
+• Method: &#39;pearson&#39;
+• Missing treated using: &#39;pairwise.complete.obs&#39;
+Correlation computed with
+• Method: &#39;pearson&#39;
+• Missing treated using: &#39;pairwise.complete.obs&#39;
+Correlation computed with
+• Method: &#39;pearson&#39;
+• Missing treated using: &#39;pairwise.complete.obs&#39;
+Correlation computed with
+• Method: &#39;pearson&#39;
+• Missing treated using: &#39;pairwise.complete.obs&#39;
+Correlation computed with
+• Method: &#39;pearson&#39;
+• Missing treated using: &#39;pairwise.complete.obs&#39;
+Correlation computed with
+• Method: &#39;pearson&#39;
+• Missing treated using: &#39;pairwise.complete.obs&#39;
+Correlation computed with
+• Method: &#39;pearson&#39;
+• Missing treated using: &#39;pairwise.complete.obs&#39;
+Correlation computed with
+• Method: &#39;pearson&#39;
+• Missing treated using: &#39;pairwise.complete.obs&#39;
+Correlation computed with
+• Method: &#39;pearson&#39;
+• Missing treated using: &#39;pairwise.complete.obs&#39;
+Correlation computed with
+• Method: &#39;pearson&#39;
+• Missing treated using: &#39;pairwise.complete.obs&#39;
+Correlation computed with
+• Method: &#39;pearson&#39;
+• Missing treated using: &#39;pairwise.complete.obs&#39;
+Correlation computed with
+• Method: &#39;pearson&#39;
+• Missing treated using: &#39;pairwise.complete.obs&#39;
+Correlation computed with
+• Method: &#39;pearson&#39;
+• Missing treated using: &#39;pairwise.complete.obs&#39;
+Correlation computed with
+• Method: &#39;pearson&#39;
+• Missing treated using: &#39;pairwise.complete.obs&#39;
+Correlation computed with
+• Method: &#39;pearson&#39;
+• Missing treated using: &#39;pairwise.complete.obs&#39;
+Correlation computed with
+• Method: &#39;pearson&#39;
+• Missing treated using: &#39;pairwise.complete.obs&#39;</code></pre>
+<pre class="r"><code>df_cor %&gt;%
+  filter(term == &quot;AFR&quot;) %&gt;%
+  select(rp1, rp2, !!sym(&quot;AMR&quot;)) %&gt;%
+  ggplot(aes(x = rp2, y = rp1, fill = !!sym(&quot;AMR&quot;))) +
+  geom_tile() +
+  scale_fill_distiller(palette = &quot;RdBu&quot;, limits = c(-1,1)) +
+  theme_bw() +
+  xlab(&quot;Relative Position&quot;) +
+  ylab(&quot;Relative Position&quot;) +
+  labs(fill = &quot;Residual \nCorrelation&quot;) +
+  theme(legend.position = c(.1, .8))</code></pre>
+<p><img src="figure/NYGC_two_pos_comp.Rmd/unnamed-chunk-23-1.png" width="672" style="display: block; margin: auto;" /></p>
+<pre class="r"><code>pops &lt;- c(&quot;AFR&quot;, &quot;AMR&quot;, &quot;EAS&quot;, &quot;EUR&quot;, &quot;SAS&quot;)
+
+for(i in 1:4){
+  for(j in (i+1):5){
+    p &lt;- df_cor %&gt;%
+      filter(term == pops[i]) %&gt;%
+      select(rp1, rp2, !!sym(pops[j])) %&gt;%
+      ggplot(aes(x = rp2, y = rp1, fill = !!sym(pops[j]))) +
+      geom_tile() +
+      scale_fill_distiller(palette = &quot;RdBu&quot;, limits = c(-1,1)) +
+      theme_bw() +
+      xlab(&quot;Relative Position&quot;) +
+      ylab(&quot;Relative Position&quot;) +
+      labs(fill = &quot;Residual \nCorrelation&quot;) +
+      theme(legend.position = c(.1, .8)) +
+      annotate(&quot;text&quot;, x = 0, y = 9, label= paste0(pops[i], &quot; - &quot;, pops[j]))
+    print(p)
+  }
+}</code></pre>
+<p><img src="figure/NYGC_two_pos_comp.Rmd/unnamed-chunk-24-1.png" width="672" style="display: block; margin: auto;" /><img src="figure/NYGC_two_pos_comp.Rmd/unnamed-chunk-24-2.png" width="672" style="display: block; margin: auto;" /><img src="figure/NYGC_two_pos_comp.Rmd/unnamed-chunk-24-3.png" width="672" style="display: block; margin: auto;" /><img src="figure/NYGC_two_pos_comp.Rmd/unnamed-chunk-24-4.png" width="672" style="display: block; margin: auto;" /><img src="figure/NYGC_two_pos_comp.Rmd/unnamed-chunk-24-5.png" width="672" style="display: block; margin: auto;" /><img src="figure/NYGC_two_pos_comp.Rmd/unnamed-chunk-24-6.png" width="672" style="display: block; margin: auto;" /><img src="figure/NYGC_two_pos_comp.Rmd/unnamed-chunk-24-7.png" width="672" style="display: block; margin: auto;" /><img src="figure/NYGC_two_pos_comp.Rmd/unnamed-chunk-24-8.png" width="672" style="display: block; margin: auto;" /><img src="figure/NYGC_two_pos_comp.Rmd/unnamed-chunk-24-9.png" width="672" style="display: block; margin: auto;" /><img src="figure/NYGC_two_pos_comp.Rmd/unnamed-chunk-24-10.png" width="672" style="display: block; margin: auto;" /></p>
+</div>
+<div id="a-g" class="section level3">
+<h3>A &gt; G</h3>
+<pre class="r"><code>subtype &lt;- &quot;AT_GC&quot;
+df &lt;- read_subtype_range_resid(subtype)
+
+df_cor &lt;- df %&gt;%
+  select(pop, status, rp1, rp2, p1, p2, res) %&gt;%
+  pivot_wider(names_from = pop, values_from = res) %&gt;%
+  select_if(is.numeric) %&gt;%
+  group_by(rp1, rp2) %&gt;%
+  nest() %&gt;%
+   mutate(
+    correlations = map(data, \(x) correlate(x, quiet = T))
+  ) %&gt;%
+  unnest(correlations) %&gt;%
+  select(-data)
+
+pops &lt;- c(&quot;AFR&quot;, &quot;AMR&quot;, &quot;EAS&quot;, &quot;EUR&quot;, &quot;SAS&quot;)
+
+for(i in 1:4){
+  for(j in (i+1):5){
+    p &lt;- df_cor %&gt;%
+      filter(term == pops[i]) %&gt;%
+      select(rp1, rp2, !!sym(pops[j])) %&gt;%
+      ggplot(aes(x = rp2, y = rp1, fill = !!sym(pops[j]))) +
+      geom_tile() +
+      scale_fill_distiller(palette = &quot;RdBu&quot;, limits = c(-1,1)) +
+      theme_bw() +
+      xlab(&quot;Relative Position&quot;) +
+      ylab(&quot;Relative Position&quot;) +
+      labs(fill = &quot;Residual \nCorrelation&quot;) +
+      theme(legend.position = c(.1, .8)) +
+      annotate(&quot;text&quot;, x = 0, y = 9, label= paste0(pops[i], &quot; - &quot;, pops[j]))
+    print(p)
+  }
+}</code></pre>
+<p><img src="figure/NYGC_two_pos_comp.Rmd/unnamed-chunk-25-1.png" width="672" style="display: block; margin: auto;" /><img src="figure/NYGC_two_pos_comp.Rmd/unnamed-chunk-25-2.png" width="672" style="display: block; margin: auto;" /><img src="figure/NYGC_two_pos_comp.Rmd/unnamed-chunk-25-3.png" width="672" style="display: block; margin: auto;" /><img src="figure/NYGC_two_pos_comp.Rmd/unnamed-chunk-25-4.png" width="672" style="display: block; margin: auto;" /><img src="figure/NYGC_two_pos_comp.Rmd/unnamed-chunk-25-5.png" width="672" style="display: block; margin: auto;" /><img src="figure/NYGC_two_pos_comp.Rmd/unnamed-chunk-25-6.png" width="672" style="display: block; margin: auto;" /><img src="figure/NYGC_two_pos_comp.Rmd/unnamed-chunk-25-7.png" width="672" style="display: block; margin: auto;" /><img src="figure/NYGC_two_pos_comp.Rmd/unnamed-chunk-25-8.png" width="672" style="display: block; margin: auto;" /><img src="figure/NYGC_two_pos_comp.Rmd/unnamed-chunk-25-9.png" width="672" style="display: block; margin: auto;" /><img src="figure/NYGC_two_pos_comp.Rmd/unnamed-chunk-25-10.png" width="672" style="display: block; margin: auto;" /></p>
+</div>
+<div id="a-t" class="section level3">
+<h3>A &gt; T</h3>
+<pre class="r"><code>subtype &lt;- &quot;AT_TA&quot;
+df &lt;- read_subtype_range_resid(subtype)
+
+df_cor &lt;- df %&gt;%
+  select(pop, status, rp1, rp2, p1, p2, res) %&gt;%
+  pivot_wider(names_from = pop, values_from = res) %&gt;%
+  select_if(is.numeric) %&gt;%
+  group_by(rp1, rp2) %&gt;%
+  nest() %&gt;%
+   mutate(
+    correlations = map(data, \(x) correlate(x, quiet = T))
+  ) %&gt;%
+  unnest(correlations) %&gt;%
+  select(-data)
+
+pops &lt;- c(&quot;AFR&quot;, &quot;AMR&quot;, &quot;EAS&quot;, &quot;EUR&quot;, &quot;SAS&quot;)
+
+for(i in 1:4){
+  for(j in (i+1):5){
+    p &lt;- df_cor %&gt;%
+      filter(term == pops[i]) %&gt;%
+      select(rp1, rp2, !!sym(pops[j])) %&gt;%
+      ggplot(aes(x = rp2, y = rp1, fill = !!sym(pops[j]))) +
+      geom_tile() +
+      scale_fill_distiller(palette = &quot;RdBu&quot;, limits = c(-1,1)) +
+      theme_bw() +
+      xlab(&quot;Relative Position&quot;) +
+      ylab(&quot;Relative Position&quot;) +
+      labs(fill = &quot;Residual \nCorrelation&quot;) +
+      theme(legend.position = c(.1, .8)) +
+      annotate(&quot;text&quot;, x = 0, y = 9, label= paste0(pops[i], &quot; - &quot;, pops[j]))
+    print(p)
+  }
+}</code></pre>
+<p><img src="figure/NYGC_two_pos_comp.Rmd/unnamed-chunk-26-1.png" width="672" style="display: block; margin: auto;" /><img src="figure/NYGC_two_pos_comp.Rmd/unnamed-chunk-26-2.png" width="672" style="display: block; margin: auto;" /><img src="figure/NYGC_two_pos_comp.Rmd/unnamed-chunk-26-3.png" width="672" style="display: block; margin: auto;" /><img src="figure/NYGC_two_pos_comp.Rmd/unnamed-chunk-26-4.png" width="672" style="display: block; margin: auto;" /><img src="figure/NYGC_two_pos_comp.Rmd/unnamed-chunk-26-5.png" width="672" style="display: block; margin: auto;" /><img src="figure/NYGC_two_pos_comp.Rmd/unnamed-chunk-26-6.png" width="672" style="display: block; margin: auto;" /><img src="figure/NYGC_two_pos_comp.Rmd/unnamed-chunk-26-7.png" width="672" style="display: block; margin: auto;" /><img src="figure/NYGC_two_pos_comp.Rmd/unnamed-chunk-26-8.png" width="672" style="display: block; margin: auto;" /><img src="figure/NYGC_two_pos_comp.Rmd/unnamed-chunk-26-9.png" width="672" style="display: block; margin: auto;" /><img src="figure/NYGC_two_pos_comp.Rmd/unnamed-chunk-26-10.png" width="672" style="display: block; margin: auto;" /></p>
+</div>
+<div id="c-a" class="section level3">
+<h3>C &gt; A</h3>
+<pre class="r"><code>subtype &lt;- &quot;GC_TA&quot;
+df &lt;- read_subtype_range_resid(subtype)
+
+df_cor &lt;- df %&gt;%
+  select(pop, status, rp1, rp2, p1, p2, res) %&gt;%
+  pivot_wider(names_from = pop, values_from = res) %&gt;%
+  select_if(is.numeric) %&gt;%
+  group_by(rp1, rp2) %&gt;%
+  nest() %&gt;%
+   mutate(
+    correlations = map(data, \(x) correlate(x, quiet = T))
+  ) %&gt;%
+  unnest(correlations) %&gt;%
+  select(-data)
+
+pops &lt;- c(&quot;AFR&quot;, &quot;AMR&quot;, &quot;EAS&quot;, &quot;EUR&quot;, &quot;SAS&quot;)
+
+for(i in 1:4){
+  for(j in (i+1):5){
+    p &lt;- df_cor %&gt;%
+      filter(term == pops[i]) %&gt;%
+      select(rp1, rp2, !!sym(pops[j])) %&gt;%
+      ggplot(aes(x = rp2, y = rp1, fill = !!sym(pops[j]))) +
+      geom_tile() +
+      scale_fill_distiller(palette = &quot;RdBu&quot;, limits = c(-1,1)) +
+      theme_bw() +
+      xlab(&quot;Relative Position&quot;) +
+      ylab(&quot;Relative Position&quot;) +
+      labs(fill = &quot;Residual \nCorrelation&quot;) +
+      theme(legend.position = c(.1, .8)) +
+      annotate(&quot;text&quot;, x = 0, y = 9, label= paste0(pops[i], &quot; - &quot;, pops[j]))
+    print(p)
+  }
+}</code></pre>
+<p><img src="figure/NYGC_two_pos_comp.Rmd/unnamed-chunk-27-1.png" width="672" style="display: block; margin: auto;" /><img src="figure/NYGC_two_pos_comp.Rmd/unnamed-chunk-27-2.png" width="672" style="display: block; margin: auto;" /><img src="figure/NYGC_two_pos_comp.Rmd/unnamed-chunk-27-3.png" width="672" style="display: block; margin: auto;" /><img src="figure/NYGC_two_pos_comp.Rmd/unnamed-chunk-27-4.png" width="672" style="display: block; margin: auto;" /><img src="figure/NYGC_two_pos_comp.Rmd/unnamed-chunk-27-5.png" width="672" style="display: block; margin: auto;" /><img src="figure/NYGC_two_pos_comp.Rmd/unnamed-chunk-27-6.png" width="672" style="display: block; margin: auto;" /><img src="figure/NYGC_two_pos_comp.Rmd/unnamed-chunk-27-7.png" width="672" style="display: block; margin: auto;" /><img src="figure/NYGC_two_pos_comp.Rmd/unnamed-chunk-27-8.png" width="672" style="display: block; margin: auto;" /><img src="figure/NYGC_two_pos_comp.Rmd/unnamed-chunk-27-9.png" width="672" style="display: block; margin: auto;" /><img src="figure/NYGC_two_pos_comp.Rmd/unnamed-chunk-27-10.png" width="672" style="display: block; margin: auto;" /></p>
+</div>
+<div id="c-g" class="section level3">
+<h3>C &gt; G</h3>
+<pre class="r"><code>subtype &lt;- &quot;GC_CG&quot;
+df &lt;- read_subtype_range_resid(subtype)
+
+df_cor &lt;- df %&gt;%
+  select(pop, status, rp1, rp2, p1, p2, res) %&gt;%
+  pivot_wider(names_from = pop, values_from = res) %&gt;%
+  select_if(is.numeric) %&gt;%
+  group_by(rp1, rp2) %&gt;%
+  nest() %&gt;%
+   mutate(
+    correlations = map(data, \(x) correlate(x, quiet = T))
+  ) %&gt;%
+  unnest(correlations) %&gt;%
+  select(-data)
+
+pops &lt;- c(&quot;AFR&quot;, &quot;AMR&quot;, &quot;EAS&quot;, &quot;EUR&quot;, &quot;SAS&quot;)
+
+for(i in 1:4){
+  for(j in (i+1):5){
+    p &lt;- df_cor %&gt;%
+      filter(term == pops[i]) %&gt;%
+      select(rp1, rp2, !!sym(pops[j])) %&gt;%
+      ggplot(aes(x = rp2, y = rp1, fill = !!sym(pops[j]))) +
+      geom_tile() +
+      scale_fill_distiller(palette = &quot;RdBu&quot;, limits = c(-1,1)) +
+      theme_bw() +
+      xlab(&quot;Relative Position&quot;) +
+      ylab(&quot;Relative Position&quot;) +
+      labs(fill = &quot;Residual \nCorrelation&quot;) +
+      theme(legend.position = c(.1, .8)) +
+      annotate(&quot;text&quot;, x = 0, y = 9, label= paste0(pops[i], &quot; - &quot;, pops[j]))
+    print(p)
+  }
+}</code></pre>
+<p><img src="figure/NYGC_two_pos_comp.Rmd/unnamed-chunk-28-1.png" width="672" style="display: block; margin: auto;" /><img src="figure/NYGC_two_pos_comp.Rmd/unnamed-chunk-28-2.png" width="672" style="display: block; margin: auto;" /><img src="figure/NYGC_two_pos_comp.Rmd/unnamed-chunk-28-3.png" width="672" style="display: block; margin: auto;" /><img src="figure/NYGC_two_pos_comp.Rmd/unnamed-chunk-28-4.png" width="672" style="display: block; margin: auto;" /><img src="figure/NYGC_two_pos_comp.Rmd/unnamed-chunk-28-5.png" width="672" style="display: block; margin: auto;" /><img src="figure/NYGC_two_pos_comp.Rmd/unnamed-chunk-28-6.png" width="672" style="display: block; margin: auto;" /><img src="figure/NYGC_two_pos_comp.Rmd/unnamed-chunk-28-7.png" width="672" style="display: block; margin: auto;" /><img src="figure/NYGC_two_pos_comp.Rmd/unnamed-chunk-28-8.png" width="672" style="display: block; margin: auto;" /><img src="figure/NYGC_two_pos_comp.Rmd/unnamed-chunk-28-9.png" width="672" style="display: block; margin: auto;" /><img src="figure/NYGC_two_pos_comp.Rmd/unnamed-chunk-28-10.png" width="672" style="display: block; margin: auto;" /></p>
+</div>
+<div id="cpg-tpg" class="section level3">
+<h3>CpG &gt; TpG</h3>
+<pre class="r"><code>subtype &lt;- &quot;cpg_GC_AT&quot;
+df &lt;- read_subtype_range_resid(subtype)
+
+df_cor &lt;- df %&gt;%
+  select(pop, status, rp1, rp2, p1, p2, res) %&gt;%
+  pivot_wider(names_from = pop, values_from = res) %&gt;%
+  select_if(is.numeric) %&gt;%
+  group_by(rp1, rp2) %&gt;%
+  nest() %&gt;%
+   mutate(
+    correlations = map(data, \(x) correlate(x, quiet = T))
+  ) %&gt;%
+  unnest(correlations) %&gt;%
+  select(-data)
+
+pops &lt;- c(&quot;AFR&quot;, &quot;AMR&quot;, &quot;EAS&quot;, &quot;EUR&quot;, &quot;SAS&quot;)
+
+for(i in 1:4){
+  for(j in (i+1):5){
+    p &lt;- df_cor %&gt;%
+      filter(term == pops[i]) %&gt;%
+      select(rp1, rp2, !!sym(pops[j])) %&gt;%
+      ggplot(aes(x = rp2, y = rp1, fill = !!sym(pops[j]))) +
+      geom_tile() +
+      scale_fill_distiller(palette = &quot;RdBu&quot;, limits = c(-1,1)) +
+      theme_bw() +
+      xlab(&quot;Relative Position&quot;) +
+      ylab(&quot;Relative Position&quot;) +
+      labs(fill = &quot;Residual \nCorrelation&quot;) +
+      theme(legend.position = c(.1, .8)) +
+      annotate(&quot;text&quot;, x = 0, y = 9, label= paste0(pops[i], &quot; - &quot;, pops[j]))
+    print(p)
+  }
+}</code></pre>
+<p><img src="figure/NYGC_two_pos_comp.Rmd/unnamed-chunk-29-1.png" width="672" style="display: block; margin: auto;" /><img src="figure/NYGC_two_pos_comp.Rmd/unnamed-chunk-29-2.png" width="672" style="display: block; margin: auto;" /><img src="figure/NYGC_two_pos_comp.Rmd/unnamed-chunk-29-3.png" width="672" style="display: block; margin: auto;" /><img src="figure/NYGC_two_pos_comp.Rmd/unnamed-chunk-29-4.png" width="672" style="display: block; margin: auto;" /><img src="figure/NYGC_two_pos_comp.Rmd/unnamed-chunk-29-5.png" width="672" style="display: block; margin: auto;" /><img src="figure/NYGC_two_pos_comp.Rmd/unnamed-chunk-29-6.png" width="672" style="display: block; margin: auto;" /><img src="figure/NYGC_two_pos_comp.Rmd/unnamed-chunk-29-7.png" width="672" style="display: block; margin: auto;" /><img src="figure/NYGC_two_pos_comp.Rmd/unnamed-chunk-29-8.png" width="672" style="display: block; margin: auto;" /><img src="figure/NYGC_two_pos_comp.Rmd/unnamed-chunk-29-9.png" width="672" style="display: block; margin: auto;" /><img src="figure/NYGC_two_pos_comp.Rmd/unnamed-chunk-29-10.png" width="672" style="display: block; margin: auto;" /></p>
+</div>
+<div id="cpg-apg" class="section level3">
+<h3>CpG &gt; ApG</h3>
+<pre class="r"><code>subtype &lt;- &quot;cpg_GC_TA&quot;
+df &lt;- read_subtype_range_resid(subtype)
+
+df_cor &lt;- df %&gt;%
+  select(pop, status, rp1, rp2, p1, p2, res) %&gt;%
+  pivot_wider(names_from = pop, values_from = res) %&gt;%
+  select_if(is.numeric) %&gt;%
+  group_by(rp1, rp2) %&gt;%
+  nest() %&gt;%
+   mutate(
+    correlations = map(data, \(x) correlate(x, quiet = T))
+  ) %&gt;%
+  unnest(correlations) %&gt;%
+  select(-data)
+
+pops &lt;- c(&quot;AFR&quot;, &quot;AMR&quot;, &quot;EAS&quot;, &quot;EUR&quot;, &quot;SAS&quot;)
+
+for(i in 1:4){
+  for(j in (i+1):5){
+    p &lt;- df_cor %&gt;%
+      filter(term == pops[i]) %&gt;%
+      select(rp1, rp2, !!sym(pops[j])) %&gt;%
+      ggplot(aes(x = rp2, y = rp1, fill = !!sym(pops[j]))) +
+      geom_tile() +
+      scale_fill_distiller(palette = &quot;RdBu&quot;, limits = c(-1,1)) +
+      theme_bw() +
+      xlab(&quot;Relative Position&quot;) +
+      ylab(&quot;Relative Position&quot;) +
+      labs(fill = &quot;Residual \nCorrelation&quot;) +
+      theme(legend.position = c(.1, .8)) +
+      annotate(&quot;text&quot;, x = 0, y = 9, label= paste0(pops[i], &quot; - &quot;, pops[j]))
+    print(p)
+  }
+}</code></pre>
+<p><img src="figure/NYGC_two_pos_comp.Rmd/unnamed-chunk-30-1.png" width="672" style="display: block; margin: auto;" /><img src="figure/NYGC_two_pos_comp.Rmd/unnamed-chunk-30-2.png" width="672" style="display: block; margin: auto;" /><img src="figure/NYGC_two_pos_comp.Rmd/unnamed-chunk-30-3.png" width="672" style="display: block; margin: auto;" /><img src="figure/NYGC_two_pos_comp.Rmd/unnamed-chunk-30-4.png" width="672" style="display: block; margin: auto;" /><img src="figure/NYGC_two_pos_comp.Rmd/unnamed-chunk-30-5.png" width="672" style="display: block; margin: auto;" /><img src="figure/NYGC_two_pos_comp.Rmd/unnamed-chunk-30-6.png" width="672" style="display: block; margin: auto;" /><img src="figure/NYGC_two_pos_comp.Rmd/unnamed-chunk-30-7.png" width="672" style="display: block; margin: auto;" /><img src="figure/NYGC_two_pos_comp.Rmd/unnamed-chunk-30-8.png" width="672" style="display: block; margin: auto;" /><img src="figure/NYGC_two_pos_comp.Rmd/unnamed-chunk-30-9.png" width="672" style="display: block; margin: auto;" /><img src="figure/NYGC_two_pos_comp.Rmd/unnamed-chunk-30-10.png" width="672" style="display: block; margin: auto;" /></p>
+</div>
+<div id="cpg-gpg" class="section level3">
+<h3>CpG &gt; GpG</h3>
+<pre class="r"><code>subtype &lt;- &quot;cpg_GC_CG&quot;
+df &lt;- read_subtype_range_resid(subtype)
+
+df_cor &lt;- df %&gt;%
+  select(pop, status, rp1, rp2, p1, p2, res) %&gt;%
+  pivot_wider(names_from = pop, values_from = res) %&gt;%
+  select_if(is.numeric) %&gt;%
+  group_by(rp1, rp2) %&gt;%
+  nest() %&gt;%
+   mutate(
+    correlations = map(data, \(x) correlate(x, quiet = T))
+  ) %&gt;%
+  unnest(correlations) %&gt;%
+  select(-data)
+
+pops &lt;- c(&quot;AFR&quot;, &quot;AMR&quot;, &quot;EAS&quot;, &quot;EUR&quot;, &quot;SAS&quot;)
+
+for(i in 1:4){
+  for(j in (i+1):5){
+    p &lt;- df_cor %&gt;%
+      filter(term == pops[i]) %&gt;%
+      select(rp1, rp2, !!sym(pops[j])) %&gt;%
+      ggplot(aes(x = rp2, y = rp1, fill = !!sym(pops[j]))) +
+      geom_tile() +
+      scale_fill_distiller(palette = &quot;RdBu&quot;, limits = c(-1,1)) +
+      theme_bw() +
+      xlab(&quot;Relative Position&quot;) +
+      ylab(&quot;Relative Position&quot;) +
+      labs(fill = &quot;Residual \nCorrelation&quot;) +
+      theme(legend.position = c(.1, .8)) +
+      annotate(&quot;text&quot;, x = 0, y = 9, label= paste0(pops[i], &quot; - &quot;, pops[j]))
+    print(p)
+  }
+}</code></pre>
+<p><img src="figure/NYGC_two_pos_comp.Rmd/unnamed-chunk-31-1.png" width="672" style="display: block; margin: auto;" /><img src="figure/NYGC_two_pos_comp.Rmd/unnamed-chunk-31-2.png" width="672" style="display: block; margin: auto;" /><img src="figure/NYGC_two_pos_comp.Rmd/unnamed-chunk-31-3.png" width="672" style="display: block; margin: auto;" /><img src="figure/NYGC_two_pos_comp.Rmd/unnamed-chunk-31-4.png" width="672" style="display: block; margin: auto;" /><img src="figure/NYGC_two_pos_comp.Rmd/unnamed-chunk-31-5.png" width="672" style="display: block; margin: auto;" /><img src="figure/NYGC_two_pos_comp.Rmd/unnamed-chunk-31-6.png" width="672" style="display: block; margin: auto;" /><img src="figure/NYGC_two_pos_comp.Rmd/unnamed-chunk-31-7.png" width="672" style="display: block; margin: auto;" /><img src="figure/NYGC_two_pos_comp.Rmd/unnamed-chunk-31-8.png" width="672" style="display: block; margin: auto;" /><img src="figure/NYGC_two_pos_comp.Rmd/unnamed-chunk-31-9.png" width="672" style="display: block; margin: auto;" /><img src="figure/NYGC_two_pos_comp.Rmd/unnamed-chunk-31-10.png" width="672" style="display: block; margin: auto;" /></p>
 <br>
 <p>
 <button type="button" class="btn btn-default btn-workflowr btn-workflowr-sessioninfo" data-toggle="collapse" data-target="#workflowr-sessioninfo" style="display: block;">
@@ -2851,6 +3810,7 @@ loaded via a namespace (and not attached):
 [81] bslib_0.3.1        Rcpp_1.0.10        coda_0.19-4        nlme_3.1-162      
 [85] whisker_0.4        xfun_0.39          fs_1.6.2           zoo_1.8-12        
 [89] getPass_0.2-2      sjmisc_2.8.9       pkgconfig_2.0.3   </code></pre>
+</div>
 </div>
 </div>
 
