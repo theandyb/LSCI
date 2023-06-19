@@ -348,3 +348,4 @@ read_csv(paste0(data_dir, pop, "/AT_CG.csv"), show_col_types = FALSE) %>%
 Again, we see that across all populations the top four statistics are at the same pairs of positions, with only the order slightly adjusted.
 
 
+## Residual-level Comparisons
