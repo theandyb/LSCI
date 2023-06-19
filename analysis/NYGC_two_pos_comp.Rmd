@@ -418,24 +418,10 @@ df_cor <- df %>%
   group_by(rp1, rp2) %>%
   nest() %>%
    mutate(
-    correlations = map(data, correlate)
+    correlations = map(data, \(x) correlate(x, quiet = T))
   ) %>%
   unnest(correlations) %>%
   select(-data)
-```
-
-```{r}
-df_cor %>%
-  filter(term == "AFR") %>%
-  select(rp1, rp2, !!sym("AMR")) %>%
-  ggplot(aes(x = rp2, y = rp1, fill = !!sym("AMR"))) +
-  geom_tile() +
-  scale_fill_distiller(palette = "RdBu", limits = c(-1,1)) +
-  theme_bw() +
-  xlab("Relative Position") +
-  ylab("Relative Position") +
-  labs(fill = "Residual \nCorrelation") +
-  theme(legend.position = c(.1, .8))
 ```
 
 ```{r}
