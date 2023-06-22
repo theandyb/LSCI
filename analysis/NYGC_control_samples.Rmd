@@ -1,0 +1,221 @@
+---
+title: "NYGC_control_samples"
+author: "Andy Beck"
+date: "2023-06-21"
+output: workflowr::wflow_html
+editor_options:
+  chunk_output_type: console
+---
+
+```{r message=FALSE, warning=FALSE}
+library(tidyverse)
+base_dir <- "/net/snowwhite/home/beckandy/research/1000G_NYGC_LSCI/output/controls/"
+singlepos_dir <- "/net/snowwhite/home/beckandy/research/1000G_NYGC_LSCI/output/single_pos/"
+```
+
+
+## Introduction
+
+The purpose of this document is to collect summary statistics regarding the sampled control non-variant sites for each subtype. 
+
+### Data Structure
+
+Inside the directory base directory (`base_dir`) are folders for each 1kGP population (and `ALL`). In each of these, there is a csv file for each subtype (noting here that the files are headerless). The columns of this file are:
+
+1. chromosome
+2. singleton position
+3. ref
+4. ref
+5. distance between singleton and control
+6. control position
+7. 3mer motif centered at control
+
+### Simple functions
+
+```{r}
+get_dist_column <- function(subtype, pop, 
+                            base_dir = "/net/snowwhite/home/beckandy/research/1000G_NYGC_LSCI/output/controls/"){
+  f_name <- paste0(base_dir, pop, "/", subtype, ".csv")
+  awk_cmd <- paste0("awk -F, '{print($6)}' ", f_name)
+  
+  vroom::vroom(pipe(awk_cmd), col_names = "pos", delim = ",")
+}
+
+load_sp_res <- function(subtype, pop, suffix = "",
+                        base_dir = "/net/snowwhite/home/beckandy/research/1000G_NYGC_LSCI/output/single_pos/"){
+  f_name <- paste0(base_dir, pop, "/", subtype, ".csv", suffix)
+  read_csv(f_name, show_col_types = FALSE)
+}
+```
+
+## Distance Distributions
+
+### A > C
+
+```{r, message=FALSE, warning=FALSE}
+subtype <- "AT_CG"
+df <- get_dist_column(subtype, "ALL")
+```
+
+Let's look at a density plot of the distances for this subtype:
+
+```{r}
+df %>%
+  ggplot(aes(x = pos)) +
+  geom_density()
+```
+
+## Near versus Far Results
+
+### A > C
+
+```{r}
+subtype <- "AT_CG"
+df_min <- load_sp_res(subtype, "ALL", suffix = ".min")
+df_max <- load_sp_res(subtype, "ALL", suffix = ".max")
+
+df_min$re <- df_min$dev / (2* (df_min$singletons + df_min$controls))
+df_max$re <- df_max$dev / (2* (df_max$singletons + df_max$controls))
+```
+
+Plot results against each other:
+
+```{r}
+df_min %>%
+  rename(close = re) %>%
+  select(offset, close) %>%
+  inner_join({
+    df_max %>%
+      rename(far = re) %>%
+      select(offset, far)
+  }, by = "offset") %>%
+  ggplot(aes(x = close, y = far)) +
+  geom_point() +
+  geom_abline(slope = 1, intercept = 0)
+
+df_min %>%
+  rename(close = re) %>%
+  select(offset, close) %>%
+  inner_join({
+    df_max %>%
+      rename(far = re) %>%
+      select(offset, far)
+  }, by = "offset") %>%
+  ggplot(aes(x = log10(close), y = log10(far))) +
+  geom_point() +
+  geom_abline(slope = 1, intercept = 0)
+```
+
+### A > G
+
+```{r}
+subtype <- "AT_GC"
+df_min <- load_sp_res(subtype, "ALL", suffix = ".min")
+df_max <- load_sp_res(subtype, "ALL", suffix = ".max")
+
+df_min$re <- df_min$dev / (2* (df_min$singletons + df_min$controls))
+df_max$re <- df_max$dev / (2* (df_max$singletons + df_max$controls))
+```
+
+```{r}
+df_min %>%
+  rename(close = re) %>%
+  select(offset, close) %>%
+  inner_join({
+    df_max %>%
+      rename(far = re) %>%
+      select(offset, far)
+  }, by = "offset") %>%
+  ggplot(aes(x = close, y = far)) +
+  geom_point() +
+  geom_abline(slope = 1, intercept = 0)
+
+df_min %>%
+  rename(close = re) %>%
+  select(offset, close) %>%
+  inner_join({
+    df_max %>%
+      rename(far = re) %>%
+      select(offset, far)
+  }, by = "offset") %>%
+  ggplot(aes(x = log10(close), y = log10(far))) +
+  geom_point() +
+  geom_abline(slope = 1, intercept = 0)
+```
+
+### A > T
+
+```{r}
+subtype <- "AT_TA"
+df_min <- load_sp_res(subtype, "ALL", suffix = ".min")
+df_max <- load_sp_res(subtype, "ALL", suffix = ".max")
+
+df_min$re <- df_min$dev / (2* (df_min$singletons + df_min$controls))
+df_max$re <- df_max$dev / (2* (df_max$singletons + df_max$controls))
+```
+
+```{r}
+df_min %>%
+  rename(close = re) %>%
+  select(offset, close) %>%
+  inner_join({
+    df_max %>%
+      rename(far = re) %>%
+      select(offset, far)
+  }, by = "offset") %>%
+  ggplot(aes(x = close, y = far)) +
+  geom_point() +
+  geom_abline(slope = 1, intercept = 0)
+
+df_min %>%
+  rename(close = re) %>%
+  select(offset, close) %>%
+  inner_join({
+    df_max %>%
+      rename(far = re) %>%
+      select(offset, far)
+  }, by = "offset") %>%
+  ggplot(aes(x = log10(close), y = log10(far))) +
+  geom_point() +
+  geom_abline(slope = 1, intercept = 0)
+```
+
+### TEST
+
+```{r}
+df_min <- load_sp_res("AT_TA", "ALL", suffix = ".min")
+df_max <- load_sp_res("AT_GC", "ALL", suffix = ".min")
+
+df_min$re <- df_min$dev / (2* (df_min$singletons + df_min$controls))
+df_max$re <- df_max$dev / (2* (df_max$singletons + df_max$controls))
+```
+
+```{r}
+df_min %>%
+  rename(close = re) %>%
+  select(offset, close) %>%
+  inner_join({
+    df_max %>%
+      rename(far = re) %>%
+      select(offset, far)
+  }, by = "offset") %>%
+  ggplot(aes(x = close, y = far)) +
+  geom_point() +
+  geom_abline(slope = 1, intercept = 0) +
+  xlab("AT_TA far") +
+  ylab("AT_GC far")
+
+df_min %>%
+  rename(close = re) %>%
+  select(offset, close) %>%
+  inner_join({
+    df_max %>%
+      rename(far = re) %>%
+      select(offset, far)
+  }, by = "offset") %>%
+  ggplot(aes(x = log10(close), y = log10(far))) +
+  geom_point() +
+  geom_abline(slope = 1, intercept = 0) +
+  xlab("AT_TA far") +
+  ylab("AT_GC far")
+```
