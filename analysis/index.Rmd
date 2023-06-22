@@ -26,6 +26,7 @@ To address these questions, we characterize the distributions of nucleotides fla
 * [Single and Two Position RE Vals Ranked](NYGC_rank_re_vals.html)
 * [Two Position Models: for ALL](NYGC_two_position_ALL.html)
 * [Two Position Models: Population Comparisons](NYGC_two_pos_comp.html)
+* [Control Sample Diagnostics](NYGC_control_samples.Rmd)
 
 ## BRIDGES Analyses
 
