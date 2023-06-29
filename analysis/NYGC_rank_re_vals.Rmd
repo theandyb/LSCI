@@ -146,7 +146,7 @@ df %>%
   scale_colour_manual(values=cbPalette, name = "Type", breaks=c("Single","Two-Way","Three-Way")) +
   scale_shape_discrete(name = "Type", breaks=c("Single","Two-Way","Three-Way")) +
   scale_x_log10() +
-  geom_abline(slope = 0, intercept = 0.05) +
+  geom_abline(slope = 0, intercept = 0.1) +
   theme(legend.position=c(.8, .8)) +
   ylab("% of Max RE") +
   xlab(paste0("Within-class Rank: ", subtype_print_names(subtype)))
@@ -180,7 +180,7 @@ df %>%
   scale_colour_manual(values=cbPalette, name = "Type", breaks=c("Single","Two-Way","Three-Way")) +
   scale_shape_discrete(name = "Type", breaks=c("Single","Two-Way","Three-Way")) +
   scale_x_log10() +
-  geom_abline(slope = 0, intercept = 0.05) +
+  geom_abline(slope = 0, intercept = 0.1) +
   theme(legend.position=c(.8, .8)) +
   ylab("% of Max RE") +
   xlab(paste0("Within-class Rank: ", subtype_print_names(subtype)))
@@ -212,7 +212,7 @@ df %>%
   scale_colour_manual(values=cbPalette, name = "Type", breaks=c("Single","Two-Way","Three-Way")) +
   scale_shape_discrete(name = "Type", breaks=c("Single","Two-Way","Three-Way")) +
   scale_x_log10() +
-  geom_abline(slope = 0, intercept = 0.05) +
+  geom_abline(slope = 0, intercept = 0.1) +
   theme(legend.position=c(.8, .8)) +
   ylab("% of Max RE") +
   xlab(paste0("Within-class Rank: ", subtype_print_names(subtype)))
@@ -244,7 +244,7 @@ df %>%
   scale_colour_manual(values=cbPalette, name = "Type", breaks=c("Single","Two-Way","Three-Way")) +
   scale_shape_discrete(name = "Type", breaks=c("Single","Two-Way","Three-Way")) +
   scale_x_log10() +
-  geom_abline(slope = 0, intercept = 0.05) +
+  geom_abline(slope = 0, intercept = 0.1) +
   theme(legend.position=c(.8, .8)) +
   ylab("% of Max RE") +
   xlab(paste0("Within-class Rank: ", subtype_print_names(subtype)))
@@ -276,7 +276,7 @@ df %>%
   scale_colour_manual(values=cbPalette, name = "Type", breaks=c("Single","Two-Way","Three-Way")) +
   scale_shape_discrete(name = "Type", breaks=c("Single","Two-Way","Three-Way")) +
   scale_x_log10() +
-  geom_abline(slope = 0, intercept = 0.05) +
+  geom_abline(slope = 0, intercept = 0.1) +
   theme(legend.position=c(.8, .8)) +
   ylab("% of Max RE") +
   xlab(paste0("Within-class Rank: ", subtype_print_names(subtype)))
@@ -308,7 +308,7 @@ df %>%
   scale_colour_manual(values=cbPalette, name = "Type", breaks=c("Single","Two-Way","Three-Way")) +
   scale_shape_discrete(name = "Type", breaks=c("Single","Two-Way","Three-Way")) +
   scale_x_log10() +
-  geom_abline(slope = 0, intercept = 0.05) +
+  geom_abline(slope = 0, intercept = 0.1) +
   theme(legend.position=c(.8, .8)) +
   ylab("% of Max RE") +
   xlab(paste0("Within-class Rank: ", subtype_print_names(subtype)))
@@ -340,7 +340,7 @@ df %>%
   scale_colour_manual(values=cbPalette, name = "Type", breaks=c("Single","Two-Way","Three-Way")) +
   scale_shape_discrete(name = "Type", breaks=c("Single","Two-Way","Three-Way")) +
   scale_x_log10() +
-  geom_abline(slope = 0, intercept = 0.05) +
+  geom_abline(slope = 0, intercept = 0.1) +
   theme(legend.position=c(.8, .8)) +
   ylab("% of Max RE") +
   xlab(paste0("Within-class Rank: ", subtype_print_names(subtype)))
@@ -372,7 +372,7 @@ df %>%
   scale_colour_manual(values=cbPalette, name = "Type", breaks=c("Single","Two-Way","Three-Way")) +
   scale_shape_discrete(name = "Type", breaks=c("Single","Two-Way","Three-Way")) +
   scale_x_log10() +
-  geom_abline(slope = 0, intercept = 0.05) +
+  geom_abline(slope = 0, intercept = 0.1) +
   theme(legend.position=c(.8, .8)) +
   ylab("% of Max RE") +
   xlab(paste0("Within-class Rank: ", subtype_print_names(subtype)))
@@ -404,7 +404,7 @@ df %>%
   scale_colour_manual(values=cbPalette, name = "Type", breaks=c("Single","Two-Way","Three-Way")) +
   scale_shape_discrete(name = "Type", breaks=c("Single","Two-Way","Three-Way")) +
   scale_x_log10() +
-  geom_abline(slope = 0, intercept = 0.05) +
+  geom_abline(slope = 0, intercept = 0.1) +
   theme(legend.position=c(.8, .8)) +
   ylab("% of Max RE") +
   xlab(paste0("Within-class Rank: ", subtype_print_names(subtype)))
