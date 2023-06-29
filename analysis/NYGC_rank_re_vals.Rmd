@@ -104,6 +104,16 @@ read_one_two_three <- function(pop, subtype,
     arrange(desc(re))
   return(df)
 }
+
+subtype_print_names <- function(st){
+  if(str_starts(st, "AT")){
+    return(paste0("A → ", str_sub(st, 4, 4)))
+  } else if(str_starts(st, "GC")){
+    return(paste0("C → ", str_sub(st, 5, 5)))
+  } else{
+    return(paste0("CpG → ", str_sub(st, 9, 9), "pG"))
+  }
+}
 ```
 
 ## Subtype Comparisons
@@ -138,8 +148,8 @@ df %>%
   scale_x_log10() +
   geom_abline(slope = 0, intercept = 0.05) +
   theme(legend.position=c(.8, .8)) +
-  xlab("% of Max RE") +
-  ylab("Within-class Rank")
+  ylab("% of Max RE") +
+  xlab(paste0("Within-class Rank: ", subtype_print_names(subtype)))
 ```
 
 
@@ -172,8 +182,8 @@ df %>%
   scale_x_log10() +
   geom_abline(slope = 0, intercept = 0.05) +
   theme(legend.position=c(.8, .8)) +
-  xlab("% of Max RE") +
-  ylab("Within-class Rank")
+  ylab("% of Max RE") +
+  xlab(paste0("Within-class Rank: ", subtype_print_names(subtype)))
 ```
 
 ### A to T
@@ -204,8 +214,8 @@ df %>%
   scale_x_log10() +
   geom_abline(slope = 0, intercept = 0.05) +
   theme(legend.position=c(.8, .8)) +
-  xlab("% of Max RE") +
-  ylab("Within-class Rank")
+  ylab("% of Max RE") +
+  xlab(paste0("Within-class Rank: ", subtype_print_names(subtype)))
 ```
 
 ### C to A
@@ -236,8 +246,8 @@ df %>%
   scale_x_log10() +
   geom_abline(slope = 0, intercept = 0.05) +
   theme(legend.position=c(.8, .8)) +
-  xlab("% of Max RE") +
-  ylab("Within-class Rank")
+  ylab("% of Max RE") +
+  xlab(paste0("Within-class Rank: ", subtype_print_names(subtype)))
 ```
 
 ### CpG to ApG
@@ -268,8 +278,8 @@ df %>%
   scale_x_log10() +
   geom_abline(slope = 0, intercept = 0.05) +
   theme(legend.position=c(.8, .8)) +
-  xlab("% of Max RE") +
-  ylab("Within-class Rank")
+  ylab("% of Max RE") +
+  xlab(paste0("Within-class Rank: ", subtype_print_names(subtype)))
 ```
 
 ### C to T
@@ -300,8 +310,8 @@ df %>%
   scale_x_log10() +
   geom_abline(slope = 0, intercept = 0.05) +
   theme(legend.position=c(.8, .8)) +
-  xlab("% of Max RE") +
-  ylab("Within-class Rank")
+  ylab("% of Max RE") +
+  xlab(paste0("Within-class Rank: ", subtype_print_names(subtype)))
 ```
 
 ### CpG to TpG
@@ -332,8 +342,8 @@ df %>%
   scale_x_log10() +
   geom_abline(slope = 0, intercept = 0.05) +
   theme(legend.position=c(.8, .8)) +
-  xlab("% of Max RE") +
-  ylab("Within-class Rank")
+  ylab("% of Max RE") +
+  xlab(paste0("Within-class Rank: ", subtype_print_names(subtype)))
 ```
 
 ### C to G
@@ -364,8 +374,8 @@ df %>%
   scale_x_log10() +
   geom_abline(slope = 0, intercept = 0.05) +
   theme(legend.position=c(.8, .8)) +
-  xlab("% of Max RE") +
-  ylab("Within-class Rank")
+  ylab("% of Max RE") +
+  xlab(paste0("Within-class Rank: ", subtype_print_names(subtype)))
 ```
 
 ### CpG to GpG
@@ -396,6 +406,6 @@ df %>%
   scale_x_log10() +
   geom_abline(slope = 0, intercept = 0.05) +
   theme(legend.position=c(.8, .8)) +
-  xlab("% of Max RE") +
-  ylab("Within-class Rank")
+  ylab("% of Max RE") +
+  xlab(paste0("Within-class Rank: ", subtype_print_names(subtype)))
 ```
