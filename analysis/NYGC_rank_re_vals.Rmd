@@ -46,6 +46,15 @@ read_two_subtype_pop_res <- function(pop, subtype,
   return(df)
 }
 
+read_three_subtype_pop_res <- function(pop, subtype, 
+                                        data_dir = "/net/snowwhite/home/beckandy/research/1000G_NYGC_LSCI/output/three_pos/"){
+  fname <- paste0(data_dir, pop, "/", subtype, ".csv")
+  df <- read_csv(fname, show_col_types = FALSE) %>%
+    rowwise() %>%
+    mutate(re = dev / (2 * (singletons + controls)))
+  return(df)
+}
+
 read_both_subtype_pop_res <- function(pop, subtype, 
                                       single_dir="/net/snowwhite/home/beckandy/research/1000G_NYGC_LSCI/output/single_pos/",
                                       two_dir = "/net/snowwhite/home/beckandy/research/1000G_NYGC_LSCI/output/two_pos/"){
@@ -63,6 +72,38 @@ read_both_subtype_pop_res <- function(pop, subtype,
     arrange(desc(re))
   return(df)
 }
+
+read_one_two_three <- function(pop, subtype, 
+                                      single_dir="/net/snowwhite/home/beckandy/research/1000G_NYGC_LSCI/output/single_pos/",
+                                      two_dir = "/net/snowwhite/home/beckandy/research/1000G_NYGC_LSCI/output/two_pos/",
+                               three_dir = "/net/snowwhite/home/beckandy/research/1000G_NYGC_LSCI/output/three_pos/"){
+  df_s <- read_single_subtype_pop_res(pop, subtype, single_dir) %>%
+    select(offset, dev, re) %>%
+    filter(abs(offset) < 21) %>%
+    mutate(offset = as.character(offset))
+  
+  df_t <- read_two_subtype_pop_res(pop, subtype, two_dir) %>%
+    select(rp1, rp2, dev, re) %>%
+    rowwise() %>%
+    mutate(offset = paste0(rp1, ", ", rp2)) %>%
+    select(offset, dev, re)
+  
+  df_trip <- read_three_subtype_pop_res(pop, subtype, three_dir) %>%
+    select(rp1, rp2, rp3, dev, re) %>%
+    rowwise() %>%
+    mutate(offset = paste0(rp1, ", ", rp2, ", ", rp3)) %>%
+    select(offset, dev, re)
+  
+  
+  df_s$type <- "Single"
+  df_t$type <- "Two-Way"
+  df_trip$type <- "Three-Way"
+  
+  df <- bind_rows(df_s, df_t) %>%
+    bind_rows(df_trip) %>%
+    arrange(desc(re))
+  return(df)
+}
 ```
 
 ## Subtype Comparisons
@@ -70,71 +111,291 @@ read_both_subtype_pop_res <- function(pop, subtype,
 ### A to C
 
 ```{r}
-df <- read_both_subtype_pop_res("ALL", "AT_CG")
+subtype <- "AT_CG"
+df <- read_one_two_three("ALL", subtype)
+
+max_re <- max(df$re)
+df$pct_max <- df$re / max_re
+df$rank <- rank(-df$re)
+df <- df %>%
+  group_by(type) %>%
+  mutate(class_rank = rank(-re))
 
 df %>% reactable()
 ```
 
+An attempt at a plot, if you might indulge me:
+
+```{r}
+df %>%
+  ggplot(aes(x = class_rank, 
+             y = pct_max, 
+             color = type, 
+             shape = type)) +
+  geom_point(size = 2.5) +
+  scale_colour_manual(values=cbPalette, name = "Type", breaks=c("Single","Two-Way","Three-Way")) +
+  scale_shape_discrete(name = "Type", breaks=c("Single","Two-Way","Three-Way")) +
+  scale_x_log10() +
+  geom_abline(slope = 0, intercept = 0.05) +
+  theme(legend.position=c(.8, .8)) +
+  xlab("% of Max RE") +
+  ylab("Within-class Rank")
+```
+
+
+
 ### A to G
 
 ```{r}
-df <- read_both_subtype_pop_res("ALL", "AT_GC")
+subtype <- "AT_GC"
+df <- read_one_two_three("ALL", subtype)
+
+max_re <- max(df$re)
+df$pct_max <- df$re / max_re
+df$rank <- rank(-df$re)
+df <- df %>%
+  group_by(type) %>%
+  mutate(class_rank = rank(-re))
 
 df %>% reactable()
+```
+
+```{r}
+df %>%
+  ggplot(aes(x = class_rank, 
+             y = pct_max, 
+             color = type, 
+             shape = type)) +
+  geom_point(size = 2.5) +
+  scale_colour_manual(values=cbPalette, name = "Type", breaks=c("Single","Two-Way","Three-Way")) +
+  scale_shape_discrete(name = "Type", breaks=c("Single","Two-Way","Three-Way")) +
+  scale_x_log10() +
+  geom_abline(slope = 0, intercept = 0.05) +
+  theme(legend.position=c(.8, .8)) +
+  xlab("% of Max RE") +
+  ylab("Within-class Rank")
 ```
 
 ### A to T
 
 ```{r}
-df <- read_both_subtype_pop_res("ALL", "AT_TA")
+subtype <- "AT_TA"
+df <- read_one_two_three("ALL", subtype)
+
+max_re <- max(df$re)
+df$pct_max <- df$re / max_re
+df$rank <- rank(-df$re)
+df <- df %>%
+  group_by(type) %>%
+  mutate(class_rank = rank(-re))
 
 df %>% reactable()
+```
+
+```{r}
+df %>%
+  ggplot(aes(x = class_rank, 
+             y = pct_max, 
+             color = type, 
+             shape = type)) +
+  geom_point(size = 2.5) +
+  scale_colour_manual(values=cbPalette, name = "Type", breaks=c("Single","Two-Way","Three-Way")) +
+  scale_shape_discrete(name = "Type", breaks=c("Single","Two-Way","Three-Way")) +
+  scale_x_log10() +
+  geom_abline(slope = 0, intercept = 0.05) +
+  theme(legend.position=c(.8, .8)) +
+  xlab("% of Max RE") +
+  ylab("Within-class Rank")
 ```
 
 ### C to A
 
 ```{r}
-df <- read_both_subtype_pop_res("ALL", "GC_TA")
+subtype <- "GC_TA"
+df <- read_one_two_three("ALL", subtype)
+
+max_re <- max(df$re)
+df$pct_max <- df$re / max_re
+df$rank <- rank(-df$re)
+df <- df %>%
+  group_by(type) %>%
+  mutate(class_rank = rank(-re))
 
 df %>% reactable()
+```
+
+```{r}
+df %>%
+  ggplot(aes(x = class_rank, 
+             y = pct_max, 
+             color = type, 
+             shape = type)) +
+  geom_point(size = 2.5) +
+  scale_colour_manual(values=cbPalette, name = "Type", breaks=c("Single","Two-Way","Three-Way")) +
+  scale_shape_discrete(name = "Type", breaks=c("Single","Two-Way","Three-Way")) +
+  scale_x_log10() +
+  geom_abline(slope = 0, intercept = 0.05) +
+  theme(legend.position=c(.8, .8)) +
+  xlab("% of Max RE") +
+  ylab("Within-class Rank")
 ```
 
 ### CpG to ApG
 
 ```{r}
-df <- read_both_subtype_pop_res("ALL", "cpg_GC_TA")
+subtype <- "cpg_GC_TA"
+df <- read_one_two_three("ALL", subtype)
+
+max_re <- max(df$re)
+df$pct_max <- df$re / max_re
+df$rank <- rank(-df$re)
+df <- df %>%
+  group_by(type) %>%
+  mutate(class_rank = rank(-re))
 
 df %>% reactable()
+```
+
+```{r}
+df %>%
+  ggplot(aes(x = class_rank, 
+             y = pct_max, 
+             color = type, 
+             shape = type)) +
+  geom_point(size = 2.5) +
+  scale_colour_manual(values=cbPalette, name = "Type", breaks=c("Single","Two-Way","Three-Way")) +
+  scale_shape_discrete(name = "Type", breaks=c("Single","Two-Way","Three-Way")) +
+  scale_x_log10() +
+  geom_abline(slope = 0, intercept = 0.05) +
+  theme(legend.position=c(.8, .8)) +
+  xlab("% of Max RE") +
+  ylab("Within-class Rank")
 ```
 
 ### C to T
 
 ```{r}
-df <- read_both_subtype_pop_res("ALL", "GC_AT")
+subtype <- "GC_AT"
+df <- read_one_two_three("ALL", subtype)
+
+max_re <- max(df$re)
+df$pct_max <- df$re / max_re
+df$rank <- rank(-df$re)
+df <- df %>%
+  group_by(type) %>%
+  mutate(class_rank = rank(-re))
 
 df %>% reactable()
+```
+
+```{r}
+df %>%
+  ggplot(aes(x = class_rank, 
+             y = pct_max, 
+             color = type, 
+             shape = type)) +
+  geom_point(size = 2.5) +
+  scale_colour_manual(values=cbPalette, name = "Type", breaks=c("Single","Two-Way","Three-Way")) +
+  scale_shape_discrete(name = "Type", breaks=c("Single","Two-Way","Three-Way")) +
+  scale_x_log10() +
+  geom_abline(slope = 0, intercept = 0.05) +
+  theme(legend.position=c(.8, .8)) +
+  xlab("% of Max RE") +
+  ylab("Within-class Rank")
 ```
 
 ### CpG to TpG
 
 ```{r}
-df <- read_both_subtype_pop_res("ALL", "cpg_GC_AT")
+subtype <- "cpg_GC_AT"
+df <- read_one_two_three("ALL", subtype)
+
+max_re <- max(df$re)
+df$pct_max <- df$re / max_re
+df$rank <- rank(-df$re)
+df <- df %>%
+  group_by(type) %>%
+  mutate(class_rank = rank(-re))
 
 df %>% reactable()
+```
+
+```{r}
+df %>%
+  ggplot(aes(x = class_rank, 
+             y = pct_max, 
+             color = type, 
+             shape = type)) +
+  geom_point(size = 2.5) +
+  scale_colour_manual(values=cbPalette, name = "Type", breaks=c("Single","Two-Way","Three-Way")) +
+  scale_shape_discrete(name = "Type", breaks=c("Single","Two-Way","Three-Way")) +
+  scale_x_log10() +
+  geom_abline(slope = 0, intercept = 0.05) +
+  theme(legend.position=c(.8, .8)) +
+  xlab("% of Max RE") +
+  ylab("Within-class Rank")
 ```
 
 ### C to G
 
 ```{r}
-df <- read_both_subtype_pop_res("ALL", "GC_CG")
+subtype <- "GC_CG"
+df <- read_one_two_three("ALL", subtype)
+
+max_re <- max(df$re)
+df$pct_max <- df$re / max_re
+df$rank <- rank(-df$re)
+df <- df %>%
+  group_by(type) %>%
+  mutate(class_rank = rank(-re))
 
 df %>% reactable()
+```
+
+```{r}
+df %>%
+  ggplot(aes(x = class_rank, 
+             y = pct_max, 
+             color = type, 
+             shape = type)) +
+  geom_point(size = 2.5) +
+  scale_colour_manual(values=cbPalette, name = "Type", breaks=c("Single","Two-Way","Three-Way")) +
+  scale_shape_discrete(name = "Type", breaks=c("Single","Two-Way","Three-Way")) +
+  scale_x_log10() +
+  geom_abline(slope = 0, intercept = 0.05) +
+  theme(legend.position=c(.8, .8)) +
+  xlab("% of Max RE") +
+  ylab("Within-class Rank")
 ```
 
 ### CpG to GpG
 
 ```{r}
-df <- read_both_subtype_pop_res("ALL", "cpg_GC_CG")
+subtype <- "cpg_GC_CG"
+df <- read_one_two_three("ALL", subtype)
+
+max_re <- max(df$re)
+df$pct_max <- df$re / max_re
+df$rank <- rank(-df$re)
+df <- df %>%
+  group_by(type) %>%
+  mutate(class_rank = rank(-re))
 
 df %>% reactable()
+```
+
+```{r}
+df %>%
+  ggplot(aes(x = class_rank, 
+             y = pct_max, 
+             color = type, 
+             shape = type)) +
+  geom_point(size = 2.5) +
+  scale_colour_manual(values=cbPalette, name = "Type", breaks=c("Single","Two-Way","Three-Way")) +
+  scale_shape_discrete(name = "Type", breaks=c("Single","Two-Way","Three-Way")) +
+  scale_x_log10() +
+  geom_abline(slope = 0, intercept = 0.05) +
+  theme(legend.position=c(.8, .8)) +
+  xlab("% of Max RE") +
+  ylab("Within-class Rank")
 ```
