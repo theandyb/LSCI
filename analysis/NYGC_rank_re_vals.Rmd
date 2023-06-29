@@ -152,6 +152,21 @@ df %>%
   xlab(paste0("Within-class Rank: ", subtype_print_names(subtype)))
 ```
 
+```{r}
+df %>%
+  ggplot(aes(x = class_rank, 
+             y = re, 
+             color = type, 
+             shape = type)) +
+  geom_point(size = 2.5) +
+  scale_colour_manual(values=cbPalette, name = "Type", breaks=c("Single","Two-Way","Three-Way")) +
+  scale_shape_discrete(name = "Type", breaks=c("Single","Two-Way","Three-Way")) +
+  scale_x_log10() +
+  theme(legend.position=c(.8, .8)) +
+  ylab("RE") +
+  xlab(paste0("Within-class Rank: ", subtype_print_names(subtype)))
+```
+
 
 
 ### A to G
@@ -183,6 +198,21 @@ df %>%
   geom_abline(slope = 0, intercept = 0.1) +
   theme(legend.position=c(.8, .8)) +
   ylab("% of Max RE") +
+  xlab(paste0("Within-class Rank: ", subtype_print_names(subtype)))
+```
+
+```{r}
+df %>%
+  ggplot(aes(x = class_rank, 
+             y = re, 
+             color = type, 
+             shape = type)) +
+  geom_point(size = 2.5) +
+  scale_colour_manual(values=cbPalette, name = "Type", breaks=c("Single","Two-Way","Three-Way")) +
+  scale_shape_discrete(name = "Type", breaks=c("Single","Two-Way","Three-Way")) +
+  scale_x_log10() +
+  theme(legend.position=c(.8, .8)) +
+  ylab("RE") +
   xlab(paste0("Within-class Rank: ", subtype_print_names(subtype)))
 ```
 
@@ -218,6 +248,21 @@ df %>%
   xlab(paste0("Within-class Rank: ", subtype_print_names(subtype)))
 ```
 
+```{r}
+df %>%
+  ggplot(aes(x = class_rank, 
+             y = re, 
+             color = type, 
+             shape = type)) +
+  geom_point(size = 2.5) +
+  scale_colour_manual(values=cbPalette, name = "Type", breaks=c("Single","Two-Way","Three-Way")) +
+  scale_shape_discrete(name = "Type", breaks=c("Single","Two-Way","Three-Way")) +
+  scale_x_log10() +
+  theme(legend.position=c(.8, .8)) +
+  ylab("RE") +
+  xlab(paste0("Within-class Rank: ", subtype_print_names(subtype)))
+```
+
 ### C to A
 
 ```{r}
@@ -247,6 +292,21 @@ df %>%
   geom_abline(slope = 0, intercept = 0.1) +
   theme(legend.position=c(.8, .8)) +
   ylab("% of Max RE") +
+  xlab(paste0("Within-class Rank: ", subtype_print_names(subtype)))
+```
+
+```{r}
+df %>%
+  ggplot(aes(x = class_rank, 
+             y = re, 
+             color = type, 
+             shape = type)) +
+  geom_point(size = 2.5) +
+  scale_colour_manual(values=cbPalette, name = "Type", breaks=c("Single","Two-Way","Three-Way")) +
+  scale_shape_discrete(name = "Type", breaks=c("Single","Two-Way","Three-Way")) +
+  scale_x_log10() +
+  theme(legend.position=c(.8, .8)) +
+  ylab("RE") +
   xlab(paste0("Within-class Rank: ", subtype_print_names(subtype)))
 ```
 
@@ -282,6 +342,21 @@ df %>%
   xlab(paste0("Within-class Rank: ", subtype_print_names(subtype)))
 ```
 
+```{r}
+df %>%
+  ggplot(aes(x = class_rank, 
+             y = re, 
+             color = type, 
+             shape = type)) +
+  geom_point(size = 2.5) +
+  scale_colour_manual(values=cbPalette, name = "Type", breaks=c("Single","Two-Way","Three-Way")) +
+  scale_shape_discrete(name = "Type", breaks=c("Single","Two-Way","Three-Way")) +
+  scale_x_log10() +
+  theme(legend.position=c(.8, .8)) +
+  ylab("RE") +
+  xlab(paste0("Within-class Rank: ", subtype_print_names(subtype)))
+```
+
 ### C to T
 
 ```{r}
@@ -311,6 +386,21 @@ df %>%
   geom_abline(slope = 0, intercept = 0.1) +
   theme(legend.position=c(.8, .8)) +
   ylab("% of Max RE") +
+  xlab(paste0("Within-class Rank: ", subtype_print_names(subtype)))
+```
+
+```{r}
+df %>%
+  ggplot(aes(x = class_rank, 
+             y = re, 
+             color = type, 
+             shape = type)) +
+  geom_point(size = 2.5) +
+  scale_colour_manual(values=cbPalette, name = "Type", breaks=c("Single","Two-Way","Three-Way")) +
+  scale_shape_discrete(name = "Type", breaks=c("Single","Two-Way","Three-Way")) +
+  scale_x_log10() +
+  theme(legend.position=c(.8, .8)) +
+  ylab("RE") +
   xlab(paste0("Within-class Rank: ", subtype_print_names(subtype)))
 ```
 
@@ -346,6 +436,21 @@ df %>%
   xlab(paste0("Within-class Rank: ", subtype_print_names(subtype)))
 ```
 
+```{r}
+df %>%
+  ggplot(aes(x = class_rank, 
+             y = re, 
+             color = type, 
+             shape = type)) +
+  geom_point(size = 2.5) +
+  scale_colour_manual(values=cbPalette, name = "Type", breaks=c("Single","Two-Way","Three-Way")) +
+  scale_shape_discrete(name = "Type", breaks=c("Single","Two-Way","Three-Way")) +
+  scale_x_log10() +
+  theme(legend.position=c(.8, .8)) +
+  ylab("RE") +
+  xlab(paste0("Within-class Rank: ", subtype_print_names(subtype)))
+```
+
 ### C to G
 
 ```{r}
@@ -378,6 +483,21 @@ df %>%
   xlab(paste0("Within-class Rank: ", subtype_print_names(subtype)))
 ```
 
+```{r}
+df %>%
+  ggplot(aes(x = class_rank, 
+             y = re, 
+             color = type, 
+             shape = type)) +
+  geom_point(size = 2.5) +
+  scale_colour_manual(values=cbPalette, name = "Type", breaks=c("Single","Two-Way","Three-Way")) +
+  scale_shape_discrete(name = "Type", breaks=c("Single","Two-Way","Three-Way")) +
+  scale_x_log10() +
+  theme(legend.position=c(.8, .8)) +
+  ylab("RE") +
+  xlab(paste0("Within-class Rank: ", subtype_print_names(subtype)))
+```
+
 ### CpG to GpG
 
 ```{r}
@@ -407,5 +527,20 @@ df %>%
   geom_abline(slope = 0, intercept = 0.1) +
   theme(legend.position=c(.8, .8)) +
   ylab("% of Max RE") +
+  xlab(paste0("Within-class Rank: ", subtype_print_names(subtype)))
+```
+
+```{r}
+df %>%
+  ggplot(aes(x = class_rank, 
+             y = re, 
+             color = type, 
+             shape = type)) +
+  geom_point(size = 2.5) +
+  scale_colour_manual(values=cbPalette, name = "Type", breaks=c("Single","Two-Way","Three-Way")) +
+  scale_shape_discrete(name = "Type", breaks=c("Single","Two-Way","Three-Way")) +
+  scale_x_log10() +
+  theme(legend.position=c(.8, .8)) +
+  ylab("RE") +
   xlab(paste0("Within-class Rank: ", subtype_print_names(subtype)))
 ```
