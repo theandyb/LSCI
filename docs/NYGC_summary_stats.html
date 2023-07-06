@@ -11,9 +11,9 @@
 
 <meta name="author" content="Andy Beck" />
 
-<meta name="date" content="2023-05-31" />
+<meta name="date" content="2023-07-06" />
 
-<title>Single Position Comparisons</title>
+<title>NYGC_summary_stats</title>
 
 <script src="site_libs/header-attrs-2.22/header-attrs.js"></script>
 <script src="site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
@@ -353,9 +353,9 @@ div.tocify {
 
 
 
-<h1 class="title toc-ignore">Single Position Comparisons</h1>
+<h1 class="title toc-ignore">NYGC_summary_stats</h1>
 <h4 class="author">Andy Beck</h4>
-<h4 class="date">2023-05-31</h4>
+<h4 class="date">2023-07-06</h4>
 
 </div>
 
@@ -363,7 +363,7 @@ div.tocify {
 <p>
 <button type="button" class="btn btn-default btn-workflowr btn-workflowr-report" data-toggle="collapse" data-target="#workflowr-report">
 <span class="glyphicon glyphicon-list" aria-hidden="true"></span>
-workflowr <span class="glyphicon glyphicon-ok text-success"
+workflowr <span class="glyphicon glyphicon-exclamation-sign text-danger"
 aria-hidden="true"></span>
 </button>
 </p>
@@ -374,8 +374,8 @@ aria-hidden="true"></span>
 </li>
 <li>
 <a data-toggle="tab" href="#checks"> Checks <span
-class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span>
-</a>
+class="glyphicon glyphicon-exclamation-sign text-danger"
+aria-hidden="true"></span> </a>
 </li>
 <li>
 <a data-toggle="tab" href="#versions">Past versions</a>
@@ -388,9 +388,9 @@ class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span>
 </p>
 <p>
 <strong>Checks:</strong> <span
-class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> 7
+class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> 6
 <span class="glyphicon glyphicon-exclamation-sign text-danger"
-aria-hidden="true"></span> 0
+aria-hidden="true"></span> 1
 </p>
 <p>
 <strong>Knit directory:</strong> <code>LSCI/</code> <span
@@ -500,15 +500,41 @@ run.</p>
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongFilepathsstrongrelative">
-<span class="glyphicon glyphicon-ok text-success"
-aria-hidden="true"></span> <strong>File paths:</strong> relative </a>
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongFilepathsstrongabsolute">
+<span class="glyphicon glyphicon-exclamation-sign text-danger"
+aria-hidden="true"></span> <strong>File paths:</strong> absolute </a>
 </p>
 </div>
-<div id="strongFilepathsstrongrelative" class="panel-collapse collapse">
+<div id="strongFilepathsstrongabsolute" class="panel-collapse collapse">
 <div class="panel-body">
-<p>Great job! Using relative paths to the files within your workflowr
-project makes it easier to run your code on other machines.</p>
+<p>
+Using absolute paths to the files within your workflowr project makes it
+difficult for you and others to run your code on a different machine.
+Change the absolute path(s) below to the suggested relative path(s) to
+make your code more reproducible.
+</p>
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th style="text-align:left;">
+absolute
+</th>
+<th style="text-align:left;">
+relative
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;">
+/net/snowwhite/home/beckandy/research/documentation/LSCI/data/singleton_counts.csv
+</td>
+<td style="text-align:left;">
+data/singleton_counts.csv
+</td>
+</tr>
+</tbody>
+</table>
 </div>
 </div>
 </div>
@@ -576,9 +602,8 @@ have uncommitted changes.
 
 <p>
 These are the previous versions of the repository in which changes were
-made to the R Markdown
-(<code>analysis/NYGC_single_position_comp.Rmd</code>) and HTML
-(<code>docs/NYGC_single_position_comp.html</code>) files. If you’ve
+made to the R Markdown (<code>analysis/NYGC_summary_stats.Rmd</code>)
+and HTML (<code>docs/NYGC_summary_stats.html</code>) files. If you’ve
 configured a remote Git repository (see <code>?wflow_git_remote</code>),
 click on the hyperlinks in the table below to view the files as they
 were in that past version.
@@ -610,7 +635,7 @@ Message
 Rmd
 </td>
 <td>
-<a href="https://github.com/theandyb/LSCI/blob/e13a272d36f888becb46f7c00087a6dee4a2cf06/analysis/NYGC_single_position_comp.Rmd" target="_blank">e13a272</a>
+<a href="https://github.com/theandyb/LSCI/blob/e13a272d36f888becb46f7c00087a6dee4a2cf06/analysis/NYGC_summary_stats.Rmd" target="_blank">e13a272</a>
 </td>
 <td>
 Andy Beck
@@ -623,41 +648,6 @@ wflow_publish(c("analysis/NYGC_single_position_comp.Rmd",
 "analysis/NYGC_summary_stats.Rmd",
 </td>
 </tr>
-<tr>
-<td>
-html
-</td>
-<td>
-<a href="https://rawcdn.githack.com/theandyb/LSCI/e9576934e66c4fde7fd8f279483bd3786f6975cf/docs/NYGC_single_position_comp.html" target="_blank">e957693</a>
-</td>
-<td>
-Andy Beck
-</td>
-<td>
-2023-05-31
-</td>
-<td>
-Build site.
-</td>
-</tr>
-<tr>
-<td>
-Rmd
-</td>
-<td>
-<a href="https://github.com/theandyb/LSCI/blob/d9cd9d436f4eb54401c546476f82e1ed374c6d9b/analysis/NYGC_single_position_comp.Rmd" target="_blank">d9cd9d4</a>
-</td>
-<td>
-Andy Beck
-</td>
-<td>
-2023-05-31
-</td>
-<td>
-wflow_publish(c("analysis/index.Rmd",
-"analysis/NYGC_single_position_comp.Rmd"))
-</td>
-</tr>
 </tbody>
 </table>
 </div>
@@ -667,151 +657,205 @@ wflow_publish(c("analysis/index.Rmd",
 </div>
 <div id="introduction" class="section level2">
 <h2>Introduction</h2>
-<p>Here in this document we will compare results across the five 1kGP
-super-populations to see if there are any differences in the patterns of
-influence of flanking positions on rates of mutation.</p>
-<div id="code-for-loading-results" class="section level3">
-<h3>Code for loading results</h3>
-<pre class="r"><code>read_subtype_pop_res &lt;- function(pop, subtype, data_dir = &quot;/net/snowwhite/home/beckandy/research/1000G_NYGC_LSCI/output/single_pos/&quot;){
-  fname &lt;- paste0(data_dir, pop, &quot;/&quot;, subtype, &quot;.csv&quot;)
-  df &lt;- read_csv(fname, show_col_types = FALSE) %&gt;%
-    rowwise() %&gt;%
-    mutate(re = dev / (2 * (singletons + controls)))
-  return(df)
-}
-
-read_subtype_all_pop &lt;- function(subtype,
-                                 pops = c(&quot;AFR&quot;, &quot;AMR&quot;, &quot;EAS&quot;, &quot;EUR&quot;, &quot;SAS&quot;),
-                                 data_dir = &quot;/net/snowwhite/home/beckandy/research/1000G_NYGC_LSCI/output/single_pos/&quot;){
-  
-  results &lt;- lapply(pops, function(x) NULL) %&gt;% setNames(pops)
-  for(pop in pops){
-    results[[pop]] &lt;- read_subtype_pop_res(pop, subtype, data_dir)
-    results[[pop]]$pop &lt;- pop
-  }
-  df &lt;- bind_rows(results)
-  return(df)
-}
-
-read_pop_res &lt;- function(pop, data_dir = &quot;/net/snowwhite/home/beckandy/research/1000G_NYGC_LSCI/output/single_pos/&quot;){
-  df &lt;- read_subtype_pop_res(pop, &quot;AT_CG&quot;, data_dir = data_dir)
-  df$subtype &lt;- &quot;AT_CG&quot;
-  for(st in c(&quot;AT_GC&quot;, &quot;AT_TA&quot;, 
-              &quot;GC_AT&quot;, &quot;GC_TA&quot;, &quot;GC_CG&quot;,
-              &quot;cpg_GC_AT&quot;, &quot;cpg_GC_TA&quot;, &quot;cpg_GC_CG&quot;) ) {
-    df2 &lt;- read_subtype_pop_res(pop, st, data_dir = data_dir)
-    df2$subtype &lt;- st
-    df &lt;- bind_rows(df, df2)
-  }
-  return(df)
-}
-
-read_subtype_pop_resid &lt;- function(pop, subtype, rp, data_dir = &quot;/net/snowwhite/home/beckandy/research/1000G_NYGC_LSCI/output/single_pos/resid/&quot;){
-  f_name &lt;- paste0(data_dir, pop, &quot;/&quot;, subtype, &quot;_rp_&quot;, rp, &quot;.csv&quot;)
-  df &lt;- read_csv(f_name,show_col_types = FALSE)
-  return(df)
-}
-
-read_subtype_pop_range_resid &lt;- function(pop, subtype, size = 10, data_dir = &quot;/net/snowwhite/home/beckandy/research/1000G_NYGC_LSCI/output/single_pos/resid/&quot;){
-  if(str_starts(subtype, &quot;cpg&quot;)){
-    pos.names &lt;- c(-size:-1, 2:size)
-  } else{
-    pos.names &lt;- c(-size:-1, 1:size)
-  }
-  results &lt;- lapply(pos.names, function(x) NULL) %&gt;% setNames(pos.names)
-  for(i in names(results)){
-    results[[i]] &lt;- read_subtype_pop_resid(pop, subtype, i, data_dir)
-    results[[i]]$pos &lt;- i
-  }
-  df &lt;- bind_rows(results)
-  return(df)
-}
-
-read_subtype_range_resid &lt;- function(subtype,size=10, 
-                                     pops = c(&quot;AFR&quot;, &quot;AMR&quot;, &quot;EAS&quot;, &quot;EUR&quot;, &quot;SAS&quot;),
-                                     data_dir = &quot;/net/snowwhite/home/beckandy/research/1000G_NYGC_LSCI/output/single_pos/resid/&quot;
-){
-  results &lt;- lapply(pops, function(x) NULL) %&gt;% setNames(pops)
-  for(pop in pops){
-    results[[pop]] &lt;- read_subtype_pop_range_resid(pop, subtype, size = size, data_dir)
-    results[[pop]]$pop &lt;- pop
-  }
-  df &lt;- bind_rows(results)
-  return(df)
-}
-
-subtype_print_names &lt;- function(st){
-  if(str_starts(st, &quot;AT&quot;)){
-    return(paste0(&quot;A → &quot;, str_sub(st, 4, 4)))
-  } else if(str_starts(st, &quot;GC&quot;)){
-    return(paste0(&quot;C → &quot;, str_sub(st, 5, 5)))
-  } else{
-    return(paste0(&quot;CpG → &quot;, str_sub(st, 9, 9), &quot;pG&quot;))
-  }
-}</code></pre>
+<p>Summary statistics about the data we used for our analysis.</p>
+<pre class="r"><code>library(tidyverse)
+library(conflicted)</code></pre>
 </div>
+<div id="sample-information" class="section level2">
+<h2>Sample Information</h2>
+<pre class="r"><code>sample_df &lt;- kgp::kgp3
+xtabs(~ reg + sexf, data = sample_df) %&gt;%
+  pander::pander()</code></pre>
+<table style="width:36%;">
+<colgroup>
+<col width="13%" />
+<col width="9%" />
+<col width="12%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th align="center"> </th>
+<th align="center">male</th>
+<th align="center">female</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="center"><strong>AFR</strong></td>
+<td align="center">319</td>
+<td align="center">342</td>
+</tr>
+<tr class="even">
+<td align="center"><strong>AMR</strong></td>
+<td align="center">170</td>
+<td align="center">177</td>
+</tr>
+<tr class="odd">
+<td align="center"><strong>EAS</strong></td>
+<td align="center">244</td>
+<td align="center">260</td>
+</tr>
+<tr class="even">
+<td align="center"><strong>EUR</strong></td>
+<td align="center">240</td>
+<td align="center">263</td>
+</tr>
+<tr class="odd">
+<td align="center"><strong>SAS</strong></td>
+<td align="center">260</td>
+<td align="center">229</td>
+</tr>
+</tbody>
+</table>
 </div>
-<div id="position-level-results" class="section level2">
-<h2>Position-level Results</h2>
-<div id="at_cg" class="section level3">
-<h3>AT_CG</h3>
-<pre class="r"><code>df &lt;- read_subtype_all_pop(&quot;AT_CG&quot;) 
-
-df %&gt;%
-  filter(abs(offset) &lt; 11) %&gt;%
-  ggplot(aes(x = offset, y = re, colour = pop)) +
-  geom_line() +
-  geom_point()</code></pre>
-<p><img src="figure/NYGC_single_position_comp.Rmd/unnamed-chunk-3-1.png" width="672" style="display: block; margin: auto;" /></p>
-<pre class="r"><code>df_resid &lt;- read_subtype_range_resid(&quot;AT_CG&quot;) %&gt;%
-  type_convert()</code></pre>
-<pre><code>
+<div id="singleton-counts-by-population-x-subtype"
+class="section level2">
+<h2>Singleton Counts by Population x Subtype</h2>
+<pre class="r"><code>singleton_df &lt;- read_csv(&quot;/net/snowwhite/home/beckandy/research/documentation/LSCI/data/singleton_counts.csv&quot;)</code></pre>
+<pre><code>Rows: 60 Columns: 3
 ── Column specification ────────────────────────────────────────────────────────
-cols(
-  nuc = col_character(),
-  status = col_character(),
-  pos = col_double(),
-  pop = col_character()
-)</code></pre>
-<pre class="r"><code>df_resid &lt;- df_resid %&gt;%
-  inner_join({df %&gt;% select(offset, re, pop)}, by = c(&quot;pos&quot; = &quot;offset&quot;, &quot;pop&quot;))
+Delimiter: &quot;,&quot;
+chr (2): subtype, population
+dbl (1): singletons
 
-df_resid %&gt;% 
-  filter(status == &quot;singletons&quot;) %&gt;%
-  select(nuc, res, re, pos, pop) %&gt;%
-  group_by(pop, pos) %&gt;%
-  mutate(pct = abs(res) / sum(abs(res))) %&gt;%
-  mutate(re_cont = re * pct * sign(res)) %&gt;%
-  ggplot(aes(x = pos, y = re_cont, color = nuc)) +
-  geom_point() +
-  geom_line() +
-  xlab(&quot;Relative Position&quot;) +
-  ylab(&quot;Relative Entropy&quot;) +
-  guides(color = guide_legend(title = &quot;Nucleotide&quot;)) +
-  theme_classic() +
-  theme(text = element_text(family = &quot;Times New Roman&quot;),
-        legend.position = c(.85, .2)) +
-  facet_wrap(vars(pop))</code></pre>
-<p><img src="figure/NYGC_single_position_comp.Rmd/unnamed-chunk-3-2.png" width="672" style="display: block; margin: auto;" /></p>
-<p>Trying to do some correlation of the nucleotide residuals:</p>
-<pre class="r"><code>df_resid %&gt;%
-  select(pos, nuc, status, res, pop) %&gt;%
-  pivot_wider(names_from = pop, values_from = res) %&gt;%
-  arrange(pos, status, nuc) %&gt;%
-  filter(status == &quot;singletons&quot;) %&gt;%
-  select(AFR, AMR, EAS, EUR, SAS) %&gt;%
-  correlate()</code></pre>
-<pre><code>Correlation computed with
-• Method: &#39;pearson&#39;
-• Missing treated using: &#39;pairwise.complete.obs&#39;</code></pre>
-<pre><code># A tibble: 5 × 6
-  term     AFR    AMR    EAS    EUR    SAS
-  &lt;chr&gt;  &lt;dbl&gt;  &lt;dbl&gt;  &lt;dbl&gt;  &lt;dbl&gt;  &lt;dbl&gt;
-1 AFR   NA      0.995  0.976  0.988  0.987
-2 AMR    0.995 NA      0.985  0.996  0.975
-3 EAS    0.976  0.985 NA      0.989  0.949
-4 EUR    0.988  0.996  0.989 NA      0.967
-5 SAS    0.987  0.975  0.949  0.967 NA    </code></pre>
+ℹ Use `spec()` to retrieve the full column specification for this data.
+ℹ Specify the column types or set `show_col_types = FALSE` to quiet this message.</code></pre>
+<pre class="r"><code>singleton_df %&gt;%
+  pivot_wider(names_from = subtype, values_from = singletons) %&gt;%
+  pander::pander()</code></pre>
+<table>
+<caption>Table continues below</caption>
+<colgroup>
+<col width="16%" />
+<col width="12%" />
+<col width="13%" />
+<col width="12%" />
+<col width="15%" />
+<col width="15%" />
+<col width="15%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th align="center">population</th>
+<th align="center">AT_CG</th>
+<th align="center">AT_GC</th>
+<th align="center">AT_TA</th>
+<th align="center">cpg_GC_AT</th>
+<th align="center">cpg_GC_CG</th>
+<th align="center">cpg_GC_TA</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="center">ALL</td>
+<td align="center">4335358</td>
+<td align="center">14411404</td>
+<td align="center">3966499</td>
+<td align="center">6615079</td>
+<td align="center">435216</td>
+<td align="center">553896</td>
+</tr>
+<tr class="even">
+<td align="center">AMR</td>
+<td align="center">540054</td>
+<td align="center">1843384</td>
+<td align="center">497687</td>
+<td align="center">831801</td>
+<td align="center">56136</td>
+<td align="center">67867</td>
+</tr>
+<tr class="odd">
+<td align="center">AFR</td>
+<td align="center">1262888</td>
+<td align="center">4178952</td>
+<td align="center">1138869</td>
+<td align="center">1921101</td>
+<td align="center">124142</td>
+<td align="center">162111</td>
+</tr>
+<tr class="even">
+<td align="center">EAS</td>
+<td align="center">710178</td>
+<td align="center">2336815</td>
+<td align="center">650119</td>
+<td align="center">1064404</td>
+<td align="center">70878</td>
+<td align="center">88486</td>
+</tr>
+<tr class="odd">
+<td align="center">EUR</td>
+<td align="center">710178</td>
+<td align="center">2336815</td>
+<td align="center">650119</td>
+<td align="center">1064404</td>
+<td align="center">70878</td>
+<td align="center">88486</td>
+</tr>
+<tr class="even">
+<td align="center">SAS</td>
+<td align="center">897754</td>
+<td align="center">2861359</td>
+<td align="center">791460</td>
+<td align="center">1346096</td>
+<td align="center">89577</td>
+<td align="center">113843</td>
+</tr>
+</tbody>
+</table>
+<table style="width:58%;">
+<colgroup>
+<col width="15%" />
+<col width="13%" />
+<col width="13%" />
+<col width="15%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th align="center">GC_AT</th>
+<th align="center">GC_CG</th>
+<th align="center">GC_TA</th>
+<th align="center">total</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="center">13172220</td>
+<td align="center">4501946</td>
+<td align="center">4985545</td>
+<td align="center">52977163</td>
+</tr>
+<tr class="even">
+<td align="center">1690370</td>
+<td align="center">566704</td>
+<td align="center">626698</td>
+<td align="center">17280978</td>
+</tr>
+<tr class="odd">
+<td align="center">3821143</td>
+<td align="center">1330996</td>
+<td align="center">1452209</td>
+<td align="center">24204113</td>
+</tr>
+<tr class="even">
+<td align="center">2124485</td>
+<td align="center">731704</td>
+<td align="center">821459</td>
+<td align="center">13499944</td>
+</tr>
+<tr class="odd">
+<td align="center">2124485</td>
+<td align="center">731704</td>
+<td align="center">821459</td>
+<td align="center">13499944</td>
+</tr>
+<tr class="even">
+<td align="center">2686394</td>
+<td align="center">890932</td>
+<td align="center">1e+06</td>
+<td align="center">16805213</td>
+</tr>
+</tbody>
+</table>
 <br>
 <p>
 <button type="button" class="btn btn-default btn-workflowr btn-workflowr-sessioninfo" data-toggle="collapse" data-target="#workflowr-sessioninfo" style="display: block;">
@@ -844,28 +888,27 @@ attached base packages:
 [1] stats     graphics  grDevices utils     datasets  methods   base     
 
 other attached packages:
- [1] corrr_0.4.4     patchwork_1.1.2 lubridate_1.9.2 forcats_1.0.0  
- [5] stringr_1.5.0   dplyr_1.1.2     purrr_1.0.1     readr_2.1.4    
- [9] tidyr_1.3.0     tibble_3.2.1    ggplot2_3.4.2   tidyverse_2.0.0
-[13] workflowr_1.7.0
+ [1] conflicted_1.2.0 lubridate_1.9.2  forcats_1.0.0    stringr_1.5.0   
+ [5] dplyr_1.1.2      purrr_1.0.1      readr_2.1.4      tidyr_1.3.0     
+ [9] tibble_3.2.1     ggplot2_3.4.2    tidyverse_2.0.0  workflowr_1.7.0 
 
 loaded via a namespace (and not attached):
- [1] gtable_0.3.3     xfun_0.39        bslib_0.5.0      processx_3.8.1  
- [5] callr_3.7.3      tzdb_0.4.0       vctrs_0.6.2      tools_4.3.1     
- [9] ps_1.7.5         generics_0.1.3   parallel_4.3.1   fansi_1.0.4     
-[13] highr_0.10       pkgconfig_2.0.3  lifecycle_1.0.3  compiler_4.3.1  
-[17] farver_2.1.1     git2r_0.32.0     munsell_0.5.0    getPass_0.2-2   
-[21] httpuv_1.6.11    htmltools_0.5.5  sass_0.4.6       yaml_2.3.7      
-[25] later_1.3.1      pillar_1.9.0     crayon_1.5.2     jquerylib_0.1.4 
-[29] whisker_0.4.1    cachem_1.0.8     tidyselect_1.2.0 digest_0.6.31   
-[33] stringi_1.7.12   labeling_0.4.2   rprojroot_2.0.3  fastmap_1.1.1   
-[37] grid_4.3.1       colorspace_2.1-0 cli_3.6.1        magrittr_2.0.3  
-[41] utf8_1.2.3       withr_2.5.0      scales_1.2.1     promises_1.2.0.1
-[45] bit64_4.0.5      timechange_0.2.0 rmarkdown_2.22   httr_1.4.6      
-[49] bit_4.0.5        hms_1.1.3        evaluate_0.21    knitr_1.42      
-[53] rlang_1.1.1      Rcpp_1.0.10      glue_1.6.2       rstudioapi_0.14 
-[57] vroom_1.6.3      jsonlite_1.8.4   R6_2.5.1         fs_1.6.2        </code></pre>
-</div>
+ [1] sass_0.4.6       utf8_1.2.3       generics_0.1.3   stringi_1.7.12  
+ [5] hms_1.1.3        digest_0.6.31    magrittr_2.0.3   timechange_0.2.0
+ [9] evaluate_0.21    grid_4.3.1       fastmap_1.1.1    rprojroot_2.0.3 
+[13] jsonlite_1.8.4   processx_3.8.1   whisker_0.4.1    ps_1.7.5        
+[17] promises_1.2.0.1 httr_1.4.6       pander_0.6.5     fansi_1.0.4     
+[21] scales_1.2.1     jquerylib_0.1.4  cli_3.6.1        crayon_1.5.2    
+[25] rlang_1.1.1      bit64_4.0.5      munsell_0.5.0    withr_2.5.0     
+[29] cachem_1.0.8     yaml_2.3.7       parallel_4.3.1   tools_4.3.1     
+[33] tzdb_0.4.0       memoise_2.0.1    colorspace_2.1-0 httpuv_1.6.11   
+[37] vctrs_0.6.2      R6_2.5.1         lifecycle_1.0.3  git2r_0.32.0    
+[41] bit_4.0.5        kgp_1.1.1        fs_1.6.2         vroom_1.6.3     
+[45] pkgconfig_2.0.3  callr_3.7.3      pillar_1.9.0     bslib_0.5.0     
+[49] later_1.3.1      gtable_0.3.3     glue_1.6.2       Rcpp_1.0.10     
+[53] xfun_0.39        tidyselect_1.2.0 highr_0.10       rstudioapi_0.14 
+[57] knitr_1.42       htmltools_0.5.5  rmarkdown_2.22   compiler_4.3.1  
+[61] getPass_0.2-2   </code></pre>
 </div>
 </div>
 
