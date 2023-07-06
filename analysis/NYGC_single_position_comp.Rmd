@@ -10,14 +10,15 @@ editor_options:
 ```{r echo=FALSE, message=FALSE, warning=FALSE}
 library(tidyverse)
 library(patchwork)
-library(egg)
+# library(egg)
+library(corrr)
 #library(tikzDevice)
 #library(sjPlot)
 width = 4
 height = 4
 
 ## Plot options
-theme_set(theme_bw())
+theme_set(theme_classic())
 plot_w <- 800
 plot_h <- 500
 plot_dpi <- 300
@@ -28,7 +29,137 @@ cbPalette <- c("#999999", "#E69F00", "#56B4E9", "#009E73", "#F0E442", "#0072B2",
 
 ## Introduction
 
-```{r}
+Here in this document we will compare results across the five 1kGP super-populations to see if there are any differences in the patterns of influence of flanking positions on rates of mutation.
 
+### Code for loading results
+
+```{r}
+read_subtype_pop_res <- function(pop, subtype, data_dir = "/net/snowwhite/home/beckandy/research/1000G_NYGC_LSCI/output/single_pos/"){
+  fname <- paste0(data_dir, pop, "/", subtype, ".csv")
+  df <- read_csv(fname, show_col_types = FALSE) %>%
+    rowwise() %>%
+    mutate(re = dev / (2 * (singletons + controls)))
+  return(df)
+}
+
+read_subtype_all_pop <- function(subtype,
+                                 pops = c("AFR", "AMR", "EAS", "EUR", "SAS"),
+                                 data_dir = "/net/snowwhite/home/beckandy/research/1000G_NYGC_LSCI/output/single_pos/"){
+  
+  results <- lapply(pops, function(x) NULL) %>% setNames(pops)
+  for(pop in pops){
+    results[[pop]] <- read_subtype_pop_res(pop, subtype, data_dir)
+    results[[pop]]$pop <- pop
+  }
+  df <- bind_rows(results)
+  return(df)
+}
+
+read_pop_res <- function(pop, data_dir = "/net/snowwhite/home/beckandy/research/1000G_NYGC_LSCI/output/single_pos/"){
+  df <- read_subtype_pop_res(pop, "AT_CG", data_dir = data_dir)
+  df$subtype <- "AT_CG"
+  for(st in c("AT_GC", "AT_TA", 
+              "GC_AT", "GC_TA", "GC_CG",
+              "cpg_GC_AT", "cpg_GC_TA", "cpg_GC_CG") ) {
+    df2 <- read_subtype_pop_res(pop, st, data_dir = data_dir)
+    df2$subtype <- st
+    df <- bind_rows(df, df2)
+  }
+  return(df)
+}
+
+read_subtype_pop_resid <- function(pop, subtype, rp, data_dir = "/net/snowwhite/home/beckandy/research/1000G_NYGC_LSCI/output/single_pos/resid/"){
+  f_name <- paste0(data_dir, pop, "/", subtype, "_rp_", rp, ".csv")
+  df <- read_csv(f_name,show_col_types = FALSE)
+  return(df)
+}
+
+read_subtype_pop_range_resid <- function(pop, subtype, size = 10, data_dir = "/net/snowwhite/home/beckandy/research/1000G_NYGC_LSCI/output/single_pos/resid/"){
+  if(str_starts(subtype, "cpg")){
+    pos.names <- c(-size:-1, 2:size)
+  } else{
+    pos.names <- c(-size:-1, 1:size)
+  }
+  results <- lapply(pos.names, function(x) NULL) %>% setNames(pos.names)
+  for(i in names(results)){
+    results[[i]] <- read_subtype_pop_resid(pop, subtype, i, data_dir)
+    results[[i]]$pos <- i
+  }
+  df <- bind_rows(results)
+  return(df)
+}
+
+read_subtype_range_resid <- function(subtype,size=10, 
+                                     pops = c("AFR", "AMR", "EAS", "EUR", "SAS"),
+                                     data_dir = "/net/snowwhite/home/beckandy/research/1000G_NYGC_LSCI/output/single_pos/resid/"
+){
+  results <- lapply(pops, function(x) NULL) %>% setNames(pops)
+  for(pop in pops){
+    results[[pop]] <- read_subtype_pop_range_resid(pop, subtype, size = size, data_dir)
+    results[[pop]]$pop <- pop
+  }
+  df <- bind_rows(results)
+  return(df)
+}
+
+subtype_print_names <- function(st){
+  if(str_starts(st, "AT")){
+    return(paste0("A → ", str_sub(st, 4, 4)))
+  } else if(str_starts(st, "GC")){
+    return(paste0("C → ", str_sub(st, 5, 5)))
+  } else{
+    return(paste0("CpG → ", str_sub(st, 9, 9), "pG"))
+  }
+}
 ```
+
+## Position-level Results
+
+### AT_CG
+
+```{r}
+df <- read_subtype_all_pop("AT_CG") 
+
+df %>%
+  filter(abs(offset) < 11) %>%
+  ggplot(aes(x = offset, y = re, colour = pop)) +
+  geom_line() +
+  geom_point()
+
+df_resid <- read_subtype_range_resid("AT_CG") %>%
+  type_convert()
+
+df_resid <- df_resid %>%
+  inner_join({df %>% select(offset, re, pop)}, by = c("pos" = "offset", "pop"))
+
+df_resid %>% 
+  filter(status == "singletons") %>%
+  select(nuc, res, re, pos, pop) %>%
+  group_by(pop, pos) %>%
+  mutate(pct = abs(res) / sum(abs(res))) %>%
+  mutate(re_cont = re * pct * sign(res)) %>%
+  ggplot(aes(x = pos, y = re_cont, color = nuc)) +
+  geom_point() +
+  geom_line() +
+  xlab("Relative Position") +
+  ylab("Relative Entropy") +
+  guides(color = guide_legend(title = "Nucleotide")) +
+  theme_classic() +
+  theme(text = element_text(family = "Times New Roman"),
+        legend.position = c(.85, .2)) +
+  facet_wrap(vars(pop))
+```
+
+Trying to do some correlation of the nucleotide residuals:
+
+```{r}
+df_resid %>%
+  select(pos, nuc, status, res, pop) %>%
+  pivot_wider(names_from = pop, values_from = res) %>%
+  arrange(pos, status, nuc) %>%
+  filter(status == "singletons") %>%
+  select(AFR, AMR, EAS, EUR, SAS) %>%
+  correlate()
+```
+
 

@@ -1,0 +1,35 @@
+---
+title: "NYGC_summary_stats"
+author: "Andy Beck"
+date: "2023-07-06"
+output: workflowr::wflow_html
+editor_options:
+  chunk_output_type: console
+---
+
+## Introduction
+
+Summary statistics about the data we used for our analysis.
+
+```{r message=FALSE, warning=FALSE}
+library(tidyverse)
+library(conflicted)
+```
+
+## Sample Information
+
+```{r}
+sample_df <- kgp::kgp3
+xtabs(~ reg + sexf, data = sample_df) %>%
+  pander::pander()
+```
+
+## Singleton Counts by Population x Subtype
+
+```{r}
+singleton_df <- read_csv("/net/snowwhite/home/beckandy/research/documentation/LSCI/data/singleton_counts.csv")
+singleton_df %>%
+  pivot_wider(names_from = subtype, values_from = singletons) %>%
+  pander::pander()
+```
+
