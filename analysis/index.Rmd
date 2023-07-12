@@ -28,6 +28,7 @@ To address these questions, we characterize the distributions of nucleotides fla
 * [Two Position Models: Population Comparisons](NYGC_two_pos_comp.html)
 * [Control Sample Diagnostics](NYGC_control_samples.html)
 * [Summary Statistics](NYGC_summary_stats.html)
+* [New Viz Ideas](NYGC_new_vis.html)
 
 ## BRIDGES Analyses
 
