@@ -391,7 +391,7 @@ class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span>
 <div class="tab-content">
 <div id="summary" class="tab-pane fade in active">
 <p>
-<strong>Last updated:</strong> 2023-06-29
+<strong>Last updated:</strong> 2023-07-12
 </p>
 <p>
 <strong>Checks:</strong> <span
@@ -522,15 +522,15 @@ project makes it easier to run your code on other machines.</p>
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomtheandybLSCItreea19c04dc9676aae3466a3949273c290ace2cadc0targetblanka19c04da">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomtheandybLSCItreeee1eb00a0eabe2e529a474eb95ea5586d98e5d1btargetblankee1eb00a">
 <span class="glyphicon glyphicon-ok text-success"
 aria-hidden="true"></span> <strong>Repository version:</strong>
-<a href="https://github.com/theandyb/LSCI/tree/a19c04dc9676aae3466a3949273c290ace2cadc0" target="_blank">a19c04d</a>
+<a href="https://github.com/theandyb/LSCI/tree/ee1eb00a0eabe2e529a474eb95ea5586d98e5d1b" target="_blank">ee1eb00</a>
 </a>
 </p>
 </div>
 <div
-id="strongRepositoryversionstrongahrefhttpsgithubcomtheandybLSCItreea19c04dc9676aae3466a3949273c290ace2cadc0targetblanka19c04da"
+id="strongRepositoryversionstrongahrefhttpsgithubcomtheandybLSCItreeee1eb00a0eabe2e529a474eb95ea5586d98e5d1btargetblankee1eb00a"
 class="panel-collapse collapse">
 <div class="panel-body">
 <p>
@@ -540,7 +540,7 @@ reproducibility.
 </p>
 <p>
 The results in this page were generated with repository version
-<a href="https://github.com/theandyb/LSCI/tree/a19c04dc9676aae3466a3949273c290ace2cadc0" target="_blank">a19c04d</a>.
+<a href="https://github.com/theandyb/LSCI/tree/ee1eb00a0eabe2e529a474eb95ea5586d98e5d1b" target="_blank">ee1eb00</a>.
 See the <em>Past versions</em> tab to see a history of the changes made
 to the R Markdown and HTML files.
 </p>
@@ -560,10 +560,6 @@ Ignored files:
     Ignored:    analysis/disqus.html
     Ignored:    code/random/
     Ignored:    output/figs/
-
-Unstaged changes:
-    Modified:   analysis/NYGC_control_samples.Rmd
-    Modified:   analysis/NYGC_single_position_comp.Rmd
 
 </code></pre>
 <p>
@@ -609,6 +605,41 @@ Message
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+Rmd
+</td>
+<td>
+<a href="https://github.com/theandyb/LSCI/blob/ee1eb00a0eabe2e529a474eb95ea5586d98e5d1b/analysis/NYGC_rank_re_vals.Rmd" target="_blank">ee1eb00</a>
+</td>
+<td>
+Andy Beck
+</td>
+<td>
+2023-07-12
+</td>
+<td>
+wflow_publish(c("analysis/NYGC_control_samples.Rmd",
+"analysis/NYGC_rank_re_vals.Rmd",
+</td>
+</tr>
+<tr>
+<td>
+html
+</td>
+<td>
+<a href="https://rawcdn.githack.com/theandyb/LSCI/1cd2dd40763b845402fc155ece3f9ad9c76dad3d/docs/NYGC_rank_re_vals.html" target="_blank">1cd2dd4</a>
+</td>
+<td>
+Andy Beck
+</td>
+<td>
+2023-06-29
+</td>
+<td>
+Build site.
+</td>
+</tr>
 <tr>
 <td>
 Rmd
@@ -896,6 +927,13 @@ subtype_print_names &lt;- function(st){
   } else{
     return(paste0(&quot;CpG → &quot;, str_sub(st, 9, 9), &quot;pG&quot;))
   }
+}
+
+df_extender &lt;- function(df){
+  df_final &lt;- df %&gt;%
+    separate_longer_delim(offset, delim = &quot;,&quot;) %&gt;%
+    mutate(offset = as.numeric(offset))
+  return(df_final)
 }</code></pre>
 </div>
 </div>
@@ -1003,6 +1041,125 @@ Andy Beck
   ylab(&quot;RE&quot;) +
   xlab(paste0(&quot;Within-class Rank: &quot;, subtype_print_names(subtype)))</code></pre>
 <p><img src="figure/NYGC_rank_re_vals.Rmd/unnamed-chunk-5-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-5-1">
+Past versions of unnamed-chunk-5-1.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-5-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/theandyb/LSCI/blob/1cd2dd40763b845402fc155ece3f9ad9c76dad3d/docs/figure/NYGC_rank_re_vals.Rmd/unnamed-chunk-5-1.png" target="_blank">1cd2dd4</a>
+</td>
+<td>
+Andy Beck
+</td>
+<td>
+2023-06-29
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<pre class="r"><code>df %&gt;%
+  filter(rank &lt;= 50) %&gt;%
+  df_extender() %&gt;%
+  ggplot(aes(x = rank, y = offset, shape = type, color = type, group = rank)) +
+  geom_point(size = 3) +
+  geom_line() +
+  scale_color_discrete(breaks=c(&quot;Single&quot;,&quot;Two-Way&quot;,&quot;Three-Way&quot;), name = &quot;Effect Order&quot;) +
+  scale_shape_discrete(breaks=c(&quot;Single&quot;,&quot;Two-Way&quot;,&quot;Three-Way&quot;), name = &quot;Effect Order&quot;) +
+  xlab(&quot;Rank&quot;) +
+  ylab(&quot;Relative Position(s)&quot;) +
+  theme_bw()</code></pre>
+<p><img src="figure/NYGC_rank_re_vals.Rmd/unnamed-chunk-6-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-6-1">
+Past versions of unnamed-chunk-6-1.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-6-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/theandyb/LSCI/blob/1cd2dd40763b845402fc155ece3f9ad9c76dad3d/docs/figure/NYGC_rank_re_vals.Rmd/unnamed-chunk-6-1.png" target="_blank">1cd2dd4</a>
+</td>
+<td>
+Andy Beck
+</td>
+<td>
+2023-06-29
+</td>
+</tr>
+<tr>
+<td>
+<a href="https://github.com/theandyb/LSCI/blob/46b99fd8d410a5ef9ff1dec71636d27a7c4b0c7e/docs/figure/NYGC_rank_re_vals.Rmd/unnamed-chunk-6-1.png" target="_blank">46b99fd</a>
+</td>
+<td>
+Andy Beck
+</td>
+<td>
+2023-06-29
+</td>
+</tr>
+<tr>
+<td>
+<a href="https://github.com/theandyb/LSCI/blob/02575acf77544a788fb0e4a7b504f9edde629136/docs/figure/NYGC_rank_re_vals.Rmd/unnamed-chunk-6-1.png" target="_blank">02575ac</a>
+</td>
+<td>
+Andy Beck
+</td>
+<td>
+2023-06-29
+</td>
+</tr>
+<tr>
+<td>
+<a href="https://github.com/theandyb/LSCI/blob/8caa78f272687fc093af9da59361049d88ae52b6/docs/figure/NYGC_rank_re_vals.Rmd/unnamed-chunk-6-1.png" target="_blank">8caa78f</a>
+</td>
+<td>
+Andy Beck
+</td>
+<td>
+2023-06-29
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 </div>
 <div id="a-to-g" class="section level3">
 <h3>A to G</h3>
@@ -1032,19 +1189,6 @@ df %&gt;% reactable()</code></pre>
   theme(legend.position=c(.8, .8)) +
   ylab(&quot;% of Max RE&quot;) +
   xlab(paste0(&quot;Within-class Rank: &quot;, subtype_print_names(subtype)))</code></pre>
-<p><img src="figure/NYGC_rank_re_vals.Rmd/unnamed-chunk-7-1.png" width="672" style="display: block; margin: auto;" /></p>
-<pre class="r"><code>df %&gt;%
-  ggplot(aes(x = class_rank, 
-             y = re, 
-             color = type, 
-             shape = type)) +
-  geom_point(size = 2.5) +
-  scale_colour_manual(values=cbPalette, name = &quot;Type&quot;, breaks=c(&quot;Single&quot;,&quot;Two-Way&quot;,&quot;Three-Way&quot;)) +
-  scale_shape_discrete(name = &quot;Type&quot;, breaks=c(&quot;Single&quot;,&quot;Two-Way&quot;,&quot;Three-Way&quot;)) +
-  scale_x_log10() +
-  theme(legend.position=c(.8, .8)) +
-  ylab(&quot;RE&quot;) +
-  xlab(paste0(&quot;Within-class Rank: &quot;, subtype_print_names(subtype)))</code></pre>
 <p><img src="figure/NYGC_rank_re_vals.Rmd/unnamed-chunk-8-1.png" width="672" style="display: block; margin: auto;" /></p>
 <p>
 <button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-8-1">
@@ -1068,6 +1212,17 @@ Date
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+<a href="https://github.com/theandyb/LSCI/blob/1cd2dd40763b845402fc155ece3f9ad9c76dad3d/docs/figure/NYGC_rank_re_vals.Rmd/unnamed-chunk-8-1.png" target="_blank">1cd2dd4</a>
+</td>
+<td>
+Andy Beck
+</td>
+<td>
+2023-06-29
+</td>
+</tr>
 <tr>
 <td>
 <a href="https://github.com/theandyb/LSCI/blob/46b99fd8d410a5ef9ff1dec71636d27a7c4b0c7e/docs/figure/NYGC_rank_re_vals.Rmd/unnamed-chunk-8-1.png" target="_blank">46b99fd</a>
@@ -1105,6 +1260,19 @@ Andy Beck
 </table>
 </div>
 </div>
+<pre class="r"><code>df %&gt;%
+  ggplot(aes(x = class_rank, 
+             y = re, 
+             color = type, 
+             shape = type)) +
+  geom_point(size = 2.5) +
+  scale_colour_manual(values=cbPalette, name = &quot;Type&quot;, breaks=c(&quot;Single&quot;,&quot;Two-Way&quot;,&quot;Three-Way&quot;)) +
+  scale_shape_discrete(name = &quot;Type&quot;, breaks=c(&quot;Single&quot;,&quot;Two-Way&quot;,&quot;Three-Way&quot;)) +
+  scale_x_log10() +
+  theme(legend.position=c(.8, .8)) +
+  ylab(&quot;RE&quot;) +
+  xlab(paste0(&quot;Within-class Rank: &quot;, subtype_print_names(subtype)))</code></pre>
+<p><img src="figure/NYGC_rank_re_vals.Rmd/unnamed-chunk-9-1.png" width="672" style="display: block; margin: auto;" /></p>
 </div>
 <div id="a-to-t" class="section level3">
 <h3>A to T</h3>
@@ -1134,13 +1302,13 @@ df %&gt;% reactable()</code></pre>
   theme(legend.position=c(.8, .8)) +
   ylab(&quot;% of Max RE&quot;) +
   xlab(paste0(&quot;Within-class Rank: &quot;, subtype_print_names(subtype)))</code></pre>
-<p><img src="figure/NYGC_rank_re_vals.Rmd/unnamed-chunk-10-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p><img src="figure/NYGC_rank_re_vals.Rmd/unnamed-chunk-11-1.png" width="672" style="display: block; margin: auto;" /></p>
 <p>
-<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-10-1">
-Past versions of unnamed-chunk-10-1.png
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-11-1">
+Past versions of unnamed-chunk-11-1.png
 </button>
 </p>
-<div id="fig-unnamed-chunk-10-1" class="collapse">
+<div id="fig-unnamed-chunk-11-1" class="collapse">
 <div class="table-responsive">
 <table class="table table-condensed table-hover">
 <thead>
@@ -1159,29 +1327,7 @@ Date
 <tbody>
 <tr>
 <td>
-<a href="https://github.com/theandyb/LSCI/blob/46b99fd8d410a5ef9ff1dec71636d27a7c4b0c7e/docs/figure/NYGC_rank_re_vals.Rmd/unnamed-chunk-10-1.png" target="_blank">46b99fd</a>
-</td>
-<td>
-Andy Beck
-</td>
-<td>
-2023-06-29
-</td>
-</tr>
-<tr>
-<td>
-<a href="https://github.com/theandyb/LSCI/blob/02575acf77544a788fb0e4a7b504f9edde629136/docs/figure/NYGC_rank_re_vals.Rmd/unnamed-chunk-10-1.png" target="_blank">02575ac</a>
-</td>
-<td>
-Andy Beck
-</td>
-<td>
-2023-06-29
-</td>
-</tr>
-<tr>
-<td>
-<a href="https://github.com/theandyb/LSCI/blob/8caa78f272687fc093af9da59361049d88ae52b6/docs/figure/NYGC_rank_re_vals.Rmd/unnamed-chunk-10-1.png" target="_blank">8caa78f</a>
+<a href="https://github.com/theandyb/LSCI/blob/1cd2dd40763b845402fc155ece3f9ad9c76dad3d/docs/figure/NYGC_rank_re_vals.Rmd/unnamed-chunk-11-1.png" target="_blank">1cd2dd4</a>
 </td>
 <td>
 Andy Beck
@@ -1206,7 +1352,77 @@ Andy Beck
   theme(legend.position=c(.8, .8)) +
   ylab(&quot;RE&quot;) +
   xlab(paste0(&quot;Within-class Rank: &quot;, subtype_print_names(subtype)))</code></pre>
-<p><img src="figure/NYGC_rank_re_vals.Rmd/unnamed-chunk-11-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p><img src="figure/NYGC_rank_re_vals.Rmd/unnamed-chunk-12-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-12-1">
+Past versions of unnamed-chunk-12-1.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-12-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/theandyb/LSCI/blob/1cd2dd40763b845402fc155ece3f9ad9c76dad3d/docs/figure/NYGC_rank_re_vals.Rmd/unnamed-chunk-12-1.png" target="_blank">1cd2dd4</a>
+</td>
+<td>
+Andy Beck
+</td>
+<td>
+2023-06-29
+</td>
+</tr>
+<tr>
+<td>
+<a href="https://github.com/theandyb/LSCI/blob/46b99fd8d410a5ef9ff1dec71636d27a7c4b0c7e/docs/figure/NYGC_rank_re_vals.Rmd/unnamed-chunk-12-1.png" target="_blank">46b99fd</a>
+</td>
+<td>
+Andy Beck
+</td>
+<td>
+2023-06-29
+</td>
+</tr>
+<tr>
+<td>
+<a href="https://github.com/theandyb/LSCI/blob/02575acf77544a788fb0e4a7b504f9edde629136/docs/figure/NYGC_rank_re_vals.Rmd/unnamed-chunk-12-1.png" target="_blank">02575ac</a>
+</td>
+<td>
+Andy Beck
+</td>
+<td>
+2023-06-29
+</td>
+</tr>
+<tr>
+<td>
+<a href="https://github.com/theandyb/LSCI/blob/8caa78f272687fc093af9da59361049d88ae52b6/docs/figure/NYGC_rank_re_vals.Rmd/unnamed-chunk-12-1.png" target="_blank">8caa78f</a>
+</td>
+<td>
+Andy Beck
+</td>
+<td>
+2023-06-29
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 </div>
 <div id="c-to-a" class="section level3">
 <h3>C to A</h3>
@@ -1236,19 +1452,6 @@ df %&gt;% reactable()</code></pre>
   theme(legend.position=c(.8, .8)) +
   ylab(&quot;% of Max RE&quot;) +
   xlab(paste0(&quot;Within-class Rank: &quot;, subtype_print_names(subtype)))</code></pre>
-<p><img src="figure/NYGC_rank_re_vals.Rmd/unnamed-chunk-13-1.png" width="672" style="display: block; margin: auto;" /></p>
-<pre class="r"><code>df %&gt;%
-  ggplot(aes(x = class_rank, 
-             y = re, 
-             color = type, 
-             shape = type)) +
-  geom_point(size = 2.5) +
-  scale_colour_manual(values=cbPalette, name = &quot;Type&quot;, breaks=c(&quot;Single&quot;,&quot;Two-Way&quot;,&quot;Three-Way&quot;)) +
-  scale_shape_discrete(name = &quot;Type&quot;, breaks=c(&quot;Single&quot;,&quot;Two-Way&quot;,&quot;Three-Way&quot;)) +
-  scale_x_log10() +
-  theme(legend.position=c(.8, .8)) +
-  ylab(&quot;RE&quot;) +
-  xlab(paste0(&quot;Within-class Rank: &quot;, subtype_print_names(subtype)))</code></pre>
 <p><img src="figure/NYGC_rank_re_vals.Rmd/unnamed-chunk-14-1.png" width="672" style="display: block; margin: auto;" /></p>
 <p>
 <button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-14-1">
@@ -1272,6 +1475,17 @@ Date
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+<a href="https://github.com/theandyb/LSCI/blob/1cd2dd40763b845402fc155ece3f9ad9c76dad3d/docs/figure/NYGC_rank_re_vals.Rmd/unnamed-chunk-14-1.png" target="_blank">1cd2dd4</a>
+</td>
+<td>
+Andy Beck
+</td>
+<td>
+2023-06-29
+</td>
+</tr>
 <tr>
 <td>
 <a href="https://github.com/theandyb/LSCI/blob/46b99fd8d410a5ef9ff1dec71636d27a7c4b0c7e/docs/figure/NYGC_rank_re_vals.Rmd/unnamed-chunk-14-1.png" target="_blank">46b99fd</a>
@@ -1309,6 +1523,19 @@ Andy Beck
 </table>
 </div>
 </div>
+<pre class="r"><code>df %&gt;%
+  ggplot(aes(x = class_rank, 
+             y = re, 
+             color = type, 
+             shape = type)) +
+  geom_point(size = 2.5) +
+  scale_colour_manual(values=cbPalette, name = &quot;Type&quot;, breaks=c(&quot;Single&quot;,&quot;Two-Way&quot;,&quot;Three-Way&quot;)) +
+  scale_shape_discrete(name = &quot;Type&quot;, breaks=c(&quot;Single&quot;,&quot;Two-Way&quot;,&quot;Three-Way&quot;)) +
+  scale_x_log10() +
+  theme(legend.position=c(.8, .8)) +
+  ylab(&quot;RE&quot;) +
+  xlab(paste0(&quot;Within-class Rank: &quot;, subtype_print_names(subtype)))</code></pre>
+<p><img src="figure/NYGC_rank_re_vals.Rmd/unnamed-chunk-15-1.png" width="672" style="display: block; margin: auto;" /></p>
 </div>
 <div id="cpg-to-apg" class="section level3">
 <h3>CpG to ApG</h3>
@@ -1338,13 +1565,13 @@ df %&gt;% reactable()</code></pre>
   theme(legend.position=c(.8, .8)) +
   ylab(&quot;% of Max RE&quot;) +
   xlab(paste0(&quot;Within-class Rank: &quot;, subtype_print_names(subtype)))</code></pre>
-<p><img src="figure/NYGC_rank_re_vals.Rmd/unnamed-chunk-16-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p><img src="figure/NYGC_rank_re_vals.Rmd/unnamed-chunk-17-1.png" width="672" style="display: block; margin: auto;" /></p>
 <p>
-<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-16-1">
-Past versions of unnamed-chunk-16-1.png
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-17-1">
+Past versions of unnamed-chunk-17-1.png
 </button>
 </p>
-<div id="fig-unnamed-chunk-16-1" class="collapse">
+<div id="fig-unnamed-chunk-17-1" class="collapse">
 <div class="table-responsive">
 <table class="table table-condensed table-hover">
 <thead>
@@ -1363,29 +1590,7 @@ Date
 <tbody>
 <tr>
 <td>
-<a href="https://github.com/theandyb/LSCI/blob/46b99fd8d410a5ef9ff1dec71636d27a7c4b0c7e/docs/figure/NYGC_rank_re_vals.Rmd/unnamed-chunk-16-1.png" target="_blank">46b99fd</a>
-</td>
-<td>
-Andy Beck
-</td>
-<td>
-2023-06-29
-</td>
-</tr>
-<tr>
-<td>
-<a href="https://github.com/theandyb/LSCI/blob/02575acf77544a788fb0e4a7b504f9edde629136/docs/figure/NYGC_rank_re_vals.Rmd/unnamed-chunk-16-1.png" target="_blank">02575ac</a>
-</td>
-<td>
-Andy Beck
-</td>
-<td>
-2023-06-29
-</td>
-</tr>
-<tr>
-<td>
-<a href="https://github.com/theandyb/LSCI/blob/8caa78f272687fc093af9da59361049d88ae52b6/docs/figure/NYGC_rank_re_vals.Rmd/unnamed-chunk-16-1.png" target="_blank">8caa78f</a>
+<a href="https://github.com/theandyb/LSCI/blob/1cd2dd40763b845402fc155ece3f9ad9c76dad3d/docs/figure/NYGC_rank_re_vals.Rmd/unnamed-chunk-17-1.png" target="_blank">1cd2dd4</a>
 </td>
 <td>
 Andy Beck
@@ -1410,7 +1615,77 @@ Andy Beck
   theme(legend.position=c(.8, .8)) +
   ylab(&quot;RE&quot;) +
   xlab(paste0(&quot;Within-class Rank: &quot;, subtype_print_names(subtype)))</code></pre>
-<p><img src="figure/NYGC_rank_re_vals.Rmd/unnamed-chunk-17-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p><img src="figure/NYGC_rank_re_vals.Rmd/unnamed-chunk-18-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-18-1">
+Past versions of unnamed-chunk-18-1.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-18-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/theandyb/LSCI/blob/1cd2dd40763b845402fc155ece3f9ad9c76dad3d/docs/figure/NYGC_rank_re_vals.Rmd/unnamed-chunk-18-1.png" target="_blank">1cd2dd4</a>
+</td>
+<td>
+Andy Beck
+</td>
+<td>
+2023-06-29
+</td>
+</tr>
+<tr>
+<td>
+<a href="https://github.com/theandyb/LSCI/blob/46b99fd8d410a5ef9ff1dec71636d27a7c4b0c7e/docs/figure/NYGC_rank_re_vals.Rmd/unnamed-chunk-18-1.png" target="_blank">46b99fd</a>
+</td>
+<td>
+Andy Beck
+</td>
+<td>
+2023-06-29
+</td>
+</tr>
+<tr>
+<td>
+<a href="https://github.com/theandyb/LSCI/blob/02575acf77544a788fb0e4a7b504f9edde629136/docs/figure/NYGC_rank_re_vals.Rmd/unnamed-chunk-18-1.png" target="_blank">02575ac</a>
+</td>
+<td>
+Andy Beck
+</td>
+<td>
+2023-06-29
+</td>
+</tr>
+<tr>
+<td>
+<a href="https://github.com/theandyb/LSCI/blob/8caa78f272687fc093af9da59361049d88ae52b6/docs/figure/NYGC_rank_re_vals.Rmd/unnamed-chunk-18-1.png" target="_blank">8caa78f</a>
+</td>
+<td>
+Andy Beck
+</td>
+<td>
+2023-06-29
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 </div>
 <div id="c-to-t" class="section level3">
 <h3>C to T</h3>
@@ -1440,19 +1715,6 @@ df %&gt;% reactable()</code></pre>
   theme(legend.position=c(.8, .8)) +
   ylab(&quot;% of Max RE&quot;) +
   xlab(paste0(&quot;Within-class Rank: &quot;, subtype_print_names(subtype)))</code></pre>
-<p><img src="figure/NYGC_rank_re_vals.Rmd/unnamed-chunk-19-1.png" width="672" style="display: block; margin: auto;" /></p>
-<pre class="r"><code>df %&gt;%
-  ggplot(aes(x = class_rank, 
-             y = re, 
-             color = type, 
-             shape = type)) +
-  geom_point(size = 2.5) +
-  scale_colour_manual(values=cbPalette, name = &quot;Type&quot;, breaks=c(&quot;Single&quot;,&quot;Two-Way&quot;,&quot;Three-Way&quot;)) +
-  scale_shape_discrete(name = &quot;Type&quot;, breaks=c(&quot;Single&quot;,&quot;Two-Way&quot;,&quot;Three-Way&quot;)) +
-  scale_x_log10() +
-  theme(legend.position=c(.8, .8)) +
-  ylab(&quot;RE&quot;) +
-  xlab(paste0(&quot;Within-class Rank: &quot;, subtype_print_names(subtype)))</code></pre>
 <p><img src="figure/NYGC_rank_re_vals.Rmd/unnamed-chunk-20-1.png" width="672" style="display: block; margin: auto;" /></p>
 <p>
 <button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-20-1">
@@ -1476,6 +1738,17 @@ Date
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+<a href="https://github.com/theandyb/LSCI/blob/1cd2dd40763b845402fc155ece3f9ad9c76dad3d/docs/figure/NYGC_rank_re_vals.Rmd/unnamed-chunk-20-1.png" target="_blank">1cd2dd4</a>
+</td>
+<td>
+Andy Beck
+</td>
+<td>
+2023-06-29
+</td>
+</tr>
 <tr>
 <td>
 <a href="https://github.com/theandyb/LSCI/blob/46b99fd8d410a5ef9ff1dec71636d27a7c4b0c7e/docs/figure/NYGC_rank_re_vals.Rmd/unnamed-chunk-20-1.png" target="_blank">46b99fd</a>
@@ -1513,6 +1786,19 @@ Andy Beck
 </table>
 </div>
 </div>
+<pre class="r"><code>df %&gt;%
+  ggplot(aes(x = class_rank, 
+             y = re, 
+             color = type, 
+             shape = type)) +
+  geom_point(size = 2.5) +
+  scale_colour_manual(values=cbPalette, name = &quot;Type&quot;, breaks=c(&quot;Single&quot;,&quot;Two-Way&quot;,&quot;Three-Way&quot;)) +
+  scale_shape_discrete(name = &quot;Type&quot;, breaks=c(&quot;Single&quot;,&quot;Two-Way&quot;,&quot;Three-Way&quot;)) +
+  scale_x_log10() +
+  theme(legend.position=c(.8, .8)) +
+  ylab(&quot;RE&quot;) +
+  xlab(paste0(&quot;Within-class Rank: &quot;, subtype_print_names(subtype)))</code></pre>
+<p><img src="figure/NYGC_rank_re_vals.Rmd/unnamed-chunk-21-1.png" width="672" style="display: block; margin: auto;" /></p>
 </div>
 <div id="cpg-to-tpg" class="section level3">
 <h3>CpG to TpG</h3>
@@ -1542,7 +1828,44 @@ df %&gt;% reactable()</code></pre>
   theme(legend.position=c(.8, .8)) +
   ylab(&quot;% of Max RE&quot;) +
   xlab(paste0(&quot;Within-class Rank: &quot;, subtype_print_names(subtype)))</code></pre>
-<p><img src="figure/NYGC_rank_re_vals.Rmd/unnamed-chunk-22-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p><img src="figure/NYGC_rank_re_vals.Rmd/unnamed-chunk-23-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-23-1">
+Past versions of unnamed-chunk-23-1.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-23-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/theandyb/LSCI/blob/1cd2dd40763b845402fc155ece3f9ad9c76dad3d/docs/figure/NYGC_rank_re_vals.Rmd/unnamed-chunk-23-1.png" target="_blank">1cd2dd4</a>
+</td>
+<td>
+Andy Beck
+</td>
+<td>
+2023-06-29
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 <pre class="r"><code>df %&gt;%
   ggplot(aes(x = class_rank, 
              y = re, 
@@ -1555,7 +1878,7 @@ df %&gt;% reactable()</code></pre>
   theme(legend.position=c(.8, .8)) +
   ylab(&quot;RE&quot;) +
   xlab(paste0(&quot;Within-class Rank: &quot;, subtype_print_names(subtype)))</code></pre>
-<p><img src="figure/NYGC_rank_re_vals.Rmd/unnamed-chunk-23-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p><img src="figure/NYGC_rank_re_vals.Rmd/unnamed-chunk-24-1.png" width="672" style="display: block; margin: auto;" /></p>
 </div>
 <div id="c-to-g" class="section level3">
 <h3>C to G</h3>
@@ -1585,7 +1908,44 @@ df %&gt;% reactable()</code></pre>
   theme(legend.position=c(.8, .8)) +
   ylab(&quot;% of Max RE&quot;) +
   xlab(paste0(&quot;Within-class Rank: &quot;, subtype_print_names(subtype)))</code></pre>
-<p><img src="figure/NYGC_rank_re_vals.Rmd/unnamed-chunk-25-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p><img src="figure/NYGC_rank_re_vals.Rmd/unnamed-chunk-26-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-26-1">
+Past versions of unnamed-chunk-26-1.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-26-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/theandyb/LSCI/blob/1cd2dd40763b845402fc155ece3f9ad9c76dad3d/docs/figure/NYGC_rank_re_vals.Rmd/unnamed-chunk-26-1.png" target="_blank">1cd2dd4</a>
+</td>
+<td>
+Andy Beck
+</td>
+<td>
+2023-06-29
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 <pre class="r"><code>df %&gt;%
   ggplot(aes(x = class_rank, 
              y = re, 
@@ -1598,7 +1958,7 @@ df %&gt;% reactable()</code></pre>
   theme(legend.position=c(.8, .8)) +
   ylab(&quot;RE&quot;) +
   xlab(paste0(&quot;Within-class Rank: &quot;, subtype_print_names(subtype)))</code></pre>
-<p><img src="figure/NYGC_rank_re_vals.Rmd/unnamed-chunk-26-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p><img src="figure/NYGC_rank_re_vals.Rmd/unnamed-chunk-27-1.png" width="672" style="display: block; margin: auto;" /></p>
 </div>
 <div id="cpg-to-gpg" class="section level3">
 <h3>CpG to GpG</h3>
@@ -1628,7 +1988,44 @@ df %&gt;% reactable()</code></pre>
   theme(legend.position=c(.8, .8)) +
   ylab(&quot;% of Max RE&quot;) +
   xlab(paste0(&quot;Within-class Rank: &quot;, subtype_print_names(subtype)))</code></pre>
-<p><img src="figure/NYGC_rank_re_vals.Rmd/unnamed-chunk-28-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p><img src="figure/NYGC_rank_re_vals.Rmd/unnamed-chunk-29-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-29-1">
+Past versions of unnamed-chunk-29-1.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-29-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/theandyb/LSCI/blob/1cd2dd40763b845402fc155ece3f9ad9c76dad3d/docs/figure/NYGC_rank_re_vals.Rmd/unnamed-chunk-29-1.png" target="_blank">1cd2dd4</a>
+</td>
+<td>
+Andy Beck
+</td>
+<td>
+2023-06-29
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 <pre class="r"><code>df %&gt;%
   ggplot(aes(x = class_rank, 
              y = re, 
@@ -1641,7 +2038,7 @@ df %&gt;% reactable()</code></pre>
   theme(legend.position=c(.8, .8)) +
   ylab(&quot;RE&quot;) +
   xlab(paste0(&quot;Within-class Rank: &quot;, subtype_print_names(subtype)))</code></pre>
-<p><img src="figure/NYGC_rank_re_vals.Rmd/unnamed-chunk-29-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p><img src="figure/NYGC_rank_re_vals.Rmd/unnamed-chunk-30-1.png" width="672" style="display: block; margin: auto;" /></p>
 <br>
 <p>
 <button type="button" class="btn btn-default btn-workflowr btn-workflowr-sessioninfo" data-toggle="collapse" data-target="#workflowr-sessioninfo" style="display: block;">

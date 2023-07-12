@@ -11,9 +11,9 @@
 
 <meta name="author" content="Andy Beck" />
 
-<meta name="date" content="2023-06-21" />
+<meta name="date" content="2023-07-05" />
 
-<title>NYGC_control_samples</title>
+<title>NYGC_new_vis</title>
 
 <script src="site_libs/header-attrs-2.22/header-attrs.js"></script>
 <script src="site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
@@ -353,9 +353,9 @@ div.tocify {
 
 
 
-<h1 class="title toc-ignore">NYGC_control_samples</h1>
+<h1 class="title toc-ignore">NYGC_new_vis</h1>
 <h4 class="author">Andy Beck</h4>
-<h4 class="date">2023-06-21</h4>
+<h4 class="date">2023-07-05</h4>
 
 </div>
 
@@ -570,11 +570,11 @@ have uncommitted changes.
 
 <p>
 These are the previous versions of the repository in which changes were
-made to the R Markdown (<code>analysis/NYGC_control_samples.Rmd</code>)
-and HTML (<code>docs/NYGC_control_samples.html</code>) files. If you’ve
-configured a remote Git repository (see <code>?wflow_git_remote</code>),
-click on the hyperlinks in the table below to view the files as they
-were in that past version.
+made to the R Markdown (<code>analysis/NYGC_new_vis.Rmd</code>) and HTML
+(<code>docs/NYGC_new_vis.html</code>) files. If you’ve configured a
+remote Git repository (see <code>?wflow_git_remote</code>), click on the
+hyperlinks in the table below to view the files as they were in that
+past version.
 </p>
 <div class="table-responsive">
 <table class="table table-condensed table-hover">
@@ -603,7 +603,7 @@ Message
 Rmd
 </td>
 <td>
-<a href="https://github.com/theandyb/LSCI/blob/ee1eb00a0eabe2e529a474eb95ea5586d98e5d1b/analysis/NYGC_control_samples.Rmd" target="_blank">ee1eb00</a>
+<a href="https://github.com/theandyb/LSCI/blob/ee1eb00a0eabe2e529a474eb95ea5586d98e5d1b/analysis/NYGC_new_vis.Rmd" target="_blank">ee1eb00</a>
 </td>
 <td>
 Andy Beck
@@ -616,40 +616,6 @@ wflow_publish(c("analysis/NYGC_control_samples.Rmd",
 "analysis/NYGC_rank_re_vals.Rmd",
 </td>
 </tr>
-<tr>
-<td>
-html
-</td>
-<td>
-<a href="https://rawcdn.githack.com/theandyb/LSCI/0bbfadbaeca0781ef7b752030d96ce9ad9b157f5/docs/NYGC_control_samples.html" target="_blank">0bbfadb</a>
-</td>
-<td>
-Andy Beck
-</td>
-<td>
-2023-06-22
-</td>
-<td>
-Build site.
-</td>
-</tr>
-<tr>
-<td>
-Rmd
-</td>
-<td>
-<a href="https://github.com/theandyb/LSCI/blob/1007b132f0b2ce68178aa97b3ef1e86edc88835b/analysis/NYGC_control_samples.Rmd" target="_blank">1007b13</a>
-</td>
-<td>
-Andy Beck
-</td>
-<td>
-2023-06-22
-</td>
-<td>
-wflow_publish(c("analysis/NYGC_control_samples.Rmd"))
-</td>
-</tr>
 </tbody>
 </table>
 </div>
@@ -658,501 +624,177 @@ wflow_publish(c("analysis/NYGC_control_samples.Rmd"))
 </div>
 </div>
 <pre class="r"><code>library(tidyverse)
-base_dir &lt;- &quot;/net/snowwhite/home/beckandy/research/1000G_NYGC_LSCI/output/controls/&quot;
-singlepos_dir &lt;- &quot;/net/snowwhite/home/beckandy/research/1000G_NYGC_LSCI/output/single_pos/&quot;</code></pre>
+library(Matrix)
+library(conflicted)
+
+conflicts_prefer(tidyr::expand)
+conflicts_prefer(tidyr::pack)
+conflicts_prefer(tidyr::unpack)
+
+cbPalette &lt;- c(&quot;#999999&quot;, &quot;#E69F00&quot;, &quot;#56B4E9&quot;, &quot;#009E73&quot;, &quot;#F0E442&quot;, &quot;#0072B2&quot;, &quot;#D55E00&quot;, &quot;#CC79A7&quot;, &quot;#000000&quot;)
+
+subtype_print_names &lt;- function(st){
+  if(str_starts(st, &quot;AT&quot;)){
+    return(paste0(&quot;A → &quot;, str_sub(st, 4, 4)))
+  } else if(str_starts(st, &quot;GC&quot;)){
+    return(paste0(&quot;C → &quot;, str_sub(st, 5, 5)))
+  } else{
+    return(paste0(&quot;CpG → &quot;, str_sub(st, 9, 9), &quot;pG&quot;))
+  }
+}</code></pre>
 <div id="introduction" class="section level2">
 <h2>Introduction</h2>
-<p>The purpose of this document is to collect summary statistics
-regarding the sampled control non-variant sites for each subtype.</p>
-<div id="data-structure" class="section level3">
-<h3>Data Structure</h3>
-<p>Inside the directory base directory (<code>base_dir</code>) are
-folders for each 1kGP population (and <code>ALL</code>). In each of
-these, there is a csv file for each subtype (noting here that the files
-are headerless). The columns of this file are:</p>
-<ol style="list-style-type: decimal">
-<li>chromosome</li>
-<li>singleton position</li>
-<li>ref</li>
-<li>ref</li>
-<li>distance between singleton and control</li>
-<li>control position</li>
-<li>3mer motif centered at control</li>
-</ol>
+<p>Here in this document I will attempt to collect publication-quality
+figures for the local sequence context manuscript.</p>
 </div>
-<div id="simple-functions" class="section level3">
-<h3>Simple functions</h3>
-<pre class="r"><code>get_dist_column &lt;- function(subtype, pop, 
-                            base_dir = &quot;/net/snowwhite/home/beckandy/research/1000G_NYGC_LSCI/output/controls/&quot;){
-  f_name &lt;- paste0(base_dir, pop, &quot;/&quot;, subtype, &quot;.csv&quot;)
-  awk_cmd &lt;- paste0(&quot;awk -F, &#39;{print($6)}&#39; &quot;, f_name)
-  
-  vroom::vroom(pipe(awk_cmd), col_names = &quot;pos&quot;, delim = &quot;,&quot;)
+<div id="loading-results" class="section level2">
+<h2>Loading Results</h2>
+<div id="single-position" class="section level3">
+<h3>Single Position</h3>
+<pre class="r"><code>#&#39; Read position level single position results for a single population-subtype pair
+#&#39; 
+#&#39; @param pop Superpopulatiion
+#&#39; @param subtype Mutation subtype
+#&#39; @param data_dir Root directory of model results
+#&#39; @return data.frame with single position results for a population-subtype pair
+sp_subtype_pop &lt;- function(pop, subtype, data_dir = &quot;/net/snowwhite/home/beckandy/research/1000G_NYGC_LSCI/output/single_pos/&quot;){
+  fname &lt;- paste0(data_dir, pop, &quot;/&quot;, subtype, &quot;.csv&quot;)
+  df &lt;- read_csv(fname, show_col_types = FALSE) %&gt;%
+    rowwise() %&gt;%
+    mutate(re = dev / (2 * (singletons + controls)))
+  return(df)
 }
 
-load_sp_res &lt;- function(subtype, pop, suffix = &quot;&quot;,
-                        base_dir = &quot;/net/snowwhite/home/beckandy/research/1000G_NYGC_LSCI/output/single_pos/&quot;){
-  f_name &lt;- paste0(base_dir, pop, &quot;/&quot;, subtype, &quot;.csv&quot;, suffix)
-  read_csv(f_name, show_col_types = FALSE)
+#&#39; Read position level single position results for all subtypes for a single population
+#&#39; 
+#&#39; @param pop Superpopulation
+#&#39; @param data_dir Root directory of model results
+#&#39; @return Dataframe with all single-position position-level statistics for a population
+sp_pop_allST &lt;- function(pop, data_dir = &quot;/net/snowwhite/home/beckandy/research/1000G_NYGC_LSCI/output/single_pos/&quot;){
+  df &lt;- read_subtype_pop_res(pop, &quot;AT_CG&quot;, data_dir = data_dir)
+  df$subtype &lt;- &quot;AT_CG&quot;
+  for(st in c(&quot;AT_GC&quot;, &quot;AT_TA&quot;, 
+              &quot;GC_AT&quot;, &quot;GC_TA&quot;, &quot;GC_CG&quot;,
+              &quot;cpg_GC_AT&quot;, &quot;cpg_GC_TA&quot;, &quot;cpg_GC_CG&quot;) ) {
+    df2 &lt;- read_subtype_pop_res(pop, st, data_dir = data_dir)
+    df2$subtype &lt;- st
+    df &lt;- bind_rows(df, df2)
+  }
+  return(df)
+}
+
+#&#39; Read nucleotide-level residulas for single position models
+#&#39; 
+#&#39; @param pop Superpopulation (or ALL)
+#&#39; @param subtype mutation subtype
+#&#39; @param rp Relative position
+#&#39; @param data_dir Root directory of single position model results
+sp_subtype_pop_resid &lt;- function(pop, subtype, rp, data_dir = &quot;/net/snowwhite/home/beckandy/research/1000G_NYGC_LSCI/output/single_pos/resid/&quot;){
+  f_name &lt;- paste0(data_dir, pop, &quot;/&quot;, subtype, &quot;_rp_&quot;, rp, &quot;.csv&quot;)
+  df &lt;- read_csv(f_name,show_col_types = FALSE)
+  return(df)
+}
+
+#&#39; Read nucleotide-level residulas for single position models across a range of relative positions
+#&#39; 
+#&#39; @param pop Superpopulation (or ALL)
+#&#39; @param subtype mutation subtype
+#&#39; @param size How many positions up/downstream to read data from
+#&#39; @param data_dir Root directory of single position model results
+sp_subtype_pop_range_resid &lt;- function(pop, subtype, size = 10, data_dir = &quot;/net/snowwhite/home/beckandy/research/1000G_NYGC_LSCI/output/single_pos/resid/&quot;){
+  if(str_starts(subtype, &quot;cpg&quot;)){
+    pos.names &lt;- c(-size:-1, 2:size)
+  } else{
+    pos.names &lt;- c(-size:-1, 1:size)
+  }
+  results &lt;- lapply(pos.names, function(x) NULL) %&gt;% setNames(pos.names)
+  for(i in names(results)){
+    results[[i]] &lt;- read_subtype_pop_resid(pop, subtype, i, data_dir)
+    results[[i]]$pos &lt;- i
+  }
+  df &lt;- bind_rows(results)
+  return(df)
+}</code></pre>
+</div>
+<div id="two-position" class="section level3">
+<h3>Two Position</h3>
+<pre class="r"><code>tp_subtype_pop_res &lt;- function(pop, subtype, data_dir = &quot;/net/snowwhite/home/beckandy/research/1000G_NYGC_LSCI/output/two_pos/&quot;){
+  fname &lt;- paste0(data_dir, pop, &quot;/&quot;, subtype, &quot;.csv&quot;)
+  df &lt;- read_csv(fname, show_col_types = FALSE) %&gt;%
+    rowwise() %&gt;%
+    mutate(re = dev / (2 * (singletons + controls)))
+  return(df)
+}
+
+tp_pop_res &lt;- function(pop, data_dir = &quot;/net/snowwhite/home/beckandy/research/1000G_NYGC_LSCI/output/two_pos/&quot;){
+  df &lt;- read_subtype_pop_res(pop, &quot;AT_CG&quot;, data_dir = data_dir)
+  df$subtype &lt;- &quot;AT_CG&quot;
+  for(st in c(&quot;AT_GC&quot;, &quot;AT_TA&quot;, 
+              &quot;GC_AT&quot;, &quot;GC_TA&quot;, &quot;GC_CG&quot;,
+              &quot;cpg_GC_AT&quot;, &quot;cpg_GC_TA&quot;, &quot;cpg_GC_CG&quot;) ) {
+    df2 &lt;- read_subtype_pop_res(pop, st, data_dir = data_dir)
+    df2$subtype &lt;- st
+    df &lt;- bind_rows(df, df2)
+  }
+  return(df)
 }</code></pre>
 </div>
 </div>
-<div id="distance-distributions" class="section level2">
-<h2>Distance Distributions</h2>
-<div id="a-c" class="section level3">
-<h3>A &gt; C</h3>
-<pre class="r"><code>subtype &lt;- &quot;AT_CG&quot;
-df &lt;- get_dist_column(subtype, &quot;ALL&quot;)</code></pre>
-<p>Let’s look at a density plot of the distances for this subtype:</p>
-<pre class="r"><code>df %&gt;%
-  ggplot(aes(x = pos)) +
-  geom_density()</code></pre>
-<p><img src="figure/NYGC_control_samples.Rmd/unnamed-chunk-4-1.png" width="672" style="display: block; margin: auto;" /></p>
-<p>
-<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-4-1">
-Past versions of unnamed-chunk-4-1.png
-</button>
-</p>
-<div id="fig-unnamed-chunk-4-1" class="collapse">
-<div class="table-responsive">
-<table class="table table-condensed table-hover">
-<thead>
-<tr>
-<th>
-Version
-</th>
-<th>
-Author
-</th>
-<th>
-Date
-</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>
-<a href="https://github.com/theandyb/LSCI/blob/0bbfadbaeca0781ef7b752030d96ce9ad9b157f5/docs/figure/NYGC_control_samples.Rmd/unnamed-chunk-4-1.png" target="_blank">0bbfadb</a>
-</td>
-<td>
-Andy Beck
-</td>
-<td>
-2023-06-22
-</td>
-</tr>
-</tbody>
-</table>
-</div>
-</div>
-</div>
-<div id="a-g" class="section level3">
-<h3>A &gt; G</h3>
+<div id="single-plot-for-single-and-two-position-plots"
+class="section level2">
+<h2>Single Plot for Single and Two Position Plots</h2>
+<div id="at_gc" class="section level3">
+<h3>AT_GC</h3>
 <pre class="r"><code>subtype &lt;- &quot;AT_GC&quot;
-df &lt;- get_dist_column(subtype, &quot;ALL&quot;)</code></pre>
-<p>Let’s look at a density plot of the distances for this subtype:</p>
-<pre class="r"><code>df %&gt;%
-  ggplot(aes(x = pos)) +
-  geom_density()</code></pre>
-<p><img src="figure/NYGC_control_samples.Rmd/unnamed-chunk-6-1.png" width="672" style="display: block; margin: auto;" /></p>
-<p>
-<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-6-1">
-Past versions of unnamed-chunk-6-1.png
-</button>
-</p>
-<div id="fig-unnamed-chunk-6-1" class="collapse">
-<div class="table-responsive">
-<table class="table table-condensed table-hover">
-<thead>
-<tr>
-<th>
-Version
-</th>
-<th>
-Author
-</th>
-<th>
-Date
-</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>
-<a href="https://github.com/theandyb/LSCI/blob/0bbfadbaeca0781ef7b752030d96ce9ad9b157f5/docs/figure/NYGC_control_samples.Rmd/unnamed-chunk-6-1.png" target="_blank">0bbfadb</a>
-</td>
-<td>
-Andy Beck
-</td>
-<td>
-2023-06-22
-</td>
-</tr>
-</tbody>
-</table>
-</div>
-</div>
-</div>
-</div>
-<div id="near-versus-far-results" class="section level2">
-<h2>Near versus Far Results</h2>
-<div id="a-c-1" class="section level3">
-<h3>A &gt; C</h3>
-<pre class="r"><code>subtype &lt;- &quot;AT_CG&quot;
-df_min &lt;- load_sp_res(subtype, &quot;ALL&quot;, suffix = &quot;.min&quot;)
-df_max &lt;- load_sp_res(subtype, &quot;ALL&quot;, suffix = &quot;.max&quot;)
+df_s &lt;- sp_subtype_pop(&quot;ALL&quot;, subtype)
+df_t &lt;- tp_subtype_pop_res(&quot;ALL&quot;, subtype)
 
-df_min$re &lt;- df_min$dev / (2* (df_min$singletons + df_min$controls))
-df_max$re &lt;- df_max$dev / (2* (df_max$singletons + df_max$controls))</code></pre>
-<p>Plot results against each other:</p>
-<pre class="r"><code>df_min %&gt;%
-  rename(close = re) %&gt;%
-  select(offset, close) %&gt;%
-  inner_join({
-    df_max %&gt;%
-      rename(far = re) %&gt;%
-      select(offset, far)
-  }, by = &quot;offset&quot;) %&gt;%
-  ggplot(aes(x = close, y = far)) +
-  geom_point() +
-  geom_abline(slope = 1, intercept = 0)</code></pre>
-<p><img src="figure/NYGC_control_samples.Rmd/unnamed-chunk-8-1.png" width="672" style="display: block; margin: auto;" /></p>
-<p>
-<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-8-1">
-Past versions of unnamed-chunk-8-1.png
-</button>
-</p>
-<div id="fig-unnamed-chunk-8-1" class="collapse">
-<div class="table-responsive">
-<table class="table table-condensed table-hover">
-<thead>
-<tr>
-<th>
-Version
-</th>
-<th>
-Author
-</th>
-<th>
-Date
-</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>
-<a href="https://github.com/theandyb/LSCI/blob/0bbfadbaeca0781ef7b752030d96ce9ad9b157f5/docs/figure/NYGC_control_samples.Rmd/unnamed-chunk-8-1.png" target="_blank">0bbfadb</a>
-</td>
-<td>
-Andy Beck
-</td>
-<td>
-2023-06-22
-</td>
-</tr>
-</tbody>
-</table>
-</div>
-</div>
-<pre class="r"><code>df_min %&gt;%
-  rename(close = re) %&gt;%
-  select(offset, close) %&gt;%
-  inner_join({
-    df_max %&gt;%
-      rename(far = re) %&gt;%
-      select(offset, far)
-  }, by = &quot;offset&quot;) %&gt;%
-  ggplot(aes(x = log10(close), y = log10(far))) +
-  geom_point() +
-  geom_abline(slope = 1, intercept = 0)</code></pre>
-<p><img src="figure/NYGC_control_samples.Rmd/unnamed-chunk-8-2.png" width="672" style="display: block; margin: auto;" /></p>
-<p>
-<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-8-2">
-Past versions of unnamed-chunk-8-2.png
-</button>
-</p>
-<div id="fig-unnamed-chunk-8-2" class="collapse">
-<div class="table-responsive">
-<table class="table table-condensed table-hover">
-<thead>
-<tr>
-<th>
-Version
-</th>
-<th>
-Author
-</th>
-<th>
-Date
-</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>
-<a href="https://github.com/theandyb/LSCI/blob/0bbfadbaeca0781ef7b752030d96ce9ad9b157f5/docs/figure/NYGC_control_samples.Rmd/unnamed-chunk-8-2.png" target="_blank">0bbfadb</a>
-</td>
-<td>
-Andy Beck
-</td>
-<td>
-2023-06-22
-</td>
-</tr>
-</tbody>
-</table>
-</div>
-</div>
-</div>
-<div id="a-g-1" class="section level3">
-<h3>A &gt; G</h3>
-<pre class="r"><code>subtype &lt;- &quot;AT_GC&quot;
-df_min &lt;- load_sp_res(subtype, &quot;ALL&quot;, suffix = &quot;.min&quot;)
-df_max &lt;- load_sp_res(subtype, &quot;ALL&quot;, suffix = &quot;.max&quot;)
+head(df_s)</code></pre>
+<pre><code># A tibble: 6 × 5
+# Rowwise: 
+       dev singletons controls offset       re
+     &lt;dbl&gt;      &lt;dbl&gt;    &lt;dbl&gt;  &lt;dbl&gt;    &lt;dbl&gt;
+1  475580.   14411403 72057013     -1 0.00275 
+2 1661371.   14411403 72057018      1 0.00961 
+3  804403.   14411403 72057011     -2 0.00465 
+4   65421.   14411404 72057016      2 0.000378
+5   29140.   14411400 72057003     -3 0.000169
+6  118234.   14411404 72057005      3 0.000684</code></pre>
+<pre class="r"><code>head(df_t)</code></pre>
+<pre><code># A tibble: 6 × 6
+# Rowwise: 
+    dev singletons controls   rp1   rp2         re
+  &lt;dbl&gt;      &lt;dbl&gt;    &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;      &lt;dbl&gt;
+1 1715.   14411396 72056853   -20   -19 0.00000992
+2 1273.   14411395 72056851   -20   -18 0.00000736
+3  802.   14411396 72056852   -20   -17 0.00000464
+4  352.   14411395 72056851   -20   -16 0.00000204
+5  469.   14411396 72056853   -20   -15 0.00000271
+6  358.   14411396 72056848   -20   -14 0.00000207</code></pre>
+<p>Try shaping two-position results into a matrix:</p>
+<pre class="r"><code>df_t_mat &lt;- as.matrix(sparseMatrix(i = df_t$rp2 + 21, j = df_t$rp1 + 21, x = df_t$re))
 
-df_min$re &lt;- df_min$dev / (2* (df_min$singletons + df_min$controls))
-df_max$re &lt;- df_max$dev / (2* (df_max$singletons + df_max$controls))</code></pre>
-<pre class="r"><code>df_min %&gt;%
-  rename(close = re) %&gt;%
-  select(offset, close) %&gt;%
-  inner_join({
-    df_max %&gt;%
-      rename(far = re) %&gt;%
-      select(offset, far)
-  }, by = &quot;offset&quot;) %&gt;%
-  ggplot(aes(x = close, y = far)) +
-  geom_point() +
-  geom_abline(slope = 1, intercept = 0)</code></pre>
-<p><img src="figure/NYGC_control_samples.Rmd/unnamed-chunk-10-1.png" width="672" style="display: block; margin: auto;" /></p>
-<p>
-<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-10-1">
-Past versions of unnamed-chunk-10-1.png
-</button>
-</p>
-<div id="fig-unnamed-chunk-10-1" class="collapse">
-<div class="table-responsive">
-<table class="table table-condensed table-hover">
-<thead>
-<tr>
-<th>
-Version
-</th>
-<th>
-Author
-</th>
-<th>
-Date
-</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>
-<a href="https://github.com/theandyb/LSCI/blob/0bbfadbaeca0781ef7b752030d96ce9ad9b157f5/docs/figure/NYGC_control_samples.Rmd/unnamed-chunk-10-1.png" target="_blank">0bbfadb</a>
-</td>
-<td>
-Andy Beck
-</td>
-<td>
-2023-06-22
-</td>
-</tr>
-</tbody>
-</table>
-</div>
-</div>
-<pre class="r"><code>df_min %&gt;%
-  rename(close = re) %&gt;%
-  select(offset, close) %&gt;%
-  inner_join({
-    df_max %&gt;%
-      rename(far = re) %&gt;%
-      select(offset, far)
-  }, by = &quot;offset&quot;) %&gt;%
-  ggplot(aes(x = log10(close), y = log10(far))) +
-  geom_point() +
-  geom_abline(slope = 1, intercept = 0)</code></pre>
-<p><img src="figure/NYGC_control_samples.Rmd/unnamed-chunk-10-2.png" width="672" style="display: block; margin: auto;" /></p>
-<p>
-<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-10-2">
-Past versions of unnamed-chunk-10-2.png
-</button>
-</p>
-<div id="fig-unnamed-chunk-10-2" class="collapse">
-<div class="table-responsive">
-<table class="table table-condensed table-hover">
-<thead>
-<tr>
-<th>
-Version
-</th>
-<th>
-Author
-</th>
-<th>
-Date
-</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>
-<a href="https://github.com/theandyb/LSCI/blob/0bbfadbaeca0781ef7b752030d96ce9ad9b157f5/docs/figure/NYGC_control_samples.Rmd/unnamed-chunk-10-2.png" target="_blank">0bbfadb</a>
-</td>
-<td>
-Andy Beck
-</td>
-<td>
-2023-06-22
-</td>
-</tr>
-</tbody>
-</table>
-</div>
-</div>
-</div>
-<div id="a-t" class="section level3">
-<h3>A &gt; T</h3>
-<pre class="r"><code>subtype &lt;- &quot;AT_TA&quot;
-df_min &lt;- load_sp_res(subtype, &quot;ALL&quot;, suffix = &quot;.min&quot;)
-df_max &lt;- load_sp_res(subtype, &quot;ALL&quot;, suffix = &quot;.max&quot;)
+df_t_mat[lower.tri(df_t_mat)] &lt;- NA
+nr &lt;- nrow(df_t_mat)
+nc &lt;- ncol(df_t_mat)
+d &lt;- sqrt(nr^2 + nc^2)
+d2 &lt;- 0.5 * d
+plot(NA, type=&quot;n&quot;, xlim=c(0, d), ylim=c(0, d), xlab=&quot;&quot;, ylab=&quot;&quot;, asp=1)
+rasterImage(as.raster(df_t_mat),
+              xleft=d2, xright=d2+nc, ybottom=-d2, ytop=-d2+nr,
+              interpolate=FALSE, angle=45)</code></pre>
+<p><img src="figure/NYGC_new_vis.Rmd/unnamed-chunk-5-1.png" width="672" style="display: block; margin: auto;" /></p>
+<pre class="r"><code>gg1 &lt;- df_t %&gt;%
+  ggplot(aes(x = rp2, y = rp1, fill = re)) + 
+  geom_tile() +
+  theme_void() +
+  scale_fill_distiller(palette = &quot;Reds&quot;, direction = 1) +
+  theme(legend.position = &quot;none&quot;, plot.margin = unit(c(1, 1, 1, 1), &quot;cm&quot;))
 
-df_min$re &lt;- df_min$dev / (2* (df_min$singletons + df_min$controls))
-df_max$re &lt;- df_max$dev / (2* (df_max$singletons + df_max$controls))</code></pre>
-<pre class="r"><code>df_min %&gt;%
-  rename(close = re) %&gt;%
-  select(offset, close) %&gt;%
-  inner_join({
-    df_max %&gt;%
-      rename(far = re) %&gt;%
-      select(offset, far)
-  }, by = &quot;offset&quot;) %&gt;%
-  ggplot(aes(x = close, y = far)) +
-  geom_point() +
-  geom_abline(slope = 1, intercept = 0)</code></pre>
-<p><img src="figure/NYGC_control_samples.Rmd/unnamed-chunk-12-1.png" width="672" style="display: block; margin: auto;" /></p>
-<p>
-<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-12-1">
-Past versions of unnamed-chunk-12-1.png
-</button>
-</p>
-<div id="fig-unnamed-chunk-12-1" class="collapse">
-<div class="table-responsive">
-<table class="table table-condensed table-hover">
-<thead>
-<tr>
-<th>
-Version
-</th>
-<th>
-Author
-</th>
-<th>
-Date
-</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>
-<a href="https://github.com/theandyb/LSCI/blob/0bbfadbaeca0781ef7b752030d96ce9ad9b157f5/docs/figure/NYGC_control_samples.Rmd/unnamed-chunk-12-1.png" target="_blank">0bbfadb</a>
-</td>
-<td>
-Andy Beck
-</td>
-<td>
-2023-06-22
-</td>
-</tr>
-</tbody>
-</table>
-</div>
-</div>
-<pre class="r"><code>df_min %&gt;%
-  rename(close = re) %&gt;%
-  select(offset, close) %&gt;%
-  inner_join({
-    df_max %&gt;%
-      rename(far = re) %&gt;%
-      select(offset, far)
-  }, by = &quot;offset&quot;) %&gt;%
-  ggplot(aes(x = log10(close), y = log10(far))) +
-  geom_point() +
-  geom_abline(slope = 1, intercept = 0)</code></pre>
-<p><img src="figure/NYGC_control_samples.Rmd/unnamed-chunk-12-2.png" width="672" style="display: block; margin: auto;" /></p>
-<p>
-<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-12-2">
-Past versions of unnamed-chunk-12-2.png
-</button>
-</p>
-<div id="fig-unnamed-chunk-12-2" class="collapse">
-<div class="table-responsive">
-<table class="table table-condensed table-hover">
-<thead>
-<tr>
-<th>
-Version
-</th>
-<th>
-Author
-</th>
-<th>
-Date
-</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>
-<a href="https://github.com/theandyb/LSCI/blob/0bbfadbaeca0781ef7b752030d96ce9ad9b157f5/docs/figure/NYGC_control_samples.Rmd/unnamed-chunk-12-2.png" target="_blank">0bbfadb</a>
-</td>
-<td>
-Andy Beck
-</td>
-<td>
-2023-06-22
-</td>
-</tr>
-</tbody>
-</table>
-</div>
-</div>
-</div>
-<div id="test" class="section level3">
-<h3>TEST</h3>
-<pre class="r"><code>df_min &lt;- load_sp_res(&quot;AT_TA&quot;, &quot;ALL&quot;, suffix = &quot;.min&quot;)
-df_max &lt;- load_sp_res(&quot;AT_GC&quot;, &quot;ALL&quot;, suffix = &quot;.min&quot;)
-
-df_min$re &lt;- df_min$dev / (2* (df_min$singletons + df_min$controls))
-df_max$re &lt;- df_max$dev / (2* (df_max$singletons + df_max$controls))</code></pre>
-<pre class="r"><code>df_min %&gt;%
-  rename(close = re) %&gt;%
-  select(offset, close) %&gt;%
-  inner_join({
-    df_max %&gt;%
-      rename(far = re) %&gt;%
-      select(offset, far)
-  }, by = &quot;offset&quot;) %&gt;%
-  ggplot(aes(x = close, y = far)) +
-  geom_point() +
-  geom_abline(slope = 1, intercept = 0) +
-  xlab(&quot;AT_TA far&quot;) +
-  ylab(&quot;AT_GC far&quot;)</code></pre>
-<p><img src="figure/NYGC_control_samples.Rmd/unnamed-chunk-14-1.png" width="672" style="display: block; margin: auto;" /></p>
-<pre class="r"><code>df_min %&gt;%
-  rename(close = re) %&gt;%
-  select(offset, close) %&gt;%
-  inner_join({
-    df_max %&gt;%
-      rename(far = re) %&gt;%
-      select(offset, far)
-  }, by = &quot;offset&quot;) %&gt;%
-  ggplot(aes(x = log10(close), y = log10(far))) +
-  geom_point() +
-  geom_abline(slope = 1, intercept = 0) +
-  xlab(&quot;AT_TA far&quot;) +
-  ylab(&quot;AT_GC far&quot;)</code></pre>
-<p><img src="figure/NYGC_control_samples.Rmd/unnamed-chunk-14-2.png" width="672" style="display: block; margin: auto;" /></p>
+print(gg1, vp = grid::viewport(angle = 135))</code></pre>
+<pre><code>Warning in grid.Call.graphics(C_setviewport, vp, TRUE): cannot clip to rotated
+viewport</code></pre>
+<p><img src="figure/NYGC_new_vis.Rmd/unnamed-chunk-6-1.png" width="672" style="display: block; margin: auto;" /></p>
 <br>
 <p>
 <button type="button" class="btn btn-default btn-workflowr btn-workflowr-sessioninfo" data-toggle="collapse" data-target="#workflowr-sessioninfo" style="display: block;">
@@ -1185,26 +827,28 @@ attached base packages:
 [1] stats     graphics  grDevices utils     datasets  methods   base     
 
 other attached packages:
- [1] lubridate_1.9.2 forcats_1.0.0   stringr_1.5.0   dplyr_1.1.2    
- [5] purrr_1.0.1     readr_2.1.4     tidyr_1.3.0     tibble_3.2.1   
- [9] ggplot2_3.4.2   tidyverse_2.0.0 workflowr_1.7.0
+ [1] conflicted_1.2.0 Matrix_1.5-4.1   lubridate_1.9.2  forcats_1.0.0   
+ [5] stringr_1.5.0    dplyr_1.1.2      purrr_1.0.1      readr_2.1.4     
+ [9] tidyr_1.3.0      tibble_3.2.1     ggplot2_3.4.2    tidyverse_2.0.0 
+[13] workflowr_1.7.0 
 
 loaded via a namespace (and not attached):
- [1] sass_0.4.6       utf8_1.2.3       generics_0.1.3   stringi_1.7.12  
- [5] hms_1.1.3        digest_0.6.31    magrittr_2.0.3   timechange_0.2.0
- [9] evaluate_0.21    grid_4.3.1       fastmap_1.1.1    rprojroot_2.0.3 
-[13] jsonlite_1.8.4   processx_3.8.1   whisker_0.4.1    ps_1.7.5        
-[17] promises_1.2.0.1 httr_1.4.6       fansi_1.0.4      scales_1.2.1    
-[21] jquerylib_0.1.4  cli_3.6.1        crayon_1.5.2     rlang_1.1.1     
-[25] bit64_4.0.5      munsell_0.5.0    withr_2.5.0      cachem_1.0.8    
-[29] yaml_2.3.7       parallel_4.3.1   tools_4.3.1      tzdb_0.4.0      
-[33] colorspace_2.1-0 httpuv_1.6.11    vctrs_0.6.2      R6_2.5.1        
-[37] lifecycle_1.0.3  git2r_0.32.0     bit_4.0.5        fs_1.6.2        
-[41] vroom_1.6.3      pkgconfig_2.0.3  callr_3.7.3      pillar_1.9.0    
-[45] bslib_0.5.0      later_1.3.1      gtable_0.3.3     glue_1.6.2      
-[49] Rcpp_1.0.10      highr_0.10       xfun_0.39        tidyselect_1.2.0
-[53] rstudioapi_0.14  knitr_1.42       farver_2.1.1     htmltools_0.5.5 
-[57] labeling_0.4.2   rmarkdown_2.22   compiler_4.3.1   getPass_0.2-2   </code></pre>
+ [1] gtable_0.3.3       xfun_0.39          bslib_0.5.0        processx_3.8.1    
+ [5] lattice_0.21-8     callr_3.7.3        tzdb_0.4.0         vctrs_0.6.2       
+ [9] tools_4.3.1        ps_1.7.5           generics_0.1.3     parallel_4.3.1    
+[13] fansi_1.0.4        highr_0.10         pkgconfig_2.0.3    RColorBrewer_1.1-3
+[17] lifecycle_1.0.3    farver_2.1.1       compiler_4.3.1     git2r_0.32.0      
+[21] munsell_0.5.0      getPass_0.2-2      httpuv_1.6.11      htmltools_0.5.5   
+[25] sass_0.4.6         yaml_2.3.7         later_1.3.1        pillar_1.9.0      
+[29] crayon_1.5.2       jquerylib_0.1.4    whisker_0.4.1      cachem_1.0.8      
+[33] tidyselect_1.2.0   digest_0.6.31      stringi_1.7.12     labeling_0.4.2    
+[37] rprojroot_2.0.3    fastmap_1.1.1      grid_4.3.1         colorspace_2.1-0  
+[41] cli_3.6.1          magrittr_2.0.3     utf8_1.2.3         withr_2.5.0       
+[45] scales_1.2.1       promises_1.2.0.1   bit64_4.0.5        timechange_0.2.0  
+[49] rmarkdown_2.22     httr_1.4.6         bit_4.0.5          hms_1.1.3         
+[53] memoise_2.0.1      evaluate_0.21      knitr_1.42         rlang_1.1.1       
+[57] Rcpp_1.0.10        glue_1.6.2         rstudioapi_0.14    vroom_1.6.3       
+[61] jsonlite_1.8.4     R6_2.5.1           fs_1.6.2          </code></pre>
 </div>
 </div>
 </div>
