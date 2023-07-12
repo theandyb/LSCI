@@ -1,0 +1,174 @@
+---
+title: "NYGC_new_vis"
+author: "Andy Beck"
+date: "2023-07-05"
+output: workflowr::wflow_html
+editor_options:
+  chunk_output_type: console
+---
+
+```{r message=FALSE, warning=FALSE}
+library(tidyverse)
+library(Matrix)
+library(conflicted)
+
+conflicts_prefer(tidyr::expand)
+conflicts_prefer(tidyr::pack)
+conflicts_prefer(tidyr::unpack)
+
+cbPalette <- c("#999999", "#E69F00", "#56B4E9", "#009E73", "#F0E442", "#0072B2", "#D55E00", "#CC79A7", "#000000")
+
+subtype_print_names <- function(st){
+  if(str_starts(st, "AT")){
+    return(paste0("A → ", str_sub(st, 4, 4)))
+  } else if(str_starts(st, "GC")){
+    return(paste0("C → ", str_sub(st, 5, 5)))
+  } else{
+    return(paste0("CpG → ", str_sub(st, 9, 9), "pG"))
+  }
+}
+```
+
+
+## Introduction
+
+Here in this document I will attempt to collect publication-quality figures for the local sequence context manuscript.
+
+## Loading Results
+
+### Single Position
+
+```{r}
+#' Read position level single position results for a single population-subtype pair
+#' 
+#' @param pop Superpopulatiion
+#' @param subtype Mutation subtype
+#' @param data_dir Root directory of model results
+#' @return data.frame with single position results for a population-subtype pair
+sp_subtype_pop <- function(pop, subtype, data_dir = "/net/snowwhite/home/beckandy/research/1000G_NYGC_LSCI/output/single_pos/"){
+  fname <- paste0(data_dir, pop, "/", subtype, ".csv")
+  df <- read_csv(fname, show_col_types = FALSE) %>%
+    rowwise() %>%
+    mutate(re = dev / (2 * (singletons + controls)))
+  return(df)
+}
+
+#' Read position level single position results for all subtypes for a single population
+#' 
+#' @param pop Superpopulation
+#' @param data_dir Root directory of model results
+#' @return Dataframe with all single-position position-level statistics for a population
+sp_pop_allST <- function(pop, data_dir = "/net/snowwhite/home/beckandy/research/1000G_NYGC_LSCI/output/single_pos/"){
+  df <- read_subtype_pop_res(pop, "AT_CG", data_dir = data_dir)
+  df$subtype <- "AT_CG"
+  for(st in c("AT_GC", "AT_TA", 
+              "GC_AT", "GC_TA", "GC_CG",
+              "cpg_GC_AT", "cpg_GC_TA", "cpg_GC_CG") ) {
+    df2 <- read_subtype_pop_res(pop, st, data_dir = data_dir)
+    df2$subtype <- st
+    df <- bind_rows(df, df2)
+  }
+  return(df)
+}
+
+#' Read nucleotide-level residulas for single position models
+#' 
+#' @param pop Superpopulation (or ALL)
+#' @param subtype mutation subtype
+#' @param rp Relative position
+#' @param data_dir Root directory of single position model results
+sp_subtype_pop_resid <- function(pop, subtype, rp, data_dir = "/net/snowwhite/home/beckandy/research/1000G_NYGC_LSCI/output/single_pos/resid/"){
+  f_name <- paste0(data_dir, pop, "/", subtype, "_rp_", rp, ".csv")
+  df <- read_csv(f_name,show_col_types = FALSE)
+  return(df)
+}
+
+#' Read nucleotide-level residulas for single position models across a range of relative positions
+#' 
+#' @param pop Superpopulation (or ALL)
+#' @param subtype mutation subtype
+#' @param size How many positions up/downstream to read data from
+#' @param data_dir Root directory of single position model results
+sp_subtype_pop_range_resid <- function(pop, subtype, size = 10, data_dir = "/net/snowwhite/home/beckandy/research/1000G_NYGC_LSCI/output/single_pos/resid/"){
+  if(str_starts(subtype, "cpg")){
+    pos.names <- c(-size:-1, 2:size)
+  } else{
+    pos.names <- c(-size:-1, 1:size)
+  }
+  results <- lapply(pos.names, function(x) NULL) %>% setNames(pos.names)
+  for(i in names(results)){
+    results[[i]] <- read_subtype_pop_resid(pop, subtype, i, data_dir)
+    results[[i]]$pos <- i
+  }
+  df <- bind_rows(results)
+  return(df)
+}
+```
+
+### Two Position
+
+```{r}
+tp_subtype_pop_res <- function(pop, subtype, data_dir = "/net/snowwhite/home/beckandy/research/1000G_NYGC_LSCI/output/two_pos/"){
+  fname <- paste0(data_dir, pop, "/", subtype, ".csv")
+  df <- read_csv(fname, show_col_types = FALSE) %>%
+    rowwise() %>%
+    mutate(re = dev / (2 * (singletons + controls)))
+  return(df)
+}
+
+tp_pop_res <- function(pop, data_dir = "/net/snowwhite/home/beckandy/research/1000G_NYGC_LSCI/output/two_pos/"){
+  df <- read_subtype_pop_res(pop, "AT_CG", data_dir = data_dir)
+  df$subtype <- "AT_CG"
+  for(st in c("AT_GC", "AT_TA", 
+              "GC_AT", "GC_TA", "GC_CG",
+              "cpg_GC_AT", "cpg_GC_TA", "cpg_GC_CG") ) {
+    df2 <- read_subtype_pop_res(pop, st, data_dir = data_dir)
+    df2$subtype <- st
+    df <- bind_rows(df, df2)
+  }
+  return(df)
+}
+```
+
+## Single Plot for Single and Two Position Plots
+
+### AT_GC
+
+```{r}
+subtype <- "AT_GC"
+df_s <- sp_subtype_pop("ALL", subtype)
+df_t <- tp_subtype_pop_res("ALL", subtype)
+
+head(df_s)
+head(df_t)
+```
+
+Try shaping two-position results into a matrix:
+
+```{r}
+df_t_mat <- as.matrix(sparseMatrix(i = df_t$rp2 + 21, j = df_t$rp1 + 21, x = df_t$re))
+
+df_t_mat[lower.tri(df_t_mat)] <- NA
+nr <- nrow(df_t_mat)
+nc <- ncol(df_t_mat)
+d <- sqrt(nr^2 + nc^2)
+d2 <- 0.5 * d
+plot(NA, type="n", xlim=c(0, d), ylim=c(0, d), xlab="", ylab="", asp=1)
+rasterImage(as.raster(df_t_mat),
+              xleft=d2, xright=d2+nc, ybottom=-d2, ytop=-d2+nr,
+              interpolate=FALSE, angle=45)
+```
+
+
+```{r}
+gg1 <- df_t %>%
+  ggplot(aes(x = rp2, y = rp1, fill = re)) + 
+  geom_tile() +
+  theme_void() +
+  scale_fill_distiller(palette = "Reds", direction = 1) +
+  theme(legend.position = "none", plot.margin = unit(c(1, 1, 1, 1), "cm"))
+
+print(gg1, vp = grid::viewport(angle = 135))
+```
+
+

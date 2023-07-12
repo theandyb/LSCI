@@ -114,6 +114,13 @@ subtype_print_names <- function(st){
     return(paste0("CpG → ", str_sub(st, 9, 9), "pG"))
   }
 }
+
+df_extender <- function(df){
+  df_final <- df %>%
+    separate_longer_delim(offset, delim = ",") %>%
+    mutate(offset = as.numeric(offset))
+  return(df_final)
+}
 ```
 
 ## Subtype Comparisons
@@ -167,6 +174,19 @@ df %>%
   xlab(paste0("Within-class Rank: ", subtype_print_names(subtype)))
 ```
 
+```{r}
+df %>%
+  filter(rank <= 50) %>%
+  df_extender() %>%
+  ggplot(aes(x = rank, y = offset, shape = type, color = type, group = rank)) +
+  geom_point(size = 3) +
+  geom_line() +
+  scale_color_discrete(breaks=c("Single","Two-Way","Three-Way"), name = "Effect Order") +
+  scale_shape_discrete(breaks=c("Single","Two-Way","Three-Way"), name = "Effect Order") +
+  xlab("Rank") +
+  ylab("Relative Position(s)") +
+  theme_bw()
+```
 
 
 ### A to G

@@ -65,6 +65,21 @@ df %>%
   geom_density()
 ```
 
+### A > G
+
+```{r, message=FALSE, warning=FALSE}
+subtype <- "AT_GC"
+df <- get_dist_column(subtype, "ALL")
+```
+
+Let's look at a density plot of the distances for this subtype:
+
+```{r}
+df %>%
+  ggplot(aes(x = pos)) +
+  geom_density()
+```
+
 ## Near versus Far Results
 
 ### A > C
