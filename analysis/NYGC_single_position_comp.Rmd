@@ -118,15 +118,36 @@ subtype_print_names <- function(st){
 ### AT_CG
 
 ```{r}
-df <- read_subtype_all_pop("AT_CG") 
+subtype <- "AT_CG"
+df <- read_subtype_all_pop(subtype) 
 
 df %>%
   filter(abs(offset) < 11) %>%
   ggplot(aes(x = offset, y = re, colour = pop)) +
   geom_line() +
-  geom_point()
+  geom_point() +
+  xlab("Relative Position") +
+  ylab("Relative Entropy") +
+  labs(colour = "Population") +
+  ggtitle("Single Position Results", subtype)
+```
 
-df_resid <- read_subtype_range_resid("AT_CG") %>%
+We can also get the correlation of the results between each pair of populations:
+
+```{r}
+
+df %>%
+  select(pop, offset, re) %>%
+  pivot_wider(names_from = pop, values_from = re) %>%
+  select(-offset) %>%
+  corrr::correlate()
+```
+
+Each position-level result can be further broken down into the contribution from the nucleotide-level residuals:
+
+
+```{r}
+df_resid <- read_subtype_range_resid(subtype) %>%
   type_convert()
 
 df_resid <- df_resid %>%
@@ -150,6 +171,86 @@ df_resid %>%
   facet_wrap(vars(pop))
 ```
 
+Widen the residual df so we can get pairwise population correlations:
+
+```{r}
+df_wide <- df_resid %>%
+  filter(status == "singletons") %>%
+  select(nuc, pos, pop, res) %>%
+  pivot_wider(names_from = pop, values_from = res)
+```
+
+And generate the correlations:
+
+```{r}
+cor_method <- "pearson"
+df_cor <- df_wide %>%
+    group_by(pos) %>%
+    summarise(across(AMR:SAS, ~cor(., AFR, use = "complete.obs", method = cor_method), .names = "AFR_{.col}"),
+              across(EAS:SAS, ~cor(., AMR, use = "complete.obs", method = cor_method), .names = "AMR_{.col}"),
+              across(EUR:SAS, ~cor(., EAS, use = "complete.obs", method = cor_method), .names = "EAS_{.col}"),
+              across(SAS, ~cor(., EUR, use = "complete.obs", method = cor_method), .names = "EUR_{.col}"))
+```
+
+And then plot them: 
+
+```{r}
+df_cor %>%
+    select(pos, starts_with("AFR")) %>%
+    pivot_longer(-pos, names_to = "pair", values_to = "cor") %>%
+    mutate(pair = str_remove(pair, "AFR_")) %>%
+    ggplot(aes(x = pos, y = cor, group_by = pair, colour = pair)) +
+    geom_point() + 
+    geom_line() +
+    ylim(c(0,1)) +
+    ggtitle("Nucleotide residual correlations", 
+            paste0("Reference Population: AFR; subtype: ", subtype_print_names(subtype) )) +
+    xlab("Relative Position") +
+    ylab("Nucleotide Contribution Correlation") +
+    labs(colour = "Population")
+```
+
+Let's also do Spearman correlations within each position:
+
+```{r}
+cor_method <- "spearman"
+df_cor <- df_wide %>%
+    group_by(pos) %>%
+    summarise(across(AMR:SAS, ~cor(., AFR, use = "complete.obs", method = cor_method), .names = "AFR_{.col}"),
+              across(EAS:SAS, ~cor(., AMR, use = "complete.obs", method = cor_method), .names = "AMR_{.col}"),
+              across(EUR:SAS, ~cor(., EAS, use = "complete.obs", method = cor_method), .names = "EAS_{.col}"),
+              across(SAS, ~cor(., EUR, use = "complete.obs", method = cor_method), .names = "EUR_{.col}"))
+
+df_cor %>%
+    select(pos, starts_with("AFR")) %>%
+    pivot_longer(-pos, names_to = "pair", values_to = "cor") %>%
+    mutate(pair = str_remove(pair, "AFR_")) %>%
+    ggplot(aes(x = pos, y = cor, group_by = pair, colour = pair)) +
+    geom_point() + 
+    geom_line() +
+    ylim(c(0,1)) +
+    ggtitle("Nucleotide residual correlations", 
+            paste0("Reference Population: AFR; subtype: ", subtype_print_names(subtype) )) +
+    xlab("Relative Position") +
+    ylab("Nucleotide Contribution Correlation") +
+    labs(colour = "Population")
+```
+
+Let's take a look at the residuals for AFR and EUR at the +2 position:
+
+```{r}
+df_resid %>%
+  filter(pop %in% c("AFR", "EUR"),
+         pos == 2,
+         status == "singletons") %>%
+  select(res, pop, nuc) %>%
+  pivot_wider(names_from = pop, values_from = res) %>%
+  ggplot(aes(x = AFR, y=EUR, color = nuc)) +
+  geom_point()
+```
+
+
+
 Trying to do some correlation of the nucleotide residuals:
 
 ```{r}
@@ -162,4 +263,954 @@ df_resid %>%
   correlate()
 ```
 
+### AT_GC
+
+```{r}
+subtype <- "AT_GC"
+df <- read_subtype_all_pop(subtype) 
+
+df %>%
+  filter(abs(offset) < 11) %>%
+  ggplot(aes(x = offset, y = re, colour = pop)) +
+  geom_line() +
+  geom_point() +
+  xlab("Relative Position") +
+  ylab("Relative Entropy") +
+  labs(colour = "Population") +
+  ggtitle("Single Position Results", subtype)
+```
+
+```{r}
+df %>%
+  select(pop, offset, re) %>%
+  pivot_wider(names_from = pop, values_from = re) %>%
+  select(-offset) %>%
+  corrr::correlate()
+```
+
+```{r}
+df_resid <- read_subtype_range_resid(subtype) %>%
+  type_convert()
+
+df_resid <- df_resid %>%
+  inner_join({df %>% select(offset, re, pop)}, by = c("pos" = "offset", "pop"))
+
+df_resid %>% 
+  filter(status == "singletons") %>%
+  select(nuc, res, re, pos, pop) %>%
+  group_by(pop, pos) %>%
+  mutate(pct = abs(res) / sum(abs(res))) %>%
+  mutate(re_cont = re * pct * sign(res)) %>%
+  ggplot(aes(x = pos, y = re_cont, color = nuc)) +
+  geom_point() +
+  geom_line() +
+  xlab("Relative Position") +
+  ylab("Relative Entropy") +
+  guides(color = guide_legend(title = "Nucleotide")) +
+  theme_classic() +
+  theme(text = element_text(family = "Times New Roman"),
+        legend.position = c(.85, .2)) +
+  facet_wrap(vars(pop))
+```
+
+```{r}
+df_wide <- df_resid %>%
+  filter(status == "singletons") %>%
+  select(nuc, pos, pop, res) %>%
+  pivot_wider(names_from = pop, values_from = res)
+```
+
+```{r}
+cor_method <- "pearson"
+df_cor <- df_wide %>%
+    group_by(pos) %>%
+    summarise(across(AMR:SAS, ~cor(., AFR, use = "complete.obs", method = cor_method), .names = "AFR_{.col}"),
+              across(EAS:SAS, ~cor(., AMR, use = "complete.obs", method = cor_method), .names = "AMR_{.col}"),
+              across(EUR:SAS, ~cor(., EAS, use = "complete.obs", method = cor_method), .names = "EAS_{.col}"),
+              across(SAS, ~cor(., EUR, use = "complete.obs", method = cor_method), .names = "EUR_{.col}"))
+```
+
+```{r}
+df_cor %>%
+    select(pos, starts_with("AFR")) %>%
+    pivot_longer(-pos, names_to = "pair", values_to = "cor") %>%
+    mutate(pair = str_remove(pair, "AFR_")) %>%
+    ggplot(aes(x = pos, y = cor, group_by = pair, colour = pair)) +
+    geom_point() + 
+    geom_line() +
+    ylim(c(0,1)) +
+    ggtitle("Nucleotide residual correlations", 
+            paste0("Reference Population: AFR; subtype: ", subtype_print_names(subtype) )) +
+    xlab("Relative Position") +
+    ylab("Nucleotide Contribution Correlation") +
+    labs(colour = "Population")
+```
+
+```{r}
+cor_method <- "spearman"
+df_cor <- df_wide %>%
+    group_by(pos) %>%
+    summarise(across(AMR:SAS, ~cor(., AFR, use = "complete.obs", method = cor_method), .names = "AFR_{.col}"),
+              across(EAS:SAS, ~cor(., AMR, use = "complete.obs", method = cor_method), .names = "AMR_{.col}"),
+              across(EUR:SAS, ~cor(., EAS, use = "complete.obs", method = cor_method), .names = "EAS_{.col}"),
+              across(SAS, ~cor(., EUR, use = "complete.obs", method = cor_method), .names = "EUR_{.col}"))
+
+df_cor %>%
+    select(pos, starts_with("AFR")) %>%
+    pivot_longer(-pos, names_to = "pair", values_to = "cor") %>%
+    mutate(pair = str_remove(pair, "AFR_")) %>%
+    ggplot(aes(x = pos, y = cor, group_by = pair, colour = pair)) +
+    geom_point() + 
+    geom_line() +
+    ylim(c(0,1)) +
+    ggtitle("Nucleotide residual correlations", 
+            paste0("Reference Population: AFR; subtype: ", subtype_print_names(subtype) )) +
+    xlab("Relative Position") +
+    ylab("Nucleotide Contribution Correlation") +
+    labs(colour = "Population")
+```
+
+```{r}
+df_resid %>%
+  select(pos, nuc, status, res, pop) %>%
+  pivot_wider(names_from = pop, values_from = res) %>%
+  arrange(pos, status, nuc) %>%
+  filter(status == "singletons") %>%
+  select(AFR, AMR, EAS, EUR, SAS) %>%
+  correlate()
+```
+
+### AT_TA
+
+```{r}
+subtype <- "AT_TA"
+df <- read_subtype_all_pop(subtype) 
+
+df %>%
+  filter(abs(offset) < 11) %>%
+  ggplot(aes(x = offset, y = re, colour = pop)) +
+  geom_line() +
+  geom_point() +
+  xlab("Relative Position") +
+  ylab("Relative Entropy") +
+  labs(colour = "Population") +
+  ggtitle("Single Position Results", subtype)
+```
+
+```{r}
+
+df %>%
+  select(pop, offset, re) %>%
+  pivot_wider(names_from = pop, values_from = re) %>%
+  select(-offset) %>%
+  corrr::correlate()
+```
+
+```{r}
+df_resid <- read_subtype_range_resid(subtype) %>%
+  type_convert()
+
+df_resid <- df_resid %>%
+  inner_join({df %>% select(offset, re, pop)}, by = c("pos" = "offset", "pop"))
+
+df_resid %>% 
+  filter(status == "singletons") %>%
+  select(nuc, res, re, pos, pop) %>%
+  group_by(pop, pos) %>%
+  mutate(pct = abs(res) / sum(abs(res))) %>%
+  mutate(re_cont = re * pct * sign(res)) %>%
+  ggplot(aes(x = pos, y = re_cont, color = nuc)) +
+  geom_point() +
+  geom_line() +
+  xlab("Relative Position") +
+  ylab("Relative Entropy") +
+  guides(color = guide_legend(title = "Nucleotide")) +
+  theme_classic() +
+  theme(text = element_text(family = "Times New Roman"),
+        legend.position = c(.85, .2)) +
+  facet_wrap(vars(pop))
+```
+
+```{r}
+df_wide <- df_resid %>%
+  filter(status == "singletons") %>%
+  select(nuc, pos, pop, res) %>%
+  pivot_wider(names_from = pop, values_from = res)
+```
+
+```{r}
+cor_method <- "pearson"
+df_cor <- df_wide %>%
+    group_by(pos) %>%
+    summarise(across(AMR:SAS, ~cor(., AFR, use = "complete.obs", method = cor_method), .names = "AFR_{.col}"),
+              across(EAS:SAS, ~cor(., AMR, use = "complete.obs", method = cor_method), .names = "AMR_{.col}"),
+              across(EUR:SAS, ~cor(., EAS, use = "complete.obs", method = cor_method), .names = "EAS_{.col}"),
+              across(SAS, ~cor(., EUR, use = "complete.obs", method = cor_method), .names = "EUR_{.col}"))
+```
+
+```{r}
+df_cor %>%
+    select(pos, starts_with("AFR")) %>%
+    pivot_longer(-pos, names_to = "pair", values_to = "cor") %>%
+    mutate(pair = str_remove(pair, "AFR_")) %>%
+    ggplot(aes(x = pos, y = cor, group_by = pair, colour = pair)) +
+    geom_point() + 
+    geom_line() +
+    ylim(c(0,1)) +
+    ggtitle("Nucleotide residual correlations", 
+            paste0("Reference Population: AFR; subtype: ", subtype_print_names(subtype) )) +
+    xlab("Relative Position") +
+    ylab("Nucleotide Contribution Correlation") +
+    labs(colour = "Population")
+```
+
+```{r}
+cor_method <- "spearman"
+df_cor <- df_wide %>%
+    group_by(pos) %>%
+    summarise(across(AMR:SAS, ~cor(., AFR, use = "complete.obs", method = cor_method), .names = "AFR_{.col}"),
+              across(EAS:SAS, ~cor(., AMR, use = "complete.obs", method = cor_method), .names = "AMR_{.col}"),
+              across(EUR:SAS, ~cor(., EAS, use = "complete.obs", method = cor_method), .names = "EAS_{.col}"),
+              across(SAS, ~cor(., EUR, use = "complete.obs", method = cor_method), .names = "EUR_{.col}"))
+
+df_cor %>%
+    select(pos, starts_with("AFR")) %>%
+    pivot_longer(-pos, names_to = "pair", values_to = "cor") %>%
+    mutate(pair = str_remove(pair, "AFR_")) %>%
+    ggplot(aes(x = pos, y = cor, group_by = pair, colour = pair)) +
+    geom_point() + 
+    geom_line() +
+    ylim(c(0,1)) +
+    ggtitle("Nucleotide residual correlations", 
+            paste0("Reference Population: AFR; subtype: ", subtype_print_names(subtype) )) +
+    xlab("Relative Position") +
+    ylab("Nucleotide Contribution Correlation") +
+    labs(colour = "Population")
+```
+
+```{r}
+df_resid %>%
+  select(pos, nuc, status, res, pop) %>%
+  pivot_wider(names_from = pop, values_from = res) %>%
+  arrange(pos, status, nuc) %>%
+  filter(status == "singletons") %>%
+  select(AFR, AMR, EAS, EUR, SAS) %>%
+  correlate()
+```
+
+### GC_AT
+
+```{r}
+subtype <- "GC_AT"
+df <- read_subtype_all_pop(subtype) 
+
+df %>%
+  filter(abs(offset) < 11) %>%
+  ggplot(aes(x = offset, y = re, colour = pop)) +
+  geom_line() +
+  geom_point() +
+  xlab("Relative Position") +
+  ylab("Relative Entropy") +
+  labs(colour = "Population") +
+  ggtitle("Single Position Results", subtype)
+```
+
+```{r}
+df %>%
+  select(pop, offset, re) %>%
+  pivot_wider(names_from = pop, values_from = re) %>%
+  select(-offset) %>%
+  corrr::correlate()
+```
+
+```{r}
+df_resid <- read_subtype_range_resid(subtype) %>%
+  type_convert()
+
+df_resid <- df_resid %>%
+  inner_join({df %>% select(offset, re, pop)}, by = c("pos" = "offset", "pop"))
+
+df_resid %>% 
+  filter(status == "singletons") %>%
+  select(nuc, res, re, pos, pop) %>%
+  group_by(pop, pos) %>%
+  mutate(pct = abs(res) / sum(abs(res))) %>%
+  mutate(re_cont = re * pct * sign(res)) %>%
+  ggplot(aes(x = pos, y = re_cont, color = nuc)) +
+  geom_point() +
+  geom_line() +
+  xlab("Relative Position") +
+  ylab("Relative Entropy") +
+  guides(color = guide_legend(title = "Nucleotide")) +
+  theme_classic() +
+  theme(text = element_text(family = "Times New Roman"),
+        legend.position = c(.85, .2)) +
+  facet_wrap(vars(pop))
+```
+
+```{r}
+df_wide <- df_resid %>%
+  filter(status == "singletons") %>%
+  select(nuc, pos, pop, res) %>%
+  pivot_wider(names_from = pop, values_from = res)
+
+cor_method <- "pearson"
+df_cor <- df_wide %>%
+    group_by(pos) %>%
+    summarise(across(AMR:SAS, ~cor(., AFR, use = "complete.obs", method = cor_method), .names = "AFR_{.col}"),
+              across(EAS:SAS, ~cor(., AMR, use = "complete.obs", method = cor_method), .names = "AMR_{.col}"),
+              across(EUR:SAS, ~cor(., EAS, use = "complete.obs", method = cor_method), .names = "EAS_{.col}"),
+              across(SAS, ~cor(., EUR, use = "complete.obs", method = cor_method), .names = "EUR_{.col}"))
+
+df_cor %>%
+    select(pos, starts_with("AFR")) %>%
+    pivot_longer(-pos, names_to = "pair", values_to = "cor") %>%
+    mutate(pair = str_remove(pair, "AFR_")) %>%
+    ggplot(aes(x = pos, y = cor, group_by = pair, colour = pair)) +
+    geom_point() + 
+    geom_line() +
+    ylim(c(0,1)) +
+    ggtitle("Nucleotide residual correlations", 
+            paste0("Reference Population: AFR; subtype: ", subtype_print_names(subtype) )) +
+    xlab("Relative Position") +
+    ylab("Nucleotide Contribution Correlation") +
+    labs(colour = "Population")
+```
+
+```{r}
+cor_method <- "spearman"
+df_cor <- df_wide %>%
+    group_by(pos) %>%
+    summarise(across(AMR:SAS, ~cor(., AFR, use = "complete.obs", method = cor_method), .names = "AFR_{.col}"),
+              across(EAS:SAS, ~cor(., AMR, use = "complete.obs", method = cor_method), .names = "AMR_{.col}"),
+              across(EUR:SAS, ~cor(., EAS, use = "complete.obs", method = cor_method), .names = "EAS_{.col}"),
+              across(SAS, ~cor(., EUR, use = "complete.obs", method = cor_method), .names = "EUR_{.col}"))
+
+df_cor %>%
+    select(pos, starts_with("AFR")) %>%
+    pivot_longer(-pos, names_to = "pair", values_to = "cor") %>%
+    mutate(pair = str_remove(pair, "AFR_")) %>%
+    ggplot(aes(x = pos, y = cor, group_by = pair, colour = pair)) +
+    geom_point() + 
+    geom_line() +
+    ylim(c(0,1)) +
+    ggtitle("Nucleotide residual correlations", 
+            paste0("Reference Population: AFR; subtype: ", subtype_print_names(subtype) )) +
+    xlab("Relative Position") +
+    ylab("Nucleotide Contribution Correlation") +
+    labs(colour = "Population")
+```
+
+```{r}
+df_resid %>%
+  select(pos, nuc, status, res, pop) %>%
+  pivot_wider(names_from = pop, values_from = res) %>%
+  arrange(pos, status, nuc) %>%
+  filter(status == "singletons") %>%
+  select(AFR, AMR, EAS, EUR, SAS) %>%
+  correlate()
+```
+
+### GC_TA
+
+```{r}
+subtype <- "GC_TA"
+df <- read_subtype_all_pop(subtype) 
+
+df %>%
+  filter(abs(offset) < 11) %>%
+  ggplot(aes(x = offset, y = re, colour = pop)) +
+  geom_line() +
+  geom_point() +
+  xlab("Relative Position") +
+  ylab("Relative Entropy") +
+  labs(colour = "Population") +
+  ggtitle("Single Position Results", subtype)
+```
+
+```{r}
+df %>%
+  select(pop, offset, re) %>%
+  pivot_wider(names_from = pop, values_from = re) %>%
+  select(-offset) %>%
+  corrr::correlate()
+```
+
+```{r}
+df_resid <- read_subtype_range_resid(subtype) %>%
+  type_convert()
+
+df_resid <- df_resid %>%
+  inner_join({df %>% select(offset, re, pop)}, by = c("pos" = "offset", "pop"))
+
+df_resid %>% 
+  filter(status == "singletons") %>%
+  select(nuc, res, re, pos, pop) %>%
+  group_by(pop, pos) %>%
+  mutate(pct = abs(res) / sum(abs(res))) %>%
+  mutate(re_cont = re * pct * sign(res)) %>%
+  ggplot(aes(x = pos, y = re_cont, color = nuc)) +
+  geom_point() +
+  geom_line() +
+  xlab("Relative Position") +
+  ylab("Relative Entropy") +
+  guides(color = guide_legend(title = "Nucleotide")) +
+  theme_classic() +
+  theme(text = element_text(family = "Times New Roman"),
+        legend.position = c(.85, .2)) +
+  facet_wrap(vars(pop))
+```
+
+```{r}
+df_wide <- df_resid %>%
+  filter(status == "singletons") %>%
+  select(nuc, pos, pop, res) %>%
+  pivot_wider(names_from = pop, values_from = res)
+
+cor_method <- "pearson"
+df_cor <- df_wide %>%
+    group_by(pos) %>%
+    summarise(across(AMR:SAS, ~cor(., AFR, use = "complete.obs", method = cor_method), .names = "AFR_{.col}"),
+              across(EAS:SAS, ~cor(., AMR, use = "complete.obs", method = cor_method), .names = "AMR_{.col}"),
+              across(EUR:SAS, ~cor(., EAS, use = "complete.obs", method = cor_method), .names = "EAS_{.col}"),
+              across(SAS, ~cor(., EUR, use = "complete.obs", method = cor_method), .names = "EUR_{.col}"))
+
+df_cor %>%
+    select(pos, starts_with("AFR")) %>%
+    pivot_longer(-pos, names_to = "pair", values_to = "cor") %>%
+    mutate(pair = str_remove(pair, "AFR_")) %>%
+    ggplot(aes(x = pos, y = cor, group_by = pair, colour = pair)) +
+    geom_point() + 
+    geom_line() +
+    ylim(c(0,1)) +
+    ggtitle("Nucleotide residual correlations", 
+            paste0("Reference Population: AFR; subtype: ", subtype_print_names(subtype) )) +
+    xlab("Relative Position") +
+    ylab("Nucleotide Contribution Correlation") +
+    labs(colour = "Population")
+```
+
+```{r}
+cor_method <- "spearman"
+df_cor <- df_wide %>%
+    group_by(pos) %>%
+    summarise(across(AMR:SAS, ~cor(., AFR, use = "complete.obs", method = cor_method), .names = "AFR_{.col}"),
+              across(EAS:SAS, ~cor(., AMR, use = "complete.obs", method = cor_method), .names = "AMR_{.col}"),
+              across(EUR:SAS, ~cor(., EAS, use = "complete.obs", method = cor_method), .names = "EAS_{.col}"),
+              across(SAS, ~cor(., EUR, use = "complete.obs", method = cor_method), .names = "EUR_{.col}"))
+
+df_cor %>%
+    select(pos, starts_with("AFR")) %>%
+    pivot_longer(-pos, names_to = "pair", values_to = "cor") %>%
+    mutate(pair = str_remove(pair, "AFR_")) %>%
+    ggplot(aes(x = pos, y = cor, group_by = pair, colour = pair)) +
+    geom_point() + 
+    geom_line() +
+    ylim(c(0,1)) +
+    ggtitle("Nucleotide residual correlations", 
+            paste0("Reference Population: AFR; subtype: ", subtype_print_names(subtype) )) +
+    xlab("Relative Position") +
+    ylab("Nucleotide Contribution Correlation") +
+    labs(colour = "Population")
+```
+
+```{r}
+df_resid %>%
+  select(pos, nuc, status, res, pop) %>%
+  pivot_wider(names_from = pop, values_from = res) %>%
+  arrange(pos, status, nuc) %>%
+  filter(status == "singletons") %>%
+  select(AFR, AMR, EAS, EUR, SAS) %>%
+  correlate()
+```
+
+### GC_CG
+
+```{r}
+subtype <- "GC_CG"
+df <- read_subtype_all_pop(subtype) 
+
+df %>%
+  filter(abs(offset) < 11) %>%
+  ggplot(aes(x = offset, y = re, colour = pop)) +
+  geom_line() +
+  geom_point() +
+  xlab("Relative Position") +
+  ylab("Relative Entropy") +
+  labs(colour = "Population") +
+  ggtitle("Single Position Results", subtype)
+```
+
+```{r}
+df %>%
+  select(pop, offset, re) %>%
+  pivot_wider(names_from = pop, values_from = re) %>%
+  select(-offset) %>%
+  corrr::correlate()
+```
+
+```{r}
+df_resid <- read_subtype_range_resid(subtype) %>%
+  type_convert()
+
+df_resid <- df_resid %>%
+  inner_join({df %>% select(offset, re, pop)}, by = c("pos" = "offset", "pop"))
+
+df_resid %>% 
+  filter(status == "singletons") %>%
+  select(nuc, res, re, pos, pop) %>%
+  group_by(pop, pos) %>%
+  mutate(pct = abs(res) / sum(abs(res))) %>%
+  mutate(re_cont = re * pct * sign(res)) %>%
+  ggplot(aes(x = pos, y = re_cont, color = nuc)) +
+  geom_point() +
+  geom_line() +
+  xlab("Relative Position") +
+  ylab("Relative Entropy") +
+  guides(color = guide_legend(title = "Nucleotide")) +
+  theme_classic() +
+  theme(text = element_text(family = "Times New Roman"),
+        legend.position = c(.85, .2)) +
+  facet_wrap(vars(pop))
+```
+
+```{r}
+df_wide <- df_resid %>%
+  filter(status == "singletons") %>%
+  select(nuc, pos, pop, res) %>%
+  pivot_wider(names_from = pop, values_from = res)
+
+cor_method <- "pearson"
+df_cor <- df_wide %>%
+    group_by(pos) %>%
+    summarise(across(AMR:SAS, ~cor(., AFR, use = "complete.obs", method = cor_method), .names = "AFR_{.col}"),
+              across(EAS:SAS, ~cor(., AMR, use = "complete.obs", method = cor_method), .names = "AMR_{.col}"),
+              across(EUR:SAS, ~cor(., EAS, use = "complete.obs", method = cor_method), .names = "EAS_{.col}"),
+              across(SAS, ~cor(., EUR, use = "complete.obs", method = cor_method), .names = "EUR_{.col}"))
+
+df_cor %>%
+    select(pos, starts_with("AFR")) %>%
+    pivot_longer(-pos, names_to = "pair", values_to = "cor") %>%
+    mutate(pair = str_remove(pair, "AFR_")) %>%
+    ggplot(aes(x = pos, y = cor, group_by = pair, colour = pair)) +
+    geom_point() + 
+    geom_line() +
+    ylim(c(0,1)) +
+    ggtitle("Nucleotide residual correlations", 
+            paste0("Reference Population: AFR; subtype: ", subtype_print_names(subtype) )) +
+    xlab("Relative Position") +
+    ylab("Nucleotide Contribution Correlation") +
+    labs(colour = "Population")
+```
+
+```{r}
+cor_method <- "spearman"
+df_cor <- df_wide %>%
+    group_by(pos) %>%
+    summarise(across(AMR:SAS, ~cor(., AFR, use = "complete.obs", method = cor_method), .names = "AFR_{.col}"),
+              across(EAS:SAS, ~cor(., AMR, use = "complete.obs", method = cor_method), .names = "AMR_{.col}"),
+              across(EUR:SAS, ~cor(., EAS, use = "complete.obs", method = cor_method), .names = "EAS_{.col}"),
+              across(SAS, ~cor(., EUR, use = "complete.obs", method = cor_method), .names = "EUR_{.col}"))
+
+df_cor %>%
+    select(pos, starts_with("AFR")) %>%
+    pivot_longer(-pos, names_to = "pair", values_to = "cor") %>%
+    mutate(pair = str_remove(pair, "AFR_")) %>%
+    ggplot(aes(x = pos, y = cor, group_by = pair, colour = pair)) +
+    geom_point() + 
+    geom_line() +
+    ylim(c(0,1)) +
+    ggtitle("Nucleotide residual correlations", 
+            paste0("Reference Population: AFR; subtype: ", subtype_print_names(subtype) )) +
+    xlab("Relative Position") +
+    ylab("Nucleotide Contribution Correlation") +
+    labs(colour = "Population")
+```
+
+```{r}
+df_resid %>%
+  select(pos, nuc, status, res, pop) %>%
+  pivot_wider(names_from = pop, values_from = res) %>%
+  arrange(pos, status, nuc) %>%
+  filter(status == "singletons") %>%
+  select(AFR, AMR, EAS, EUR, SAS) %>%
+  correlate()
+```
+
+### cpg_GC_AT
+
+```{r}
+subtype <- "cpg_GC_AT"
+df <- read_subtype_all_pop(subtype) 
+
+df %>%
+  filter(abs(offset) < 11) %>%
+  ggplot(aes(x = offset, y = re, colour = pop)) +
+  geom_line() +
+  geom_point() +
+  xlab("Relative Position") +
+  ylab("Relative Entropy") +
+  labs(colour = "Population") +
+  ggtitle("Single Position Results", subtype)
+```
+
+```{r}
+df %>%
+  select(pop, offset, re) %>%
+  pivot_wider(names_from = pop, values_from = re) %>%
+  select(-offset) %>%
+  corrr::correlate()
+```
+
+```{r}
+df_resid <- read_subtype_range_resid(subtype) %>%
+  type_convert()
+
+df_resid <- df_resid %>%
+  inner_join({df %>% select(offset, re, pop)}, by = c("pos" = "offset", "pop"))
+
+df_resid %>% 
+  filter(status == "singletons") %>%
+  select(nuc, res, re, pos, pop) %>%
+  group_by(pop, pos) %>%
+  mutate(pct = abs(res) / sum(abs(res))) %>%
+  mutate(re_cont = re * pct * sign(res)) %>%
+  ggplot(aes(x = pos, y = re_cont, color = nuc)) +
+  geom_point() +
+  geom_line() +
+  xlab("Relative Position") +
+  ylab("Relative Entropy") +
+  guides(color = guide_legend(title = "Nucleotide")) +
+  theme_classic() +
+  theme(text = element_text(family = "Times New Roman"),
+        legend.position = c(.85, .2)) +
+  facet_wrap(vars(pop))
+```
+
+```{r}
+df_wide <- df_resid %>%
+  filter(status == "singletons") %>%
+  select(nuc, pos, pop, res) %>%
+  pivot_wider(names_from = pop, values_from = res)
+
+cor_method <- "pearson"
+df_cor <- df_wide %>%
+    group_by(pos) %>%
+    summarise(across(AMR:SAS, ~cor(., AFR, use = "complete.obs", method = cor_method), .names = "AFR_{.col}"),
+              across(EAS:SAS, ~cor(., AMR, use = "complete.obs", method = cor_method), .names = "AMR_{.col}"),
+              across(EUR:SAS, ~cor(., EAS, use = "complete.obs", method = cor_method), .names = "EAS_{.col}"),
+              across(SAS, ~cor(., EUR, use = "complete.obs", method = cor_method), .names = "EUR_{.col}"))
+
+df_cor %>%
+    select(pos, starts_with("AFR")) %>%
+    pivot_longer(-pos, names_to = "pair", values_to = "cor") %>%
+    mutate(pair = str_remove(pair, "AFR_")) %>%
+    ggplot(aes(x = pos, y = cor, group_by = pair, colour = pair)) +
+    geom_point() + 
+    geom_line() +
+    ylim(c(0,1)) +
+    ggtitle("Nucleotide residual correlations", 
+            paste0("Reference Population: AFR; subtype: ", subtype_print_names(subtype) )) +
+    xlab("Relative Position") +
+    ylab("Nucleotide Contribution Correlation") +
+    labs(colour = "Population")
+```
+
+```{r}
+cor_method <- "spearman"
+df_cor <- df_wide %>%
+    group_by(pos) %>%
+    summarise(across(AMR:SAS, ~cor(., AFR, use = "complete.obs", method = cor_method), .names = "AFR_{.col}"),
+              across(EAS:SAS, ~cor(., AMR, use = "complete.obs", method = cor_method), .names = "AMR_{.col}"),
+              across(EUR:SAS, ~cor(., EAS, use = "complete.obs", method = cor_method), .names = "EAS_{.col}"),
+              across(SAS, ~cor(., EUR, use = "complete.obs", method = cor_method), .names = "EUR_{.col}"))
+
+df_cor %>%
+    select(pos, starts_with("AFR")) %>%
+    pivot_longer(-pos, names_to = "pair", values_to = "cor") %>%
+    mutate(pair = str_remove(pair, "AFR_")) %>%
+    ggplot(aes(x = pos, y = cor, group_by = pair, colour = pair)) +
+    geom_point() + 
+    geom_line() +
+    ylim(c(0,1)) +
+    ggtitle("Nucleotide residual correlations", 
+            paste0("Reference Population: AFR; subtype: ", subtype_print_names(subtype) )) +
+    xlab("Relative Position") +
+    ylab("Nucleotide Contribution Correlation") +
+    labs(colour = "Population")
+```
+
+```{r}
+df_resid %>%
+  select(pos, nuc, status, res, pop) %>%
+  pivot_wider(names_from = pop, values_from = res) %>%
+  arrange(pos, status, nuc) %>%
+  filter(status == "singletons") %>%
+  select(AFR, AMR, EAS, EUR, SAS) %>%
+  correlate()
+```
+
+### cpg_GC_TA
+
+```{r}
+subtype <- "cpg_GC_TA"
+df <- read_subtype_all_pop(subtype) 
+
+df %>%
+  filter(abs(offset) < 11) %>%
+  ggplot(aes(x = offset, y = re, colour = pop)) +
+  geom_line() +
+  geom_point() +
+  xlab("Relative Position") +
+  ylab("Relative Entropy") +
+  labs(colour = "Population") +
+  ggtitle("Single Position Results", subtype)
+```
+
+```{r}
+df %>%
+  select(pop, offset, re) %>%
+  pivot_wider(names_from = pop, values_from = re) %>%
+  select(-offset) %>%
+  corrr::correlate()
+```
+
+```{r}
+df_resid <- read_subtype_range_resid(subtype) %>%
+  type_convert()
+
+df_resid <- df_resid %>%
+  inner_join({df %>% select(offset, re, pop)}, by = c("pos" = "offset", "pop"))
+
+df_resid %>% 
+  filter(status == "singletons") %>%
+  select(nuc, res, re, pos, pop) %>%
+  group_by(pop, pos) %>%
+  mutate(pct = abs(res) / sum(abs(res))) %>%
+  mutate(re_cont = re * pct * sign(res)) %>%
+  ggplot(aes(x = pos, y = re_cont, color = nuc)) +
+  geom_point() +
+  geom_line() +
+  xlab("Relative Position") +
+  ylab("Relative Entropy") +
+  guides(color = guide_legend(title = "Nucleotide")) +
+  theme_classic() +
+  theme(text = element_text(family = "Times New Roman"),
+        legend.position = c(.85, .2)) +
+  facet_wrap(vars(pop))
+```
+
+```{r}
+df_wide <- df_resid %>%
+  filter(status == "singletons") %>%
+  select(nuc, pos, pop, res) %>%
+  pivot_wider(names_from = pop, values_from = res)
+
+cor_method <- "pearson"
+df_cor <- df_wide %>%
+    group_by(pos) %>%
+    summarise(across(AMR:SAS, ~cor(., AFR, use = "complete.obs", method = cor_method), .names = "AFR_{.col}"),
+              across(EAS:SAS, ~cor(., AMR, use = "complete.obs", method = cor_method), .names = "AMR_{.col}"),
+              across(EUR:SAS, ~cor(., EAS, use = "complete.obs", method = cor_method), .names = "EAS_{.col}"),
+              across(SAS, ~cor(., EUR, use = "complete.obs", method = cor_method), .names = "EUR_{.col}"))
+
+df_cor %>%
+    select(pos, starts_with("AFR")) %>%
+    pivot_longer(-pos, names_to = "pair", values_to = "cor") %>%
+    mutate(pair = str_remove(pair, "AFR_")) %>%
+    ggplot(aes(x = pos, y = cor, group_by = pair, colour = pair)) +
+    geom_point() + 
+    geom_line() +
+    ylim(c(0,1)) +
+    ggtitle("Nucleotide residual correlations", 
+            paste0("Reference Population: AFR; subtype: ", subtype_print_names(subtype) )) +
+    xlab("Relative Position") +
+    ylab("Nucleotide Contribution Correlation") +
+    labs(colour = "Population")
+```
+
+```{r}
+cor_method <- "spearman"
+df_cor <- df_wide %>%
+    group_by(pos) %>%
+    summarise(across(AMR:SAS, ~cor(., AFR, use = "complete.obs", method = cor_method), .names = "AFR_{.col}"),
+              across(EAS:SAS, ~cor(., AMR, use = "complete.obs", method = cor_method), .names = "AMR_{.col}"),
+              across(EUR:SAS, ~cor(., EAS, use = "complete.obs", method = cor_method), .names = "EAS_{.col}"),
+              across(SAS, ~cor(., EUR, use = "complete.obs", method = cor_method), .names = "EUR_{.col}"))
+
+df_cor %>%
+    select(pos, starts_with("AFR")) %>%
+    pivot_longer(-pos, names_to = "pair", values_to = "cor") %>%
+    mutate(pair = str_remove(pair, "AFR_")) %>%
+    ggplot(aes(x = pos, y = cor, group_by = pair, colour = pair)) +
+    geom_point() + 
+    geom_line() +
+    ylim(c(0,1)) +
+    ggtitle("Nucleotide residual correlations", 
+            paste0("Reference Population: AFR; subtype: ", subtype_print_names(subtype) )) +
+    xlab("Relative Position") +
+    ylab("Nucleotide Contribution Correlation") +
+    labs(colour = "Population")
+```
+
+```{r}
+df_resid %>%
+  select(pos, nuc, status, res, pop) %>%
+  pivot_wider(names_from = pop, values_from = res) %>%
+  arrange(pos, status, nuc) %>%
+  filter(status == "singletons") %>%
+  select(AFR, AMR, EAS, EUR, SAS) %>%
+  correlate()
+```
+
+### cpg_GC_CG
+
+```{r}
+subtype <- "cpg_GC_CG"
+df <- read_subtype_all_pop(subtype) 
+
+df %>%
+  filter(abs(offset) < 11) %>%
+  ggplot(aes(x = offset, y = re, colour = pop)) +
+  geom_line() +
+  geom_point() +
+  xlab("Relative Position") +
+  ylab("Relative Entropy") +
+  labs(colour = "Population") +
+  ggtitle("Single Position Results", subtype)
+```
+
+```{r}
+df %>%
+  select(pop, offset, re) %>%
+  pivot_wider(names_from = pop, values_from = re) %>%
+  select(-offset) %>%
+  corrr::correlate()
+```
+
+```{r}
+df_resid <- read_subtype_range_resid(subtype) %>%
+  type_convert()
+
+df_resid <- df_resid %>%
+  inner_join({df %>% select(offset, re, pop)}, by = c("pos" = "offset", "pop"))
+
+df_resid %>% 
+  filter(status == "singletons") %>%
+  select(nuc, res, re, pos, pop) %>%
+  group_by(pop, pos) %>%
+  mutate(pct = abs(res) / sum(abs(res))) %>%
+  mutate(re_cont = re * pct * sign(res)) %>%
+  ggplot(aes(x = pos, y = re_cont, color = nuc)) +
+  geom_point() +
+  geom_line() +
+  xlab("Relative Position") +
+  ylab("Relative Entropy") +
+  guides(color = guide_legend(title = "Nucleotide")) +
+  theme_classic() +
+  theme(text = element_text(family = "Times New Roman"),
+        legend.position = c(.85, .2)) +
+  facet_wrap(vars(pop))
+```
+
+```{r}
+df_wide <- df_resid %>%
+  filter(status == "singletons") %>%
+  select(nuc, pos, pop, res) %>%
+  pivot_wider(names_from = pop, values_from = res)
+
+cor_method <- "pearson"
+df_cor <- df_wide %>%
+    group_by(pos) %>%
+    summarise(across(AMR:SAS, ~cor(., AFR, use = "complete.obs", method = cor_method), .names = "AFR_{.col}"),
+              across(EAS:SAS, ~cor(., AMR, use = "complete.obs", method = cor_method), .names = "AMR_{.col}"),
+              across(EUR:SAS, ~cor(., EAS, use = "complete.obs", method = cor_method), .names = "EAS_{.col}"),
+              across(SAS, ~cor(., EUR, use = "complete.obs", method = cor_method), .names = "EUR_{.col}"))
+
+df_cor %>%
+    select(pos, starts_with("AFR")) %>%
+    pivot_longer(-pos, names_to = "pair", values_to = "cor") %>%
+    mutate(pair = str_remove(pair, "AFR_")) %>%
+    ggplot(aes(x = pos, y = cor, group_by = pair, colour = pair)) +
+    geom_point() + 
+    geom_line() +
+    ylim(c(0,1)) +
+    ggtitle("Nucleotide residual correlations", 
+            paste0("Reference Population: AFR; subtype: ", subtype_print_names(subtype) )) +
+    xlab("Relative Position") +
+    ylab("Nucleotide Contribution Correlation") +
+    labs(colour = "Population")
+```
+
+```{r}
+cor_method <- "spearman"
+df_cor <- df_wide %>%
+    group_by(pos) %>%
+    summarise(across(AMR:SAS, ~cor(., AFR, use = "complete.obs", method = cor_method), .names = "AFR_{.col}"),
+              across(EAS:SAS, ~cor(., AMR, use = "complete.obs", method = cor_method), .names = "AMR_{.col}"),
+              across(EUR:SAS, ~cor(., EAS, use = "complete.obs", method = cor_method), .names = "EAS_{.col}"),
+              across(SAS, ~cor(., EUR, use = "complete.obs", method = cor_method), .names = "EUR_{.col}"))
+
+df_cor %>%
+    select(pos, starts_with("AFR")) %>%
+    pivot_longer(-pos, names_to = "pair", values_to = "cor") %>%
+    mutate(pair = str_remove(pair, "AFR_")) %>%
+    ggplot(aes(x = pos, y = cor, group_by = pair, colour = pair)) +
+    geom_point() + 
+    geom_line() +
+    ylim(c(0,1)) +
+    ggtitle("Nucleotide residual correlations", 
+            paste0("Reference Population: AFR; subtype: ", subtype_print_names(subtype) )) +
+    xlab("Relative Position") +
+    ylab("Nucleotide Contribution Correlation") +
+    labs(colour = "Population")
+```
+
+```{r}
+df_resid %>%
+  select(pos, nuc, status, res, pop) %>%
+  pivot_wider(names_from = pop, values_from = res) %>%
+  arrange(pos, status, nuc) %>%
+  filter(status == "singletons") %>%
+  select(AFR, AMR, EAS, EUR, SAS) %>%
+  correlate()
+```
+
+## Chi-sq Approach
+
+Above we looked at the consistency of results for the models in which we assess the influence of nucleotides at individual positions. A similar question we can ask is if the distributions of nucleotides flanking singletons from one population are similar to the corresponding distribution in another population. To address this, we employ a $\chi^2$ approach wherein we use the distribution of nucleotides at a flanking position for one population as the expectation for the corresponding distribution for another population.
+
+### Loading Results
+
+```{r}
+chi_sq_dir <- "/net/snowwhite/home/beckandy/research/1000G_NYGC_LSCI/output/ref_pop_sp/"
+load_chi_res <- function(src, ref, subtype, res_dir){
+  f_name <- paste0(res_dir, src, "_", ref, "_", subtype, ".csv")
+  df <- read_csv(f_name, show_col_types = FALSE)
+  return(df)
+}
+```
+
+### Results
+
+#### AFR as Source Population
+
+##### EUR
+
+```{r}
+src_pop <- "AFR"
+trg_pop <- "EUR"
+
+subtype <- "AT_CG"
+
+df <- load_chi_res(src_pop, trg_pop, subtype, chi_sq_dir)
+df %>%
+  head()
+
+df %>%
+  ggplot(aes(x = rp, y = stat)) +
+  geom_point() +
+  xlab("Relative Position") +
+  ylab("Chi-Sq Statistic")
+```
 
