@@ -384,7 +384,7 @@ class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span>
 <div class="tab-content">
 <div id="summary" class="tab-pane fade in active">
 <p>
-<strong>Last updated:</strong> 2023-07-06
+<strong>Last updated:</strong> 2023-07-19
 </p>
 <p>
 <strong>Checks:</strong> <span
@@ -515,15 +515,15 @@ project makes it easier to run your code on other machines.</p>
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomtheandybLSCItreee13a272d36f888becb46f7c00087a6dee4a2cf06targetblanke13a272a">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomtheandybLSCItree28c0f335b9d4f9861107b7d78e6912836a8c2532targetblank28c0f33a">
 <span class="glyphicon glyphicon-ok text-success"
 aria-hidden="true"></span> <strong>Repository version:</strong>
-<a href="https://github.com/theandyb/LSCI/tree/e13a272d36f888becb46f7c00087a6dee4a2cf06" target="_blank">e13a272</a>
+<a href="https://github.com/theandyb/LSCI/tree/28c0f335b9d4f9861107b7d78e6912836a8c2532" target="_blank">28c0f33</a>
 </a>
 </p>
 </div>
 <div
-id="strongRepositoryversionstrongahrefhttpsgithubcomtheandybLSCItreee13a272d36f888becb46f7c00087a6dee4a2cf06targetblanke13a272a"
+id="strongRepositoryversionstrongahrefhttpsgithubcomtheandybLSCItree28c0f335b9d4f9861107b7d78e6912836a8c2532targetblank28c0f33a"
 class="panel-collapse collapse">
 <div class="panel-body">
 <p>
@@ -533,7 +533,7 @@ reproducibility.
 </p>
 <p>
 The results in this page were generated with repository version
-<a href="https://github.com/theandyb/LSCI/tree/e13a272d36f888becb46f7c00087a6dee4a2cf06" target="_blank">e13a272</a>.
+<a href="https://github.com/theandyb/LSCI/tree/28c0f335b9d4f9861107b7d78e6912836a8c2532" target="_blank">28c0f33</a>.
 See the <em>Past versions</em> tab to see a history of the changes made
 to the R Markdown and HTML files.
 </p>
@@ -554,11 +554,8 @@ Ignored files:
     Ignored:    code/random/
     Ignored:    output/figs/
 
-Untracked files:
-    Untracked:  analysis/NYGC_new_vis.Rmd
-
 Unstaged changes:
-    Modified:   analysis/NYGC_control_samples.Rmd
+    Modified:   analysis/NYGC_two_pos_all.Rmd
 
 </code></pre>
 <p>
@@ -605,6 +602,40 @@ Message
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+Rmd
+</td>
+<td>
+<a href="https://github.com/theandyb/LSCI/blob/28c0f335b9d4f9861107b7d78e6912836a8c2532/analysis/NYGC_single_position_comp.Rmd" target="_blank">28c0f33</a>
+</td>
+<td>
+Andy Beck
+</td>
+<td>
+2023-07-19
+</td>
+<td>
+wflow_publish("analysis/NYGC_single_position_comp.Rmd")
+</td>
+</tr>
+<tr>
+<td>
+html
+</td>
+<td>
+<a href="https://rawcdn.githack.com/theandyb/LSCI/104e9c94887c3e12189a18c54aebee68a10f7d93/docs/NYGC_single_position_comp.html" target="_blank">104e9c9</a>
+</td>
+<td>
+Andy Beck
+</td>
+<td>
+2023-07-06
+</td>
+<td>
+Build site.
+</td>
+</tr>
 <tr>
 <td>
 Rmd
@@ -755,15 +786,77 @@ subtype_print_names &lt;- function(st){
 <h2>Position-level Results</h2>
 <div id="at_cg" class="section level3">
 <h3>AT_CG</h3>
-<pre class="r"><code>df &lt;- read_subtype_all_pop(&quot;AT_CG&quot;) 
+<pre class="r"><code>subtype &lt;- &quot;AT_CG&quot;
+df &lt;- read_subtype_all_pop(subtype) 
 
 df %&gt;%
   filter(abs(offset) &lt; 11) %&gt;%
   ggplot(aes(x = offset, y = re, colour = pop)) +
   geom_line() +
-  geom_point()</code></pre>
+  geom_point() +
+  xlab(&quot;Relative Position&quot;) +
+  ylab(&quot;Relative Entropy&quot;) +
+  labs(colour = &quot;Population&quot;) +
+  ggtitle(&quot;Single Position Results&quot;, subtype)</code></pre>
 <p><img src="figure/NYGC_single_position_comp.Rmd/unnamed-chunk-3-1.png" width="672" style="display: block; margin: auto;" /></p>
-<pre class="r"><code>df_resid &lt;- read_subtype_range_resid(&quot;AT_CG&quot;) %&gt;%
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-3-1">
+Past versions of unnamed-chunk-3-1.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-3-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/theandyb/LSCI/blob/104e9c94887c3e12189a18c54aebee68a10f7d93/docs/figure/NYGC_single_position_comp.Rmd/unnamed-chunk-3-1.png" target="_blank">104e9c9</a>
+</td>
+<td>
+Andy Beck
+</td>
+<td>
+2023-07-06
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<p>We can also get the correlation of the results between each pair of
+populations:</p>
+<pre class="r"><code>df %&gt;%
+  select(pop, offset, re) %&gt;%
+  pivot_wider(names_from = pop, values_from = re) %&gt;%
+  select(-offset) %&gt;%
+  corrr::correlate()</code></pre>
+<pre><code>Correlation computed with
+• Method: &#39;pearson&#39;
+• Missing treated using: &#39;pairwise.complete.obs&#39;</code></pre>
+<pre><code># A tibble: 5 × 6
+  term     AFR    AMR    EAS    EUR    SAS
+  &lt;chr&gt;  &lt;dbl&gt;  &lt;dbl&gt;  &lt;dbl&gt;  &lt;dbl&gt;  &lt;dbl&gt;
+1 AFR   NA      0.999  0.993  0.998  0.999
+2 AMR    0.999 NA      0.993  0.999  0.998
+3 EAS    0.993  0.993 NA      0.990  0.996
+4 EUR    0.998  0.999  0.990 NA      0.997
+5 SAS    0.999  0.998  0.996  0.997 NA    </code></pre>
+<p>Each position-level result can be further broken down into the
+contribution from the nucleotide-level residuals:</p>
+<pre class="r"><code>df_resid &lt;- read_subtype_range_resid(subtype) %&gt;%
   type_convert()</code></pre>
 <pre><code>
 ── Column specification ────────────────────────────────────────────────────────
@@ -792,7 +885,70 @@ df_resid %&gt;%
   theme(text = element_text(family = &quot;Times New Roman&quot;),
         legend.position = c(.85, .2)) +
   facet_wrap(vars(pop))</code></pre>
-<p><img src="figure/NYGC_single_position_comp.Rmd/unnamed-chunk-3-2.png" width="672" style="display: block; margin: auto;" /></p>
+<p><img src="figure/NYGC_single_position_comp.Rmd/unnamed-chunk-5-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>Widen the residual df so we can get pairwise population
+correlations:</p>
+<pre class="r"><code>df_wide &lt;- df_resid %&gt;%
+  filter(status == &quot;singletons&quot;) %&gt;%
+  select(nuc, pos, pop, res) %&gt;%
+  pivot_wider(names_from = pop, values_from = res)</code></pre>
+<p>And generate the correlations:</p>
+<pre class="r"><code>cor_method &lt;- &quot;pearson&quot;
+df_cor &lt;- df_wide %&gt;%
+    group_by(pos) %&gt;%
+    summarise(across(AMR:SAS, ~cor(., AFR, use = &quot;complete.obs&quot;, method = cor_method), .names = &quot;AFR_{.col}&quot;),
+              across(EAS:SAS, ~cor(., AMR, use = &quot;complete.obs&quot;, method = cor_method), .names = &quot;AMR_{.col}&quot;),
+              across(EUR:SAS, ~cor(., EAS, use = &quot;complete.obs&quot;, method = cor_method), .names = &quot;EAS_{.col}&quot;),
+              across(SAS, ~cor(., EUR, use = &quot;complete.obs&quot;, method = cor_method), .names = &quot;EUR_{.col}&quot;))</code></pre>
+<p>And then plot them:</p>
+<pre class="r"><code>df_cor %&gt;%
+    select(pos, starts_with(&quot;AFR&quot;)) %&gt;%
+    pivot_longer(-pos, names_to = &quot;pair&quot;, values_to = &quot;cor&quot;) %&gt;%
+    mutate(pair = str_remove(pair, &quot;AFR_&quot;)) %&gt;%
+    ggplot(aes(x = pos, y = cor, group_by = pair, colour = pair)) +
+    geom_point() + 
+    geom_line() +
+    ylim(c(0,1)) +
+    ggtitle(&quot;Nucleotide residual correlations&quot;, 
+            paste0(&quot;Reference Population: AFR; subtype: &quot;, subtype_print_names(subtype) )) +
+    xlab(&quot;Relative Position&quot;) +
+    ylab(&quot;Nucleotide Contribution Correlation&quot;) +
+    labs(colour = &quot;Population&quot;)</code></pre>
+<p><img src="figure/NYGC_single_position_comp.Rmd/unnamed-chunk-8-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>Let’s also do Spearman correlations within each position:</p>
+<pre class="r"><code>cor_method &lt;- &quot;spearman&quot;
+df_cor &lt;- df_wide %&gt;%
+    group_by(pos) %&gt;%
+    summarise(across(AMR:SAS, ~cor(., AFR, use = &quot;complete.obs&quot;, method = cor_method), .names = &quot;AFR_{.col}&quot;),
+              across(EAS:SAS, ~cor(., AMR, use = &quot;complete.obs&quot;, method = cor_method), .names = &quot;AMR_{.col}&quot;),
+              across(EUR:SAS, ~cor(., EAS, use = &quot;complete.obs&quot;, method = cor_method), .names = &quot;EAS_{.col}&quot;),
+              across(SAS, ~cor(., EUR, use = &quot;complete.obs&quot;, method = cor_method), .names = &quot;EUR_{.col}&quot;))
+
+df_cor %&gt;%
+    select(pos, starts_with(&quot;AFR&quot;)) %&gt;%
+    pivot_longer(-pos, names_to = &quot;pair&quot;, values_to = &quot;cor&quot;) %&gt;%
+    mutate(pair = str_remove(pair, &quot;AFR_&quot;)) %&gt;%
+    ggplot(aes(x = pos, y = cor, group_by = pair, colour = pair)) +
+    geom_point() + 
+    geom_line() +
+    ylim(c(0,1)) +
+    ggtitle(&quot;Nucleotide residual correlations&quot;, 
+            paste0(&quot;Reference Population: AFR; subtype: &quot;, subtype_print_names(subtype) )) +
+    xlab(&quot;Relative Position&quot;) +
+    ylab(&quot;Nucleotide Contribution Correlation&quot;) +
+    labs(colour = &quot;Population&quot;)</code></pre>
+<p><img src="figure/NYGC_single_position_comp.Rmd/unnamed-chunk-9-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>Let’s take a look at the residuals for AFR and EUR at the +2
+position:</p>
+<pre class="r"><code>df_resid %&gt;%
+  filter(pop %in% c(&quot;AFR&quot;, &quot;EUR&quot;),
+         pos == 2,
+         status == &quot;singletons&quot;) %&gt;%
+  select(res, pop, nuc) %&gt;%
+  pivot_wider(names_from = pop, values_from = res) %&gt;%
+  ggplot(aes(x = AFR, y=EUR, color = nuc)) +
+  geom_point()</code></pre>
+<p><img src="figure/NYGC_single_position_comp.Rmd/unnamed-chunk-10-1.png" width="672" style="display: block; margin: auto;" /></p>
 <p>Trying to do some correlation of the nucleotide residuals:</p>
 <pre class="r"><code>df_resid %&gt;%
   select(pos, nuc, status, res, pop) %&gt;%
@@ -812,6 +968,1085 @@ df_resid %&gt;%
 3 EAS    0.976  0.985 NA      0.989  0.949
 4 EUR    0.988  0.996  0.989 NA      0.967
 5 SAS    0.987  0.975  0.949  0.967 NA    </code></pre>
+</div>
+<div id="at_gc" class="section level3">
+<h3>AT_GC</h3>
+<pre class="r"><code>subtype &lt;- &quot;AT_GC&quot;
+df &lt;- read_subtype_all_pop(subtype) 
+
+df %&gt;%
+  filter(abs(offset) &lt; 11) %&gt;%
+  ggplot(aes(x = offset, y = re, colour = pop)) +
+  geom_line() +
+  geom_point() +
+  xlab(&quot;Relative Position&quot;) +
+  ylab(&quot;Relative Entropy&quot;) +
+  labs(colour = &quot;Population&quot;) +
+  ggtitle(&quot;Single Position Results&quot;, subtype)</code></pre>
+<p><img src="figure/NYGC_single_position_comp.Rmd/unnamed-chunk-12-1.png" width="672" style="display: block; margin: auto;" /></p>
+<pre class="r"><code>df %&gt;%
+  select(pop, offset, re) %&gt;%
+  pivot_wider(names_from = pop, values_from = re) %&gt;%
+  select(-offset) %&gt;%
+  corrr::correlate()</code></pre>
+<pre><code>Correlation computed with
+• Method: &#39;pearson&#39;
+• Missing treated using: &#39;pairwise.complete.obs&#39;</code></pre>
+<pre><code># A tibble: 5 × 6
+  term     AFR   AMR    EAS    EUR    SAS
+  &lt;chr&gt;  &lt;dbl&gt; &lt;dbl&gt;  &lt;dbl&gt;  &lt;dbl&gt;  &lt;dbl&gt;
+1 AFR   NA      1.00  0.999  0.999  0.999
+2 AMR    1.00  NA     1.00   1.00   1.00 
+3 EAS    0.999  1.00 NA      1.00   1.00 
+4 EUR    0.999  1.00  1.00  NA      1.00 
+5 SAS    0.999  1.00  1.00   1.00  NA    </code></pre>
+<pre class="r"><code>df_resid &lt;- read_subtype_range_resid(subtype) %&gt;%
+  type_convert()</code></pre>
+<pre><code>
+── Column specification ────────────────────────────────────────────────────────
+cols(
+  nuc = col_character(),
+  status = col_character(),
+  pos = col_double(),
+  pop = col_character()
+)</code></pre>
+<pre class="r"><code>df_resid &lt;- df_resid %&gt;%
+  inner_join({df %&gt;% select(offset, re, pop)}, by = c(&quot;pos&quot; = &quot;offset&quot;, &quot;pop&quot;))
+
+df_resid %&gt;% 
+  filter(status == &quot;singletons&quot;) %&gt;%
+  select(nuc, res, re, pos, pop) %&gt;%
+  group_by(pop, pos) %&gt;%
+  mutate(pct = abs(res) / sum(abs(res))) %&gt;%
+  mutate(re_cont = re * pct * sign(res)) %&gt;%
+  ggplot(aes(x = pos, y = re_cont, color = nuc)) +
+  geom_point() +
+  geom_line() +
+  xlab(&quot;Relative Position&quot;) +
+  ylab(&quot;Relative Entropy&quot;) +
+  guides(color = guide_legend(title = &quot;Nucleotide&quot;)) +
+  theme_classic() +
+  theme(text = element_text(family = &quot;Times New Roman&quot;),
+        legend.position = c(.85, .2)) +
+  facet_wrap(vars(pop))</code></pre>
+<p><img src="figure/NYGC_single_position_comp.Rmd/unnamed-chunk-14-1.png" width="672" style="display: block; margin: auto;" /></p>
+<pre class="r"><code>df_wide &lt;- df_resid %&gt;%
+  filter(status == &quot;singletons&quot;) %&gt;%
+  select(nuc, pos, pop, res) %&gt;%
+  pivot_wider(names_from = pop, values_from = res)</code></pre>
+<pre class="r"><code>cor_method &lt;- &quot;pearson&quot;
+df_cor &lt;- df_wide %&gt;%
+    group_by(pos) %&gt;%
+    summarise(across(AMR:SAS, ~cor(., AFR, use = &quot;complete.obs&quot;, method = cor_method), .names = &quot;AFR_{.col}&quot;),
+              across(EAS:SAS, ~cor(., AMR, use = &quot;complete.obs&quot;, method = cor_method), .names = &quot;AMR_{.col}&quot;),
+              across(EUR:SAS, ~cor(., EAS, use = &quot;complete.obs&quot;, method = cor_method), .names = &quot;EAS_{.col}&quot;),
+              across(SAS, ~cor(., EUR, use = &quot;complete.obs&quot;, method = cor_method), .names = &quot;EUR_{.col}&quot;))</code></pre>
+<pre class="r"><code>df_cor %&gt;%
+    select(pos, starts_with(&quot;AFR&quot;)) %&gt;%
+    pivot_longer(-pos, names_to = &quot;pair&quot;, values_to = &quot;cor&quot;) %&gt;%
+    mutate(pair = str_remove(pair, &quot;AFR_&quot;)) %&gt;%
+    ggplot(aes(x = pos, y = cor, group_by = pair, colour = pair)) +
+    geom_point() + 
+    geom_line() +
+    ylim(c(0,1)) +
+    ggtitle(&quot;Nucleotide residual correlations&quot;, 
+            paste0(&quot;Reference Population: AFR; subtype: &quot;, subtype_print_names(subtype) )) +
+    xlab(&quot;Relative Position&quot;) +
+    ylab(&quot;Nucleotide Contribution Correlation&quot;) +
+    labs(colour = &quot;Population&quot;)</code></pre>
+<p><img src="figure/NYGC_single_position_comp.Rmd/unnamed-chunk-17-1.png" width="672" style="display: block; margin: auto;" /></p>
+<pre class="r"><code>cor_method &lt;- &quot;spearman&quot;
+df_cor &lt;- df_wide %&gt;%
+    group_by(pos) %&gt;%
+    summarise(across(AMR:SAS, ~cor(., AFR, use = &quot;complete.obs&quot;, method = cor_method), .names = &quot;AFR_{.col}&quot;),
+              across(EAS:SAS, ~cor(., AMR, use = &quot;complete.obs&quot;, method = cor_method), .names = &quot;AMR_{.col}&quot;),
+              across(EUR:SAS, ~cor(., EAS, use = &quot;complete.obs&quot;, method = cor_method), .names = &quot;EAS_{.col}&quot;),
+              across(SAS, ~cor(., EUR, use = &quot;complete.obs&quot;, method = cor_method), .names = &quot;EUR_{.col}&quot;))
+
+df_cor %&gt;%
+    select(pos, starts_with(&quot;AFR&quot;)) %&gt;%
+    pivot_longer(-pos, names_to = &quot;pair&quot;, values_to = &quot;cor&quot;) %&gt;%
+    mutate(pair = str_remove(pair, &quot;AFR_&quot;)) %&gt;%
+    ggplot(aes(x = pos, y = cor, group_by = pair, colour = pair)) +
+    geom_point() + 
+    geom_line() +
+    ylim(c(0,1)) +
+    ggtitle(&quot;Nucleotide residual correlations&quot;, 
+            paste0(&quot;Reference Population: AFR; subtype: &quot;, subtype_print_names(subtype) )) +
+    xlab(&quot;Relative Position&quot;) +
+    ylab(&quot;Nucleotide Contribution Correlation&quot;) +
+    labs(colour = &quot;Population&quot;)</code></pre>
+<p><img src="figure/NYGC_single_position_comp.Rmd/unnamed-chunk-18-1.png" width="672" style="display: block; margin: auto;" /></p>
+<pre class="r"><code>df_resid %&gt;%
+  select(pos, nuc, status, res, pop) %&gt;%
+  pivot_wider(names_from = pop, values_from = res) %&gt;%
+  arrange(pos, status, nuc) %&gt;%
+  filter(status == &quot;singletons&quot;) %&gt;%
+  select(AFR, AMR, EAS, EUR, SAS) %&gt;%
+  correlate()</code></pre>
+<pre><code>Correlation computed with
+• Method: &#39;pearson&#39;
+• Missing treated using: &#39;pairwise.complete.obs&#39;</code></pre>
+<pre><code># A tibble: 5 × 6
+  term     AFR    AMR    EAS    EUR    SAS
+  &lt;chr&gt;  &lt;dbl&gt;  &lt;dbl&gt;  &lt;dbl&gt;  &lt;dbl&gt;  &lt;dbl&gt;
+1 AFR   NA      0.999  0.999  0.999  0.999
+2 AMR    0.999 NA      1.00   0.999  1.00 
+3 EAS    0.999  1.00  NA      0.999  0.999
+4 EUR    0.999  0.999  0.999 NA      0.999
+5 SAS    0.999  1.00   0.999  0.999 NA    </code></pre>
+</div>
+<div id="at_ta" class="section level3">
+<h3>AT_TA</h3>
+<pre class="r"><code>subtype &lt;- &quot;AT_TA&quot;
+df &lt;- read_subtype_all_pop(subtype) 
+
+df %&gt;%
+  filter(abs(offset) &lt; 11) %&gt;%
+  ggplot(aes(x = offset, y = re, colour = pop)) +
+  geom_line() +
+  geom_point() +
+  xlab(&quot;Relative Position&quot;) +
+  ylab(&quot;Relative Entropy&quot;) +
+  labs(colour = &quot;Population&quot;) +
+  ggtitle(&quot;Single Position Results&quot;, subtype)</code></pre>
+<p><img src="figure/NYGC_single_position_comp.Rmd/unnamed-chunk-20-1.png" width="672" style="display: block; margin: auto;" /></p>
+<pre class="r"><code>df %&gt;%
+  select(pop, offset, re) %&gt;%
+  pivot_wider(names_from = pop, values_from = re) %&gt;%
+  select(-offset) %&gt;%
+  corrr::correlate()</code></pre>
+<pre><code>Correlation computed with
+• Method: &#39;pearson&#39;
+• Missing treated using: &#39;pairwise.complete.obs&#39;</code></pre>
+<pre><code># A tibble: 5 × 6
+  term     AFR    AMR    EAS    EUR    SAS
+  &lt;chr&gt;  &lt;dbl&gt;  &lt;dbl&gt;  &lt;dbl&gt;  &lt;dbl&gt;  &lt;dbl&gt;
+1 AFR   NA      0.999  0.999  0.999  1.00 
+2 AMR    0.999 NA      0.999  1.00   1.00 
+3 EAS    0.999  0.999 NA      0.998  0.999
+4 EUR    0.999  1.00   0.998 NA      0.999
+5 SAS    1.00   1.00   0.999  0.999 NA    </code></pre>
+<pre class="r"><code>df_resid &lt;- read_subtype_range_resid(subtype) %&gt;%
+  type_convert()</code></pre>
+<pre><code>
+── Column specification ────────────────────────────────────────────────────────
+cols(
+  nuc = col_character(),
+  status = col_character(),
+  pos = col_double(),
+  pop = col_character()
+)</code></pre>
+<pre class="r"><code>df_resid &lt;- df_resid %&gt;%
+  inner_join({df %&gt;% select(offset, re, pop)}, by = c(&quot;pos&quot; = &quot;offset&quot;, &quot;pop&quot;))
+
+df_resid %&gt;% 
+  filter(status == &quot;singletons&quot;) %&gt;%
+  select(nuc, res, re, pos, pop) %&gt;%
+  group_by(pop, pos) %&gt;%
+  mutate(pct = abs(res) / sum(abs(res))) %&gt;%
+  mutate(re_cont = re * pct * sign(res)) %&gt;%
+  ggplot(aes(x = pos, y = re_cont, color = nuc)) +
+  geom_point() +
+  geom_line() +
+  xlab(&quot;Relative Position&quot;) +
+  ylab(&quot;Relative Entropy&quot;) +
+  guides(color = guide_legend(title = &quot;Nucleotide&quot;)) +
+  theme_classic() +
+  theme(text = element_text(family = &quot;Times New Roman&quot;),
+        legend.position = c(.85, .2)) +
+  facet_wrap(vars(pop))</code></pre>
+<p><img src="figure/NYGC_single_position_comp.Rmd/unnamed-chunk-22-1.png" width="672" style="display: block; margin: auto;" /></p>
+<pre class="r"><code>df_wide &lt;- df_resid %&gt;%
+  filter(status == &quot;singletons&quot;) %&gt;%
+  select(nuc, pos, pop, res) %&gt;%
+  pivot_wider(names_from = pop, values_from = res)</code></pre>
+<pre class="r"><code>cor_method &lt;- &quot;pearson&quot;
+df_cor &lt;- df_wide %&gt;%
+    group_by(pos) %&gt;%
+    summarise(across(AMR:SAS, ~cor(., AFR, use = &quot;complete.obs&quot;, method = cor_method), .names = &quot;AFR_{.col}&quot;),
+              across(EAS:SAS, ~cor(., AMR, use = &quot;complete.obs&quot;, method = cor_method), .names = &quot;AMR_{.col}&quot;),
+              across(EUR:SAS, ~cor(., EAS, use = &quot;complete.obs&quot;, method = cor_method), .names = &quot;EAS_{.col}&quot;),
+              across(SAS, ~cor(., EUR, use = &quot;complete.obs&quot;, method = cor_method), .names = &quot;EUR_{.col}&quot;))</code></pre>
+<pre class="r"><code>df_cor %&gt;%
+    select(pos, starts_with(&quot;AFR&quot;)) %&gt;%
+    pivot_longer(-pos, names_to = &quot;pair&quot;, values_to = &quot;cor&quot;) %&gt;%
+    mutate(pair = str_remove(pair, &quot;AFR_&quot;)) %&gt;%
+    ggplot(aes(x = pos, y = cor, group_by = pair, colour = pair)) +
+    geom_point() + 
+    geom_line() +
+    ylim(c(0,1)) +
+    ggtitle(&quot;Nucleotide residual correlations&quot;, 
+            paste0(&quot;Reference Population: AFR; subtype: &quot;, subtype_print_names(subtype) )) +
+    xlab(&quot;Relative Position&quot;) +
+    ylab(&quot;Nucleotide Contribution Correlation&quot;) +
+    labs(colour = &quot;Population&quot;)</code></pre>
+<p><img src="figure/NYGC_single_position_comp.Rmd/unnamed-chunk-25-1.png" width="672" style="display: block; margin: auto;" /></p>
+<pre class="r"><code>cor_method &lt;- &quot;spearman&quot;
+df_cor &lt;- df_wide %&gt;%
+    group_by(pos) %&gt;%
+    summarise(across(AMR:SAS, ~cor(., AFR, use = &quot;complete.obs&quot;, method = cor_method), .names = &quot;AFR_{.col}&quot;),
+              across(EAS:SAS, ~cor(., AMR, use = &quot;complete.obs&quot;, method = cor_method), .names = &quot;AMR_{.col}&quot;),
+              across(EUR:SAS, ~cor(., EAS, use = &quot;complete.obs&quot;, method = cor_method), .names = &quot;EAS_{.col}&quot;),
+              across(SAS, ~cor(., EUR, use = &quot;complete.obs&quot;, method = cor_method), .names = &quot;EUR_{.col}&quot;))
+
+df_cor %&gt;%
+    select(pos, starts_with(&quot;AFR&quot;)) %&gt;%
+    pivot_longer(-pos, names_to = &quot;pair&quot;, values_to = &quot;cor&quot;) %&gt;%
+    mutate(pair = str_remove(pair, &quot;AFR_&quot;)) %&gt;%
+    ggplot(aes(x = pos, y = cor, group_by = pair, colour = pair)) +
+    geom_point() + 
+    geom_line() +
+    ylim(c(0,1)) +
+    ggtitle(&quot;Nucleotide residual correlations&quot;, 
+            paste0(&quot;Reference Population: AFR; subtype: &quot;, subtype_print_names(subtype) )) +
+    xlab(&quot;Relative Position&quot;) +
+    ylab(&quot;Nucleotide Contribution Correlation&quot;) +
+    labs(colour = &quot;Population&quot;)</code></pre>
+<p><img src="figure/NYGC_single_position_comp.Rmd/unnamed-chunk-26-1.png" width="672" style="display: block; margin: auto;" /></p>
+<pre class="r"><code>df_resid %&gt;%
+  select(pos, nuc, status, res, pop) %&gt;%
+  pivot_wider(names_from = pop, values_from = res) %&gt;%
+  arrange(pos, status, nuc) %&gt;%
+  filter(status == &quot;singletons&quot;) %&gt;%
+  select(AFR, AMR, EAS, EUR, SAS) %&gt;%
+  correlate()</code></pre>
+<pre><code>Correlation computed with
+• Method: &#39;pearson&#39;
+• Missing treated using: &#39;pairwise.complete.obs&#39;</code></pre>
+<pre><code># A tibble: 5 × 6
+  term     AFR    AMR    EAS    EUR    SAS
+  &lt;chr&gt;  &lt;dbl&gt;  &lt;dbl&gt;  &lt;dbl&gt;  &lt;dbl&gt;  &lt;dbl&gt;
+1 AFR   NA      0.993  0.989  0.995  0.994
+2 AMR    0.993 NA      0.992  0.997  0.999
+3 EAS    0.989  0.992 NA      0.994  0.996
+4 EUR    0.995  0.997  0.994 NA      0.998
+5 SAS    0.994  0.999  0.996  0.998 NA    </code></pre>
+</div>
+<div id="gc_at" class="section level3">
+<h3>GC_AT</h3>
+<pre class="r"><code>subtype &lt;- &quot;GC_AT&quot;
+df &lt;- read_subtype_all_pop(subtype) 
+
+df %&gt;%
+  filter(abs(offset) &lt; 11) %&gt;%
+  ggplot(aes(x = offset, y = re, colour = pop)) +
+  geom_line() +
+  geom_point() +
+  xlab(&quot;Relative Position&quot;) +
+  ylab(&quot;Relative Entropy&quot;) +
+  labs(colour = &quot;Population&quot;) +
+  ggtitle(&quot;Single Position Results&quot;, subtype)</code></pre>
+<p><img src="figure/NYGC_single_position_comp.Rmd/unnamed-chunk-28-1.png" width="672" style="display: block; margin: auto;" /></p>
+<pre class="r"><code>df %&gt;%
+  select(pop, offset, re) %&gt;%
+  pivot_wider(names_from = pop, values_from = re) %&gt;%
+  select(-offset) %&gt;%
+  corrr::correlate()</code></pre>
+<pre><code>Correlation computed with
+• Method: &#39;pearson&#39;
+• Missing treated using: &#39;pairwise.complete.obs&#39;</code></pre>
+<pre><code># A tibble: 5 × 6
+  term     AFR    AMR    EAS    EUR    SAS
+  &lt;chr&gt;  &lt;dbl&gt;  &lt;dbl&gt;  &lt;dbl&gt;  &lt;dbl&gt;  &lt;dbl&gt;
+1 AFR   NA      0.993  0.997  0.989  0.983
+2 AMR    0.993 NA      0.996  0.999  0.998
+3 EAS    0.997  0.996 NA      0.994  0.989
+4 EUR    0.989  0.999  0.994 NA      0.999
+5 SAS    0.983  0.998  0.989  0.999 NA    </code></pre>
+<pre class="r"><code>df_resid &lt;- read_subtype_range_resid(subtype) %&gt;%
+  type_convert()</code></pre>
+<pre><code>
+── Column specification ────────────────────────────────────────────────────────
+cols(
+  nuc = col_character(),
+  status = col_character(),
+  pos = col_double(),
+  pop = col_character()
+)</code></pre>
+<pre class="r"><code>df_resid &lt;- df_resid %&gt;%
+  inner_join({df %&gt;% select(offset, re, pop)}, by = c(&quot;pos&quot; = &quot;offset&quot;, &quot;pop&quot;))
+
+df_resid %&gt;% 
+  filter(status == &quot;singletons&quot;) %&gt;%
+  select(nuc, res, re, pos, pop) %&gt;%
+  group_by(pop, pos) %&gt;%
+  mutate(pct = abs(res) / sum(abs(res))) %&gt;%
+  mutate(re_cont = re * pct * sign(res)) %&gt;%
+  ggplot(aes(x = pos, y = re_cont, color = nuc)) +
+  geom_point() +
+  geom_line() +
+  xlab(&quot;Relative Position&quot;) +
+  ylab(&quot;Relative Entropy&quot;) +
+  guides(color = guide_legend(title = &quot;Nucleotide&quot;)) +
+  theme_classic() +
+  theme(text = element_text(family = &quot;Times New Roman&quot;),
+        legend.position = c(.85, .2)) +
+  facet_wrap(vars(pop))</code></pre>
+<p><img src="figure/NYGC_single_position_comp.Rmd/unnamed-chunk-30-1.png" width="672" style="display: block; margin: auto;" /></p>
+<pre class="r"><code>df_wide &lt;- df_resid %&gt;%
+  filter(status == &quot;singletons&quot;) %&gt;%
+  select(nuc, pos, pop, res) %&gt;%
+  pivot_wider(names_from = pop, values_from = res)
+
+cor_method &lt;- &quot;pearson&quot;
+df_cor &lt;- df_wide %&gt;%
+    group_by(pos) %&gt;%
+    summarise(across(AMR:SAS, ~cor(., AFR, use = &quot;complete.obs&quot;, method = cor_method), .names = &quot;AFR_{.col}&quot;),
+              across(EAS:SAS, ~cor(., AMR, use = &quot;complete.obs&quot;, method = cor_method), .names = &quot;AMR_{.col}&quot;),
+              across(EUR:SAS, ~cor(., EAS, use = &quot;complete.obs&quot;, method = cor_method), .names = &quot;EAS_{.col}&quot;),
+              across(SAS, ~cor(., EUR, use = &quot;complete.obs&quot;, method = cor_method), .names = &quot;EUR_{.col}&quot;))
+
+df_cor %&gt;%
+    select(pos, starts_with(&quot;AFR&quot;)) %&gt;%
+    pivot_longer(-pos, names_to = &quot;pair&quot;, values_to = &quot;cor&quot;) %&gt;%
+    mutate(pair = str_remove(pair, &quot;AFR_&quot;)) %&gt;%
+    ggplot(aes(x = pos, y = cor, group_by = pair, colour = pair)) +
+    geom_point() + 
+    geom_line() +
+    ylim(c(0,1)) +
+    ggtitle(&quot;Nucleotide residual correlations&quot;, 
+            paste0(&quot;Reference Population: AFR; subtype: &quot;, subtype_print_names(subtype) )) +
+    xlab(&quot;Relative Position&quot;) +
+    ylab(&quot;Nucleotide Contribution Correlation&quot;) +
+    labs(colour = &quot;Population&quot;)</code></pre>
+<p><img src="figure/NYGC_single_position_comp.Rmd/unnamed-chunk-31-1.png" width="672" style="display: block; margin: auto;" /></p>
+<pre class="r"><code>cor_method &lt;- &quot;spearman&quot;
+df_cor &lt;- df_wide %&gt;%
+    group_by(pos) %&gt;%
+    summarise(across(AMR:SAS, ~cor(., AFR, use = &quot;complete.obs&quot;, method = cor_method), .names = &quot;AFR_{.col}&quot;),
+              across(EAS:SAS, ~cor(., AMR, use = &quot;complete.obs&quot;, method = cor_method), .names = &quot;AMR_{.col}&quot;),
+              across(EUR:SAS, ~cor(., EAS, use = &quot;complete.obs&quot;, method = cor_method), .names = &quot;EAS_{.col}&quot;),
+              across(SAS, ~cor(., EUR, use = &quot;complete.obs&quot;, method = cor_method), .names = &quot;EUR_{.col}&quot;))
+
+df_cor %&gt;%
+    select(pos, starts_with(&quot;AFR&quot;)) %&gt;%
+    pivot_longer(-pos, names_to = &quot;pair&quot;, values_to = &quot;cor&quot;) %&gt;%
+    mutate(pair = str_remove(pair, &quot;AFR_&quot;)) %&gt;%
+    ggplot(aes(x = pos, y = cor, group_by = pair, colour = pair)) +
+    geom_point() + 
+    geom_line() +
+    ylim(c(0,1)) +
+    ggtitle(&quot;Nucleotide residual correlations&quot;, 
+            paste0(&quot;Reference Population: AFR; subtype: &quot;, subtype_print_names(subtype) )) +
+    xlab(&quot;Relative Position&quot;) +
+    ylab(&quot;Nucleotide Contribution Correlation&quot;) +
+    labs(colour = &quot;Population&quot;)</code></pre>
+<p><img src="figure/NYGC_single_position_comp.Rmd/unnamed-chunk-32-1.png" width="672" style="display: block; margin: auto;" /></p>
+<pre class="r"><code>df_resid %&gt;%
+  select(pos, nuc, status, res, pop) %&gt;%
+  pivot_wider(names_from = pop, values_from = res) %&gt;%
+  arrange(pos, status, nuc) %&gt;%
+  filter(status == &quot;singletons&quot;) %&gt;%
+  select(AFR, AMR, EAS, EUR, SAS) %&gt;%
+  correlate()</code></pre>
+<pre><code>Correlation computed with
+• Method: &#39;pearson&#39;
+• Missing treated using: &#39;pairwise.complete.obs&#39;</code></pre>
+<pre><code># A tibble: 5 × 6
+  term     AFR    AMR    EAS    EUR    SAS
+  &lt;chr&gt;  &lt;dbl&gt;  &lt;dbl&gt;  &lt;dbl&gt;  &lt;dbl&gt;  &lt;dbl&gt;
+1 AFR   NA      0.996  0.994  0.994  0.992
+2 AMR    0.996 NA      0.995  0.997  0.997
+3 EAS    0.994  0.995 NA      0.994  0.992
+4 EUR    0.994  0.997  0.994 NA      0.999
+5 SAS    0.992  0.997  0.992  0.999 NA    </code></pre>
+</div>
+<div id="gc_ta" class="section level3">
+<h3>GC_TA</h3>
+<pre class="r"><code>subtype &lt;- &quot;GC_TA&quot;
+df &lt;- read_subtype_all_pop(subtype) 
+
+df %&gt;%
+  filter(abs(offset) &lt; 11) %&gt;%
+  ggplot(aes(x = offset, y = re, colour = pop)) +
+  geom_line() +
+  geom_point() +
+  xlab(&quot;Relative Position&quot;) +
+  ylab(&quot;Relative Entropy&quot;) +
+  labs(colour = &quot;Population&quot;) +
+  ggtitle(&quot;Single Position Results&quot;, subtype)</code></pre>
+<p><img src="figure/NYGC_single_position_comp.Rmd/unnamed-chunk-34-1.png" width="672" style="display: block; margin: auto;" /></p>
+<pre class="r"><code>df %&gt;%
+  select(pop, offset, re) %&gt;%
+  pivot_wider(names_from = pop, values_from = re) %&gt;%
+  select(-offset) %&gt;%
+  corrr::correlate()</code></pre>
+<pre><code>Correlation computed with
+• Method: &#39;pearson&#39;
+• Missing treated using: &#39;pairwise.complete.obs&#39;</code></pre>
+<pre><code># A tibble: 5 × 6
+  term     AFR    AMR    EAS    EUR    SAS
+  &lt;chr&gt;  &lt;dbl&gt;  &lt;dbl&gt;  &lt;dbl&gt;  &lt;dbl&gt;  &lt;dbl&gt;
+1 AFR   NA      0.997  0.991  0.999  0.994
+2 AMR    0.997 NA      0.998  0.996  0.999
+3 EAS    0.991  0.998 NA      0.988  0.999
+4 EUR    0.999  0.996  0.988 NA      0.992
+5 SAS    0.994  0.999  0.999  0.992 NA    </code></pre>
+<pre class="r"><code>df_resid &lt;- read_subtype_range_resid(subtype) %&gt;%
+  type_convert()</code></pre>
+<pre><code>
+── Column specification ────────────────────────────────────────────────────────
+cols(
+  nuc = col_character(),
+  status = col_character(),
+  pos = col_double(),
+  pop = col_character()
+)</code></pre>
+<pre class="r"><code>df_resid &lt;- df_resid %&gt;%
+  inner_join({df %&gt;% select(offset, re, pop)}, by = c(&quot;pos&quot; = &quot;offset&quot;, &quot;pop&quot;))
+
+df_resid %&gt;% 
+  filter(status == &quot;singletons&quot;) %&gt;%
+  select(nuc, res, re, pos, pop) %&gt;%
+  group_by(pop, pos) %&gt;%
+  mutate(pct = abs(res) / sum(abs(res))) %&gt;%
+  mutate(re_cont = re * pct * sign(res)) %&gt;%
+  ggplot(aes(x = pos, y = re_cont, color = nuc)) +
+  geom_point() +
+  geom_line() +
+  xlab(&quot;Relative Position&quot;) +
+  ylab(&quot;Relative Entropy&quot;) +
+  guides(color = guide_legend(title = &quot;Nucleotide&quot;)) +
+  theme_classic() +
+  theme(text = element_text(family = &quot;Times New Roman&quot;),
+        legend.position = c(.85, .2)) +
+  facet_wrap(vars(pop))</code></pre>
+<p><img src="figure/NYGC_single_position_comp.Rmd/unnamed-chunk-36-1.png" width="672" style="display: block; margin: auto;" /></p>
+<pre class="r"><code>df_wide &lt;- df_resid %&gt;%
+  filter(status == &quot;singletons&quot;) %&gt;%
+  select(nuc, pos, pop, res) %&gt;%
+  pivot_wider(names_from = pop, values_from = res)
+
+cor_method &lt;- &quot;pearson&quot;
+df_cor &lt;- df_wide %&gt;%
+    group_by(pos) %&gt;%
+    summarise(across(AMR:SAS, ~cor(., AFR, use = &quot;complete.obs&quot;, method = cor_method), .names = &quot;AFR_{.col}&quot;),
+              across(EAS:SAS, ~cor(., AMR, use = &quot;complete.obs&quot;, method = cor_method), .names = &quot;AMR_{.col}&quot;),
+              across(EUR:SAS, ~cor(., EAS, use = &quot;complete.obs&quot;, method = cor_method), .names = &quot;EAS_{.col}&quot;),
+              across(SAS, ~cor(., EUR, use = &quot;complete.obs&quot;, method = cor_method), .names = &quot;EUR_{.col}&quot;))
+
+df_cor %&gt;%
+    select(pos, starts_with(&quot;AFR&quot;)) %&gt;%
+    pivot_longer(-pos, names_to = &quot;pair&quot;, values_to = &quot;cor&quot;) %&gt;%
+    mutate(pair = str_remove(pair, &quot;AFR_&quot;)) %&gt;%
+    ggplot(aes(x = pos, y = cor, group_by = pair, colour = pair)) +
+    geom_point() + 
+    geom_line() +
+    ylim(c(0,1)) +
+    ggtitle(&quot;Nucleotide residual correlations&quot;, 
+            paste0(&quot;Reference Population: AFR; subtype: &quot;, subtype_print_names(subtype) )) +
+    xlab(&quot;Relative Position&quot;) +
+    ylab(&quot;Nucleotide Contribution Correlation&quot;) +
+    labs(colour = &quot;Population&quot;)</code></pre>
+<p><img src="figure/NYGC_single_position_comp.Rmd/unnamed-chunk-37-1.png" width="672" style="display: block; margin: auto;" /></p>
+<pre class="r"><code>cor_method &lt;- &quot;spearman&quot;
+df_cor &lt;- df_wide %&gt;%
+    group_by(pos) %&gt;%
+    summarise(across(AMR:SAS, ~cor(., AFR, use = &quot;complete.obs&quot;, method = cor_method), .names = &quot;AFR_{.col}&quot;),
+              across(EAS:SAS, ~cor(., AMR, use = &quot;complete.obs&quot;, method = cor_method), .names = &quot;AMR_{.col}&quot;),
+              across(EUR:SAS, ~cor(., EAS, use = &quot;complete.obs&quot;, method = cor_method), .names = &quot;EAS_{.col}&quot;),
+              across(SAS, ~cor(., EUR, use = &quot;complete.obs&quot;, method = cor_method), .names = &quot;EUR_{.col}&quot;))
+
+df_cor %&gt;%
+    select(pos, starts_with(&quot;AFR&quot;)) %&gt;%
+    pivot_longer(-pos, names_to = &quot;pair&quot;, values_to = &quot;cor&quot;) %&gt;%
+    mutate(pair = str_remove(pair, &quot;AFR_&quot;)) %&gt;%
+    ggplot(aes(x = pos, y = cor, group_by = pair, colour = pair)) +
+    geom_point() + 
+    geom_line() +
+    ylim(c(0,1)) +
+    ggtitle(&quot;Nucleotide residual correlations&quot;, 
+            paste0(&quot;Reference Population: AFR; subtype: &quot;, subtype_print_names(subtype) )) +
+    xlab(&quot;Relative Position&quot;) +
+    ylab(&quot;Nucleotide Contribution Correlation&quot;) +
+    labs(colour = &quot;Population&quot;)</code></pre>
+<p><img src="figure/NYGC_single_position_comp.Rmd/unnamed-chunk-38-1.png" width="672" style="display: block; margin: auto;" /></p>
+<pre class="r"><code>df_resid %&gt;%
+  select(pos, nuc, status, res, pop) %&gt;%
+  pivot_wider(names_from = pop, values_from = res) %&gt;%
+  arrange(pos, status, nuc) %&gt;%
+  filter(status == &quot;singletons&quot;) %&gt;%
+  select(AFR, AMR, EAS, EUR, SAS) %&gt;%
+  correlate()</code></pre>
+<pre><code>Correlation computed with
+• Method: &#39;pearson&#39;
+• Missing treated using: &#39;pairwise.complete.obs&#39;</code></pre>
+<pre><code># A tibble: 5 × 6
+  term     AFR    AMR    EAS    EUR    SAS
+  &lt;chr&gt;  &lt;dbl&gt;  &lt;dbl&gt;  &lt;dbl&gt;  &lt;dbl&gt;  &lt;dbl&gt;
+1 AFR   NA      0.998  0.996  0.999  0.997
+2 AMR    0.998 NA      0.999  0.997  0.999
+3 EAS    0.996  0.999 NA      0.995  0.999
+4 EUR    0.999  0.997  0.995 NA      0.996
+5 SAS    0.997  0.999  0.999  0.996 NA    </code></pre>
+</div>
+<div id="gc_cg" class="section level3">
+<h3>GC_CG</h3>
+<pre class="r"><code>subtype &lt;- &quot;GC_CG&quot;
+df &lt;- read_subtype_all_pop(subtype) 
+
+df %&gt;%
+  filter(abs(offset) &lt; 11) %&gt;%
+  ggplot(aes(x = offset, y = re, colour = pop)) +
+  geom_line() +
+  geom_point() +
+  xlab(&quot;Relative Position&quot;) +
+  ylab(&quot;Relative Entropy&quot;) +
+  labs(colour = &quot;Population&quot;) +
+  ggtitle(&quot;Single Position Results&quot;, subtype)</code></pre>
+<p><img src="figure/NYGC_single_position_comp.Rmd/unnamed-chunk-40-1.png" width="672" style="display: block; margin: auto;" /></p>
+<pre class="r"><code>df %&gt;%
+  select(pop, offset, re) %&gt;%
+  pivot_wider(names_from = pop, values_from = re) %&gt;%
+  select(-offset) %&gt;%
+  corrr::correlate()</code></pre>
+<pre><code>Correlation computed with
+• Method: &#39;pearson&#39;
+• Missing treated using: &#39;pairwise.complete.obs&#39;</code></pre>
+<pre><code># A tibble: 5 × 6
+  term     AFR    AMR    EAS    EUR    SAS
+  &lt;chr&gt;  &lt;dbl&gt;  &lt;dbl&gt;  &lt;dbl&gt;  &lt;dbl&gt;  &lt;dbl&gt;
+1 AFR   NA      0.996  0.994  0.993  0.996
+2 AMR    0.996 NA      0.998  0.999  1.00 
+3 EAS    0.994  0.998 NA      0.999  0.999
+4 EUR    0.993  0.999  0.999 NA      0.999
+5 SAS    0.996  1.00   0.999  0.999 NA    </code></pre>
+<pre class="r"><code>df_resid &lt;- read_subtype_range_resid(subtype) %&gt;%
+  type_convert()</code></pre>
+<pre><code>
+── Column specification ────────────────────────────────────────────────────────
+cols(
+  nuc = col_character(),
+  status = col_character(),
+  pos = col_double(),
+  pop = col_character()
+)</code></pre>
+<pre class="r"><code>df_resid &lt;- df_resid %&gt;%
+  inner_join({df %&gt;% select(offset, re, pop)}, by = c(&quot;pos&quot; = &quot;offset&quot;, &quot;pop&quot;))
+
+df_resid %&gt;% 
+  filter(status == &quot;singletons&quot;) %&gt;%
+  select(nuc, res, re, pos, pop) %&gt;%
+  group_by(pop, pos) %&gt;%
+  mutate(pct = abs(res) / sum(abs(res))) %&gt;%
+  mutate(re_cont = re * pct * sign(res)) %&gt;%
+  ggplot(aes(x = pos, y = re_cont, color = nuc)) +
+  geom_point() +
+  geom_line() +
+  xlab(&quot;Relative Position&quot;) +
+  ylab(&quot;Relative Entropy&quot;) +
+  guides(color = guide_legend(title = &quot;Nucleotide&quot;)) +
+  theme_classic() +
+  theme(text = element_text(family = &quot;Times New Roman&quot;),
+        legend.position = c(.85, .2)) +
+  facet_wrap(vars(pop))</code></pre>
+<p><img src="figure/NYGC_single_position_comp.Rmd/unnamed-chunk-42-1.png" width="672" style="display: block; margin: auto;" /></p>
+<pre class="r"><code>df_wide &lt;- df_resid %&gt;%
+  filter(status == &quot;singletons&quot;) %&gt;%
+  select(nuc, pos, pop, res) %&gt;%
+  pivot_wider(names_from = pop, values_from = res)
+
+cor_method &lt;- &quot;pearson&quot;
+df_cor &lt;- df_wide %&gt;%
+    group_by(pos) %&gt;%
+    summarise(across(AMR:SAS, ~cor(., AFR, use = &quot;complete.obs&quot;, method = cor_method), .names = &quot;AFR_{.col}&quot;),
+              across(EAS:SAS, ~cor(., AMR, use = &quot;complete.obs&quot;, method = cor_method), .names = &quot;AMR_{.col}&quot;),
+              across(EUR:SAS, ~cor(., EAS, use = &quot;complete.obs&quot;, method = cor_method), .names = &quot;EAS_{.col}&quot;),
+              across(SAS, ~cor(., EUR, use = &quot;complete.obs&quot;, method = cor_method), .names = &quot;EUR_{.col}&quot;))
+
+df_cor %&gt;%
+    select(pos, starts_with(&quot;AFR&quot;)) %&gt;%
+    pivot_longer(-pos, names_to = &quot;pair&quot;, values_to = &quot;cor&quot;) %&gt;%
+    mutate(pair = str_remove(pair, &quot;AFR_&quot;)) %&gt;%
+    ggplot(aes(x = pos, y = cor, group_by = pair, colour = pair)) +
+    geom_point() + 
+    geom_line() +
+    ylim(c(0,1)) +
+    ggtitle(&quot;Nucleotide residual correlations&quot;, 
+            paste0(&quot;Reference Population: AFR; subtype: &quot;, subtype_print_names(subtype) )) +
+    xlab(&quot;Relative Position&quot;) +
+    ylab(&quot;Nucleotide Contribution Correlation&quot;) +
+    labs(colour = &quot;Population&quot;)</code></pre>
+<p><img src="figure/NYGC_single_position_comp.Rmd/unnamed-chunk-43-1.png" width="672" style="display: block; margin: auto;" /></p>
+<pre class="r"><code>cor_method &lt;- &quot;spearman&quot;
+df_cor &lt;- df_wide %&gt;%
+    group_by(pos) %&gt;%
+    summarise(across(AMR:SAS, ~cor(., AFR, use = &quot;complete.obs&quot;, method = cor_method), .names = &quot;AFR_{.col}&quot;),
+              across(EAS:SAS, ~cor(., AMR, use = &quot;complete.obs&quot;, method = cor_method), .names = &quot;AMR_{.col}&quot;),
+              across(EUR:SAS, ~cor(., EAS, use = &quot;complete.obs&quot;, method = cor_method), .names = &quot;EAS_{.col}&quot;),
+              across(SAS, ~cor(., EUR, use = &quot;complete.obs&quot;, method = cor_method), .names = &quot;EUR_{.col}&quot;))
+
+df_cor %&gt;%
+    select(pos, starts_with(&quot;AFR&quot;)) %&gt;%
+    pivot_longer(-pos, names_to = &quot;pair&quot;, values_to = &quot;cor&quot;) %&gt;%
+    mutate(pair = str_remove(pair, &quot;AFR_&quot;)) %&gt;%
+    ggplot(aes(x = pos, y = cor, group_by = pair, colour = pair)) +
+    geom_point() + 
+    geom_line() +
+    ylim(c(0,1)) +
+    ggtitle(&quot;Nucleotide residual correlations&quot;, 
+            paste0(&quot;Reference Population: AFR; subtype: &quot;, subtype_print_names(subtype) )) +
+    xlab(&quot;Relative Position&quot;) +
+    ylab(&quot;Nucleotide Contribution Correlation&quot;) +
+    labs(colour = &quot;Population&quot;)</code></pre>
+<p><img src="figure/NYGC_single_position_comp.Rmd/unnamed-chunk-44-1.png" width="672" style="display: block; margin: auto;" /></p>
+<pre class="r"><code>df_resid %&gt;%
+  select(pos, nuc, status, res, pop) %&gt;%
+  pivot_wider(names_from = pop, values_from = res) %&gt;%
+  arrange(pos, status, nuc) %&gt;%
+  filter(status == &quot;singletons&quot;) %&gt;%
+  select(AFR, AMR, EAS, EUR, SAS) %&gt;%
+  correlate()</code></pre>
+<pre><code>Correlation computed with
+• Method: &#39;pearson&#39;
+• Missing treated using: &#39;pairwise.complete.obs&#39;</code></pre>
+<pre><code># A tibble: 5 × 6
+  term     AFR    AMR    EAS    EUR    SAS
+  &lt;chr&gt;  &lt;dbl&gt;  &lt;dbl&gt;  &lt;dbl&gt;  &lt;dbl&gt;  &lt;dbl&gt;
+1 AFR   NA      0.996  0.993  0.996  0.996
+2 AMR    0.996 NA      0.998  0.998  0.999
+3 EAS    0.993  0.998 NA      0.997  0.998
+4 EUR    0.996  0.998  0.997 NA      0.998
+5 SAS    0.996  0.999  0.998  0.998 NA    </code></pre>
+</div>
+<div id="cpg_gc_at" class="section level3">
+<h3>cpg_GC_AT</h3>
+<pre class="r"><code>subtype &lt;- &quot;cpg_GC_AT&quot;
+df &lt;- read_subtype_all_pop(subtype) 
+
+df %&gt;%
+  filter(abs(offset) &lt; 11) %&gt;%
+  ggplot(aes(x = offset, y = re, colour = pop)) +
+  geom_line() +
+  geom_point() +
+  xlab(&quot;Relative Position&quot;) +
+  ylab(&quot;Relative Entropy&quot;) +
+  labs(colour = &quot;Population&quot;) +
+  ggtitle(&quot;Single Position Results&quot;, subtype)</code></pre>
+<p><img src="figure/NYGC_single_position_comp.Rmd/unnamed-chunk-46-1.png" width="672" style="display: block; margin: auto;" /></p>
+<pre class="r"><code>df %&gt;%
+  select(pop, offset, re) %&gt;%
+  pivot_wider(names_from = pop, values_from = re) %&gt;%
+  select(-offset) %&gt;%
+  corrr::correlate()</code></pre>
+<pre><code>Correlation computed with
+• Method: &#39;pearson&#39;
+• Missing treated using: &#39;pairwise.complete.obs&#39;</code></pre>
+<pre><code># A tibble: 5 × 6
+  term     AFR    AMR    EAS    EUR    SAS
+  &lt;chr&gt;  &lt;dbl&gt;  &lt;dbl&gt;  &lt;dbl&gt;  &lt;dbl&gt;  &lt;dbl&gt;
+1 AFR   NA      0.998  0.999  0.999  0.999
+2 AMR    0.998 NA      0.998  0.998  0.998
+3 EAS    0.999  0.998 NA      0.999  0.999
+4 EUR    0.999  0.998  0.999 NA      0.999
+5 SAS    0.999  0.998  0.999  0.999 NA    </code></pre>
+<pre class="r"><code>df_resid &lt;- read_subtype_range_resid(subtype) %&gt;%
+  type_convert()</code></pre>
+<pre><code>
+── Column specification ────────────────────────────────────────────────────────
+cols(
+  nuc = col_character(),
+  status = col_character(),
+  pos = col_double(),
+  pop = col_character()
+)</code></pre>
+<pre class="r"><code>df_resid &lt;- df_resid %&gt;%
+  inner_join({df %&gt;% select(offset, re, pop)}, by = c(&quot;pos&quot; = &quot;offset&quot;, &quot;pop&quot;))
+
+df_resid %&gt;% 
+  filter(status == &quot;singletons&quot;) %&gt;%
+  select(nuc, res, re, pos, pop) %&gt;%
+  group_by(pop, pos) %&gt;%
+  mutate(pct = abs(res) / sum(abs(res))) %&gt;%
+  mutate(re_cont = re * pct * sign(res)) %&gt;%
+  ggplot(aes(x = pos, y = re_cont, color = nuc)) +
+  geom_point() +
+  geom_line() +
+  xlab(&quot;Relative Position&quot;) +
+  ylab(&quot;Relative Entropy&quot;) +
+  guides(color = guide_legend(title = &quot;Nucleotide&quot;)) +
+  theme_classic() +
+  theme(text = element_text(family = &quot;Times New Roman&quot;),
+        legend.position = c(.85, .2)) +
+  facet_wrap(vars(pop))</code></pre>
+<p><img src="figure/NYGC_single_position_comp.Rmd/unnamed-chunk-48-1.png" width="672" style="display: block; margin: auto;" /></p>
+<pre class="r"><code>df_wide &lt;- df_resid %&gt;%
+  filter(status == &quot;singletons&quot;) %&gt;%
+  select(nuc, pos, pop, res) %&gt;%
+  pivot_wider(names_from = pop, values_from = res)
+
+cor_method &lt;- &quot;pearson&quot;
+df_cor &lt;- df_wide %&gt;%
+    group_by(pos) %&gt;%
+    summarise(across(AMR:SAS, ~cor(., AFR, use = &quot;complete.obs&quot;, method = cor_method), .names = &quot;AFR_{.col}&quot;),
+              across(EAS:SAS, ~cor(., AMR, use = &quot;complete.obs&quot;, method = cor_method), .names = &quot;AMR_{.col}&quot;),
+              across(EUR:SAS, ~cor(., EAS, use = &quot;complete.obs&quot;, method = cor_method), .names = &quot;EAS_{.col}&quot;),
+              across(SAS, ~cor(., EUR, use = &quot;complete.obs&quot;, method = cor_method), .names = &quot;EUR_{.col}&quot;))
+
+df_cor %&gt;%
+    select(pos, starts_with(&quot;AFR&quot;)) %&gt;%
+    pivot_longer(-pos, names_to = &quot;pair&quot;, values_to = &quot;cor&quot;) %&gt;%
+    mutate(pair = str_remove(pair, &quot;AFR_&quot;)) %&gt;%
+    ggplot(aes(x = pos, y = cor, group_by = pair, colour = pair)) +
+    geom_point() + 
+    geom_line() +
+    ylim(c(0,1)) +
+    ggtitle(&quot;Nucleotide residual correlations&quot;, 
+            paste0(&quot;Reference Population: AFR; subtype: &quot;, subtype_print_names(subtype) )) +
+    xlab(&quot;Relative Position&quot;) +
+    ylab(&quot;Nucleotide Contribution Correlation&quot;) +
+    labs(colour = &quot;Population&quot;)</code></pre>
+<p><img src="figure/NYGC_single_position_comp.Rmd/unnamed-chunk-49-1.png" width="672" style="display: block; margin: auto;" /></p>
+<pre class="r"><code>cor_method &lt;- &quot;spearman&quot;
+df_cor &lt;- df_wide %&gt;%
+    group_by(pos) %&gt;%
+    summarise(across(AMR:SAS, ~cor(., AFR, use = &quot;complete.obs&quot;, method = cor_method), .names = &quot;AFR_{.col}&quot;),
+              across(EAS:SAS, ~cor(., AMR, use = &quot;complete.obs&quot;, method = cor_method), .names = &quot;AMR_{.col}&quot;),
+              across(EUR:SAS, ~cor(., EAS, use = &quot;complete.obs&quot;, method = cor_method), .names = &quot;EAS_{.col}&quot;),
+              across(SAS, ~cor(., EUR, use = &quot;complete.obs&quot;, method = cor_method), .names = &quot;EUR_{.col}&quot;))
+
+df_cor %&gt;%
+    select(pos, starts_with(&quot;AFR&quot;)) %&gt;%
+    pivot_longer(-pos, names_to = &quot;pair&quot;, values_to = &quot;cor&quot;) %&gt;%
+    mutate(pair = str_remove(pair, &quot;AFR_&quot;)) %&gt;%
+    ggplot(aes(x = pos, y = cor, group_by = pair, colour = pair)) +
+    geom_point() + 
+    geom_line() +
+    ylim(c(0,1)) +
+    ggtitle(&quot;Nucleotide residual correlations&quot;, 
+            paste0(&quot;Reference Population: AFR; subtype: &quot;, subtype_print_names(subtype) )) +
+    xlab(&quot;Relative Position&quot;) +
+    ylab(&quot;Nucleotide Contribution Correlation&quot;) +
+    labs(colour = &quot;Population&quot;)</code></pre>
+<p><img src="figure/NYGC_single_position_comp.Rmd/unnamed-chunk-50-1.png" width="672" style="display: block; margin: auto;" /></p>
+<pre class="r"><code>df_resid %&gt;%
+  select(pos, nuc, status, res, pop) %&gt;%
+  pivot_wider(names_from = pop, values_from = res) %&gt;%
+  arrange(pos, status, nuc) %&gt;%
+  filter(status == &quot;singletons&quot;) %&gt;%
+  select(AFR, AMR, EAS, EUR, SAS) %&gt;%
+  correlate()</code></pre>
+<pre><code>Correlation computed with
+• Method: &#39;pearson&#39;
+• Missing treated using: &#39;pairwise.complete.obs&#39;</code></pre>
+<pre><code># A tibble: 5 × 6
+  term     AFR    AMR    EAS    EUR    SAS
+  &lt;chr&gt;  &lt;dbl&gt;  &lt;dbl&gt;  &lt;dbl&gt;  &lt;dbl&gt;  &lt;dbl&gt;
+1 AFR   NA      0.998  0.998  0.999  0.999
+2 AMR    0.998 NA      0.998  0.998  0.999
+3 EAS    0.998  0.998 NA      0.999  0.999
+4 EUR    0.999  0.998  0.999 NA      0.999
+5 SAS    0.999  0.999  0.999  0.999 NA    </code></pre>
+</div>
+<div id="cpg_gc_ta" class="section level3">
+<h3>cpg_GC_TA</h3>
+<pre class="r"><code>subtype &lt;- &quot;cpg_GC_TA&quot;
+df &lt;- read_subtype_all_pop(subtype) 
+
+df %&gt;%
+  filter(abs(offset) &lt; 11) %&gt;%
+  ggplot(aes(x = offset, y = re, colour = pop)) +
+  geom_line() +
+  geom_point() +
+  xlab(&quot;Relative Position&quot;) +
+  ylab(&quot;Relative Entropy&quot;) +
+  labs(colour = &quot;Population&quot;) +
+  ggtitle(&quot;Single Position Results&quot;, subtype)</code></pre>
+<p><img src="figure/NYGC_single_position_comp.Rmd/unnamed-chunk-52-1.png" width="672" style="display: block; margin: auto;" /></p>
+<pre class="r"><code>df %&gt;%
+  select(pop, offset, re) %&gt;%
+  pivot_wider(names_from = pop, values_from = re) %&gt;%
+  select(-offset) %&gt;%
+  corrr::correlate()</code></pre>
+<pre><code>Correlation computed with
+• Method: &#39;pearson&#39;
+• Missing treated using: &#39;pairwise.complete.obs&#39;</code></pre>
+<pre><code># A tibble: 5 × 6
+  term     AFR    AMR    EAS    EUR    SAS
+  &lt;chr&gt;  &lt;dbl&gt;  &lt;dbl&gt;  &lt;dbl&gt;  &lt;dbl&gt;  &lt;dbl&gt;
+1 AFR   NA      0.997  0.997  0.996  0.997
+2 AMR    0.997 NA      0.997  0.995  0.996
+3 EAS    0.997  0.997 NA      0.996  0.998
+4 EUR    0.996  0.995  0.996 NA      0.994
+5 SAS    0.997  0.996  0.998  0.994 NA    </code></pre>
+<pre class="r"><code>df_resid &lt;- read_subtype_range_resid(subtype) %&gt;%
+  type_convert()</code></pre>
+<pre><code>
+── Column specification ────────────────────────────────────────────────────────
+cols(
+  nuc = col_character(),
+  status = col_character(),
+  pos = col_double(),
+  pop = col_character()
+)</code></pre>
+<pre class="r"><code>df_resid &lt;- df_resid %&gt;%
+  inner_join({df %&gt;% select(offset, re, pop)}, by = c(&quot;pos&quot; = &quot;offset&quot;, &quot;pop&quot;))
+
+df_resid %&gt;% 
+  filter(status == &quot;singletons&quot;) %&gt;%
+  select(nuc, res, re, pos, pop) %&gt;%
+  group_by(pop, pos) %&gt;%
+  mutate(pct = abs(res) / sum(abs(res))) %&gt;%
+  mutate(re_cont = re * pct * sign(res)) %&gt;%
+  ggplot(aes(x = pos, y = re_cont, color = nuc)) +
+  geom_point() +
+  geom_line() +
+  xlab(&quot;Relative Position&quot;) +
+  ylab(&quot;Relative Entropy&quot;) +
+  guides(color = guide_legend(title = &quot;Nucleotide&quot;)) +
+  theme_classic() +
+  theme(text = element_text(family = &quot;Times New Roman&quot;),
+        legend.position = c(.85, .2)) +
+  facet_wrap(vars(pop))</code></pre>
+<p><img src="figure/NYGC_single_position_comp.Rmd/unnamed-chunk-54-1.png" width="672" style="display: block; margin: auto;" /></p>
+<pre class="r"><code>df_wide &lt;- df_resid %&gt;%
+  filter(status == &quot;singletons&quot;) %&gt;%
+  select(nuc, pos, pop, res) %&gt;%
+  pivot_wider(names_from = pop, values_from = res)
+
+cor_method &lt;- &quot;pearson&quot;
+df_cor &lt;- df_wide %&gt;%
+    group_by(pos) %&gt;%
+    summarise(across(AMR:SAS, ~cor(., AFR, use = &quot;complete.obs&quot;, method = cor_method), .names = &quot;AFR_{.col}&quot;),
+              across(EAS:SAS, ~cor(., AMR, use = &quot;complete.obs&quot;, method = cor_method), .names = &quot;AMR_{.col}&quot;),
+              across(EUR:SAS, ~cor(., EAS, use = &quot;complete.obs&quot;, method = cor_method), .names = &quot;EAS_{.col}&quot;),
+              across(SAS, ~cor(., EUR, use = &quot;complete.obs&quot;, method = cor_method), .names = &quot;EUR_{.col}&quot;))
+
+df_cor %&gt;%
+    select(pos, starts_with(&quot;AFR&quot;)) %&gt;%
+    pivot_longer(-pos, names_to = &quot;pair&quot;, values_to = &quot;cor&quot;) %&gt;%
+    mutate(pair = str_remove(pair, &quot;AFR_&quot;)) %&gt;%
+    ggplot(aes(x = pos, y = cor, group_by = pair, colour = pair)) +
+    geom_point() + 
+    geom_line() +
+    ylim(c(0,1)) +
+    ggtitle(&quot;Nucleotide residual correlations&quot;, 
+            paste0(&quot;Reference Population: AFR; subtype: &quot;, subtype_print_names(subtype) )) +
+    xlab(&quot;Relative Position&quot;) +
+    ylab(&quot;Nucleotide Contribution Correlation&quot;) +
+    labs(colour = &quot;Population&quot;)</code></pre>
+<p><img src="figure/NYGC_single_position_comp.Rmd/unnamed-chunk-55-1.png" width="672" style="display: block; margin: auto;" /></p>
+<pre class="r"><code>cor_method &lt;- &quot;spearman&quot;
+df_cor &lt;- df_wide %&gt;%
+    group_by(pos) %&gt;%
+    summarise(across(AMR:SAS, ~cor(., AFR, use = &quot;complete.obs&quot;, method = cor_method), .names = &quot;AFR_{.col}&quot;),
+              across(EAS:SAS, ~cor(., AMR, use = &quot;complete.obs&quot;, method = cor_method), .names = &quot;AMR_{.col}&quot;),
+              across(EUR:SAS, ~cor(., EAS, use = &quot;complete.obs&quot;, method = cor_method), .names = &quot;EAS_{.col}&quot;),
+              across(SAS, ~cor(., EUR, use = &quot;complete.obs&quot;, method = cor_method), .names = &quot;EUR_{.col}&quot;))
+
+df_cor %&gt;%
+    select(pos, starts_with(&quot;AFR&quot;)) %&gt;%
+    pivot_longer(-pos, names_to = &quot;pair&quot;, values_to = &quot;cor&quot;) %&gt;%
+    mutate(pair = str_remove(pair, &quot;AFR_&quot;)) %&gt;%
+    ggplot(aes(x = pos, y = cor, group_by = pair, colour = pair)) +
+    geom_point() + 
+    geom_line() +
+    ylim(c(0,1)) +
+    ggtitle(&quot;Nucleotide residual correlations&quot;, 
+            paste0(&quot;Reference Population: AFR; subtype: &quot;, subtype_print_names(subtype) )) +
+    xlab(&quot;Relative Position&quot;) +
+    ylab(&quot;Nucleotide Contribution Correlation&quot;) +
+    labs(colour = &quot;Population&quot;)</code></pre>
+<p><img src="figure/NYGC_single_position_comp.Rmd/unnamed-chunk-56-1.png" width="672" style="display: block; margin: auto;" /></p>
+<pre class="r"><code>df_resid %&gt;%
+  select(pos, nuc, status, res, pop) %&gt;%
+  pivot_wider(names_from = pop, values_from = res) %&gt;%
+  arrange(pos, status, nuc) %&gt;%
+  filter(status == &quot;singletons&quot;) %&gt;%
+  select(AFR, AMR, EAS, EUR, SAS) %&gt;%
+  correlate()</code></pre>
+<pre><code>Correlation computed with
+• Method: &#39;pearson&#39;
+• Missing treated using: &#39;pairwise.complete.obs&#39;</code></pre>
+<pre><code># A tibble: 5 × 6
+  term     AFR    AMR    EAS    EUR    SAS
+  &lt;chr&gt;  &lt;dbl&gt;  &lt;dbl&gt;  &lt;dbl&gt;  &lt;dbl&gt;  &lt;dbl&gt;
+1 AFR   NA      0.996  0.996  0.993  0.996
+2 AMR    0.996 NA      0.995  0.994  0.995
+3 EAS    0.996  0.995 NA      0.994  0.996
+4 EUR    0.993  0.994  0.994 NA      0.992
+5 SAS    0.996  0.995  0.996  0.992 NA    </code></pre>
+</div>
+<div id="cpg_gc_cg" class="section level3">
+<h3>cpg_GC_CG</h3>
+<pre class="r"><code>subtype &lt;- &quot;cpg_GC_CG&quot;
+df &lt;- read_subtype_all_pop(subtype) 
+
+df %&gt;%
+  filter(abs(offset) &lt; 11) %&gt;%
+  ggplot(aes(x = offset, y = re, colour = pop)) +
+  geom_line() +
+  geom_point() +
+  xlab(&quot;Relative Position&quot;) +
+  ylab(&quot;Relative Entropy&quot;) +
+  labs(colour = &quot;Population&quot;) +
+  ggtitle(&quot;Single Position Results&quot;, subtype)</code></pre>
+<p><img src="figure/NYGC_single_position_comp.Rmd/unnamed-chunk-58-1.png" width="672" style="display: block; margin: auto;" /></p>
+<pre class="r"><code>df %&gt;%
+  select(pop, offset, re) %&gt;%
+  pivot_wider(names_from = pop, values_from = re) %&gt;%
+  select(-offset) %&gt;%
+  corrr::correlate()</code></pre>
+<pre><code>Correlation computed with
+• Method: &#39;pearson&#39;
+• Missing treated using: &#39;pairwise.complete.obs&#39;</code></pre>
+<pre><code># A tibble: 5 × 6
+  term     AFR    AMR    EAS    EUR    SAS
+  &lt;chr&gt;  &lt;dbl&gt;  &lt;dbl&gt;  &lt;dbl&gt;  &lt;dbl&gt;  &lt;dbl&gt;
+1 AFR   NA      0.968  0.965  0.959  0.978
+2 AMR    0.968 NA      0.987  0.983  0.989
+3 EAS    0.965  0.987 NA      0.991  0.990
+4 EUR    0.959  0.983  0.991 NA      0.987
+5 SAS    0.978  0.989  0.990  0.987 NA    </code></pre>
+<pre class="r"><code>df_resid &lt;- read_subtype_range_resid(subtype) %&gt;%
+  type_convert()</code></pre>
+<pre><code>
+── Column specification ────────────────────────────────────────────────────────
+cols(
+  nuc = col_character(),
+  status = col_character(),
+  pos = col_double(),
+  pop = col_character()
+)</code></pre>
+<pre class="r"><code>df_resid &lt;- df_resid %&gt;%
+  inner_join({df %&gt;% select(offset, re, pop)}, by = c(&quot;pos&quot; = &quot;offset&quot;, &quot;pop&quot;))
+
+df_resid %&gt;% 
+  filter(status == &quot;singletons&quot;) %&gt;%
+  select(nuc, res, re, pos, pop) %&gt;%
+  group_by(pop, pos) %&gt;%
+  mutate(pct = abs(res) / sum(abs(res))) %&gt;%
+  mutate(re_cont = re * pct * sign(res)) %&gt;%
+  ggplot(aes(x = pos, y = re_cont, color = nuc)) +
+  geom_point() +
+  geom_line() +
+  xlab(&quot;Relative Position&quot;) +
+  ylab(&quot;Relative Entropy&quot;) +
+  guides(color = guide_legend(title = &quot;Nucleotide&quot;)) +
+  theme_classic() +
+  theme(text = element_text(family = &quot;Times New Roman&quot;),
+        legend.position = c(.85, .2)) +
+  facet_wrap(vars(pop))</code></pre>
+<p><img src="figure/NYGC_single_position_comp.Rmd/unnamed-chunk-60-1.png" width="672" style="display: block; margin: auto;" /></p>
+<pre class="r"><code>df_wide &lt;- df_resid %&gt;%
+  filter(status == &quot;singletons&quot;) %&gt;%
+  select(nuc, pos, pop, res) %&gt;%
+  pivot_wider(names_from = pop, values_from = res)
+
+cor_method &lt;- &quot;pearson&quot;
+df_cor &lt;- df_wide %&gt;%
+    group_by(pos) %&gt;%
+    summarise(across(AMR:SAS, ~cor(., AFR, use = &quot;complete.obs&quot;, method = cor_method), .names = &quot;AFR_{.col}&quot;),
+              across(EAS:SAS, ~cor(., AMR, use = &quot;complete.obs&quot;, method = cor_method), .names = &quot;AMR_{.col}&quot;),
+              across(EUR:SAS, ~cor(., EAS, use = &quot;complete.obs&quot;, method = cor_method), .names = &quot;EAS_{.col}&quot;),
+              across(SAS, ~cor(., EUR, use = &quot;complete.obs&quot;, method = cor_method), .names = &quot;EUR_{.col}&quot;))
+
+df_cor %&gt;%
+    select(pos, starts_with(&quot;AFR&quot;)) %&gt;%
+    pivot_longer(-pos, names_to = &quot;pair&quot;, values_to = &quot;cor&quot;) %&gt;%
+    mutate(pair = str_remove(pair, &quot;AFR_&quot;)) %&gt;%
+    ggplot(aes(x = pos, y = cor, group_by = pair, colour = pair)) +
+    geom_point() + 
+    geom_line() +
+    ylim(c(0,1)) +
+    ggtitle(&quot;Nucleotide residual correlations&quot;, 
+            paste0(&quot;Reference Population: AFR; subtype: &quot;, subtype_print_names(subtype) )) +
+    xlab(&quot;Relative Position&quot;) +
+    ylab(&quot;Nucleotide Contribution Correlation&quot;) +
+    labs(colour = &quot;Population&quot;)</code></pre>
+<p><img src="figure/NYGC_single_position_comp.Rmd/unnamed-chunk-61-1.png" width="672" style="display: block; margin: auto;" /></p>
+<pre class="r"><code>cor_method &lt;- &quot;spearman&quot;
+df_cor &lt;- df_wide %&gt;%
+    group_by(pos) %&gt;%
+    summarise(across(AMR:SAS, ~cor(., AFR, use = &quot;complete.obs&quot;, method = cor_method), .names = &quot;AFR_{.col}&quot;),
+              across(EAS:SAS, ~cor(., AMR, use = &quot;complete.obs&quot;, method = cor_method), .names = &quot;AMR_{.col}&quot;),
+              across(EUR:SAS, ~cor(., EAS, use = &quot;complete.obs&quot;, method = cor_method), .names = &quot;EAS_{.col}&quot;),
+              across(SAS, ~cor(., EUR, use = &quot;complete.obs&quot;, method = cor_method), .names = &quot;EUR_{.col}&quot;))
+
+df_cor %&gt;%
+    select(pos, starts_with(&quot;AFR&quot;)) %&gt;%
+    pivot_longer(-pos, names_to = &quot;pair&quot;, values_to = &quot;cor&quot;) %&gt;%
+    mutate(pair = str_remove(pair, &quot;AFR_&quot;)) %&gt;%
+    ggplot(aes(x = pos, y = cor, group_by = pair, colour = pair)) +
+    geom_point() + 
+    geom_line() +
+    ylim(c(0,1)) +
+    ggtitle(&quot;Nucleotide residual correlations&quot;, 
+            paste0(&quot;Reference Population: AFR; subtype: &quot;, subtype_print_names(subtype) )) +
+    xlab(&quot;Relative Position&quot;) +
+    ylab(&quot;Nucleotide Contribution Correlation&quot;) +
+    labs(colour = &quot;Population&quot;)</code></pre>
+<p><img src="figure/NYGC_single_position_comp.Rmd/unnamed-chunk-62-1.png" width="672" style="display: block; margin: auto;" /></p>
+<pre class="r"><code>df_resid %&gt;%
+  select(pos, nuc, status, res, pop) %&gt;%
+  pivot_wider(names_from = pop, values_from = res) %&gt;%
+  arrange(pos, status, nuc) %&gt;%
+  filter(status == &quot;singletons&quot;) %&gt;%
+  select(AFR, AMR, EAS, EUR, SAS) %&gt;%
+  correlate()</code></pre>
+<pre><code>Correlation computed with
+• Method: &#39;pearson&#39;
+• Missing treated using: &#39;pairwise.complete.obs&#39;</code></pre>
+<pre><code># A tibble: 5 × 6
+  term     AFR    AMR    EAS    EUR    SAS
+  &lt;chr&gt;  &lt;dbl&gt;  &lt;dbl&gt;  &lt;dbl&gt;  &lt;dbl&gt;  &lt;dbl&gt;
+1 AFR   NA      0.982  0.981  0.975  0.984
+2 AMR    0.982 NA      0.992  0.989  0.990
+3 EAS    0.981  0.992 NA      0.992  0.992
+4 EUR    0.975  0.989  0.992 NA      0.991
+5 SAS    0.984  0.990  0.992  0.991 NA    </code></pre>
+</div>
+</div>
+<div id="chi-sq-approach" class="section level2">
+<h2>Chi-sq Approach</h2>
+<p>Above we looked at the consistency of results for the models in which
+we assess the influence of nucleotides at individual positions. A
+similar question we can ask is if the distributions of nucleotides
+flanking singletons from one population are similar to the corresponding
+distribution in another population. To address this, we employ a <span
+class="math inline">\(\chi^2\)</span> approach wherein we use the
+distribution of nucleotides at a flanking position for one population as
+the expectation for the corresponding distribution for another
+population.</p>
+<div id="loading-results" class="section level3">
+<h3>Loading Results</h3>
+<pre class="r"><code>chi_sq_dir &lt;- &quot;/net/snowwhite/home/beckandy/research/1000G_NYGC_LSCI/output/ref_pop_sp/&quot;
+load_chi_res &lt;- function(src, ref, subtype, res_dir){
+  f_name &lt;- paste0(res_dir, src, &quot;_&quot;, ref, &quot;_&quot;, subtype, &quot;.csv&quot;)
+  df &lt;- read_csv(f_name, show_col_types = FALSE)
+  return(df)
+}</code></pre>
+</div>
+<div id="results" class="section level3">
+<h3>Results</h3>
+<div id="afr-as-source-population" class="section level4">
+<h4>AFR as Source Population</h4>
+<div id="eur" class="section level5">
+<h5>EUR</h5>
+<pre class="r"><code>src_pop &lt;- &quot;AFR&quot;
+trg_pop &lt;- &quot;EUR&quot;
+
+subtype &lt;- &quot;AT_CG&quot;
+
+df &lt;- load_chi_res(src_pop, trg_pop, subtype, chi_sq_dir)
+df %&gt;%
+  head()</code></pre>
+<pre><code># A tibble: 6 × 2
+     rp  stat
+  &lt;dbl&gt; &lt;dbl&gt;
+1     1 123. 
+2    -1 621. 
+3     2  49.8
+4    -2 137. 
+5     3  31.2
+6    -3  21.1</code></pre>
+<pre class="r"><code>df %&gt;%
+  ggplot(aes(x = rp, y = stat)) +
+  geom_point() +
+  xlab(&quot;Relative Position&quot;) +
+  ylab(&quot;Chi-Sq Statistic&quot;)</code></pre>
+<p><img src="figure/NYGC_single_position_comp.Rmd/unnamed-chunk-65-1.png" width="672" style="display: block; margin: auto;" /></p>
 <br>
 <p>
 <button type="button" class="btn btn-default btn-workflowr btn-workflowr-sessioninfo" data-toggle="collapse" data-target="#workflowr-sessioninfo" style="display: block;">
@@ -823,11 +2058,11 @@ Session information
 <pre class="r"><code>sessionInfo()</code></pre>
 <pre><code>R version 4.3.1 (2023-06-16)
 Platform: x86_64-pc-linux-gnu (64-bit)
-Running under: Ubuntu 18.04.6 LTS
+Running under: Ubuntu 20.04.6 LTS
 
 Matrix products: default
-BLAS:   /usr/lib/x86_64-linux-gnu/openblas/libblas.so.3 
-LAPACK: /usr/lib/x86_64-linux-gnu/libopenblasp-r0.2.20.so;  LAPACK version 3.7.1
+BLAS:   /usr/lib/x86_64-linux-gnu/openblas-pthread/libblas.so.3 
+LAPACK: /usr/lib/x86_64-linux-gnu/openblas-pthread/liblapack.so.3;  LAPACK version 3.9.0
 
 locale:
  [1] LC_CTYPE=en_US.UTF-8       LC_NUMERIC=C              
@@ -859,12 +2094,15 @@ loaded via a namespace (and not attached):
 [25] later_1.3.1      pillar_1.9.0     crayon_1.5.2     jquerylib_0.1.4 
 [29] whisker_0.4.1    cachem_1.0.8     tidyselect_1.2.0 digest_0.6.31   
 [33] stringi_1.7.12   labeling_0.4.2   rprojroot_2.0.3  fastmap_1.1.1   
-[37] grid_4.3.1       colorspace_2.1-0 cli_3.6.1        magrittr_2.0.3  
-[41] utf8_1.2.3       withr_2.5.0      scales_1.2.1     promises_1.2.0.1
-[45] bit64_4.0.5      timechange_0.2.0 rmarkdown_2.22   httr_1.4.6      
-[49] bit_4.0.5        hms_1.1.3        evaluate_0.21    knitr_1.42      
-[53] rlang_1.1.1      Rcpp_1.0.10      glue_1.6.2       rstudioapi_0.14 
-[57] vroom_1.6.3      jsonlite_1.8.4   R6_2.5.1         fs_1.6.2        </code></pre>
+[37] grid_4.3.1       archive_1.1.5    colorspace_2.1-0 cli_3.6.1       
+[41] magrittr_2.0.3   utf8_1.2.3       withr_2.5.0      scales_1.2.1    
+[45] promises_1.2.0.1 bit64_4.0.5      timechange_0.2.0 rmarkdown_2.22  
+[49] httr_1.4.6       bit_4.0.5        hms_1.1.3        evaluate_0.21   
+[53] knitr_1.42       rlang_1.1.1      Rcpp_1.0.10      glue_1.6.2      
+[57] rstudioapi_0.14  vroom_1.6.3      jsonlite_1.8.4   R6_2.5.1        
+[61] fs_1.6.2        </code></pre>
+</div>
+</div>
 </div>
 </div>
 </div>
