@@ -384,7 +384,7 @@ class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span>
 <div class="tab-content">
 <div id="summary" class="tab-pane fade in active">
 <p>
-<strong>Last updated:</strong> 2023-07-19
+<strong>Last updated:</strong> 2023-08-30
 </p>
 <p>
 <strong>Checks:</strong> <span
@@ -515,15 +515,15 @@ project makes it easier to run your code on other machines.</p>
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomtheandybLSCItree28c0f335b9d4f9861107b7d78e6912836a8c2532targetblank28c0f33a">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomtheandybLSCItree7d994f29f895583a2365c6ce50c26308f096becdtargetblank7d994f2a">
 <span class="glyphicon glyphicon-ok text-success"
 aria-hidden="true"></span> <strong>Repository version:</strong>
-<a href="https://github.com/theandyb/LSCI/tree/28c0f335b9d4f9861107b7d78e6912836a8c2532" target="_blank">28c0f33</a>
+<a href="https://github.com/theandyb/LSCI/tree/7d994f29f895583a2365c6ce50c26308f096becd" target="_blank">7d994f2</a>
 </a>
 </p>
 </div>
 <div
-id="strongRepositoryversionstrongahrefhttpsgithubcomtheandybLSCItree28c0f335b9d4f9861107b7d78e6912836a8c2532targetblank28c0f33a"
+id="strongRepositoryversionstrongahrefhttpsgithubcomtheandybLSCItree7d994f29f895583a2365c6ce50c26308f096becdtargetblank7d994f2a"
 class="panel-collapse collapse">
 <div class="panel-body">
 <p>
@@ -533,7 +533,7 @@ reproducibility.
 </p>
 <p>
 The results in this page were generated with repository version
-<a href="https://github.com/theandyb/LSCI/tree/28c0f335b9d4f9861107b7d78e6912836a8c2532" target="_blank">28c0f33</a>.
+<a href="https://github.com/theandyb/LSCI/tree/7d994f29f895583a2365c6ce50c26308f096becd" target="_blank">7d994f2</a>.
 See the <em>Past versions</em> tab to see a history of the changes made
 to the R Markdown and HTML files.
 </p>
@@ -554,7 +554,12 @@ Ignored files:
     Ignored:    code/random/
     Ignored:    output/figs/
 
+Untracked files:
+    Untracked:  code/output_generation/single_pos_figures.R
+
 Unstaged changes:
+    Modified:   analysis/NYGC_rank_re_vals.Rmd
+    Modified:   analysis/NYGC_single_position_ALL.Rmd
     Modified:   analysis/NYGC_two_pos_all.Rmd
 
 </code></pre>
@@ -602,6 +607,40 @@ Message
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+Rmd
+</td>
+<td>
+<a href="https://github.com/theandyb/LSCI/blob/7d994f29f895583a2365c6ce50c26308f096becd/analysis/NYGC_single_position_comp.Rmd" target="_blank">7d994f2</a>
+</td>
+<td>
+Andy Beck
+</td>
+<td>
+2023-08-30
+</td>
+<td>
+wflow_publish("analysis/NYGC_single_position_comp.Rmd")
+</td>
+</tr>
+<tr>
+<td>
+html
+</td>
+<td>
+<a href="https://rawcdn.githack.com/theandyb/LSCI/e192bec421c3bc9ec8e2800e586123eb4bb11fad/docs/NYGC_single_position_comp.html" target="_blank">e192bec</a>
+</td>
+<td>
+Andy Beck
+</td>
+<td>
+2023-07-19
+</td>
+<td>
+Build site.
+</td>
+</tr>
 <tr>
 <td>
 Rmd
@@ -791,12 +830,12 @@ df &lt;- read_subtype_all_pop(subtype)
 
 df %&gt;%
   filter(abs(offset) &lt; 11) %&gt;%
-  ggplot(aes(x = offset, y = re, colour = pop)) +
+  ggplot(aes(x = offset, y = re, colour = pop, shape = pop)) +
   geom_line() +
   geom_point() +
   xlab(&quot;Relative Position&quot;) +
   ylab(&quot;Relative Entropy&quot;) +
-  labs(colour = &quot;Population&quot;) +
+  labs(colour = &quot;Population&quot;, shape = &quot;Population&quot;) +
   ggtitle(&quot;Single Position Results&quot;, subtype)</code></pre>
 <p><img src="figure/NYGC_single_position_comp.Rmd/unnamed-chunk-3-1.png" width="672" style="display: block; margin: auto;" /></p>
 <p>
@@ -821,6 +860,17 @@ Date
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+<a href="https://github.com/theandyb/LSCI/blob/e192bec421c3bc9ec8e2800e586123eb4bb11fad/docs/figure/NYGC_single_position_comp.Rmd/unnamed-chunk-3-1.png" target="_blank">e192bec</a>
+</td>
+<td>
+Andy Beck
+</td>
+<td>
+2023-07-19
+</td>
+</tr>
 <tr>
 <td>
 <a href="https://github.com/theandyb/LSCI/blob/104e9c94887c3e12189a18c54aebee68a10f7d93/docs/figure/NYGC_single_position_comp.Rmd/unnamed-chunk-3-1.png" target="_blank">104e9c9</a>
@@ -886,6 +936,43 @@ df_resid %&gt;%
         legend.position = c(.85, .2)) +
   facet_wrap(vars(pop))</code></pre>
 <p><img src="figure/NYGC_single_position_comp.Rmd/unnamed-chunk-5-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-5-1">
+Past versions of unnamed-chunk-5-1.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-5-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/theandyb/LSCI/blob/e192bec421c3bc9ec8e2800e586123eb4bb11fad/docs/figure/NYGC_single_position_comp.Rmd/unnamed-chunk-5-1.png" target="_blank">e192bec</a>
+</td>
+<td>
+Andy Beck
+</td>
+<td>
+2023-07-19
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 <p>Widen the residual df so we can get pairwise population
 correlations:</p>
 <pre class="r"><code>df_wide &lt;- df_resid %&gt;%
@@ -915,6 +1002,43 @@ df_cor &lt;- df_wide %&gt;%
     ylab(&quot;Nucleotide Contribution Correlation&quot;) +
     labs(colour = &quot;Population&quot;)</code></pre>
 <p><img src="figure/NYGC_single_position_comp.Rmd/unnamed-chunk-8-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-8-1">
+Past versions of unnamed-chunk-8-1.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-8-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/theandyb/LSCI/blob/e192bec421c3bc9ec8e2800e586123eb4bb11fad/docs/figure/NYGC_single_position_comp.Rmd/unnamed-chunk-8-1.png" target="_blank">e192bec</a>
+</td>
+<td>
+Andy Beck
+</td>
+<td>
+2023-07-19
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 <p>Let’s also do Spearman correlations within each position:</p>
 <pre class="r"><code>cor_method &lt;- &quot;spearman&quot;
 df_cor &lt;- df_wide %&gt;%
@@ -938,6 +1062,43 @@ df_cor %&gt;%
     ylab(&quot;Nucleotide Contribution Correlation&quot;) +
     labs(colour = &quot;Population&quot;)</code></pre>
 <p><img src="figure/NYGC_single_position_comp.Rmd/unnamed-chunk-9-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-9-1">
+Past versions of unnamed-chunk-9-1.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-9-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/theandyb/LSCI/blob/e192bec421c3bc9ec8e2800e586123eb4bb11fad/docs/figure/NYGC_single_position_comp.Rmd/unnamed-chunk-9-1.png" target="_blank">e192bec</a>
+</td>
+<td>
+Andy Beck
+</td>
+<td>
+2023-07-19
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 <p>Let’s take a look at the residuals for AFR and EUR at the +2
 position:</p>
 <pre class="r"><code>df_resid %&gt;%
@@ -949,6 +1110,43 @@ position:</p>
   ggplot(aes(x = AFR, y=EUR, color = nuc)) +
   geom_point()</code></pre>
 <p><img src="figure/NYGC_single_position_comp.Rmd/unnamed-chunk-10-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-10-1">
+Past versions of unnamed-chunk-10-1.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-10-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/theandyb/LSCI/blob/e192bec421c3bc9ec8e2800e586123eb4bb11fad/docs/figure/NYGC_single_position_comp.Rmd/unnamed-chunk-10-1.png" target="_blank">e192bec</a>
+</td>
+<td>
+Andy Beck
+</td>
+<td>
+2023-07-19
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 <p>Trying to do some correlation of the nucleotide residuals:</p>
 <pre class="r"><code>df_resid %&gt;%
   select(pos, nuc, status, res, pop) %&gt;%
@@ -968,6 +1166,98 @@ position:</p>
 3 EAS    0.976  0.985 NA      0.989  0.949
 4 EUR    0.988  0.996  0.989 NA      0.967
 5 SAS    0.987  0.975  0.949  0.967 NA    </code></pre>
+<p>More basic metrics comparing nucleotide-level residuals:</p>
+<p>Idea 1: proportions of overall statistics</p>
+<pre class="r"><code>df_wide_prop &lt;- df_wide %&gt;%
+  group_by(pos) %&gt;%
+  mutate(AFR = sign(AFR)*(AFR^2 / sum(AFR^2)),
+         AMR = sign(AMR)*(AMR^2 / sum(AMR^2)),
+         EAS = sign(EAS)*(EAS^2 / sum(EAS^2)),
+         EUR = sign(EUR)*(EUR^2 / sum(EUR^2)),
+         SAS = sign(SAS)*(SAS^2 / sum(SAS^2)))
+
+cor_method &lt;- &quot;pearson&quot;
+df_cor &lt;- df_wide_prop %&gt;%
+    group_by(pos) %&gt;%
+    summarise(across(AMR:SAS, ~cor(., AFR, use = &quot;complete.obs&quot;, method = cor_method), .names = &quot;AFR_{.col}&quot;),
+              across(EAS:SAS, ~cor(., AMR, use = &quot;complete.obs&quot;, method = cor_method), .names = &quot;AMR_{.col}&quot;),
+              across(EUR:SAS, ~cor(., EAS, use = &quot;complete.obs&quot;, method = cor_method), .names = &quot;EAS_{.col}&quot;),
+              across(SAS, ~cor(., EUR, use = &quot;complete.obs&quot;, method = cor_method), .names = &quot;EUR_{.col}&quot;))
+
+df_cor %&gt;%
+    select(pos, starts_with(&quot;AFR&quot;)) %&gt;%
+    pivot_longer(-pos, names_to = &quot;pair&quot;, values_to = &quot;cor&quot;) %&gt;%
+    mutate(pair = str_remove(pair, &quot;AFR_&quot;)) %&gt;%
+    ggplot(aes(x = pos, y = cor, group_by = pair, colour = pair)) +
+    geom_point() + 
+    geom_line() +
+    ylim(c(0,1)) +
+    ggtitle(&quot;Nucleotide residual correlations&quot;, 
+            paste0(&quot;Reference Population: AFR; subtype: &quot;, subtype_print_names(subtype) )) +
+    xlab(&quot;Relative Position&quot;) +
+    ylab(&quot;Nucleotide Contribution Correlation&quot;) +
+    labs(colour = &quot;Population&quot;)  </code></pre>
+<p><img src="figure/NYGC_single_position_comp.Rmd/unnamed-chunk-12-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-12-1">
+Past versions of unnamed-chunk-12-1.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-12-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/theandyb/LSCI/blob/e192bec421c3bc9ec8e2800e586123eb4bb11fad/docs/figure/NYGC_single_position_comp.Rmd/unnamed-chunk-12-1.png" target="_blank">e192bec</a>
+</td>
+<td>
+Andy Beck
+</td>
+<td>
+2023-07-19
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<p>Idea 2: ranks</p>
+<pre class="r"><code>df_wide %&gt;%
+  group_by(pos) %&gt;%
+  mutate(AFR = rank(abs(AFR)),
+         AMR = rank(abs(AMR)),
+         EAS = rank(abs(EAS)),
+         EUR = rank(abs(EUR)),
+         SAS = rank(abs(SAS)))</code></pre>
+<pre><code># A tibble: 80 × 7
+# Groups:   pos [20]
+   nuc     pos   AFR   AMR   EAS   EUR   SAS
+   &lt;chr&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;
+ 1 A       -10     4     4     4     4     4
+ 2 C       -10     1     1     1     1     2
+ 3 G       -10     3     3     3     3     3
+ 4 T       -10     2     2     2     2     1
+ 5 A        -9     4     4     4     4     4
+ 6 C        -9     1     1     1     1     1
+ 7 G        -9     2     2     3     2     3
+ 8 T        -9     3     3     2     3     2
+ 9 A        -8     4     4     4     4     4
+10 C        -8     3     3     3     3     3
+# ℹ 70 more rows</code></pre>
 </div>
 <div id="at_gc" class="section level3">
 <h3>AT_GC</h3>
@@ -983,7 +1273,44 @@ df %&gt;%
   ylab(&quot;Relative Entropy&quot;) +
   labs(colour = &quot;Population&quot;) +
   ggtitle(&quot;Single Position Results&quot;, subtype)</code></pre>
-<p><img src="figure/NYGC_single_position_comp.Rmd/unnamed-chunk-12-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p><img src="figure/NYGC_single_position_comp.Rmd/unnamed-chunk-14-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-14-1">
+Past versions of unnamed-chunk-14-1.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-14-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/theandyb/LSCI/blob/e192bec421c3bc9ec8e2800e586123eb4bb11fad/docs/figure/NYGC_single_position_comp.Rmd/unnamed-chunk-14-1.png" target="_blank">e192bec</a>
+</td>
+<td>
+Andy Beck
+</td>
+<td>
+2023-07-19
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 <pre class="r"><code>df %&gt;%
   select(pop, offset, re) %&gt;%
   pivot_wider(names_from = pop, values_from = re) %&gt;%
@@ -1029,7 +1356,7 @@ df_resid %&gt;%
   theme(text = element_text(family = &quot;Times New Roman&quot;),
         legend.position = c(.85, .2)) +
   facet_wrap(vars(pop))</code></pre>
-<p><img src="figure/NYGC_single_position_comp.Rmd/unnamed-chunk-14-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p><img src="figure/NYGC_single_position_comp.Rmd/unnamed-chunk-16-1.png" width="672" style="display: block; margin: auto;" /></p>
 <pre class="r"><code>df_wide &lt;- df_resid %&gt;%
   filter(status == &quot;singletons&quot;) %&gt;%
   select(nuc, pos, pop, res) %&gt;%
@@ -1054,7 +1381,7 @@ df_cor &lt;- df_wide %&gt;%
     xlab(&quot;Relative Position&quot;) +
     ylab(&quot;Nucleotide Contribution Correlation&quot;) +
     labs(colour = &quot;Population&quot;)</code></pre>
-<p><img src="figure/NYGC_single_position_comp.Rmd/unnamed-chunk-17-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p><img src="figure/NYGC_single_position_comp.Rmd/unnamed-chunk-19-1.png" width="672" style="display: block; margin: auto;" /></p>
 <pre class="r"><code>cor_method &lt;- &quot;spearman&quot;
 df_cor &lt;- df_wide %&gt;%
     group_by(pos) %&gt;%
@@ -1076,7 +1403,44 @@ df_cor %&gt;%
     xlab(&quot;Relative Position&quot;) +
     ylab(&quot;Nucleotide Contribution Correlation&quot;) +
     labs(colour = &quot;Population&quot;)</code></pre>
-<p><img src="figure/NYGC_single_position_comp.Rmd/unnamed-chunk-18-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p><img src="figure/NYGC_single_position_comp.Rmd/unnamed-chunk-20-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-20-1">
+Past versions of unnamed-chunk-20-1.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-20-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/theandyb/LSCI/blob/e192bec421c3bc9ec8e2800e586123eb4bb11fad/docs/figure/NYGC_single_position_comp.Rmd/unnamed-chunk-20-1.png" target="_blank">e192bec</a>
+</td>
+<td>
+Andy Beck
+</td>
+<td>
+2023-07-19
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 <pre class="r"><code>df_resid %&gt;%
   select(pos, nuc, status, res, pop) %&gt;%
   pivot_wider(names_from = pop, values_from = res) %&gt;%
@@ -1110,7 +1474,44 @@ df %&gt;%
   ylab(&quot;Relative Entropy&quot;) +
   labs(colour = &quot;Population&quot;) +
   ggtitle(&quot;Single Position Results&quot;, subtype)</code></pre>
-<p><img src="figure/NYGC_single_position_comp.Rmd/unnamed-chunk-20-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p><img src="figure/NYGC_single_position_comp.Rmd/unnamed-chunk-22-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-22-1">
+Past versions of unnamed-chunk-22-1.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-22-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/theandyb/LSCI/blob/e192bec421c3bc9ec8e2800e586123eb4bb11fad/docs/figure/NYGC_single_position_comp.Rmd/unnamed-chunk-22-1.png" target="_blank">e192bec</a>
+</td>
+<td>
+Andy Beck
+</td>
+<td>
+2023-07-19
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 <pre class="r"><code>df %&gt;%
   select(pop, offset, re) %&gt;%
   pivot_wider(names_from = pop, values_from = re) %&gt;%
@@ -1156,7 +1557,7 @@ df_resid %&gt;%
   theme(text = element_text(family = &quot;Times New Roman&quot;),
         legend.position = c(.85, .2)) +
   facet_wrap(vars(pop))</code></pre>
-<p><img src="figure/NYGC_single_position_comp.Rmd/unnamed-chunk-22-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p><img src="figure/NYGC_single_position_comp.Rmd/unnamed-chunk-24-1.png" width="672" style="display: block; margin: auto;" /></p>
 <pre class="r"><code>df_wide &lt;- df_resid %&gt;%
   filter(status == &quot;singletons&quot;) %&gt;%
   select(nuc, pos, pop, res) %&gt;%
@@ -1181,7 +1582,7 @@ df_cor &lt;- df_wide %&gt;%
     xlab(&quot;Relative Position&quot;) +
     ylab(&quot;Nucleotide Contribution Correlation&quot;) +
     labs(colour = &quot;Population&quot;)</code></pre>
-<p><img src="figure/NYGC_single_position_comp.Rmd/unnamed-chunk-25-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p><img src="figure/NYGC_single_position_comp.Rmd/unnamed-chunk-27-1.png" width="672" style="display: block; margin: auto;" /></p>
 <pre class="r"><code>cor_method &lt;- &quot;spearman&quot;
 df_cor &lt;- df_wide %&gt;%
     group_by(pos) %&gt;%
@@ -1203,7 +1604,44 @@ df_cor %&gt;%
     xlab(&quot;Relative Position&quot;) +
     ylab(&quot;Nucleotide Contribution Correlation&quot;) +
     labs(colour = &quot;Population&quot;)</code></pre>
-<p><img src="figure/NYGC_single_position_comp.Rmd/unnamed-chunk-26-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p><img src="figure/NYGC_single_position_comp.Rmd/unnamed-chunk-28-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-28-1">
+Past versions of unnamed-chunk-28-1.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-28-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/theandyb/LSCI/blob/e192bec421c3bc9ec8e2800e586123eb4bb11fad/docs/figure/NYGC_single_position_comp.Rmd/unnamed-chunk-28-1.png" target="_blank">e192bec</a>
+</td>
+<td>
+Andy Beck
+</td>
+<td>
+2023-07-19
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 <pre class="r"><code>df_resid %&gt;%
   select(pos, nuc, status, res, pop) %&gt;%
   pivot_wider(names_from = pop, values_from = res) %&gt;%
@@ -1237,7 +1675,44 @@ df %&gt;%
   ylab(&quot;Relative Entropy&quot;) +
   labs(colour = &quot;Population&quot;) +
   ggtitle(&quot;Single Position Results&quot;, subtype)</code></pre>
-<p><img src="figure/NYGC_single_position_comp.Rmd/unnamed-chunk-28-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p><img src="figure/NYGC_single_position_comp.Rmd/unnamed-chunk-30-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-30-1">
+Past versions of unnamed-chunk-30-1.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-30-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/theandyb/LSCI/blob/e192bec421c3bc9ec8e2800e586123eb4bb11fad/docs/figure/NYGC_single_position_comp.Rmd/unnamed-chunk-30-1.png" target="_blank">e192bec</a>
+</td>
+<td>
+Andy Beck
+</td>
+<td>
+2023-07-19
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 <pre class="r"><code>df %&gt;%
   select(pop, offset, re) %&gt;%
   pivot_wider(names_from = pop, values_from = re) %&gt;%
@@ -1283,7 +1758,44 @@ df_resid %&gt;%
   theme(text = element_text(family = &quot;Times New Roman&quot;),
         legend.position = c(.85, .2)) +
   facet_wrap(vars(pop))</code></pre>
-<p><img src="figure/NYGC_single_position_comp.Rmd/unnamed-chunk-30-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p><img src="figure/NYGC_single_position_comp.Rmd/unnamed-chunk-32-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-32-1">
+Past versions of unnamed-chunk-32-1.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-32-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/theandyb/LSCI/blob/e192bec421c3bc9ec8e2800e586123eb4bb11fad/docs/figure/NYGC_single_position_comp.Rmd/unnamed-chunk-32-1.png" target="_blank">e192bec</a>
+</td>
+<td>
+Andy Beck
+</td>
+<td>
+2023-07-19
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 <pre class="r"><code>df_wide &lt;- df_resid %&gt;%
   filter(status == &quot;singletons&quot;) %&gt;%
   select(nuc, pos, pop, res) %&gt;%
@@ -1310,7 +1822,7 @@ df_cor %&gt;%
     xlab(&quot;Relative Position&quot;) +
     ylab(&quot;Nucleotide Contribution Correlation&quot;) +
     labs(colour = &quot;Population&quot;)</code></pre>
-<p><img src="figure/NYGC_single_position_comp.Rmd/unnamed-chunk-31-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p><img src="figure/NYGC_single_position_comp.Rmd/unnamed-chunk-33-1.png" width="672" style="display: block; margin: auto;" /></p>
 <pre class="r"><code>cor_method &lt;- &quot;spearman&quot;
 df_cor &lt;- df_wide %&gt;%
     group_by(pos) %&gt;%
@@ -1332,7 +1844,44 @@ df_cor %&gt;%
     xlab(&quot;Relative Position&quot;) +
     ylab(&quot;Nucleotide Contribution Correlation&quot;) +
     labs(colour = &quot;Population&quot;)</code></pre>
-<p><img src="figure/NYGC_single_position_comp.Rmd/unnamed-chunk-32-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p><img src="figure/NYGC_single_position_comp.Rmd/unnamed-chunk-34-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-34-1">
+Past versions of unnamed-chunk-34-1.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-34-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/theandyb/LSCI/blob/e192bec421c3bc9ec8e2800e586123eb4bb11fad/docs/figure/NYGC_single_position_comp.Rmd/unnamed-chunk-34-1.png" target="_blank">e192bec</a>
+</td>
+<td>
+Andy Beck
+</td>
+<td>
+2023-07-19
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 <pre class="r"><code>df_resid %&gt;%
   select(pos, nuc, status, res, pop) %&gt;%
   pivot_wider(names_from = pop, values_from = res) %&gt;%
@@ -1366,7 +1915,44 @@ df %&gt;%
   ylab(&quot;Relative Entropy&quot;) +
   labs(colour = &quot;Population&quot;) +
   ggtitle(&quot;Single Position Results&quot;, subtype)</code></pre>
-<p><img src="figure/NYGC_single_position_comp.Rmd/unnamed-chunk-34-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p><img src="figure/NYGC_single_position_comp.Rmd/unnamed-chunk-36-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-36-1">
+Past versions of unnamed-chunk-36-1.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-36-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/theandyb/LSCI/blob/e192bec421c3bc9ec8e2800e586123eb4bb11fad/docs/figure/NYGC_single_position_comp.Rmd/unnamed-chunk-36-1.png" target="_blank">e192bec</a>
+</td>
+<td>
+Andy Beck
+</td>
+<td>
+2023-07-19
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 <pre class="r"><code>df %&gt;%
   select(pop, offset, re) %&gt;%
   pivot_wider(names_from = pop, values_from = re) %&gt;%
@@ -1412,7 +1998,44 @@ df_resid %&gt;%
   theme(text = element_text(family = &quot;Times New Roman&quot;),
         legend.position = c(.85, .2)) +
   facet_wrap(vars(pop))</code></pre>
-<p><img src="figure/NYGC_single_position_comp.Rmd/unnamed-chunk-36-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p><img src="figure/NYGC_single_position_comp.Rmd/unnamed-chunk-38-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-38-1">
+Past versions of unnamed-chunk-38-1.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-38-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/theandyb/LSCI/blob/e192bec421c3bc9ec8e2800e586123eb4bb11fad/docs/figure/NYGC_single_position_comp.Rmd/unnamed-chunk-38-1.png" target="_blank">e192bec</a>
+</td>
+<td>
+Andy Beck
+</td>
+<td>
+2023-07-19
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 <pre class="r"><code>df_wide &lt;- df_resid %&gt;%
   filter(status == &quot;singletons&quot;) %&gt;%
   select(nuc, pos, pop, res) %&gt;%
@@ -1439,7 +2062,7 @@ df_cor %&gt;%
     xlab(&quot;Relative Position&quot;) +
     ylab(&quot;Nucleotide Contribution Correlation&quot;) +
     labs(colour = &quot;Population&quot;)</code></pre>
-<p><img src="figure/NYGC_single_position_comp.Rmd/unnamed-chunk-37-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p><img src="figure/NYGC_single_position_comp.Rmd/unnamed-chunk-39-1.png" width="672" style="display: block; margin: auto;" /></p>
 <pre class="r"><code>cor_method &lt;- &quot;spearman&quot;
 df_cor &lt;- df_wide %&gt;%
     group_by(pos) %&gt;%
@@ -1461,7 +2084,44 @@ df_cor %&gt;%
     xlab(&quot;Relative Position&quot;) +
     ylab(&quot;Nucleotide Contribution Correlation&quot;) +
     labs(colour = &quot;Population&quot;)</code></pre>
-<p><img src="figure/NYGC_single_position_comp.Rmd/unnamed-chunk-38-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p><img src="figure/NYGC_single_position_comp.Rmd/unnamed-chunk-40-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-40-1">
+Past versions of unnamed-chunk-40-1.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-40-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/theandyb/LSCI/blob/e192bec421c3bc9ec8e2800e586123eb4bb11fad/docs/figure/NYGC_single_position_comp.Rmd/unnamed-chunk-40-1.png" target="_blank">e192bec</a>
+</td>
+<td>
+Andy Beck
+</td>
+<td>
+2023-07-19
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 <pre class="r"><code>df_resid %&gt;%
   select(pos, nuc, status, res, pop) %&gt;%
   pivot_wider(names_from = pop, values_from = res) %&gt;%
@@ -1495,7 +2155,44 @@ df %&gt;%
   ylab(&quot;Relative Entropy&quot;) +
   labs(colour = &quot;Population&quot;) +
   ggtitle(&quot;Single Position Results&quot;, subtype)</code></pre>
-<p><img src="figure/NYGC_single_position_comp.Rmd/unnamed-chunk-40-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p><img src="figure/NYGC_single_position_comp.Rmd/unnamed-chunk-42-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-42-1">
+Past versions of unnamed-chunk-42-1.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-42-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/theandyb/LSCI/blob/e192bec421c3bc9ec8e2800e586123eb4bb11fad/docs/figure/NYGC_single_position_comp.Rmd/unnamed-chunk-42-1.png" target="_blank">e192bec</a>
+</td>
+<td>
+Andy Beck
+</td>
+<td>
+2023-07-19
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 <pre class="r"><code>df %&gt;%
   select(pop, offset, re) %&gt;%
   pivot_wider(names_from = pop, values_from = re) %&gt;%
@@ -1541,7 +2238,44 @@ df_resid %&gt;%
   theme(text = element_text(family = &quot;Times New Roman&quot;),
         legend.position = c(.85, .2)) +
   facet_wrap(vars(pop))</code></pre>
-<p><img src="figure/NYGC_single_position_comp.Rmd/unnamed-chunk-42-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p><img src="figure/NYGC_single_position_comp.Rmd/unnamed-chunk-44-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-44-1">
+Past versions of unnamed-chunk-44-1.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-44-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/theandyb/LSCI/blob/e192bec421c3bc9ec8e2800e586123eb4bb11fad/docs/figure/NYGC_single_position_comp.Rmd/unnamed-chunk-44-1.png" target="_blank">e192bec</a>
+</td>
+<td>
+Andy Beck
+</td>
+<td>
+2023-07-19
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 <pre class="r"><code>df_wide &lt;- df_resid %&gt;%
   filter(status == &quot;singletons&quot;) %&gt;%
   select(nuc, pos, pop, res) %&gt;%
@@ -1568,7 +2302,7 @@ df_cor %&gt;%
     xlab(&quot;Relative Position&quot;) +
     ylab(&quot;Nucleotide Contribution Correlation&quot;) +
     labs(colour = &quot;Population&quot;)</code></pre>
-<p><img src="figure/NYGC_single_position_comp.Rmd/unnamed-chunk-43-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p><img src="figure/NYGC_single_position_comp.Rmd/unnamed-chunk-45-1.png" width="672" style="display: block; margin: auto;" /></p>
 <pre class="r"><code>cor_method &lt;- &quot;spearman&quot;
 df_cor &lt;- df_wide %&gt;%
     group_by(pos) %&gt;%
@@ -1590,7 +2324,44 @@ df_cor %&gt;%
     xlab(&quot;Relative Position&quot;) +
     ylab(&quot;Nucleotide Contribution Correlation&quot;) +
     labs(colour = &quot;Population&quot;)</code></pre>
-<p><img src="figure/NYGC_single_position_comp.Rmd/unnamed-chunk-44-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p><img src="figure/NYGC_single_position_comp.Rmd/unnamed-chunk-46-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-46-1">
+Past versions of unnamed-chunk-46-1.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-46-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/theandyb/LSCI/blob/e192bec421c3bc9ec8e2800e586123eb4bb11fad/docs/figure/NYGC_single_position_comp.Rmd/unnamed-chunk-46-1.png" target="_blank">e192bec</a>
+</td>
+<td>
+Andy Beck
+</td>
+<td>
+2023-07-19
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 <pre class="r"><code>df_resid %&gt;%
   select(pos, nuc, status, res, pop) %&gt;%
   pivot_wider(names_from = pop, values_from = res) %&gt;%
@@ -1624,7 +2395,44 @@ df %&gt;%
   ylab(&quot;Relative Entropy&quot;) +
   labs(colour = &quot;Population&quot;) +
   ggtitle(&quot;Single Position Results&quot;, subtype)</code></pre>
-<p><img src="figure/NYGC_single_position_comp.Rmd/unnamed-chunk-46-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p><img src="figure/NYGC_single_position_comp.Rmd/unnamed-chunk-48-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-48-1">
+Past versions of unnamed-chunk-48-1.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-48-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/theandyb/LSCI/blob/e192bec421c3bc9ec8e2800e586123eb4bb11fad/docs/figure/NYGC_single_position_comp.Rmd/unnamed-chunk-48-1.png" target="_blank">e192bec</a>
+</td>
+<td>
+Andy Beck
+</td>
+<td>
+2023-07-19
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 <pre class="r"><code>df %&gt;%
   select(pop, offset, re) %&gt;%
   pivot_wider(names_from = pop, values_from = re) %&gt;%
@@ -1670,7 +2478,44 @@ df_resid %&gt;%
   theme(text = element_text(family = &quot;Times New Roman&quot;),
         legend.position = c(.85, .2)) +
   facet_wrap(vars(pop))</code></pre>
-<p><img src="figure/NYGC_single_position_comp.Rmd/unnamed-chunk-48-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p><img src="figure/NYGC_single_position_comp.Rmd/unnamed-chunk-50-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-50-1">
+Past versions of unnamed-chunk-50-1.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-50-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/theandyb/LSCI/blob/e192bec421c3bc9ec8e2800e586123eb4bb11fad/docs/figure/NYGC_single_position_comp.Rmd/unnamed-chunk-50-1.png" target="_blank">e192bec</a>
+</td>
+<td>
+Andy Beck
+</td>
+<td>
+2023-07-19
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 <pre class="r"><code>df_wide &lt;- df_resid %&gt;%
   filter(status == &quot;singletons&quot;) %&gt;%
   select(nuc, pos, pop, res) %&gt;%
@@ -1697,7 +2542,7 @@ df_cor %&gt;%
     xlab(&quot;Relative Position&quot;) +
     ylab(&quot;Nucleotide Contribution Correlation&quot;) +
     labs(colour = &quot;Population&quot;)</code></pre>
-<p><img src="figure/NYGC_single_position_comp.Rmd/unnamed-chunk-49-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p><img src="figure/NYGC_single_position_comp.Rmd/unnamed-chunk-51-1.png" width="672" style="display: block; margin: auto;" /></p>
 <pre class="r"><code>cor_method &lt;- &quot;spearman&quot;
 df_cor &lt;- df_wide %&gt;%
     group_by(pos) %&gt;%
@@ -1719,7 +2564,44 @@ df_cor %&gt;%
     xlab(&quot;Relative Position&quot;) +
     ylab(&quot;Nucleotide Contribution Correlation&quot;) +
     labs(colour = &quot;Population&quot;)</code></pre>
-<p><img src="figure/NYGC_single_position_comp.Rmd/unnamed-chunk-50-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p><img src="figure/NYGC_single_position_comp.Rmd/unnamed-chunk-52-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-52-1">
+Past versions of unnamed-chunk-52-1.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-52-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/theandyb/LSCI/blob/e192bec421c3bc9ec8e2800e586123eb4bb11fad/docs/figure/NYGC_single_position_comp.Rmd/unnamed-chunk-52-1.png" target="_blank">e192bec</a>
+</td>
+<td>
+Andy Beck
+</td>
+<td>
+2023-07-19
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 <pre class="r"><code>df_resid %&gt;%
   select(pos, nuc, status, res, pop) %&gt;%
   pivot_wider(names_from = pop, values_from = res) %&gt;%
@@ -1753,7 +2635,44 @@ df %&gt;%
   ylab(&quot;Relative Entropy&quot;) +
   labs(colour = &quot;Population&quot;) +
   ggtitle(&quot;Single Position Results&quot;, subtype)</code></pre>
-<p><img src="figure/NYGC_single_position_comp.Rmd/unnamed-chunk-52-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p><img src="figure/NYGC_single_position_comp.Rmd/unnamed-chunk-54-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-54-1">
+Past versions of unnamed-chunk-54-1.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-54-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/theandyb/LSCI/blob/e192bec421c3bc9ec8e2800e586123eb4bb11fad/docs/figure/NYGC_single_position_comp.Rmd/unnamed-chunk-54-1.png" target="_blank">e192bec</a>
+</td>
+<td>
+Andy Beck
+</td>
+<td>
+2023-07-19
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 <pre class="r"><code>df %&gt;%
   select(pop, offset, re) %&gt;%
   pivot_wider(names_from = pop, values_from = re) %&gt;%
@@ -1799,7 +2718,44 @@ df_resid %&gt;%
   theme(text = element_text(family = &quot;Times New Roman&quot;),
         legend.position = c(.85, .2)) +
   facet_wrap(vars(pop))</code></pre>
-<p><img src="figure/NYGC_single_position_comp.Rmd/unnamed-chunk-54-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p><img src="figure/NYGC_single_position_comp.Rmd/unnamed-chunk-56-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-56-1">
+Past versions of unnamed-chunk-56-1.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-56-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/theandyb/LSCI/blob/e192bec421c3bc9ec8e2800e586123eb4bb11fad/docs/figure/NYGC_single_position_comp.Rmd/unnamed-chunk-56-1.png" target="_blank">e192bec</a>
+</td>
+<td>
+Andy Beck
+</td>
+<td>
+2023-07-19
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 <pre class="r"><code>df_wide &lt;- df_resid %&gt;%
   filter(status == &quot;singletons&quot;) %&gt;%
   select(nuc, pos, pop, res) %&gt;%
@@ -1826,7 +2782,7 @@ df_cor %&gt;%
     xlab(&quot;Relative Position&quot;) +
     ylab(&quot;Nucleotide Contribution Correlation&quot;) +
     labs(colour = &quot;Population&quot;)</code></pre>
-<p><img src="figure/NYGC_single_position_comp.Rmd/unnamed-chunk-55-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p><img src="figure/NYGC_single_position_comp.Rmd/unnamed-chunk-57-1.png" width="672" style="display: block; margin: auto;" /></p>
 <pre class="r"><code>cor_method &lt;- &quot;spearman&quot;
 df_cor &lt;- df_wide %&gt;%
     group_by(pos) %&gt;%
@@ -1848,7 +2804,44 @@ df_cor %&gt;%
     xlab(&quot;Relative Position&quot;) +
     ylab(&quot;Nucleotide Contribution Correlation&quot;) +
     labs(colour = &quot;Population&quot;)</code></pre>
-<p><img src="figure/NYGC_single_position_comp.Rmd/unnamed-chunk-56-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p><img src="figure/NYGC_single_position_comp.Rmd/unnamed-chunk-58-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-58-1">
+Past versions of unnamed-chunk-58-1.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-58-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/theandyb/LSCI/blob/e192bec421c3bc9ec8e2800e586123eb4bb11fad/docs/figure/NYGC_single_position_comp.Rmd/unnamed-chunk-58-1.png" target="_blank">e192bec</a>
+</td>
+<td>
+Andy Beck
+</td>
+<td>
+2023-07-19
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 <pre class="r"><code>df_resid %&gt;%
   select(pos, nuc, status, res, pop) %&gt;%
   pivot_wider(names_from = pop, values_from = res) %&gt;%
@@ -1882,7 +2875,44 @@ df %&gt;%
   ylab(&quot;Relative Entropy&quot;) +
   labs(colour = &quot;Population&quot;) +
   ggtitle(&quot;Single Position Results&quot;, subtype)</code></pre>
-<p><img src="figure/NYGC_single_position_comp.Rmd/unnamed-chunk-58-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p><img src="figure/NYGC_single_position_comp.Rmd/unnamed-chunk-60-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-60-1">
+Past versions of unnamed-chunk-60-1.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-60-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/theandyb/LSCI/blob/e192bec421c3bc9ec8e2800e586123eb4bb11fad/docs/figure/NYGC_single_position_comp.Rmd/unnamed-chunk-60-1.png" target="_blank">e192bec</a>
+</td>
+<td>
+Andy Beck
+</td>
+<td>
+2023-07-19
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 <pre class="r"><code>df %&gt;%
   select(pop, offset, re) %&gt;%
   pivot_wider(names_from = pop, values_from = re) %&gt;%
@@ -1928,7 +2958,44 @@ df_resid %&gt;%
   theme(text = element_text(family = &quot;Times New Roman&quot;),
         legend.position = c(.85, .2)) +
   facet_wrap(vars(pop))</code></pre>
-<p><img src="figure/NYGC_single_position_comp.Rmd/unnamed-chunk-60-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p><img src="figure/NYGC_single_position_comp.Rmd/unnamed-chunk-62-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-62-1">
+Past versions of unnamed-chunk-62-1.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-62-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/theandyb/LSCI/blob/e192bec421c3bc9ec8e2800e586123eb4bb11fad/docs/figure/NYGC_single_position_comp.Rmd/unnamed-chunk-62-1.png" target="_blank">e192bec</a>
+</td>
+<td>
+Andy Beck
+</td>
+<td>
+2023-07-19
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 <pre class="r"><code>df_wide &lt;- df_resid %&gt;%
   filter(status == &quot;singletons&quot;) %&gt;%
   select(nuc, pos, pop, res) %&gt;%
@@ -1955,7 +3022,7 @@ df_cor %&gt;%
     xlab(&quot;Relative Position&quot;) +
     ylab(&quot;Nucleotide Contribution Correlation&quot;) +
     labs(colour = &quot;Population&quot;)</code></pre>
-<p><img src="figure/NYGC_single_position_comp.Rmd/unnamed-chunk-61-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p><img src="figure/NYGC_single_position_comp.Rmd/unnamed-chunk-63-1.png" width="672" style="display: block; margin: auto;" /></p>
 <pre class="r"><code>cor_method &lt;- &quot;spearman&quot;
 df_cor &lt;- df_wide %&gt;%
     group_by(pos) %&gt;%
@@ -1977,7 +3044,7 @@ df_cor %&gt;%
     xlab(&quot;Relative Position&quot;) +
     ylab(&quot;Nucleotide Contribution Correlation&quot;) +
     labs(colour = &quot;Population&quot;)</code></pre>
-<p><img src="figure/NYGC_single_position_comp.Rmd/unnamed-chunk-62-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p><img src="figure/NYGC_single_position_comp.Rmd/unnamed-chunk-64-1.png" width="672" style="display: block; margin: auto;" /></p>
 <pre class="r"><code>df_resid %&gt;%
   select(pos, nuc, status, res, pop) %&gt;%
   pivot_wider(names_from = pop, values_from = res) %&gt;%
@@ -2020,33 +3087,430 @@ load_chi_res &lt;- function(src, ref, subtype, res_dir){
 </div>
 <div id="results" class="section level3">
 <h3>Results</h3>
-<div id="afr-as-source-population" class="section level4">
-<h4>AFR as Source Population</h4>
-<div id="eur" class="section level5">
-<h5>EUR</h5>
+<div id="at_cg-1" class="section level4">
+<h4>AT_CG</h4>
+<div id="afr-source" class="section level5">
+<h5>AFR Source</h5>
 <pre class="r"><code>src_pop &lt;- &quot;AFR&quot;
 trg_pop &lt;- &quot;EUR&quot;
 
 subtype &lt;- &quot;AT_CG&quot;
 
-df &lt;- load_chi_res(src_pop, trg_pop, subtype, chi_sq_dir)
+df &lt;- load_chi_res(src_pop, trg_pop, subtype, chi_sq_dir) %&gt;%
+  mutate(p_val = pchisq(stat, df = 3, lower.tail = F))
 df %&gt;%
   head()</code></pre>
-<pre><code># A tibble: 6 × 2
-     rp  stat
-  &lt;dbl&gt; &lt;dbl&gt;
-1     1 123. 
-2    -1 621. 
-3     2  49.8
-4    -2 137. 
-5     3  31.2
-6    -3  21.1</code></pre>
+<pre><code># A tibble: 6 × 3
+     rp  stat     p_val
+  &lt;dbl&gt; &lt;dbl&gt;     &lt;dbl&gt;
+1     1 123.  1.36e- 26
+2    -1 621.  3.03e-134
+3     2  49.8 8.85e- 11
+4    -2 137.  1.81e- 29
+5     3  31.2 7.86e-  7
+6    -3  21.1 1.01e-  4</code></pre>
 <pre class="r"><code>df %&gt;%
-  ggplot(aes(x = rp, y = stat)) +
+  mutate(is_crit = p_val &lt; 0.05) %&gt;%
+  ggplot(aes(x = rp, y = stat, color = is_crit)) +
   geom_point() +
   xlab(&quot;Relative Position&quot;) +
-  ylab(&quot;Chi-Sq Statistic&quot;)</code></pre>
-<p><img src="figure/NYGC_single_position_comp.Rmd/unnamed-chunk-65-1.png" width="672" style="display: block; margin: auto;" /></p>
+  ylab(&quot;Chi-Sq Statistic&quot;) +
+  ggtitle(paste0(&quot;Reference Population: &quot;, src_pop, &quot;\nTarget Population: &quot;, trg_pop),
+          paste0(&quot;Subtype: &quot;, subtype_print_names(subtype)))</code></pre>
+<p><img src="figure/NYGC_single_position_comp.Rmd/unnamed-chunk-67-1.png" width="672" style="display: block; margin: auto;" /></p>
+<pre class="r"><code>src_pop &lt;- &quot;AFR&quot;
+trg_pop &lt;- &quot;EAS&quot;
+
+subtype &lt;- &quot;AT_CG&quot;
+
+df &lt;- load_chi_res(src_pop, trg_pop, subtype, chi_sq_dir) %&gt;%
+  mutate(p_val = pchisq(stat, df = 3, lower.tail = F))
+df %&gt;%
+  head()</code></pre>
+<pre><code># A tibble: 6 × 3
+     rp  stat    p_val
+  &lt;dbl&gt; &lt;dbl&gt;    &lt;dbl&gt;
+1    -1 2082. 0       
+2     1  105. 1.61e-22
+3    -2  182. 2.55e-39
+4     2  288. 4.13e-62
+5    -3  196. 2.85e-42
+6     3  139. 5.75e-30</code></pre>
+<pre class="r"><code>df %&gt;%
+  mutate(is_crit = p_val &lt; 0.05) %&gt;%
+  ggplot(aes(x = rp, y = stat, color = is_crit)) +
+  geom_point() +
+  xlab(&quot;Relative Position&quot;) +
+  ylab(&quot;Chi-Sq Statistic&quot;) +
+  ggtitle(paste0(&quot;Reference Population: &quot;, src_pop, &quot;\nTarget Population: &quot;, trg_pop),
+          paste0(&quot;Subtype: &quot;, subtype_print_names(subtype)))</code></pre>
+<p><img src="figure/NYGC_single_position_comp.Rmd/unnamed-chunk-68-1.png" width="672" style="display: block; margin: auto;" /></p>
+<pre class="r"><code>src_pop &lt;- &quot;AFR&quot;
+trg_pop &lt;- &quot;SAS&quot;
+
+subtype &lt;- &quot;AT_CG&quot;
+
+df &lt;- load_chi_res(src_pop, trg_pop, subtype, chi_sq_dir) %&gt;%
+  mutate(p_val = pchisq(stat, df = 3, lower.tail = F))
+df %&gt;%
+  head()</code></pre>
+<pre><code># A tibble: 6 × 3
+     rp  stat     p_val
+  &lt;dbl&gt; &lt;dbl&gt;     &lt;dbl&gt;
+1    -1 522.  8.93e-113
+2     1 498.  1.45e-107
+3    -2  39.4 1.45e-  8
+4     2 150.  2.79e- 32
+5    -3  16.9 7.40e-  4
+6     3  56.2 3.87e- 12</code></pre>
+<pre class="r"><code>df %&gt;%
+  mutate(is_crit = p_val &lt; 0.05) %&gt;%
+  ggplot(aes(x = rp, y = stat, color = is_crit)) +
+  geom_point() +
+  xlab(&quot;Relative Position&quot;) +
+  ylab(&quot;Chi-Sq Statistic&quot;) +
+  ggtitle(paste0(&quot;Reference Population: &quot;, src_pop, &quot;\nTarget Population: &quot;, trg_pop),
+          paste0(&quot;Subtype: &quot;, subtype_print_names(subtype)))</code></pre>
+<p><img src="figure/NYGC_single_position_comp.Rmd/unnamed-chunk-69-1.png" width="672" style="display: block; margin: auto;" /></p>
+</div>
+<div id="eur-source" class="section level5">
+<h5>EUR Source</h5>
+<pre class="r"><code>src_pop &lt;- &quot;EUR&quot;
+trg_pop &lt;- &quot;AFR&quot;
+
+subtype &lt;- &quot;AT_CG&quot;
+
+df &lt;- load_chi_res(src_pop, trg_pop, subtype, chi_sq_dir) %&gt;%
+  mutate(p_val = pchisq(stat, df = 3, lower.tail = F))
+df %&gt;%
+  head()</code></pre>
+<pre><code># A tibble: 6 × 3
+     rp   stat     p_val
+  &lt;dbl&gt;  &lt;dbl&gt;     &lt;dbl&gt;
+1    -1 1121.  9.62e-243
+2     1  223.  5.31e- 48
+3    -2  246.  5.48e- 53
+4     2   88.5 4.67e- 19
+5    -3   37.4 3.86e-  8
+6     3   55.3 5.91e- 12</code></pre>
+<pre class="r"><code>df %&gt;%
+  mutate(is_crit = p_val &lt; 0.05) %&gt;%
+  ggplot(aes(x = rp, y = stat, color = is_crit)) +
+  geom_point() +
+  xlab(&quot;Relative Position&quot;) +
+  ylab(&quot;Chi-Sq Statistic&quot;) +
+  ggtitle(paste0(&quot;Reference Population: &quot;, src_pop, &quot;\nTarget Population: &quot;, trg_pop),
+          paste0(&quot;Subtype: &quot;, subtype_print_names(subtype)))</code></pre>
+<p><img src="figure/NYGC_single_position_comp.Rmd/unnamed-chunk-70-1.png" width="672" style="display: block; margin: auto;" /></p>
+<pre class="r"><code>src_pop &lt;- &quot;EUR&quot;
+trg_pop &lt;- &quot;AMR&quot;
+
+subtype &lt;- &quot;AT_CG&quot;
+
+df &lt;- load_chi_res(src_pop, trg_pop, subtype, chi_sq_dir) %&gt;%
+  mutate(p_val = pchisq(stat, df = 3, lower.tail = F))
+df %&gt;%
+  head()</code></pre>
+<pre><code># A tibble: 6 × 3
+     rp  stat    p_val
+  &lt;dbl&gt; &lt;dbl&gt;    &lt;dbl&gt;
+1    -1 76.0  2.18e-16
+2     1 42.6  3.00e- 9
+3    -2 38.5  2.24e- 8
+4     2  1.71 6.34e- 1
+5    -3 24.5  1.93e- 5
+6     3 10.0  1.82e- 2</code></pre>
+<pre class="r"><code>df %&gt;%
+  mutate(is_crit = p_val &lt; 0.05 / 200) %&gt;%
+  ggplot(aes(x = rp, y = stat, color = is_crit)) +
+  geom_point() +
+  xlab(&quot;Relative Position&quot;) +
+  ylab(&quot;Chi-Sq Statistic&quot;) +
+  ggtitle(paste0(&quot;Reference Population: &quot;, src_pop, &quot;\nTarget Population: &quot;, trg_pop),
+          paste0(&quot;Subtype: &quot;, subtype_print_names(subtype)))</code></pre>
+<p><img src="figure/NYGC_single_position_comp.Rmd/unnamed-chunk-71-1.png" width="672" style="display: block; margin: auto;" /></p>
+<pre class="r"><code>src_pop &lt;- &quot;EUR&quot;
+trg_pop &lt;- &quot;EAS&quot;
+
+subtype &lt;- &quot;AT_CG&quot;
+
+df &lt;- load_chi_res(src_pop, trg_pop, subtype, chi_sq_dir) %&gt;%
+  mutate(p_val = pchisq(stat, df = 3, lower.tail = F))
+df %&gt;%
+  head()</code></pre>
+<pre><code># A tibble: 6 × 3
+     rp  stat     p_val
+  &lt;dbl&gt; &lt;dbl&gt;     &lt;dbl&gt;
+1    -1 855.  6.05e-185
+2     1  50.0 8.14e- 11
+3    -2 250.  8.14e- 54
+4     2  80.1 2.92e- 17
+5    -3 129.  1.00e- 27
+6     3  86.3 1.36e- 18</code></pre>
+<pre class="r"><code>df %&gt;%
+  mutate(is_crit = p_val &lt; 0.05 / 200) %&gt;%
+  ggplot(aes(x = rp, y = stat, color = is_crit)) +
+  geom_point() +
+  xlab(&quot;Relative Position&quot;) +
+  ylab(&quot;Chi-Sq Statistic&quot;) +
+  ggtitle(paste0(&quot;Reference Population: &quot;, src_pop, &quot;\nTarget Population: &quot;, trg_pop),
+          paste0(&quot;Subtype: &quot;, subtype_print_names(subtype)))</code></pre>
+<p><img src="figure/NYGC_single_position_comp.Rmd/unnamed-chunk-72-1.png" width="672" style="display: block; margin: auto;" /></p>
+<pre class="r"><code>src_pop &lt;- &quot;EUR&quot;
+trg_pop &lt;- &quot;SAS&quot;
+
+subtype &lt;- &quot;AT_CG&quot;
+
+df &lt;- load_chi_res(src_pop, trg_pop, subtype, chi_sq_dir) %&gt;%
+  mutate(p_val = pchisq(stat, df = 3, lower.tail = F))
+df %&gt;%
+  head()</code></pre>
+<pre><code># A tibble: 6 × 3
+     rp   stat     p_val
+  &lt;dbl&gt;  &lt;dbl&gt;     &lt;dbl&gt;
+1    -1 2588.  0        
+2     1  859.  8.54e-186
+3    -2   97.6 4.97e- 21
+4     2  404.  2.63e- 87
+5    -3   68.8 7.82e- 15
+6     3   51.6 3.62e- 11</code></pre>
+<pre class="r"><code>df %&gt;%
+  mutate(is_crit = p_val &lt; 0.05) %&gt;%
+  ggplot(aes(x = rp, y = stat, color = is_crit)) +
+  geom_point() +
+  xlab(&quot;Relative Position&quot;) +
+  ylab(&quot;Chi-Sq Statistic&quot;) +
+  ggtitle(paste0(&quot;Reference Population: &quot;, src_pop, &quot;\nTarget Population: &quot;, trg_pop),
+          paste0(&quot;Subtype: &quot;, subtype_print_names(subtype)))</code></pre>
+<p><img src="figure/NYGC_single_position_comp.Rmd/unnamed-chunk-73-1.png" width="672" style="display: block; margin: auto;" /></p>
+<pre class="r"><code>src_pop &lt;- &quot;EAS&quot;
+trg_pop &lt;- &quot;SAS&quot;
+
+subtype &lt;- &quot;AT_CG&quot;
+
+df &lt;- load_chi_res(src_pop, trg_pop, subtype, chi_sq_dir) %&gt;%
+  mutate(p_val = pchisq(stat, df = 3, lower.tail = F))
+df %&gt;%
+  head()</code></pre>
+<pre><code># A tibble: 6 × 3
+     rp  stat     p_val
+  &lt;dbl&gt; &lt;dbl&gt;     &lt;dbl&gt;
+1    -1 3820. 0        
+2     1  950. 9.84e-206
+3    -2  265. 3.44e- 57
+4     2  832. 5.43e-180
+5    -3  322. 1.53e- 69
+6     3  200. 3.51e- 43</code></pre>
+<pre class="r"><code>df %&gt;%
+  mutate(is_crit = p_val &lt; 0.05) %&gt;%
+  ggplot(aes(x = rp, y = stat, color = is_crit)) +
+  geom_point() +
+  xlab(&quot;Relative Position&quot;) +
+  ylab(&quot;Chi-Sq Statistic&quot;) +
+  ggtitle(paste0(&quot;Reference Population: &quot;, src_pop, &quot;\nTarget Population: &quot;, trg_pop),
+          paste0(&quot;Subtype: &quot;, subtype_print_names(subtype)))</code></pre>
+<p><img src="figure/NYGC_single_position_comp.Rmd/unnamed-chunk-74-1.png" width="672" style="display: block; margin: auto;" /></p>
+</div>
+</div>
+<div id="gc_at-1" class="section level4">
+<h4>GC_AT</h4>
+<pre class="r"><code>src_pop &lt;- &quot;AFR&quot;
+trg_pop &lt;- &quot;EUR&quot;
+
+subtype &lt;- &quot;GC_AT&quot;
+
+df &lt;- load_chi_res(src_pop, trg_pop, subtype, chi_sq_dir) %&gt;%
+  mutate(p_val = pchisq(stat, df = 3, lower.tail = F))
+df %&gt;%
+  head()</code></pre>
+<pre><code># A tibble: 6 × 3
+     rp   stat      p_val
+  &lt;dbl&gt;  &lt;dbl&gt;      &lt;dbl&gt;
+1    -1 807.    1.52e-174
+2     1  NA    NA        
+3    -2 173.    3.59e- 37
+4     2 178.    2.98e- 38
+5    -3  27.6   4.31e-  6
+6     3   1.57  6.66e-  1</code></pre>
+<pre class="r"><code>df %&gt;%
+  mutate(is_crit = p_val &lt; 0.05) %&gt;%
+  ggplot(aes(x = rp, y = stat, color = is_crit)) +
+  geom_point() +
+  xlab(&quot;Relative Position&quot;) +
+  ylab(&quot;Chi-Sq Statistic&quot;) +
+  ggtitle(paste0(&quot;Reference Population: &quot;, src_pop, &quot;\nTarget Population: &quot;, trg_pop),
+          paste0(&quot;Subtype: &quot;, subtype_print_names(subtype)))</code></pre>
+<pre><code>Warning: Removed 1 rows containing missing values (`geom_point()`).</code></pre>
+<p><img src="figure/NYGC_single_position_comp.Rmd/unnamed-chunk-75-1.png" width="672" style="display: block; margin: auto;" /></p>
+</div>
+</div>
+</div>
+<div id="model-framework-approach" class="section level2">
+<h2>Model Framework Approach</h2>
+<pre class="r"><code>crit_val &lt;- qchisq(0.05, df = 8, lower.tail = FALSE) #15.507
+
+logmod_dir &lt;- &quot;/net/snowwhite/home/beckandy/research/1000G_NYGC_LSCI/output/ref_pop_sp/pop_param/&quot;
+load_logmod_res &lt;- function(src, ref, subtype, res_dir){
+  f_name &lt;- paste0(res_dir, subtype, &quot;_&quot;, src, &quot;_&quot;, ref, &quot;.csv&quot;)
+  df &lt;- read_csv(f_name, show_col_types = FALSE)
+  return(df)
+}</code></pre>
+<div id="afr---eur" class="section level3">
+<h3>AFR - EUR</h3>
+<pre class="r"><code>pop1 &lt;- &quot;AFR&quot;
+pop2 &lt;- &quot;EAS&quot;</code></pre>
+<div id="at_cg-2" class="section level4">
+<h4>AT_CG</h4>
+<pre class="r"><code>subtype &lt;- &quot;AT_CG&quot;
+df &lt;- load_logmod_res(pop1, pop2, subtype, logmod_dir) %&gt;%
+  mutate(re = dev / (2*n))
+
+df %&gt;%
+  mutate(is_crit = dev &gt; crit_val) %&gt;%
+  ggplot(aes(x = rp, y = re, color = is_crit)) +
+  geom_point() +
+  theme_classic() +
+  xlab(&quot;Relative Position&quot;) +
+  ylab(&quot;Relative Entropy&quot;) +
+  ggtitle(&quot;Population Parameter Model Thing&quot;, paste(pop1, pop2, subtype, sep=&quot;, &quot;)) +
+  labs(color = &quot;p &lt; 0.05&quot;)</code></pre>
+<p><img src="figure/NYGC_single_position_comp.Rmd/unnamed-chunk-78-1.png" width="672" style="display: block; margin: auto;" /></p>
+</div>
+<div id="at_gc-1" class="section level4">
+<h4>AT_GC</h4>
+<pre class="r"><code>subtype &lt;- &quot;AT_GC&quot;
+df &lt;- load_logmod_res(pop1, pop2, subtype, logmod_dir) %&gt;%
+  mutate(re = dev / (2*n))
+
+df %&gt;%
+  mutate(is_crit = dev &gt; crit_val) %&gt;%
+  ggplot(aes(x = rp, y = re, color = is_crit)) +
+  geom_point() +
+  theme_classic() +
+  xlab(&quot;Relative Position&quot;) +
+  ylab(&quot;Relative Entropy&quot;) +
+  ggtitle(&quot;Population Parameter Model Thing&quot;, paste(pop1, pop2, subtype, sep=&quot;, &quot;)) +
+  labs(color = &quot;p &lt; 0.05&quot;)</code></pre>
+<p><img src="figure/NYGC_single_position_comp.Rmd/unnamed-chunk-79-1.png" width="672" style="display: block; margin: auto;" /></p>
+</div>
+<div id="at_ta-1" class="section level4">
+<h4>AT_TA</h4>
+<pre class="r"><code>subtype &lt;- &quot;AT_TA&quot;
+df &lt;- load_logmod_res(pop1, pop2, subtype, logmod_dir) %&gt;%
+  mutate(re = dev / (2*n))
+
+df %&gt;%
+  mutate(is_crit = dev &gt; crit_val) %&gt;%
+  ggplot(aes(x = rp, y = re, color = is_crit)) +
+  geom_point() +
+  theme_classic() +
+  xlab(&quot;Relative Position&quot;) +
+  ylab(&quot;Relative Entropy&quot;) +
+  ggtitle(&quot;Population Parameter Model Thing&quot;, paste(pop1, pop2, subtype, sep=&quot;, &quot;)) +
+  labs(color = &quot;p &lt; 0.05&quot;)</code></pre>
+<p><img src="figure/NYGC_single_position_comp.Rmd/unnamed-chunk-80-1.png" width="672" style="display: block; margin: auto;" /></p>
+</div>
+<div id="gc_at-2" class="section level4">
+<h4>GC_AT</h4>
+<pre class="r"><code>subtype &lt;- &quot;GC_AT&quot;
+df &lt;- load_logmod_res(pop1, pop2, subtype, logmod_dir) %&gt;%
+  mutate(re = dev / (2*n))
+
+df %&gt;%
+  mutate(is_crit = dev &gt; crit_val) %&gt;%
+  ggplot(aes(x = rp, y = re, color = is_crit)) +
+  geom_point() +
+  theme_classic() +
+  xlab(&quot;Relative Position&quot;) +
+  ylab(&quot;Relative Entropy&quot;) +
+  ggtitle(&quot;Population Parameter Model Thing&quot;, paste(pop1, pop2, subtype, sep=&quot;, &quot;)) +
+  labs(color = &quot;p &lt; 0.05&quot;)</code></pre>
+<p><img src="figure/NYGC_single_position_comp.Rmd/unnamed-chunk-81-1.png" width="672" style="display: block; margin: auto;" /></p>
+</div>
+<div id="cpg_gc_at-1" class="section level4">
+<h4>cpg_GC_AT</h4>
+<pre class="r"><code>subtype &lt;- &quot;cpg_GC_AT&quot;
+df &lt;- load_logmod_res(pop1, pop2, subtype, logmod_dir) %&gt;%
+  mutate(re = dev / (2*n))
+
+df %&gt;%
+  mutate(is_crit = dev &gt; crit_val) %&gt;%
+  ggplot(aes(x = rp, y = re, color = is_crit)) +
+  geom_point() +
+  theme_classic() +
+  xlab(&quot;Relative Position&quot;) +
+  ylab(&quot;Relative Entropy&quot;) +
+  ggtitle(&quot;Population Parameter Model Thing&quot;, paste(pop1, pop2, subtype, sep=&quot;, &quot;)) +
+  labs(color = &quot;p &lt; 0.05&quot;)</code></pre>
+<p><img src="figure/NYGC_single_position_comp.Rmd/unnamed-chunk-82-1.png" width="672" style="display: block; margin: auto;" /></p>
+</div>
+<div id="gc_ta-1" class="section level4">
+<h4>GC_TA</h4>
+<pre class="r"><code>subtype &lt;- &quot;GC_TA&quot;
+df &lt;- load_logmod_res(pop1, pop2, subtype, logmod_dir) %&gt;%
+  mutate(re = dev / (2*n))
+
+df %&gt;%
+  mutate(is_crit = dev &gt; crit_val) %&gt;%
+  ggplot(aes(x = rp, y = re, color = is_crit)) +
+  geom_point() +
+  theme_classic() +
+  xlab(&quot;Relative Position&quot;) +
+  ylab(&quot;Relative Entropy&quot;) +
+  ggtitle(&quot;Population Parameter Model Thing&quot;, paste(pop1, pop2, subtype, sep=&quot;, &quot;)) +
+  labs(color = &quot;p &lt; 0.05&quot;)</code></pre>
+<p><img src="figure/NYGC_single_position_comp.Rmd/unnamed-chunk-83-1.png" width="672" style="display: block; margin: auto;" /></p>
+</div>
+<div id="cpg_gc_ta-1" class="section level4">
+<h4>cpg_GC_TA</h4>
+<pre class="r"><code>subtype &lt;- &quot;cpg_GC_TA&quot;
+df &lt;- load_logmod_res(pop1, pop2, subtype, logmod_dir) %&gt;%
+  mutate(re = dev / (2*n))
+
+df %&gt;%
+  mutate(is_crit = dev &gt; crit_val) %&gt;%
+  ggplot(aes(x = rp, y = re, color = is_crit)) +
+  geom_point() +
+  theme_classic() +
+  xlab(&quot;Relative Position&quot;) +
+  ylab(&quot;Relative Entropy&quot;) +
+  ggtitle(&quot;Population Parameter Model Thing&quot;, paste(pop1, pop2, subtype, sep=&quot;, &quot;)) +
+  labs(color = &quot;p &lt; 0.05&quot;)</code></pre>
+<p><img src="figure/NYGC_single_position_comp.Rmd/unnamed-chunk-84-1.png" width="672" style="display: block; margin: auto;" /></p>
+</div>
+<div id="gc_cg-1" class="section level4">
+<h4>GC_CG</h4>
+<pre class="r"><code>subtype &lt;- &quot;GC_CG&quot;
+df &lt;- load_logmod_res(pop1, pop2, subtype, logmod_dir) %&gt;%
+  mutate(re = dev / (2*n))
+
+df %&gt;%
+  mutate(is_crit = dev &gt; crit_val) %&gt;%
+  ggplot(aes(x = rp, y = re, color = is_crit)) +
+  geom_point() +
+  theme_classic() +
+  xlab(&quot;Relative Position&quot;) +
+  ylab(&quot;Relative Entropy&quot;) +
+  ggtitle(&quot;Population Parameter Model Thing&quot;, paste(pop1, pop2, subtype, sep=&quot;, &quot;)) +
+  labs(color = &quot;p &lt; 0.05&quot;)</code></pre>
+<p><img src="figure/NYGC_single_position_comp.Rmd/unnamed-chunk-85-1.png" width="672" style="display: block; margin: auto;" /></p>
+</div>
+<div id="cpg_gc_cg-1" class="section level4">
+<h4>cpg_GC_CG</h4>
+<pre class="r"><code>subtype &lt;- &quot;cpg_GC_CG&quot;
+df &lt;- load_logmod_res(pop1, pop2, subtype, logmod_dir) %&gt;%
+  mutate(re = dev / (2*n))
+
+df %&gt;%
+  mutate(is_crit = dev &gt; crit_val) %&gt;%
+  ggplot(aes(x = rp, y = re, color = is_crit)) +
+  geom_point() +
+  theme_classic() +
+  xlab(&quot;Relative Position&quot;) +
+  ylab(&quot;Relative Entropy&quot;) +
+  ggtitle(&quot;Population Parameter Model Thing&quot;, paste(pop1, pop2, subtype, sep=&quot;, &quot;)) +
+  labs(color = &quot;p &lt; 0.05&quot;)</code></pre>
+<p><img src="figure/NYGC_single_position_comp.Rmd/unnamed-chunk-86-1.png" width="672" style="display: block; margin: auto;" /></p>
 <br>
 <p>
 <button type="button" class="btn btn-default btn-workflowr btn-workflowr-sessioninfo" data-toggle="collapse" data-target="#workflowr-sessioninfo" style="display: block;">
@@ -2101,7 +3565,6 @@ loaded via a namespace (and not attached):
 [53] knitr_1.42       rlang_1.1.1      Rcpp_1.0.10      glue_1.6.2      
 [57] rstudioapi_0.14  vroom_1.6.3      jsonlite_1.8.4   R6_2.5.1        
 [61] fs_1.6.2        </code></pre>
-</div>
 </div>
 </div>
 </div>
