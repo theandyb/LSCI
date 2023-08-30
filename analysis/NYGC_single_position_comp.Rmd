@@ -1464,6 +1464,344 @@ load_logmod_res <- function(src, ref, subtype, res_dir){
 
 ```{r}
 pop1 <- "AFR"
+pop2 <- "EUR"
+```
+
+#### AT_CG
+
+```{r}
+subtype <- "AT_CG"
+df <- load_logmod_res(pop1, pop2, subtype, logmod_dir) %>%
+  mutate(re = dev / (2*n))
+
+df %>%
+  mutate(is_crit = dev > crit_val) %>%
+  ggplot(aes(x = rp, y = re, color = is_crit)) +
+  geom_point() +
+  theme_classic() +
+  xlab("Relative Position") +
+  ylab("Relative Entropy") +
+  ggtitle("Population Parameter Model Thing", paste(pop1, pop2, subtype, sep=", ")) +
+  labs(color = "p < 0.05")
+```
+
+#### AT_GC
+
+```{r}
+subtype <- "AT_GC"
+df <- load_logmod_res(pop1, pop2, subtype, logmod_dir) %>%
+  mutate(re = dev / (2*n))
+
+df %>%
+  mutate(is_crit = dev > crit_val) %>%
+  ggplot(aes(x = rp, y = re, color = is_crit)) +
+  geom_point() +
+  theme_classic() +
+  xlab("Relative Position") +
+  ylab("Relative Entropy") +
+  ggtitle("Population Parameter Model Thing", paste(pop1, pop2, subtype, sep=", ")) +
+  labs(color = "p < 0.05")
+```
+
+#### AT_TA
+
+```{r}
+subtype <- "AT_TA"
+df <- load_logmod_res(pop1, pop2, subtype, logmod_dir) %>%
+  mutate(re = dev / (2*n))
+
+df %>%
+  mutate(is_crit = dev > crit_val) %>%
+  ggplot(aes(x = rp, y = re, color = is_crit)) +
+  geom_point() +
+  theme_classic() +
+  xlab("Relative Position") +
+  ylab("Relative Entropy") +
+  ggtitle("Population Parameter Model Thing", paste(pop1, pop2, subtype, sep=", ")) +
+  labs(color = "p < 0.05")
+```
+
+#### GC_AT
+
+```{r}
+subtype <- "GC_AT"
+df <- load_logmod_res(pop1, pop2, subtype, logmod_dir) %>%
+  mutate(re = dev / (2*n))
+
+df %>%
+  mutate(is_crit = dev > crit_val) %>%
+  ggplot(aes(x = rp, y = re, color = is_crit)) +
+  geom_point() +
+  theme_classic() +
+  xlab("Relative Position") +
+  ylab("Relative Entropy") +
+  ggtitle("Population Parameter Model Thing", paste(pop1, pop2, subtype, sep=", ")) +
+  labs(color = "p < 0.05")
+```
+
+#### cpg_GC_AT
+
+```{r}
+subtype <- "cpg_GC_AT"
+df <- load_logmod_res(pop1, pop2, subtype, logmod_dir) %>%
+  mutate(re = dev / (2*n))
+
+df %>%
+  mutate(is_crit = dev > crit_val) %>%
+  ggplot(aes(x = rp, y = re, color = is_crit)) +
+  geom_point() +
+  theme_classic() +
+  xlab("Relative Position") +
+  ylab("Relative Entropy") +
+  ggtitle("Population Parameter Model Thing", paste(pop1, pop2, subtype, sep=", ")) +
+  labs(color = "p < 0.05")
+```
+
+#### GC_TA
+
+```{r}
+subtype <- "GC_TA"
+df <- load_logmod_res(pop1, pop2, subtype, logmod_dir) %>%
+  mutate(re = dev / (2*n))
+
+df %>%
+  mutate(is_crit = dev > crit_val) %>%
+  ggplot(aes(x = rp, y = re, color = is_crit)) +
+  geom_point() +
+  theme_classic() +
+  xlab("Relative Position") +
+  ylab("Relative Entropy") +
+  ggtitle("Population Parameter Model Thing", paste(pop1, pop2, subtype, sep=", ")) +
+  labs(color = "p < 0.05")
+```
+
+#### cpg_GC_TA
+
+```{r}
+subtype <- "cpg_GC_TA"
+df <- load_logmod_res(pop1, pop2, subtype, logmod_dir) %>%
+  mutate(re = dev / (2*n))
+
+df %>%
+  mutate(is_crit = dev > crit_val) %>%
+  ggplot(aes(x = rp, y = re, color = is_crit)) +
+  geom_point() +
+  theme_classic() +
+  xlab("Relative Position") +
+  ylab("Relative Entropy") +
+  ggtitle("Population Parameter Model Thing", paste(pop1, pop2, subtype, sep=", ")) +
+  labs(color = "p < 0.05")
+```
+
+#### GC_CG
+
+```{r}
+subtype <- "GC_CG"
+df <- load_logmod_res(pop1, pop2, subtype, logmod_dir) %>%
+  mutate(re = dev / (2*n))
+
+df %>%
+  mutate(is_crit = dev > crit_val) %>%
+  ggplot(aes(x = rp, y = re, color = is_crit)) +
+  geom_point() +
+  theme_classic() +
+  xlab("Relative Position") +
+  ylab("Relative Entropy") +
+  ggtitle("Population Parameter Model Thing", paste(pop1, pop2, subtype, sep=", ")) +
+  labs(color = "p < 0.05")
+```
+
+#### cpg_GC_CG
+
+```{r}
+subtype <- "cpg_GC_CG"
+df <- load_logmod_res(pop1, pop2, subtype, logmod_dir) %>%
+  mutate(re = dev / (2*n))
+
+df %>%
+  mutate(is_crit = dev > crit_val) %>%
+  ggplot(aes(x = rp, y = re, color = is_crit)) +
+  geom_point() +
+  theme_classic() +
+  xlab("Relative Position") +
+  ylab("Relative Entropy") +
+  ggtitle("Population Parameter Model Thing", paste(pop1, pop2, subtype, sep=", ")) +
+  labs(color = "p < 0.05")
+```
+
+### AFR - AMR
+
+```{r}
+pop1 <- "AFR"
+pop2 <- "AMR"
+```
+
+#### AT_CG
+
+```{r}
+subtype <- "AT_CG"
+df <- load_logmod_res(pop1, pop2, subtype, logmod_dir) %>%
+  mutate(re = dev / (2*n))
+
+df %>%
+  mutate(is_crit = dev > crit_val) %>%
+  ggplot(aes(x = rp, y = re, color = is_crit)) +
+  geom_point() +
+  theme_classic() +
+  xlab("Relative Position") +
+  ylab("Relative Entropy") +
+  ggtitle("Population Parameter Model Thing", paste(pop1, pop2, subtype, sep=", ")) +
+  labs(color = "p < 0.05")
+```
+
+#### AT_GC
+
+```{r}
+subtype <- "AT_GC"
+df <- load_logmod_res(pop1, pop2, subtype, logmod_dir) %>%
+  mutate(re = dev / (2*n))
+
+df %>%
+  mutate(is_crit = dev > crit_val) %>%
+  ggplot(aes(x = rp, y = re, color = is_crit)) +
+  geom_point() +
+  theme_classic() +
+  xlab("Relative Position") +
+  ylab("Relative Entropy") +
+  ggtitle("Population Parameter Model Thing", paste(pop1, pop2, subtype, sep=", ")) +
+  labs(color = "p < 0.05")
+```
+
+#### AT_TA
+
+```{r}
+subtype <- "AT_TA"
+df <- load_logmod_res(pop1, pop2, subtype, logmod_dir) %>%
+  mutate(re = dev / (2*n))
+
+df %>%
+  mutate(is_crit = dev > crit_val) %>%
+  ggplot(aes(x = rp, y = re, color = is_crit)) +
+  geom_point() +
+  theme_classic() +
+  xlab("Relative Position") +
+  ylab("Relative Entropy") +
+  ggtitle("Population Parameter Model Thing", paste(pop1, pop2, subtype, sep=", ")) +
+  labs(color = "p < 0.05")
+```
+
+#### GC_AT
+
+```{r}
+subtype <- "GC_AT"
+df <- load_logmod_res(pop1, pop2, subtype, logmod_dir) %>%
+  mutate(re = dev / (2*n))
+
+df %>%
+  mutate(is_crit = dev > crit_val) %>%
+  ggplot(aes(x = rp, y = re, color = is_crit)) +
+  geom_point() +
+  theme_classic() +
+  xlab("Relative Position") +
+  ylab("Relative Entropy") +
+  ggtitle("Population Parameter Model Thing", paste(pop1, pop2, subtype, sep=", ")) +
+  labs(color = "p < 0.05")
+```
+
+#### cpg_GC_AT
+
+```{r}
+subtype <- "cpg_GC_AT"
+df <- load_logmod_res(pop1, pop2, subtype, logmod_dir) %>%
+  mutate(re = dev / (2*n))
+
+df %>%
+  mutate(is_crit = dev > crit_val) %>%
+  ggplot(aes(x = rp, y = re, color = is_crit)) +
+  geom_point() +
+  theme_classic() +
+  xlab("Relative Position") +
+  ylab("Relative Entropy") +
+  ggtitle("Population Parameter Model Thing", paste(pop1, pop2, subtype, sep=", ")) +
+  labs(color = "p < 0.05")
+```
+
+#### GC_TA
+
+```{r}
+subtype <- "GC_TA"
+df <- load_logmod_res(pop1, pop2, subtype, logmod_dir) %>%
+  mutate(re = dev / (2*n))
+
+df %>%
+  mutate(is_crit = dev > crit_val) %>%
+  ggplot(aes(x = rp, y = re, color = is_crit)) +
+  geom_point() +
+  theme_classic() +
+  xlab("Relative Position") +
+  ylab("Relative Entropy") +
+  ggtitle("Population Parameter Model Thing", paste(pop1, pop2, subtype, sep=", ")) +
+  labs(color = "p < 0.05")
+```
+
+#### cpg_GC_TA
+
+```{r}
+subtype <- "cpg_GC_TA"
+df <- load_logmod_res(pop1, pop2, subtype, logmod_dir) %>%
+  mutate(re = dev / (2*n))
+
+df %>%
+  mutate(is_crit = dev > crit_val) %>%
+  ggplot(aes(x = rp, y = re, color = is_crit)) +
+  geom_point() +
+  theme_classic() +
+  xlab("Relative Position") +
+  ylab("Relative Entropy") +
+  ggtitle("Population Parameter Model Thing", paste(pop1, pop2, subtype, sep=", ")) +
+  labs(color = "p < 0.05")
+```
+
+#### GC_CG
+
+```{r}
+subtype <- "GC_CG"
+df <- load_logmod_res(pop1, pop2, subtype, logmod_dir) %>%
+  mutate(re = dev / (2*n))
+
+df %>%
+  mutate(is_crit = dev > crit_val) %>%
+  ggplot(aes(x = rp, y = re, color = is_crit)) +
+  geom_point() +
+  theme_classic() +
+  xlab("Relative Position") +
+  ylab("Relative Entropy") +
+  ggtitle("Population Parameter Model Thing", paste(pop1, pop2, subtype, sep=", ")) +
+  labs(color = "p < 0.05")
+```
+
+#### cpg_GC_CG
+
+```{r}
+subtype <- "cpg_GC_CG"
+df <- load_logmod_res(pop1, pop2, subtype, logmod_dir) %>%
+  mutate(re = dev / (2*n))
+
+df %>%
+  mutate(is_crit = dev > crit_val) %>%
+  ggplot(aes(x = rp, y = re, color = is_crit)) +
+  geom_point() +
+  theme_classic() +
+  xlab("Relative Position") +
+  ylab("Relative Entropy") +
+  ggtitle("Population Parameter Model Thing", paste(pop1, pop2, subtype, sep=", ")) +
+  labs(color = "p < 0.05")
+```
+
+### AFR - EAS
+
+```{r}
+pop1 <- "AFR"
 pop2 <- "EAS"
 ```
 
@@ -1629,4 +1967,1186 @@ df %>%
   labs(color = "p < 0.05")
 ```
 
+### AFR - SAS
+
+```{r}
+pop1 <- "AFR"
+pop2 <- "SAS"
+```
+
+#### AT_CG
+
+```{r}
+subtype <- "AT_CG"
+df <- load_logmod_res(pop1, pop2, subtype, logmod_dir) %>%
+  mutate(re = dev / (2*n))
+
+df %>%
+  mutate(is_crit = dev > crit_val) %>%
+  ggplot(aes(x = rp, y = re, color = is_crit)) +
+  geom_point() +
+  theme_classic() +
+  xlab("Relative Position") +
+  ylab("Relative Entropy") +
+  ggtitle("Population Parameter Model Thing", paste(pop1, pop2, subtype, sep=", ")) +
+  labs(color = "p < 0.05")
+```
+
+#### AT_GC
+
+```{r}
+subtype <- "AT_GC"
+df <- load_logmod_res(pop1, pop2, subtype, logmod_dir) %>%
+  mutate(re = dev / (2*n))
+
+df %>%
+  mutate(is_crit = dev > crit_val) %>%
+  ggplot(aes(x = rp, y = re, color = is_crit)) +
+  geom_point() +
+  theme_classic() +
+  xlab("Relative Position") +
+  ylab("Relative Entropy") +
+  ggtitle("Population Parameter Model Thing", paste(pop1, pop2, subtype, sep=", ")) +
+  labs(color = "p < 0.05")
+```
+
+#### AT_TA
+
+```{r}
+subtype <- "AT_TA"
+df <- load_logmod_res(pop1, pop2, subtype, logmod_dir) %>%
+  mutate(re = dev / (2*n))
+
+df %>%
+  mutate(is_crit = dev > crit_val) %>%
+  ggplot(aes(x = rp, y = re, color = is_crit)) +
+  geom_point() +
+  theme_classic() +
+  xlab("Relative Position") +
+  ylab("Relative Entropy") +
+  ggtitle("Population Parameter Model Thing", paste(pop1, pop2, subtype, sep=", ")) +
+  labs(color = "p < 0.05")
+```
+
+#### GC_AT
+
+```{r}
+subtype <- "GC_AT"
+df <- load_logmod_res(pop1, pop2, subtype, logmod_dir) %>%
+  mutate(re = dev / (2*n))
+
+df %>%
+  mutate(is_crit = dev > crit_val) %>%
+  ggplot(aes(x = rp, y = re, color = is_crit)) +
+  geom_point() +
+  theme_classic() +
+  xlab("Relative Position") +
+  ylab("Relative Entropy") +
+  ggtitle("Population Parameter Model Thing", paste(pop1, pop2, subtype, sep=", ")) +
+  labs(color = "p < 0.05")
+```
+
+#### cpg_GC_AT
+
+```{r}
+subtype <- "cpg_GC_AT"
+df <- load_logmod_res(pop1, pop2, subtype, logmod_dir) %>%
+  mutate(re = dev / (2*n))
+
+df %>%
+  mutate(is_crit = dev > crit_val) %>%
+  ggplot(aes(x = rp, y = re, color = is_crit)) +
+  geom_point() +
+  theme_classic() +
+  xlab("Relative Position") +
+  ylab("Relative Entropy") +
+  ggtitle("Population Parameter Model Thing", paste(pop1, pop2, subtype, sep=", ")) +
+  labs(color = "p < 0.05")
+```
+
+#### GC_TA
+
+```{r}
+subtype <- "GC_TA"
+df <- load_logmod_res(pop1, pop2, subtype, logmod_dir) %>%
+  mutate(re = dev / (2*n))
+
+df %>%
+  mutate(is_crit = dev > crit_val) %>%
+  ggplot(aes(x = rp, y = re, color = is_crit)) +
+  geom_point() +
+  theme_classic() +
+  xlab("Relative Position") +
+  ylab("Relative Entropy") +
+  ggtitle("Population Parameter Model Thing", paste(pop1, pop2, subtype, sep=", ")) +
+  labs(color = "p < 0.05")
+```
+
+#### cpg_GC_TA
+
+```{r}
+subtype <- "cpg_GC_TA"
+df <- load_logmod_res(pop1, pop2, subtype, logmod_dir) %>%
+  mutate(re = dev / (2*n))
+
+df %>%
+  mutate(is_crit = dev > crit_val) %>%
+  ggplot(aes(x = rp, y = re, color = is_crit)) +
+  geom_point() +
+  theme_classic() +
+  xlab("Relative Position") +
+  ylab("Relative Entropy") +
+  ggtitle("Population Parameter Model Thing", paste(pop1, pop2, subtype, sep=", ")) +
+  labs(color = "p < 0.05")
+```
+
+#### GC_CG
+
+```{r}
+subtype <- "GC_CG"
+df <- load_logmod_res(pop1, pop2, subtype, logmod_dir) %>%
+  mutate(re = dev / (2*n))
+
+df %>%
+  mutate(is_crit = dev > crit_val) %>%
+  ggplot(aes(x = rp, y = re, color = is_crit)) +
+  geom_point() +
+  theme_classic() +
+  xlab("Relative Position") +
+  ylab("Relative Entropy") +
+  ggtitle("Population Parameter Model Thing", paste(pop1, pop2, subtype, sep=", ")) +
+  labs(color = "p < 0.05")
+```
+
+#### cpg_GC_CG
+
+```{r}
+subtype <- "cpg_GC_CG"
+df <- load_logmod_res(pop1, pop2, subtype, logmod_dir) %>%
+  mutate(re = dev / (2*n))
+
+df %>%
+  mutate(is_crit = dev > crit_val) %>%
+  ggplot(aes(x = rp, y = re, color = is_crit)) +
+  geom_point() +
+  theme_classic() +
+  xlab("Relative Position") +
+  ylab("Relative Entropy") +
+  ggtitle("Population Parameter Model Thing", paste(pop1, pop2, subtype, sep=", ")) +
+  labs(color = "p < 0.05")
+```
+
+### AMR - EAS
+
+```{r}
+pop1 <- "AMR"
+pop2 <- "EAS"
+```
+
+#### AT_CG
+
+```{r}
+subtype <- "AT_CG"
+df <- load_logmod_res(pop1, pop2, subtype, logmod_dir) %>%
+  mutate(re = dev / (2*n))
+
+df %>%
+  mutate(is_crit = dev > crit_val) %>%
+  ggplot(aes(x = rp, y = re, color = is_crit)) +
+  geom_point() +
+  theme_classic() +
+  xlab("Relative Position") +
+  ylab("Relative Entropy") +
+  ggtitle("Population Parameter Model Thing", paste(pop1, pop2, subtype, sep=", ")) +
+  labs(color = "p < 0.05")
+```
+
+#### AT_GC
+
+```{r}
+subtype <- "AT_GC"
+df <- load_logmod_res(pop1, pop2, subtype, logmod_dir) %>%
+  mutate(re = dev / (2*n))
+
+df %>%
+  mutate(is_crit = dev > crit_val) %>%
+  ggplot(aes(x = rp, y = re, color = is_crit)) +
+  geom_point() +
+  theme_classic() +
+  xlab("Relative Position") +
+  ylab("Relative Entropy") +
+  ggtitle("Population Parameter Model Thing", paste(pop1, pop2, subtype, sep=", ")) +
+  labs(color = "p < 0.05")
+```
+
+#### AT_TA
+
+```{r}
+subtype <- "AT_TA"
+df <- load_logmod_res(pop1, pop2, subtype, logmod_dir) %>%
+  mutate(re = dev / (2*n))
+
+df %>%
+  mutate(is_crit = dev > crit_val) %>%
+  ggplot(aes(x = rp, y = re, color = is_crit)) +
+  geom_point() +
+  theme_classic() +
+  xlab("Relative Position") +
+  ylab("Relative Entropy") +
+  ggtitle("Population Parameter Model Thing", paste(pop1, pop2, subtype, sep=", ")) +
+  labs(color = "p < 0.05")
+```
+
+#### GC_AT
+
+```{r}
+subtype <- "GC_AT"
+df <- load_logmod_res(pop1, pop2, subtype, logmod_dir) %>%
+  mutate(re = dev / (2*n))
+
+df %>%
+  mutate(is_crit = dev > crit_val) %>%
+  ggplot(aes(x = rp, y = re, color = is_crit)) +
+  geom_point() +
+  theme_classic() +
+  xlab("Relative Position") +
+  ylab("Relative Entropy") +
+  ggtitle("Population Parameter Model Thing", paste(pop1, pop2, subtype, sep=", ")) +
+  labs(color = "p < 0.05")
+```
+
+#### cpg_GC_AT
+
+```{r}
+subtype <- "cpg_GC_AT"
+df <- load_logmod_res(pop1, pop2, subtype, logmod_dir) %>%
+  mutate(re = dev / (2*n))
+
+df %>%
+  mutate(is_crit = dev > crit_val) %>%
+  ggplot(aes(x = rp, y = re, color = is_crit)) +
+  geom_point() +
+  theme_classic() +
+  xlab("Relative Position") +
+  ylab("Relative Entropy") +
+  ggtitle("Population Parameter Model Thing", paste(pop1, pop2, subtype, sep=", ")) +
+  labs(color = "p < 0.05")
+```
+
+#### GC_TA
+
+```{r}
+subtype <- "GC_TA"
+df <- load_logmod_res(pop1, pop2, subtype, logmod_dir) %>%
+  mutate(re = dev / (2*n))
+
+df %>%
+  mutate(is_crit = dev > crit_val) %>%
+  ggplot(aes(x = rp, y = re, color = is_crit)) +
+  geom_point() +
+  theme_classic() +
+  xlab("Relative Position") +
+  ylab("Relative Entropy") +
+  ggtitle("Population Parameter Model Thing", paste(pop1, pop2, subtype, sep=", ")) +
+  labs(color = "p < 0.05")
+```
+
+#### cpg_GC_TA
+
+```{r}
+subtype <- "cpg_GC_TA"
+df <- load_logmod_res(pop1, pop2, subtype, logmod_dir) %>%
+  mutate(re = dev / (2*n))
+
+df %>%
+  mutate(is_crit = dev > crit_val) %>%
+  ggplot(aes(x = rp, y = re, color = is_crit)) +
+  geom_point() +
+  theme_classic() +
+  xlab("Relative Position") +
+  ylab("Relative Entropy") +
+  ggtitle("Population Parameter Model Thing", paste(pop1, pop2, subtype, sep=", ")) +
+  labs(color = "p < 0.05")
+```
+
+#### GC_CG
+
+```{r}
+subtype <- "GC_CG"
+df <- load_logmod_res(pop1, pop2, subtype, logmod_dir) %>%
+  mutate(re = dev / (2*n))
+
+df %>%
+  mutate(is_crit = dev > crit_val) %>%
+  ggplot(aes(x = rp, y = re, color = is_crit)) +
+  geom_point() +
+  theme_classic() +
+  xlab("Relative Position") +
+  ylab("Relative Entropy") +
+  ggtitle("Population Parameter Model Thing", paste(pop1, pop2, subtype, sep=", ")) +
+  labs(color = "p < 0.05")
+```
+
+#### cpg_GC_CG
+
+```{r}
+subtype <- "cpg_GC_CG"
+df <- load_logmod_res(pop1, pop2, subtype, logmod_dir) %>%
+  mutate(re = dev / (2*n))
+
+df %>%
+  mutate(is_crit = dev > crit_val) %>%
+  ggplot(aes(x = rp, y = re, color = is_crit)) +
+  geom_point() +
+  theme_classic() +
+  xlab("Relative Position") +
+  ylab("Relative Entropy") +
+  ggtitle("Population Parameter Model Thing", paste(pop1, pop2, subtype, sep=", ")) +
+  labs(color = "p < 0.05")
+```
+
+### AMR - EUR
+
+```{r}
+pop1 <- "AMR"
+pop2 <- "EUR"
+```
+
+#### AT_CG
+
+```{r}
+subtype <- "AT_CG"
+df <- load_logmod_res(pop1, pop2, subtype, logmod_dir) %>%
+  mutate(re = dev / (2*n))
+
+df %>%
+  mutate(is_crit = dev > crit_val) %>%
+  ggplot(aes(x = rp, y = re, color = is_crit)) +
+  geom_point() +
+  theme_classic() +
+  xlab("Relative Position") +
+  ylab("Relative Entropy") +
+  ggtitle("Population Parameter Model Thing", paste(pop1, pop2, subtype, sep=", ")) +
+  labs(color = "p < 0.05")
+```
+
+#### AT_GC
+
+```{r}
+subtype <- "AT_GC"
+df <- load_logmod_res(pop1, pop2, subtype, logmod_dir) %>%
+  mutate(re = dev / (2*n))
+
+df %>%
+  mutate(is_crit = dev > crit_val) %>%
+  ggplot(aes(x = rp, y = re, color = is_crit)) +
+  geom_point() +
+  theme_classic() +
+  xlab("Relative Position") +
+  ylab("Relative Entropy") +
+  ggtitle("Population Parameter Model Thing", paste(pop1, pop2, subtype, sep=", ")) +
+  labs(color = "p < 0.05")
+```
+
+#### AT_TA
+
+```{r}
+subtype <- "AT_TA"
+df <- load_logmod_res(pop1, pop2, subtype, logmod_dir) %>%
+  mutate(re = dev / (2*n))
+
+df %>%
+  mutate(is_crit = dev > crit_val) %>%
+  ggplot(aes(x = rp, y = re, color = is_crit)) +
+  geom_point() +
+  theme_classic() +
+  xlab("Relative Position") +
+  ylab("Relative Entropy") +
+  ggtitle("Population Parameter Model Thing", paste(pop1, pop2, subtype, sep=", ")) +
+  labs(color = "p < 0.05")
+```
+
+#### GC_AT
+
+```{r}
+subtype <- "GC_AT"
+df <- load_logmod_res(pop1, pop2, subtype, logmod_dir) %>%
+  mutate(re = dev / (2*n))
+
+df %>%
+  mutate(is_crit = dev > crit_val) %>%
+  ggplot(aes(x = rp, y = re, color = is_crit)) +
+  geom_point() +
+  theme_classic() +
+  xlab("Relative Position") +
+  ylab("Relative Entropy") +
+  ggtitle("Population Parameter Model Thing", paste(pop1, pop2, subtype, sep=", ")) +
+  labs(color = "p < 0.05")
+```
+
+#### cpg_GC_AT
+
+```{r}
+subtype <- "cpg_GC_AT"
+df <- load_logmod_res(pop1, pop2, subtype, logmod_dir) %>%
+  mutate(re = dev / (2*n))
+
+df %>%
+  mutate(is_crit = dev > crit_val) %>%
+  ggplot(aes(x = rp, y = re, color = is_crit)) +
+  geom_point() +
+  theme_classic() +
+  xlab("Relative Position") +
+  ylab("Relative Entropy") +
+  ggtitle("Population Parameter Model Thing", paste(pop1, pop2, subtype, sep=", ")) +
+  labs(color = "p < 0.05")
+```
+
+#### GC_TA
+
+```{r}
+subtype <- "GC_TA"
+df <- load_logmod_res(pop1, pop2, subtype, logmod_dir) %>%
+  mutate(re = dev / (2*n))
+
+df %>%
+  mutate(is_crit = dev > crit_val) %>%
+  ggplot(aes(x = rp, y = re, color = is_crit)) +
+  geom_point() +
+  theme_classic() +
+  xlab("Relative Position") +
+  ylab("Relative Entropy") +
+  ggtitle("Population Parameter Model Thing", paste(pop1, pop2, subtype, sep=", ")) +
+  labs(color = "p < 0.05")
+```
+
+#### cpg_GC_TA
+
+```{r}
+subtype <- "cpg_GC_TA"
+df <- load_logmod_res(pop1, pop2, subtype, logmod_dir) %>%
+  mutate(re = dev / (2*n))
+
+df %>%
+  mutate(is_crit = dev > crit_val) %>%
+  ggplot(aes(x = rp, y = re, color = is_crit)) +
+  geom_point() +
+  theme_classic() +
+  xlab("Relative Position") +
+  ylab("Relative Entropy") +
+  ggtitle("Population Parameter Model Thing", paste(pop1, pop2, subtype, sep=", ")) +
+  labs(color = "p < 0.05")
+```
+
+#### GC_CG
+
+```{r}
+subtype <- "GC_CG"
+df <- load_logmod_res(pop1, pop2, subtype, logmod_dir) %>%
+  mutate(re = dev / (2*n))
+
+df %>%
+  mutate(is_crit = dev > crit_val) %>%
+  ggplot(aes(x = rp, y = re, color = is_crit)) +
+  geom_point() +
+  theme_classic() +
+  xlab("Relative Position") +
+  ylab("Relative Entropy") +
+  ggtitle("Population Parameter Model Thing", paste(pop1, pop2, subtype, sep=", ")) +
+  labs(color = "p < 0.05")
+```
+
+#### cpg_GC_CG
+
+```{r}
+subtype <- "cpg_GC_CG"
+df <- load_logmod_res(pop1, pop2, subtype, logmod_dir) %>%
+  mutate(re = dev / (2*n))
+
+df %>%
+  mutate(is_crit = dev > crit_val) %>%
+  ggplot(aes(x = rp, y = re, color = is_crit)) +
+  geom_point() +
+  theme_classic() +
+  xlab("Relative Position") +
+  ylab("Relative Entropy") +
+  ggtitle("Population Parameter Model Thing", paste(pop1, pop2, subtype, sep=", ")) +
+  labs(color = "p < 0.05")
+```
+
+### AMR - SAS
+
+```{r}
+pop1 <- "AMR"
+pop2 <- "SAS"
+```
+
+#### AT_CG
+
+```{r}
+subtype <- "AT_CG"
+df <- load_logmod_res(pop1, pop2, subtype, logmod_dir) %>%
+  mutate(re = dev / (2*n))
+
+df %>%
+  mutate(is_crit = dev > crit_val) %>%
+  ggplot(aes(x = rp, y = re, color = is_crit)) +
+  geom_point() +
+  theme_classic() +
+  xlab("Relative Position") +
+  ylab("Relative Entropy") +
+  ggtitle("Population Parameter Model Thing", paste(pop1, pop2, subtype, sep=", ")) +
+  labs(color = "p < 0.05")
+```
+
+#### AT_GC
+
+```{r}
+subtype <- "AT_GC"
+df <- load_logmod_res(pop1, pop2, subtype, logmod_dir) %>%
+  mutate(re = dev / (2*n))
+
+df %>%
+  mutate(is_crit = dev > crit_val) %>%
+  ggplot(aes(x = rp, y = re, color = is_crit)) +
+  geom_point() +
+  theme_classic() +
+  xlab("Relative Position") +
+  ylab("Relative Entropy") +
+  ggtitle("Population Parameter Model Thing", paste(pop1, pop2, subtype, sep=", ")) +
+  labs(color = "p < 0.05")
+```
+
+#### AT_TA
+
+```{r}
+subtype <- "AT_TA"
+df <- load_logmod_res(pop1, pop2, subtype, logmod_dir) %>%
+  mutate(re = dev / (2*n))
+
+df %>%
+  mutate(is_crit = dev > crit_val) %>%
+  ggplot(aes(x = rp, y = re, color = is_crit)) +
+  geom_point() +
+  theme_classic() +
+  xlab("Relative Position") +
+  ylab("Relative Entropy") +
+  ggtitle("Population Parameter Model Thing", paste(pop1, pop2, subtype, sep=", ")) +
+  labs(color = "p < 0.05")
+```
+
+#### GC_AT
+
+```{r}
+subtype <- "GC_AT"
+df <- load_logmod_res(pop1, pop2, subtype, logmod_dir) %>%
+  mutate(re = dev / (2*n))
+
+df %>%
+  mutate(is_crit = dev > crit_val) %>%
+  ggplot(aes(x = rp, y = re, color = is_crit)) +
+  geom_point() +
+  theme_classic() +
+  xlab("Relative Position") +
+  ylab("Relative Entropy") +
+  ggtitle("Population Parameter Model Thing", paste(pop1, pop2, subtype, sep=", ")) +
+  labs(color = "p < 0.05")
+```
+
+#### cpg_GC_AT
+
+```{r}
+subtype <- "cpg_GC_AT"
+df <- load_logmod_res(pop1, pop2, subtype, logmod_dir) %>%
+  mutate(re = dev / (2*n))
+
+df %>%
+  mutate(is_crit = dev > crit_val) %>%
+  ggplot(aes(x = rp, y = re, color = is_crit)) +
+  geom_point() +
+  theme_classic() +
+  xlab("Relative Position") +
+  ylab("Relative Entropy") +
+  ggtitle("Population Parameter Model Thing", paste(pop1, pop2, subtype, sep=", ")) +
+  labs(color = "p < 0.05")
+```
+
+#### GC_TA
+
+```{r}
+subtype <- "GC_TA"
+df <- load_logmod_res(pop1, pop2, subtype, logmod_dir) %>%
+  mutate(re = dev / (2*n))
+
+df %>%
+  mutate(is_crit = dev > crit_val) %>%
+  ggplot(aes(x = rp, y = re, color = is_crit)) +
+  geom_point() +
+  theme_classic() +
+  xlab("Relative Position") +
+  ylab("Relative Entropy") +
+  ggtitle("Population Parameter Model Thing", paste(pop1, pop2, subtype, sep=", ")) +
+  labs(color = "p < 0.05")
+```
+
+#### cpg_GC_TA
+
+```{r}
+subtype <- "cpg_GC_TA"
+df <- load_logmod_res(pop1, pop2, subtype, logmod_dir) %>%
+  mutate(re = dev / (2*n))
+
+df %>%
+  mutate(is_crit = dev > crit_val) %>%
+  ggplot(aes(x = rp, y = re, color = is_crit)) +
+  geom_point() +
+  theme_classic() +
+  xlab("Relative Position") +
+  ylab("Relative Entropy") +
+  ggtitle("Population Parameter Model Thing", paste(pop1, pop2, subtype, sep=", ")) +
+  labs(color = "p < 0.05")
+```
+
+#### GC_CG
+
+```{r}
+subtype <- "GC_CG"
+df <- load_logmod_res(pop1, pop2, subtype, logmod_dir) %>%
+  mutate(re = dev / (2*n))
+
+df %>%
+  mutate(is_crit = dev > crit_val) %>%
+  ggplot(aes(x = rp, y = re, color = is_crit)) +
+  geom_point() +
+  theme_classic() +
+  xlab("Relative Position") +
+  ylab("Relative Entropy") +
+  ggtitle("Population Parameter Model Thing", paste(pop1, pop2, subtype, sep=", ")) +
+  labs(color = "p < 0.05")
+```
+
+#### cpg_GC_CG
+
+```{r}
+subtype <- "cpg_GC_CG"
+df <- load_logmod_res(pop1, pop2, subtype, logmod_dir) %>%
+  mutate(re = dev / (2*n))
+
+df %>%
+  mutate(is_crit = dev > crit_val) %>%
+  ggplot(aes(x = rp, y = re, color = is_crit)) +
+  geom_point() +
+  theme_classic() +
+  xlab("Relative Position") +
+  ylab("Relative Entropy") +
+  ggtitle("Population Parameter Model Thing", paste(pop1, pop2, subtype, sep=", ")) +
+  labs(color = "p < 0.05")
+```
+
+### EAS - EUR
+
+```{r}
+pop1 <- "EAS"
+pop2 <- "EUR"
+```
+
+#### AT_CG
+
+```{r}
+subtype <- "AT_CG"
+df <- load_logmod_res(pop1, pop2, subtype, logmod_dir) %>%
+  mutate(re = dev / (2*n))
+
+df %>%
+  mutate(is_crit = dev > crit_val) %>%
+  ggplot(aes(x = rp, y = re, color = is_crit)) +
+  geom_point() +
+  theme_classic() +
+  xlab("Relative Position") +
+  ylab("Relative Entropy") +
+  ggtitle("Population Parameter Model Thing", paste(pop1, pop2, subtype, sep=", ")) +
+  labs(color = "p < 0.05")
+```
+
+#### AT_GC
+
+```{r}
+subtype <- "AT_GC"
+df <- load_logmod_res(pop1, pop2, subtype, logmod_dir) %>%
+  mutate(re = dev / (2*n))
+
+df %>%
+  mutate(is_crit = dev > crit_val) %>%
+  ggplot(aes(x = rp, y = re, color = is_crit)) +
+  geom_point() +
+  theme_classic() +
+  xlab("Relative Position") +
+  ylab("Relative Entropy") +
+  ggtitle("Population Parameter Model Thing", paste(pop1, pop2, subtype, sep=", ")) +
+  labs(color = "p < 0.05")
+```
+
+#### AT_TA
+
+```{r}
+subtype <- "AT_TA"
+df <- load_logmod_res(pop1, pop2, subtype, logmod_dir) %>%
+  mutate(re = dev / (2*n))
+
+df %>%
+  mutate(is_crit = dev > crit_val) %>%
+  ggplot(aes(x = rp, y = re, color = is_crit)) +
+  geom_point() +
+  theme_classic() +
+  xlab("Relative Position") +
+  ylab("Relative Entropy") +
+  ggtitle("Population Parameter Model Thing", paste(pop1, pop2, subtype, sep=", ")) +
+  labs(color = "p < 0.05")
+```
+
+#### GC_AT
+
+```{r}
+subtype <- "GC_AT"
+df <- load_logmod_res(pop1, pop2, subtype, logmod_dir) %>%
+  mutate(re = dev / (2*n))
+
+df %>%
+  mutate(is_crit = dev > crit_val) %>%
+  ggplot(aes(x = rp, y = re, color = is_crit)) +
+  geom_point() +
+  theme_classic() +
+  xlab("Relative Position") +
+  ylab("Relative Entropy") +
+  ggtitle("Population Parameter Model Thing", paste(pop1, pop2, subtype, sep=", ")) +
+  labs(color = "p < 0.05")
+```
+
+#### cpg_GC_AT
+
+```{r}
+subtype <- "cpg_GC_AT"
+df <- load_logmod_res(pop1, pop2, subtype, logmod_dir) %>%
+  mutate(re = dev / (2*n))
+
+df %>%
+  mutate(is_crit = dev > crit_val) %>%
+  ggplot(aes(x = rp, y = re, color = is_crit)) +
+  geom_point() +
+  theme_classic() +
+  xlab("Relative Position") +
+  ylab("Relative Entropy") +
+  ggtitle("Population Parameter Model Thing", paste(pop1, pop2, subtype, sep=", ")) +
+  labs(color = "p < 0.05")
+```
+
+#### GC_TA
+
+```{r}
+subtype <- "GC_TA"
+df <- load_logmod_res(pop1, pop2, subtype, logmod_dir) %>%
+  mutate(re = dev / (2*n))
+
+df %>%
+  mutate(is_crit = dev > crit_val) %>%
+  ggplot(aes(x = rp, y = re, color = is_crit)) +
+  geom_point() +
+  theme_classic() +
+  xlab("Relative Position") +
+  ylab("Relative Entropy") +
+  ggtitle("Population Parameter Model Thing", paste(pop1, pop2, subtype, sep=", ")) +
+  labs(color = "p < 0.05")
+```
+
+#### cpg_GC_TA
+
+```{r}
+subtype <- "cpg_GC_TA"
+df <- load_logmod_res(pop1, pop2, subtype, logmod_dir) %>%
+  mutate(re = dev / (2*n))
+
+df %>%
+  mutate(is_crit = dev > crit_val) %>%
+  ggplot(aes(x = rp, y = re, color = is_crit)) +
+  geom_point() +
+  theme_classic() +
+  xlab("Relative Position") +
+  ylab("Relative Entropy") +
+  ggtitle("Population Parameter Model Thing", paste(pop1, pop2, subtype, sep=", ")) +
+  labs(color = "p < 0.05")
+```
+
+#### GC_CG
+
+```{r}
+subtype <- "GC_CG"
+df <- load_logmod_res(pop1, pop2, subtype, logmod_dir) %>%
+  mutate(re = dev / (2*n))
+
+df %>%
+  mutate(is_crit = dev > crit_val) %>%
+  ggplot(aes(x = rp, y = re, color = is_crit)) +
+  geom_point() +
+  theme_classic() +
+  xlab("Relative Position") +
+  ylab("Relative Entropy") +
+  ggtitle("Population Parameter Model Thing", paste(pop1, pop2, subtype, sep=", ")) +
+  labs(color = "p < 0.05")
+```
+
+#### cpg_GC_CG
+
+```{r}
+subtype <- "cpg_GC_CG"
+df <- load_logmod_res(pop1, pop2, subtype, logmod_dir) %>%
+  mutate(re = dev / (2*n))
+
+df %>%
+  mutate(is_crit = dev > crit_val) %>%
+  ggplot(aes(x = rp, y = re, color = is_crit)) +
+  geom_point() +
+  theme_classic() +
+  xlab("Relative Position") +
+  ylab("Relative Entropy") +
+  ggtitle("Population Parameter Model Thing", paste(pop1, pop2, subtype, sep=", ")) +
+  labs(color = "p < 0.05")
+```
+
+### EAS - SAS
+
+```{r}
+pop1 <- "EAS"
+pop2 <- "SAS"
+```
+
+#### AT_CG
+
+```{r}
+subtype <- "AT_CG"
+df <- load_logmod_res(pop1, pop2, subtype, logmod_dir) %>%
+  mutate(re = dev / (2*n))
+
+df %>%
+  mutate(is_crit = dev > crit_val) %>%
+  ggplot(aes(x = rp, y = re, color = is_crit)) +
+  geom_point() +
+  theme_classic() +
+  xlab("Relative Position") +
+  ylab("Relative Entropy") +
+  ggtitle("Population Parameter Model Thing", paste(pop1, pop2, subtype, sep=", ")) +
+  labs(color = "p < 0.05")
+```
+
+#### AT_GC
+
+```{r}
+subtype <- "AT_GC"
+df <- load_logmod_res(pop1, pop2, subtype, logmod_dir) %>%
+  mutate(re = dev / (2*n))
+
+df %>%
+  mutate(is_crit = dev > crit_val) %>%
+  ggplot(aes(x = rp, y = re, color = is_crit)) +
+  geom_point() +
+  theme_classic() +
+  xlab("Relative Position") +
+  ylab("Relative Entropy") +
+  ggtitle("Population Parameter Model Thing", paste(pop1, pop2, subtype, sep=", ")) +
+  labs(color = "p < 0.05")
+```
+
+#### AT_TA
+
+```{r}
+subtype <- "AT_TA"
+df <- load_logmod_res(pop1, pop2, subtype, logmod_dir) %>%
+  mutate(re = dev / (2*n))
+
+df %>%
+  mutate(is_crit = dev > crit_val) %>%
+  ggplot(aes(x = rp, y = re, color = is_crit)) +
+  geom_point() +
+  theme_classic() +
+  xlab("Relative Position") +
+  ylab("Relative Entropy") +
+  ggtitle("Population Parameter Model Thing", paste(pop1, pop2, subtype, sep=", ")) +
+  labs(color = "p < 0.05")
+```
+
+#### GC_AT
+
+```{r}
+subtype <- "GC_AT"
+df <- load_logmod_res(pop1, pop2, subtype, logmod_dir) %>%
+  mutate(re = dev / (2*n))
+
+df %>%
+  mutate(is_crit = dev > crit_val) %>%
+  ggplot(aes(x = rp, y = re, color = is_crit)) +
+  geom_point() +
+  theme_classic() +
+  xlab("Relative Position") +
+  ylab("Relative Entropy") +
+  ggtitle("Population Parameter Model Thing", paste(pop1, pop2, subtype, sep=", ")) +
+  labs(color = "p < 0.05")
+```
+
+#### cpg_GC_AT
+
+```{r}
+subtype <- "cpg_GC_AT"
+df <- load_logmod_res(pop1, pop2, subtype, logmod_dir) %>%
+  mutate(re = dev / (2*n))
+
+df %>%
+  mutate(is_crit = dev > crit_val) %>%
+  ggplot(aes(x = rp, y = re, color = is_crit)) +
+  geom_point() +
+  theme_classic() +
+  xlab("Relative Position") +
+  ylab("Relative Entropy") +
+  ggtitle("Population Parameter Model Thing", paste(pop1, pop2, subtype, sep=", ")) +
+  labs(color = "p < 0.05")
+```
+
+#### GC_TA
+
+```{r}
+subtype <- "GC_TA"
+df <- load_logmod_res(pop1, pop2, subtype, logmod_dir) %>%
+  mutate(re = dev / (2*n))
+
+df %>%
+  mutate(is_crit = dev > crit_val) %>%
+  ggplot(aes(x = rp, y = re, color = is_crit)) +
+  geom_point() +
+  theme_classic() +
+  xlab("Relative Position") +
+  ylab("Relative Entropy") +
+  ggtitle("Population Parameter Model Thing", paste(pop1, pop2, subtype, sep=", ")) +
+  labs(color = "p < 0.05")
+```
+
+#### cpg_GC_TA
+
+```{r}
+subtype <- "cpg_GC_TA"
+df <- load_logmod_res(pop1, pop2, subtype, logmod_dir) %>%
+  mutate(re = dev / (2*n))
+
+df %>%
+  mutate(is_crit = dev > crit_val) %>%
+  ggplot(aes(x = rp, y = re, color = is_crit)) +
+  geom_point() +
+  theme_classic() +
+  xlab("Relative Position") +
+  ylab("Relative Entropy") +
+  ggtitle("Population Parameter Model Thing", paste(pop1, pop2, subtype, sep=", ")) +
+  labs(color = "p < 0.05")
+```
+
+#### GC_CG
+
+```{r}
+subtype <- "GC_CG"
+df <- load_logmod_res(pop1, pop2, subtype, logmod_dir) %>%
+  mutate(re = dev / (2*n))
+
+df %>%
+  mutate(is_crit = dev > crit_val) %>%
+  ggplot(aes(x = rp, y = re, color = is_crit)) +
+  geom_point() +
+  theme_classic() +
+  xlab("Relative Position") +
+  ylab("Relative Entropy") +
+  ggtitle("Population Parameter Model Thing", paste(pop1, pop2, subtype, sep=", ")) +
+  labs(color = "p < 0.05")
+```
+
+#### cpg_GC_CG
+
+```{r}
+subtype <- "cpg_GC_CG"
+df <- load_logmod_res(pop1, pop2, subtype, logmod_dir) %>%
+  mutate(re = dev / (2*n))
+
+df %>%
+  mutate(is_crit = dev > crit_val) %>%
+  ggplot(aes(x = rp, y = re, color = is_crit)) +
+  geom_point() +
+  theme_classic() +
+  xlab("Relative Position") +
+  ylab("Relative Entropy") +
+  ggtitle("Population Parameter Model Thing", paste(pop1, pop2, subtype, sep=", ")) +
+  labs(color = "p < 0.05")
+```
+
+### EUR - SAS
+
+```{r}
+pop1 <- "EUR"
+pop2 <- "SAS"
+```
+
+#### AT_CG
+
+```{r}
+subtype <- "AT_CG"
+df <- load_logmod_res(pop1, pop2, subtype, logmod_dir) %>%
+  mutate(re = dev / (2*n))
+
+df %>%
+  mutate(is_crit = dev > crit_val) %>%
+  ggplot(aes(x = rp, y = re, color = is_crit)) +
+  geom_point() +
+  theme_classic() +
+  xlab("Relative Position") +
+  ylab("Relative Entropy") +
+  ggtitle("Population Parameter Model Thing", paste(pop1, pop2, subtype, sep=", ")) +
+  labs(color = "p < 0.05")
+```
+
+#### AT_GC
+
+```{r}
+subtype <- "AT_GC"
+df <- load_logmod_res(pop1, pop2, subtype, logmod_dir) %>%
+  mutate(re = dev / (2*n))
+
+df %>%
+  mutate(is_crit = dev > crit_val) %>%
+  ggplot(aes(x = rp, y = re, color = is_crit)) +
+  geom_point() +
+  theme_classic() +
+  xlab("Relative Position") +
+  ylab("Relative Entropy") +
+  ggtitle("Population Parameter Model Thing", paste(pop1, pop2, subtype, sep=", ")) +
+  labs(color = "p < 0.05")
+```
+
+#### AT_TA
+
+```{r}
+subtype <- "AT_TA"
+df <- load_logmod_res(pop1, pop2, subtype, logmod_dir) %>%
+  mutate(re = dev / (2*n))
+
+df %>%
+  mutate(is_crit = dev > crit_val) %>%
+  ggplot(aes(x = rp, y = re, color = is_crit)) +
+  geom_point() +
+  theme_classic() +
+  xlab("Relative Position") +
+  ylab("Relative Entropy") +
+  ggtitle("Population Parameter Model Thing", paste(pop1, pop2, subtype, sep=", ")) +
+  labs(color = "p < 0.05")
+```
+
+#### GC_AT
+
+```{r}
+subtype <- "GC_AT"
+df <- load_logmod_res(pop1, pop2, subtype, logmod_dir) %>%
+  mutate(re = dev / (2*n))
+
+df %>%
+  mutate(is_crit = dev > crit_val) %>%
+  ggplot(aes(x = rp, y = re, color = is_crit)) +
+  geom_point() +
+  theme_classic() +
+  xlab("Relative Position") +
+  ylab("Relative Entropy") +
+  ggtitle("Population Parameter Model Thing", paste(pop1, pop2, subtype, sep=", ")) +
+  labs(color = "p < 0.05")
+```
+
+#### cpg_GC_AT
+
+```{r}
+subtype <- "cpg_GC_AT"
+df <- load_logmod_res(pop1, pop2, subtype, logmod_dir) %>%
+  mutate(re = dev / (2*n))
+
+df %>%
+  mutate(is_crit = dev > crit_val) %>%
+  ggplot(aes(x = rp, y = re, color = is_crit)) +
+  geom_point() +
+  theme_classic() +
+  xlab("Relative Position") +
+  ylab("Relative Entropy") +
+  ggtitle("Population Parameter Model Thing", paste(pop1, pop2, subtype, sep=", ")) +
+  labs(color = "p < 0.05")
+```
+
+#### GC_TA
+
+```{r}
+subtype <- "GC_TA"
+df <- load_logmod_res(pop1, pop2, subtype, logmod_dir) %>%
+  mutate(re = dev / (2*n))
+
+df %>%
+  mutate(is_crit = dev > crit_val) %>%
+  ggplot(aes(x = rp, y = re, color = is_crit)) +
+  geom_point() +
+  theme_classic() +
+  xlab("Relative Position") +
+  ylab("Relative Entropy") +
+  ggtitle("Population Parameter Model Thing", paste(pop1, pop2, subtype, sep=", ")) +
+  labs(color = "p < 0.05")
+```
+
+#### cpg_GC_TA
+
+```{r}
+subtype <- "cpg_GC_TA"
+df <- load_logmod_res(pop1, pop2, subtype, logmod_dir) %>%
+  mutate(re = dev / (2*n))
+
+df %>%
+  mutate(is_crit = dev > crit_val) %>%
+  ggplot(aes(x = rp, y = re, color = is_crit)) +
+  geom_point() +
+  theme_classic() +
+  xlab("Relative Position") +
+  ylab("Relative Entropy") +
+  ggtitle("Population Parameter Model Thing", paste(pop1, pop2, subtype, sep=", ")) +
+  labs(color = "p < 0.05")
+```
+
+#### GC_CG
+
+```{r}
+subtype <- "GC_CG"
+df <- load_logmod_res(pop1, pop2, subtype, logmod_dir) %>%
+  mutate(re = dev / (2*n))
+
+df %>%
+  mutate(is_crit = dev > crit_val) %>%
+  ggplot(aes(x = rp, y = re, color = is_crit)) +
+  geom_point() +
+  theme_classic() +
+  xlab("Relative Position") +
+  ylab("Relative Entropy") +
+  ggtitle("Population Parameter Model Thing", paste(pop1, pop2, subtype, sep=", ")) +
+  labs(color = "p < 0.05")
+```
+
+#### cpg_GC_CG
+
+```{r}
+subtype <- "cpg_GC_CG"
+df <- load_logmod_res(pop1, pop2, subtype, logmod_dir) %>%
+  mutate(re = dev / (2*n))
+
+df %>%
+  mutate(is_crit = dev > crit_val) %>%
+  ggplot(aes(x = rp, y = re, color = is_crit)) +
+  geom_point() +
+  theme_classic() +
+  xlab("Relative Position") +
+  ylab("Relative Entropy") +
+  ggtitle("Population Parameter Model Thing", paste(pop1, pop2, subtype, sep=", ")) +
+  labs(color = "p < 0.05")
+```
 
