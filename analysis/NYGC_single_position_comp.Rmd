@@ -123,19 +123,18 @@ df <- read_subtype_all_pop(subtype)
 
 df %>%
   filter(abs(offset) < 11) %>%
-  ggplot(aes(x = offset, y = re, colour = pop)) +
+  ggplot(aes(x = offset, y = re, colour = pop, shape = pop)) +
   geom_line() +
   geom_point() +
   xlab("Relative Position") +
   ylab("Relative Entropy") +
-  labs(colour = "Population") +
+  labs(colour = "Population", shape = "Population") +
   ggtitle("Single Position Results", subtype)
 ```
 
 We can also get the correlation of the results between each pair of populations:
 
 ```{r}
-
 df %>%
   select(pop, offset, re) %>%
   pivot_wider(names_from = pop, values_from = re) %>%
@@ -263,6 +262,54 @@ df_resid %>%
   correlate()
 ```
 
+More basic metrics comparing nucleotide-level residuals:
+
+Idea 1: proportions of overall statistics
+
+```{r}
+df_wide_prop <- df_wide %>%
+  group_by(pos) %>%
+  mutate(AFR = sign(AFR)*(AFR^2 / sum(AFR^2)),
+         AMR = sign(AMR)*(AMR^2 / sum(AMR^2)),
+         EAS = sign(EAS)*(EAS^2 / sum(EAS^2)),
+         EUR = sign(EUR)*(EUR^2 / sum(EUR^2)),
+         SAS = sign(SAS)*(SAS^2 / sum(SAS^2)))
+
+cor_method <- "pearson"
+df_cor <- df_wide_prop %>%
+    group_by(pos) %>%
+    summarise(across(AMR:SAS, ~cor(., AFR, use = "complete.obs", method = cor_method), .names = "AFR_{.col}"),
+              across(EAS:SAS, ~cor(., AMR, use = "complete.obs", method = cor_method), .names = "AMR_{.col}"),
+              across(EUR:SAS, ~cor(., EAS, use = "complete.obs", method = cor_method), .names = "EAS_{.col}"),
+              across(SAS, ~cor(., EUR, use = "complete.obs", method = cor_method), .names = "EUR_{.col}"))
+
+df_cor %>%
+    select(pos, starts_with("AFR")) %>%
+    pivot_longer(-pos, names_to = "pair", values_to = "cor") %>%
+    mutate(pair = str_remove(pair, "AFR_")) %>%
+    ggplot(aes(x = pos, y = cor, group_by = pair, colour = pair)) +
+    geom_point() + 
+    geom_line() +
+    ylim(c(0,1)) +
+    ggtitle("Nucleotide residual correlations", 
+            paste0("Reference Population: AFR; subtype: ", subtype_print_names(subtype) )) +
+    xlab("Relative Position") +
+    ylab("Nucleotide Contribution Correlation") +
+    labs(colour = "Population")  
+ ```
+
+Idea 2: ranks
+
+```{r}
+df_wide %>%
+  group_by(pos) %>%
+  mutate(AFR = rank(abs(AFR)),
+         AMR = rank(abs(AMR)),
+         EAS = rank(abs(EAS)),
+         EUR = rank(abs(EUR)),
+         SAS = rank(abs(SAS)))
+```
+ 
 ### AT_GC
 
 ```{r}
@@ -1193,9 +1240,9 @@ load_chi_res <- function(src, ref, subtype, res_dir){
 
 ### Results
 
-#### AFR as Source Population
+#### AT_CG
 
-##### EUR
+##### AFR Source
 
 ```{r}
 src_pop <- "AFR"
@@ -1203,14 +1250,383 @@ trg_pop <- "EUR"
 
 subtype <- "AT_CG"
 
-df <- load_chi_res(src_pop, trg_pop, subtype, chi_sq_dir)
+df <- load_chi_res(src_pop, trg_pop, subtype, chi_sq_dir) %>%
+  mutate(p_val = pchisq(stat, df = 3, lower.tail = F))
 df %>%
   head()
 
 df %>%
-  ggplot(aes(x = rp, y = stat)) +
+  mutate(is_crit = p_val < 0.05) %>%
+  ggplot(aes(x = rp, y = stat, color = is_crit)) +
   geom_point() +
   xlab("Relative Position") +
-  ylab("Chi-Sq Statistic")
+  ylab("Chi-Sq Statistic") +
+  ggtitle(paste0("Reference Population: ", src_pop, "\nTarget Population: ", trg_pop),
+          paste0("Subtype: ", subtype_print_names(subtype)))
+
 ```
+
+```{r}
+src_pop <- "AFR"
+trg_pop <- "EAS"
+
+subtype <- "AT_CG"
+
+df <- load_chi_res(src_pop, trg_pop, subtype, chi_sq_dir) %>%
+  mutate(p_val = pchisq(stat, df = 3, lower.tail = F))
+df %>%
+  head()
+
+df %>%
+  mutate(is_crit = p_val < 0.05) %>%
+  ggplot(aes(x = rp, y = stat, color = is_crit)) +
+  geom_point() +
+  xlab("Relative Position") +
+  ylab("Chi-Sq Statistic") +
+  ggtitle(paste0("Reference Population: ", src_pop, "\nTarget Population: ", trg_pop),
+          paste0("Subtype: ", subtype_print_names(subtype)))
+
+```
+
+```{r}
+src_pop <- "AFR"
+trg_pop <- "SAS"
+
+subtype <- "AT_CG"
+
+df <- load_chi_res(src_pop, trg_pop, subtype, chi_sq_dir) %>%
+  mutate(p_val = pchisq(stat, df = 3, lower.tail = F))
+df %>%
+  head()
+
+df %>%
+  mutate(is_crit = p_val < 0.05) %>%
+  ggplot(aes(x = rp, y = stat, color = is_crit)) +
+  geom_point() +
+  xlab("Relative Position") +
+  ylab("Chi-Sq Statistic") +
+  ggtitle(paste0("Reference Population: ", src_pop, "\nTarget Population: ", trg_pop),
+          paste0("Subtype: ", subtype_print_names(subtype)))
+
+```
+
+##### EUR Source
+
+```{r}
+src_pop <- "EUR"
+trg_pop <- "AFR"
+
+subtype <- "AT_CG"
+
+df <- load_chi_res(src_pop, trg_pop, subtype, chi_sq_dir) %>%
+  mutate(p_val = pchisq(stat, df = 3, lower.tail = F))
+df %>%
+  head()
+
+df %>%
+  mutate(is_crit = p_val < 0.05) %>%
+  ggplot(aes(x = rp, y = stat, color = is_crit)) +
+  geom_point() +
+  xlab("Relative Position") +
+  ylab("Chi-Sq Statistic") +
+  ggtitle(paste0("Reference Population: ", src_pop, "\nTarget Population: ", trg_pop),
+          paste0("Subtype: ", subtype_print_names(subtype)))
+
+```
+
+```{r}
+src_pop <- "EUR"
+trg_pop <- "AMR"
+
+subtype <- "AT_CG"
+
+df <- load_chi_res(src_pop, trg_pop, subtype, chi_sq_dir) %>%
+  mutate(p_val = pchisq(stat, df = 3, lower.tail = F))
+df %>%
+  head()
+
+df %>%
+  mutate(is_crit = p_val < 0.05 / 200) %>%
+  ggplot(aes(x = rp, y = stat, color = is_crit)) +
+  geom_point() +
+  xlab("Relative Position") +
+  ylab("Chi-Sq Statistic") +
+  ggtitle(paste0("Reference Population: ", src_pop, "\nTarget Population: ", trg_pop),
+          paste0("Subtype: ", subtype_print_names(subtype)))
+
+```
+
+```{r}
+src_pop <- "EUR"
+trg_pop <- "EAS"
+
+subtype <- "AT_CG"
+
+df <- load_chi_res(src_pop, trg_pop, subtype, chi_sq_dir) %>%
+  mutate(p_val = pchisq(stat, df = 3, lower.tail = F))
+df %>%
+  head()
+
+df %>%
+  mutate(is_crit = p_val < 0.05 / 200) %>%
+  ggplot(aes(x = rp, y = stat, color = is_crit)) +
+  geom_point() +
+  xlab("Relative Position") +
+  ylab("Chi-Sq Statistic") +
+  ggtitle(paste0("Reference Population: ", src_pop, "\nTarget Population: ", trg_pop),
+          paste0("Subtype: ", subtype_print_names(subtype)))
+
+```
+
+```{r}
+src_pop <- "EUR"
+trg_pop <- "SAS"
+
+subtype <- "AT_CG"
+
+df <- load_chi_res(src_pop, trg_pop, subtype, chi_sq_dir) %>%
+  mutate(p_val = pchisq(stat, df = 3, lower.tail = F))
+df %>%
+  head()
+
+df %>%
+  mutate(is_crit = p_val < 0.05) %>%
+  ggplot(aes(x = rp, y = stat, color = is_crit)) +
+  geom_point() +
+  xlab("Relative Position") +
+  ylab("Chi-Sq Statistic") +
+  ggtitle(paste0("Reference Population: ", src_pop, "\nTarget Population: ", trg_pop),
+          paste0("Subtype: ", subtype_print_names(subtype)))
+
+```
+
+```{r}
+src_pop <- "EAS"
+trg_pop <- "SAS"
+
+subtype <- "AT_CG"
+
+df <- load_chi_res(src_pop, trg_pop, subtype, chi_sq_dir) %>%
+  mutate(p_val = pchisq(stat, df = 3, lower.tail = F))
+df %>%
+  head()
+
+df %>%
+  mutate(is_crit = p_val < 0.05) %>%
+  ggplot(aes(x = rp, y = stat, color = is_crit)) +
+  geom_point() +
+  xlab("Relative Position") +
+  ylab("Chi-Sq Statistic") +
+  ggtitle(paste0("Reference Population: ", src_pop, "\nTarget Population: ", trg_pop),
+          paste0("Subtype: ", subtype_print_names(subtype)))
+
+```
+
+#### GC_AT
+
+```{r}
+src_pop <- "AFR"
+trg_pop <- "EUR"
+
+subtype <- "GC_AT"
+
+df <- load_chi_res(src_pop, trg_pop, subtype, chi_sq_dir) %>%
+  mutate(p_val = pchisq(stat, df = 3, lower.tail = F))
+df %>%
+  head()
+
+df %>%
+  mutate(is_crit = p_val < 0.05) %>%
+  ggplot(aes(x = rp, y = stat, color = is_crit)) +
+  geom_point() +
+  xlab("Relative Position") +
+  ylab("Chi-Sq Statistic") +
+  ggtitle(paste0("Reference Population: ", src_pop, "\nTarget Population: ", trg_pop),
+          paste0("Subtype: ", subtype_print_names(subtype)))
+
+```
+
+## Model Framework Approach
+
+```{r}
+
+crit_val <- qchisq(0.05, df = 8, lower.tail = FALSE) #15.507
+
+logmod_dir <- "/net/snowwhite/home/beckandy/research/1000G_NYGC_LSCI/output/ref_pop_sp/pop_param/"
+load_logmod_res <- function(src, ref, subtype, res_dir){
+  f_name <- paste0(res_dir, subtype, "_", src, "_", ref, ".csv")
+  df <- read_csv(f_name, show_col_types = FALSE)
+  return(df)
+}
+```
+
+### AFR - EUR
+
+```{r}
+pop1 <- "AFR"
+pop2 <- "EAS"
+```
+
+#### AT_CG
+
+```{r}
+subtype <- "AT_CG"
+df <- load_logmod_res(pop1, pop2, subtype, logmod_dir) %>%
+  mutate(re = dev / (2*n))
+
+df %>%
+  mutate(is_crit = dev > crit_val) %>%
+  ggplot(aes(x = rp, y = re, color = is_crit)) +
+  geom_point() +
+  theme_classic() +
+  xlab("Relative Position") +
+  ylab("Relative Entropy") +
+  ggtitle("Population Parameter Model Thing", paste(pop1, pop2, subtype, sep=", ")) +
+  labs(color = "p < 0.05")
+```
+
+#### AT_GC
+
+```{r}
+subtype <- "AT_GC"
+df <- load_logmod_res(pop1, pop2, subtype, logmod_dir) %>%
+  mutate(re = dev / (2*n))
+
+df %>%
+  mutate(is_crit = dev > crit_val) %>%
+  ggplot(aes(x = rp, y = re, color = is_crit)) +
+  geom_point() +
+  theme_classic() +
+  xlab("Relative Position") +
+  ylab("Relative Entropy") +
+  ggtitle("Population Parameter Model Thing", paste(pop1, pop2, subtype, sep=", ")) +
+  labs(color = "p < 0.05")
+```
+
+#### AT_TA
+
+```{r}
+subtype <- "AT_TA"
+df <- load_logmod_res(pop1, pop2, subtype, logmod_dir) %>%
+  mutate(re = dev / (2*n))
+
+df %>%
+  mutate(is_crit = dev > crit_val) %>%
+  ggplot(aes(x = rp, y = re, color = is_crit)) +
+  geom_point() +
+  theme_classic() +
+  xlab("Relative Position") +
+  ylab("Relative Entropy") +
+  ggtitle("Population Parameter Model Thing", paste(pop1, pop2, subtype, sep=", ")) +
+  labs(color = "p < 0.05")
+```
+
+#### GC_AT
+
+```{r}
+subtype <- "GC_AT"
+df <- load_logmod_res(pop1, pop2, subtype, logmod_dir) %>%
+  mutate(re = dev / (2*n))
+
+df %>%
+  mutate(is_crit = dev > crit_val) %>%
+  ggplot(aes(x = rp, y = re, color = is_crit)) +
+  geom_point() +
+  theme_classic() +
+  xlab("Relative Position") +
+  ylab("Relative Entropy") +
+  ggtitle("Population Parameter Model Thing", paste(pop1, pop2, subtype, sep=", ")) +
+  labs(color = "p < 0.05")
+```
+
+#### cpg_GC_AT
+
+```{r}
+subtype <- "cpg_GC_AT"
+df <- load_logmod_res(pop1, pop2, subtype, logmod_dir) %>%
+  mutate(re = dev / (2*n))
+
+df %>%
+  mutate(is_crit = dev > crit_val) %>%
+  ggplot(aes(x = rp, y = re, color = is_crit)) +
+  geom_point() +
+  theme_classic() +
+  xlab("Relative Position") +
+  ylab("Relative Entropy") +
+  ggtitle("Population Parameter Model Thing", paste(pop1, pop2, subtype, sep=", ")) +
+  labs(color = "p < 0.05")
+```
+
+#### GC_TA
+
+```{r}
+subtype <- "GC_TA"
+df <- load_logmod_res(pop1, pop2, subtype, logmod_dir) %>%
+  mutate(re = dev / (2*n))
+
+df %>%
+  mutate(is_crit = dev > crit_val) %>%
+  ggplot(aes(x = rp, y = re, color = is_crit)) +
+  geom_point() +
+  theme_classic() +
+  xlab("Relative Position") +
+  ylab("Relative Entropy") +
+  ggtitle("Population Parameter Model Thing", paste(pop1, pop2, subtype, sep=", ")) +
+  labs(color = "p < 0.05")
+```
+
+#### cpg_GC_TA
+
+```{r}
+subtype <- "cpg_GC_TA"
+df <- load_logmod_res(pop1, pop2, subtype, logmod_dir) %>%
+  mutate(re = dev / (2*n))
+
+df %>%
+  mutate(is_crit = dev > crit_val) %>%
+  ggplot(aes(x = rp, y = re, color = is_crit)) +
+  geom_point() +
+  theme_classic() +
+  xlab("Relative Position") +
+  ylab("Relative Entropy") +
+  ggtitle("Population Parameter Model Thing", paste(pop1, pop2, subtype, sep=", ")) +
+  labs(color = "p < 0.05")
+```
+
+#### GC_CG
+
+```{r}
+subtype <- "GC_CG"
+df <- load_logmod_res(pop1, pop2, subtype, logmod_dir) %>%
+  mutate(re = dev / (2*n))
+
+df %>%
+  mutate(is_crit = dev > crit_val) %>%
+  ggplot(aes(x = rp, y = re, color = is_crit)) +
+  geom_point() +
+  theme_classic() +
+  xlab("Relative Position") +
+  ylab("Relative Entropy") +
+  ggtitle("Population Parameter Model Thing", paste(pop1, pop2, subtype, sep=", ")) +
+  labs(color = "p < 0.05")
+```
+
+#### cpg_GC_CG
+
+```{r}
+subtype <- "cpg_GC_CG"
+df <- load_logmod_res(pop1, pop2, subtype, logmod_dir) %>%
+  mutate(re = dev / (2*n))
+
+df %>%
+  mutate(is_crit = dev > crit_val) %>%
+  ggplot(aes(x = rp, y = re, color = is_crit)) +
+  geom_point() +
+  theme_classic() +
+  xlab("Relative Position") +
+  ylab("Relative Entropy") +
+  ggtitle("Population Parameter Model Thing", paste(pop1, pop2, subtype, sep=", ")) +
+  labs(color = "p < 0.05")
+```
+
 
