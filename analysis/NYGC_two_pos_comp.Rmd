@@ -52,12 +52,6 @@ get_pos <- function(subtype,
   }
   return(final)
 }
-```
-
-### AT_CG
-
-```{r}
-st <- "AT_CG"
 
 simple_cor <- function(st){
   df <- get_pos(st)
@@ -80,6 +74,12 @@ simple_cor <- function(st){
     scale_fill_distiller(palette = "Reds", direction = 1, limits = c(0,1))
   return(list(p = p, cor_mat = cor_mat))
 }
+```
+
+### AT_CG
+
+```{r}
+st <- "AT_CG"
 obj <- simple_cor(st)
 
 obj$cor_mat %>% knitr::kable()
@@ -170,6 +170,26 @@ obj$p
 ## Do populations share location of highest RE?
 
 ```{r}
+top_stat_pair <- function(subtype){
+  df <- get_pos(subtype)
+  max_rows <- c(
+    which(df$AFR == max(df$AFR)),
+    which(df$AMR == max(df$AMR)),
+    which(df$EAS == max(df$EAS)),
+    which(df$EUR == max(df$EUR)),
+    which(df$SAS == max(df$SAS))
+  )
+  results <- data.frame(
+    pop = c("AFR", "AMR", "EAS", "EUR", "SAS"),
+    rp1 = df$rp1[max_rows],
+    rp2 = df$rp2[max_rows]
+  )
+  return(results)
+}
+
+```
+
+```{r}
 get_table_re <- function(pop,
                          data_dir = "/net/snowwhite/home/beckandy/research/1000G_NYGC_LSCI/output/two_pos/"){
   
@@ -244,6 +264,80 @@ get_table_re(pop) %>%
 ```{r}
 pop <- "SAS"
 get_table_re(pop) %>%
+  knitr::kable()
+```
+
+## Top Locations within Subtypes
+
+### AT_CG
+
+```{r}
+subtype <- "AT_CG"
+top_stat_pair(subtype) %>%
+  knitr::kable()
+```
+
+### AT_GC
+
+```{r}
+subtype <- "AT_GC"
+top_stat_pair(subtype) %>%
+  knitr::kable()
+```
+
+### AT_TA
+
+```{r}
+subtype <- "AT_TA"
+top_stat_pair(subtype) %>%
+  knitr::kable()
+```
+
+### GC_AT
+
+```{r}
+subtype <- "GC_AT"
+top_stat_pair(subtype) %>%
+  knitr::kable()
+```
+
+### cpg_GC_AT
+
+```{r}
+subtype <- "cpg_GC_AT"
+top_stat_pair(subtype) %>%
+  knitr::kable()
+```
+
+### GC_TA
+
+```{r}
+subtype <- "GC_TA"
+top_stat_pair(subtype) %>%
+  knitr::kable()
+```
+
+### cpg_GC_TA
+
+```{r}
+subtype <- "cpg_GC_TA"
+top_stat_pair(subtype) %>%
+  knitr::kable()
+```
+
+### GC_CG
+
+```{r}
+subtype <- "GC_CG"
+top_stat_pair(subtype) %>%
+  knitr::kable()
+```
+
+### cpg_GC_CG
+
+```{r}
+subtype <- "cpg_GC_CG"
+top_stat_pair(subtype) %>%
   knitr::kable()
 ```
 
