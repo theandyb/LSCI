@@ -350,6 +350,8 @@ read_csv(paste0(data_dir, pop, "/GC_AT.csv"), show_col_types = FALSE) %>%
   rowwise() %>%
   mutate(re = dev / (2*(singletons + controls))) %>%
   arrange(desc(re)) %>%
+  ungroup() %>%
+  mutate(pct_max = re / max(re)) %>%
   head(4) %>%
   knitr::kable()
 
@@ -358,6 +360,8 @@ read_csv(paste0(data_dir, pop, "/GC_AT.csv"), show_col_types = FALSE) %>%
   rowwise() %>%
   mutate(re = dev / (2*(singletons + controls))) %>%
   arrange(desc(re)) %>%
+  ungroup() %>%
+  mutate(pct_max = re / max(re)) %>%
   head(4) %>%
   knitr::kable()
 
@@ -366,6 +370,8 @@ read_csv(paste0(data_dir, pop, "/GC_AT.csv"), show_col_types = FALSE) %>%
   rowwise() %>%
   mutate(re = dev / (2*(singletons + controls))) %>%
   arrange(desc(re)) %>%
+  ungroup() %>%
+  mutate(pct_max = re / max(re)) %>%
   head(4) %>%
   knitr::kable()
 
@@ -374,6 +380,8 @@ read_csv(paste0(data_dir, pop, "/GC_AT.csv"), show_col_types = FALSE) %>%
   rowwise() %>%
   mutate(re = dev / (2*(singletons + controls))) %>%
   arrange(desc(re)) %>%
+  ungroup() %>%
+  mutate(pct_max = re / max(re)) %>%
   head(4) %>%
   knitr::kable()
 
@@ -382,6 +390,8 @@ read_csv(paste0(data_dir, pop, "/GC_AT.csv"), show_col_types = FALSE) %>%
   rowwise() %>%
   mutate(re = dev / (2*(singletons + controls))) %>%
   arrange(desc(re)) %>%
+  ungroup() %>%
+  mutate(pct_max = re / max(re)) %>%
   head(4) %>%
   knitr::kable()
 
@@ -390,67 +400,81 @@ read_csv(paste0(data_dir, pop, "/GC_AT.csv"), show_col_types = FALSE) %>%
   rowwise() %>%
   mutate(re = dev / (2*(singletons + controls))) %>%
   arrange(desc(re)) %>%
+  ungroup() %>%
+  mutate(pct_max = re / max(re)) %>%
   head(4) %>%
   knitr::kable()
 ```
 
 In this example, while not all populations share the positions coordinates of the highest RE value, we see that (-2, -1) and (-1, 1) are in the top two for all populations.
 
-## AT_CG example (EAS)
+## GC_TA example 
 
-For this subtype the only super population to not have the highest observed RE value at (1,2) was EAS (-2, -1)
+For this subtype the only super population to not have the highest observed RE value at (-1,1) was EUR (1, 2)
 
 ```{r}
 pop <- "ALL"
-read_csv(paste0(data_dir, pop, "/AT_CG.csv"), show_col_types = FALSE) %>%
+read_csv(paste0(data_dir, pop, "/GC_TA.csv"), show_col_types = FALSE) %>%
   rowwise() %>%
   mutate(re = dev / (2*(singletons + controls))) %>%
   arrange(desc(re)) %>%
+  ungroup() %>%
+  mutate(pct_max = re / max(re)) %>%
   head(4) %>%
   knitr::kable()
 
 pop <- "EAS"
-read_csv(paste0(data_dir, pop, "/AT_CG.csv"), show_col_types = FALSE) %>%
+read_csv(paste0(data_dir, pop, "/GC_TA.csv"), show_col_types = FALSE) %>%
   rowwise() %>%
   mutate(re = dev / (2*(singletons + controls))) %>%
   arrange(desc(re)) %>%
+  ungroup() %>%
+  mutate(pct_max = re / max(re)) %>%
   head(4) %>%
   knitr::kable()
 
 pop <- "AFR"
-read_csv(paste0(data_dir, pop, "/AT_CG.csv"), show_col_types = FALSE) %>%
+read_csv(paste0(data_dir, pop, "/GC_TA.csv"), show_col_types = FALSE) %>%
   rowwise() %>%
   mutate(re = dev / (2*(singletons + controls))) %>%
   arrange(desc(re)) %>%
+  ungroup() %>%
+  mutate(pct_max = re / max(re)) %>%
   head(4) %>%
   knitr::kable()
 
 pop <- "AMR"
-read_csv(paste0(data_dir, pop, "/AT_CG.csv"), show_col_types = FALSE) %>%
+read_csv(paste0(data_dir, pop, "/GC_TA.csv"), show_col_types = FALSE) %>%
   rowwise() %>%
   mutate(re = dev / (2*(singletons + controls))) %>%
   arrange(desc(re)) %>%
+  ungroup() %>%
+  mutate(pct_max = re / max(re)) %>%
   head(4) %>%
   knitr::kable()
 
 pop <- "EUR"
-read_csv(paste0(data_dir, pop, "/AT_CG.csv"), show_col_types = FALSE) %>%
+read_csv(paste0(data_dir, pop, "/GC_TA.csv"), show_col_types = FALSE) %>%
   rowwise() %>%
   mutate(re = dev / (2*(singletons + controls))) %>%
   arrange(desc(re)) %>%
+  ungroup() %>%
+  mutate(pct_max = re / max(re)) %>%
   head(4) %>%
   knitr::kable()
 
 pop <- "SAS"
-read_csv(paste0(data_dir, pop, "/AT_CG.csv"), show_col_types = FALSE) %>%
+read_csv(paste0(data_dir, pop, "/GC_TA.csv"), show_col_types = FALSE) %>%
   rowwise() %>%
   mutate(re = dev / (2*(singletons + controls))) %>%
   arrange(desc(re)) %>%
+  ungroup() %>%
+  mutate(pct_max = re / max(re)) %>%
   head(4) %>%
   knitr::kable()
 ```
 
-Again, we see that across all populations the top four statistics are at the same pairs of positions, with only the order slightly adjusted.
+Again, we see that across all populations the top four statistics are at the same pairs of positions, with only the order slightly adjusted. In the case of EUR, we see that (-1, 1) has the second highest statistic, and the value of this statistic is very close to that of (1,2)
 
 
 ## Residual-level Comparisons
@@ -498,359 +522,108 @@ read_subtype_range_resid <- function(subtype, size = 10, data_dir = "/net/snowwh
   
   return(df)
 }
+
+twopos_resid_analysis <- function(subtype, size){
+  df <- read_subtype_range_resid(subtype, size = size)
+  
+  df_cor <- df %>%
+    select(pop, status, rp1, rp2, p1, p2, res) %>%
+    pivot_wider(names_from = pop, values_from = res) %>%
+    select_if(is.numeric) %>%
+    group_by(rp1, rp2) %>%
+    nest() %>%
+     mutate(
+      correlations = map(data, \(x) correlate(x, quiet = T))
+    ) %>%
+    unnest(correlations) %>%
+    select(-data)
+  # create figures
+  pops <- c("AFR", "AMR", "EAS", "EUR", "SAS")
+
+  for(i in 1:4){
+    for(j in (i+1):5){
+      p <- df_cor %>%
+        filter(term == pops[i]) %>%
+        select(rp1, rp2, !!sym(pops[j])) %>%
+        ggplot(aes(x = rp2, y = rp1, fill = !!sym(pops[j]))) +
+        geom_tile() +
+        scale_fill_distiller(palette = "RdBu", limits = c(-1,1)) +
+        theme_bw() +
+        xlab("Relative Position") +
+        ylab("Relative Position") +
+        labs(fill = "Residual \nCorrelation") +
+        theme(legend.position = c(.1, .8)) +
+        annotate("text", x = 0, y = size - 1, label= paste0(pops[i], " and ", pops[j]))
+      print(p)
+    }
+  }
+}
 ```
 
 ### A > C
 
 ```{r}
-df <- read_subtype_range_resid("AT_CG")
-
-df_cor <- df %>%
-  select(pop, status, rp1, rp2, p1, p2, res) %>%
-  pivot_wider(names_from = pop, values_from = res) %>%
-  select_if(is.numeric) %>%
-  group_by(rp1, rp2) %>%
-  nest() %>%
-   mutate(
-    correlations = map(data, \(x) correlate(x, quiet = T))
-  ) %>%
-  unnest(correlations) %>%
-  select(-data)
-```
-
-```{r}
-pops <- c("AFR", "AMR", "EAS", "EUR", "SAS")
-
-for(i in 1:4){
-  for(j in (i+1):5){
-    p <- df_cor %>%
-      filter(term == pops[i]) %>%
-      select(rp1, rp2, !!sym(pops[j])) %>%
-      ggplot(aes(x = rp2, y = rp1, fill = !!sym(pops[j]))) +
-      geom_tile() +
-      scale_fill_distiller(palette = "RdBu", limits = c(-1,1)) +
-      theme_bw() +
-      xlab("Relative Position") +
-      ylab("Relative Position") +
-      labs(fill = "Residual \nCorrelation") +
-      theme(legend.position = c(.1, .8)) +
-      annotate("text", x = 0, y = 9, label= paste0(pops[i], " - ", pops[j]))
-    print(p)
-  }
-}
+subtype <- "AT_CG"
+twopos_resid_analysis(subtype, 20)
 ```
 
 ### A > G
 
-```{r, message=FALSE, warning=FALSE}
+```{r}
 subtype <- "AT_GC"
-df <- read_subtype_range_resid(subtype)
-
-df_cor <- df %>%
-  select(pop, status, rp1, rp2, p1, p2, res) %>%
-  pivot_wider(names_from = pop, values_from = res) %>%
-  select_if(is.numeric) %>%
-  group_by(rp1, rp2) %>%
-  nest() %>%
-   mutate(
-    correlations = map(data, \(x) correlate(x, quiet = T))
-  ) %>%
-  unnest(correlations) %>%
-  select(-data)
-
-pops <- c("AFR", "AMR", "EAS", "EUR", "SAS")
-
-for(i in 1:4){
-  for(j in (i+1):5){
-    p <- df_cor %>%
-      filter(term == pops[i]) %>%
-      select(rp1, rp2, !!sym(pops[j])) %>%
-      ggplot(aes(x = rp2, y = rp1, fill = !!sym(pops[j]))) +
-      geom_tile() +
-      scale_fill_distiller(palette = "RdBu", limits = c(-1,1)) +
-      theme_bw() +
-      xlab("Relative Position") +
-      ylab("Relative Position") +
-      labs(fill = "Residual \nCorrelation") +
-      theme(legend.position = c(.1, .8)) +
-      annotate("text", x = 0, y = 9, label= paste0(pops[i], " - ", pops[j]))
-    print(p)
-  }
-}
+twopos_resid_analysis(subtype, 20)
 ```
 
 ### A > T
 
-```{r, message=FALSE, warning=FALSE}
+```{r}
 subtype <- "AT_TA"
-df <- read_subtype_range_resid(subtype)
-
-df_cor <- df %>%
-  select(pop, status, rp1, rp2, p1, p2, res) %>%
-  pivot_wider(names_from = pop, values_from = res) %>%
-  select_if(is.numeric) %>%
-  group_by(rp1, rp2) %>%
-  nest() %>%
-   mutate(
-    correlations = map(data, \(x) correlate(x, quiet = T))
-  ) %>%
-  unnest(correlations) %>%
-  select(-data)
-
-pops <- c("AFR", "AMR", "EAS", "EUR", "SAS")
-
-for(i in 1:4){
-  for(j in (i+1):5){
-    p <- df_cor %>%
-      filter(term == pops[i]) %>%
-      select(rp1, rp2, !!sym(pops[j])) %>%
-      ggplot(aes(x = rp2, y = rp1, fill = !!sym(pops[j]))) +
-      geom_tile() +
-      scale_fill_distiller(palette = "RdBu", limits = c(-1,1)) +
-      theme_bw() +
-      xlab("Relative Position") +
-      ylab("Relative Position") +
-      labs(fill = "Residual \nCorrelation") +
-      theme(legend.position = c(.1, .8)) +
-      annotate("text", x = 0, y = 9, label= paste0(pops[i], " - ", pops[j]))
-    print(p)
-  }
-}
+twopos_resid_analysis(subtype, 20)
 ```
 
 ### C > A
 
-```{r, message=FALSE, warning=FALSE}
+```{r}
 subtype <- "GC_TA"
-df <- read_subtype_range_resid(subtype)
-
-df_cor <- df %>%
-  select(pop, status, rp1, rp2, p1, p2, res) %>%
-  pivot_wider(names_from = pop, values_from = res) %>%
-  select_if(is.numeric) %>%
-  group_by(rp1, rp2) %>%
-  nest() %>%
-   mutate(
-    correlations = map(data, \(x) correlate(x, quiet = T))
-  ) %>%
-  unnest(correlations) %>%
-  select(-data)
-
-pops <- c("AFR", "AMR", "EAS", "EUR", "SAS")
-
-for(i in 1:4){
-  for(j in (i+1):5){
-    p <- df_cor %>%
-      filter(term == pops[i]) %>%
-      select(rp1, rp2, !!sym(pops[j])) %>%
-      ggplot(aes(x = rp2, y = rp1, fill = !!sym(pops[j]))) +
-      geom_tile() +
-      scale_fill_distiller(palette = "RdBu", limits = c(-1,1)) +
-      theme_bw() +
-      xlab("Relative Position") +
-      ylab("Relative Position") +
-      labs(fill = "Residual \nCorrelation") +
-      theme(legend.position = c(.1, .8)) +
-      annotate("text", x = 0, y = 9, label= paste0(pops[i], " - ", pops[j]))
-    print(p)
-  }
-}
-```
-
-### C > T
-
-```{r, message=FALSE, warning=FALSE}
-subtype <- "GC_AT"
-df <- read_subtype_range_resid(subtype)
-
-df_cor <- df %>%
-  select(pop, status, rp1, rp2, p1, p2, res) %>%
-  pivot_wider(names_from = pop, values_from = res) %>%
-  select_if(is.numeric) %>%
-  group_by(rp1, rp2) %>%
-  nest() %>%
-   mutate(
-    correlations = map(data, \(x) correlate(x, quiet = T))
-  ) %>%
-  unnest(correlations) %>%
-  select(-data)
-
-pops <- c("AFR", "AMR", "EAS", "EUR", "SAS")
-
-for(i in 1:4){
-  for(j in (i+1):5){
-    p <- df_cor %>%
-      filter(term == pops[i]) %>%
-      select(rp1, rp2, !!sym(pops[j])) %>%
-      ggplot(aes(x = rp2, y = rp1, fill = !!sym(pops[j]))) +
-      geom_tile() +
-      scale_fill_distiller(palette = "RdBu", limits = c(-1,1)) +
-      theme_bw() +
-      xlab("Relative Position") +
-      ylab("Relative Position") +
-      labs(fill = "Residual \nCorrelation") +
-      theme(legend.position = c(.1, .8)) +
-      annotate("text", x = 0, y = 9, label= paste0(pops[i], " - ", pops[j]))
-    print(p)
-  }
-}
-```
-
-### C > G
-
-```{r, message=FALSE, warning=FALSE}
-subtype <- "GC_CG"
-df <- read_subtype_range_resid(subtype)
-
-df_cor <- df %>%
-  select(pop, status, rp1, rp2, p1, p2, res) %>%
-  pivot_wider(names_from = pop, values_from = res) %>%
-  select_if(is.numeric) %>%
-  group_by(rp1, rp2) %>%
-  nest() %>%
-   mutate(
-    correlations = map(data, \(x) correlate(x, quiet = T))
-  ) %>%
-  unnest(correlations) %>%
-  select(-data)
-
-pops <- c("AFR", "AMR", "EAS", "EUR", "SAS")
-
-for(i in 1:4){
-  for(j in (i+1):5){
-    p <- df_cor %>%
-      filter(term == pops[i]) %>%
-      select(rp1, rp2, !!sym(pops[j])) %>%
-      ggplot(aes(x = rp2, y = rp1, fill = !!sym(pops[j]))) +
-      geom_tile() +
-      scale_fill_distiller(palette = "RdBu", limits = c(-1,1)) +
-      theme_bw() +
-      xlab("Relative Position") +
-      ylab("Relative Position") +
-      labs(fill = "Residual \nCorrelation") +
-      theme(legend.position = c(.1, .8)) +
-      annotate("text", x = 0, y = 9, label= paste0(pops[i], " - ", pops[j]))
-    print(p)
-  }
-}
-```
-
-### CpG > TpG
-
-```{r, message=FALSE, warning=FALSE}
-subtype <- "cpg_GC_AT"
-df <- read_subtype_range_resid(subtype)
-
-df_cor <- df %>%
-  select(pop, status, rp1, rp2, p1, p2, res) %>%
-  pivot_wider(names_from = pop, values_from = res) %>%
-  select_if(is.numeric) %>%
-  group_by(rp1, rp2) %>%
-  nest() %>%
-   mutate(
-    correlations = map(data, \(x) correlate(x, quiet = T))
-  ) %>%
-  unnest(correlations) %>%
-  select(-data)
-
-pops <- c("AFR", "AMR", "EAS", "EUR", "SAS")
-
-for(i in 1:4){
-  for(j in (i+1):5){
-    p <- df_cor %>%
-      filter(term == pops[i]) %>%
-      select(rp1, rp2, !!sym(pops[j])) %>%
-      ggplot(aes(x = rp2, y = rp1, fill = !!sym(pops[j]))) +
-      geom_tile() +
-      scale_fill_distiller(palette = "RdBu", limits = c(-1,1)) +
-      theme_bw() +
-      xlab("Relative Position") +
-      ylab("Relative Position") +
-      labs(fill = "Residual \nCorrelation") +
-      theme(legend.position = c(.1, .8)) +
-      annotate("text", x = 0, y = 9, label= paste0(pops[i], " - ", pops[j]))
-    print(p)
-  }
-}
+twopos_resid_analysis(subtype, 20)
 ```
 
 ### CpG > ApG
 
-```{r, message=FALSE, warning=FALSE}
+```{r}
 subtype <- "cpg_GC_TA"
-df <- read_subtype_range_resid(subtype)
+twopos_resid_analysis(subtype, 20)
+```
 
-df_cor <- df %>%
-  select(pop, status, rp1, rp2, p1, p2, res) %>%
-  pivot_wider(names_from = pop, values_from = res) %>%
-  select_if(is.numeric) %>%
-  group_by(rp1, rp2) %>%
-  nest() %>%
-   mutate(
-    correlations = map(data, \(x) correlate(x, quiet = T))
-  ) %>%
-  unnest(correlations) %>%
-  select(-data)
+### C > T
 
-pops <- c("AFR", "AMR", "EAS", "EUR", "SAS")
+```{r}
+subtype <- "GC_AT"
+twopos_resid_analysis(subtype, 20)
+```
 
-for(i in 1:4){
-  for(j in (i+1):5){
-    p <- df_cor %>%
-      filter(term == pops[i]) %>%
-      select(rp1, rp2, !!sym(pops[j])) %>%
-      ggplot(aes(x = rp2, y = rp1, fill = !!sym(pops[j]))) +
-      geom_tile() +
-      scale_fill_distiller(palette = "RdBu", limits = c(-1,1)) +
-      theme_bw() +
-      xlab("Relative Position") +
-      ylab("Relative Position") +
-      labs(fill = "Residual \nCorrelation") +
-      theme(legend.position = c(.1, .8)) +
-      annotate("text", x = 0, y = 9, label= paste0(pops[i], " - ", pops[j]))
-    print(p)
-  }
-}
+### CpG > TpG
+
+```{r}
+subtype <- "cpg_GC_AT"
+twopos_resid_analysis(subtype, 20)
+```
+
+### C > G
+
+```{r}
+subtype <- "GC_CG"
+twopos_resid_analysis(subtype, 20)
 ```
 
 ### CpG > GpG
 
-```{r, message=FALSE, warning=FALSE}
+```{r}
 subtype <- "cpg_GC_CG"
-df <- read_subtype_range_resid(subtype)
-
-df_cor <- df %>%
-  select(pop, status, rp1, rp2, p1, p2, res) %>%
-  pivot_wider(names_from = pop, values_from = res) %>%
-  select_if(is.numeric) %>%
-  group_by(rp1, rp2) %>%
-  nest() %>%
-   mutate(
-    correlations = map(data, \(x) correlate(x, quiet = T))
-  ) %>%
-  unnest(correlations) %>%
-  select(-data)
-
-pops <- c("AFR", "AMR", "EAS", "EUR", "SAS")
-
-for(i in 1:4){
-  for(j in (i+1):5){
-    p <- df_cor %>%
-      filter(term == pops[i]) %>%
-      select(rp1, rp2, !!sym(pops[j])) %>%
-      ggplot(aes(x = rp2, y = rp1, fill = !!sym(pops[j]))) +
-      geom_tile() +
-      scale_fill_distiller(palette = "RdBu", limits = c(-1,1)) +
-      theme_bw() +
-      xlab("Relative Position") +
-      ylab("Relative Position") +
-      labs(fill = "Residual \nCorrelation") +
-      theme(legend.position = c(.1, .8)) +
-      annotate("text", x = 0, y = 9, label= paste0(pops[i], " - ", pops[j]))
-    print(p)
-  }
-}
+twopos_resid_analysis(subtype, 20)
 ```
+
+
 
 
 
