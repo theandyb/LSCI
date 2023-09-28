@@ -623,7 +623,168 @@ subtype <- "cpg_GC_CG"
 twopos_resid_analysis(subtype, 20)
 ```
 
+## Modeling Approach
 
+Here we extend the framework under which we explored the influence of two-position interactions to make cross-population comparisons. In particular, we model the following table:
 
+| Relative Position 1 | Relative Position 2 | Pop 1 Singletons  | Pop 2 Singletons  | Pop 1 Controls  | Pop 2 Controls  |
+|---------------------|---------------------|---|---|---|---|
+| A                   | A                   |   |   |   |   |
+| A                   | C                   |   |   |   |   |
+| A                   | G                   |   |   |   |   |
+| A                   | T                   |   |   |   |   |
+| C                   | A                   |   |   |   |   |
+| C                   | C                   |   |   |   |   |
+| C                   | G                   |   |   |   |   |
+| C                   | T                   |   |   |   |   |
+| G                   | A                   |   |   |   |   |
+| G                   | C                   |   |   |   |   |
+| G                   | G                   |   |   |   |   |
+| G                   | T                   |   |   |   |   |
+| T                   | A                   |   |   |   |   |
+| T                   | C                   |   |   |   |   |
+| T                   | G                   |   |   |   |   |
+| T                   | T                   |   |   |   |   |
+
+including terms for population, mutation status, nucleotides at two positions; we also include interactions between
+the nucleotides, nucleotides and status, nucleotides and population, and population and status (which by design are 0). The only
+term from the fully saturated model excluded here is the nuc1 x nuc2 x population x status term, and thus the deviance 
+measures the "impact" of having a shared nuc 1 x nuc2 x status between the two populations.
+
+```{r}
+model_res_dir <- "/net/snowwhite/home/beckandy/research/1000G_NYGC_LSCI/output/two_pos_2pop/"
+
+pops <- c("AFR", "AMR", "EAS", "EUR", "SAS")
+
+load_model_res <- function(res_dir, subtype, pop1, pop2){
+  f_name <- paste0(res_dir, pop1, "_", pop2, "_", subtype, ".csv")
+  df <- read_csv(f_name, show_col_types = FALSE)
+  return(df)
+}
+
+plot_model_res <- function(res_dir, subtype, pop1, pop2){
+  df <- load_model_res(res_dir, subtype, pop1, pop2)
+  p <- df %>%
+    filter(rp2 <= 10) %>%
+    ggplot(aes(x = rp2, y = rp1, fill = dev)) +
+    geom_tile() +
+    scale_fill_distiller(palette = "Reds", direction = 1) +
+    theme_bw() +
+    xlab("Relative Position") +
+    ylab("Relative Position") +
+    labs(fill = "Deviance") +
+    ggtitle("Two Population Linear Model Deviances",
+            paste0(subtype_print_names(subtype), ": ", pop1, ", ", pop2))
+  return(p)
+}
+```
+
+### A > C
+
+```{r}
+subtype <- "AT_CG"
+
+for(i in 1:(length(pops)-1)){
+  for(j in (i+1):length(pops)){
+    print(plot_model_res(model_res_dir, subtype, pops[i], pops[j]))
+  }
+}
+```
+
+### A > G
+
+```{r}
+subtype <- "AT_GC"
+
+for(i in 1:(length(pops)-1)){
+  for(j in (i+1):length(pops)){
+    print(plot_model_res(model_res_dir, subtype, pops[i], pops[j]))
+  }
+}
+```
+
+### A > T
+
+```{r}
+subtype <- "AT_TA"
+
+for(i in 1:(length(pops)-1)){
+  for(j in (i+1):length(pops)){
+    print(plot_model_res(model_res_dir, subtype, pops[i], pops[j]))
+  }
+}
+```
+
+### C > A
+
+```{r}
+subtype <- "GC_TA"
+
+for(i in 1:(length(pops)-1)){
+  for(j in (i+1):length(pops)){
+    print(plot_model_res(model_res_dir, subtype, pops[i], pops[j]))
+  }
+}
+```
+
+### CpG > ApG
+
+```{r}
+subtype <- "cpg_GC_TA"
+
+for(i in 1:(length(pops)-1)){
+  for(j in (i+1):length(pops)){
+    print(plot_model_res(model_res_dir, subtype, pops[i], pops[j]))
+  }
+}
+```
+
+### C > T
+
+```{r}
+subtype <- "GC_AT"
+
+for(i in 1:(length(pops)-1)){
+  for(j in (i+1):length(pops)){
+    print(plot_model_res(model_res_dir, subtype, pops[i], pops[j]))
+  }
+}
+```
+
+### CpG > TpG
+
+```{r}
+subtype <- "cpg_GC_AT"
+
+for(i in 1:(length(pops)-1)){
+  for(j in (i+1):length(pops)){
+    print(plot_model_res(model_res_dir, subtype, pops[i], pops[j]))
+  }
+}
+```
+
+### C > G
+
+```{r}
+subtype <- "GC_CG"
+
+for(i in 1:(length(pops)-1)){
+  for(j in (i+1):length(pops)){
+    print(plot_model_res(model_res_dir, subtype, pops[i], pops[j]))
+  }
+}
+```
+
+### CpG > GpG
+
+```{r}
+subtype <- "cpg_GC_CG"
+
+for(i in 1:(length(pops)-1)){
+  for(j in (i+1):length(pops)){
+    print(plot_model_res(model_res_dir, subtype, pops[i], pops[j]))
+  }
+}
+```
 
 
