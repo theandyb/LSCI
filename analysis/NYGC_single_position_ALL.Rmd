@@ -663,6 +663,13 @@ df %>%
   head()
 ```
 
+All values in a table:
+
+```{r}
+df %>%
+  reactable()
+```
+
 ### C > A
 
 ```{r}
@@ -768,6 +775,13 @@ df %>%
   head()
 ```
 
+All values in a table:
+
+```{r}
+df %>%
+  reactable()
+```
+
 ### C > T
 
 ```{r}
@@ -863,6 +877,13 @@ df %>%
   filter(!is_sig) %>%
   arrange(desc(tot_var)) %>%
   head()
+```
+
+All values in a table:
+
+```{r}
+df %>%
+  reactable()
 ```
 
 ### C > G
