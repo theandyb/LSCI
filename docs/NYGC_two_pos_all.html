@@ -15,7 +15,7 @@
 
 <title>NYGC_two_pos_all</title>
 
-<script src="site_libs/header-attrs-2.14/header-attrs.js"></script>
+<script src="site_libs/header-attrs-2.22/header-attrs.js"></script>
 <script src="site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <link href="site_libs/bootstrap-3.3.5/css/flatly.min.css" rel="stylesheet" />
@@ -31,14 +31,14 @@
        h6 {font-size: 12px;}
        code {color: inherit; background-color: rgba(0, 0, 0, 0.04);}
        pre:not([class]) { background-color: white }</style>
-<script src="site_libs/jqueryui-1.11.4/jquery-ui.min.js"></script>
+<script src="site_libs/jqueryui-1.13.2/jquery-ui.min.js"></script>
 <link href="site_libs/tocify-1.9.1/jquery.tocify.css" rel="stylesheet" />
 <script src="site_libs/tocify-1.9.1/jquery.tocify.js"></script>
 <script src="site_libs/navigation-1.1/tabsets.js"></script>
 <link href="site_libs/highlightjs-9.12.0/textmate.css" rel="stylesheet" />
 <script src="site_libs/highlightjs-9.12.0/highlight.js"></script>
-<link href="site_libs/font-awesome-5.1.0/css/all.css" rel="stylesheet" />
-<link href="site_libs/font-awesome-5.1.0/css/v4-shims.css" rel="stylesheet" />
+<link href="site_libs/font-awesome-6.4.0/css/all.min.css" rel="stylesheet" />
+<link href="site_libs/font-awesome-6.4.0/css/v4-shims.min.css" rel="stylesheet" />
 
 <link rel="icon" href="https://github.com/workflowr/workflowr-assets/raw/main/img/reproducible.png">
 <!-- Add a small amount of space between sections. -->
@@ -158,11 +158,15 @@ $(document).ready(function () {
     href = "index.html";
   var menuAnchor = $('a[href="' + href + '"]');
 
-  // mark it active
-  menuAnchor.tab('show');
-
-  // if it's got a parent navbar menu mark it active as well
-  menuAnchor.closest('li.dropdown').addClass('active');
+  // mark the anchor link active (and if it's in a dropdown, also mark that active)
+  var dropdown = menuAnchor.closest('li.dropdown');
+  if (window.bootstrap) { // Bootstrap 4+
+    menuAnchor.addClass('active');
+    dropdown.find('> .dropdown-toggle').addClass('active');
+  } else { // Bootstrap 3
+    menuAnchor.parent().addClass('active');
+    dropdown.addClass('active');
+  }
 
   // Navbar adjustments
   var navHeight = $(".navbar").first().height() + 15;
@@ -191,8 +195,8 @@ $(document).ready(function () {
   border-radius: 4px;
 }
 
-.tabset-dropdown > .nav-tabs > li.active:before {
-  content: "";
+.tabset-dropdown > .nav-tabs > li.active:before, .tabset-dropdown > .nav-tabs.nav-tabs-open:before {
+  content: "\e259";
   font-family: 'Glyphicons Halflings';
   display: inline-block;
   padding: 10px;
@@ -200,16 +204,9 @@ $(document).ready(function () {
 }
 
 .tabset-dropdown > .nav-tabs.nav-tabs-open > li.active:before {
-  content: "&#xe258;";
-  border: none;
-}
-
-.tabset-dropdown > .nav-tabs.nav-tabs-open:before {
-  content: "";
+  content: "\e258";
   font-family: 'Glyphicons Halflings';
-  display: inline-block;
-  padding: 10px;
-  border-right: 1px solid #ddd;
+  border: none;
 }
 
 .tabset-dropdown > .nav-tabs > li.active {
@@ -387,7 +384,7 @@ class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span>
 <div class="tab-content">
 <div id="summary" class="tab-pane fade in active">
 <p>
-<strong>Last updated:</strong> 2023-06-05
+<strong>Last updated:</strong> 2023-11-08
 </p>
 <p>
 <strong>Checks:</strong> <span
@@ -518,15 +515,15 @@ project makes it easier to run your code on other machines.</p>
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomtheandybLSCItreed1c410d2c9505d613826f904f1549dfb2b76ff1ftargetblankd1c410da">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomtheandybLSCItree8806e0fb21854c1c169dec008c6fcdb90469bffctargetblank8806e0fa">
 <span class="glyphicon glyphicon-ok text-success"
 aria-hidden="true"></span> <strong>Repository version:</strong>
-<a href="https://github.com/theandyb/LSCI/tree/d1c410d2c9505d613826f904f1549dfb2b76ff1f" target="_blank">d1c410d</a>
+<a href="https://github.com/theandyb/LSCI/tree/8806e0fb21854c1c169dec008c6fcdb90469bffc" target="_blank">8806e0f</a>
 </a>
 </p>
 </div>
 <div
-id="strongRepositoryversionstrongahrefhttpsgithubcomtheandybLSCItreed1c410d2c9505d613826f904f1549dfb2b76ff1ftargetblankd1c410da"
+id="strongRepositoryversionstrongahrefhttpsgithubcomtheandybLSCItree8806e0fb21854c1c169dec008c6fcdb90469bffctargetblank8806e0fa"
 class="panel-collapse collapse">
 <div class="panel-body">
 <p>
@@ -536,7 +533,7 @@ reproducibility.
 </p>
 <p>
 The results in this page were generated with repository version
-<a href="https://github.com/theandyb/LSCI/tree/d1c410d2c9505d613826f904f1549dfb2b76ff1f" target="_blank">d1c410d</a>.
+<a href="https://github.com/theandyb/LSCI/tree/8806e0fb21854c1c169dec008c6fcdb90469bffc" target="_blank">8806e0f</a>.
 See the <em>Past versions</em> tab to see a history of the changes made
 to the R Markdown and HTML files.
 </p>
@@ -557,8 +554,9 @@ Ignored files:
     Ignored:    code/random/
     Ignored:    output/figs/
 
-Unstaged changes:
-    Modified:   analysis/NYGC_single_position_comp.Rmd
+Untracked files:
+    Untracked:  code/output_generation/single_pos_figures.R
+    Untracked:  data/example.csv
 
 </code></pre>
 <p>
@@ -604,6 +602,41 @@ Message
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+Rmd
+</td>
+<td>
+<a href="https://github.com/theandyb/LSCI/blob/8806e0fb21854c1c169dec008c6fcdb90469bffc/analysis/NYGC_two_pos_all.Rmd" target="_blank">8806e0f</a>
+</td>
+<td>
+Andy Beck
+</td>
+<td>
+2023-11-08
+</td>
+<td>
+wflow_publish(c("analysis/NYGC_rank_re_vals.Rmd",
+"analysis/NYGC_single_position_comp.Rmd",
+</td>
+</tr>
+<tr>
+<td>
+html
+</td>
+<td>
+<a href="https://rawcdn.githack.com/theandyb/LSCI/bc6b3be7e55aa5e5b5a159ff328d41654354ad07/docs/NYGC_two_pos_all.html" target="_blank">bc6b3be</a>
+</td>
+<td>
+Andy Beck
+</td>
+<td>
+2023-06-05
+</td>
+<td>
+Build site.
+</td>
+</tr>
 <tr>
 <td>
 Rmd
@@ -705,15 +738,52 @@ subtype_print_names &lt;- function(st){
 <pre class="r"><code>subtype &lt;- &quot;AT_CG&quot;
 df &lt;- read_subtype_pop_res(&quot;ALL&quot;, subtype)
 df %&gt;%
-  filter(abs(rp1) &lt;= 10, abs(rp2) &lt;= 10) %&gt;%
+  filter(abs(rp1) &lt;= 20, abs(rp2) &lt;= 20) %&gt;%
   ggplot(aes(x = rp2, y = rp1, fill = re)) + 
   geom_tile() +
-  theme_classic() +
+  theme_classic(base_size = 12) +
   xlab(&quot;Relative Position 2&quot;) +
   ylab(&quot;Relative Position 1&quot;) +
   scale_fill_distiller(palette = &quot;Reds&quot;, direction = 1, name = &quot;Relative\nEntropy&quot;) +
   theme(legend.justification=c(0,0), legend.position=c(0.1,0.5))</code></pre>
 <p><img src="figure/NYGC_two_pos_all.Rmd/unnamed-chunk-3-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-3-1">
+Past versions of unnamed-chunk-3-1.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-3-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/theandyb/LSCI/blob/bc6b3be7e55aa5e5b5a159ff328d41654354ad07/docs/figure/NYGC_two_pos_all.Rmd/unnamed-chunk-3-1.png" target="_blank">bc6b3be</a>
+</td>
+<td>
+Andy Beck
+</td>
+<td>
+2023-06-05
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 <p>And let’s get the location of the highest relative entropy
 statistic:</p>
 <pre class="r"><code>df %&gt;%
@@ -749,6 +819,43 @@ df_res</code></pre>
   scale_fill_distiller(palette = &quot;RdBu&quot;) +
   facet_wrap(vars(status))</code></pre>
 <p><img src="figure/NYGC_two_pos_all.Rmd/unnamed-chunk-5-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-5-1">
+Past versions of unnamed-chunk-5-1.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-5-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/theandyb/LSCI/blob/bc6b3be7e55aa5e5b5a159ff328d41654354ad07/docs/figure/NYGC_two_pos_all.Rmd/unnamed-chunk-5-1.png" target="_blank">bc6b3be</a>
+</td>
+<td>
+Andy Beck
+</td>
+<td>
+2023-06-05
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 <p>Here it looks as if the primary driver of the signal is an enrichment
 for AGT to CGT motifs in the singletons. Interestingly, we also se
 enrichments for 3 of the TAN to TCN motifs, with TAT to TCT beinging the
@@ -768,6 +875,43 @@ df %&gt;%
   scale_fill_distiller(palette = &quot;Reds&quot;, direction = 1, name = &quot;Relative\nEntropy&quot;) +
   theme(legend.justification=c(0,0), legend.position=c(0.1,0.5))</code></pre>
 <p><img src="figure/NYGC_two_pos_all.Rmd/unnamed-chunk-6-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-6-1">
+Past versions of unnamed-chunk-6-1.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-6-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/theandyb/LSCI/blob/bc6b3be7e55aa5e5b5a159ff328d41654354ad07/docs/figure/NYGC_two_pos_all.Rmd/unnamed-chunk-6-1.png" target="_blank">bc6b3be</a>
+</td>
+<td>
+Andy Beck
+</td>
+<td>
+2023-06-05
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 <p>And let’s get the location of the highest relative entropy
 statistic:</p>
 <pre class="r"><code>df %&gt;%
@@ -789,9 +933,99 @@ df_res %&gt;%
   scale_fill_distiller(palette = &quot;RdBu&quot;) +
   facet_wrap(vars(status))</code></pre>
 <p><img src="figure/NYGC_two_pos_all.Rmd/unnamed-chunk-8-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-8-1">
+Past versions of unnamed-chunk-8-1.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-8-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/theandyb/LSCI/blob/bc6b3be7e55aa5e5b5a159ff328d41654354ad07/docs/figure/NYGC_two_pos_all.Rmd/unnamed-chunk-8-1.png" target="_blank">bc6b3be</a>
+</td>
+<td>
+Andy Beck
+</td>
+<td>
+2023-06-05
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 <p>It looks as though here the signal is primarily driven by an
 enrichment of CAA to CAG motifs and a depletion of CCA to CCG motifs in
 the singletons.</p>
+<p>Let’s take a look at the -1, +1 pair of positions as well. I’m
+interested in this in particular because the +1 had the highest re value
+for the single position models, and I’m curious to see if there’s a
+similar pattern as above where the single nucleotide seems to have a
+context-dependent influence on rates of substitution:</p>
+<pre class="r"><code>df_res &lt;- read_subtype_pop_resid(&quot;ALL&quot;, subtype, -1, 1)
+df_res %&gt;%
+  ggplot(aes(x = p2, y = p1, fill = res)) +
+  geom_tile() +
+  xlab(&quot;1&quot;) + ylab(&quot;-1&quot;) +
+  scale_fill_distiller(palette = &quot;RdBu&quot;) +
+  facet_wrap(vars(status))</code></pre>
+<p><img src="figure/NYGC_two_pos_all.Rmd/unnamed-chunk-9-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-9-1">
+Past versions of unnamed-chunk-9-1.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-9-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/theandyb/LSCI/blob/bc6b3be7e55aa5e5b5a159ff328d41654354ad07/docs/figure/NYGC_two_pos_all.Rmd/unnamed-chunk-9-1.png" target="_blank">bc6b3be</a>
+</td>
+<td>
+Andy Beck
+</td>
+<td>
+2023-06-05
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<p>Ok, so while the primary driver of the signal at +1 was an enrichment
+of Ts, we see here that it’s actually an enrichment of C(A&gt;G)T that’s
+actually the underlying signal.</p>
 </div>
 <div id="a-to-t" class="section level3">
 <h3>A to T</h3>
@@ -806,7 +1040,7 @@ df %&gt;%
   ylab(&quot;Relative Position 1&quot;) +
   scale_fill_distiller(palette = &quot;Reds&quot;, direction = 1, name = &quot;Relative\nEntropy&quot;) +
   theme(legend.justification=c(0,0), legend.position=c(0.1,0.5))</code></pre>
-<p><img src="figure/NYGC_two_pos_all.Rmd/unnamed-chunk-9-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p><img src="figure/NYGC_two_pos_all.Rmd/unnamed-chunk-10-1.png" width="672" style="display: block; margin: auto;" /></p>
 <p>And let’s get the location of the highest relative entropy
 statistic:</p>
 <pre class="r"><code>df %&gt;%
@@ -827,7 +1061,44 @@ df_res %&gt;%
   xlab(&quot;1&quot;) + ylab(&quot;-1&quot;) +
   scale_fill_distiller(palette = &quot;RdBu&quot;) +
   facet_wrap(vars(status))</code></pre>
-<p><img src="figure/NYGC_two_pos_all.Rmd/unnamed-chunk-11-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p><img src="figure/NYGC_two_pos_all.Rmd/unnamed-chunk-12-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-12-1">
+Past versions of unnamed-chunk-12-1.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-12-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/theandyb/LSCI/blob/bc6b3be7e55aa5e5b5a159ff328d41654354ad07/docs/figure/NYGC_two_pos_all.Rmd/unnamed-chunk-12-1.png" target="_blank">bc6b3be</a>
+</td>
+<td>
+Andy Beck
+</td>
+<td>
+2023-06-05
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 <p>Here we see the strongest residuals are enrichments of the TAA to TTA
 and the GAT to GTT motifs in the singletons. The largest depletions
 appear at GAA, TAT, and AAT.</p>
@@ -845,7 +1116,7 @@ df %&gt;%
   ylab(&quot;Relative Position 1&quot;) +
   scale_fill_distiller(palette = &quot;Reds&quot;, direction = 1, name = &quot;Relative\nEntropy&quot;) +
   theme(legend.justification=c(0,0), legend.position=c(0.1,0.5))</code></pre>
-<p><img src="figure/NYGC_two_pos_all.Rmd/unnamed-chunk-12-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p><img src="figure/NYGC_two_pos_all.Rmd/unnamed-chunk-13-1.png" width="672" style="display: block; margin: auto;" /></p>
 <p>For this subtype we have a couple of locations which have relatively
 high re values. Let’s get the top 5:</p>
 <pre class="r"><code>df %&gt;%
@@ -873,7 +1144,44 @@ df_res %&gt;%
   xlab(&quot;1&quot;) + ylab(&quot;-1&quot;) +
   scale_fill_distiller(palette = &quot;RdBu&quot;) +
   facet_wrap(vars(status))</code></pre>
-<p><img src="figure/NYGC_two_pos_all.Rmd/unnamed-chunk-14-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p><img src="figure/NYGC_two_pos_all.Rmd/unnamed-chunk-15-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-15-1">
+Past versions of unnamed-chunk-15-1.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-15-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/theandyb/LSCI/blob/bc6b3be7e55aa5e5b5a159ff328d41654354ad07/docs/figure/NYGC_two_pos_all.Rmd/unnamed-chunk-15-1.png" target="_blank">bc6b3be</a>
+</td>
+<td>
+Andy Beck
+</td>
+<td>
+2023-06-05
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 <p>At -1, +1 the signal appears to be driven by an enrichment of TCT to
 TAT motifs in the singletons. We also see depletions of the TCC and TCT
 motifs as well.</p>
@@ -885,7 +1193,44 @@ df_res %&gt;%
   xlab(&quot;-1&quot;) + ylab(&quot;-2&quot;) +
   scale_fill_distiller(palette = &quot;RdBu&quot;) +
   facet_wrap(vars(status))</code></pre>
-<p><img src="figure/NYGC_two_pos_all.Rmd/unnamed-chunk-15-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p><img src="figure/NYGC_two_pos_all.Rmd/unnamed-chunk-16-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-16-1">
+Past versions of unnamed-chunk-16-1.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-16-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/theandyb/LSCI/blob/bc6b3be7e55aa5e5b5a159ff328d41654354ad07/docs/figure/NYGC_two_pos_all.Rmd/unnamed-chunk-16-1.png" target="_blank">bc6b3be</a>
+</td>
+<td>
+Andy Beck
+</td>
+<td>
+2023-06-05
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 <p>At the -2, -1 pair, we see enrichment of the CCC and CCA motifs.
 Might this suggest that single position signal at -1 for C is moderated
 by nucleotide at -2?</p>
@@ -898,7 +1243,44 @@ df_res %&gt;%
   xlab(&quot;2&quot;) + ylab(&quot;1&quot;) +
   scale_fill_distiller(palette = &quot;RdBu&quot;) +
   facet_wrap(vars(status))</code></pre>
-<p><img src="figure/NYGC_two_pos_all.Rmd/unnamed-chunk-16-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p><img src="figure/NYGC_two_pos_all.Rmd/unnamed-chunk-17-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-17-1">
+Past versions of unnamed-chunk-17-1.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-17-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/theandyb/LSCI/blob/bc6b3be7e55aa5e5b5a159ff328d41654354ad07/docs/figure/NYGC_two_pos_all.Rmd/unnamed-chunk-17-1.png" target="_blank">bc6b3be</a>
+</td>
+<td>
+Andy Beck
+</td>
+<td>
+2023-06-05
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 <p>At the 1,2 pair we see enrichments at CCC to ACC and CCA to ACA,
 while there is a depletion at CTC to ATC.</p>
 </div>
@@ -915,7 +1297,44 @@ df %&gt;%
   ylab(&quot;Relative Position 1&quot;) +
   scale_fill_distiller(palette = &quot;Reds&quot;, direction = 1, name = &quot;Relative\nEntropy&quot;) +
   theme(legend.justification=c(0,0), legend.position=c(0.1,0.5))</code></pre>
-<p><img src="figure/NYGC_two_pos_all.Rmd/unnamed-chunk-17-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p><img src="figure/NYGC_two_pos_all.Rmd/unnamed-chunk-18-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-18-1">
+Past versions of unnamed-chunk-18-1.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-18-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/theandyb/LSCI/blob/bc6b3be7e55aa5e5b5a159ff328d41654354ad07/docs/figure/NYGC_two_pos_all.Rmd/unnamed-chunk-18-1.png" target="_blank">bc6b3be</a>
+</td>
+<td>
+Andy Beck
+</td>
+<td>
+2023-06-05
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 <p>Here the largest re is seen at -2, -1:</p>
 <pre class="r"><code>df_res &lt;- read_subtype_pop_resid(&quot;ALL&quot;, subtype, -2, -1)
 
@@ -925,7 +1344,44 @@ df_res %&gt;%
   xlab(&quot;-1&quot;) + ylab(&quot;-2&quot;) +
   scale_fill_distiller(palette = &quot;RdBu&quot;) +
   facet_wrap(vars(status))</code></pre>
-<p><img src="figure/NYGC_two_pos_all.Rmd/unnamed-chunk-18-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p><img src="figure/NYGC_two_pos_all.Rmd/unnamed-chunk-19-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-19-1">
+Past versions of unnamed-chunk-19-1.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-19-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/theandyb/LSCI/blob/bc6b3be7e55aa5e5b5a159ff328d41654354ad07/docs/figure/NYGC_two_pos_all.Rmd/unnamed-chunk-19-1.png" target="_blank">bc6b3be</a>
+</td>
+<td>
+Andy Beck
+</td>
+<td>
+2023-06-05
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 <p>Here we seen an enrichment of TGC to TGA motifs, along with a
 depletion of TCC to TCA.</p>
 </div>
@@ -942,7 +1398,44 @@ df %&gt;%
   ylab(&quot;Relative Position 1&quot;) +
   scale_fill_distiller(palette = &quot;Reds&quot;, direction = 1, name = &quot;Relative\nEntropy&quot;) +
   theme(legend.justification=c(0,0), legend.position=c(0.1,0.5))</code></pre>
-<p><img src="figure/NYGC_two_pos_all.Rmd/unnamed-chunk-19-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p><img src="figure/NYGC_two_pos_all.Rmd/unnamed-chunk-20-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-20-1">
+Past versions of unnamed-chunk-20-1.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-20-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/theandyb/LSCI/blob/bc6b3be7e55aa5e5b5a159ff328d41654354ad07/docs/figure/NYGC_two_pos_all.Rmd/unnamed-chunk-20-1.png" target="_blank">bc6b3be</a>
+</td>
+<td>
+Andy Beck
+</td>
+<td>
+2023-06-05
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 <p>Here we see signals at -1,1 and -2,-1 and 1,2:</p>
 <pre class="r"><code>df_res &lt;- read_subtype_pop_resid(&quot;ALL&quot;, subtype, -1, 1)
 
@@ -953,7 +1446,44 @@ df_res %&gt;%
   xlab(&quot;1&quot;) + ylab(&quot;-1&quot;) +
   scale_fill_distiller(palette = &quot;RdBu&quot;) +
   facet_wrap(vars(status))</code></pre>
-<p><img src="figure/NYGC_two_pos_all.Rmd/unnamed-chunk-20-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p><img src="figure/NYGC_two_pos_all.Rmd/unnamed-chunk-21-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-21-1">
+Past versions of unnamed-chunk-21-1.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-21-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/theandyb/LSCI/blob/bc6b3be7e55aa5e5b5a159ff328d41654354ad07/docs/figure/NYGC_two_pos_all.Rmd/unnamed-chunk-21-1.png" target="_blank">bc6b3be</a>
+</td>
+<td>
+Andy Beck
+</td>
+<td>
+2023-06-05
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 <p>Here we see enrichment of CCT to CTT and ACA to ATA motifs in the
 singletons.</p>
 <pre class="r"><code>df_res &lt;- read_subtype_pop_resid(&quot;ALL&quot;, subtype, -2, -1)
@@ -964,7 +1494,44 @@ df_res %&gt;%
   xlab(&quot;-1&quot;) + ylab(&quot;-2&quot;) +
   scale_fill_distiller(palette = &quot;RdBu&quot;) +
   facet_wrap(vars(status))</code></pre>
-<p><img src="figure/NYGC_two_pos_all.Rmd/unnamed-chunk-21-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p><img src="figure/NYGC_two_pos_all.Rmd/unnamed-chunk-22-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-22-1">
+Past versions of unnamed-chunk-22-1.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-22-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/theandyb/LSCI/blob/bc6b3be7e55aa5e5b5a159ff328d41654354ad07/docs/figure/NYGC_two_pos_all.Rmd/unnamed-chunk-22-1.png" target="_blank">bc6b3be</a>
+</td>
+<td>
+Andy Beck
+</td>
+<td>
+2023-06-05
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 <p>Enrichments: CAC -&gt; CAT, ACC -&gt; ACT, CTC -&gt; CTT Depletions:
 TTC -&gt; TTT</p>
 <pre class="r"><code>df_res &lt;- read_subtype_pop_resid(&quot;ALL&quot;, subtype, 1, 2)
@@ -976,7 +1543,44 @@ df_res %&gt;%
   xlab(&quot;2&quot;) + ylab(&quot;1&quot;) +
   scale_fill_distiller(palette = &quot;RdBu&quot;) +
   facet_wrap(vars(status))</code></pre>
-<p><img src="figure/NYGC_two_pos_all.Rmd/unnamed-chunk-22-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p><img src="figure/NYGC_two_pos_all.Rmd/unnamed-chunk-23-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-23-1">
+Past versions of unnamed-chunk-23-1.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-23-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/theandyb/LSCI/blob/bc6b3be7e55aa5e5b5a159ff328d41654354ad07/docs/figure/NYGC_two_pos_all.Rmd/unnamed-chunk-23-1.png" target="_blank">bc6b3be</a>
+</td>
+<td>
+Andy Beck
+</td>
+<td>
+2023-06-05
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 <p>Enrichments: CTA -&gt; TTA, CCG -&gt; TCG Depletions: CTG -&gt;
 TTG</p>
 </div>
@@ -993,7 +1597,44 @@ df %&gt;%
   ylab(&quot;Relative Position 1&quot;) +
   scale_fill_distiller(palette = &quot;Reds&quot;, direction = 1, name = &quot;Relative\nEntropy&quot;) +
   theme(legend.justification=c(0,0), legend.position=c(0.1,0.5))</code></pre>
-<p><img src="figure/NYGC_two_pos_all.Rmd/unnamed-chunk-23-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p><img src="figure/NYGC_two_pos_all.Rmd/unnamed-chunk-24-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-24-1">
+Past versions of unnamed-chunk-24-1.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-24-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/theandyb/LSCI/blob/bc6b3be7e55aa5e5b5a159ff328d41654354ad07/docs/figure/NYGC_two_pos_all.Rmd/unnamed-chunk-24-1.png" target="_blank">bc6b3be</a>
+</td>
+<td>
+Andy Beck
+</td>
+<td>
+2023-06-05
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 <p>This one’s a bit noiser than the others, but we can see the strongest
 signal at +3,+4</p>
 <pre class="r"><code>df_res &lt;- read_subtype_pop_resid(&quot;ALL&quot;, subtype, 3, 4)
@@ -1004,7 +1645,44 @@ df_res %&gt;%
   xlab(&quot;4&quot;) + ylab(&quot;3&quot;) +
   scale_fill_distiller(palette = &quot;RdBu&quot;) +
   facet_wrap(vars(status))</code></pre>
-<p><img src="figure/NYGC_two_pos_all.Rmd/unnamed-chunk-24-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p><img src="figure/NYGC_two_pos_all.Rmd/unnamed-chunk-25-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-25-1">
+Past versions of unnamed-chunk-25-1.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-25-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/theandyb/LSCI/blob/bc6b3be7e55aa5e5b5a159ff328d41654354ad07/docs/figure/NYGC_two_pos_all.Rmd/unnamed-chunk-25-1.png" target="_blank">bc6b3be</a>
+</td>
+<td>
+Andy Beck
+</td>
+<td>
+2023-06-05
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 </div>
 <div id="c-g" class="section level3">
 <h3>C &gt; G</h3>
@@ -1019,7 +1697,44 @@ df %&gt;%
   ylab(&quot;Relative Position 1&quot;) +
   scale_fill_distiller(palette = &quot;Reds&quot;, direction = 1, name = &quot;Relative\nEntropy&quot;) +
   theme(legend.justification=c(0,0), legend.position=c(0.1,0.5))</code></pre>
-<p><img src="figure/NYGC_two_pos_all.Rmd/unnamed-chunk-25-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p><img src="figure/NYGC_two_pos_all.Rmd/unnamed-chunk-26-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-26-1">
+Past versions of unnamed-chunk-26-1.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-26-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/theandyb/LSCI/blob/bc6b3be7e55aa5e5b5a159ff328d41654354ad07/docs/figure/NYGC_two_pos_all.Rmd/unnamed-chunk-26-1.png" target="_blank">bc6b3be</a>
+</td>
+<td>
+Andy Beck
+</td>
+<td>
+2023-06-05
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 <pre class="r"><code>df_res &lt;- read_subtype_pop_resid(&quot;ALL&quot;, subtype, 1, 2)
 
 df_res %&gt;%
@@ -1029,7 +1744,44 @@ df_res %&gt;%
   xlab(&quot;2&quot;) + ylab(&quot;1&quot;) +
   scale_fill_distiller(palette = &quot;RdBu&quot;) +
   facet_wrap(vars(status))</code></pre>
-<p><img src="figure/NYGC_two_pos_all.Rmd/unnamed-chunk-26-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p><img src="figure/NYGC_two_pos_all.Rmd/unnamed-chunk-27-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-27-1">
+Past versions of unnamed-chunk-27-1.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-27-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/theandyb/LSCI/blob/bc6b3be7e55aa5e5b5a159ff328d41654354ad07/docs/figure/NYGC_two_pos_all.Rmd/unnamed-chunk-27-1.png" target="_blank">bc6b3be</a>
+</td>
+<td>
+Andy Beck
+</td>
+<td>
+2023-06-05
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 <pre class="r"><code>df_res &lt;- read_subtype_pop_resid(&quot;ALL&quot;, subtype, -2, -1)
 
 df_res %&gt;%
@@ -1038,7 +1790,44 @@ df_res %&gt;%
   xlab(&quot;-1&quot;) + ylab(&quot;-2&quot;) +
   scale_fill_distiller(palette = &quot;RdBu&quot;) +
   facet_wrap(vars(status))</code></pre>
-<p><img src="figure/NYGC_two_pos_all.Rmd/unnamed-chunk-27-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p><img src="figure/NYGC_two_pos_all.Rmd/unnamed-chunk-28-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-28-1">
+Past versions of unnamed-chunk-28-1.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-28-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/theandyb/LSCI/blob/bc6b3be7e55aa5e5b5a159ff328d41654354ad07/docs/figure/NYGC_two_pos_all.Rmd/unnamed-chunk-28-1.png" target="_blank">bc6b3be</a>
+</td>
+<td>
+Andy Beck
+</td>
+<td>
+2023-06-05
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 </div>
 <div id="cpg-to-gpg" class="section level3">
 <h3>CpG to GpG</h3>
@@ -1053,7 +1842,44 @@ df %&gt;%
   ylab(&quot;Relative Position 1&quot;) +
   scale_fill_distiller(palette = &quot;Reds&quot;, direction = 1, name = &quot;Relative\nEntropy&quot;) +
   theme(legend.justification=c(0,0), legend.position=c(0.1,0.5))</code></pre>
-<p><img src="figure/NYGC_two_pos_all.Rmd/unnamed-chunk-28-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p><img src="figure/NYGC_two_pos_all.Rmd/unnamed-chunk-29-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-29-1">
+Past versions of unnamed-chunk-29-1.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-29-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/theandyb/LSCI/blob/bc6b3be7e55aa5e5b5a159ff328d41654354ad07/docs/figure/NYGC_two_pos_all.Rmd/unnamed-chunk-29-1.png" target="_blank">bc6b3be</a>
+</td>
+<td>
+Andy Beck
+</td>
+<td>
+2023-06-05
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 <pre class="r"><code>df_res &lt;- read_subtype_pop_resid(&quot;ALL&quot;, subtype, -2, -1)
 
 df_res %&gt;%
@@ -1062,7 +1888,7 @@ df_res %&gt;%
   xlab(&quot;-1&quot;) + ylab(&quot;-2&quot;) +
   scale_fill_distiller(palette = &quot;RdBu&quot;) +
   facet_wrap(vars(status))</code></pre>
-<p><img src="figure/NYGC_two_pos_all.Rmd/unnamed-chunk-29-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p><img src="figure/NYGC_two_pos_all.Rmd/unnamed-chunk-30-1.png" width="672" style="display: block; margin: auto;" /></p>
 <br>
 <p>
 <button type="button" class="btn btn-default btn-workflowr btn-workflowr-sessioninfo" data-toggle="collapse" data-target="#workflowr-sessioninfo" style="display: block;">
@@ -1072,13 +1898,13 @@ Session information
 </p>
 <div id="workflowr-sessioninfo" class="collapse">
 <pre class="r"><code>sessionInfo()</code></pre>
-<pre><code>R version 4.3.0 (2023-04-21)
+<pre><code>R version 4.3.2 (2023-10-31)
 Platform: x86_64-pc-linux-gnu (64-bit)
-Running under: Ubuntu 18.04.6 LTS
+Running under: Ubuntu 20.04.6 LTS
 
 Matrix products: default
-BLAS:   /usr/lib/x86_64-linux-gnu/openblas/libblas.so.3 
-LAPACK: /usr/lib/x86_64-linux-gnu/libopenblasp-r0.2.20.so;  LAPACK version 3.7.1
+BLAS:   /usr/lib/x86_64-linux-gnu/openblas-pthread/libblas.so.3 
+LAPACK: /usr/lib/x86_64-linux-gnu/openblas-pthread/liblapack.so.3;  LAPACK version 3.9.0
 
 locale:
  [1] LC_CTYPE=en_US.UTF-8       LC_NUMERIC=C              
@@ -1095,27 +1921,28 @@ attached base packages:
 [1] stats     graphics  grDevices utils     datasets  methods   base     
 
 other attached packages:
- [1] egg_0.4.5       gridExtra_2.3   patchwork_1.1.1 lubridate_1.9.2
+ [1] egg_0.4.5       gridExtra_2.3   patchwork_1.1.2 lubridate_1.9.2
  [5] forcats_1.0.0   stringr_1.5.0   dplyr_1.1.2     purrr_1.0.1    
  [9] readr_2.1.4     tidyr_1.3.0     tibble_3.2.1    ggplot2_3.4.2  
 [13] tidyverse_2.0.0 workflowr_1.7.0
 
 loaded via a namespace (and not attached):
- [1] gtable_0.3.0       xfun_0.39          bslib_0.3.1        processx_3.8.1    
- [5] callr_3.7.3        tzdb_0.4.0         vctrs_0.6.2        tools_4.3.0       
- [9] ps_1.7.0           generics_0.1.3     parallel_4.3.0     fansi_1.0.4       
-[13] highr_0.9          pkgconfig_2.0.3    RColorBrewer_1.1-3 lifecycle_1.0.3   
-[17] compiler_4.3.0     farver_2.1.0       git2r_0.32.0       munsell_0.5.0     
-[21] getPass_0.2-2      httpuv_1.6.11      htmltools_0.5.5    sass_0.4.1        
-[25] yaml_2.3.7         later_1.3.0        pillar_1.9.0       crayon_1.5.2      
-[29] jquerylib_0.1.4    whisker_0.4        tidyselect_1.2.0   digest_0.6.31     
-[33] stringi_1.7.12     labeling_0.4.2     rprojroot_2.0.3    fastmap_1.1.0     
-[37] grid_4.3.0         colorspace_2.0-3   cli_3.6.1          magrittr_2.0.3    
-[41] utf8_1.2.2         withr_2.5.0        scales_1.2.0       promises_1.2.0.1  
-[45] bit64_4.0.5        timechange_0.2.0   rmarkdown_2.14     httr_1.4.6        
-[49] bit_4.0.4          hms_1.1.3          evaluate_0.15      knitr_1.42        
-[53] rlang_1.1.1        Rcpp_1.0.10        glue_1.6.2         rstudioapi_0.14   
-[57] vroom_1.6.3        jsonlite_1.8.4     R6_2.5.1           fs_1.6.2          </code></pre>
+ [1] gtable_0.3.4       xfun_0.39          bslib_0.5.0        processx_3.8.1    
+ [5] callr_3.7.3        tzdb_0.4.0         vctrs_0.6.3        tools_4.3.2       
+ [9] ps_1.7.5           generics_0.1.3     parallel_4.3.2     fansi_1.0.4       
+[13] highr_0.10         pkgconfig_2.0.3    RColorBrewer_1.1-3 lifecycle_1.0.3   
+[17] farver_2.1.1       compiler_4.3.2     git2r_0.32.0       munsell_0.5.0     
+[21] getPass_0.2-2      httpuv_1.6.11      htmltools_0.5.6    sass_0.4.6        
+[25] yaml_2.3.7         later_1.3.1        pillar_1.9.0       crayon_1.5.2      
+[29] jquerylib_0.1.4    whisker_0.4.1      cachem_1.0.8       tidyselect_1.2.0  
+[33] digest_0.6.33      stringi_1.7.12     labeling_0.4.3     rprojroot_2.0.3   
+[37] fastmap_1.1.1      grid_4.3.2         archive_1.1.5      colorspace_2.1-0  
+[41] cli_3.6.1          magrittr_2.0.3     utf8_1.2.3         withr_2.5.0       
+[45] scales_1.2.1       promises_1.2.0.1   bit64_4.0.5        timechange_0.2.0  
+[49] rmarkdown_2.22     httr_1.4.6         bit_4.0.5          hms_1.1.3         
+[53] evaluate_0.21      knitr_1.42         rlang_1.1.1        Rcpp_1.0.11       
+[57] glue_1.6.2         rstudioapi_0.14    vroom_1.6.3        jsonlite_1.8.7    
+[61] R6_2.5.1           fs_1.6.2          </code></pre>
 </div>
 </div>
 </div>
