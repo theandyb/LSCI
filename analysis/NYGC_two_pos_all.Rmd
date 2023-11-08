@@ -103,10 +103,10 @@ subtype_print_names <- function(st){
 subtype <- "AT_CG"
 df <- read_subtype_pop_res("ALL", subtype)
 df %>%
-  filter(abs(rp1) <= 10, abs(rp2) <= 10) %>%
+  filter(abs(rp1) <= 20, abs(rp2) <= 20) %>%
   ggplot(aes(x = rp2, y = rp1, fill = re)) + 
   geom_tile() +
-  theme_classic() +
+  theme_classic(base_size = 12) +
   xlab("Relative Position 2") +
   ylab("Relative Position 1") +
   scale_fill_distiller(palette = "Reds", direction = 1, name = "Relative\nEntropy") +
@@ -175,6 +175,20 @@ df_res %>%
 ```
 
 It looks as though here the signal is primarily driven by an enrichment of CAA to CAG motifs and a depletion of CCA to CCG motifs in the singletons. 
+
+Let's take a look at the -1, +1 pair of positions as well. I'm interested in this in particular because the +1 had the highest re value for the single position models, and I'm curious to see if there's a similar pattern as above where the single nucleotide seems to have a context-dependent influence on rates of substitution:
+
+```{r}
+df_res <- read_subtype_pop_resid("ALL", subtype, -1, 1)
+df_res %>%
+  ggplot(aes(x = p2, y = p1, fill = res)) +
+  geom_tile() +
+  xlab("1") + ylab("-1") +
+  scale_fill_distiller(palette = "RdBu") +
+  facet_wrap(vars(status))
+```
+
+Ok, so while the primary driver of the signal at +1 was an enrichment of Ts, we see here that it's actually an enrichment of C(A>G)T that's actually the underlying signal.
 
 ### A to T
 
