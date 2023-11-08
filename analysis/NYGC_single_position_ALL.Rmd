@@ -11,6 +11,7 @@ editor_options:
 library(tidyverse)
 library(patchwork)
 library(egg)
+library(forcats)
 #library(tikzDevice)
 #library(sjPlot)
 width = 4
@@ -102,6 +103,16 @@ subtype_print_names <- function(st){
     return(paste0("CpG → ", str_sub(st, 9, 9), "pG"))
   }
 }
+
+subtype_cat <- function(st){
+  if(str_starts(st, "AT")){
+    return("A")
+  } else if(str_starts(st, "GC")){
+    return("C")
+  } else{
+    return("CpG")
+  }
+}
 ```
 
 ### All subtypes plot options
@@ -109,7 +120,8 @@ subtype_print_names <- function(st){
 ```{r}
 df <- read_pop_res("ALL") %>%
   rowwise() %>%
-  mutate(print_name = subtype_print_names(subtype))
+  mutate(print_name = subtype_print_names(subtype),
+         shape_cat = subtype_cat(subtype))
 
 df %>%
   filter(abs(offset) < 10) %>%
@@ -120,7 +132,7 @@ df %>%
   xlab("Relative Position") +
   ylab("Relative Entropy") +
   labs(color = "Subtype") +
-  theme_bw(base_size = 18/.pt) +
+  theme_classic(base_size = 18/.pt) +
   theme(text = element_text(family = "Times New Roman")) +
   theme(
     legend.position = c(.98, .98),
@@ -222,6 +234,17 @@ df %>%
   xlab("Relative Position") +
   ylab("Relative Entropy")
 ggsave(paste0(plot_dir, "fig1_opt3.tiff"), dpi = plot_dpi, height = 5, width = 5)
+
+df %>%
+  filter(abs(offset) < 11) %>%
+  ggplot(aes(x = offset, y = re)) +
+  scale_y_log10() +
+  geom_point() +
+  geom_line() +
+  theme_bw() +
+  facet_grid(vars(from_n), vars(to_n)) +
+  xlab("Relative Position") +
+  ylab("Relative Entropy")
 ```
 
 ### A > C
@@ -230,6 +253,10 @@ First let's take a look at the overall statistic at each position for the A > C 
 
 ```{r}
 df <- read_subtype_pop_res("ALL", "AT_CG")
+df$pop <- "All"
+
+df_control <- read_subtype_pop_res("control_control", "AT_CG_AFR_EUR")
+df_control$pop <- "control"
 
 df %>%
   filter(abs(offset) <= 10) %>%
@@ -251,10 +278,32 @@ The statistic at each position can be decomposed into the contributions from eac
 df_resid <- read_subtype_pop_range_resid("ALL", "AT_CG", size = 10)  %>%
   type_convert()
 
+df_resid_control <- read_subtype_pop_range_resid("control_control", "AT_CG_AFR_EUR", size = 10) %>%
+  type_convert()
+
 df_resid <- df_resid %>%
   inner_join({df %>% select(offset, re)}, by = c("pos" = "offset"))
 
+df_resid_control <- df_resid_control %>%
+  inner_join({df_control %>% select(offset, re)}, by = c("pos" = "offset"))
+
 df_resid %>% 
+  filter(status == "singletons") %>%
+  select(nuc, res, re, pos) %>%
+  group_by(pos) %>%
+  mutate(pct = abs(res) / sum(abs(res))) %>%
+  mutate(re_cont = re * pct * sign(res)) %>%
+  ggplot(aes(x = pos, y = re_cont, color = nuc)) +
+  geom_point() +
+  geom_line() +
+  xlab("Relative Position") +
+  ylab("Relative Entropy") +
+  guides(color = guide_legend(title = "Nucleotide")) +
+  theme_classic() +
+  theme(text = element_text(family = "Times New Roman"),
+        legend.position = c(.85, .8))
+
+df_resid_control %>% 
   filter(status == "singletons") %>%
   select(nuc, res, re, pos) %>%
   group_by(pos) %>%
@@ -287,7 +336,73 @@ df %>%
   theme_classic() +
   theme(text = element_text(family = "Times New Roman"),
         legend.position = c(.85, .8))
+
+df %>%
+  mutate(is_sig = dev > qchisq(p=.05, df=3, lower.tail=FALSE)) %>%
+  mutate(test_point = abs(offset) > 500) %>%
+  group_by(test_point) %>%
+  summarize(pct_sig = sum(is_sig) / n())
+
+
+df %>%
+  filter(abs(offset) < 501) %>%
+  mutate(is_sig = dev > qchisq(p=.05, df=3, lower.tail=FALSE)) %>%
+  ggplot(aes(x = offset, y = re, color = is_sig)) +
+  geom_point() +
+  scale_y_log10() +
+  xlab("Relative Position") +
+  ylab("Log10 Relative Entropy") +
+  guides(color = guide_legend(title = "Significant")) +
+  theme_classic(base_size = 12) +
+  theme(text = element_text(family = "Times New Roman"),
+        legend.position = c(.85, .8)) +
+  geom_point(data = df_control, aes(x= offset, y = re), colour = "green")
+
+
 ```
+
+New: let's look at the total variation distance at flanking positions between the singleton and control multinomials:
+
+```{r}
+df %>%
+  mutate(is_sig = dev > qchisq(p=.05, df=3, lower.tail=FALSE)) %>%
+  ggplot(aes(x = offset, y = tot_var, color = is_sig)) + 
+  geom_point() +
+  scale_y_log10()
+
+df %>%
+  mutate(is_sig = dev > qchisq(p=.05, df=3, lower.tail=FALSE)) %>%
+  ggplot(aes(x = offset, y = max_var, color = is_sig)) + 
+  geom_point() +
+  scale_y_log10()
+
+df %>%
+  ggplot(aes(x = re, y = tot_var)) +
+  geom_point()
+
+df %>%
+  mutate(is_sig = dev > qchisq(p=.05, df=3, lower.tail=FALSE)) %>%
+  ggplot(aes(x = re, y = max_var, color = is_sig)) +
+  geom_point()
+
+df %>%
+  mutate(is_sig = dev > qchisq(p=.05, df=3, lower.tail=FALSE)) %>%
+  ggplot(aes(x = re, y = max_var, color = is_sig)) +
+  geom_point() +
+  scale_y_log10()
+
+df %>%
+  mutate(is_sig = dev > qchisq(p=.05, df=3, lower.tail=FALSE)) %>% 
+  filter(!is_sig) %>%
+  arrange(desc(max_var)) %>%
+  head()
+
+df %>%
+  mutate(re_sq = sqrt(0.5 * re)) %>%
+  ggplot(aes(x = re_sq, y = tot_var)) +
+  geom_point()
+```
+
 
 ### A > G
 
@@ -305,6 +420,21 @@ df %>%
   theme(text = element_text(family = "Times New Roman")) +
   xlab("Relative Position") +
   ylab("Relative Entropy")
+
+df %>%
+  filter(abs(offset) <= 10) %>%
+  ggplot(aes(x = offset, y = 0.5 * tot_var)) + 
+  geom_point() + 
+  geom_line() +
+  theme_classic(base_size = 24/.pt) +
+  theme(text = element_text(family = "Times New Roman")) +
+  xlab("Relative Position") +
+  ylab("Total Variation Distance")
+
+df %>%
+  mutate(re_sq = sqrt(1 - exp(-re))) %>%
+  ggplot(aes(x = re_sq, y = 0.25*tot_var)) +
+  geom_point()
 ```
 
 Here, we observe that the most influential position is the +1 position. Let's look and see what the nucleotide-level contributions to each individual statistic looks like:
@@ -333,7 +463,22 @@ df_resid %>%
         legend.position = c(.85, .8))
 ```
 
+
 For this subtype, we see that the signal at the +1 position is driven by an enrichment of T and a depletion of A. Also notice that at -1, the primary driver is an enrichment of C; we also observed an enrichment of C in the A>C subtype.
+
+```{r}
+df_resid %>% 
+  filter(pos == 1) %>% 
+  select(nuc, status, n) %>% 
+  pivot_wider(id_cols = nuc, names_from = status, values_from = n) %>% 
+  mutate(p_sing = singletons / sum(singletons), 
+         p_controls = controls / sum(controls)) %>%
+  mutate(l_1 = abs(p_sing - p_controls)) %>%
+  mutate(shift_pct = l_1) %>%
+  pull(shift_pct) %>%
+  mean()
+```
+
 
 Let's also plot the individual position statistics up to +/- 1000bp from the focal position. Here we'll color significance based on the null distribution being a chi-square with df = 3
 
@@ -349,7 +494,48 @@ df %>%
   theme_classic() +
   theme(text = element_text(family = "Times New Roman"),
         legend.position = c(.85, .8))
+
+df %>%
+  mutate(is_sig = dev > qchisq(p=.05, df=3, lower.tail=FALSE)) %>%
+  mutate(test_point = abs(offset) > 500) %>%
+  group_by(test_point) %>%
+  summarize(pct_sig = sum(is_sig) / n())
 ```
+
+And now total variation and max variation:
+
+```{r}
+df %>%
+  mutate(is_sig = dev > qchisq(p=.05, df=3, lower.tail=FALSE)) %>%
+  ggplot(aes(x = offset, y = tot_var, color = is_sig)) +
+  geom_point() +
+  xlab("Relative Position") +
+  ylab("Total Variation") +
+  guides(color = guide_legend(title = "Significant")) +
+  theme_classic() +
+  theme(text = element_text(family = "Times New Roman"),
+        legend.position = c(.85, .8)) +
+  scale_y_log10()
+
+df %>%
+  mutate(is_sig = dev > qchisq(p=.05, df=3, lower.tail=FALSE)) %>%
+  ggplot(aes(x = offset, y = max_var, color = is_sig)) +
+  geom_point() +
+  xlab("Relative Position") +
+  ylab("Max Variation") +
+  guides(color = guide_legend(title = "Significant")) +
+  theme_classic() +
+  theme(text = element_text(family = "Times New Roman"),
+        legend.position = c(.85, .8)) +
+  scale_y_log10()
+
+df %>%
+  mutate(is_sig = dev > qchisq(p=.05, df=3, lower.tail=FALSE)) %>%
+  filter(!is_sig) %>%
+  arrange(desc(tot_var)) %>%
+  head()
+```
+
 
 ### A > T
 
@@ -406,6 +592,46 @@ df %>%
   theme_classic() +
   theme(text = element_text(family = "Times New Roman"),
         legend.position = c(.85, .8))
+
+df %>%
+  mutate(is_sig = dev > qchisq(p=.05, df=3, lower.tail=FALSE)) %>%
+  mutate(test_point = abs(offset) > 500) %>%
+  group_by(test_point) %>%
+  summarize(pct_sig = sum(is_sig) / n())
+```
+
+And now total variation and max variation:
+
+```{r}
+df %>%
+  mutate(is_sig = dev > qchisq(p=.05, df=3, lower.tail=FALSE)) %>%
+  ggplot(aes(x = offset, y = tot_var, color = is_sig)) +
+  geom_point() +
+  xlab("Relative Position") +
+  ylab("Total Variation") +
+  guides(color = guide_legend(title = "Significant")) +
+  theme_classic() +
+  theme(text = element_text(family = "Times New Roman"),
+        legend.position = c(.85, .8)) +
+  scale_y_log10()
+
+df %>%
+  mutate(is_sig = dev > qchisq(p=.05, df=3, lower.tail=FALSE)) %>%
+  ggplot(aes(x = offset, y = max_var, color = is_sig)) +
+  geom_point() +
+  xlab("Relative Position") +
+  ylab("Max Variation") +
+  guides(color = guide_legend(title = "Significant")) +
+  theme_classic() +
+  theme(text = element_text(family = "Times New Roman"),
+        legend.position = c(.85, .8)) +
+  scale_y_log10()
+
+df %>%
+  mutate(is_sig = dev > qchisq(p=.05, df=3, lower.tail=FALSE)) %>%
+  filter(!is_sig) %>%
+  arrange(desc(tot_var)) %>%
+  head()
 ```
 
 ### C > A
@@ -471,6 +697,46 @@ df %>%
   theme_classic() +
   theme(text = element_text(family = "Times New Roman"),
         legend.position = c(.85, .8))
+
+df %>%
+  mutate(is_sig = dev > qchisq(p=.05, df=3, lower.tail=FALSE)) %>%
+  mutate(test_point = abs(offset) > 500) %>%
+  group_by(test_point) %>%
+  summarize(pct_sig = sum(is_sig) / n())
+```
+
+And now total variation and max variation:
+
+```{r}
+df %>%
+  mutate(is_sig = dev > qchisq(p=.05, df=3, lower.tail=FALSE)) %>%
+  ggplot(aes(x = offset, y = tot_var, color = is_sig)) +
+  geom_point() +
+  xlab("Relative Position") +
+  ylab("Total Variation") +
+  guides(color = guide_legend(title = "Significant")) +
+  theme_classic() +
+  theme(text = element_text(family = "Times New Roman"),
+        legend.position = c(.85, .8)) +
+  scale_y_log10()
+
+df %>%
+  mutate(is_sig = dev > qchisq(p=.05, df=3, lower.tail=FALSE)) %>%
+  ggplot(aes(x = offset, y = max_var, color = is_sig)) +
+  geom_point() +
+  xlab("Relative Position") +
+  ylab("Max Variation") +
+  guides(color = guide_legend(title = "Significant")) +
+  theme_classic() +
+  theme(text = element_text(family = "Times New Roman"),
+        legend.position = c(.85, .8)) +
+  scale_y_log10()
+
+df %>%
+  mutate(is_sig = dev > qchisq(p=.05, df=3, lower.tail=FALSE)) %>%
+  filter(!is_sig) %>%
+  arrange(desc(tot_var)) %>%
+  head()
 ```
 
 ### C > T
@@ -528,6 +794,46 @@ df %>%
   theme_classic() +
   theme(text = element_text(family = "Times New Roman"),
         legend.position = c(.85, .8))
+
+df %>%
+  mutate(is_sig = dev > qchisq(p=.05, df=3, lower.tail=FALSE)) %>%
+  mutate(test_point = abs(offset) > 500) %>%
+  group_by(test_point) %>%
+  summarize(pct_sig = sum(is_sig) / n())
+```
+
+And now total variation and max variation:
+
+```{r}
+df %>%
+  mutate(is_sig = dev > qchisq(p=.05, df=3, lower.tail=FALSE)) %>%
+  ggplot(aes(x = offset, y = tot_var, color = is_sig)) +
+  geom_point() +
+  xlab("Relative Position") +
+  ylab("Total Variation") +
+  guides(color = guide_legend(title = "Significant")) +
+  theme_classic() +
+  theme(text = element_text(family = "Times New Roman"),
+        legend.position = c(.85, .8)) +
+  scale_y_log10()
+
+df %>%
+  mutate(is_sig = dev > qchisq(p=.05, df=3, lower.tail=FALSE)) %>%
+  ggplot(aes(x = offset, y = max_var, color = is_sig)) +
+  geom_point() +
+  xlab("Relative Position") +
+  ylab("Max Variation") +
+  guides(color = guide_legend(title = "Significant")) +
+  theme_classic() +
+  theme(text = element_text(family = "Times New Roman"),
+        legend.position = c(.85, .8)) +
+  scale_y_log10()
+
+df %>%
+  mutate(is_sig = dev > qchisq(p=.05, df=3, lower.tail=FALSE)) %>%
+  filter(!is_sig) %>%
+  arrange(desc(tot_var)) %>%
+  head()
 ```
 
 ### C > G
@@ -588,6 +894,12 @@ df %>%
   theme_classic() +
   theme(text = element_text(family = "Times New Roman"),
         legend.position = c(.85, .8))
+
+df %>%
+  mutate(is_sig = dev > qchisq(p=.05, df=3, lower.tail=FALSE)) %>%
+  mutate(test_point = abs(offset) > 500) %>%
+  group_by(test_point) %>%
+  summarize(pct_sig = sum(is_sig) / n())
 ```
 
 ### CpG to ApG
@@ -643,6 +955,12 @@ df %>%
   theme_classic() +
   theme(text = element_text(family = "Times New Roman"),
         legend.position = c(.85, .8))
+
+df %>%
+  mutate(is_sig = dev > qchisq(p=.05, df=3, lower.tail=FALSE)) %>%
+  mutate(test_point = abs(offset) > 500) %>%
+  group_by(test_point) %>%
+  summarize(pct_sig = sum(is_sig) / n())
 ```
 
 ### CpG to TpG
@@ -698,6 +1016,12 @@ df %>%
   theme_classic() +
   theme(text = element_text(family = "Times New Roman"),
         legend.position = c(.85, .8))
+
+df %>%
+  mutate(is_sig = dev > qchisq(p=.05, df=3, lower.tail=FALSE)) %>%
+  mutate(test_point = abs(offset) > 500) %>%
+  group_by(test_point) %>%
+  summarize(pct_sig = sum(is_sig) / n())
 ```
 
 ### CpG to GpG
@@ -753,4 +1077,90 @@ df %>%
   theme_classic() +
   theme(text = element_text(family = "Times New Roman"),
         legend.position = c(.85, .8))
+
+df %>%
+  mutate(is_sig = dev > qchisq(p=.05, df=3, lower.tail=FALSE)) %>%
+  mutate(test_point = abs(offset) > 500) %>%
+  group_by(test_point) %>%
+  summarize(pct_sig = sum(is_sig) / n())
+```
+
+### C > A (no CpG control)
+
+```{r}
+df <- read_subtype_pop_res("ALL", "all_GC_TA")
+
+df %>%
+  filter(abs(offset) <= 10) %>%
+  ggplot(aes(x = offset, y = re)) + 
+  geom_point() + 
+  geom_line() +
+  theme_classic(base_size = 24/.pt) +
+  theme(text = element_text(family = "Times New Roman")) +
+  xlab("Relative Position") +
+  ylab("Relative Entropy")
+```
+
+```{r}
+df_resid <- read_subtype_pop_range_resid("ALL", "all_GC_TA", size = 10)  %>%
+  type_convert()
+
+df_resid <- df_resid %>%
+  inner_join({df %>% select(offset, re)}, by = c("pos" = "offset"))
+
+df_resid %>% 
+  filter(status == "singletons") %>%
+  select(nuc, res, re, pos) %>%
+  group_by(pos) %>%
+  mutate(pct = abs(res) / sum(abs(res))) %>%
+  mutate(re_cont = re * pct * sign(res)) %>%
+  ggplot(aes(x = pos, y = re_cont, color = nuc)) +
+  geom_point() +
+  geom_line(show.legend = FALSE) +
+  xlab("Relative Position") +
+  ylab("Relative Entropy") +
+  guides(color = guide_legend(title = "Nucleotide")) +
+  theme_classic() +
+  theme(text = element_text(family = "Times New Roman"),
+        legend.position = c(.85, 0.26))
+
+```
+
+
+### C > T (no CpG control)
+
+```{r}
+df <- read_subtype_pop_res("ALL", "all_GC_AT")
+
+df %>%
+  filter(abs(offset) <= 10) %>%
+  ggplot(aes(x = offset, y = re)) + 
+  geom_point() + 
+  geom_line() +
+  theme_classic(base_size = 24/.pt) +
+  theme(text = element_text(family = "Times New Roman")) +
+  xlab("Relative Position") +
+  ylab("Relative Entropy")
+
+df_resid <- read_subtype_pop_range_resid("ALL", "all_GC_AT", size = 10)  %>%
+  type_convert()
+
+df_resid <- df_resid %>%
+  inner_join({df %>% select(offset, re)}, by = c("pos" = "offset"))
+
+df_resid %>% 
+  filter(status == "singletons") %>%
+  select(nuc, res, re, pos) %>%
+  group_by(pos) %>%
+  mutate(pct = abs(res) / sum(abs(res))) %>%
+  mutate(re_cont = re * pct * sign(res)) %>%
+  ggplot(aes(x = pos, y = re_cont, color = nuc)) +
+  geom_point() +
+  geom_line(show.legend = FALSE) +
+  xlab("Relative Position") +
+  ylab("Relative Entropy") +
+  guides(color = guide_legend(title = "Nucleotide")) +
+  theme_classic() +
+  theme(text = element_text(family = "Times New Roman"),
+        legend.position = c(.85, 0.26))
 ```
