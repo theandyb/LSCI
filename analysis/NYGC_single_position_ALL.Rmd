@@ -12,6 +12,7 @@ library(tidyverse)
 library(patchwork)
 library(egg)
 library(forcats)
+library(reactable)
 #library(tikzDevice)
 #library(sjPlot)
 width = 4
@@ -403,6 +404,13 @@ df %>%
   geom_point()
 ```
 
+All values in a table:
+
+```{r}
+df %>%
+  reactable()
+```
+
 
 ### A > G
 
@@ -461,6 +469,20 @@ df_resid %>%
   theme_classic() +
   theme(text = element_text(family = "Times New Roman"),
         legend.position = c(.85, .8))
+```
+
+Let's get some information at the +1, where we see the largest deviance:
+
+```{r}
+df_resid %>%
+  filter(pos == 1) %>%
+  select(nuc, status, n) %>%
+  pivot_wider(id_cols = nuc, names_from = status, values_from = n) %>%
+  mutate(pct_s = singletons / sum(singletons),
+         pct_c = controls / sum(controls)) %>%
+  mutate(d_s = abs(pct_s - pct_c)) %>%
+  pull(d_s) %>%
+  mean()
 ```
 
 
@@ -534,6 +556,13 @@ df %>%
   filter(!is_sig) %>%
   arrange(desc(tot_var)) %>%
   head()
+```
+
+All values in a table:
+
+```{r}
+df %>%
+  reactable()
 ```
 
 
