@@ -1,0 +1,91 @@
+---
+title: "NYGC_near_v_far"
+author: "Andy Beck"
+date: "2023-11-09"
+output: workflowr::wflow_html
+editor_options:
+  chunk_output_type: console
+---
+
+## Introduction
+
+```{r echo=FALSE, message=FALSE, warning=FALSE}
+library(tidyverse)
+library(patchwork)
+library(reactable)
+cbPalette <- c("#999999", "#E69F00", "#56B4E9", "#009E73", "#F0E442", "#0072B2", "#D55E00", "#CC79A7", "#000000")
+
+read_subtype_pop_res <- function(pop, subtype, suffix="", data_dir = "/net/snowwhite/home/beckandy/research/1000G_NYGC_LSCI/output/single_pos/"){
+  fname <- paste0(data_dir, pop, "/", subtype, ".csv", suffix)
+  df <- read_csv(fname, show_col_types = FALSE) %>%
+    rowwise() %>%
+    mutate(re = dev / (2 * (singletons + controls)))
+  return(df)
+}
+```
+
+## A > G
+
+```{r}
+subtype <- "AT_GC"
+df_min <- read_subtype_pop_res("ALL", subtype, ".min")
+df_max <- read_subtype_pop_res("ALL", subtype, ".max")
+
+df_min$type <- "min"
+df_max$type <- "max"
+
+df <- bind_rows(df_min, df_max) %>%
+  arrange(abs(offset))
+
+df %>%
+  mutate(is_sig = dev > qchisq(p=.05, df=3, lower.tail=FALSE)) %>%
+  ggplot(aes(x = offset, y = dev, color = is_sig, shape = type)) +
+  geom_point() + geom_line() +
+  scale_y_log10()
+
+df_min %>%
+  mutate(is_sig = dev > qchisq(p=.05, df=3, lower.tail=FALSE)) %>%
+  ggplot(aes(x = offset, y = dev, color = is_sig)) +
+  geom_point() +
+  scale_y_log10()
+
+df_max %>%
+  mutate(is_sig = dev > qchisq(p=.05, df=3, lower.tail=FALSE)) %>%
+  ggplot(aes(x = offset, y = dev, color = is_sig)) +
+  geom_point() +
+  scale_y_log10()
+```
+
+### CpG > GpG
+
+```{r}
+subtype <- "cpg_GC_AT"
+df_min <- read_subtype_pop_res("ALL", subtype, ".min")
+df_max <- read_subtype_pop_res("ALL", subtype, ".max")
+df <- read_subtype_pop_res("ALL", subtype)
+
+df_min$type <- "min"
+df_max$type <- "max"
+
+#df <- bind_rows(df_min, df_max) %>%
+#  arrange(abs(offset))
+
+df_min %>%
+  mutate(is_sig = dev > qchisq(p=.05, df=3, lower.tail=FALSE)) %>%
+  ggplot(aes(x = offset, y = dev, color = is_sig)) +
+  geom_point() +
+  scale_y_log10()
+
+df_max %>%
+  mutate(is_sig = dev > qchisq(p=.05, df=3, lower.tail=FALSE)) %>%
+  ggplot(aes(x = offset, y = dev, color = is_sig)) +
+  geom_point() +
+  scale_y_log10()
+
+df %>%
+  mutate(is_sig = dev > qchisq(p=.05, df=3, lower.tail=FALSE)) %>%
+  ggplot(aes(x = offset, y = dev, color = is_sig)) +
+  geom_point() +
+  scale_y_log10()
+```
+
