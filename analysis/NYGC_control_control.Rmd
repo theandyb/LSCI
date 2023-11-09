@@ -9,7 +9,92 @@ editor_options:
 
 ## Introduction
 
-```{r}
+Here in this document we will look at the results of running our single position models on two sets of controls. We do this for each mutation subtype by shuffling the closest and second-closest control sites into two groups, and then performing our flanking-nucleotide modeling technique. We also have some preliminary results we had gathered by comparing the distributions of nucleotides flanking control observations from different populations.
 
+## Setup and Functions
+
+### Libraries
+
+```{r, message=FALSE, warning=FALSE}
+library(tidyverse)
+library(reactable)
+```
+
+### Directories
+
+```{r}
+dir_con_con <- "/net/snowwhite/home/beckandy/research/1000G_NYGC_LSCI/output/single_pos/all_controls/"
+dir_pop_con <- "/net/snowwhite/home/beckandy/research/1000G_NYGC_LSCI/output/single_pos/control_control/"
+```
+
+### Functions
+
+```{r}
+load_con_con <- function(subtype, res_dir){
+  f_name <- paste0(res_dir, subtype, ".csv")
+  df <- read_csv(f_name, show_col_types = FALSE) %>%
+    rowwise() %>%
+    mutate(re = dev / (2 * (singletons + controls))) %>%
+    ungroup()
+  return(df)
+}
+
+load_pop_con <- function(subtype, pop1, pop2, res_dir){
+  f_name <- paste0(res_dir, subtype, "_", pop1, "_", pop2, ".csv")
+  df <- read_csv(f_name, show_col_types = FALSE) %>%
+    rowwise() %>%
+    mutate(re = dev / (2 * (singletons + controls))) %>%
+    ungroup()
+  return(df)
+}
+```
+
+## Control-Control Results
+
+```{r}
+subtype <- "AT_CG"
+df <- load_con_con(subtype, dir_con_con)
+
+df %>%
+  mutate(is_sig = dev > qchisq(p=.05, df=3, lower.tail=FALSE)) %>%
+  ggplot(aes(x = offset, y = re, color = is_sig)) +
+  geom_point() +
+  scale_y_log10() +
+  xlab("Relative Position") +
+  ylab("Log10 Relative Entropy") +
+  guides(color = guide_legend(title = "Significant")) +
+  theme_classic() +
+  theme(text = element_text(family = "Times New Roman"),
+        legend.position = c(.85, .8))
+
+df %>%
+  mutate(is_sig = dev > qchisq(p=.05, df=3, lower.tail=FALSE)) %>%
+  ggplot(aes(x = offset, y = dev, color = is_sig)) +
+  geom_point() +
+  xlab("Relative Position") +
+  ylab("Deviance") +
+  guides(color = guide_legend(title = "Significant")) +
+  theme_classic() +
+  theme(text = element_text(family = "Times New Roman"),
+        legend.position = c(.85, .85))
+```
+
+## Pop-Pop
+
+### AT_CG
+
+```{r}
+df <- load_pop_con("AT_CG", "AFR", "EUR", dir_pop_con)
+
+df %>%
+  mutate(is_sig = dev > qchisq(p=.05, df=3, lower.tail=FALSE)) %>%
+  ggplot(aes(x = offset, y = dev, color = is_sig)) +
+  geom_point() +
+  xlab("Relative Position") +
+  ylab("Deviance") +
+  guides(color = guide_legend(title = "Significant")) +
+  theme_classic() +
+  theme(text = element_text(family = "Times New Roman"),
+        legend.position = c(.85, .85))
 ```
 
