@@ -30,6 +30,7 @@ To address these questions, we characterize the distributions of nucleotides fla
 * [Summary Statistics](NYGC_summary_stats.html)
 * [New Viz Ideas](NYGC_new_vis.html)
 * [Control-Control Comparisons](NYGC_control_control.html)
+* [Near vs Far Results](NYGC_near_v_far.html)
 
 ## BRIDGES Analyses
 
