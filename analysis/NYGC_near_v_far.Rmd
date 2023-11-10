@@ -30,30 +30,34 @@ read_subtype_pop_res <- function(pop, subtype, suffix="", data_dir = "/net/snoww
 subtype <- "AT_GC"
 df_min <- read_subtype_pop_res("ALL", subtype, ".min")
 df_max <- read_subtype_pop_res("ALL", subtype, ".max")
+df <- read_subtype_pop_res("ALL", subtype)
 
 df_min$type <- "min"
 df_max$type <- "max"
 
-df <- bind_rows(df_min, df_max) %>%
-  arrange(abs(offset))
+#df <- bind_rows(df_min, df_max) %>%
+#  arrange(abs(offset))
 
 df %>%
   mutate(is_sig = dev > qchisq(p=.05, df=3, lower.tail=FALSE)) %>%
-  ggplot(aes(x = offset, y = dev, color = is_sig, shape = type)) +
-  geom_point() + geom_line() +
-  scale_y_log10()
+  ggplot(aes(x = offset, y = dev, color = is_sig)) +
+  geom_point() +
+  scale_y_log10() +
+  scale_color_manual(values=cbPalette)
 
 df_min %>%
   mutate(is_sig = dev > qchisq(p=.05, df=3, lower.tail=FALSE)) %>%
   ggplot(aes(x = offset, y = dev, color = is_sig)) +
   geom_point() +
-  scale_y_log10()
+  scale_y_log10() +
+  scale_color_manual(values=cbPalette)
 
 df_max %>%
   mutate(is_sig = dev > qchisq(p=.05, df=3, lower.tail=FALSE)) %>%
   ggplot(aes(x = offset, y = dev, color = is_sig)) +
   geom_point() +
-  scale_y_log10()
+  scale_y_log10() +
+  scale_color_manual(values=cbPalette)
 ```
 
 ### CpG > GpG
@@ -74,18 +78,21 @@ df_min %>%
   mutate(is_sig = dev > qchisq(p=.05, df=3, lower.tail=FALSE)) %>%
   ggplot(aes(x = offset, y = dev, color = is_sig)) +
   geom_point() +
-  scale_y_log10()
+  scale_y_log10() +
+  scale_color_manual(values=cbPalette)
 
 df_max %>%
   mutate(is_sig = dev > qchisq(p=.05, df=3, lower.tail=FALSE)) %>%
   ggplot(aes(x = offset, y = dev, color = is_sig)) +
   geom_point() +
-  scale_y_log10()
+  scale_y_log10() +
+  scale_color_manual(values=cbPalette)
 
 df %>%
   mutate(is_sig = dev > qchisq(p=.05, df=3, lower.tail=FALSE)) %>%
   ggplot(aes(x = offset, y = dev, color = is_sig)) +
   geom_point() +
-  scale_y_log10()
+  scale_y_log10() +
+  scale_color_manual(values=cbPalette)
 ```
 
