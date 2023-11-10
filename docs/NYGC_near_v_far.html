@@ -384,7 +384,7 @@ class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span>
 <div class="tab-content">
 <div id="summary" class="tab-pane fade in active">
 <p>
-<strong>Last updated:</strong> 2023-11-09
+<strong>Last updated:</strong> 2023-11-10
 </p>
 <p>
 <strong>Checks:</strong> <span
@@ -515,15 +515,15 @@ project makes it easier to run your code on other machines.</p>
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomtheandybLSCItree0ee43667de26ac603403eb96cb2996426a18abb5targetblank0ee4366a">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomtheandybLSCItreee23cd4afbaaa1be0204c5f62e5d13f55cd426e04targetblanke23cd4aa">
 <span class="glyphicon glyphicon-ok text-success"
 aria-hidden="true"></span> <strong>Repository version:</strong>
-<a href="https://github.com/theandyb/LSCI/tree/0ee43667de26ac603403eb96cb2996426a18abb5" target="_blank">0ee4366</a>
+<a href="https://github.com/theandyb/LSCI/tree/e23cd4afbaaa1be0204c5f62e5d13f55cd426e04" target="_blank">e23cd4a</a>
 </a>
 </p>
 </div>
 <div
-id="strongRepositoryversionstrongahrefhttpsgithubcomtheandybLSCItree0ee43667de26ac603403eb96cb2996426a18abb5targetblank0ee4366a"
+id="strongRepositoryversionstrongahrefhttpsgithubcomtheandybLSCItreee23cd4afbaaa1be0204c5f62e5d13f55cd426e04targetblanke23cd4aa"
 class="panel-collapse collapse">
 <div class="panel-body">
 <p>
@@ -533,7 +533,7 @@ reproducibility.
 </p>
 <p>
 The results in this page were generated with repository version
-<a href="https://github.com/theandyb/LSCI/tree/0ee43667de26ac603403eb96cb2996426a18abb5" target="_blank">0ee4366</a>.
+<a href="https://github.com/theandyb/LSCI/tree/e23cd4afbaaa1be0204c5f62e5d13f55cd426e04" target="_blank">e23cd4a</a>.
 See the <em>Past versions</em> tab to see a history of the changes made
 to the R Markdown and HTML files.
 </p>
@@ -610,6 +610,40 @@ Message
 Rmd
 </td>
 <td>
+<a href="https://github.com/theandyb/LSCI/blob/e23cd4afbaaa1be0204c5f62e5d13f55cd426e04/analysis/NYGC_near_v_far.Rmd" target="_blank">e23cd4a</a>
+</td>
+<td>
+Andy Beck
+</td>
+<td>
+2023-11-10
+</td>
+<td>
+wflow_publish("analysis/NYGC_near_v_far.Rmd")
+</td>
+</tr>
+<tr>
+<td>
+html
+</td>
+<td>
+<a href="https://rawcdn.githack.com/theandyb/LSCI/f19a326bca8038fe9424127c53094af0351f5bbe/docs/NYGC_near_v_far.html" target="_blank">f19a326</a>
+</td>
+<td>
+Andy Beck
+</td>
+<td>
+2023-11-09
+</td>
+<td>
+Build site.
+</td>
+</tr>
+<tr>
+<td>
+Rmd
+</td>
+<td>
 <a href="https://github.com/theandyb/LSCI/blob/0ee43667de26ac603403eb96cb2996426a18abb5/analysis/NYGC_near_v_far.Rmd" target="_blank">0ee4366</a>
 </td>
 <td>
@@ -637,31 +671,146 @@ wflow_publish("analysis/NYGC_near_v_far.Rmd")
 <pre class="r"><code>subtype &lt;- &quot;AT_GC&quot;
 df_min &lt;- read_subtype_pop_res(&quot;ALL&quot;, subtype, &quot;.min&quot;)
 df_max &lt;- read_subtype_pop_res(&quot;ALL&quot;, subtype, &quot;.max&quot;)
+df &lt;- read_subtype_pop_res(&quot;ALL&quot;, subtype)
 
 df_min$type &lt;- &quot;min&quot;
 df_max$type &lt;- &quot;max&quot;
 
-df &lt;- bind_rows(df_min, df_max) %&gt;%
-  arrange(abs(offset))
+#df &lt;- bind_rows(df_min, df_max) %&gt;%
+#  arrange(abs(offset))
 
 df %&gt;%
   mutate(is_sig = dev &gt; qchisq(p=.05, df=3, lower.tail=FALSE)) %&gt;%
-  ggplot(aes(x = offset, y = dev, color = is_sig, shape = type)) +
-  geom_point() + geom_line() +
-  scale_y_log10()</code></pre>
+  ggplot(aes(x = offset, y = dev, color = is_sig)) +
+  geom_point() +
+  scale_y_log10() +
+  scale_color_manual(values=cbPalette)</code></pre>
 <p><img src="figure/NYGC_near_v_far.Rmd/unnamed-chunk-2-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-2-1">
+Past versions of unnamed-chunk-2-1.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-2-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/theandyb/LSCI/blob/f19a326bca8038fe9424127c53094af0351f5bbe/docs/figure/NYGC_near_v_far.Rmd/unnamed-chunk-2-1.png" target="_blank">f19a326</a>
+</td>
+<td>
+Andy Beck
+</td>
+<td>
+2023-11-09
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 <pre class="r"><code>df_min %&gt;%
   mutate(is_sig = dev &gt; qchisq(p=.05, df=3, lower.tail=FALSE)) %&gt;%
   ggplot(aes(x = offset, y = dev, color = is_sig)) +
   geom_point() +
-  scale_y_log10()</code></pre>
+  scale_y_log10() +
+  scale_color_manual(values=cbPalette)</code></pre>
 <p><img src="figure/NYGC_near_v_far.Rmd/unnamed-chunk-2-2.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-2-2">
+Past versions of unnamed-chunk-2-2.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-2-2" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/theandyb/LSCI/blob/f19a326bca8038fe9424127c53094af0351f5bbe/docs/figure/NYGC_near_v_far.Rmd/unnamed-chunk-2-2.png" target="_blank">f19a326</a>
+</td>
+<td>
+Andy Beck
+</td>
+<td>
+2023-11-09
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 <pre class="r"><code>df_max %&gt;%
   mutate(is_sig = dev &gt; qchisq(p=.05, df=3, lower.tail=FALSE)) %&gt;%
   ggplot(aes(x = offset, y = dev, color = is_sig)) +
   geom_point() +
-  scale_y_log10()</code></pre>
+  scale_y_log10() +
+  scale_color_manual(values=cbPalette)</code></pre>
 <p><img src="figure/NYGC_near_v_far.Rmd/unnamed-chunk-2-3.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-2-3">
+Past versions of unnamed-chunk-2-3.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-2-3" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/theandyb/LSCI/blob/f19a326bca8038fe9424127c53094af0351f5bbe/docs/figure/NYGC_near_v_far.Rmd/unnamed-chunk-2-3.png" target="_blank">f19a326</a>
+</td>
+<td>
+Andy Beck
+</td>
+<td>
+2023-11-09
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 <div id="cpg-gpg" class="section level3">
 <h3>CpG &gt; GpG</h3>
 <pre class="r"><code>subtype &lt;- &quot;cpg_GC_AT&quot;
@@ -679,20 +828,134 @@ df_min %&gt;%
   mutate(is_sig = dev &gt; qchisq(p=.05, df=3, lower.tail=FALSE)) %&gt;%
   ggplot(aes(x = offset, y = dev, color = is_sig)) +
   geom_point() +
-  scale_y_log10()</code></pre>
+  scale_y_log10() +
+  scale_color_manual(values=cbPalette)</code></pre>
 <p><img src="figure/NYGC_near_v_far.Rmd/unnamed-chunk-3-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-3-1">
+Past versions of unnamed-chunk-3-1.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-3-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/theandyb/LSCI/blob/f19a326bca8038fe9424127c53094af0351f5bbe/docs/figure/NYGC_near_v_far.Rmd/unnamed-chunk-3-1.png" target="_blank">f19a326</a>
+</td>
+<td>
+Andy Beck
+</td>
+<td>
+2023-11-09
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 <pre class="r"><code>df_max %&gt;%
   mutate(is_sig = dev &gt; qchisq(p=.05, df=3, lower.tail=FALSE)) %&gt;%
   ggplot(aes(x = offset, y = dev, color = is_sig)) +
   geom_point() +
-  scale_y_log10()</code></pre>
+  scale_y_log10() +
+  scale_color_manual(values=cbPalette)</code></pre>
 <p><img src="figure/NYGC_near_v_far.Rmd/unnamed-chunk-3-2.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-3-2">
+Past versions of unnamed-chunk-3-2.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-3-2" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/theandyb/LSCI/blob/f19a326bca8038fe9424127c53094af0351f5bbe/docs/figure/NYGC_near_v_far.Rmd/unnamed-chunk-3-2.png" target="_blank">f19a326</a>
+</td>
+<td>
+Andy Beck
+</td>
+<td>
+2023-11-09
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 <pre class="r"><code>df %&gt;%
   mutate(is_sig = dev &gt; qchisq(p=.05, df=3, lower.tail=FALSE)) %&gt;%
   ggplot(aes(x = offset, y = dev, color = is_sig)) +
   geom_point() +
-  scale_y_log10()</code></pre>
+  scale_y_log10() +
+  scale_color_manual(values=cbPalette)</code></pre>
 <p><img src="figure/NYGC_near_v_far.Rmd/unnamed-chunk-3-3.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-3-3">
+Past versions of unnamed-chunk-3-3.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-3-3" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/theandyb/LSCI/blob/f19a326bca8038fe9424127c53094af0351f5bbe/docs/figure/NYGC_near_v_far.Rmd/unnamed-chunk-3-3.png" target="_blank">f19a326</a>
+</td>
+<td>
+Andy Beck
+</td>
+<td>
+2023-11-09
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 <br>
 <p>
 <button type="button" class="btn btn-default btn-workflowr btn-workflowr-sessioninfo" data-toggle="collapse" data-target="#workflowr-sessioninfo" style="display: block;">
