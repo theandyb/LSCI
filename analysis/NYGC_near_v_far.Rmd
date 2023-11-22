@@ -22,6 +22,56 @@ read_subtype_pop_res <- function(pop, subtype, suffix="", data_dir = "/net/snoww
     mutate(re = dev / (2 * (singletons + controls)))
   return(df)
 }
+
+```
+
+## A > C
+
+```{r}
+subtype <- "AT_CG"
+df_min <- read_subtype_pop_res("ALL", subtype, ".min")
+df_max <- read_subtype_pop_res("ALL", subtype, ".max")
+df <- read_subtype_pop_res("ALL", subtype)
+
+df_min$type <- "min"
+df_max$type <- "max"
+
+#df <- bind_rows(df_min, df_max) %>%
+#  arrange(abs(offset))
+
+df %>%
+  mutate(is_sig = dev > qchisq(p=.05, df=3, lower.tail=FALSE)) %>%
+  ggplot(aes(x = offset, y = dev, color = is_sig)) +
+  geom_point() +
+  scale_y_log10() +
+  scale_color_manual(values=cbPalette) +
+  ggtitle("A → C", "All 5 Controls")
+
+df_min %>%
+  mutate(is_sig = dev > qchisq(p=.05, df=3, lower.tail=FALSE)) %>%
+  ggplot(aes(x = offset, y = dev, color = is_sig)) +
+  geom_point() +
+  scale_y_log10() +
+  scale_color_manual(values=cbPalette) +
+  ggtitle("A → C", "Nearest Control")
+
+df_max %>%
+  mutate(is_sig = dev > qchisq(p=.05, df=3, lower.tail=FALSE)) %>%
+  ggplot(aes(x = offset, y = dev, color = is_sig)) +
+  geom_point() +
+  scale_y_log10() +
+  scale_color_manual(values=cbPalette) +
+  ggtitle("A → C", "Furthest Control")
+
+bind_rows(df_min, df_max) %>%
+  arrange(abs(offset)) %>%
+  mutate(is_sig = dev > qchisq(p=.05, df=3, lower.tail=FALSE)) %>%
+  ggplot(aes(x = offset, y = dev, color = is_sig, shape = type)) +
+  geom_point() +
+  geom_line(aes(group = type)) +
+  scale_y_log10() +
+  scale_color_manual(values=cbPalette) +
+  ggtitle("A → C")
 ```
 
 ## A > G
@@ -94,5 +144,149 @@ df %>%
   geom_point() +
   scale_y_log10() +
   scale_color_manual(values=cbPalette)
+```
+
+## Residuals
+
+At some point I decided to only run the slurm jobs to generate the residual-level results, since these can be used to generate the single position effects.
+
+```{r}
+resid_dir <- "/net/snowwhite/home/beckandy/research/1000G_NYGC_LSCI/output/single_pos/resid/ALL/"
+
+get_position_level <- function(subtype, suffix, max_d = 1000, 
+                               resid_dir = "/net/snowwhite/home/beckandy/research/1000G_NYGC_LSCI/output/single_pos/resid/ALL/") {
+  final <- data.frame(pos = c((-max_d):-1, 1:max_d), dev = 0, re = 0)
+  for(i in 1:length(final$pos)){
+    rp <- final$pos[i]
+    if(rp == 1 & str_starts(subtype, "cpg")){
+      final$dev[i] <- NA
+      final$re[i] <- NA
+    } else{
+      df <- read_csv(paste0(resid_dir, subtype, "_rp_", rp, ".csv", suffix), show_col_types = FALSE)
+      mod_obj <- glm(n ~ status + nuc, data = df, family = poisson)
+      final$dev[i] <- deviance(mod_obj)
+      final$re[i] <- final$dev[i] / (2 * sum(df$n))
+    }
+  }
+  return(final)
+}
+
+df_t <- get_position_level("AT_GC", ".min")
+df_t %>%
+  mutate(is_sig = dev > qchisq(p=.05, df=3, lower.tail=FALSE)) %>%
+  ggplot(aes(x = pos, y = dev, color = is_sig)) +
+  geom_point() +
+  scale_y_log10() +
+  scale_color_manual(values=cbPalette) +
+  ggtitle("MIN")
+
+df_t <- get_position_level("AT_GC", ".max")
+
+df_t %>%
+  mutate(is_sig = dev > qchisq(p=.05, df=3, lower.tail=FALSE)) %>%
+  ggplot(aes(x = pos, y = dev, color = is_sig)) +
+  geom_point() +
+  scale_y_log10() +
+  scale_color_manual(values=cbPalette) +
+  ggtitle("MAX")
+
+df_t %>%
+  filter(abs(pos)<=300) %>%
+  mutate(is_sig = dev > qchisq(p=.05, df=3, lower.tail=FALSE)) %>%
+  ggplot(aes(x = pos, y = dev, color = is_sig)) +
+  geom_point() +
+  scale_y_log10() +
+  scale_color_manual(values=cbPalette) +
+  ggtitle("MAX")
+```
+
+```{r}
+df <- read_csv("/net/snowwhite/home/beckandy/research/1000G_NYGC_LSCI/output/single_pos/resid/ALL/AT_CG_rp_100.csv.max")
+df <- df %>% filter(status == "singletons") %>% arrange(res)
+
+get_influ_nucs <- function(subtype, suffix, max_d = 1000, 
+                               resid_dir = "/net/snowwhite/home/beckandy/research/1000G_NYGC_LSCI/output/single_pos/resid/ALL/") {
+  pos_list <- c((-max_d):-1, 1:max_d)
+  min_nuc <- rep(NA, length(pos_list)) # better names would've been depleted/enriched
+  max_nuc <- rep(NA, length(pos_list))
+  for(i in 1:length(pos_list)){
+    rp <- pos_list[i]
+    if(rp == 1 & str_starts(subtype, "cpg")){
+      next
+    } else{
+      df <- read_csv(paste0(resid_dir, subtype, "_rp_", rp, ".csv", suffix), show_col_types = FALSE) %>% 
+        filter(status == "singletons") %>% 
+        arrange(res)
+      min_nuc[i] <- df$nuc[1]
+      max_nuc[i] <- df$nuc[4]
+    }
+  }
+  final <- data.frame(pos = pos_list, dep_nuc = min_nuc, enr_nuc = max_nuc)
+  return(final)
+}
+
+df_max <- get_influ_nucs("AT_TA", ".max")
+df_min <- get_influ_nucs("AT_TA", ".min")
+
+df_max
+
+df_max %>% 
+  filter(abs(pos) <= 250 & abs(pos) >= 50 ) %>%
+  pull(enr_nuc) %>%
+  table() / 400
+
+df_max %>% 
+  filter(abs(pos) <= 250 & abs(pos) >= 50 ) %>%
+  pull(dep_nuc) %>%
+  table() / 400
+
+df_min %>% 
+  filter(abs(pos) <= 250 & abs(pos) >= 50 ) %>%
+  pull(enr_nuc) %>%
+  table() / 400
+
+df_min %>% 
+  filter(abs(pos) <= 250 & abs(pos) >= 50) %>%
+  pull(dep_nuc) %>%
+  table() / 400
+```
+
+## Distances of Controls
+
+```{r}
+dist_dir <- "/net/snowwhite/home/beckandy/research/1000G_NYGC_LSCI/output/controls/AT_GC.csv.min"
+
+df <- read_csv("/net/snowwhite/home/beckandy/research/1000G_NYGC_LSCI/output/controls/AT_GC.csv.min", 
+               col_names = c("chr", "s_pos", "ref", "samp", "window", "dist", "c_pos", "motif")) %>%
+  select(chr, s_pos, ref, window, dist)
+
+df %>%
+  filter(chr == "chr22") %>%
+  ggplot(aes(x = s_pos, y = dist)) + geom_point()
+
+df <- read_csv("/net/snowwhite/home/beckandy/research/1000G_NYGC_LSCI/output/controls/AT_GC.csv.max", 
+               col_names = c("chr", "s_pos", "ref", "samp", "window", "dist", "c_pos", "motif")) %>%
+  select(chr, s_pos, ref, window, dist)
+
+df %>%
+  filter(chr == "chr22") %>%
+  ggplot(aes(x = s_pos, y = dist)) + geom_point()
+
+gc_10k <- read_tsv("/net/snowwhite/home/beckandy/research/1000G_NYGC_LSCI/data/gc10kb.bed") 
+names(gc_10k)[1:9] <- c("chr", "beg", "end", "at", "gc", "a", "c", "g", "t")
+
+gc_10k <- gc_10k[, 1:9]
+gc_10k <- gc_10k %>%
+  mutate(bin = floor(beg  / 10000) + 1) %>%
+  mutate(gc = (c+g)/(a+c+g+t)) %>%
+  mutate(across(everything(), ~replace(.x, is.nan(.x), 0)))
+
+df <- df %>% 
+  mutate(bin = floor(s_pos / 10000) + 1)
+
+df %>%
+  filter(chr == "chr22") %>%
+  left_join(gc_10k, by = c("chr", "bin")) %>%
+  ggplot(aes(x = s_pos, y = dist, colour = gc)) + geom_point()
 ```
 
