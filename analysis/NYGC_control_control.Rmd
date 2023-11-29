@@ -51,6 +51,8 @@ load_pop_con <- function(subtype, pop1, pop2, res_dir){
 
 ## Control-Control Results
 
+### A>C
+
 ```{r}
 subtype <- "AT_CG"
 df <- load_con_con(subtype, dir_con_con)
@@ -77,6 +79,166 @@ df %>%
   theme_classic() +
   theme(text = element_text(family = "Times New Roman"),
         legend.position = c(.85, .85))
+```
+
+### A>G
+
+```{r}
+subtype <- "AT_GC"
+df <- load_con_con(subtype, dir_con_con)
+
+df %>%
+  mutate(is_sig = dev > qchisq(p=.05, df=3, lower.tail=FALSE)) %>%
+  ggplot(aes(x = offset, y = re, color = is_sig)) +
+  geom_point() +
+  scale_y_log10() +
+  xlab("Relative Position") +
+  ylab("Log10 Relative Entropy") +
+  guides(color = guide_legend(title = "Significant")) +
+  theme_classic() +
+  theme(text = element_text(family = "Times New Roman"),
+        legend.position = c(.85, .8))
+
+df %>%
+  mutate(is_sig = dev > qchisq(p=.05, df=3, lower.tail=FALSE)) %>%
+  ggplot(aes(x = offset, y = dev, color = is_sig)) +
+  geom_point() +
+  xlab("Relative Position") +
+  ylab("Deviance") +
+  guides(color = guide_legend(title = "Significant")) +
+  theme_classic() +
+  theme(text = element_text(family = "Times New Roman"),
+        legend.position = c(.85, .8)) +
+  ggtitle("A → G", "Control-Control Results")
+
+df %>%
+  pull(dev) %>%
+  summary()
+
+df %>%
+  mutate(is_sig = dev > qchisq(p=.05, df=3, lower.tail=FALSE)) %>%
+  ggplot(aes(x = offset, y = dev, color = is_sig)) +
+  geom_point() +
+  xlab("Relative Position") +
+  ylab("Deviance") +
+  guides(color = guide_legend(title = "Significant")) +
+  theme_classic() +
+  theme(text = element_text(family = "Times New Roman"),
+        legend.position = c(.85, .85))
+
+df %>%
+  mutate(is_sig = dev > qchisq(p=.05, df=3, lower.tail=FALSE)) %>%
+  filter(is_sig) %>%
+  dim()
+```
+
+### A > T
+
+```{r}
+subtype <- "AT_TA"
+df <- load_con_con(subtype, dir_con_con)
+
+df %>%
+  mutate(is_sig = dev > qchisq(p=.05, df=3, lower.tail=FALSE)) %>%
+  ggplot(aes(x = offset, y = re, color = is_sig)) +
+  geom_point() +
+  scale_y_log10() +
+  xlab("Relative Position") +
+  ylab("Log10 Relative Entropy") +
+  guides(color = guide_legend(title = "Significant")) +
+  theme_classic() +
+  theme(text = element_text(family = "Times New Roman"),
+        legend.position = c(.85, .8))
+
+df %>%
+  mutate(is_sig = dev > qchisq(p=.05, df=3, lower.tail=FALSE)) %>%
+  ggplot(aes(x = offset, y = dev, color = is_sig)) +
+  geom_point() +
+  xlab("Relative Position") +
+  ylab("Deviance") +
+  guides(color = guide_legend(title = "Significant")) +
+  theme_classic() +
+  theme(text = element_text(family = "Times New Roman"),
+        legend.position = c(.85, .85))
+
+df %>%
+  mutate(is_sig = dev > qchisq(p=.05, df=3, lower.tail=FALSE)) %>%
+  filter(is_sig) %>%
+  dim()
+```
+
+### C > A
+
+```{r}
+subtype <- "GC_AT"
+df <- load_con_con(subtype, dir_con_con)
+
+df %>%
+  mutate(is_sig = dev > qchisq(p=.05, df=3, lower.tail=FALSE)) %>%
+  ggplot(aes(x = offset, y = re, color = is_sig)) +
+  geom_point() +
+  scale_y_log10() +
+  xlab("Relative Position") +
+  ylab("Log10 Relative Entropy") +
+  guides(color = guide_legend(title = "Significant")) +
+  theme_classic() +
+  theme(text = element_text(family = "Times New Roman"),
+        legend.position = c(.85, .8))
+
+df %>%
+  mutate(is_sig = dev > qchisq(p=.05, df=3, lower.tail=FALSE)) %>%
+  ggplot(aes(x = offset, y = dev, color = is_sig)) +
+  geom_point() +
+  xlab("Relative Position") +
+  ylab("Deviance") +
+  guides(color = guide_legend(title = "Significant")) +
+  theme_classic() +
+  theme(text = element_text(family = "Times New Roman"),
+        legend.position = c(.85, .85))
+
+df %>%
+  mutate(is_sig = dev > qchisq(p=.05, df=3, lower.tail=FALSE)) %>%
+  filter(is_sig) %>%
+  dim()
+```
+
+### CpG > ApG
+
+```{r}
+subtype <- "cpg_GC_TA"
+df <- load_con_con(subtype, dir_con_con)
+
+df %>%
+  mutate(is_sig = dev > qchisq(p=.05, df=3, lower.tail=FALSE)) %>%
+  ggplot(aes(x = offset, y = re, color = is_sig)) +
+  geom_point() +
+  scale_y_log10() +
+  xlab("Relative Position") +
+  ylab("Log10 Relative Entropy") +
+  guides(color = guide_legend(title = "Significant")) +
+  theme_classic() +
+  theme(text = element_text(family = "Times New Roman"),
+        legend.position = c(.85, .8))
+
+df %>%
+  pull(dev) %>%
+  summary()
+
+df %>%
+  mutate(is_sig = dev > qchisq(p=.05, df=3, lower.tail=FALSE)) %>%
+  ggplot(aes(x = offset, y = dev, color = is_sig)) +
+  geom_point() +
+  xlab("Relative Position") +
+  ylab("Deviance") +
+  guides(color = guide_legend(title = "Significant")) +
+  theme_classic() +
+  theme(text = element_text(family = "Times New Roman"),
+        legend.position = c(.85, .85))
+
+df %>%
+  mutate(is_sig = dev > qchisq(p=.05, df=3, lower.tail=FALSE)) %>%
+  filter(is_sig) %>%
+  dim()
 ```
 
 ## Pop-Pop
